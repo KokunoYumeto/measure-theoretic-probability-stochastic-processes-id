@@ -1,7 +1,7 @@
 {
-  "schema": "o009.cursor.v5",
+  "schema": "o009.cursor.v6",
   "as_of": "2026-08-21",
-  "status": "second_boundary_public_and_anonymously_verified",
+  "status": "third_boundary_release_ready_publication_pending",
   "course_id": "O009",
   "role_id": "D30",
   "public_verified_boundary": {
@@ -31,16 +31,41 @@
     "pages_run_id": 32524904841,
     "verified_at_utc": "2026-08-21T20:43:20.1513723Z"
   },
-  "next_translation": {
-    "source": "authority/random/static/expect/Kernels.html",
-    "target": "source/theory/expect/Kernels.html",
-    "state": "draft_present_unverified",
-    "bytes": 54426,
-    "sha256": "c9c1275b4226d6d761cedcf3b153d0cfc2574ff2b06fb0aa239a05962ccbf84b",
-    "authority_bytes": 53030,
-    "authority_sha256": "9dd2a5474f284fcb11c9e9f9e81099a1c4fe1708094bfcd64b08ccb9f82c5b8d"
+  "release_ready_boundary": {
+    "extends_public_verified_boundary": true,
+    "added_theory_target": {
+      "path": "source/theory/expect/Kernels.html",
+      "bytes": 54612,
+      "sha256": "5eb002c6749c46f90468ca78f62b57d88f068c5ec4b9dcd465aa90814f274b8b",
+      "authority_bytes": 53030,
+      "authority_sha256": "9dd2a5474f284fcb11c9e9f9e81099a1c4fe1708094bfcd64b08ccb9f82c5b8d",
+      "built_bytes": 57311,
+      "built_sha256": "f52bfb7994749b55f30b7b67286fb7a21fddb606f4ec19cae66452bc25683fd2"
+    },
+    "theory_unit_count": 8,
+    "lab_target": "source/labs/01-konvergensi-monte-carlo.Rmd",
+    "site_file_count": 31,
+    "site_total_bytes": 2173893,
+    "site_manifest_sha256": "20b8af90f55fb035de538cb6e542fe7d8ce925db022ddca0a156fd5e45f8cbf4",
+    "build_receipt_sha256": "b9f637a74692c6ee6a16d74411ed77f375264b010d79f300659cb5982c5dfdc5",
+    "backend_entities": 604,
+    "backend_segments": 1625,
+    "backend_records": 2229,
+    "backend_relations": 553,
+    "backend_manifest_sha256": "09941d228f9061ec3f251e54b2a809bb45e61a22afa86740539b2683350631e1",
+    "qa_failures": 0,
+    "source_repairs": 34,
+    "original_notes": 1,
+    "qa_checkpoint": "qa/THIRD_BOUNDARY_CHECKPOINT_20260821.md"
   },
-  "next_action": "reconcile and finish the Kernels draft against frozen authority; run structural, mathematical, and language QA; integrate it into the reader/backend; continue the martingale sequence",
+  "next_translation": {
+    "source": "authority/random/static/martingales/Introduction.html",
+    "target": "source/theory/martingales/Introduction.html",
+    "state": "queued_after_third_boundary_publication",
+    "authority_bytes": 59687,
+    "authority_sha256": "ff102fd4f54926d89c47b92885176e587f342378e442f1f38e4a69199a02375a"
+  },
+  "next_action": "commit and push the exact 31-file third boundary; verify Pages and all anonymous bytes; record the receipt; translate martingales/Introduction.html",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",

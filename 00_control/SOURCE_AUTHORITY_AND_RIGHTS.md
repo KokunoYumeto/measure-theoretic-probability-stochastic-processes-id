@@ -33,6 +33,19 @@ Two current official pages conflict:
 
 Both statements expressly permit copying, derivative works, distribution/display, and commercial use with attribution and a home-site link. Translation is permitted. The edition must preserve both witnesses and describe the version conflict; it must not state one unqualified version. Separately credited or unclear ancillary media must be excluded, replaced, linked, or licensed component-by-component.
 
+### Current kernels component closure
+
+`expect/Kernels.html` is admitted from the frozen Random selection at 53,030
+bytes / SHA-256
+`9dd2a5474f284fcb11c9e9f9e81099a1c4fe1708094bfcd64b08ccb9f82c5b8d`.
+It introduces no substantive page-specific image, audio, data, or executable
+asset. Its runtime references only the already frozen shared favicon, control
+icons, `Screen.css`, `Basic.js`, MathJax, and `boldsymbol` closure. The
+Random-derived translation retains `rights.random.dual-witness`; 34 explicit
+downstream source repairs remain identified as repairs rather than relicensed
+source. The original regular-conditional-distribution qualification and reader
+palette changes remain separately identified as CC BY 4.0 edition additions.
+
 ## Žitković laboratory donor
 
 - Official author route: Gordan Žitković’s UT Austin lecture-notes page linking the hosted book and public repository.

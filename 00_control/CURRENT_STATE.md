@@ -1,10 +1,11 @@
 # Current state
 
-As of 2026-08-21, this is an active O009/D30 production lane. Its first
-theory–lab reader boundary is public and anonymously byte-verified on GitHub
-Pages. The complete Indonesian edition is not yet finished, and no upstream
-contact has occurred. Completion of this edition is independent of the
-coordinator's later curriculum-admission decision.
+As of 2026-08-21, this is an active O009/D30 production lane. Its first two
+theory–lab reader boundaries are public and anonymously byte-verified on
+GitHub Pages; a third boundary is release-ready locally. The complete
+Indonesian edition is not yet finished, and no upstream contact has occurred.
+Completion of this edition is independent of the coordinator's later
+curriculum-admission decision.
 
 ## Source disposition
 
@@ -95,17 +96,48 @@ Commit `421102a5f085cb43a553a9205a41eb5840a742a2` (tree
 An anonymous readback matched all 30 manifested files and 2,115,983 bytes
 exactly at 2026-08-21T20:43:20.1513723Z. See `PUBLICATION_RECEIPT.json`.
 
+### Third reader boundary (release-ready locally)
+
+`expect/Kernels.html` is now complete, structurally verified, integrated, and
+visually inspected:
+
+- frozen authority: 53,030 bytes / SHA-256
+  `9dd2a5474f284fcb11c9e9f9e81099a1c4fe1708094bfcd64b08ccb9f82c5b8d`;
+- Indonesian source: 54,612 bytes / SHA-256
+  `5eb002c6749c46f90468ca78f62b57d88f068c5ec4b9dcd465aa90814f274b8b`;
+- built reader page: 57,311 bytes / SHA-256
+  `f52bfb7994749b55f30b7b67286fb7a21fddb606f4ec19cae66452bc25683fd2`.
+
+All 979 tag events, 858 source TeX surfaces, 5 IDs, 54 links, and 22 detail
+panels are preserved. The built reader applies 34 exact-once source repairs
+and one separately licensed CC BY 4.0 regular-conditional-distribution note;
+all 35 actions have backend correction/provenance records.
+
+The deterministic site contains 31 files / 2,173,893 bytes, manifest SHA-256
+`20b8af90f55fb035de538cb6e542fe7d8ce925db022ddca0a156fd5e45f8cbf4`,
+and build-receipt SHA-256
+`b9f637a74692c6ee6a16d74411ed77f375264b010d79f300659cb5982c5dfdc5`.
+The backend contains 604 entities, 1,625 segments, and 553 relations (2,229
+records total), with zero QA failures; manifest SHA-256
+`09941d228f9061ec3f251e54b2a809bb45e61a22afa86740539b2683350631e1`.
+
+Browser QA covered all eight theory pages and the lab at 1280×720 and 390×844:
+no document overflow, broken image, empty image alternative, or console
+warning/error. It exposed and resolved Random's low-contrast light-gray unit
+fill under the reader dark palette. All current theory units now use one
+consistent legible palette. See `qa/THIRD_BOUNDARY_CHECKPOINT_20260821.md`.
+
 ## Next exact action
 
-1. Reconcile and finish the existing `expect/Kernels.html` draft against its
-   exact frozen authority. The current draft is 54,426 bytes at SHA-256
-   `c9c1275b4226d6d761cedcf3b153d0cfc2574ff2b06fb0aa239a05962ccbf84b`;
-   it is not yet admitted or release-ready.
-2. Run structure/math/language QA, integrate the completed kernels unit into
-   the deterministic reader and backend, and then continue the martingale
-   sequence in source order.
-3. Keep publishing substantial verified boundaries without treating any
-   intermediate checkpoint as full completion.
+1. Commit and push the exact 31-file third boundary, wait for Pages, and
+   anonymously verify every manifested byte.
+2. Record the public receipt, then translate
+   `authority/random/static/martingales/Introduction.html` (59,687 bytes,
+   SHA-256
+   `ff102fd4f54926d89c47b92885176e587f342378e442f1f38e4a69199a02375a`)
+   to `source/theory/martingales/Introduction.html`.
+3. Continue the martingale sequence in source order without treating this
+   checkpoint as full completion.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

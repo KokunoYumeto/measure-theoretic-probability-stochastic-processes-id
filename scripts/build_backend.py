@@ -124,6 +124,20 @@ THEORY_SPECS = (
             "concept.conditional.expectation",
         ],
     },
+    {
+        "rel": "expect/Kernels.html",
+        "slug": "expect.kernels",
+        "order": 8,
+        "concept_ids": [
+            "concept.kernel.measure",
+            "concept.kernel.probability",
+            "concept.kernel.operator",
+            "concept.kernel.composition",
+            "concept.kernel.density",
+            "concept.kernel.invariant",
+            "concept.conditional.regular-distribution",
+        ],
+    },
 )
 
 SCHEMA = "o009.backend.entity.v2"
@@ -341,6 +355,13 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
                 "concept.conditional.covariance",
                 "concept.expectation.uniform-integrability",
                 "concept.probability.lp-convergence",
+                "concept.kernel.measure",
+                "concept.kernel.probability",
+                "concept.kernel.operator",
+                "concept.kernel.composition",
+                "concept.kernel.density",
+                "concept.kernel.invariant",
+                "concept.conditional.regular-distribution",
                 "concept.martingale",
                 "concept.markov.process",
                 "concept.poisson.process",
@@ -519,6 +540,13 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
         "concept.conditional.variance": "conditional variance",
         "concept.conditional.covariance": "conditional covariance",
         "concept.expectation.uniform-integrability": "uniform integrability",
+        "concept.kernel.measure": "measure kernel",
+        "concept.kernel.probability": "probability kernel",
+        "concept.kernel.operator": "kernel integral operators",
+        "concept.kernel.composition": "kernel composition",
+        "concept.kernel.density": "kernel density function",
+        "concept.kernel.invariant": "invariant measures and functions",
+        "concept.conditional.regular-distribution": "regular conditional distribution",
         "concept.probability.lp-convergence": "convergence in Lp",
         "concept.martingale": "martingale",
         "concept.markov.process": "Markov process",
@@ -575,7 +603,8 @@ def load_build_validator() -> Any:
 
 
 def html_entities() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, str]]]:
-    load_build_validator().validate_theory_translation()
+    build_module = load_build_validator()
+    build_module.validate_theory_translation()
     entities: list[dict[str, Any]] = []
     segments: list[dict[str, Any]] = []
     relations: list[dict[str, str]] = []
@@ -709,6 +738,49 @@ def html_entities() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
                     payload={"source_text": source_text, "target_text": target_text, "tag": right.name},
                 )
             )
+    kernels_note = tuple(build_module.KERNELS_READER_NOTES)
+    if len(kernels_note) != 1:
+        raise RuntimeError("expected exactly one original Kernels reader note")
+    note = kernels_note[0]
+    note_html = str(note["html"])
+    note_soup = BeautifulSoup(note_html, "lxml")
+    note_text = " ".join(note_soup.stripped_strings)
+    note_id = str(note["id"])
+    note_record_id = "segment.o009.original.expect.kernels.regular-conditional-note"
+    kernels_page_id = "unit.o009.random.expect.kernels"
+    segments.append(
+        record(
+            "segment",
+            note_record_id,
+            parent_id=kernels_page_id,
+            order=10000,
+            path="expect/Kernels.html",
+            source_local_id=note_id,
+            source_locator=f"scripts/build_first_boundary.py#{note_id}",
+            source_sha256=sha256(note_html.encode("utf-8")),
+            target_sha256=sha256(note_text.encode("utf-8")),
+            locale="id-ID",
+            translation_state="authored",
+            relationship="authored",
+            rights_id="rights.o009.original.cc-by-4.0",
+            concept_ids=["concept.conditional.regular-distribution"],
+            payload={
+                "target_text": note_text,
+                "tag": "aside",
+                "built_id": note_id,
+                "body_extent": "complete-build-addition",
+            },
+        )
+    )
+    relations.append(
+        relation(
+            "rel.contains.unit.o009.random.expect.kernels.regular-conditional-note",
+            "contains",
+            kernels_page_id,
+            note_record_id,
+            f"build/site/expect/Kernels.html#{note_id}",
+        )
+    )
     for left, right in zip(page_ids, page_ids[1:]):
         relations.append(
             relation(
@@ -1522,7 +1594,12 @@ CSV_DEFINITIONS: dict[str, dict[str, Any]] = {
     "corrections.csv": {
         "fields": ["correction_id", "change_kind", "source_id", "target_id", "description", "evidence", "status"],
         "enums": {
-            "change_kind": ["deterministic-output", "original-addition", "source-link-repair"],
+            "change_kind": [
+                "deterministic-output",
+                "original-addition",
+                "source-content-repair",
+                "source-link-repair",
+            ],
             "status": ["accepted"],
         },
         "patterns": {"correction_id": r"^correction\.[A-Za-z0-9._:-]+$"},
@@ -1717,6 +1794,34 @@ def build() -> None:
             "status": "accepted",
         }
     )
+    build_module = load_build_validator()
+    kernels_unit = next(
+        unit for unit in build_module.THEORY_UNITS if unit["rel"] == "expect/Kernels.html"
+    )
+    for correction in tuple(kernels_unit.get("reader_corrections", ())):
+        corrections.append(
+            {
+                "correction_id": f"correction.o009.random.expect.kernels.{correction['id']}",
+                "change_kind": "source-content-repair",
+                "source_id": "unit.o009.random.expect.kernels",
+                "target_id": "unit.o009.random.expect.kernels",
+                "description": str(correction["description"]),
+                "evidence": "authority/random/static/expect/Kernels.html; build/site/expect/Kernels.html; 00_control/UPSTREAM_FINDINGS.md",
+                "status": "accepted",
+            }
+        )
+    for note in tuple(kernels_unit.get("reader_notes", ())):
+        corrections.append(
+            {
+                "correction_id": f"correction.o009.original.expect.kernels.{note['id']}",
+                "change_kind": "original-addition",
+                "source_id": "unit.o009.random.expect.kernels",
+                "target_id": "segment.o009.original.expect.kernels.regular-conditional-note",
+                "description": str(note["description"]),
+                "evidence": f"build/site/expect/Kernels.html#{note['id']}",
+                "status": "accepted",
+            }
+        )
     entities.extend(html)
     entities.extend(lab)
     entities.extend(asset_entities())

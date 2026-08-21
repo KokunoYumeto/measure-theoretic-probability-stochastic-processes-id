@@ -14,3 +14,8 @@ O009-T0012,sample mean,rata-rata sampel,admitted,lab,O006/C140 is the shared pre
 O009-T0013,stochastic process,proses stokastik,admitted,course,
 O009-T0014,conditional expectation,ekspektasi bersyarat,admitted,course,
 O009-T0015,martingale,martingal,provisional,course,Verify coordinator-wide convention before first use.
+O009-T0016,kernel,kernel,admitted,course,Use for measure kernels and integral operators; qualify the type at first use.
+O009-T0017,probability kernel,kernel probabilitas,admitted,course,Stochastic kernel and Markov kernel are stated as synonyms where the source does so.
+O009-T0018,kernel density function,fungsi kepadatan kernel,admitted,course,
+O009-T0019,invariant measure,ukuran invarian,admitted,course,
+O009-T0020,regular conditional distribution,distribusi bersyarat reguler,admitted,course,Existence and almost-everywhere uniqueness require explicit hypotheses.

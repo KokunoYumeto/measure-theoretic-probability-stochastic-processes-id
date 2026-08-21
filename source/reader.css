@@ -36,6 +36,7 @@ body > figure,
 body > .unit,
 body > .lab,
 body > .component-attribution,
+body > .edition-note,
 main {
   max-width: 72rem;
   margin-left: auto;
@@ -47,8 +48,15 @@ a {
   text-underline-offset: 0.14em;
 }
 
+div.unit {
+  color: var(--o009-ink);
+  background: var(--o009-panel);
+  border-color: var(--o009-border);
+}
+
 :not(pre) > code,
-.component-attribution {
+.component-attribution,
+.edition-note {
   overflow-wrap: anywhere;
 }
 
@@ -60,6 +68,7 @@ summary:focus-visible {
 }
 
 .component-attribution,
+.edition-note,
 .original-addition,
 .exercise,
 .hint,
@@ -74,6 +83,10 @@ summary:focus-visible {
 
 .component-attribution {
   border-left: 0.35rem solid var(--o009-accent);
+}
+
+.edition-note {
+  border-left: 0.35rem solid #8a5a00;
 }
 
 details {
@@ -105,6 +118,12 @@ td {
   border: 1px solid var(--o009-border);
   padding: 0.45rem 0.6rem;
   text-align: right;
+}
+
+th,
+table.data tr:nth-child(even) {
+  color: var(--o009-ink);
+  background: var(--o009-panel);
 }
 
 th:first-child,

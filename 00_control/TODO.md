@@ -33,13 +33,15 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Translate and integrate `expect/Conditional2.html` and `expect/Uniform.html`.
 - [x] Run structural/backend/link/asset/privacy/browser QA for the second boundary.
 - [x] Publish and anonymously verify the second boundary.
+- [x] Translate, repair, integrate, and visually verify `expect/Kernels.html`.
+- [~] Publish and anonymously verify the 31-file third boundary.
 
 ## Remaining corpus
 
 - [x] Probability spaces revisited and stochastic-process construction.
 - [x] Filtrations and stopping times.
 - [x] Distributional/Lp/uniform-integrability convergence.
-- [~] Measure-theoretic conditional expectation and kernels (`Conditional2` public; `Kernels` draft active and unverified).
+- [~] Measure-theoretic conditional expectation and kernels (`Conditional2` public; `Kernels` release-ready and publication pending).
 - [ ] Link, do not duplicate, the O006 sampling/LLN/CLT prerequisite.
 - [ ] Martingale properties, stopping, inequalities, convergence, and backwards martingales.
 - [ ] Discrete and continuous Markov processes; add dependency-closed computational labs.

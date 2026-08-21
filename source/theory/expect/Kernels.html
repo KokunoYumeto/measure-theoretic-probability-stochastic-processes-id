@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+	<meta charset="utf-8">
+	<title>Kernel dan Operator</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probabilitas, statistika, kernel, operator, probabilitas bersyarat, distribusi khusus, distribusi eksponensial, distribusi Poisson, distribusi normal, distribusi beta, distribusi binomial negatif">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\)
+	\(\newcommand{\cov}{\text{cov}}\)
+	\(\newcommand{\cor}{\text{cor}}\)
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\( \newcommand{\bs}{\boldsymbol} \)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">3. Nilai Harapan</a></li>
+		<li class="child"><a href="Properties.html" title="Definisi dan Sifat Dasar">1</a></li>
+		<li class="child"><a href="Properties2.html" title="Sifat Tambahan">2</a></li>
+		<li class="child"><a href="Variance.html" title="Varians">3</a></li>
+		<li class="child"><a href="Skew.html" title="Kemencengan dan Kurtosis">4</a></li>
+		<li class="child"><a href="Covariance.html" title="Kovarians dan Korelasi">5</a></li>
+		<li class="child"><a href="Generating.html" title="Fungsi Pembangkit">6</a></li>
+		<li class="child"><a href="Conditional.html" title="Nilai Harapan Bersyarat">7</a></li>
+		<li class="child"><a href="Matrices.html" title="Matriks Nilai Harapan dan Kovarians">8</a></li>
+		<li class="child"><a href="Integral.html" title="Nilai Harapan sebagai Integral">9</a></li>
+		<li class="child"><a href="Conditional2.html" title="Meninjau Kembali Nilai Harapan Bersyarat">10</a></li>
+		<li class="child"><a href="Spaces.html" title="Ruang Vektor Peubah Acak">11</a></li>
+		<li class="child"><a href="Uniform.html" title="Peubah Terintegralkan Seragam">12</a></li>
+		<li class="current">13</li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<h2>13. Kernel dan Operator</h2>
+</header>
+
+<p>Tujuan bagian ini adalah mempelajari sejenis objek matematika yang muncul secara alami dalam konteks <a href="Conditional2.html">nilai harapan bersyarat</a> dan <a href="../special/index.html">distribusi probabilitas parametrik</a>, serta sangat penting dalam kajian <a href="../prob/Processes.html">proses stokastik</a>, khususnya <a href="../markov/index.html">proses Markov</a>. Dalam suatu pengertian, objek kajian utama bagian ini merupakan generalisasi matriks, sedangkan operasinya merupakan generalisasi operasi matriks. Jika gagasan ini terus Anda ingat, bagian ini mungkin terasa tidak terlalu abstrak.</p>
+
+<h3>Teori Dasar</h3>
+
+<h4>Definisi</h4>
+
+<div class="unit" id="msp">
+<p class="math">Ingat bahwa suatu <a href="../foundations/Measurable.html">ruang terukur</a> \( (S, \mathscr S) \) terdiri atas sebuah himpunan \( S \) dan suatu aljabar-\( \sigma \) \( \mathscr S \) yang anggotanya merupakan himpunan bagian dari \( S \). Jika \( \mu \) adalah ukuran positif pada \( (S, \mathscr S) \), maka \( (S, \mathscr S, \mu) \) merupakan <a href="../foundations/Measure.html">ruang ukuran</a>. Dua kasus khusus terpenting yang sering kita pelajari adalah</p>
+
+<ol class="sub">
+	<li><dfn>Diskret</dfn>: \(S\) terhitung, \(\mathscr S = \mathscr P(S)\) adalah koleksi semua himpunan bagian dari \(S\), dan \( \mu = \# \) adalah ukuran pencacahan pada \( (S, \mathscr S) \).</li>
+	<li><dfn>Euklides</dfn>: \(S\) adalah himpunan bagian terukur dari \(\R^n\) untuk suatu \(n \in \N_+\), \(\mathscr S\) adalah koleksi himpunan bagian dari \(S\) yang juga terukur, dan \( \mu = \lambda^n \) adalah ukuran Lebesgue berdimensi \( n \) pada \( (S, \mathscr S) \).</li>
+</ol></div>
+
+<p>Secara lebih umum, \( S \) biasanya dilengkapi dengan topologi yang kompak lokal, Hausdorff, dan memiliki basis terhitung (<dfn>LCCB</dfn>), sedangkan \( \mathscr S \) adalah <dfn>aljabar-\( \sigma \) Borel</dfn>, yaitu aljabar-\( \sigma \) yang dibangkitkan oleh topologi tersebut (koleksi himpunan bagian terbuka dari \( S \)). Ukuran \( \mu \) biasanya merupakan <dfn>ukuran Borel</dfn>, sehingga memenuhi \( \mu(C) \lt \infty \) apabila \( C \subseteq S \) kompak. Ruang ukuran diskret berjenis ini dan bersesuaian dengan topologi diskret. Ruang ukuran Euklides juga berjenis ini dan bersesuaian dengan topologi Euklides apabila \( S \) terbuka atau tertutup (sebagaimana biasanya). Dalam kasus diskret, setiap fungsi dari \( S \) ke ruang terukur lain bersifat terukur, dan setiap fungsi dari \( S \) ke ruang topologis lain bersifat kontinu, sehingga teori ukuran sebenarnya tidak diperlukan.</p>
+
+<p>Ingat pula bahwa ruang ukuran \((S, \mathscr S, \mu)\) disebut <dfn>hingga-\(\sigma\)</dfn> jika terdapat koleksi terhitung \(\{A_i: i \in I\} \subseteq \mathscr S\) sedemikian sehingga \(\mu(A_i) \lt \infty\) untuk \(i \in I\) dan \(S = \bigcup_{i \in I} A_i\). Jika \((S, \mathscr S, \mu)\) adalah ruang ukuran Borel yang bersesuaian dengan topologi LCCB, maka ruang itu hingga-\(\sigma\).</p>
+
+<p>Jika \(f: S \to \R\) terukur, definisikan \( \| f \| = \sup\{\left|f(x)\right|: x \in S\}\). Tentu saja, bisa jadi \(\|f\| = \infty\). Misalkan \( \mathscr B(S) \) menyatakan koleksi fungsi terukur terbatas \( f: S \to \R \). Di bawah operasi biasa penjumlahan titik demi titik dan perkalian skalar, \( \mathscr B(S) \) merupakan ruang vektor, dan \(\| \cdot \|\) adalah norma alami pada ruang ini, yang dikenal sebagai <dfn>norma supremum</dfn>. Ruang vektor ini memegang peranan penting.</p>
+
+<p>Dalam bagian ini, kadang-kadang lebih alami untuk menulis integral terhadap ukuran positif \( \mu \) dengan diferensial <em>sebelum</em> integran, bukan sesudahnya. Namun, yakinlah bahwa ini semata-mata notasi; arti integralnya tetap sama. Jadi, jika \( f: S \to \R \) terukur, kita dapat menuliskan integral \( f \) terhadap \( \mu \) dalam notasi operator sebagai
+\[ \mu f = \int_S \mu(dx) f(x) \]
+dengan mengandaikan, seperti biasa, bahwa integral tersebut ada. Ini berlaku jika \( f \) taknegatif, meskipun \( \infty \) mungkin menjadi nilainya. Secara lebih umum, integral tersebut ada di \( \R \cup \{-\infty, \infty\} \) jika \( \mu f^+ \lt \infty \) atau \( \mu f^- \lt \infty\), dengan \( f^+ \) dan \( f^- \) masing-masing bagian positif dan negatif dari \( f \). Jika keduanya hingga, integral tersebut ada di \( \R \) (dan \( f \) <dfn>terintegralkan</dfn> terhadap \( \mu \)). Jika \( \mu \) adalah ukuran probabilitas dan \( (S, \mathscr S) \) kita pandang sebagai ruang sampel suatu eksperimen acak, maka \( f \) dapat kita pandang sebagai peubah acak bernilai riil; dalam hal ini, notasi baru kita tidak terlalu jauh dari nilai harapan tradisional \( \E(f) \). Berikutnya adalah definisi utama kita.</p>
+
+<div class="unit">
+	<p class="dfn">Misalkan \( (S, \mathscr S) \) dan \( (T, \mathscr T) \) adalah ruang terukur. Suatu <dfn>kernel</dfn> dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \) adalah fungsi \( K: S \times \mathscr T \to [0, \infty] \) sedemikian sehingga</p>
+	<ol class="sub">
+		<li>\( x \mapsto K(x, A) \) adalah fungsi terukur dari \(S\) ke \([0, \infty]\) untuk setiap \( A \in \mathscr T \).</li>
+		<li>\( A \mapsto K(x, A) \) adalah ukuran positif pada \( \mathscr T \) untuk setiap \( x \in S \).</li>
+	</ol>
+	<p>Jika \( (T, \mathscr T) = (S, \mathscr S) \), maka \( K \) disebut kernel <dfn>pada</dfn> \( (S, \mathscr S) \). </p>
+</div>
+
+<p>Ada beberapa kelas kernel yang layak diberi nama khusus.</p>
+
+<div class="unit">
+	<p class="dfn">Misalkan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \). Maka</p>
+	<ol class="sub">
+		<li>\(K\) <dfn>hingga-\(\sigma\)</dfn> jika ukuran \(K(x, \cdot)\) hingga-\(\sigma\) untuk setiap \(x \in S\).
+		<li>\( K \) <dfn>hingga</dfn> jika \( K(x, T) \lt \infty \) untuk setiap \( x \in S \).</li>
+		<li>\( K \) <dfn>terbatas</dfn> jika \( K(x, T) \) terbatas terhadap \( x \in S \).</li>
+		<li>\( K \) adalah <dfn>kernel probabilitas</dfn> jika \( K(x, T) = 1 \) untuk setiap \( x \in S \).</li>
+	</ol>
+	<p>Definisikan \( \|K\| = \sup\{K(x, T): x \in S\} \), sehingga \(\|K\| \lt \infty\) jika \(K\) adalah kernel terbatas dan \(\|K\| = 1\) jika \(K\) adalah kernel probabilitas.</p>
+</div>
+
+<p>Jadi, kernel probabilitas bersifat terbatas, kernel terbatas bersifat hingga, dan kernel hingga bersifat hingga-\(\sigma\). Istilah <dfn>kernel stokastik</dfn> dan <dfn>kernel Markov</dfn> juga digunakan untuk kernel probabilitas, dan tentu saja \( \|K\| = 1 \) untuk kernel probabilitas. Istilah-istilah ini konsisten dengan istilah untuk ukuran: \( K \) merupakan kernel hingga jika dan hanya jika \( K(x, \cdot) \) merupakan ukuran hingga untuk setiap \( x \in S \), dan \( K \) merupakan kernel probabilitas jika dan hanya jika \( K(x, \cdot) \) merupakan ukuran probabilitas untuk setiap \( x \in S \). Perhatikan bahwa \( \|K\| \) hanyalah norma supremum fungsi \( x \mapsto K(x, T) \).</p>
+
+<p>Suatu kernel mendefinisikan dua operator integral alami: beroperasi dari <em>kiri</em> pada ukuran dan dari <em>kanan</em> pada fungsi. Seperti biasa, kita sering agak longgar mengenai persoalan keberadaan. Pada dasarnya, dalam bagian ini kita mengandaikan bahwa setiap integral yang disebutkan ada.</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \).</p>
+	<ol class="sub">
+		<li>Jika \( \mu \) adalah ukuran positif pada \( (S, \mathscr S) \), maka \( \mu K \) yang didefinisikan sebagai berikut merupakan ukuran positif pada \( (T, \mathscr T) \):
+		\[ \mu K(A) = \int_S \mu(dx) K(x, A), \quad A \in \mathscr T \]
+		</li>
+		<li>Jika \( f: T \to \R \) terukur, maka \( K f: S \to \R \) yang didefinisikan sebagai berikut bersifat terukur (dengan mengandaikan bahwa integralnya ada di \( \R \)):
+		\[K f(x) = \int_T K(x, dy) f(y), \quad x \in S\]
+		</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Jelas bahwa \( \mu K(A) \ge 0 \) untuk \( A \in \mathscr T \). Misalkan \( \{A_j: i \in J\} \) adalah koleksi terhitung himpunan-himpunan saling lepas dalam \( \mathscr T \) dan \( A = \bigcup_{j \in J} A_j \). Maka
+			\begin{align*} \mu K(A) &amp; = \int_S \mu(dx) K(x, A) = \int_S \mu(dx) \left(\sum_{j \in J} K(x, A_j) \right) \\
+			&amp; = \sum_{j \in J} \int_S \mu(dx) K(x, A_j) = \sum_{j \in J} \mu K(A_j)
+			\end{align*}
+			Pertukaran jumlah dan integral sah karena suku-sukunya taknegatif.
+			</li>
+			<li>Keterukuran \( K f \) mengikuti keterukuran \( f \) dan \( x \mapsto K(x, A) \) untuk \( A \in \mathscr S \), serta sifat-sifat dasar integral.</li>
+		</ol>
+	</details>
+</div>
+
+<p>Jadi, suatu kernel mentransformasikan ukuran pada \( (S, \mathscr S) \) menjadi ukuran pada \( (T, \mathscr T) \), dan mentransformasikan fungsi terukur tertentu dari \( T \) ke \( \R \) menjadi fungsi terukur dari \( S \) ke \( \R \). Sekali lagi, bagian (b) mengandaikan bahwa \( f \) terintegralkan terhadap ukuran \( K(x, \cdot) \) untuk setiap \( x \in S \). Secara khusus, pernyataan terakhir berlaku dalam kasus khusus penting berikut:</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \) dan \( f \in \mathscr B(T) \).</p>
+	<ol class="sub">
+		<li>Jika \( K \) hingga, maka \(Kf\) terdefinisi dan \(\|Kf\| = \|K\| \|f\|\).</li>
+		<li>Jika \(K\) terbatas, maka \(Kf \in \mathscr B(T)\).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Jika \( K \) hingga, maka
+			\[ K \left|f\right|(x) = \int_T K(x, dy) \left|f(y)\right| \le \int_T K(x, dy) \|f\| = \|f\| K(x, T) \lt \infty \quad x \in S \]
+			Karena itu, \( f \) terintegralkan terhadap \( K(x, \cdot) \) untuk setiap \( x \in S \), sehingga \(Kf\) terdefinisi. Dengan melanjutkan pertidaksamaan tersebut, kita peroleh \(|K f(x)| \le K |f|(x) \le \|f\| K(x, T) \le \|f\| \|K\|\), sehingga \(\|Kf\| \le \|K\| \|f\|\).  Lebih lanjut, kesamaan berlaku ketika \( f = \bs{1}_T \), yaitu fungsi konstan 1 pada \( T \).</li>
+			<li>Jika \( K \) terbatas, maka \( \|K\| \lt \infty \), sehingga dari (a), \( \|K f \| \lt \infty \).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="dfn"><dfn>Kernel identitas</dfn> \( I \) pada ruang terukur \( (S, \mathscr S) \) didefinisikan oleh \( I(x, A) = \bs{1}(x \in A) \) untuk \( x \in S \) dan \( A \in \mathscr S \).</p>
+</div>
+
+<p>Jadi, \( I(x, A) = 1 \) jika \( x \in A \) dan \( I(x, A) = 0 \) jika \( x \notin A \). Dengan demikian, \( x \mapsto I(x, A) \) adalah <dfn>fungsi indikator</dfn> dari \( A \in \mathscr S \), sedangkan \( A \mapsto I(x, A) \) adalah <dfn>massa titik</dfn> di \( x \in S \). Jelas bahwa kernel identitas merupakan kernel probabilitas. Jika kita perlu menunjukkan ketergantungannya pada ruang tertentu, kita akan menambahkan subskrip. Hasil berikut membenarkan namanya.</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( I \) menyatakan kernel identitas pada \( (S, \mathscr S) \).</p>
+	<ol class="sub">
+		<li>Jika \( \mu \) adalah ukuran positif pada \( (S, \mathscr S) \), maka \( \mu I = \mu \).</li>
+		<li>Jika \( f: S \to \R \) terukur, maka \( I f = f \).</li>
+	</ol>
+</div>
+
+<h4>Konstruksi</h4>
+
+<p>Kita dapat membuat kernel baru dari dua kernel yang diberikan dengan operasi penjumlahan dan perkalian skalar yang biasa.</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( K \) dan \( L\) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \), dan \( c \in [0, \infty) \). Maka \( c K \) dan \( K + L \) yang didefinisikan di bawah ini juga merupakan kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \). </p>
+	<ol class="sub">
+		<li>\((c K)(x, A) = c K(x, A)\) untuk \( x \in S \) dan \( A \in \mathscr T \).</li>
+		<li>\((K + L)(x, A) = K(x, A) + L(x, A)\) untuk \( x \in S \) dan \( A \in \mathscr T \).</li>
+	</ol>
+	<p>Jika \( K \) dan \( L \) hingga-\( \sigma \) (hingga) (terbatas), maka \( c K \) dan \( K + L \) masing-masing hingga-\( \sigma \) (hingga) (terbatas).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hasil-hasil ini sederhana.</p>
+		<ol class="sub">
+			<li>Karena \( x \mapsto K(x, A) \) terukur untuk \( A \in \mathscr T \), maka \( x \mapsto c K(x, A) \) juga terukur. Karena \( A \mapsto K(x, A) \) merupakan ukuran positif pada \( (T, \mathscr T) \) untuk \( x \in S \), maka \( A \mapsto c K(x, A) \) juga merupakan ukuran positif sebab \( c \ge 0 \).</li>
+			<li>Karena \( x \mapsto K(x, A) \) dan \( x \mapsto L(x, A) \) terukur untuk \( A \in \mathscr T \), maka \( x \mapsto K(x, A) + L(x, A) \) juga terukur. Karena \( A \mapsto K(x, A) \) dan \( A \mapsto L(x, A) \) merupakan ukuran positif pada \( (T, \mathscr T) \) untuk \( x \in S \), maka \( A \mapsto K(x, A) + L(x, A) \) juga merupakan ukuran positif.</li>
+		</ol>
+	</details>
+</div>
+
+<p>Korolari sederhana dari hasil terakhir adalah bahwa jika \(a, \, b \in [0, \infty)\), maka \(a K + b L\) merupakan kernel dari \((S, \mathscr S)\) ke \((T, \mathscr T)\). Secara khusus, jika \(K, \, L\) adalah kernel probabilitas dan \(p \in (0, 1)\), maka \(p K + (1 - p) L\) merupakan kernel probabilitas. Cara yang lebih menarik dan penting untuk membentuk kernel baru dari dua kernel yang diberikan adalah melalui operasi <q>perkalian</q>.</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( K \) adalah kernel dari \( (R, \mathscr R) \) ke \( (S, \mathscr S) \) dan \( L \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \). Maka \( K L \) yang didefinisikan sebagai berikut merupakan kernel dari \( (R, \mathscr R) \) ke \( (T, \mathscr T) \):
+	\[ K L(x, A) = \int_S K(x, dy) L(y, A), \quad x \in R, \, A \in \mathscr T \]
+	</p>
+	<ol class="sub">
+		<li>Jika \(K\) hingga dan \(L\) terbatas, maka \(K L\) hingga.</li>
+		<li>Jika \(K\) dan \(L\) terbatas, maka \(K L\) terbatas.</li>
+		<li>Jika \(K\) dan \(L\) stokastik, maka \(K L\) stokastik.</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Keterukuran \( x \mapsto (K L)(x, A) \) untuk \( A \in \mathscr T \) mengikuti sifat-sifat dasar integral. Untuk sifat kedua, tetapkan \( x \in R \). Jelas bahwa \( K L(x, A) \ge 0 \) untuk \( A \in \mathscr T \). Misalkan \( \{A_j: j \in J\} \) adalah koleksi terhitung himpunan-himpunan saling lepas dalam \( \mathscr T \) dan \( A = \bigcup_{j \in J} A_j \). Maka
+		\begin{align*} 
+			K L(x, A) &amp; = \int_S K(x, dy) L(x, A) = \int_S K(x, dy) \left(\sum_{j \in J} L(y, A_j)\right) \\
+			&amp; = \sum_{j \in J} \int_S K(x, dy) L(y, A_j) = \sum_{j \in J} K L(x, A_j)
+		\end{align*}
+		Pertukaran jumlah dan integral sah karena suku-sukunya taknegatif.</p>
+	</details>
+</div>
+
+<p>Sekali lagi, kernel identitas sesuai dengan namanya:</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \). Maka</p>
+	<ol class="sub">
+		<li>\( I_S K = K \)</li>
+		<li>\( K I_T = K \)</li>
+	</ol>
+</div>
+
+<p>Beberapa hasil berikut menunjukkan bahwa operasi-operasi tersebut bersifat <dfn>asosiatif</dfn> kapan pun operasi itu bermakna.</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \), \( \mu \) adalah ukuran positif pada \( \mathscr S \), \( c \in [0, \infty) \), dan \( f: T \to \R \) terukur. Maka, dengan mengandaikan bahwa integral yang sesuai ada,</p>
+	<ol class="sub">
+		<li>\( c (\mu K) = (c \mu) K \)</li>
+		<li>\( c (K f) = (c K) f \)</li>
+		<li>\( (\mu K) f = \mu (K f)\)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hasil-hasil ini langsung mengikuti definisi.</p>
+
+		<ol class="sub">
+			<li>Kedua ruas mendefinisikan ukuran yang sama pada \( \mathscr T \), yakni \( c \mu K(A) = c \int_S \mu(dx) K(x, A) \) untuk \( A \in \mathscr T \).</li>
+			<li>Kedua ruas mendefinisikan fungsi yang sama dari \( S \) ke \( \R \), yakni \( c K f(x) = c \int_S K(x, dy) f(y) \) untuk \( x \in S \), dengan mengandaikan bahwa integralnya ada untuk \( x \in S \).</li>
+			<li>Kedua ruas memberikan bilangan riil yang sama, yakni \( \mu K f = \int_S \mu(dx) \int_T K(x, dy) f(y) \), dengan mengandaikan bahwa integral-integralnya ada.</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="math">Misalkan \( K \) adalah kernel dari \( (R, \mathscr R) \) ke \( (S, \mathscr S) \) dan \( L \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \). Misalkan pula \( \mu \) adalah ukuran positif pada \( (R, \mathscr R) \), \( f: T \to \R \) terukur, dan \( c \in [0, \infty) \). Maka, dengan mengandaikan bahwa integral yang sesuai ada,</p>
+	<ol class="sub">
+		<li>\( (\mu K) L = \mu (K L) \)</li>
+		<li>\( K ( L f) = (K L) f \)</li>
+		<li>\( c (K L) = (c K) L \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hasil-hasil ini langsung mengikuti definisi.</p>
+		<ol class="sub">
+			<li>Kedua ruas mendefinisikan ukuran yang sama pada \( (T, \mathscr T) \), yakni \( \mu K L(A) = \int_R \mu(dx) \int_S K(x, dy) L(y, A) \) untuk \( A \in \mathscr T \).</li>
+			<li>Kedua ruas mendefinisikan fungsi terukur yang sama dari \( R \) ke \( \R \), yakni \( K L f(x) = \int_S K(x, dy) \int_T L(y, dz) f(z) \) untuk \( x \in R \), dengan mengandaikan bahwa integralnya ada untuk \( x \in S \).</li>
+			<li>Kedua ruas mendefinisikan kernel yang sama dari \( (R, \mathscr R) \) ke \( (T, \mathscr T) \), yakni \( c K L(x, A) = c \int_S K(x, dy) L(y, A) \) untuk \( x \in R \) dan \( A \in \mathscr T \).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="math">Misalkan \( K \) adalah kernel dari \( (R, \mathscr R) \) ke \( (S, \mathscr S) \), \( L \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \), dan \( M \) adalah kernel dari \( (T, \mathscr T) \) ke \( (U, \mathscr U)\). Maka \( (K L) M = K (L M) \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hasil ini langsung mengikuti definisi. Kernel yang dinyatakan oleh kedua ruas, dari \( (R, \mathscr R) \) ke \( (U, \mathscr U) \), adalah
+		\[K L M(x, A) = \int_S K(x, dy) \int_T L(y, dz) M(z, A), \quad x \in R, \, A \in \mathscr U \]</p>
+	</details>
+</div>
+
+<p>Beberapa hasil berikut menunjukkan bahwa <dfn>sifat distributif</dfn> berlaku kapan pun operasi-operasi tersebut bermakna.</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( K \) dan \( L \) adalah kernel dari \( (R, \mathscr R) \) ke \( (S, \mathscr S) \), sedangkan \( M \) dan \( N \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \). Misalkan pula \( \mu \) adalah ukuran positif pada \( (R, \mathscr R) \) dan \( f: S \to \R \) terukur. Maka, dengan mengandaikan bahwa integral yang sesuai ada,</p>
+	<ol class="sub">
+		<li>\((K + L) M = K M + L M\)</li>
+		<li>\( K (M + N) = K M + K N \)</li>
+		<li>\( \mu (K + L) = \mu K + \mu L \)</li>
+		<li>\( (K + L) f = K f + L f \)</li>
+	</ol>
+</div>
+
+<div class="unit">
+	<p class="math">Misalkan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \), \( \mu \) dan \( \nu \) adalah ukuran positif pada \( (S, \mathscr S) \), serta \( f \) dan \( g \) adalah fungsi terukur dari \( T \) ke \( \R \). Maka, dengan mengandaikan bahwa integral yang sesuai ada, </p>
+	<ol class="sub">
+		<li>\( (\mu + \nu) K = \mu K + \nu K \)</li>
+		<li>\( K(f + g) = K f + K g \)</li>
+		<li>\( \mu(f + g) = \mu f + \mu g \)</li>
+		<li>\( (\mu + \nu) f = \mu f + \nu f \)</li>
+	</ol>
+</div>
+
+<p>Secara khusus, perhatikan bahwa jika \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \), maka transformasi \( \mu \mapsto \mu K \) yang didefinisikan untuk ukuran positif pada \( (S, \mathscr S)\), dan transformasi \( f \mapsto K f \) yang didefinisikan untuk fungsi terukur \( f: T \to \R \) (yang membuat \( K f \) ada), keduanya merupakan operator <em>linear</em>. Jika \( \mu \) adalah ukuran positif pada \( (S, \mathscr S) \), maka operator integral \( f \mapsto \mu f \) yang didefinisikan untuk \( f: S \to \R \) terukur (yang membuat \( \mu f \) ada) juga linear, tetapi tentu saja kita sudah mengetahuinya. Terakhir, perhatikan bahwa operator \( f \mapsto K f \) bersifat <dfn>positif</dfn>: jika \( f \ge 0 \), maka \( K f \ge 0 \). Berikut rangkuman penting hasil-hasil kita ketika kernelnya terbatas.</p>
+
+<div class="unit">
+	<p class="math">Jika \( K \) adalah kernel terbatas dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \), maka \( f \mapsto K f \) merupakan transformasi linear terbatas dari \( \mathscr B(T) \) ke \( \mathscr B(S) \), dan \( \|K\| \) adalah norma transformasi tersebut.</p>
+</div>
+
+<p><dfn>Sifat komutatif</dfn> sama sekali tidak berlaku untuk hasil kali kernel. Jika \( K \) dan \( L \) adalah kernel, maka bergantung pada ruang terukurnya, \( K L \) mungkin terdefinisi, tetapi \( L K \) tidak. Bahkan jika kedua hasil kali terdefinisi, keduanya mungkin merupakan kernel dari atau ke ruang terukur yang berbeda. Bahkan jika keduanya terdefinisi dari dan ke ruang terukur yang sama, sangat mungkin bahwa \( K L \neq L K \). Latihan <a href="#exe1" class="ref"></a> memberikan beberapa contoh.</p>
+
+<p>Jika \( K \) adalah kernel pada \( (S, \mathscr S) \) dan \( n \in \N \), kita tetapkan \( K^n = K K \cdots K \), yaitu hasil kali dengan \( n \) faktor \( K \). Berdasarkan konvensi, \( K^0 = I \), kernel identitas pada \( S \).</p>
+
+<p><dfn>Titik tetap</dfn> operator-operator yang terkait dengan suatu kernel ternyata sangat penting.</p>
+
+<div class="unit">
+	<p class="dfn">Misalkan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \).</p>
+	<ol class="sub">
+		<li>Ukuran positif \( \mu \) pada \( (S, \mathscr S) \) yang memenuhi \( \mu K = \mu \) disebut <dfn>invarian</dfn> bagi \( K \).</li>
+		<li>Fungsi terukur \( f: T \to \R \) yang memenuhi \( K f = f \) disebut <dfn>invarian</dfn> bagi \( K \)</li>
+	</ol>
+</div>
+
+<p>Jadi, dalam bahasa aljabar linear (atau analisis fungsional), ukuran invarian adalah <dfn>vektor eigen kiri</dfn> kernel, sedangkan fungsi invarian adalah <dfn>vektor eigen kanan</dfn> kernel; keduanya bersesuaian dengan nilai eigen 1. Berdasarkan hasil di atas, jika \( \mu \) dan \( \nu \) merupakan ukuran invarian dan \( c \in [0, \infty) \), maka \( \mu + \nu \) dan \( c \mu \) juga invarian. Demikian pula, jika \( f \) dan \( g \) merupakan fungsi invarian dan \( c \in \R \), maka \( f + g \) dan \( c f \) juga invarian.</p>
+
+<p>Tentu saja, kita secara khusus tertarik pada kernel <em>probabilitas</em>.</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( P \) adalah kernel probabilitas dari \((R, \mathscr R)\) ke \( (S, \mathscr S) \) dan \( Q \) adalah kernel probabilitas dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \). Misalkan pula \( \mu \) adalah ukuran probabilitas pada \( (R, \mathscr R) \). Maka</p>
+	<ol class="sub">
+		<li>\( P Q \) adalah kernel probabilitas dari \( (R, \mathscr R) \) ke \( (T, \mathscr T) \).</li>
+		<li>\( \mu P \) adalah ukuran probabilitas pada \( (S, \mathscr S) \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Kita tahu bahwa \( P Q \) adalah kernel dari \( (R, \mathscr R) \) ke \( (T, \mathscr T) \). Jadi, kita hanya perlu memperhatikan bahwa
+			\[P Q(T) = \int_S P(x, dy) Q(y, T) = \int_S P(x, dy) = P(x, S) = 1, \quad x \in R \]
+			</li>
+			<li>Kita tahu bahwa \( \mu P \) adalah ukuran positif pada \( (S, \mathscr S)) \). Jadi, kita hanya perlu memperhatikan bahwa
+			\[ \mu P(S) = \int_R \mu(dx) P(x, S) = \int_R \mu(dx) = \mu(R) = 1 \]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<p>Sebagai korolari, diperoleh bahwa jika \( P \) merupakan kernel probabilitas pada \( (S, \mathscr S) \), maka \( P^n \) juga demikian untuk \( n \in \N \).</p>
+
+<p>Operator-operator yang terkait dengan suatu kernel sangatlah penting, dan kita dapat dengan mudah memperoleh kembali kernel tersebut dari operator-operatornya. Misalkan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \), serta misalkan \( x \in S \) dan \( A \in \mathscr T \). Maka secara langsung, \(K \bs{1}_A(x) = K(x, A)\), dengan \( \bs{1}_A \), seperti biasa, merupakan fungsi indikator \( A \). Secara langsung pula, \( \delta_x K(A) = K(x, A) \), dengan \( \delta_x \) merupakan massa titik di \( x \). </p>
+
+<h4>Fungsi Kernel</h4>
+
+<p>Biasanya ruang <em>terukur</em> kita sebenarnya merupakan ruang <em>ukuran</em>, dengan ukuran alami yang terkait dengan ruang tersebut, seperti dalam kasus-kasus khusus yang dijelaskan pada <a href="#msp" class="ref"></a>. Ketika kita berangkat dari ruang ukuran, kernel biasanya dikonstruksi dari <em>fungsi kepadatan</em>, dengan cara yang hampir sama seperti ukuran positif didefinisikan dari fungsi kepadatan.</p>
+
+<div class="unit" id="kdf">
+	<p class="math">Misalkan \( (S, \mathscr S, \lambda) \) dan \( (T, \mathscr T, \mu) \) adalah ruang ukuran. Seperti biasa, \( S \times T \) dilengkapi dengan aljabar-\( \sigma \) produk \( \mathscr S \otimes \mathscr T \). Jika \( k: S \times T \to [0, \infty) \) terukur, maka fungsi \( K \) yang didefinisikan sebagai berikut merupakan kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \):
+	\[ K(x, A) = \int_A k(x, y) \mu(dy), \quad x \in S, \, A \in \mathscr T \]
+	</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Keterukuran \( x \mapsto K(x, A) = \int_A k(x, y) \mu(dy) \) untuk \( A \in \mathscr T \) mengikuti salah satu sifat dasar integral. Fakta bahwa \( A \mapsto K(x, A) = \int_A k(x, y) \mu(dy) \) merupakan ukuran positif pada \( \mathscr T \) untuk \( x \in S \) juga mengikuti salah satu sifat dasar integral. Sebenarnya, \( y \mapsto k(x, y) \) merupakan kepadatan ukuran ini terhadap \( \mu \).</p>
+	</details>
+</div>
+
+<p>Jelas bahwa kernel \( K \) bergantung pada ukuran positif \( \mu \) pada \( (T, \mathscr T) \) dan juga fungsi \( k \), sedangkan ukuran \( \lambda \) pada \( (S, \mathscr S) \) tidak berperan (dan dengan demikian bahkan tidak diperlukan). Namun sekali lagi, sudut pandang kita adalah bahwa ruang-ruang tersebut memiliki ukuran alami yang tetap. Sesuai dengan itu, fungsi \( k \) disebut <dfn>fungsi kepadatan kernel</dfn> (terhadap \( \mu \)), atau cukup <dfn>fungsi kernel</dfn>.</p>
+
+<div class="unit">
+	<p class="math">Misalkan kembali bahwa \( (S, \mathscr S, \lambda) \) dan \( (T, \mathscr T, \mu) \) adalah ruang ukuran. Misalkan pula \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \) dengan fungsi kernel \( k \). Jika \( f: T \to \R \) terukur, maka, dengan mengandaikan bahwa integralnya ada,
+	\[ K f(x) = \int_S k(x, y) f(y) \mu(dy), \quad x \in S \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini berlaku karena fungsi \( y \mapsto k(x, y) \) merupakan kepadatan ukuran \( A \mapsto K(x, A) \) terhadap \( \mu \):
+		\[ K f(x) = \int_S K(x, dy) f(y) = \int_S k(x, y) f(y) \mu(dy), \quad x \in S \]</p>
+	</details>
+</div>
+
+<p>Suatu fungsi kernel mendefinisikan operator dari kiri pada fungsi-fungsi di \( S \), dengan cara yang sepenuhnya analog dengan operator dari kanan di atas pada fungsi-fungsi di \( T \).</p>
+
+<div class="unit">
+	<p class="math">Misalkan kembali bahwa \( (S, \mathscr S, \lambda) \) dan \( (T, \mathscr T, \mu) \) adalah ruang ukuran, dan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \) dengan fungsi kernel \( k \). Jika \( f: S \to \R \) terukur, maka fungsi \( f K: T \to \R \) yang didefinisikan sebagai berikut juga terukur, dengan mengandaikan bahwa integralnya ada
+	\[ f K(y) = \int_S \lambda(dx) f(x) k(x, y), \quad y \in T \]</p>
+</div>
+
+<p>Operator yang didefinisikan di atas bergantung pada ukuran \( \lambda \) pada \( (S, \mathscr S) \) dan juga fungsi kernel \( k \), sedangkan ukuran \( \mu \) pada \( (T, \mathscr T) \) tidak berperan (dan dengan demikian bahkan tidak diperlukan). Namun sekali lagi, sudut pandang kita adalah bahwa ruang-ruang tersebut memiliki ukuran alami yang tetap. Berikut hubungan antara operasi baru kita dari kiri pada <em>fungsi</em> dan operasi lama kita dari kiri pada <em>ukuran</em>.</p>
+
+<div class="unit">
+	<p class="math">Misalkan kembali bahwa \( (S, \mathscr S, \lambda) \) dan \( (T, \mathscr T, \mu) \) adalah ruang ukuran, dan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \) dengan fungsi kernel \( k \). Misalkan pula \( f: S \to [0, \infty) \) terukur, dan misalkan \( \rho \) menyatakan ukuran pada \( (S, \mathscr S) \) yang memiliki kepadatan \( f \) terhadap \( \lambda \). Maka \( f K \) merupakan kepadatan ukuran \( \rho K \) terhadap \( \mu \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Alat utamanya, seperti biasa, adalah pertukaran integral. Untuk \( B \in \mathscr T \),
+		\begin{align*}
+			\rho K(B) &amp; = \int_S \rho(dx) K(x, B) = \int_S f(x) K(x, B) \lambda(dx) = \int_S f(x) \left[\int_B k(x, y) \mu(dy)\right] \lambda(dx) \\
+			&amp; = \int_B \left[\int_S f(x) k(x, y) \lambda(dx)\right] \mu(dy) = \int_B f K(y) \mu(dy) 
+		\end{align*}</p>
+	</details>
+</div>
+
+<p>Seperti biasa, kita secara khusus tertarik pada kernel stokastik. Dengan suatu fungsi kernel, kita dapat memiliki kernel stokastik <em>ganda</em>.</p>
+
+<div class="unit">
+	<p class="math">Misalkan kembali bahwa \( (S, \mathscr S, \lambda) \) dan \( (T, \mathscr T, \mu) \) adalah ruang ukuran dan \( k: S \times T \to [0, \infty)  \) terukur. Maka \( k \) merupakan <dfn>fungsi kernel stokastik ganda</dfn> jika</p>
+	<ol class="sub">
+		<li>\( \int_T k(x, y) \mu(dy) = 1 \) untuk \( x \in S \)</li>
+		<li>\( \int_S \lambda(dx) k(x, y) = 1 \) untuk \( y \in S \)</li>
+	</ol>
+</div>
+
+<p>Tentu saja, syarat (a) sekadar berarti bahwa kernel yang terkait dengan \( k \) merupakan kernel stokastik menurut definisi awal kita.</p>
+
+<p>Kasus khusus yang paling umum dan penting terjadi ketika kedua ruang tersebut sama. Jadi, jika \( (S, \mathscr S, \lambda) \) adalah ruang ukuran dan \( k : S \times S \to [0, \infty) \) terukur, maka kita memiliki operator \( K \) yang beroperasi dari kiri dan dari kanan pada fungsi terukur \( f: S \to \R \):
+\begin{align*} 
+	f K(y) &amp; = \int_S \lambda(dx) f(x) k(x, y), \quad y \in S \\
+	K f(x) &amp; = \int_S k(x, y) f(y) \lambda(d y), \quad x \in S
+\end{align*}
+Jika \( f \) taknegatif dan \( \mu \) adalah ukuran dengan fungsi kepadatan \( f \), maka \( f K \) merupakan fungsi kepadatan ukuran \( \mu K \) (keduanya terhadap \( \lambda \)).</p>
+
+<div class="unit">
+	<p class="dfn">Misalkan kembali bahwa \( (S, \mathscr S, \lambda) \) adalah ruang ukuran dan \( k : S \times S \to [0, \infty) \) terukur. Maka \( k \) <dfn>simetris</dfn> jika \( k(x, y) = k(y, x) \) untuk semua \( (x, y) \in S^2 \).</p>
+</div>
+
+<p>Tentu saja, jika \( k \) adalah fungsi kernel stokastik simetris pada \( (S, \mathscr S, \lambda) \), maka \( k \) stokastik ganda, tetapi kebalikannya tidak benar.</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( (R, \mathscr R, \lambda) \), \( (S, \mathscr S, \mu) \), dan \( (T, \mathscr T, \rho) \) adalah ruang ukuran. Misalkan pula \( K \) adalah kernel dari \( (R, \mathscr R) \) ke \( (S, \mathscr S) \) dengan fungsi kernel \( k \), dan \( L \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \) dengan fungsi kernel \( l \). Maka kernel \( K L \) dari \( (R, \mathscr R) \) ke \( (T, \mathscr T) \) memiliki kepadatan \( k l \) yang diberikan oleh
+	\[ k l(x, z) = \int_S k(x, y) l(y, z) \mu(dy), \quad (x, z) \in R \times T \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Sekali lagi, alat utamanya adalah pertukaran integral melalui <a href="../foundations/Properties.html#fub">teorema Fubini</a>. Misalkan \( x \in R \) dan \( B \in \mathscr T \). Maka
+		\begin{align*}
+			K L(x, B) &amp; = \int_S K(x, dy) L(y, B) = \int_S k(x, y) L(y, B) \mu(dy) \\
+			&amp; = \int_S k(x, y) \left[\int_B l(y, z) \rho(dz) \right] \mu(dy) = \int_B \left[\int_S k(x, y) l(y, z) \mu(dy) \right] \rho(dz) = \int_B k l(x, z) \mu(dz)
+		\end{align*}</p>
+	</details>
+</div>
+
+<h3>Contoh dan Kasus Khusus</h3>
+
+<h4>Kasus Diskret</h4>
+
+<p>Dalam subbagian ini, kita mengandaikan bahwa ruang-ruang ukurannya diskret, seperti dijelaskan pada <a href="#msp">(1)</a>. Karena aljabar-\( \sigma \) (semua himpunan bagian) dan ukurannya (ukuran pencacahan) telah dipahami, kita tidak perlu merujuknya. Ingat bahwa integral terhadap ukuran pencacahan adalah jumlah. Sekarang misalkan \( K \) adalah kernel dari ruang diskret \(S\) ke ruang diskret \(T\). Untuk \( x \in S \) dan \( y \in T \), tetapkan \( K(x, y) = K(x, \{y\}) \). Maka secara lebih umum,
+\[ K(x, A) = \sum_{y \in A} K(x, y), \quad x \in S, \, A \subseteq T \]
+Fungsi \( (x, y) \mapsto K(x, y) \) tidak lain adalah fungsi kernel dari kernel \( K \), sebagaimana didefinisikan pada <a href="#kdf" class="ref"></a>, tetapi dalam kasus ini kita biasanya tidak repot-repot memakai simbol yang berbeda untuk fungsi dan kernel. Fungsi \( K \) dapat dipandang sebagai sebuah <em>matriks</em>, dengan baris yang diindeks oleh \( S \) dan kolom yang diindeks oleh \( T \) (jadi berupa matriks takhingga jika \( S \) atau \( T \) terhitung takhingga). Dengan interpretasi ini, semua operasi yang didefinisikan di atas dapat dipandang sebagai operasi matriks. Jika \( f: T \to \R \) dan \( f \) dipandang sebagai vektor kolom yang diindeks oleh \( T \), maka \( K f \) hanyalah hasil kali biasa matriks \( K \) dan vektor \( f \); hasil kalinya merupakan vektor kolom yang diindeks oleh \( S \):
+\[K f(x) = \sum_{y \in S} K(x, y) f(y), \quad x \in S \]
+Demikian pula, jika \( f: S \to \R \) dan \( f \) dipandang sebagai vektor baris yang diindeks oleh \( S \), maka \( f K \) hanyalah hasil kali biasa vektor \( f \) dan matriks \( K \); hasil kalinya merupakan vektor baris yang diindeks oleh \( T \):
+\[ f K(y) = \sum_{x \in S} f(x) K(x, y), \quad y \in T \]
+Jika \( L \) adalah kernel lain dari \( T \) ke ruang diskret lain \( U \), maka sebagai fungsi, \( K L \) hanyalah hasil kali matriks \( K \) dan \( L \):
+\[ K L(x, z) = \sum_{y \in T} K(x, y) L(x, z), \quad (x, z) \in S \times L \]</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( S = \{1, 2, 3\} \) dan \( T = \{1, 2, 3, 4\} \). Definisikan kernel \( K \) dari \( S \) ke \( T \) dengan \( K(x, y) = x + y \) untuk \( (x, y) \in S \times T \). Definisikan fungsi \( f \) pada \( S \) dengan \( f(x) = x! \) untuk \( x \in S \), dan definisikan fungsi \( g \) pada \( T \) dengan \( g(y) = y^2\) untuk \( y \in T \). Hitung masing-masing berikut menggunakan aljabar matriks:</p>
+	<ol class="sub">
+		<li>\( f K \)</li>
+		<li>\( K g \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Dalam bentuk matriks,
+		\[ K = \left[\begin{matrix} 2 &amp; 3 &amp; 4 &amp; 5 \\ 3 &amp; 4 &amp; 5 &amp; 6 \\ 4 &amp; 5 &amp; 6 &amp; 7 \end{matrix} \right], \quad f = \left[\begin{matrix} 1 &amp; 2 &amp; 6 \end{matrix} \right], \quad g = \left[\begin{matrix} 1 \\ 4 \\ 9 \\ 16 \end{matrix} \right]\]</p>
+		<ol class="sub">
+			<li>Sebagai vektor baris yang diindeks oleh \( T \), hasil kalinya adalah \( f K = \left[\begin{matrix} 32 &amp; 41 &amp; 50 &amp; 59\end{matrix}\right] \)
+			</li>
+			<li>Sebagai vektor kolom yang diindeks oleh \( S \), 
+			\[ K g = \left[\begin{matrix} 130 \\ 160 \\ 190 \end{matrix}\right] \]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe1">
+	<p class="math">Misalkan \( R = \{0, 1\} \), \( S = \{a, b\} \), dan \( T = \{1, 2, 3\} \). Definisikan kernel \( K \) dari \( R \) ke \( S \), kernel \( L \) dari \( S \) ke \( S \), dan kernel \( M \) dari \( S \) ke \( T \) dalam bentuk matriks sebagai berikut:
+	\[ K = \left[\begin{matrix} 1 &amp; 4 \\ 2 &amp; 3\end{matrix}\right], \; L = \left[\begin{matrix} 2 &amp; 2 \\ 1 &amp; 5 \end{matrix}\right], \; M = \left[\begin{matrix} 1 &amp; 0 &amp; 2 \\ 0 &amp; 3 &amp; 1 \end{matrix} \right] \]
+	Hitung masing-masing kernel berikut, atau jelaskan mengapa operasinya tidak bermakna:</p>
+	<ol class="sub">
+		<li>\( K L \)</li>
+		<li>\( L K \)</li>
+		<li>\( K^2 \)</li>
+		<li>\( L^2 \)</li>
+		<li>\( K M \)</li>
+		<li>\( L M \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Perhatikan bahwa ini bukan sekadar matriks abstrak, melainkan memiliki baris dan kolom yang diindeks oleh ruang yang sesuai. Jadi, hasil kali tersebut hanya bermakna jika ruang-ruangnya cocok secara tepat; ini bukan sekadar persoalan jumlah baris dan kolom.</p>
+		<ol class="sub">
+			<li>\( K L \) adalah kernel dari \( R \) ke \( S \) yang diberikan oleh
+			\[ K L = \left[\begin{matrix} 6 &amp; 22 \\ 7 &amp; 19 \end{matrix} \right] \]
+			</li>
+			<li>\( L K \) tidak terdefinisi karena ruang kolom \( S \) dari \( L \) tidak sama dengan ruang baris \( R \) dari \( K \).</li>
+			<li>\( K^2 \) tidak terdefinisi karena ruang baris \( R \) tidak sama dengan ruang kolom \( S \).</li>
+			<li>\( L^2 \) adalah kernel dari \( S \) ke \( S \) yang diberikan oleh
+			\[ L^2 = \left[\begin{matrix} 6 &amp; 14 \\ 7 &amp; 27 \end{matrix}\right] \]
+			</li>
+			<li>\( K M \) adalah kernel dari \( R \) ke \( T \) yang diberikan oleh
+			\[ K M = \left[\begin{matrix} 1 &amp; 12 &amp; 6 \\ 2 &amp; 9 &amp; 7 \end{matrix} \right]  \]
+			</li>
+			<li>\( L M \) adalah kernel dari \( S \) ke \( T \) yang diberikan oleh
+			\[ L M = \left[\begin{matrix} 2 &amp; 6 &amp; 6 \\ 1 &amp; 15 &amp; 7 \end{matrix}\right]  \]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<h4>Probabilitas Bersyarat</h4>
+
+<p>Salah satu kelas penting kernel probabilitas muncul dari distribusi suatu peubah acak yang dikondisikan pada nilai peubah acak lain. Dalam subbagian ini, misalkan \( (\Omega, \mathscr{F}, \P) \) adalah ruang probabilitas, dan \( (S, \mathscr S) \) serta \( (T, \mathscr T) \) adalah ruang terukur. Selanjutnya, misalkan \( X \) dan \( Y \) adalah peubah acak yang didefinisikan pada ruang probabilitas tersebut, dengan \( X \) bernilai di \( S \) dan \( Y \) bernilai di \( T \). Secara informal, \( X \) dan \( Y \) merupakan peubah acak yang didefinisikan pada eksperimen acak dasar yang sama.</p>
+
+<div class="unit">
+	<p class="math">Fungsi \( P \) yang didefinisikan sebagai berikut merupakan kernel probabilitas dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \), yang dikenal sebagai <dfn>kernel probabilitas bersyarat</dfn> bagi \( Y \) dengan syarat \( X \).
+	\[ P(x, A) = \P(Y \in A \mid X = x), \quad x \in S, \, A \in \mathscr T \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Ingat bahwa untuk \( A \in \mathscr T \), probabilitas bersyarat \( \P(Y \in A \mid X) \) itu sendiri merupakan peubah acak dan terukur terhadap \( \sigma(X) \). Artinya, \( \P(Y \in A \mid X) = P(X, A) \) untuk suatu fungsi terukur \(x \mapsto P(x, A) \) dari \( S \) ke \( [0, 1] \). Maka, berdasarkan definisi, \( \P(Y \in A \mid X = x) = P(x, A) \). Tentu saja, secara langsung, \( A \mapsto P(x, A) \) merupakan ukuran probabilitas pada \( (T, \mathscr T) \) untuk \( x \in S \).</p>
+	</details>
+</div>
+
+<p>Operator-operator yang terkait dengan kernel ini memiliki interpretasi alami.</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( P \) adalah kernel probabilitas bersyarat bagi \( Y \) dengan syarat \( X \).</p>
+	<ol class="sub">
+		<li>Jika \( f: T \to \R \) terukur, maka \( Pf(x) = \E[f(Y) \mid X = x] \) untuk \( x \in S \) (dengan mengandaikan, seperti biasa, bahwa nilai harapannya ada).</li>
+		<li>Jika \( \mu \) adalah distribusi probabilitas \( X \), maka \( \mu P \) adalah distribusi probabilitas \( Y \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Ini adalah hasil-hasil dasar yang telah kita pelajari, tetapi kini dituliskan dengan notasi baru.</p>
+
+		<ol class="sub">
+			<li>Karena \( A \mapsto P(x, A) \) adalah distribusi bersyarat \( Y \) dengan syarat \( X = x \),
+			\[ \E[f(Y) \mid X = x] = \int_S P(x, dy) f(y) = P f(x) \]</li>
+			<li>Misalkan \( A \in \mathscr T \). Pengondisian pada \( X \) menghasilkan
+			\[ \P(Y \in A) = \E[\P(Y \in A \mid X)] = \int_S \mu(dx) P(Y \in A \mid X = x) = \int_S \mu(dx) P(x, A) = \mu P(A) \]</li>
+		</ol>
+	</details>
+</div>
+
+<p>Seperti dalam pembahasan umum di atas, ruang terukur \( (S, \mathscr S) \) dan \( (T, \mathscr T) \) biasanya merupakan ruang <em>ukuran</em> yang dilengkapi dengan ukuran alami. Karena itu, distribusi probabilitas bersyarat sering diberikan melalui fungsi kepadatan probabilitas bersyarat, yang kemudian berperan sebagai fungsi kernel. Dua latihan berikut memberikan contohnya.</p>
+
+<div class="unit" id="nor">
+	<p class="math">Misalkan \( X \) dan \( Y \) adalah peubah acak untuk suatu eksperimen, yang bernilai di \( \R \). Untuk \( x \in \R \), distribusi bersyarat \( Y \) dengan syarat \( X = x \) adalah distribusi <a href="../special/Normal.html">normal</a> dengan rata-rata \( x \) dan simpangan baku 1. Gunakan notasi dan operasi pada bagian ini untuk perhitungan berikut:</p>
+
+	<ol class="sub">
+		<li>Berikan fungsi kernel untuk distribusi bersyarat \( Y \) dengan syarat \(X\).</li>
+		<li>Tentukan \( \E\left(Y^2 \bigm| X = x\right) \).</li>
+		<li>Misalkan \( X \) berdistribusi normal baku. Tentukan fungsi kepadatan probabilitas \( Y \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Fungsi kernelnya (tentu saja terhadap ukuran Lebesgue) adalah
+			\[ p(x, y) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2} (y - x)^2}, \quad x, \, y \in \R \]
+			</li>
+			<li>Misalkan \( g(y) = y^2 \) untuk \( y \in \R \). Maka \( E\left(Y^2 \bigm| X = x\right) = P g(x) = 1 + x^2\) untuk \( x \in \R \)</li>
+			<li>Fungsi kepadatan probabilitas normal baku \( f \) diberikan oleh \( f(x) = \frac{1}{\sqrt{2 \pi}} e^{-x^2/2} \) untuk \( x \in \R \). Dengan demikian, \( Y \) memiliki fungsi kepadatan probabilitas \( f P \). 
+			\[ f P(y) \int_{-\infty}^\infty f(x) p(x, y) dx = \frac{1}{2 \sqrt{\pi}} e^{-\frac{1}{4} y^2}, \quad y \in \R\]
+			Ini adalah fungsi kepadatan probabilitas distribusi normal dengan rata-rata 0 dan varians 2.</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="math">Misalkan \( X \) dan \( Y \) adalah peubah acak untuk suatu eksperimen, dengan \( X \) bernilai di \( \{a, b, c\} \) dan \( Y \) bernilai di \( \{1, 2, 3, 4\} \). Fungsi kernel \( Y \) dengan syarat \( X \) adalah sebagai berikut: \( P(a, y) = 1/4 \), \( P(b, y) = y / 10 \), dan \( P(c, y) = y^2/30 \), masing-masing untuk \( y \in \{1, 2, 3, 4\} \).</p>
+	<ol class="sub">
+		<li>Berikan kernel \( P \) dalam bentuk matriks dan periksa bahwa kernel tersebut merupakan kernel probabilitas.</li>
+		<li>Tentukan \( f P \) dengan \( f(a) = f(b) = f(c) = 1/3 \). Hasilnya adalah fungsi kepadatan \( Y \) jika \( X \) berdistribusi seragam.</li>
+		<li>Tentukan \( P g \) dengan \( g(y) = y \) untuk \( y \in \{1, 2, 3, 4\} \). Fungsi yang dihasilkan adalah \( \E(Y \mid X = x) \) untuk \( x \in \{a, b, c\} \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>\( P \) diberikan dalam bentuk matriks di bawah ini. Perhatikan bahwa jumlah setiap baris adalah 1.
+			\[ P = \left[\begin{matrix} \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4} \\
+			\frac{1}{10} &amp; \frac{2}{10} &amp; \frac{3}{10} &amp; \frac{4}{10} \\
+			\frac{1}{30} &amp; \frac{4}{30} &amp; \frac{9}{30} &amp; \frac{16}{30} \end{matrix} \right]\]
+			</li>
+			<li>Dalam bentuk matriks, \( f = \left[\begin{matrix} \frac{1}{3} &amp; \frac{1}{3} &amp; \frac{1}{3} \end{matrix} \right]\) dan \(f P = \left[\begin{matrix} \frac{23}{180} &amp; \frac{35}{180} &amp; \frac{51}{180} &amp; \frac{71}{180} \end{matrix} \right]\).</li>
+			<li>Dalam bentuk matriks,
+			\[ g = \left[\begin{matrix} 1 \\ 2 \\ 3 \\ 4 \end{matrix} \right], \quad P g = \left[\begin{matrix} \frac{5}{2} \\ 3 \\ \frac{10}{3} \end{matrix} \right]\]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<h4>Distribusi Parametrik</h4>
+
+<p>Suatu <dfn>distribusi probabilitas parametrik</dfn> juga mendefinisikan kernel probabilitas secara alami, dengan parameter berperan sebagai peubah kernel dan distribusi berperan sebagai ukuran. Distribusi semacam itu biasanya didefinisikan melalui fungsi kepadatan parametrik yang kemudian mendefinisikan fungsi kernel; kembali, parameter berperan sebagai argumen pertama dan peubah sebagai argumen kedua. Jika parameter dipandang sebagai suatu nilai tertentu dari peubah acak lain, seperti dalam <a href="../point/Bayes.html">analisis Bayes</a>, terdapat banyak tumpang tindih dengan subbagian sebelumnya. Dalam kebanyakan kasus (dan khususnya dalam contoh-contoh di bawah), ruang yang terlibat bersifat diskret atau Euklides, sebagaimana dijelaskan pada <a href="#msp" class="ref"></a>.</p>
+
+<div class="unit">
+	<p class="math">Perhatikan keluarga parametrik <a href="../poisson/Exponential.html">distribusi eksponensial</a>. Misalkan \( f \) menyatakan fungsi identitas pada \( (0, \infty) \).</p>
+	<ol class="sub">
+		<li>Berikan fungsi kepadatan probabilitas sebagai fungsi kernel probabilitas \( p \) pada \( (0, \infty) \).</li>
+		<li>Tentukan \( P f \).</li>
+		<li>Tentukan \( f P \).</li>
+		<li>Tentukan \( p^2 \), fungsi kernel yang bersesuaian dengan kernel hasil kali \( P^2 \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>\( p(r, x) = r e^{-r x} \) untuk \( r, \, x \in (0, \infty) \).</li>
+			<li>Untuk \( r \in (0, \infty) \),
+			\[ P f(r) = \int_0^\infty p(r, x) f(x) \, dx = \int_0^\infty x r e^{-r x} dx = \frac{1}{r} \]
+			Ini adalah rata-rata distribusi eksponensial.</li>
+			<li>Untuk \( x \in (0, \infty) \),
+			\[ f P(x) = \int_0^\infty f(r) p(r, x) \, dr = \int_0^\infty r^2 e^{-r x} dr = \frac{2}{x^3} \]
+			</li>
+			<li>Untuk \( r, \, y \in (0, \infty) \),
+			\[ p^2(r, y) = \int_0^\infty p(r, x) p(x, y) \, dx = \int_0^\infty = \int_0^\infty r x e^{-(r + y) x} dx = \frac{r}{(r + y)^2} \]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="math">Perhatikan keluarga parametrik <a href="../poisson/Poisson.html">distribusi Poisson</a>. Misalkan \(f \) adalah fungsi identitas pada \(\N \) dan \( g \) adalah fungsi identitas pada \( (0, \infty) \).</p>
+	<ol class="sub">
+		<li>Berikan fungsi kepadatan probabilitas \( p \) sebagai fungsi kernel probabilitas dari \( (0, \infty) \) ke \( \N \).</li>
+		<li>Tunjukkan bahwa \( P f = g \).</li>
+		<li>Tunjukkan bahwa \( g P = f \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>\( p(r, n) = e^{-r} \frac{r^n}{n!}  \) untuk \( r \in (0, \infty) \) dan \( n \in \N \).</li>
+			<li>Untuk \( r \in (0, \infty) \), \( P f(r) \) adalah rata-rata distribusi Poisson dengan parameter \( r \):
+			\[ P f(r) = \sum_{n=0}^\infty p(r, n) f(n) = \sum_{n=0}^\infty n e^{-r} \frac{r^n}{n!} = r \]</li>
+			<li>Untuk \( n \in \N \),
+			\[ g P(n) = \int_0^\infty g(r) p(r, n) \, dr = \int_0^\infty e^{-r} \frac{r^{n+1}}{n!} dr = n \]</li>
+		</ol>
+	</details>
+</div>
+
+<p>Jelas bahwa distribusi Poisson memiliki beberapa sifat yang sangat khusus dan elegan. Keluarga distribusi berikut juga memiliki beberapa sifat yang sangat khusus. Bandingkan latihan ini dengan <a href="#nor" class="ref"></a>.</p>
+
+<div class="unit">
+	<p class="math">Perhatikan keluarga <a href="../special/Normal.html">distribusi normal</a>, yang diparameterkan oleh rata-rata dan memiliki varians 1.</p>
+	<ol class="sub">
+		<li>Berikan fungsi kepadatan probabilitas sebagai fungsi kernel probabilitas \( p \) pada \( \R \).</li>
+		<li>Tunjukkan bahwa \( p \) simetris.</li>
+		<li>Misalkan \( f \) adalah fungsi identitas pada \( \R \). Tunjukkan bahwa \( P f = f \) dan \( f P = f \).</li>
+		<li>Untuk \( n \in \N \), tentukan \( p^n \), fungsi kernel untuk operator \( P^n \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Untuk \( \mu, \,  x \in \R \),
+			\[ p(\mu, x) = \frac{1}{\sqrt{2 \pi}} e^{-\frac{1}{2}(x - \mu)^2} \]
+			Artinya, \( x \mapsto p(x, \mu) \) adalah fungsi kepadatan probabilitas normal dengan rata-rata \( \mu \) dan varians 1.</li>
+			<li>Perhatikan bahwa \( p(\mu, x) = p(x, \mu) \) untuk \( \mu, \, x \in \R \). Jadi, \( \mu \mapsto p(\mu, x) \) adalah fungsi kepadatan probabilitas normal dengan rata-rata \( x \) dan varians 1.</li>
+			<li>Karena \( f(x) = x \) untuk \( x \in \R \), hal ini mengikuti dua bagian sebelumnya: \( P f(\mu) = \mu \) untuk \( \mu \in \R \) dan \( f P(x) = x \) untuk \( x \in \R \)</li>
+			<li>Untuk \( \mu, \, y \in \R \), 
+			\[ p^2(\mu, x) = \int_{-\infty}^\infty p(\mu, t) p(t, y) \, dt = \frac{1}{\sqrt{4 \pi}} e^{-\frac{1}{4}(x - \mu)^2} \]
+			sehingga \( x \mapsto p^2(\mu, x) \) adalah fungsi kepadatan probabilitas normal dengan rata-rata \( \mu \) dan varians 2. Dengan induksi,
+			\[ p^n(\mu, x) = \frac{1}{\sqrt{2 \pi n}} e^{-\frac{1}{2 n}(x - \mu)^2} \]
+			untuk \( n \in \N_+ \) dan \( \mu, \, x \in \R \). Jadi, \( x \mapsto p^n(\mu, x) \) adalah fungsi kepadatan probabilitas normal dengan rata-rata \( \mu \) dan varians \( n \).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="math">Untuk setiap distribusi khusus berikut, nyatakan fungsi kepadatan probabilitas sebagai fungsi kernel probabilitas. Pastikan untuk menentukan ruang parameternya.</p>
+	<ol class="sub">
+		<li><a href="../special/Normal.html">Distribusi normal</a> umum pada \( \R \)</li>
+		<li><a href="../special/Beta.html">Distribusi beta</a> pada \( (0, 1) \)</li>
+		<li><a href="../bernoulli/NegativeBinomial.html">Distribusi binomial negatif</a> pada \( \N \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Distribusi normal dengan rata-rata \( \mu \) dan simpangan baku \( \sigma \) mendefinisikan fungsi kernel \( p \) dari \( \R \times (0, \infty) \) ke \( \R \) yang diberikan oleh
+			\[ p[(\mu, \sigma), x] = \frac{1}{\sqrt{2 \pi} \sigma} \exp\left[-\left(\frac{x - \mu}{\sigma}\right)^2\right] \]
+			</li>
+			<li>Distribusi beta dengan parameter kiri \( a \) dan parameter kanan \( b \) mendefinisikan fungsi kernel \( p \) dari \( (0, \infty)^2 \) ke \( (0, 1) \) yang diberikan oleh
+			\[ p[(a, b), x] = \frac{1}{B(a, b)} x^{a - 1} y^{b - 1} \]
+			dengan \( B \) adalah fungsi beta.</li>
+			<li>Distribusi binomial negatif dengan parameter penghentian \( k \) dan parameter keberhasilan \( \alpha \) mendefinisikan fungsi kernel \( p \) dari \( (0, \infty) \times (0, 1) \) ke \( \N \) yang diberikan oleh
+			\[ p[(n, \alpha), k] = \binom{n + k - 1}{n} \alpha^k (1 - \alpha)^n \]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">3. Nilai Harapan</a></li>
+		<li class="child"><a href="Properties.html" title="Definisi dan Sifat Dasar">1</a></li>
+		<li class="child"><a href="Properties2.html" title="Sifat Tambahan">2</a></li>
+		<li class="child"><a href="Variance.html" title="Varians">3</a></li>
+		<li class="child"><a href="Skew.html" title="Kemencengan dan Kurtosis">4</a></li>
+		<li class="child"><a href="Covariance.html" title="Kovarians dan Korelasi">5</a></li>
+		<li class="child"><a href="Generating.html" title="Fungsi Pembangkit">6</a></li>
+		<li class="child"><a href="Conditional.html" title="Nilai Harapan Bersyarat">7</a></li>
+		<li class="child"><a href="Matrices.html" title="Matriks Nilai Harapan dan Kovarians">8</a></li>
+		<li class="child"><a href="Integral.html" title="Nilai Harapan sebagai Integral">9</a></li>
+		<li class="child"><a href="Conditional2.html" title="Meninjau Kembali Nilai Harapan Bersyarat">10</a></li>
+		<li class="child"><a href="Spaces.html" title="Ruang Vektor Peubah Acak">11</a></li>
+		<li class="child"><a href="Uniform.html" title="Peubah Terintegralkan Seragam">12</a></li>
+		<li class="current">13</li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Kumpulan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

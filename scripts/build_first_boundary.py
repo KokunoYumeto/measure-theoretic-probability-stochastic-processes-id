@@ -34,6 +34,229 @@ RANDOM_MANIFEST_SHA256 = "2ee154a38b57201457538db8c0e7df592a052eade8dcfda2176058
 MATHJAX_SHA256 = "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
 MATHJAX_BOLDSYMBOL_SHA256 = "716cf8735d00abfb1627f8adbbf4aeb915ac9b5c55d47aeaf276e73dac6a2aa1"
 RANDOM_BASE_URL = "https://www.randomservices.org/random/"
+KERNELS_READER_CORRECTIONS = (
+    {
+        "id": "sequence-index",
+        "old": r"\{A_j: i \in J\}",
+        "new": r"\{A_j: j \in J\}",
+        "description": "Use j, rather than the unrelated i, as the index of the disjoint family.",
+    },
+    {
+        "id": "kernel-measurability-sigma-algebra",
+        "old": r"untuk \( A \in \mathscr S \), serta sifat-sifat dasar integral.",
+        "new": r"untuk \( A \in \mathscr T \), serta sifat-sifat dasar integral.",
+        "description": "Use the target sigma-algebra in the kernel measurability argument.",
+    },
+    {
+        "id": "operator-norm-bound",
+        "old": r"\(\|Kf\| = \|K\| \|f\|\)",
+        "new": r"\(\|Kf\| \le \|K\| \|f\|\)",
+        "description": "State the valid norm inequality for an arbitrary bounded function.",
+    },
+    {
+        "id": "operator-codomain",
+        "old": r"\(Kf \in \mathscr B(T)\)",
+        "new": r"\(Kf \in \mathscr B(S)\)",
+        "description": "Place Kf in the bounded-function space on its actual domain S.",
+    },
+    {
+        "id": "kernel-product-integrand-variable",
+        "old": r"\int_S K(x, dy) L(x, A) =",
+        "new": r"\int_S K(x, dy) L(y, A) =",
+        "description": "Use the integration variable y in the composed-kernel proof.",
+    },
+    {
+        "id": "right-operator-domain",
+        "old": r"\( c K f(x) = c \int_S K(x, dy) f(y) \)",
+        "new": r"\( c K f(x) = c \int_T K(x, dy) f(y) \)",
+        "description": "Integrate the right action of a kernel over its target space T.",
+    },
+    {
+        "id": "associative-function-domain",
+        "old": r"\( K L f(x) = \int_S K(x, dy) \int_T L(y, dz) f(z) \) untuk \( x \in R \), dengan mengandaikan bahwa integralnya ada untuk \( x \in S \).",
+        "new": r"\( K L f(x) = \int_S K(x, dy) \int_T L(y, dz) f(z) \) untuk \( x \in R \), dengan mengandaikan bahwa integralnya ada untuk \( x \in R \).",
+        "description": "Use R, the domain of the composed operator, in the existence qualification.",
+    },
+    {
+        "id": "distributivity-function-domains",
+        "old": r"serta \( f \) dan \( g \) adalah fungsi terukur dari \( T \) ke \( \R \).",
+        "new": r"serta \( f \) dan \( g \) adalah fungsi terukur dari \( T \) ke \( \R \), sedangkan \( h \) dan \( j \) adalah fungsi terukur dari \( S \) ke \( \R \).",
+        "description": "Introduce correctly typed S-domain functions for the measure identities.",
+    },
+    {
+        "id": "distributivity-measure-sum-function",
+        "old": r"\( \mu(f + g) = \mu f + \mu g \)",
+        "new": r"\( \mu(h + j) = \mu h + \mu j \)",
+        "description": "Use the S-domain functions in the integral additivity identity.",
+    },
+    {
+        "id": "distributivity-measure-addition-function",
+        "old": r"\( (\mu + \nu) f = \mu f + \nu f \)",
+        "new": r"\( (\mu + \nu) h = \mu h + \nu h \)",
+        "description": "Use an S-domain function in the measure-addition identity.",
+    },
+    {
+        "id": "positive-measure-cone-linearity",
+        "old": "keduanya merupakan operator <em>linear</em>.",
+        "new": "operator pertama aditif dan homogen positif pada kerucut ukuran positif, sedangkan operator kedua linear.",
+        "description": "Do not call the positive-measure cone a real vector space.",
+    },
+    {
+        "id": "invariant-kernel-domain",
+        "old": r'<p class="dfn">Misalkan \( K \) adalah kernel dari \( (S, \mathscr S) \) ke \( (T, \mathscr T) \).</p>',
+        "new": r'<p class="dfn">Misalkan \( K \) adalah kernel pada \( (S, \mathscr S) \).</p>',
+        "description": "Require an endokernel so the invariant-measure and invariant-function equalities are typed.",
+    },
+    {
+        "id": "invariant-function-domain",
+        "old": r"Fungsi terukur \( f: T \to \R \) yang memenuhi \( K f = f \)",
+        "new": r"Fungsi terukur \( f: S \to \R \) yang memenuhi \( K f = f \)",
+        "description": "Use S as the domain of an invariant function for an endokernel on S.",
+    },
+    {
+        "id": "probability-product-argument",
+        "old": r"\[P Q(T) =",
+        "new": r"\[(P Q)(x, T) =",
+        "description": "Supply the state argument in the probability-kernel product calculation.",
+    },
+    {
+        "id": "probability-measure-parenthesis",
+        "old": r"\( (S, \mathscr S)) \)",
+        "new": r"\( (S, \mathscr S) \)",
+        "description": "Remove the extra closing parenthesis in the measure-space reference.",
+    },
+    {
+        "id": "kernel-function-right-domain",
+        "old": r"\[ K f(x) = \int_S k(x, y) f(y) \mu(dy), \quad x \in S \]",
+        "new": r"\[ K f(x) = \int_T k(x, y) f(y) \mu(dy), \quad x \in S \]",
+        "description": "Integrate the kernel function over the target space T.",
+    },
+    {
+        "id": "kernel-function-proof-domain",
+        "old": r"\[ K f(x) = \int_S K(x, dy) f(y) = \int_S k(x, y) f(y) \mu(dy), \quad x \in S \]",
+        "new": r"\[ K f(x) = \int_T K(x, dy) f(y) = \int_T k(x, y) f(y) \mu(dy), \quad x \in S \]",
+        "description": "Use T in both integrals of the kernel-function proof.",
+    },
+    {
+        "id": "doubly-stochastic-target",
+        "old": r"\( \int_S \lambda(dx) k(x, y) = 1 \) untuk \( y \in S \)",
+        "new": r"\( \int_S \lambda(dx) k(x, y) = 1 \) untuk \( y \in T \)",
+        "description": "Quantify the second doubly stochastic condition over the target space T.",
+    },
+    {
+        "id": "product-density-reference-measure",
+        "old": r"= \int_B k l(x, z) \mu(dz)",
+        "new": r"= \int_B k l(x, z) \rho(dz)",
+        "description": "Use rho, the target reference measure, in the product-density conclusion.",
+    },
+    {
+        "id": "discrete-operator-sum-domain",
+        "old": r"\[K f(x) = \sum_{y \in S} K(x, y) f(y), \quad x \in S \]",
+        "new": r"\[K f(x) = \sum_{y \in T} K(x, y) f(y), \quad x \in S \]",
+        "description": "Sum the right operator over the target index set T.",
+    },
+    {
+        "id": "discrete-kernel-product",
+        "old": r"\[ K L(x, z) = \sum_{y \in T} K(x, y) L(x, z), \quad (x, z) \in S \times L \]",
+        "new": r"\[ K L(x, z) = \sum_{y \in T} K(x, y) L(y, z), \quad (x, z) \in S \times U \]",
+        "description": "Use y in the second matrix factor and U as the product kernel's target space.",
+    },
+    {
+        "id": "conditional-expectation-integral-domain",
+        "old": r"\int_S P(x, dy) f(y)",
+        "new": r"\int_T P(x, dy) f(y)",
+        "description": "Integrate a T-valued conditional distribution over T.",
+    },
+    {
+        "id": "conditional-second-moment-macro",
+        "old": r"\( E\left(Y^2 \bigm| X = x\right) = P g(x)",
+        "new": r"\( \E\left(Y^2 \bigm| X = x\right) = P g(x)",
+        "description": "Use the defined expectation macro in the conditional second moment.",
+    },
+    {
+        "id": "normal-mixture-equality",
+        "old": r"\[ f P(y) \int_{-\infty}^\infty f(x) p(x, y) dx =",
+        "new": r"\[ f P(y) = \int_{-\infty}^\infty f(x) p(x, y) dx =",
+        "description": "Restore the missing equality sign in the normal-mixture density calculation.",
+    },
+    {
+        "id": "exponential-product-duplicate-integral",
+        "old": r"\int_0^\infty p(r, x) p(x, y) \, dx = \int_0^\infty = \int_0^\infty r x",
+        "new": r"\int_0^\infty p(r, x) p(x, y) \, dx = \int_0^\infty r x",
+        "description": "Remove the duplicated empty integral in the exponential-kernel product.",
+    },
+    {
+        "id": "poisson-left-action-statement",
+        "old": r"\( g P = f \)",
+        "new": r"\( g P = f + \bs{1} \)",
+        "description": "State the correct left action for g(r)=r under the Poisson family.",
+    },
+    {
+        "id": "poisson-left-action-value",
+        "old": r"\frac{r^{n+1}}{n!} dr = n \]",
+        "new": r"\frac{r^{n+1}}{n!} dr = n + 1 \]",
+        "description": "Evaluate the gamma integral as n+1 rather than n.",
+    },
+    {
+        "id": "normal-kernel-positive-power",
+        "old": r"Untuk \( n \in \N \), tentukan \( p^n \)",
+        "new": r"Untuk \( n \in \N_+ \), tentukan \( p^n \)",
+        "description": "Restrict density powers to positive n; the identity kernel at n=0 has no Lebesgue density.",
+    },
+    {
+        "id": "normal-kernel-orientation",
+        "old": r"\( x \mapsto p(x, \mu) \) adalah fungsi kepadatan probabilitas normal dengan rata-rata \( \mu \)",
+        "new": r"\( x \mapsto p(\mu, x) \) adalah fungsi kepadatan probabilitas normal dengan rata-rata \( \mu \)",
+        "description": "Keep the parameter first and observation second in the normal kernel.",
+    },
+    {
+        "id": "normal-kernel-square-variables",
+        "old": r"\[ p^2(\mu, x) = \int_{-\infty}^\infty p(\mu, t) p(t, y) \, dt = \frac{1}{\sqrt{4 \pi}} e^{-\frac{1}{4}(x - \mu)^2} \]",
+        "new": r"\[ p^2(\mu, x) = \int_{-\infty}^\infty p(\mu, t) p(t, x) \, dt = \frac{1}{\sqrt{4 \pi}} e^{-\frac{1}{4}(x - \mu)^2} \]",
+        "description": "Use x consistently as the output variable in the squared normal kernel.",
+    },
+    {
+        "id": "normal-density-half-factor",
+        "old": r"\exp\left[-\left(\frac{x - \mu}{\sigma}\right)^2\right]",
+        "new": r"\exp\left[-\frac{1}{2}\left(\frac{x - \mu}{\sigma}\right)^2\right]",
+        "description": "Restore the one-half factor in the general normal density exponent.",
+    },
+    {
+        "id": "beta-density-second-factor",
+        "old": r"x^{a - 1} y^{b - 1}",
+        "new": r"x^{a - 1} (1 - x)^{b - 1}",
+        "description": "Use the beta density's (1-x) second factor.",
+    },
+    {
+        "id": "negative-binomial-parameter-space",
+        "old": r"parameter penghentian \( k \) dan parameter keberhasilan \( \alpha \) mendefinisikan fungsi kernel \( p \) dari \( (0, \infty) \times (0, 1) \) ke \( \N \)",
+        "new": r"parameter penghentian \( k \) dan parameter keberhasilan \( \alpha \) mendefinisikan fungsi kernel \( p \) dari \( \N_+ \times (0, 1) \) ke \( \N \)",
+        "description": "Use the positive-integer stopping parameter space for the negative binomial family.",
+    },
+    {
+        "id": "negative-binomial-argument-order",
+        "old": r"p[(n, \alpha), k] = \binom{n + k - 1}{n} \alpha^k (1 - \alpha)^n",
+        "new": r"p[(k, \alpha), n] = \binom{n + k - 1}{n} \alpha^k (1 - \alpha)^n",
+        "description": "Put the stopping and success parameters before the observation n.",
+    },
+)
+
+KERNELS_READER_NOTES = (
+    {
+        "id": "o009-note-kernels-regular-conditional",
+        "after_heading": "Probabilitas Bersyarat",
+        "html": r"""<aside class="edition-note" id="o009-note-kernels-regular-conditional">
+<strong>Catatan edisi tentang keberadaan.</strong> Kernel probabilitas bersyarat
+seperti di bawah ini tidak otomatis ada pada ruang terukur sebarang. Pernyataan
+tersebut dibaca dengan asumsi bahwa suatu distribusi bersyarat reguler telah
+dipilih; ruang Borel baku memberikan kondisi cukup yang lazim. Versinya hanya
+ditentukan hampir di mana-mana terhadap distribusi \(X\), sehingga nilainya pada
+himpunan nol dapat dipilih berbeda. Tambahan asli ini berlisensi CC BY 4.0.
+</aside>""",
+        "description": "Qualify existence and almost-everywhere uniqueness of regular conditional distributions.",
+    },
+)
+
 THEORY_UNITS = (
     {
         "rel": "prob/Convergence.html",
@@ -166,6 +389,29 @@ THEORY_UNITS = (
             "Properties",
             "Convergence",
             "Examples",
+        ),
+    },
+    {
+        "rel": "expect/Kernels.html",
+        "authority_sha256": "9dd2a5474f284fcb11c9e9f9e81099a1c4fe1708094bfcd64b08ccb9f82c5b8d",
+        "source_title": "Kernels and Operators",
+        "nav_label": "Kernel dan operator",
+        "rights_id": "o009-rights-random-kernels-operators",
+        "fragment_corrections": {},
+        "reader_corrections": KERNELS_READER_CORRECTIONS,
+        "reader_notes": KERNELS_READER_NOTES,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Kernels and Operators",
+            "Basic Theory",
+            "Definition",
+            "Constructions",
+            "Kernel Functions",
+            "Examples and Special Cases",
+            "Discrete Spaces",
+            "Conditional Probability",
+            "Parametric Distributions",
         ),
     },
 )
@@ -371,6 +617,24 @@ def build_theory_unit(stage: Path, unit: dict[str, object]) -> None:
             anchor["href"] = relative_target + (f"#{parsed.fragment}" if parsed.fragment else "")
         else:
             anchor["href"] = resolved
+    for note in tuple(unit.get("reader_notes", ())):
+        heading_text = str(note["after_heading"])
+        headings = [
+            heading
+            for heading in soup.find_all(("h3", "h4"))
+            if heading.get_text(" ", strip=True) == heading_text
+        ]
+        if len(headings) != 1:
+            raise RuntimeError(
+                f"reader-note heading mismatch in {unit['rel']}: {heading_text!r}"
+            )
+        anchor_unit = headings[0].find_next("div", class_="unit")
+        if anchor_unit is None:
+            raise RuntimeError(f"reader-note insertion unit missing in {unit['rel']}")
+        note_soup = BeautifulSoup(str(note["html"]), "lxml")
+        if note_soup.body is None or len(note_soup.body.contents) != 1:
+            raise RuntimeError(f"reader-note payload is not one element in {unit['rel']}")
+        anchor_unit.insert_after(note_soup.body.contents[0])
     official_url = urllib.parse.urljoin(RANDOM_BASE_URL, rel.as_posix())
     source_title = str(unit["source_title"])
     rights_id = str(unit["rights_id"])
@@ -404,7 +668,17 @@ atribusi. <a href="{official_url}">Baca sumber resmi</a>.
         insertion_point = node
     output = stage / rel
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(str(soup), encoding="utf-8", newline="\n")
+    rendered = str(soup)
+    for correction in tuple(unit.get("reader_corrections", ())):
+        old = str(correction["old"])
+        new = str(correction["new"])
+        if rendered.count(old) != 1:
+            raise RuntimeError(
+                f"reader correction {correction['id']} matched "
+                f"{rendered.count(old)} times in {unit['rel']}"
+            )
+        rendered = rendered.replace(old, new, 1)
+    output.write_text(rendered, encoding="utf-8", newline="\n")
 
 
 def build_theory(stage: Path) -> None:

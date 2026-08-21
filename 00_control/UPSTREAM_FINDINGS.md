@@ -93,3 +93,44 @@ These bytes remain preserved pending exact deduplication at corpus completion.
 - The final conditional-expectation example has a strict-inequality gap.
 
 All are preserved as authority findings pending final deduplication.
+
+## `expect/Kernels.html`
+
+The frozen authority and the topology-preserving translation retain the exact
+source formulas. The built reader applies only the following high-confidence,
+machine-recorded repairs; every replacement is asserted to match exactly once.
+
+- Lines 91, 116, 122, 132, and 133: one omitted `</li>`; `{A_j: i \in J}`
+  should use `j`; the kernel-measurability proof needs `A \in \mathscr T`;
+  the norm assertion is an inequality, not equality for arbitrary `f`; and
+  `Kf` belongs to `\mathscr B(S)`, not `\mathscr B(T)`.
+- Lines 196, 228, and 246: use `L(y,A)` in the composition integral, integrate
+  the right action over `T`, and quantify the composed function at `x \in R`.
+- Lines 273–283: the last two distributive identities need separate functions
+  on `S`; positive measures form a cone, so their action is additive and
+  positively homogeneous rather than linear over all real scalars.
+- Lines 296–299, 317, and 319: invariant measures/functions require an
+  endokernel on `S`; write `(PQ)(x,T)`; remove one stray parenthesis.
+- Lines 348, 352, 383, and 410: two kernel-function integrals are over `T`, the
+  second doubly stochastic condition ranges over `y \in T`, and the composed
+  density concludes with the target reference measure `\rho(dz)`.
+- Lines 422 and 426: the discrete right action sums over `T`; composition uses
+  `L(y,z)` and has output domain `S \times U`.
+- Lines 486–491: a regular conditional distribution need not exist on arbitrary
+  measurable spaces and is determined only almost everywhere. The reader adds
+  a separately licensed note giving the standard-Borel sufficient condition
+  and the version/zero-set qualification.
+- Lines 509 and 534: integrate the conditional distribution over `T`, and
+  restore the missing equality sign in the normal-mixture calculation.
+- Lines 586, 597, and 606: delete a duplicated empty integral; for `g(r)=r`,
+  the Poisson left action is `gP=f+1` and the value is `n+1`, not `n`.
+- Lines 619 and 629–630: density powers use `n \in \mathbb N_+`, and the
+  squared-normal-kernel formula must use one output variable consistently.
+- Lines 649, 652, and 654–655: the general normal exponent needs the factor
+  `1/2`; the beta density needs `(1-x)^{b-1}`; and the negative-binomial
+  parameter space/order is `\mathbb N_+ \times (0,1)` with
+  `p[(k,\alpha),n]`.
+
+Minor source prose/markup candidates include the misspelling `kerneal`, the
+duplicated “If If,” and the omitted list close noted above. Natural Indonesian
+calques were repaired in translation prose without changing source formulas.
