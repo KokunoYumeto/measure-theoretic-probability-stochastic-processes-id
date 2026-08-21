@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>General Markov Processes</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Markov process, transition probability, Markov property, Feller process, stopping time, transition kernel, strong Markov property, invariance, stationary independent increments">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>1. Introduction to General Markov Processes</h2>
+</header>
+
+<p>A <dfn>Markov process</dfn> is a <a href="../prob/Processes.html">random process</a> indexed by time, and with the property that the future is independent of the past, given the present.  Markov processes, named for <a href="JavaScript:openAncillary('../biographies/Markov.html')" class="ancillary">Andrei Markov</a>, are among the most important of all random processes. In a sense, they are the stochastic analogs of <a href="#rec">differential equations and recurrence relations</a>, which are of course, among the most important deterministic processes.</p>
+
+<p>The complexity of the theory of Markov processes depends greatly on whether  the time space \( T \) is \( \N \) (discrete time) or \( [0, \infty) \) (continuous time) and whether the state space is <dfn>discrete</dfn> (countable, with all subsets measurable) or a more general <a href="../foundations/Topology.html">topological space</a>. When \( T = [0, \infty) \) or when the state space is a general space, continuity assumptions usually need to be imposed in order to rule out various types of weird behavior that would otherwise complicate the theory.</p>
+
+<p>When the state space is discrete, Markov processes are known as <dfn>Markov chains</dfn>. The general theory of Markov chains is mathematically rich and relatively simple.</p>
+
+<ul>
+	<li>When \( T = \N \) and the state space is discrete, Markov processes are known as <dfn>discrete-time Markov chains</dfn>. The theory of such processes is mathematically elegant and complete, and is understandable with minimal reliance on measure theory. Indeed, the main tools are basic probability and linear algebra. Discrete-time Markov chains are studied in this chapter, along with a number of special models.</li>
+	<li>When \( T = [0, \infty) \) and the state space is discrete, Markov processes are known as <dfn>continuous-time Markov chains</dfn>. If we avoid a few technical difficulties (created, as always, by the continuous time space), the theory of these processes is also reasonably simple and mathematically very nice. The Markov property implies that the process, sampled at the random times when the state changes, forms an embedded <em>discrete-time</em> Markov chain, so we can apply the theory that we will have already learned. The Markov property also implies that the holding time in a state has the memoryless property and thus must have an <a href="../poisson/Exponential.html">exponential distribution</a>, a distribution that we know well. In terms of what you may have already studied, the <a href="../poisson/index.html">Poisson process</a> is a simple example of a continuous-time Markov chain.</li>
+</ul>
+
+<p>For a general state space, the theory is more complicated and technical, as noted above. However, we can distinguish a couple of classes of Markov processes, depending again on whether the time space is discrete or continuous.</p>
+
+<ul>
+	<li>When \( T = \N \) and \( S \ = \R \), a simple example of a Markov process is the partial sum process associated with a sequence of independent, identically distributed real-valued random variables. Such sequences are studied in the chapter on <a href="../sample/index.html">random samples</a> (but not as Markov processes), and revisited <a href="#inc">below</a>.</li>
+	<li>In the case that \( T = [0, \infty) \) and \( S = \R\) or more generally \(S = \R^k \), the most important Markov processes are the <dfn>diffusion processes</dfn>. Generally, such processes can be constructed via stochastic differential equations from <a href="../brown/index.html">Brownian motion</a>, which thus serves as the quintessential example of a Markov process in continuous time and space.</li>
+</ul>
+
+<p>The goal of this section is to give a broad sketch of the general theory of Markov processes. Some of the statements are not completely rigorous and some of the proofs are omitted or are sketches, because we want to emphasize the main ideas without getting bogged down in technicalities.  If you are a new student of probability you may want to just browse this section, to get the basic ideas and notation, but skipping over the proofs and technical details. Then jump ahead to the study of <a href="Discrete.html">discrete-time Markov chains</a>. On the other hand, to understand this section in more depth, you will need to review topcis in the chapter on <a href="../foundations/index.html">foundations</a> and in the sections on <a href="../prob/Processes.html">stochastic processes</a> and <a href="../prob/Stop.html">stopping times</a>.</p>
+
+<h3 id="bas">Basic Theory</h3>
+
+<h4 id="pre">Preliminaries</h4>
+
+<p>As usual, our starting point is a probability space \( (\Omega, \mathscr{F}, \P) \), so that \( \Omega \) is the set of outcomes, \( \mathscr{F} \) the <a href="../foundations/Measurable.html">\( \sigma \)-algebra</a> of events, and \( \P \) the probability measure on \( (\Omega, \mathscr{F}) \). The time set \( T \) is either \( \N \) (discrete time) or \( [0, \infty) \) (continuous time). In the first case, \( T \) is given the <a href="../foundations/Topology.html#dsc">discrete topology</a> and in the second case \( T \) is given the usual <a href="../foundations/Topology.html#ecl">Euclidean topology</a>. In both cases, \( T \) is given the Borel \( \sigma \)-algebra \( \mathscr{T} \), the \( \sigma \)-algebra generated by the open sets. In the discrete case when  \( T = \N \), this is simply the power set of \( T \) so that every subset of \( T \) is measurable; every function from \( T \) to another <a href="../foundations/Measurable.html">measurable space</a> is measurable; and every function from \( T \) to another topological space is continuous. The time space \( (T, \mathscr{T}) \) has a natural measure; counting measure \( \# \) in the discrete case, and Lebesgue in the continuous case.</p>
+
+<p>The set of states \( S \) also has a \( \sigma \)-algebra \( \mathscr{S} \) of admissible subsets, so that \( (S, \mathscr{S}) \) is the <dfn>state space</dfn>. Usually \( S \) has a  topology and \( \mathscr{S} \) is the Borel \( \sigma \)-algebra generated by the open sets. A typical set of assumptions is that the topology on \( S \) is <dfn>LCCB</dfn>: locally compact, Hausdorff, and with a countable base. These particular assumptions are general enough to capture all of the most important processes that occur in applications and yet are restrictive enough for a nice mathematical theory. Usually, there is a natural positive measure \( \lambda \) on the state space \( (S, \mathscr{S}) \). When \( S \) has an LCCB topology and \( \mathscr{S} \) is the Borel \( \sigma \)-algebra, the measure \( \lambda \) wil usually be a <dfn>Borel measure</dfn> satisfying \( \lambda(C) \lt \infty \) if \( C \subseteq S \) is compact. The term <dfn>discrete state space</dfn> means that \( S \) is countable with \( \mathscr{S} = \mathscr{P}(S) \), the collection of all subsets of \( S \). Thus every subset of \( S \) is measurable, as is every function from \( S \) to another measurable space. This is the Borel \( \sigma \)-algebra for the discrete topology on \( S \), so that every function from \( S \) to another topological space is continuous. The compact sets are simply the finite sets, and the reference measure is \( \# \), counting measure. If \( S = \R^k \) for some \( k \in S \) (another common case), then we usually give \( S \) the <a href="../foundations/Topology.html#ecl">Euclidean topology</a> (which is LCCB) so that \( \mathscr{S} \) is the usual Borel \( \sigma \)-algebra. The compact sets are the closed, bounded sets, and the reference measure \( \lambda \) is \( k \)-dimensional Lebesgue measure.</p>
+
+<p>Clearly, the topological and measure structures on \( T \) are not really necessary when \( T = \N \), and similarly these structures on \( S \) are not necessary when \( S \) is countable. But the main point is that the assumptions unify the discrete and the common continuous cases. Also, it should be noted that much more general state spaces (and more general time spaces) are possible, but most of the important Markov processes that occur in applications fit the setting we have described here.</p>
+
+<p>Various spaces of real-valued functions on \( S \) play an important role. Let \( \mathscr{B} \) denote the collection of bounded, measurable functions \( f: S \to \R \). With the usual (pointwise) addition and scalar multiplication, \( \mathscr{B} \) is a vector space. We give \( \mathscr{B} \) the supremum norm, defined by \( \|f\| = \sup\{\left|f(x)\right|: x \in S\} \).</p>
+
+<p>Suppose now that \( \bs{X} = \{X_t: t \in T\} \) is a <a href="../prob/Processes.html">stochastic process</a> on \( (\Omega, \mathscr{F}, \P) \) with state space \( S \) and time space \( T \). Thus,  \( X_t \) is a random variable taking values in \( S \) for each \( t \in T \), and we think of \( X_t \in S \) as the <dfn>state</dfn> of a system at <dfn>time</dfn> \( t \in T\). We also assume that we have a collection \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\}\) of \( \sigma \)-algebras with the properties that \( X_t \) is measurable with respect to \( \mathscr{F}_t \) for \( t \in T \), and the \( \mathscr{F}_s \subseteq \mathscr{F}_t \subseteq \mathscr{F} \) for \( s, \, t \in T \) with \( s \le t \).  Intuitively, \( \mathscr{F}_t \) is the collection of event up to time \( t \in T \). Technically, the assumptions mean that \( \mathfrak{F} \) is a <a href="../prob/Stop.html">filtration</a> and that the process \( \bs{X} \) is <dfn>adapted</dfn> to \( \mathfrak{F} \). The most basic (and coarsest) filtration is the <dfn>natural filtration</dfn>  \( \mathfrak{F}^0 = \left\{\mathscr{F}^0_t: t \in T\right\} \) where \( \mathscr{F}^0_t = \sigma\{X_s: s \in T, s \le t\} \), the \( \sigma \)-algebra generated by the process up to time \( t \in T \).  In continuous time, however, it is often necessary to use slightly finer \( \sigma \)-algebras in order to have a nice mathematical theory. In particular, we often need to assume that the filtration \( \mathfrak{F} \) is <dfn>right continuous</dfn> in the sense that \( \mathscr{F}_{t+} = \mathscr{F}_t \) for \( t \in T \) where \(\mathscr{F}_{t+} = \bigcap\{\mathscr{F}_s: s \in T, s \gt t\} \). We can accomplish this by taking \( \mathfrak{F} = \mathfrak{F}^0_+ \) so that \( \mathscr{F}_t = \mathscr{F}^0_{t+} \)for \( t \in T \), and in this case, \( \mathfrak{F} \) is referred to as the <dfn>right continuous refinement</dfn> of the natural filtration. We also sometimes need to assume that \( \mathfrak{F} \) is <dfn>complete</dfn> with respect to \( \P \) in the sense that if \( A \in \mathscr{S} \) with \( \P(A) = 0 \) and \( B \subseteq A \) then \( B \in \mathscr{F}_0 \). That is, \( \mathscr{F}_0 \) contains all of the <dfn>null events</dfn> (and hence also all of the <dfn>almost certain</dfn> events), and therefore so does \( \mathscr{F}_t \) for all \( t \in T \).</p>
+
+<h4 id="dfn">Definitions</h4>
+
+<div class="unit" id="dfn1">
+	<p class="dfn">The random process \( \bs{X} \) is a <dfn>Markov process</dfn> if 
+	\[ \P(X_{s+t} \in A \mid \mathscr{F}_s) = \P(X_{s+t} \in A \mid X_s) \]
+	for all \( s, \, t \in T \) and \( A \in \mathscr{S} \).</p>
+</div>
+
+<p>The defining condition, known appropriately enough as the the <dfn>Markov property</dfn>, states that the conditional distribution of \( X_{s+t} \) given \( \mathscr{F}_s \) is the same as the conditional distribution of \( X_{s+t} \) just given \( X_s \). Think of \( s \) as the present time, so that \( s + t \) is a time in the future. If we know the present state \( X_s \), then any additional knowledge of events in the past is irrelevant in terms of predicting the future state \( X_{s + t} \). Technically, the conditional probabilities in the definition are random variables, and the equality must be interpreted as holding with probability 1. As you may recall, <a href="../expect/Conditional2.html">conditional expected value</a> is a more general and useful concept than conditional probability, so the following theorem may come as no surprise.</p>
+
+<div class="unit" id="dfn2">
+	<p class="dfn">The random process \( \bs{X} \) is a Markov process if and only if
+	\[ \E[f(X_{s+t}) \mid \mathscr{F}_s] = \E[f(X_{s+t}) \mid X_s] \]
+	for every \( s, \, t \in T \) and every \( f \in \mathscr{B} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The condition in this theorem clearly implies the Markov property, by letting \( f = \bs{1}_A \), the indicator function of \( A \in \mathscr{S} \). The converse is a classical bootstrapping argument: the Markov property implies the expected value condition</p>
+		<ol class="sub">
+			<li>First when \( f = \bs{1}_A \) for \( A \in \mathscr{S} \) (by definition).</li>
+			<li>Next when \( f \in \mathscr{B} \) is a simple function, by linearity.</li>
+			<li>Next when \( f  \in \mathscr{B}\) is nonnegative, by the monotone convergence theorem.</li>
+			<li>Finally for general \( f \in \mathscr{B} \) by considering positive and negative parts.</li>
+		</ol>
+	</details>
+</div>
+
+<p>Technically, we should say that \( \bs{X} \) is a Markov process <dfn>relative to</dfn> the filtration \( \mathfrak{F} \). If \( \bs{X} \) satisfies the Markov property relative to a filtration, then it satisfies the Markov property relative to any coarser filtration.</p>
+
+<div class="unit">
+	<p class="math">Suppose that the stochastic process \( \bs{X} = \{X_t: t \in T\} \) is adapted to the filtration \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) and that \( \mathfrak{G} = \{\mathscr{G}_t: t \in T\} \) is a filtration that is finer than \( \mathfrak{F} \). If \( \bs{X} \) is a Markov process relative to \( \mathfrak{G} \) then \( \bs{X} \) is a Markov process relative to \( \mathfrak{F} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>First recall that \( \bs{X} \) is adapted to \( \mathfrak{G} \) since \( \bs{X} \) is adapted to \( \mathfrak{F} \). If \( s, \, t \in T \) and \( f \in \mathscr{B} \) then
+		\[ \E[f(X_{s+t}) \mid \mathscr{F}_s] = \E\left(\E[f(X_{s+t}) \mid \mathscr{G}_s] \mid \mathscr{F}_s\right)= \E\left(\E[f(X_{s+t}) \mid X_s] \mid \mathscr{F}_s\right) = \E[f(X_{s+t}) \mid X_s] \]
+		The first equality is a basic property of conditional expected value. The second uses the fact that \( \bs{X} \) is Markov relative to \( \mathfrak{G} \), and the third follows since \( X_s \) is measurable with respect to \( \mathscr{F}_s \).</p>
+	</details>
+</div>
+
+<p>In particular, if \( \bs{X} \) is a Markov process, then \( \bs{X} \) satisfies the Markov property relative to the natural filtration \( \mathfrak{F}^0 \). The theory of Markov processes is simplified considerably if we add an additional assumption.</p>
+
+<div class="unit" id="dfn3">
+	<p class="dfn">A Markov process \( \bs{X} \) is <dfn>time homogeneous</dfn> if 
+	\[ \P(X_{s+t} \in A \mid X_s = x) = \P(X_t \in A \mid X_0 = x) \]
+	for every \( s, \, t \in T \), \( x \in S \) and \( A \in \mathscr{S} \).</p>
+</div>
+
+<p>So if \( \bs{X} \) is homogeneous (we usually don't bother with the <em>time</em> adjective), then the process \( \{X_{s+t}: t \in T\} \) given \( X_s = x \) is equivalent (in distribution) to the process \( \{X_t: t \in T\} \) given \( X_0 = x \). For this reason, the initial distribution is often unspecified in the study of Markov processes&mdash;if the process is in state \( x \in S \) at a particular time \( s \in T \), then it doesn't really matter how the process got to state \( x \); the process essentially <q>starts over</q>, independently of the past. The term <dfn>stationary</dfn> is sometimes used instead of homogeneous.</p>
+
+<p>From now on, we will usually assume that our Markov processes are homogeneous. This is not as big of a loss of generality as you might think. A non-homogenous process can be turned into a homogeneous process by enlarging the state space, as shown in exericse <a href="#enl1" class="ref"></a>. For a homogeneous Markov process, if \( s, \, t \in T \), \( x \in S \), and \( f \in \mathscr{B}\), then
+\[ \E[f(X_{s+t}) \mid X_s = x] = \E[f(X_t) \mid X_0 = x] \]</p>
+
+<h4 id="fel">Feller Processes</h4>
+
+<p>In continuous time, or with general state spaces, Markov processes can be very strange without additional continuity assumptions. Suppose (as is usually the case) that \( S \) has an LCCB topology and that \( \mathscr{S} \) is the Borel \( \sigma \)-algebra. Let \( \mathscr{C} \) denote the collection of bounded, continuous functions \( f: S \to \R \). Let \( \mathscr{C}_0 \) denote the collection of continuous functions \( f: S \to \R \) that <dfn>vanish at \(\infty\)</dfn>. The last phrase means that for every \( \epsilon \gt 0 \), there exists a compact set \( C \subseteq S \) such that \( \left|f(x)\right| \lt \epsilon \) if \( x \notin C \). With the usual (pointwise) operations of addition and scalar multiplication, \( \mathscr{C}_0 \) is a vector subspace of \( \mathscr{C} \), which in turn is a vector subspace of \( \mathscr{B} \). Just as with \( \mathscr{B} \), the supremum norm is used for \( \mathscr{C} \) and \( \mathscr{C}_0 \).</p>
+
+<div class="unit" id="fel1">
+	<p class="dfn">A Markov process \( \bs{X} = \{X_t: t \in T\} \) is a <dfn>Feller process</dfn> if the following conditions are satisfied.</p>
+	<ol class="sub">
+		<li><dfn>Continuity in space</dfn>: For \( t \in T \) and \( y \in S \), the distribution of \( X_t \) given \( X_0 = x \) <a href="../dist/Convergence.html">converges</a> to the distribution of \( X_t \) given \( X_0 = y \) as \( x \to y \).</li>
+		<li><dfn>Continuity in time</dfn>: Given \(X_0 = x \) for \( x \in S \), \( X_t \) <a href="../prob/Convergence.html">converges in probability</a> to \( x \) as \( t \downarrow 0 \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>This means that \( \E[f(X_t) \mid X_0 = x] \to \E[f(X_t) \mid X_0 = y] \) as \( x \to y \) for every \( f \in \mathscr{C} \).</li>
+			<li>This means that \( \P[X_t \in U \mid X_0 = x] \to 1 \) as \( t \downarrow 0 \) for every neighborhood \( U \) of \( x \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Feller processes are named for William Feller. Note that if \( S \) is discrete, (a) is automatically satisfied and if \( T \) is discrete, (b) is automatically satisfied. In particular, every discrete-time Markov chain is a Feller Markov process. There are certainly more general Markov processes, but most of the important processes that occur in applications are Feller processes, and a number of nice properties flow from the assumptions. Here is the first:</p>
+
+<div class="unit" id="fel2">
+	<p class="math">If \( \bs{X} = \{X_t: t \in T\} \) is a Feller process, then there is a <a href="../prob/Processes.html">version</a> of \( \bs{X} \) such that \( t \mapsto X_t(\omega) \) is continuous from the right and has left limits for every \( \omega \in \Omega \).</p>
+</div>
+
+<p>Again, this result is only interesting in continuous time \( T = [0, \infty) \). Recall that for \( \omega \in \Omega \), the function \( t \mapsto X_t(\omega) \) is a <dfn>sample path</dfn> of the process. So we will often assume that a Feller Markov process has sample paths that are right continuous have left limits, since we know there is a version with these properties.</p>
+
+<h4 id="smp">Stopping Times and the Strong Markov Property</h4>
+
+<p>For our next discussion, you may need to review again the section on <a href="../prob/Stop.html">filtrations and stopping times</a>.To give a quick review, suppose again that we start with our probability space \( (\Omega, \mathscr{F}, \P) \) and the filtration \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) (so that we have a <dfn>filtered probability space</dfn>).</p>
+
+<p>Since time (past, present, future) plays such a fundamental role in Markov processes, it should come as no surprise that random times are important. We often need to allow random times to take the value \( \infty \), so we need to enlarge the set of times to \( T_\infty = T \cup \{\infty\} \). The topology on \( T \) is extended to \( T_\infty \) by the rule that for \( s \in T \), the set \( \{t \in T_\infty: t \gt s\} \) is an open neighborhood of \( \infty \). This is the one-point compactification of \( T \) and is used so that the notion of <em>time converging to infinity</em> is preserved. The Borel \( \sigma \)-algebra \( \mathscr{T}_\infty \) is used on \( T_\infty \), which again is just the power set in the discrete case.</p>
+
+<p>If \( \bs{X} = \{X_t: t \in T\} \) is a stochastic process on the sample space \( (\Omega, \mathscr{F}) \), and if \( \tau \) is a random time, then naturally we want to consider the state \( X_\tau \) at the random time. There are two problems. First if \( \tau \) takes the value \( \infty \), \( X_\tau \) is not defined. The usual solution is to add a new <q>death state</q> \( \delta \) to the set of states \( S \), and then to give \( S_\delta = S \cup \{\delta\} \) the \( \sigma \) algebra \( \mathscr{S}_\delta = \mathscr{S} \cup \{A \cup \{\delta\}: A \in \mathscr{S}\} \). A function \( f \in \mathscr{B} \) is extended to \( S_\delta \) by the rule \( f(\delta) = 0 \). The second problem is that \( X_\tau \) may not be a valid random variable (that is, measurable) unless we assume that the stochastic process \( \bs{X} \) is measurable. Recall that this means that \( \bs{X}: \Omega \times T \to S \) is measurable relative to \( \mathscr{F} \otimes \mathscr{T} \) and \( \mathscr{S} \). (This is always true in discrete time.)</p>
+
+<p>Recall next that a random time \( \tau \) is a <a href="../prob/Stop.html">stopping time</a> (also called a <dfn>Markov time</dfn> or an <dfn>optional time</dfn>) relative to \( \mathfrak{F} \) if \( \{\tau \le t\} \in \mathscr{F}_t \) for each \( t \in T \). Intuitively, we can tell whether or not \( \tau \le t \)  from the information available to us at time \( t \). In a sense, a stopping time is a random time that does not require that we see into the future. Of course, the concept depends critically on the filtration. Recall that if a random time \( \tau \) is a stopping time for a filtration \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) then it is also a stopping time for a finer filtration \( \mathfrak{G} = \{\mathscr{G}_t: t \in T\} \), so that \( \mathscr{F}_t \subseteq \mathscr{G}_t \) for \( t \in T \). Thus, the finer the filtration, the larger the collection of stopping times. In fact if the filtration is the trivial one where \( \mathscr{F}_t = \mathscr{F} \) for all \( t \in T \) (so that all information is available to us from the beginning of time), then <em>any</em> random time is a stopping time. But of course, this trivial filtration is usually not sensible.</p>
+
+<p>Next, recall that if \( \tau \) is a stopping time for the filtration \( \mathfrak{F} \), then the \( \sigma \)-algebra \( \mathscr{F}_\tau \) associated with \( \tau \) is given by
+\[ \mathscr{F}_\tau = \left\{A \in \mathscr{F}: A \cap \{\tau \le t\} \in \mathscr{F}_t \text{ for all } t \in T\right\} \]
+Intuitively, \( \mathscr{F}_\tau \) is the collection of events up to the random time \( \tau \), analogous to the \( \mathscr{F}_t \) which is the collection of events up to the deterministic time \( t \in T \). If \( \bs{X} = \{X_t: t \in T\} \) is a stochastic process adapted to \( \mathfrak{F} \) and if \( \tau \) is a stopping time relative to \( \mathfrak{F} \), then we would hope that \( X_\tau \) is measurable with respect to \( \mathscr{F}_\tau \) just as \( X_t \) is measurable with respect to \( \mathscr{F}_t \) for deterministic \( t \in T \). However, this will generally not be the case unless \( \bs{X} \) is <dfn>progressively measurable</dfn> relative to \( \mathfrak{F} \), which means that \( \bs{X}: \Omega \times T_t \to S \) is measurable with respect to \( \mathscr{F}_t \otimes \mathscr{T}_t \) and \( \mathscr{S} \) where \( T_t = \{s \in T: s \le t\} \) and \( \mathscr{T}_t \) the corresponding Borel \( \sigma \)-algebra. This is always true in discrete time, of course, and more generally if \( S \) has an LCCB topology with \( \mathscr{S} \) the Borel \( \sigma \)-algebra, and \( \bs{X} \) is right continuous. If \( \bs{X} \) is progressively measurable with respect to \( \mathfrak{F} \) then \( \bs{X} \) is measurable and \( \bs{X} \) is adapted to \( \mathfrak{F} \).</p>
+
+<p>The <dfn>strong Markov property</dfn> for our stochastic process \( \bs{X} = \{X_t: t \in T\} \) states that the future is independent of the past, given  the present, when the present time is a stopping time.</p>
+
+<div class="unit" id="smp3">
+	<p class="dfn">The random process \( \bs{X} \) is a <dfn>strong Markov process</dfn> if
+	\[ \E[f(X_{\tau + t}) \mid \mathscr{F}_\tau] = \E[f(X_{\tau + t}) \mid X_\tau] \]
+	for every \(t \in T \), stopping time \( \tau \), and \( f \in \mathscr{B} \).</p>
+</div>
+
+<p>As with the regular Markov property, the strong Markov property depends on the underlying filtration \( \mathfrak{F} \). If the property holds with respect to a given filtration, then it holds with respect to a coarser filtration.</p>
+
+<div class="unit">
+	<p class="math">Suppose that the stochastic process \( \bs{X} = \{X_t: t \in T\} \) is progressively measurable relative to the filtration \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) and that the filtration \( \mathfrak{G} = \{\mathscr{G}_t: t \in T\} \) is finer than \( \mathfrak{F} \). If \( \bs{X} \) is a strong Markov process relative to \( \mathfrak{G} \) then \( \bs{X} \) is a strong Markov process relative to \( \mathfrak{F} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall again that since \( \bs{X} \) is adapted to \( \mathfrak{F} \), it is also adapted to \( \mathfrak{G} \). Suppose that \( \tau \) is a finite stopping time for \( \mathfrak{F} \) and that \( t \in T \) and \( f \in \mathscr{B} \). Then \( \tau \) is also a stopping time for \( \mathfrak{G} \), and \( \mathscr{F}_\tau \subseteq \mathscr{G}_\tau \). Hence
+		\[ \E[f(X_{\tau+t}) \mid \mathscr{F}_\tau] = \E\left(\E[f(X_{\tau+t}) \mid \mathscr{G}_\tau] \mid \mathscr{F}_\tau\right)= \E\left(\E[f(X_{\tau+t}) \mid X_\tau] \mid \mathscr{F}_\tau\right) = \E[f(X_{\tau+t}) \mid X_\tau] \]
+		The first equality is a basic property of conditional expected value. The second uses the fact that \( \bs{X} \) has the strong Markov property relative to \( \mathfrak{G} \), and the third follows since \( \bs{X_\tau} \) measurable with respect to \( \mathscr{F}_\tau \). In continuous time, it's last step that requires progressive measurability.</p>
+	</details>
+</div>
+
+<p>So if \( \bs{X} \) is a strong Markov process, then \( \bs{X} \) satisfies the strong Markov property relative to its natural filtration. Again there is a tradeoff: finer filtrations allow more stopping times (generally a good thing), but make the strong Markov property harder to satisfy and may not be reasonable (not so good). So we usually don't want filtrations that are too much finer than the natural one.</p>
+
+<p>With the strong Markov and homogeneous properties, the process \( \{X_{\tau + t}: t \in T\} \) given \( X_\tau = x \) is equivalent in distribution to the process \( \{X_t: t \in T\} \) given \( X_0 = x \). Clearly, the strong Markov property implies the ordinary Markov property, since a fixed time \( t \in T \) is trivially also a stopping time. The converse is true in discrete time.</p>
+
+<div class="unit" id="smp4">
+	<p class="math">Suppose that \( \bs{X} = \{X_n: n \in \N\} \) is a (homogeneous) Markov process in discrete time. Then \( \bs{X} \) is a strong Markov process.</p>
+</div>
+
+<p>As always in continuous time, the situation is more complicated and depends on the continuity of the process \( \bs{X} \) and the filtration \( \mathfrak{F} \). Here is the standard result for Feller processes.</p>
+
+<div class="unit">
+	<p class="math">If \( \bs{X} = \{X_t: t \in [0, \infty) \) is a Feller Markov process, then \( \bs{X} \) is a strong Markov process relative to filtration \( \mathfrak{F}^0_+ \), the right-continuous refinement of the natural filtration..</p>
+</div>
+
+<h4 id="trn">Transition Kernels of Markov Processes</h4>
+
+<p>For our next discussion, you may need to review the section on <a href="../expect/Kernels.html">kernels and operators</a> in the chapter on <a href="../expect/index.html">expected valuez</a>. Suppose again that \( \bs{X} = \{X_t: t \in T\} \) is a (homogeneous) Markov process with state space \( S \) and time space \( T \), as described above. The kernels in the following definition are of fundamental importance in the study of \( \bs{X} \)</p>
+
+<div class="unit" id="trn1">
+	<p class="math">For \( t \in T \), let
+	\[ P_t(x, A) = \P(X_t \in A \mid X_0 = x), \quad x \in S, \, A \in \mathscr{S} \]
+	Then \( P_t \) is a probability kernel on \( (S, \mathscr{S}) \), known as the <dfn>transition kernel</dfn> of \( \bs{X} \) for time \( t \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Fix \( t \in T \). The measurability of \( x \mapsto \P(X_t \in A \mid X_0 = x) \) for \( A \in \mathscr{S} \) is built into the definition of conditional probability. Also, of course, \( A \mapsto \P(X_t \in A \mid X_0 = x) \) is a probability measure on \( \mathscr{S} \) for \( x \in S \). In general, the conditional distribution of one random variable, conditioned on a value of another random variable defines a probability kernel.</p>
+	</details>
+</div>
+
+<p>That is, \( P_t(x, \cdot) \) is the conditional distribution of \( X_t \) given \( X_0 = x \) for \( t \in T \) and \( x \in S \). By the time homogenous property, \( P_t(x, \cdot) \) is also the conditional distribution of \( X_{s + t} \) given \( X_s = x \) for \( s \in T \):
+\[ P_t(x, A) = \P(X_{s+t} \in A \mid X_s = x), \quad s, \, t \in T, \, x \in S, \, A \in \mathscr{S} \]
+Note that \( P_0 = I \), the <dfn>identity kernel</dfn> on \( (S, \mathscr{S}) \) defined by \( I(x, A) = \bs{1}(x \in A) \) for \( x \in S \) and \( A \in \mathscr{S} \), so that \( I(x, A) = 1 \) if \( x \in A \) and \( I(x, A) = 0 \) if \( x \notin A \).
+Recall also that usually there is a natural reference measure \( \lambda \) on \( (S, \mathscr{S}) \). In this case, the transition kernel \( P_t \) will often have a <dfn>transition density</dfn> \( p_t \) with respect to \( \lambda \) for \( t \in T \). That is,
+\[ P_t(x, A) = \P(X_t \in A \mid X_0 = x) = \int_A p_t(x, y) \lambda(dy), \quad x \in S, \, A \in \mathscr{S} \]
+The next theorem gives the <dfn>Chapman-Kolmogorov</dfn> equation, named for <a href="JavaScript:openAncillary('../biographies/Chapman.html')" class="ancillary">Sydney Chapman</a> and <a href="JavaScript:openAncillary('../biographies/Kolmogorov.html')" class="ancillary">Andrei Kolmogorov</a>, the fundamental relationship between the probability kernels, and the reason for the name <em>transition kernel</em>.</p>
+
+<div class="unit" id="trn2">
+	<p class="math">Suppose again that \( \bs{X} = \{X_t: t \in T\} \) is a Markov process on \( S \) with transition kernels \( \bs{P} = \{P_t: t \in T\} \). If \( s, \, s \in T \), then \( P_s P_t = P_{s + t} \). That is,
+	\[ P_{s+t}(x, A) = \int_S P_s(x, dy) P_t(y, A), \quad x \in S, \, A \in \mathscr{S} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The Markov property and a conditioning argument are the fundamental tools. Recall again that \( P_s(x, \cdot) \) is the conditional distribution of \( X_s \) given \( X_0 = x \) for \( x \in S \). Let \( A \in \mathscr{S} \). Conditioning on \( X_s \) gives
+		\[ P_{s+t}(x, A) = \P(X_{s+t} \in A \mid X_0 = x) = \int_S P_s(x, dy) \P(X_{s+t} \in A \mid X_s = y, X_0 = x) \]
+		But by the Markov and time-homogeneous properties, 
+		\[ \P(X_{s+t} \in A \mid X_s = y, X_0 = x) = \P(X_t \in A \mid X_0 = y) = P_t(y, A) \] Substituting we have
+		\[ P_{s+t}(x, A) = \int_S P_s(x, dy) P_t(y, A) = (P_s P_t)(x, A) \]</p>
+	</details>
+</div>
+
+<p>In the language of functional analysis, \( \bs{P} \) is a <dfn>semigroup</dfn>. Recall that the commutative property generally does not hold for the product operation on kernels. However the property does hold for the transition kernels of a homogeneous Markov process. That is, \( P_s P_t = P_t P_s = P_{s+t} \) for \( s, \, t \in T \). As a simple corollary, if \( S \) has a reference measure, the same basic relationship holds for the transition densities.</p>
+
+<div class="unit" id="trn3">
+	<p class="math">Suppose that \( \lambda \) is the reference measure on \( (S, \mathscr{S}) \) and that \( \bs{X} = \{X_t: t \in T\} \) is a Markov process on \( S \) and with transition densities \( \{p_t: t \in T\} \). If \( s, \, t \in T \) then \( p_s p_t = p_{s+t} \). That is,
+	\[ p_t(x, z) = \int_S p_s(x, y) p_t(y, z) \lambda(dy), \quad x, \, z \in S \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The transition kernels satisfy \(P_s P_t = P_{s+t} \). But \( P_s \) has density \( p_s \), \( P_t \) has density \( p_t \), and \( P_{s+t} \) has density \( p_{s+t} \). From a basic result on kernel functions, \( P_s P_t \) has density \( p_s p_t \) as defined in the theorem.</p>
+	</details>
+</div>
+
+<p>If \( T = \N \) (discrete time), then the transition kernels of \( \bs{X} \) are just the powers of the <dfn>one-step</dfn> transition kernel. That is, if we let \( P = P_1 \) then \( P_n = P^n \) for \( n \in \N \).</p>
+
+<p>Recall that a kernel defines two operations: operating on the left with positive measures on \( (S, \mathscr{S}) \) and operating on the right with measurable, real-valued functions. For the transition kernels of a Markov process, both of the these operators have natural interpretations.</p>
+
+<div class="unit" id="trn4">
+	<p class="math">Suppose that \( s, \, t \in T \). If \( \mu_s \) is the distribution of \( X_s \) then \( X_{s+t} \) has distribution \( \mu_{s+t} = \mu_s P_t \). That is,
+	\[ \mu_{s+t}(A) = \int_S \mu_s(dx) P_t(x, A), \quad A \in \mathscr{S} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( A \in \mathscr{S} \). Conditioning on \( X_s \) gives
+		\[ \P(X_{s+t} \in A) = \E[\P(X_{s+t} \in A \mid X_s)] = \int_S \mu_s(dx) \P(X_{s+t} \in A \mid X_s = x) = \int_S \mu_s(dx) P_t(x, A) = \mu_s P_t(A) \]</p>
+	</details>
+</div>
+
+<p>So if \( \mathscr{P} \) denotes the collection of probability measures on \( (S, \mathscr{S}) \), then the left operator \( P_t \) maps \( \mathscr{P} \) back into \( \mathscr{P} \). In particular, if \( X_0 \) has distribution \( \mu_0 \) (the <dfn>initial distribution</dfn>) then \( X_t \) has distribution \( \mu_t = \mu_0 P_t \) for every \( t \in T \).</p>
+
+<div class="unit">
+	<p class="dfn">A positive measure \( \mu \) on \( (S, \mathscr{S}) \) is <dfn>invariant</dfn> for  \( \bs{X}\) if \( \mu P_t = \mu \) for every \( t \in T \).</p>
+</div>
+
+<p>Hence if \( \mu \) is a probability measure that is invariant for \( \bs{X} \), and \( X_0 \) has distribution \( \mu \), then \( X_t \) has distribution \( \mu \) for every \( t \in T \) so that the process \( \bs{X} \) is identically distributed. In discrete time, note that if \( \mu \) is a positive measure and \( \mu P = \mu \) then \( \mu P^n = \mu \) for every \( n \in \N \), so \( \mu \) is invariant for \( \bs{X} \). The operator on the right is given next.</p>
+
+<div class="unit" id="trn5">
+	<p class="math">Suppose that \( f: S \to \R \). If \(t \in T\) then (assuming that the expected value exists),
+	\[ P_t f(x) = \int_S P_t(x, dy) f(y) = \E\left[f(X_t) \mid X_0 = x\right], \quad x \in S \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows directly from the definitions:
+		\[ P_t f(x) = \int_S P_t(x, dy) f(y), \quad x \in S \]
+		and \( P_t(x, \cdot) \) is the conditional distribution of \( X_t \) given \( X_0 = x \).</p>
+	</details>
+</div>
+
+<p>In particular, the right operator \( P_t \) is defined on \( \mathscr{B} \), the vector space of bounded, linear functions \( f: S \to \R \), and in fact is a linear operator on \( \mathscr{B} \). That is, if \( f, \, g \in \mathscr{B} \) and \( c \in \R \), then \( P_t(f + g) = P_t f + P_t g \) and \( P_t(c f) = c P_t f \). Moreover, \( P_t \) is a <dfn>contraction operator</dfn> on \( \mathscr{B} \), since \( \left\|P_t f\right\| \le \|f\| \) for \( f \in \mathscr{B} \). It then follows that \( P_t \) is a continuous operator on \( \mathscr{B} \) for \( t \in T \).</p>
+
+<p>For the right operator, there is a concept that is complementary to the invariance of of a positive measure for the left operator.</p>
+
+<div class="unit">
+	<p class="dfn">A measurable function \( f: S \to \R \) is <dfn>harmonic</dfn> for \( \bs{X} \) if \( P_t f = f \) for all \( t \in T \).</p>
+</div>
+
+<p>Again, in discrete time, if \( P f = f \) then \( P^n f = f \) for all \( n \in \N \), so \( f \) is harmonic for \( \bs{X} \).</p>
+
+<p>Combining <a href="#trn4" class="ref"></a> and <a href="#trn5" class="ref"></a>, if \( X_0 \) has distribution \( \mu_0 \) and \( f: S \to \R \) is measurable, then (again assuming that the expected value exists), \( \mu_0 P_t f = \E[f(X_t)] \) for \( t \in T \). That is,
+\[ \E[f(X_t)] = \int_S \mu_0(dx) \int_S P_t(x, dy) f(y) \]</p>
+
+<p>Exericse <a href="#trn4" class="ref"></a> shows how to obtain the distribution of \( X_t \) from the distribution of \( X_0 \) and the transition kernel \( P_t \) for \( t \in T \). But we can do more. Recall that one basic way to describe a stochastic process is to give its <dfn>finite dimensional distributions</dfn>, that is, the distribution of \( \left(X_{t_1}, X_{t_2}, \ldots, X_{t_n}\right) \) for every \( n \in \N_+ \) and every \( (t_1, t_2, \ldots, t_n) \in T^n \). For a Markov process, the initial distribution and the transition kernels determine the finite dimensional distributions. It's easiest to state the distributions in differential form.</p>
+
+<div class="unit" id="trn6">
+	<p class="math">Suppose \( \bs{X} = \{X_t: t \in T\} \) is a Markov process with transition operators \( \bs{P} = \{P_t: t \in T\} \), and that \( (t_1, \ldots, t_n) \in T^n \) with \( 0 \lt t_1 \lt \cdots \lt t_n \). If \( X_0 \) has distribution \( \mu_0 \), then in differential form, the distribution of \( \left(X_0, X_{t_1}, \ldots, X_{t_n}\right) \) is
+	\[ \mu_0(dx_0) P_{t_1}(x_0, dx_1) P_{t_2 - t_1}(x_1, dx_2) \cdots P_{t_n - t_{n-1}} (x_{n-1}, dx_n) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows from induction and repeated use of the Markov property. For example, if \( t \in T \) with \( t \gt 0 \), then conditioning on \( X_0 \) gives
+		\[ \P(X_0 \in A, X_t \in B) = \int_A \P(X_t \in B \mid X_0 = x) \mu_0(dx) = \int_A P_t(x, B) \mu(dx) = \int_A \int_B P_t(x, dy) \mu_0(dx) \]
+		for \( A, \, B \in \mathscr{S} \). So in differential form, the distribution of \( (X_0, X_t) \) is \( \mu(dx) P_t(x, dy)\). If \( s, \, t \in T \) with \( 0 \lt s \lt t \), then conditioning on \( (X_0, X_s) \) and using our previous result gives
+		\[ \P(X_0 \in A, X_s \in B, X_t \in C) = \int_{A \times B} \P(X_t \in C \mid X_0 = x, X_s = y) \mu_0(dx) P_s(x, dy)\]
+		for \( A, \, B, \, C \in \mathscr{S} \). But by the Markov property, 
+		\[ \P(X_t \in C \mid X_0 = x, X_s = y) = \P(X_t \in C \mid X_s = y) = P_{t-s}(y, C) = \int_C P_{t- s}(y, dz) \]
+		Hence in differential form, the distribution of \( (X_0, X_s, X_t) \) is \( \mu_0(dx) P_s(x, dy) P_{t-s}(y, dz) \). Continuing in this manner gives the general result.</p>
+	</details>
+</div>
+
+<p>This result is very important for constructing Markov processes. If we know how to define the transition kernels \( P_t \) for \( t \in T \) (based on modeling considerations, for example), and if we know the initial distribution \( \mu_0 \), then the last result gives a consistent set of finite dimensional distributions. From the <a href="../prob/Processes.html#kol">Kolmogorov construction theorem</a>, we know that there <em>exists</em> a stochastic process that has these finite dimensional distributions. In continuous time, however, two serious problems remain. First, it's not clear how we would construct the transition kernels so that the crucial Chapman-Kolmogorov equations in <a href="#trn2" class="ref"></a> are satisfied. Second, we usually want our Markov process to have certain properties (such as continuity properties of the sample paths) that go beyond the finite dimensional distributions. The first problem will be addressed in the next section, and fortunately, the second problem can be resolved for a Feller process.</p>
+
+<div class="unit" id="trn7">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in T\} \) is a Markov process on an LCCB state space \( (S, \mathscr{S}) \) with transition operators \( \bs{P} = \{P_t: t \in [0, \infty)\} \). Then \( \bs{X} \) is a Feller process if and only if the following conditions hold:</p>
+	<ol class="sub">
+		<li><dfn>Continuity in space</dfn>: If \( f \in \mathscr{C}_0 \) and \( t \in [0, \infty) \) then \( P_t f \in \mathscr{C}_0 \)</li>
+		<li><dfn>Continuity in time</dfn>: If \( f \in \mathscr{C}_0 \) and \( x \in S \) then \( P_t f(x) \to f(x) \) as \( t \downarrow 0 \).</li>
+	</ol>
+</div>
+
+<p>A semigroup of probability kernels \( \bs{P} = \{P_t: t \in T\} \) that satisfies the properties in this theorem is called a <dfn>Feller</dfn> semigroup. So <a href="#trn7" class="ref"></a> states that the <em>Markov process</em> \(\bs{X}\) is Feller if and only if the <em>transition semigroup of transition</em> \( \bs{P} \) is Feller. As before, (a) is automatically satisfied if \( S \) is discrete, and (b) is automatically satisfied if \( T \) is discrete. Condition (a) means that \( P_t \) is an operator on the vector space \( \mathscr{C}_0 \), in addition to being an operator on the larger space \( \mathscr{B} \). Condition (b) actually implies a stronger form of continuity in time.</p>
+
+<div class="unit" id="trn8">
+	<p class="math">Suppose that \( \bs{P} = \{P_t: t \in T\} \) is a Feller semigroup of transition operators. Then \( t \mapsto P_t f \) is continuous (with respect to the supremum norm) for \( f \in \mathscr{C}_0 \).</p>
+	<details>
+		<summary>Additional details:</summary>
+		<p>This means that for \( f \in \mathscr{C}_0 \) and \( t \in [0, \infty) \),
+		\[ \|P_{t+s} f - P_t f \| = \sup\{\left|P_{t+s}f(x) - P_t f(x)\right|: x \in S\} \to 0 \text{ as } s \to 0 \]</p>
+	</details>
+</div>
+
+<p>So combining this with the remark above, note that if \( \bs{P} \) is a Feller semigroup of transition operators, then \( f \mapsto P_t f \) is continuous on \( \mathscr{C}_0 \) for fixed \( t \in T \), and \( t \mapsto P_t f \) is continuous on \( T \) for fixed \( f \in \mathscr{C}_0 \). Again, the importance of this is that we often start with the collection of probability kernels \( \bs{P} \) and want to know that there exists a nice Markov process \( \bs{X} \) that has these transition operators.</p>
+
+<h4 id="sit">Sampling in Time</h4>
+
+<p>If we <dfn>sample</dfn> a Markov process at an increasing sequence of points in time, we get another Markov process in discrete time. But the discrete time process may not be homogeneous even if the original process is homogeneous.</p>
+
+<div class="unit" id="sit1">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in T\} \) is a Markov process with state space \( (S, \mathscr{S}) \) and that \( (t_0, t_1, t_2, \ldots) \) is a sequence in \( T \) with \( 0 = t_0 \lt t_1 \lt t_2 \lt \cdots \). Let \( Y_n = X_{t_n} \) for \( n \in \N \). Then \( \bs{Y} = \{Y_n: n \in \N\}\) is a Markov process in discrete time.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( n \in \N \), let \( \mathscr{G}_n = \sigma\{Y_k: k \in \N, k \le n\} \), so that \( \{\mathscr{G}_n: n \in \N\} \) is the natural filtration associated with \( \bs{Y} \). Note that \( \mathscr{G}_n \subseteq \mathscr{F}_{t_n} \) and \( Y_n = X_{t_n} \) is measurable with respect to \( \mathscr{G}_n \) for \( n \in \N \). Let \( k, \, n \in \N \) and let \( A \in \mathscr{S} \). Then
+		\[ \P\left(Y_{k+n} \in A \mid \mathscr{G}_k\right) = \P\left(X_{t_{n+k}} \in A \mid \mathscr{G}_k\right) = \P\left(X_{t_{n+k}} \in A \mid X_{t_k}\right) = \P\left(Y_{n+k} \in A \mid Y_k\right) \]</p>
+	</details>
+</div>
+
+<p>If we sample a homogeneous Markov process at multiples of a fixed, positive time, we get a homogenous Markov process in discrete time.</p>
+
+<div class="unit" id="sit2">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in T\} \) is a homogeneous Markov process with state space \( (S, \mathscr{S}) \) and transition kernels \( \bs{P} = \{P_t: t \in T\} \). Fix \( r \in T \) with \( r \gt 0 \) and define \( Y_n = X_{n r} \) for \( n \in \N \). Then \( \bs{Y} = \{Y_n: n \in \N\} \) is a homogeneous Markov process in discrete time, with one-step transition kernel \( Q \) given by 
+	\[ Q(x, A) = P_r(x, A); \quad x \in S, \, A \in \mathscr{S} \]</p>
+</div>
+
+<p>In some cases, sampling a strong Markov process at an increasing sequence of stopping times yields another Markov process in discrete time. The point of this is that discrete-time Markov processes are often found naturally embedded in continuous-time Markov processes.</p>
+
+<h4 id="enl">Enlarging the State Space</h4>
+
+<p>Our first result in this discussion is that a non-homogeneous Markov process can be turned into a homogenous Markov process, but only at the expense of enlarging the state space.</p>
+
+<div class="unit" id="enl1">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in T\} \) is a non-homogeneous Markov process with state space \( (S, \mathscr{S}) \). Suppose also that \( \tau \) is a random variable taking values in \( T \), independent of \( \bs{X} \). Let \( \tau_t = \tau + t \) and let \( Y_t = \left(X_{\tau_t}, \tau_t\right) \) for \( t \in T \). Then \( \bs{Y} = \{Y_t: t \in T\} \) is a homogeneous Markov process with state space \( (S \times T, \mathscr{S} \otimes \mathscr{T}) \). For \( t \in T \), the transition kernel \( P_t \) is given by
+	\[ P_t[(x, r), A \times B] = \P(X_{r+t} \in A \mid X_r = x) \bs{1}(r + t \in B), \quad (x, r) \in S \times T, \, A \times B \in \mathscr{S} \otimes \mathscr{T} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By definition and the substitution rule,
+		\begin{align*}
+			\P[Y_{s + t} \in A \times B \mid Y_s = (x, r)] &amp; = \P\left(X_{\tau_{s + t}} \in A, \tau_{s + t} \in B \mid X_{\tau_s} = x, \tau_s = r\right) \\
+			&amp; = \P \left(X_{\tau + s + t} \in A, \tau + s + t \in B \mid X_{\tau + s} = x, \tau + s = r\right) \\
+			&amp; = \P(X_{r + t} \in A, r + t \in B \mid X_r = x, \tau + s = r)
+		\end{align*}
+		But \( \tau \) is independent of \( \bs{X} \), so the last term is
+		\[ \P(X_{r + t} \in A, r + t \in B \mid X_r = x) = \P(X_{r+t} \in A \mid X_r = x) \bs{1}(r + t \in B) \]
+		The important point is that the last expression does not depend on \( s \), so \( \bs{Y} \) is homogeneous.</p>
+	</details>
+</div>
+
+<p>The trick of enlarging the state space is a common one in the study of stochastic processes. Sometimes a process that has a weaker form of <q>forgetting the past</q> can be made into a Markov process by enlarging the state space appropriately. Here is an example in discrete time.</p>
+
+<div class="unit" id="enl2">
+	<p class="math">Suppose that \( \bs{X} = \{X_n: n \in \N\} \) is a random process with state space \( (S, \mathscr{S}) \) in which the future depends stochastically on the last two states.  That is, for \( n \in \N \)
+	\[ \P(X_{n+2} \in A \mid \mathscr{F}_{n+1}) = \P(X_{n+2} \in A \mid X_n, X_{n+1}), \quad A \in \mathscr{S} \]
+	where \( \{\mathscr{F}_n: n \in \N\} \) is the natural filtration associated with the process \( \bs{X} \). Suppose also that the process is time homogeneous in the sense that 
+	\[\P(X_{n+2} \in A \mid X_n = x, X_{n+1} = y) = Q(x, y, A) \]
+	independently of \( n \in \N \). Let \( Y_n = (X_n, X_{n+1}) \) for \( n \in \N \). Then \( \bs{Y} = \{Y_n: n \in \N\} \) is a homogeneous Markov process with state space \( (S \times S, \mathscr{S} \otimes \mathscr{S} \). The one step transition kernel \( P \) is given by
+	\[ P[(x, y), A \times B] = I(y, A) Q(x, y, B); \quad x, \, y \in S, \; A, \, B \in \mathscr{S} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note first that for \( n \in \N \), \( \sigma\{Y_k: k \le n\} = \sigma\{(X_k, X_{k+1}): k \le n\} = \mathscr{F}_{n+1} \) so the natural filtration associated with the process \( \bs{Y} \) is \( \{\mathscr{F}_{n+1}: n \in \N\} \). If \( C \in \mathscr{S} \otimes \mathscr{S}) \) then
+		\begin{align*} 
+			\P(Y_{n+1} \in C \mid \mathscr{F}_{n+1}) &amp; = \P[(X_{n+1}, X_{n+2}) \in C \mid \mathscr{F}_{n+1}]\\
+			&amp; = \P[(X_{n+1}, X_{n+2}) \in C \mid X_n, X_{n+1}] = \P(Y_{n+1} \in C \mid Y_n)
+		\end{align*}
+		by the given assumption on \( \bs{X} \). Hence \( \bs{Y} \) is a Markov process. Next,
+		\begin{align*}
+			\P[Y_{n+1} \in A \times B \mid Y_n = (x, y)] &amp; = \P[(X_{n+1}, X_{n+2}) \in A \times B \mid (X_n, X_{n+1}) = (x, y)] \\
+			&amp; = \P(X_{n+1} \in A, X_{n+2} \in B \mid X_n = x, X_{n+1} = y) = \P(y \in A, X_{n+2} \in B \mid X_n = x, X_{n + 1} = y) \\
+			&amp; = I(y, A) Q(x, y, B)
+		\end{align*}
+		</p>
+	</details>
+</div>
+
+<p>The last result generalizes in a completely straightforward way to the case where the future of a random process in discrete time depends stochastically on the last \( k \) states, for some fixed \( k \in \N \).</p>
+
+<h3 id="exe">Examples and Applications</h3>
+
+<h4 id="rec">Recurrence Relations and Differential Equations</h4>
+
+<p>As noted in the introduction, Markov processes can be viewed as stochastic counterparts of deterministic recurrence relations (discrete time) and differential equations (continuous time). Our goal in this discussion is to explore these connections.</p>
+
+<div class="unit" id="rec1">
+	<p class="math">Suppose that \( \bs{X} = \{X_n: n \in \N\} \) is a stochastic process with state space \( (S, \mathscr{S}) \) and that \(\bs{X}\) satisfies the recurrence relation
+	\[ X_{n+1} = g(X_n), \quad n \in \N \]
+	where \( g: S \to S \) is measurable. Then \( \bs{X} \) is a homogeneous Markov process with one-step transition operator \( P \) given by \( P f = f \circ g \) for a measurable function \( f: S \to \R \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Clearly \( \bs{X} \) is uniquely determined by the initial state, and in fact \( X_n = g^n(X_0) \) for \( n \in \N \) where \( g^n \) is the \( n \)-fold composition power of \( g \). So the only possible source of randomness is in the initial state. The Markov and time homogeneous properties simply follow from the trivial fact that \( g^{m+n}(X_0) = g^n[g^m(X_0)] \), so that \( X_{m+n} = g^n(X_m) \). That is, the state at time \( m + n \) is completely determined by the state at time \( m \) (regardless of the previous states) and the time increment \( n \). In particular, \( P f(x) = \E[g(X_1) \mid X_0 = x] = f[g(x)] \) for measurable \( f: S \to \R \) and \( x \in S \). Note that for \( n \in \N \), the \( n \)-step transition operator is given by \(P^n f =  f \circ g^n \). </p>
+	</details>
+</div>
+
+<p>In the deterministic world, as in the stochastic world, the situation is more complicated in continuous time. Nonetheless, the same basic analogy applies. 
+
+<div class="unit" id="rec2">
+	<p class="math">Suppose that \(\bs{X} = \{X_t: t \in [0, \infty)\}\) with state space \( (\R, \mathscr{R}) \)satisfies the first-order differential equation
+	\[ \frac{d}{dt}X_t = g(X_t) \]
+	where \( g: \R \to \R \) is <a href="../foundations/Metric.html#hol">Lipschitz continuous</a>. Then \(\bs{X}\) is a Feller Markov process</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that <dfn>Lipschitz continuous</dfn> means that there exists a constant \( k \in (0, \infty) \) such that \( \left|g(y) - g(x)\right| \le k \left|x - y\right| \) for \( x, \, y \in \R \). This is a standard condition on \( g \) that guarantees the existence and uniqueness of a solution to the differential equation on \( [0, \infty) \). So as before, the only source of randomness in the process comes from the initial value \( X_0 \). Let \( t \mapsto X_t(x) \) denote the unique solution with \( X_0(x) = x \) for \( x \in \R \). The Markov and homogenous properties follow from the fact that \( X_{t+s}(x) = X_t(X_s(x)) \) for \( s, \, t \in [0, \infty) \) and \( x \in S \). That is, the state at time \( t + s \) depends only on the state at time \( s \) and the time increment \( t \). The Feller properties follow from the continuity of \( t \mapsto X_t(x) \) and the continuity of \( x \mapsto X_t(x) \). The latter is the <em>continuous dependence on the initial value</em>, again guaranteed by the assumptions on \( g \). Note that the transition operator is given by \( P_t f(x) = f[X_t(x)] \) for a measurable function \( f: S \to \R \) and \( x \in S \).</p>
+	</details>
+</div>
+
+<p>In differential form, the process can be described by \( d X_t = g(X_t) \, dt \). This essentially deterministic process can be extended to a very important class of Markov processes by the addition of a stochastic term related to <a href="../brown/index.html">Brownian motion</a>. Such <dfn>stochastic differential equations</dfn> are the main tools for constructing Markov processes known as <dfn>diffusion processes</dfn>.</p>
+
+<h4 id="inc">Processes with Stationary, Independent Increments</h4>
+
+<p>For our next discussion, we consider a general class of stochastic processes that are Markov processes. Suppose that \( \bs{X} = \{X_t: t \in T\} \) is a random process with \( S \subseteq \R\) as the set of states. The state space can be discrete (countable) or <q>continuous</q>. Typically, \( S \) is either \( \N \) or \( \Z \) in the discrete case, and is either \( [0, \infty) \) or \( \R \) in the continuous case. In any case, \( S \) is given the usual \( \sigma \)-algebra \( \mathscr{S} \) of Borel subsets of \( S \) (which is the power set in the discrete case). Also, the state space \( (S, \mathscr{S}) \) has a natural reference measure measure \( \lambda \), namely counting measure in the discrete case and Lebesgue measure in the continuous case. Let \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) denote the natural filtration, so that \( \mathscr{F}_t = \sigma\{X_s: s \in T, s \le t\} \) for \( t \in T \).</p>
+
+<div class="unit" id="inc1">
+	<p class="math">The process \( \bs{X} \) has</p>
+	<ol class="sub">
+		<li><dfn>Independent increments</dfn> if \( X_{s+t} - X_s \) is independent of \( \mathscr{F}_s \) for all \( s, \, t \in T \).</li>
+		<li><dfn>Stationary increments</dfn> if the distribution of \( X_{s+t} - X_s \) is the same as the distribution of \( X_t - X_0 \) for all \( s, \, t \in T \).</li>
+	</ol>
+</div>
+
+<p>A difference of the form \( X_{s+t} - X_s \) for \( s, \, t \in T \) is an <dfn>increment</dfn> of the process, hence the names. Sometimes the definition of stationary increments is that \( X_{s+t} - X_s \) have the same distribution as \( X_t \). But this forces \( X_0 = 0 \) with probability 1, and as usual with Markov processes, it's best to keep the initial distribution unspecified. If \( \bs{X} \) has stationary increments in the sense of our definition, then the process \( \bs{Y} = \{Y_t = X_t - X_0: t \in T\} \) has stationary increments in the more restricted sense. For the remainder of this discussion, assume that \( \bs X = \{X_t: t \in T\} \) has stationary, independent increments, and let \( Q_t \) denote the distribution of \( X_t - X_0 \) for \( t \in T \).</p>
+
+<div class="unit" id="inc2">
+	<p class="math">\( Q_s * Q_t = Q_{s+t} \) for \( s, \, t \in T \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( s, \, t \in T \), \( Q_s \) is the distribution of \( X_s - X_0 \), and by the stationary property, \( Q_t \) is the distribution of \( X_{s + t} - X_s \). By the independence property, \( X_s - X_0 \) and \( X_{s+t} - X_s \) are independent. Hence \( Q_s * Q_t \) is the distribution of \( \left[X_s - X_0\right] + \left[X_{s+t} - X_s\right] = X_{s+t} - X_0 \). But by definition, this variable has distribution \( Q_{s+t} \)</p>
+	</details>
+</div>
+
+<p>So the collection of distributions \( \bs{Q} = \{Q_t: t \in T\} \) forms a semigroup, with convolution as the operator. Note that \( Q_0 \) is simply point mass at 0.</p>
+
+<div class="unit" id="inc3">
+	<p class="math">The process \( \bs{X} \) is a homogeneous Markov process. For \( t \in T \), the transition operator \( P_t \) is given by
+	\[ P_t f(x) = \int_S f(x + y) Q_t(dy), \quad f \in \mathscr{B} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( s, \, t \in T \) and \( f \in \mathscr{B} \),
+		\[ \E[f(X_{s+t}) \mid \mathscr{F}_s] = \E[f(X_{s+t} - X_s + X_s) \mid \mathscr{F}_s] = \E[f(X_{s+t}) \mid X_s]  \]
+		since \( X_{s+t} - X_s \) is independent of \( \mathscr{F}_s \). Moreover, by the stationary property, 
+		\[ \E[f(X_{s+t}) \mid X_s = x] = \int_S f(x + y) Q_t(dy), \quad x \in S \]</p>
+	</details>
+</div>
+
+<p>Clearly the semigroup property of \( \bs{P} = \{P_t: t \in T\} \) (with the usual operator product) is equivalent to the semigroup property of \( \bs{Q} = \{Q_t: t \in T\} \) (with convolution as the product).
+</p>
+
+<div class="unit" id="inc4">
+	<p class="math">Suppose that for positive \( t \in T \), the distribution \( Q_t \) has probability density function \( g_t \) with respect to the reference measure \( \lambda \). Then the transition <em>density</em>  is
+	\[ p_t(x, y) = g_t(y - x), \quad x, \, y \in S \]</p>
+</div>
+
+<p>Of course, from <a href="#inc4" class="ref"></a>, it follows that \( g_s * g_t = g_{s+t} \) for \( s, \, t \in T \), where here \( * \) refers to the convolution operation on probability density functions.</p>
+
+<div class="unit" id="inc5">
+	<p class="math">If \( Q_t \to Q_0 \) as \( t \downarrow 0 \) then \( \bs{X} \) is a Feller Markov process. </p>
+</div>
+
+<p>Thus, by the general theory sketched above, \( \bs{X} \) is a strong Markov process, and there exists a version of \( \bs{X} \) that is right continuous and has left limits. Such a process is known as a <dfn>L&eacute;vy process</dfn>, in honor of <a href="JavaScript:openAncillary('../biographies/Levy.html')" class="ancillary">Paul L&eacute;vy</a>.</p>
+
+<p>For a real-valued stochastic process \( \bs X = \{X_t: t \in T\} \), let \( m \) and \( v \) denote the mean and variance functions, so that
+\[ m(t) = \E(X_t), \; v(t) = \var(X_t); \quad t \in T \]
+assuming of course that the these exist. The mean and variance functions for a L&eacute;vy process are particularly simple.</p>
+
+<div class="unit">
+	<p class="math">Suppose again that \( \bs X \) has stationary, independent increments.</p>
+	<ol class="sub">
+		<li>If \( \mu_0 = \E(X_0) \in \R \) and \( \mu_1 = \E(X_1) \in \R \) then \( m(t) = \mu_0 + (\mu_1 - \mu_0) t \) for \( t \in T \).</li>
+		<li>If in addition, \( \sigma_0^2 = \var(X_0) \in (0, \infty) \) and \( \sigma_1^2 = \var(X_1) \in (0, \infty) \) then \( v(t) = \sigma_0^2 + (\sigma_1^2 - \sigma_0^2) t \) for \( t \in T \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The proofs are simple using the independent and stationary increments properties. For \( t \in T \), let \( m_0(t) = \E(X_t - X_0) = m(t) - \mu_0 \) and \( v_0(t) = \var(X_t - X_0) = v(t) - \sigma_0^2\). denote the mean and variance functions for the centered process \( \{X_t - X_0: t \in T\} \). Now let \( s, \, t \in T \).</p>
+		<ol class="sub">
+			<li>From the additive property of expected value and the stationary property,
+			\[ m_0(t + s) = \E(X_{t+s} - X_0) = \E[(X_{t + s} - X_s) + (X_s - X_0)] = \E(X_{t+s} - X_s) + \E(X_s - X_0) = m_0(t) + m_0(s) \]
+			</li>
+			<li>From the additive property of variance for <em>independent</em> variables and the stationary property,
+			\[ v_0(t + s) = \var(X_{t+s} - X_0) = \var[(X_{t + s} - X_s) + (X_s - X_0)] = \var(X_{t+s} - X_s) + \var(X_s - X_0) = v_0(t) + v_0(s) \]
+			</li>
+		</ol>
+		<p>So \( m_0 \) and \( v_0 \) satisfy the <dfn>Cauchy equation</dfn>. In discrete time, it's simple to see that there exists \( a \in \R \) and \( b^2 \in (0, \infty) \) such that \( m_0(t) = a t \) and \( v_0(t) = b^2 t \). The same is true in continuous time, given the continuity assumptions that we have on the process \( \bs X \). Substituting \( t = 1 \) we have \( a = \mu_1 - \mu_0 \) and \( b^2 = \sigma_1^2 - \sigma_0^2 \), so the results follow,</p>
+	</details>
+</div>
+
+<p>It's easy to describe processes with stationary independent increments in discrete time.</p>
+
+<div class="unit" id="inc6">
+	<p class="math">A process \( \bs{X} = \{X_n: n \in \N\} \) has independent increments if and only if there exists a sequence of independent, real-valued random variables \( (U_0, U_1, \ldots) \) such that
+	\[ X_n = \sum_{i=0}^n U_i \]
+	In addition, \( \bs{X} \) has stationary increments if and only if \( (U_1, U_2, \ldots) \) are identically distributed.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose first that \( \bs{U} = (U_0, U_1, \ldots) \) is a sequence of independent, real-valued random variables, and define \( X_n = \sum_{i=0}^n U_i \) for \( n \in \N \). Note that \(\mathscr{F}_n = \sigma\{X_0, \ldots, X_n\} = \sigma\{U_0, \ldots, U_n\} \) for \( n \in \N \). If \( k, \, n \in \N \) with \( k \le n \), then \( X_n - X_k = \sum_{i=k+1}^n U_i \) which is independent of \( \mathscr{F}_k \) by the independence assumption on \( \bs{U} \). Hence \( \bs{X} \) has independent increments. Suppose in addition that \( (U_1, U_2, \ldots) \) are identically distributed. Then the increment \( X_n - X_k \) above has the same distribution as \( \sum_{i=1}^{n-k} U_i = X_{n-k} - X_0 \). Hence \( \bs{X} \) has stationary increments.</p>
+		<p>Conversely, suppose that \( \bs{X} = \{X_n: n \in \N\} \) has independent increments. Let \( U_0 = X_0 \) and \( U_n = X_n - X_{n-1} \) for \( n \in \N_+ \). Then \( X_n = \sum_{i=0}^n U_i \) for \( n \in \N \). As before \(\mathscr{F}_n = \sigma\{X_0, \ldots, X_n\} = \sigma\{U_0, \ldots, U_n\} \) for \( n \in \N \). Since \( \bs{X} \) has independent increments, \( U_n \) is independent of \( \mathscr{F}_{n-1} \) for \( n \in \N_+ \), so \( (U_0, U_1, \ldots) \) are mutually independent.  If in addition, \( \bs{X} \) has stationary increments, \( U_n = X_n - X_{n-1} \) has the same distribution as \( X_1 - X_0 = U_1 \) for \( n \in \N_+ \). Hence \((U_1, U_2, \ldots)\) are identically distributed.</p>
+	</details>
+</div>
+
+<p>Thus suppose that \( \bs{U} = (U_0, U_1, \ldots) \) is a sequence of independent, real-valued random variables, with \( (U_1, U_2, \ldots) \) identically distributed with common distribution \( Q \). Then from <a href="#inc3" class="ref"></a>, the partial sum process \( \bs{X} = \{X_n: n \in \N\} \) associated with \( \bs{U} \) is a homogeneous Markov process with one step transition kernel \( P \) given by
+\[ P(x, A) = Q(A - x), \quad x \in S, \, A \in \mathscr{S} \]
+More generally, for \( n \in \N \), the \( n \)-step transition kernel is \( P^n(x, A) = Q^{*n}(A - x) \) for \( x \in S \) and \( A \in \mathscr{S} \). This Markov process is known as a <dfn>random walk</dfn> (although unfortunately, the term <em>random walk</em> is used in a number of other contexts as well). The idea is that at time \( n \), the walker moves a (directed) distance \( U_n \) on the real line, and these steps are independent and identically distributed. If \( Q \) has probability density function \( g \) with respect to the reference measure \( \lambda \), then the one-step transition density is
+\[ p(x, y) = g(y - x), \quad x, \, y \in S \]
+</p>
+
+<div class="unit" id="inc7">
+	<p class="math">Consider the random walk on \( \R \) with steps that have the <a href="../special/Normal.html">standard normal distribution</a>. Give each of the following explicitly:</p>
+	<ol class="sub">
+		<li>The one-step transition density.</li>
+		<li>The \( n \)-step transition density for \( n \in \N_+ \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>For \( x \in \R \), \( p(x, \cdot) \) is the normal PDF with mean \( x \) and variance 1:
+			\[ p(x, y) = \frac{1}{\sqrt{2 \pi}} \exp\left[-\frac{1}{2} (y - x)^2 \right]; \quad x, \, y \in \R\]
+			</li>
+			<li>For \( x \in \R \), \( p^n(x, \cdot) \) is the normal PDF with mean \( x \) and variance \( n \):
+			\[ p^n(x, y) = \frac{1}{\sqrt{2 \pi n}} \exp\left[-\frac{1}{2 n} (y - x)^2\right], \quad x, \, y \in \R \]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<p>In continuous time, there are two processes that are particularly important, one with the discrete state space \( \N \) and one with the continuous state space \( \R \).</p>
+
+<div class="unit" id="inc8">
+	<p class="math">For \( t \in [0, \infty) \), let \( g_t \) denote the probability density function of the <a href="../poisson/Poisson.html">Poisson distribution</a> with parameter \( t \), and let \( p_t(x, y) = g_t(y - x) \) for \( x, \, y \in \N \). Then \( \{p_t: t \in [0, \infty)\} \) is the collection of transition densities for a Feller semigroup on \( \N \)</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that 
+		\[ g_t(n) = e^{-t} \frac{t^n}{n!}, \quad n \in \N \]
+		We just need to show that \( \{g_t: t \in [0, \infty)\} \) satisfies the semigroup property, and that the continuity result holds. But we already know that if \( U, \, V \) are independent variables having Poisson distributions with parameters \( s, \, t \in [0, \infty) \), respectively, then \( U + V \) has the Poisson distribution with parameter \( s + t \). That is, \( g_s * g_t = g_{s+t} \). Moreover, \( g_t \to g_0 \) as \( t \downarrow 0 \).</p>
+	</details>
+</div>
+
+<p>So a L&eacute;vy process \( \bs{N} = \{N_t: t \in [0, \infty)\} \) with these transition densities would be a Markov process with stationary, independent increments and with sample paths are right continuous and have left limits. We do know of such a process, namely the <a href="../poisson/index.html">Poisson process</a> with rate 1.</p>
+
+<div class="unit" id="inc9">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a> and set the rate parameter to 1 and the time parameter to 10. Run the experiment several times in single-step mode and note the behavior of the process.</p>
+</div>
+
+<div class="unit" id="inc10">
+	<p class="math">For \( t \in (0, \infty) \), let \( g_t \) denote the probability density function of the <a href="../special/Normal.html">normal distribution</a> with mean 0 and variance \( t \), and let \( p_t(x, y) = g_t(y - x) \) for \( x, \, y \in \R \). Then \(\{p_t: t \in [0, \infty)\} \) is the collection of transition densities of a Feller semigroup on \( \R \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that for \( t \in (0, \infty) \),
+		\[ g_t(z) = \frac{1}{\sqrt{2 \pi t}} \exp\left(-\frac{z^2}{2 t}\right), \quad z \in \R \]
+		We just need to show that \( \{g_t: t \in [0, \infty)\} \) satisfies the semigroup property, and that the continuity result holds. But we already know that if \( U, \, V \) are independent variables having normal distributions with mean 0 and variances \( s, \, t \in (0, \infty) \), respectively, then \( U + V \) has the normal distribution with mean 0 and variance \( s + t \). That is, \( g_s * g_t = g_{s+t} \). Moreover, we also know that the normal distribution with variance \( t \) converges to point mass at 0 as \( t \downarrow 0 \).</p>
+	</details>
+</div>
+
+<p>So a L&eacute;vy process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) on \( \R \) with these transition densities would be a Markov process with stationary, independent increments, and whose sample paths are continuous from the right and have left limits. In fact, there exists such a process with <em>continuous</em> sample paths. This process is <a href="../brown/index.html">Brownian motion</a>, a process important enough to have its own chapter.</p>
+
+<div class="unit" id="inc11">
+	<p class="app">Run the simulation of <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">standard Brownian motion</a> and note the behavior of the process.</p>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

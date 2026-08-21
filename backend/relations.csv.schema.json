@@ -1,0 +1,63 @@
+{
+  "$id": "https://example.invalid/o009/backend/relations.csv.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "evidence": {
+      "type": "string"
+    },
+    "relation_id": {
+      "pattern": "^rel\\.[A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "relation_type": {
+      "enum": [
+        "answers",
+        "assesses",
+        "contains",
+        "depends-on",
+        "hints",
+        "precedes",
+        "prerequisite",
+        "solves",
+        "teaches",
+        "translates"
+      ],
+      "type": "string"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "active"
+      ],
+      "type": "string"
+    },
+    "target_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "relation_id",
+    "relation_type",
+    "source_id",
+    "target_id",
+    "evidence",
+    "status"
+  ],
+  "title": "Strict row schema for relations.csv",
+  "type": "object",
+  "x-csv": {
+    "encoding": "utf-8",
+    "header": [
+      "relation_id",
+      "relation_type",
+      "source_id",
+      "target_id",
+      "evidence",
+      "status"
+    ],
+    "line_ending": "CRLF"
+  }
+}

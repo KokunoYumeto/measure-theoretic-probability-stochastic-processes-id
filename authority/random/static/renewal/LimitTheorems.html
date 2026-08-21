@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Renewal Limit Theorems</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, renewal process, elementary renewal theorem, renewal theorem, key renewal theorem, Blackwell's theorem, law of large numbers, central limit theorem, direct Riemann integration, current age, remaining age, Poisson process, Bernoulli trials, binomial distribution, geometric distribution negative binomial distribution">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\cov}{\text{cov}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">14. Renewal Processes</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Equations.html" title="Renewal Equations">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Delayed.html" title="Delayed Renewal Processes">4</a></li>
+		<li class="child"><a href="Alternating.html" title="Alternating Renewal Processes">5</a></li>
+		<li class="child"><a href="Reward.html" title="Renewal Reward Processes">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>3. Renewal Limit Theorems</h2>
+</header>
+
+<p>We start with a renewal process as constructed in the <a href="Introduction.html">introduction</a>. Here is a brief review:</p>
+
+<div class="unit">
+	<p class="dfn">Renewal processes</p>
+	<ol class="sub">
+		<li>The sequence of interarrival times is \( \bs{X} = (X_1, X_2, \ldots) \). These are independent copies of a random variable \(X\) in \([0, \infty)\) with distribution function \( F \) and mean \( \mu \).</li>
+		<li>\( \bs{T} = (T_0, T_1, \ldots) \) is the arrival time sequence
+		\[ T_n = \sum_{i=1}^n X_i, \quad n \in \N \]</li>
+		<li>\( \bs{N} = \{N_t: t \in [0, \infty)\} \) is the counting process
+		\[ N_t = \sum_{n=1}^\infty \bs{1}(T_n \le t), \quad t \in [0, \infty) \]</li>
+		<li>The renewal function \( M \) is defined by \( M(t) = \E\left(N_t\right) \) for \( t \in [0, \infty) \).</li>
+	</ol>
+</div>
+
+<p>As before we assume that \( F(0) \lt 1 \) so that \(\P(X \gt 0) \gt 0\). When \(\mu = \infty\), we let \(1 / \mu = 0\). When \(\mu \lt \infty\), we let \(\sigma\) denote the standard deviation of \(X\). Recall also that \( F^c = 1 - F \) is the right distribution function (or reliability function). Note that \( T_0 = 0 \) is not considered an arrival time, but \(T_n\)is the time of the \( n \)th arrival for \( n \in \N_+ \). 
+
+<p>We noted earlier that the arrival time process and the counting process are inverses, in the sense that \(N_t \ge n\) if and only if \(T_n \le t\) for \(n \in \N\) and \(t \in [0, \infty)\).  The arrival time process is the partial sum process for a sequence of independent, identically distributed variables. So it seems reasonable that the fundamental limit theorems for partial sum processes (the <a href="../sample/Mean.html">law of large numbers</a> and the <a href="../sample/Normal.html">central limit theorem</a> theorem), should have analogs for the counting process.  That is indeed the case, and the purpose of this section is to explore the limiting behavior of renewal processes. The main results that we will study, known appropriately enough as <dfn>renewal theorems</dfn>, are important for other stochastic processes, particularly <a href="../markov/index.html">Markov chains</a>.</p>
+
+<h3 id="bas">Basic Theory</h3>
+
+<h4 id="lln">The Law of Large Numbers</h4>
+
+<p>Our first result is a strong law of large numbers for the renewal counting process, which comes as you might guess, from the law of large numbers for the sequence of arrival times.</p>
+
+<div class="unit" id="lln1">
+	<p class="math">If \(\mu \lt \infty\) then \( N_t / t \to 1 / \mu \) as \( t \to \infty \) with probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that \( T_{N_t} \le t \lt T_{N_t + 1} \) for \( t \gt 0 \). Hence, if \( N_t \gt 0 \),
+		\[ \frac{T_{N_t}}{N_t} \le \frac{t}{N_t} \lt \frac{T_{N_t + 1}}{N_t}\]
+		Recall that \( N_t \to \infty \) as \( t \to \infty \) with probability 1. Recall also that by the <a href="../sample/Mean.html">strong law of large numbers</a> that \( T_n / n \to \mu \) as \( n \to \infty \) with probability 1. It follows that \( T_{N_t} \big/ N_t \to \mu \) as \( t \to \infty \) with probability 1. Also, \( (N_t + 1) \big/ N_t \to 1\) as \( t \to \infty \) with probability 1. Therefore
+		\[ \frac{T_{N_t + 1}}{N_t} = \frac{T_{N_t + 1}}{N_t + 1} \frac{N_t + 1}{N_t} \to \mu \]
+		as \( t \to \infty \) with probability 1. Hence by the squeeze theorem for limits, \( t \big/ N_t \to \mu \) as \( t \to \infty \) with probability 1. </p>
+	</details>
+</div>
+
+<p>So \( 1 / \mu \) is the limiting average rate of arrivals per unit time.</p>
+
+<div class="unit" id="lln2">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/Renewal.html')" class="ancillary">renewal experiment</a> and set \( t = 50 \). For a variety of interarrival distributions, run the simulation 1000 times and note how the empirical distribution is concentrated near \( t / \mu \).</p>
+</div>
+
+<h4 id="clt">The Central Limit Theorem</h4>
+
+<p>Our next goal is to show that the counting variable \( N_t \) is asymptotically normal.</p>
+
+<div class="unit" id="clt1">
+	<p class="math">Suppose that \( \mu \) and \( \sigma \) are finite, and let
+	\[ Z_t = \frac{N_t - t / \mu}{\sigma \sqrt{t / \mu^3}}, \quad t \gt 0 \]
+	The distribution of \( Z_t \) <a href="../dist/Convergence.html"> converges</a> to the <a href="../special/Normal.html">standard normal distribution</a> as \( t \to \infty \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( n \in \N_+ \), let
+		\[ W_n = \frac{T_n - n \mu}{\sigma \sqrt{n}} \]
+		The distribution of \( W_n \) converges to the standard normal distribution as \( n \to \infty \), by the ordinary <a href="../sample/CLT.html">central limit theorem</a>. Next, for \( z \in \R \), \( \P(Z_t \le z) = \P\left(T_{n(z,t)} \gt t\right) \) where
+		\( n(z, t) = \left\lfloor t / \mu + z \sigma \sqrt{t / \mu^3} \right\rfloor \). Also, \( \P(Z_t \le z) = \P\left[W_{n(z,t)} \gt w(z, t)\right] \) where 
+		\[ w(z, t) = -\frac{z}{\sqrt{1 + z \sigma \big/ \sqrt{t / \mu}}} \]
+		But \( n(z, t) \to \infty \) as \( t \to \infty \) and \( w(z, t) \to -z \) as \( t \to \infty \). Recall that \( 1 - \Phi(-z) = \Phi(z) \), where as usual, \( \Phi \) is the standard normal distribution function. Thus, we conclude that \( \P(Z_t \le z) \to \Phi(z) \) as \( t \to \infty \).</p>
+	</details>
+</div>
+
+<div class="unit" id="clt2">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/Renewal.html')" class="ancillary">renewal experiment</a> and set \( t = 50 \). For a variety of interarrival distributions, run the simulation 1000 times and note the <q>normal</q> shape of the empirical distribution. Compare the empirical mean and standard deviation to \( t / \mu \) and \( \sigma \sqrt{t / \mu^3} \), respectively</p>
+</div>
+
+<h4 id="ele">The Elementary Renewal Theorem</h4>
+
+<p>The <dfn>elementary renewal theorem</dfn> states that the basic limit in the law of large numbers in <a href="#lln1" class="ref"></a> holds <a href="../expect/Spaces.html#con">in mean</a>, as well as with probability 1. That is, the limiting mean average rate of arrivals is \( 1 / \mu \). The elementary renewal theorem is of fundamental importance in the study of the limiting behavior of Markov chains, but the proof is not as easy as one might hope. In particular, recall that convergence with probability 1 does not imply convergence in mean, so the elementary renewal theorem does not follow from the law of large numbers.</p>
+
+<div class="unit" id="ele1">
+	<p class="math">\( M(t) / t \to 1 / \mu \) as \( t \to \infty \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>We first show that \( \liminf_{t \to \infty} M(t) / t \ge 1 / \mu \). Note first that this result is trivial if \( \mu = \infty \), so assume that \( \mu \lt \infty \). Next, recall from the <a href="Introduction.html">introduction</a> that \( N_t + 1 \) is a stopping time for the sequence of interarrival times \( \bs{X} \). Recall also that \( T_{N_t + 1} \gt t \) for \( t \gt 0 \). From <a href="../sample/CLT.html#wld">Wald's equation</a> it follows that 
+		\[ \E\left(T_{N_t + 1}\right) = \E(N_t + 1) \mu = [M(t) + 1] \mu \gt t \]
+		Therefore \( M(t) / t \gt 1 / \mu - 1 / t \) for \( t \gt 0 \).  Hence \( \liminf_{t \to \infty} M(t) / t \ge 1 / \mu \).</p>
+		<p>Next we show that \( \limsup_{t \to \infty} M(t) / t \le 1 / \mu \). For this part of the proof, we need to <dfn>truncate</dfn> the arrival times, and use the <a href="Introduction.html#cmp">basic comparison method</a>.  For \( a \gt 0 \), let
+		\[ X_{a,i} = \begin{cases} X_i, &amp; X_i \le a \\ a, &amp; X_i \gt a \end{cases} \]
+		and consider the renewal process with the sequence of interarrival times \( \bs{X}_a = \left(X_{a,1}, X_{a,2}, \ldots\right) \). We will use the standard notation developed in the introductory section. First note that \( T_{a, N_{a,t} + 1} \le t + a \) for \( t \gt 0 \) and \( a \gt 0 \). From <a href="../sample/CLT.html#wld">Wald's equation</a> again, it follows that \( \left[M_a(t) + 1\right] \mu_a \le t + a \). Therefore
+		\[ \frac{M_a(t)}{t} \le \left(\frac{1}{\mu_a} + \frac{a}{t \mu_a}\right) - \frac{1}{t}, \quad a, \; t \gt 0 \]
+		But \( M(t) \le M_a(t) \) for \( t \gt 0 \) and \( a \gt 0 \) and therefore
+		\[ \frac{M(t)}{t} \le \left(\frac{1}{\mu_a} + \frac{a}{t \mu_a} \right) - \frac{1}{t}, \quad a, \; t \gt 0 \]
+		Hence \( \limsup_{t \to \infty} M(t) / t \le 1 / \mu_a \) for \( a \gt 0 \). Finally, \( \mu_a \to \mu \) as \( a \to \infty \) by the <a href="../expect/Integral.html#lim2">monotone convergence theorem</a>, so it follows that \( \limsup_{t \to \infty} M(t) / t \le 1 / \mu \)</p>
+	</details>
+</div>
+
+<div class="unit" id="ele2">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/Renewal.html')" class="ancillary">renewal experiment</a> and set \( t = 50 \). For a variety of interarrival distributions, run the experiment 1000 times and once again compare the empirical mean and standard deviation to \( t / \mu \) and \( \sigma \sqrt{t / \mu^3} \), respectively.</p>
+</div>
+
+<h4 id="ren">The Renewal Theorem</h4>
+
+<p>The <dfn>renewal theorem</dfn> states that the expected number of renewals in an interval is asymptotically proportional to the length of the interval; the proportionality constant is \( 1 / \mu \). The precise statement is different, depending on whether the renewal process is arithmetic or not. Recall that for an arithmetic renewal process, the interarrival times take values in a set of the form \( \{n d: n \in \N\} \) for some \( d \in (0, \infty) \), and the largest such \( d \) is the <dfn>span</dfn> of the distribution. </p>
+
+<div class="unit" id="ren1">
+	<p class="math">For \( h \gt 0 \), \( M(t, t + h] \to \frac{h}{\mu} \) as \( t \to \infty \) in each of the following cases:</p>
+	<ol class="sub">
+		<li>The renewal process is non-arithmetic</li>
+		<li>The renewal process is arithmetic with span \( d \), and \( h \) is a multiple of \( d \)</li>
+	</ol>
+</div>
+
+<p>The renewal theorem is also known as <dfn>Blackwell's theorem</dfn> in honor of <a href="JavaScript:openAncillary('../biographies/Blackwell.html')" class="ancillary">David Blackwell</a>. The final limit  theorem we will study is the most useful, but before we can state the theorem, we need to define and study the class of functions to which it applies.</p>
+
+<h4 id="dri">Direct Riemann Integration</h4>
+
+<p>Recall that in the ordinary theory of <a href="../foundations/Integral.html#rie">Riemann integration</a>, the integral of a function on the interval \( [0, t] \) exists if the upper and lower Riemann sums converge to a common number as the partition is refined. Then, the integral of the function on \( [0, \infty) \) is defined to be the limit of the integral on \( [0, t] \), as \( t \to \infty \). For our new definition, a function is said to be <em>directly</em> Riemann integrable if the lower and upper Riemann sums on the entire unbounded interval \( [0, \infty) \) converge to a common number as the partition is refined, a more restrictive definition than the usual one.</p>
+
+<div class="unit" id="dri1">
+	<p class="math">Suppose that \( g: [0, \infty) \to [0, \infty) \). For \( h \in [0, \infty) \) and \( k \in \N \), let \( m_k(g, h) = \inf\{g(t): t \in [k h, (k + 1) h)\} \) and \( M_k(g, h) = \sup\{g(t): t \in [k h, (k + 1)h) \). The <dfn>lower</dfn> and <dfn>upper</dfn> Riemann sums of \( g \) on \( [0, \infty) \) corresponding to \( h \) are
+	\[ L_g(h) = h \sum_{k=0}^\infty m_k(g, h), \quad U_g(h) = h \sum_{k=0}^\infty M_k(g, h) \]
+	The sums exist in \( [0, \infty] \) and satisfy the following properties:</p>
+	<ol class="sub">
+		<li>\( L_g(h) \le U_g(h) \) for \( h \gt 0 \)</li>
+		<li>\( L_g(h) \) increases as \( h \) decreases</li>
+		<li>\( U_g(h) \) decreases as \( h \) decreases</li>
+	</ol>
+</div>
+
+<p>It follows that \( \lim_{h \downarrow 0} L_g(h) \) and \( \lim_{h \downarrow 0} U_g(h) \) exist in \( [0, \infty] \) and \( \lim_{h \downarrow 0} L_g(h) \le \lim_{h \downarrow 0} U_g(h) \). Naturally, the case where the limits are finite and agree is what we're after.</p>
+
+<div class="unit" id="dri2">
+	<p class="math">A function \( g: [0, \infty) \to [0, \infty) \) is <em>directly Riemann integrable</em> if \( U_g(h) \lt \infty \) for every \( h \gt 0 \) and 
+	\[ \lim_{h \downarrow 0} L_g(h) = \lim_{h \downarrow 0} U_g(h) \]
+	The common value is \( \int_0^\infty g(t) \, dt \).</p>
+</div>
+
+<p>Ordinary Riemann integrability on \( [0, \infty) \) allows functions that are unbounded and oscillate wildly as \( t \to \infty \), and these are the types of functions that we want to exclude for the renewal theorems. The following result connects ordinary Riemann integrability with direct Riemann integrability.</p>
+
+<div class="unit" id="dri3">
+	<p class="math">If \( g: [0, \infty) \to [0, \infty) \) is integrable (in the ordinary Riemann sense) on \( [0, t] \) for every \( t \in [0, \infty) \) and if \( U_g(h) \lt \infty \) for some \( h \in (0, \infty) \) then \( g \) is directly Riemann integrable.</p>
+</div>
+
+<p>Here is a simple and useful class of functions that are directly Riemann integrable. </p>
+
+<div class="unit" id="dri4">
+	<p class="math">Suppose that \( g: [0, \infty) \to [0, \infty) \) is decreasing with \( \int_0^\infty g(t) \, dt \lt \infty \). Then \( g \) is directly Riemann integrable.</p>
+</div>
+
+<h4 id="key">The Key Renewal Theorems</h4>
+
+<p>The <dfn>key renewal theorem</dfn> is an integral version of the renewal theorem, and is the most useful of the various limit theorems.</p>
+
+<div class="unit" id="key1">
+	<p class="math">Suppose that the renewal process is non-arithmetic and that \( g: [0, \infty) \to [0, \infty) \) is directly Riemann integrable. Then
+	\[ (g * M)(t) = \int_0^t g(t - s) \, dM(s) \to \frac{1}{\mu} \int_0^\infty g(x) \, dx \text{ as } t \to \infty \]</p>
+</div>
+
+<h4 id="con">Connections</h4>
+
+<p>Our next goal is to see how the various renewal theorems relate.</p>
+
+<div class="unit" id="con1">
+	<p class="math">The renewal theorem implies the elementary renewal theorem:</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( a_n = M(n, n + 1] \) for \( n \in \N \). From the renewal theorem in <a href="#ren1" class="ref"></a>, \( a_n \to 1 / \mu \) as \( n \to \infty \). Therefore \( \frac{1}{n} \sum_{k=0}^{n-1} a_k \to \frac{1}{\mu} \) as \( n \to \infty \). It follows that \( M(n) / n \to 1 / \mu \) as \( n \to \infty \). But the renewal function is increasing so for \( t \gt 0 \),
+		\[ \frac{\lfloor t \rfloor}{t} \frac{M(\lfloor t \rfloor)}{\lfloor t \rfloor} \le \frac{M(t)}{t} \le \frac{\lceil t \rceil}{t} \frac{M(\lceil t \rceil)}{\lceil t \rceil} \]
+		From the the squeeze theorem for limits it follows that \( M(t) / t \to 1 / \mu \) as \( t \to \infty \).</p>
+	</details>
+</div>
+
+<div class="unit" id="con2">
+	<p class="math">Conversely, the elementary renewal theorem <em>almost</em> implies the renewal theorem.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Assume that \( g(x) = \lim_{t \to \infty} [M(t + x) - M(t)] \) exists for each \( x \gt 0 \). (This assumption is the reason that the proof is incomplete.) Note that
+		\[ M(t + x + y) - M(t) = [M(t + x + y) - M(t + x)] + [M(t + x) - M(t)] \]
+		Let \( t \to \infty \) to conclude that \( g(x + u) = g(x) + g(y) \) for all \( x \ge 0 \) and \( y \ge 0 \). It follows that \( g \) is increasing and \( g(x) = c x \) for \( x \ge 0 \) where \( c \) is a constant. Exactly as in the proof of the previous theorem, it follows that \( M(n) / n \to c \) as \( n \to \infty \). From the elementary renewal theorem in <a href="#ele1" class="ref"></a>, we can conclude that \( c = 1 / \mu \).</p>
+	</details>
+</div>
+
+<div class="unit" id="con3">
+	<p class="math">The key renewal theorem implies the renewal theorem</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This result follows by applying the key renewal theorem in <a href="#key1" class="ref"></a> to the function \( g_h(x) = \bs{1}(0 \le x \le h) \) where \( h \gt 0 \).</p>
+	</details>
+</div>
+
+<p>Conversely, the renewal theorem implies the key renewal theorem.</p>
+
+<h4 id="age">The Age Processes</h4>
+ 
+<p>The key renewal theorem can be used to find the limiting distributions of the current and remaining age. Recall that for \( t \in [0, \infty) \) the current life at time \( t \) is \( C_t = t - T_{N_t} \) and the remaining life at time \( t \) is \( R_t = T_{N_t + 1} - t \).</p>
+
+<div class="unit" id="age1">
+	<p class="math">If the renewal process is non-arithmetic, then
+	\[ \P(R_t \gt x) \to \frac{1}{\mu} \int_x^\infty F^c(y) \, dy \text{  as  } t \to \infty, \quad x \in [0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that
+		\[ \P(R_t \gt x) = F^c(t + x) + \int_0^t F^c(t + x - s) \, dM(s), \quad x \in [0, \infty) \]
+		But \( F^c(t + x) \to 0 \) as \( t \to \infty \), and by the key renewal theorem in <a href="#key1" class="ref"></a>, the integral converges to \( \frac{1}{\mu} \int_0^\infty F^c(x + y) \, dy \). Finally a change of variables in the limiting integral gives the result.</p>
+	</details>
+</div>
+
+<div class="unit" id="age2">
+	<p class="math">If the renewal process is aperiodic, then</p>
+	\[ \P(R_t \gt x) \to \frac{1}{\mu} \int_x^\infty F^c(y) \, dy \text{  as  } t \to \infty, \quad x \in [0, \infty) \]
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that, since the renewal process is aperiodic,
+		\[ \P(C_t \gt x) = F^c(t) + \int_0^{t - x} F^c(t - s) \, dM(s), \quad x \in [0, t] \]
+		Again, \( F^c(t) \to 0 \) as \( t \to \infty \). The change of variables \( u = t - x \) changes the integral into \( \int_0^u F^c(u + x - s) \, dM(s) \). By the key renewal theorem in <a href="#key1" class="ref"></a>, this integral converges \( \frac{1}{\mu} \int_0^\infty F^c(y + x) \, dy = \int_x^\infty F^c(y + x) \, dy \).</p>
+	</details>
+</div>
+
+<div class="unit" id="age3">
+	<p class="math">The current and remaining life have the same limiting distribution. In particular,
+	\[ \lim_{t \to \infty} \P(C_t \le x) = \lim_{t \to \infty} \P(R_t \le x) = \frac{1}{\mu} \int_0^x F^c(y) \, dy, \quad x \in [0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By <a href="#age1" class="ref"></a> and <a href="#age2" class="ref"></a>, the limiting right distribution functions of \( R_t \) and \( C_t \) are the same.  The ordinary (left) limiting distribution function is
+		\[ 1 - \frac{1}{\mu} \int_x^\infty F^c(y) \, dy = \frac{1}{\mu} \left(\mu - \int_x^\infty F^c(y) \, dy \right) \]
+		But recall that \( \mu = \int_0^\infty F^c(y) \, dy \) so the result follows since \( \int_0^\infty F^c(y) \, dy - \int_x^\infty F^c(y) \, dy = \int_0^x F^c(y) \, dy \)</p>
+	</details>
+</div>
+
+<p>The fact that the current and remaining age processes have the same limiting distribution may seem surprising at first, but there is a simple intuitive explanation. After a long period of time, the renewal process looks just about the same backward in time as forward in time.  But reversing the direction of time reverses the rolls of current and remaining age.</p>
+
+<h3 id="exa">Examples and Special Cases</h3>
+
+<h4 id="poi">The Poisson Process</h4>
+
+<p>Recall that the <a href="../poisson/index.html">Poisson process</a>, the most important of all renewal processes, has interarrival times that are exponentially distributed with rate parameter \( r \gt 0 \). Thus, the interarrival distribution function is \( F(x) = 1 - e^{-r x} \) for \( x \ge 0 \) and the mean interarrival time is \( \mu = 1 / r \).</p>
+
+<div class="unit" id="poi1">
+	<p class="math">Verify each of the following directly:</p>
+	<ol class="sub">
+		<li>The law of large numbers in <a href="#lln1" class="ref"></a>.</li>
+		<li>The central limit theorem in <a href="#clt1" class="ref"></a>.</li>
+		<li>The elementary renewal theorem in <a href="#ele1" class="ref"></a>.</li>
+		<li>The renewal theorem in <a href="#ren1" class="ref"></a>.</li>
+	</ol>
+</div>
+
+<h4 id="ber">Bernoulli Trials</h4>
+
+<p>Suppose that \( \bs{X} = (X_1, X_2, \ldots) \) is a sequence of <a href="../bernoulli/index.html">Bernoulli Trials</a> with success parameter \( p \in (0, 1) \). Recall that \( \bs{X} \) is a sequence of independent, identically distributed  indicator variables with \( p = \P(X = 1) \). We have studied a number of random processes derived from \( \bs{X} \):</p>
+
+<div class="unit" id="ber1">
+	<p class="math">Random processes associated with Bernoulli trials.</p>
+	<ol class="sub">
+		<li>\( \bs{Y} = (Y_0, Y_1, \ldots) \) where \( Y_n \) the number of successes in the first \( n \) trials. The sequence \( \bs{Y} \) is the partial sum process associated with \( \bs{X} \). The variable \( Y_n \) has the <a href="../bernoulli/Binomial.html">binomial distribution</a> with parameters \( n \) and \( p \).</li>
+		<li>\( \bs{U} = (U_1, U_2, \ldots) \) where \( U_n \) the number of trials needed to go from success number \( n - 1 \) to success number \( n \).	These are independent variables, each having the <a href="../bernoulli/Geometric.html">geometric distribution</a> on \( \N_+ \) with parameter \( p \).</li>
+		<li>\( \bs{V} = (V_0, V_1, \ldots) \) where \( V_n \) is the trial number of success \( n \). The sequence \( \bs{V} \) is the partial sum process associated with \( \bs{U} \). The variable \( V_n \) has the <a href="../bernoulli/NegativeBinomial.html">negative binomial distribution</a> with parameters \( n \) and \( p \).</li>
+	</ol>
+</div>
+
+<div class="unit" id="ber2">
+	<p class="math">Consider the renewal process with interarrival sequence \( \bs{U} \). Thus, \( \mu = 1 / p \) is the mean interarrival time, and \( \bs{Y} \) is the counting process.  Verify each of the following directly:</p>
+	<ol class="sub">
+		<li>The law of large numbers in <a href="#lln1" class="ref"></a>.</li>
+		<li>The central limit theorem in <a href="#clt1" class="ref"></a>.</li>
+		<li>The elementary renewal theorem in <a href="#ele1" class="ref"></a>.</li>
+	</ol>
+</div>
+
+<div class="unit" id="ber3">
+	<p class="math">Consider the renewal process with interarrival sequence \( \bs{X} \). Thus, the mean interarrival time is \( \mu = p \) and the number of arrivals in the interval \( [0, n] \) is \( V_{n+1} - 1 \) for \( n \in \N \). Verify each of the following directly:</p>
+	<ol class="sub">
+		<li>The law of large numbers in <a href="#lln1" class="ref"></a>.</li>
+		<li>The central limit theorem in <a href="#clt1" class="ref"></a>.</li>
+		<li>The elementary renewal theorem in <a href="#ele1" class="ref"></a>.</li>
+	</ol>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">14. Renewal Processes</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Equations.html" title="Renewal Equations">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Delayed.html" title="Delayed Renewal Processes">4</a></li>
+		<li class="child"><a href="Alternating.html" title="Alternating Renewal Processes">5</a></li>
+		<li class="child"><a href="Reward.html" title="Renewal Reward Processes">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

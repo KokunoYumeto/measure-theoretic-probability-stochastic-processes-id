@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Alternating Renewal Processes</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, alternationg renewal process, current life, remaining life, total life">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\cov}{\text{cov}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">14. Renewal Processes</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Equations.html" title="Renewal Equations">2</a></li>
+		<li class="child"><a href="LimitTheorems.html" title="Renewal Limit Theorems">3</a></li>
+		<li class="child"><a href="Delayed.html" title="Delayed Renewal Processes">4</a></li>
+		<li class="current">5</li>	<li class="child"><a href="Reward.html" title="Renewal reward Processes">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>5. Alternating Renewal Processes</h2>
+</header>
+
+<h3 id="bas">Basic Theory</h3>
+
+<h4 id="pre">Preliminaries</h4>
+
+<p>An <dfn>alternating renewal process</dfn> models a system that, over time, alternates between two states, which we denote by 1 and 0 (so the system starts in state 1). Generically, we can imagine a device that, over time, alternates between <em>on</em> and <em>off</em> states. Specializing further, suppose that a device operates until it fails, and then is replaced with an identical device, which in turn operates until failure and is replaced, and so forth. In this setting, the times that the device is functioning correspond to the <em>on</em> state, while the replacement times correspond to the <em>off</em> state. (The device might actually be <em>repaired</em> rather than <em>replaced</em>, as long as the repair returns the device to pristine, new condition.) The basic assumption is that the pairs of random times successively spent in the two states form an independent, identically distributed sequence. Clearly the model of a system alternating between two states is basic and important, but moreover, such alternating processes are often found embedded in other stochastic processes.</p>
+
+<p>Let's set up the mathematical notation. Let \( \bs{U} = (U_1, U_2, \ldots) \) denote the successive lengths of time that the system is in state 1, and let \( \bs{V} = (V_1, V_2, \ldots)\) the successive lengths of time that the system is in state 0. So to be clear, the system starts in state 1 and remains in that state for a period of time \( U_1 \), then goes to state 0 and stays in this state for a period of time \( V_1 \), then back to state 1 for a period of time \( U_2 \), and so forth. Our basic assumption is that \( \bs{W} = \left((U_1, V_1), (U_2, V_2), \ldots\right) \) is an independent, identically distributed sequence. It follows that \( \bs{U} \) and \( \bs{V} \) each are independent, identically distributed sequences, but \( \bs{U} \) and \( \bs{V} \) might well be dependent. In fact, \( V_n \) might be a function of \( U_n \) for \( n \in \N_+ \). Let \( \mu = \E(U) \) denote the mean of a generic time period \( U \) in state 1 and let \( \nu = \E(V) \) denote the mean of a generic time period \( V \) in state 0. Let \( G \) denote the distribution function of a time period \( U \) in state 1, and as usual, let \( G^c = 1 - G \) denote the right distribution function (or reliability function) of \( U \).</p>
+
+<p>Clearly it's natural to consider returns to state 1 as the arrivals in a renewal process. Thus, let \( X_n = U_n + V_n \) for \( n \in \N_+ \) and consider the renewal process with interarrival times \( \bs{X} = (X_1, X_2, \ldots) \). Clearly this makes sense, since \( \bs{X} \) is an independent, identically distributed sequence of nonnegative variables. For the most part, we will use our usual notation for a renewal process, so the common distribution function of \( X_n = U_n + V_n \) is denoted by \( F \), the arrival time process is \( \bs{T} = (T_0, T_1, \ldots) \), the counting process is \( \{N_t: t \in [0, \infty)\} \), and the renewal function is \( M \). But note that the mean interarrival time is now \( \mu + \nu \).</p>
+
+<div class="unit" id="pre1">
+	<p class="math">The renwal process associated with \( \bs{W} = ((U_1, V_1), (U_2, V_2), \dots) \) as constructed above is known as an <dfn>alternating renewal process</dfn>.</p>
+</div>
+
+<h4 id="stp">The State Process</h4>
+
+<p>Our interest is the state  \( I_t \) of the system at time \( t \in [0, \infty) \), so \( \bs{I} = \left\{I_t: t \in [0, \infty)\right\} \) is a stochastic process with state space \( \{0, 1\} \). Clearly the stochastic processes \( \bs{W} \) and \( \bs{I} \) are equivalent in the sense that we can recover one from the other. Let \( p(t) = \P(I_t = 1) \), the probability that the device is on at time \( t \in [0, \infty) \). Our first main result is a renewal equation for the function \( p \).</p>
+
+<div class="unit" id="stp1">
+	<p class="math">The function \( p \) satisfies the renewal equation \( p = G^c + p * F \) and hence \( p = G^c + G^c * M \). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>By now, the approach should be clear&mdash;we're going to condition on the first arrival \( X_1 \):
+		\[ \P(I_t = 1) = \P(I_t = 1, X_1 \gt t) + \P(I_t = 1, X_1 \le t) = \P(I_t = 1, X_1 \gt t) + \int_0^t \P(I_t = 1 \mid X_1 = s) \, dF(s) \]
+		But \( \{I_t = 1, X_1 \gt t\} = \{U_1 \gt t) \) so \( \P(I_t = 1, X_1 \gt t) = \P(U_1 \gt t) = G^c(t) \). By the fundamental renewal property (the process restarts, independently of the past, at each arrival) \( \P(I_t = 1 \mid X_1 = s) = p(t - s) \) for \( s \le t \). Hence we have
+		\[ p(t) = G^c(t) + \int_0^t p(t - s) \, dF(s), \quad t \in [0, \infty) \]
+		or equivalently, \( p = G^c + p * F \). By the <a href="Equations.html">fundamental theorem on renewal equations</a>, the solution is \( p = G^c + G^c * M \), so
+		\( p(t) = G^c(t) + \int_0^t G^c(t - s) \, dM(s), \quad t \in [0, \infty) \)</p>
+	</details>
+</div>
+
+<p>We can now apply the <a href="LimitTheorems.html#ren">key renewal theorem</a> to get the asymptotic behavior of \( p \).</p>
+
+<div class="unit" id="stp2">
+	<p class="math">If the renewal process is non-arithmetic, then
+	\[ p(t) \to \frac{\mu}{\mu + \nu} \text{ as } t \to \infty\]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>From <a href="#stp1" class="ref"></a>, \( p = G^c + G^c * m \). First, \( G^c(t) \to 0 \) as \( t \to \infty \) as a basic property of the right distribution function. Next, by the key renewal theorem,
+		\[ (G^c * M)(t) \to \frac{1}{\mu + \nu} \int_0^\infty G^c(s) \, ds \text{ as } t \to \infty  \]
+		But by another basic property of the right distribution function, \( \int_0^\infty G^c(s) \, ds = \mu \).</p>
+	</details>
+</div>
+
+<p>Thus, the limiting probability that the system is on is simply the ratio of the mean of an <em>on</em> period to the mean of an <em>on-off</em> period. It follows, of course, that 
+\[ \P(I_t = 0) = 1 - p(t) \to \frac{\nu}{\mu + \nu} \text{ as } t \to \infty\]
+so in particular, the fact that the system starts in the on state makes no difference in the limit. We will return to the asymptotic behavior of the alternating renewal process in the next section on <a href="Reward.html#alt">renewal reward processes</a>.</p>
+
+<h3>Applications and Special Cases</h3>
+
+<p>With a clever definition of <em>on</em> and <em>off</em>, many stochastic processes can be turned into alternating renewal processes, leading in turn to interesting limits, via the basic limit theorem above.</p>
+
+<h4 id="age">Age Processes</h4>
+
+<p>The last remark applies in particular to the <a href="Introduction.html#age">age processes</a> of a standard <a href="Introduction.html">renewal process</a>. So, suppose that we have a renewal process with interarrival sequence \( \bs{X} \), arrival sequence \( \bs{T} \), and counting process \( \bs{N} \). As usual, let \( \mu \) denote the mean and \( F\) the probability distribution function of an interarrival time, and let \( F^c = 1 - F \) denote the right distribution function (or reliability function).</p>
+
+<p>For \( t \in [0, \infty) \), recall that the <dfn>current life</dfn>, <dfn>remaining life</dfn> and <dfn>total life</dfn> at time \( t \) are
+\[ C_t = t - T_{N_t}, \quad R_t = T_{N_t + 1} - t, \quad L_t = C_t + R_t = T_{N_t+1} - T_{N_t} = X_{N_t + 1} \]
+respectively. In the usual terminology of reliability, \( C_t \) is the age of the device in service at time \( t \), \( R_t \) is the time remaining until this device fails, and \( L_t \) is total life of the device. We will use limit theorem in <a href="#stp2" class="ref"></a> to derive the limiting distributions these age processes. The limiting distributions were obtained earlier, in the section on <a href="LimitTheorems.html#age">renewal limit theorems</a>, by a direct application of the key renewal theorem. So the results are not new, but the method of proof is interesting.</p>
+
+<div class="unit">
+	<p class="math">If the renewal process is non-arithmetic then
+		\[ \lim_{t \to \infty} \P(C_t \le x) = \lim_{t \to \infty} \P(R_t \le x) = \frac{1}{\mu} \int_0^x F^c(y) \, dy, \quad  x \in [0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Fix \( x \in [0, \infty) \). For the current life limit, define the <em>on</em> period corresponding to the interarrival time \( X_n \) to be \( U_n = \min\{X_n, x\} \) for \( n \in \N_+ \), so that the <em>off</em> period is \(V_n = X_n - \min\{X_n, x\} \). Note that the system is on at time \( t \in [0, \infty) \) if and only if \( C_t \le x \), and hence \( p(t) = \P(C_t \le x) \). It follows from the limit theorem in <a href="#stp2" class="ref"></a> that 
+		\[ \P(C_t \le x) \to \frac{\E[\min\{X, x\}]}{\mu} \text{ as } t \to \infty \]
+		where \( X \) is a generic interarrival time. But 
+		\[G^c(y) = \P[\min\{X, x\} \gt y] = \P(X \gt y) \bs{1}(x \gt y) = F^c(y) \bs{1}(x \gt y), \quad y \in [0, \infty)\]
+		Hence
+		\[ \E[\min(X, x)] = \int_0^\infty G^c(y) \, dy =  \int_0^x F^c(y) \, dy \]
+		For the remaining life limit we reverse the on-off periods. Thus, define the <em>on</em> period corresponding to the interarrival time \( X_n \) to be \( U_n = X_n - \min\{X_n, x\} \) for \( n \in \N_+ \), so that the <em>off</em> period is \( V_n = \min\{X_n, x\} \). Note that the system is off at time \( t \) if and only if \( R_t \le x \), and hence \( 1 - p(t) = \P(R_t \le x) \). From the limit theorem above,
+		\[ \P(R_t \le x) \to \frac{\E[\min\{X, x\}]}{\mu} \text{ as } t \to \infty \]</p>
+	</details>
+</div>
+
+<p>As we have noted before, the fact that the limiting distributions are the same is not surprising after a little thought. After a long time, the renewal process looks the same forward and backward in time, and reversing the arrow of time reverses the roles of current and remaining time.</p>
+
+<div class="unit">
+	<p class="math">If the renewal process is non-arithmetic then
+	\[ \lim_{t \to \infty} \P(L_t \le x) = \frac{1}{\mu} \int_0^x y \, dF(y), \quad x \in [0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Fix \( x \in [0, \infty) \). For \( n \in \N_+ \), define the <em>on</em> period associated with interarrival time \( X_n \) by \( U_n = X_n \bs{1}(X_n \gt x) \). Of course, the <em>off</em> period corresponding to \( X_n \) is \(V_n = X_n - U_n \). Thus, each renewal period is either totally on or totally off, depending on whether or not the interarrival time is greater than \( x \). Note that the system is on at time \( t \in [0, \infty) \) if and only if \( L_t \gt x \), so from the basic limit theorem in <a href="#stp2" class="ref"></a>,
+		\[ \P(L_t \gt x) \to \frac{1}{\mu} \E[X \bs{1}(X \gt x)] \]
+		where \( X \) is a generic interarrival time. But
+		\[ \E[X \bs{1}(X \gt x)] = \int_x^\infty y \, dF(y)\]</p>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">14. Renewal Processes</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Equations.html" title="Renewal Equations">2</a></li>
+		<li class="child"><a href="LimitTheorems.html" title="Renewal Limit Theorems">3</a></li>
+		<li class="child"><a href="Delayed.html" title="Delayed Renewal Processes">4</a></li>
+		<li class="current">5</li>	<li class="child"><a href="Reward.html" title="Renewal reward Processes">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

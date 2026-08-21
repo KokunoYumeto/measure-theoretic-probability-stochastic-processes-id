@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Backwards Martingales</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, stochastic process, martingale, backward martingale, strong law of large numbers, exchangeable variables, de Finetti's theorem">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Q}{\mathbb{Q}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Properties.html" title="Properties and Constructions">2</a></li>
+		<li class="child"><a href="Stop.html" title="Stopping Times">3</a></li>
+		<li class="child"><a href="Inequalities.html" title="Inequalities">4</a></li>
+		<li class="child"><a href="Convergence.html" title="Convergence">5</a></li>
+		<li class="current">6</li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>6. Backwards Martingales</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<p>A <em>backwards martingale</em> is a stochastic process that satisfies the martingale property reversed in time, in a certain sense. In some ways, backward martingales are simpler than their forward counterparts, and in particular, satisfy a convergence theorem similar to the <a href="Convergence.html">convergence theorem</a> for ordinary martingales. The importance of backward martingales stems from their numerous applications. In particular, some of the fundamental theorems of classical probability can be formulated in terms of backward martingales.</p>
+
+<h4 id="dfn">Definitions</h4>
+
+<p>As usual, we start with a <a href="../prob/Processes.html">stochastic process</a> \( \bs{Y} = \{Y_t: t \in T\} \) on an underlying probability space \( (\Omega, \mathscr{F}, \P) \), having state space \( \R \), and where the index set \( T \) (representing time) is either \( \N \) (discrete time) or \( [0, \infty) \) (continuous time). So to review what all this means, \( \Omega \) is the <a href="../prob/Events.html">sample space</a>, \( \mathscr{F} \) the <a href="../foundations/Measure.html">\( \sigma \)-algebra</a> of events, \( \P \) the probability measure on \( (\Omega, \mathscr{F}) \), and \( Y_t \) is a random variable with values in \( \R \) for each \( t \in T \). But at this point our formulation diverges. Suppose that \( \mathscr{G}_t \) is a sub \( \sigma \)-algebra of \( \mathscr{F} \) for each \( t \in T \), and that \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \) is <em>decreasing</em> so that if \( s, \, t \in T \) with \( s \le t \) then \( \mathscr{G}_t \subseteq \mathscr{G}_s \). Let \( \mathscr{G}_\infty = \bigcap_{t \in T} \mathscr{G}_t \). We assume that \( Y_t \) is measurable with respect to \( \mathscr{G}_t \) and that \( \E(|Y_t|) \lt \infty \) for each \( t \in T \).</p>
+
+<div class="unit" id="dfn1">
+<p class="dfn">The process \( \bs Y = \{Y_t: t \in T\} \) is a <dfn>backwards martingale</dfn> (or <dfn>reversed martingale</dfn>) with respect to \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \) if  \(\E(Y_s \mid \mathscr{G}_t) = Y_t\) for all \(s, \, t \in T\) with \(s \le t\).</p>
+</div>
+
+<p>A backwards martingale can be formulated as an ordinary martingale by using negative times as the indices. Let \( T^- = \{-t: t \in T\} \), so that if \( T = \N \) (the discrete case) then \( T^- \) is the set of non-positive integers, and if \( T = [0, \infty) \) (the continuous case) then \( T^- = (-\infty, 0] \). Recall also that the standard martingale definitions make sense for any <a href="../foundations/Order.html">totally ordered</a> index set.</p>
+
+<div class="unit" id="dfn2">
+	<p class="math">Suppose again that \( \bs Y = \{Y_t: t \in T\} \) is a backwards martingale with respect to \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \). Let \( X_t = Y_{-t} \) and \( \mathscr{F}_t = \mathscr{G}_{-t} \) for \( t \in T^- \). Then \( \bs X = \{X_t: t \in T^-\} \) is a martingale with respect to \( \mathfrak F = \{\mathscr{F}_t: t \in T^-\} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( \mathfrak G \) is a decreasing family of sub \( \sigma \)-algebras of \( \mathscr{F} \), the collection \( \mathfrak F \) is an increasing family of sub \( \sigma \)-algebras of \( \scr F \), and hence is a filtration. Next, \( X_t = Y_{-t} \) is measurable with respect to \( \mathscr{G}_{-t} = \mathscr{F}_t \) for \( t \in T^- \), so \( \bs X \) is adapted to \( \mathfrak F \). Finally, if \( s, \, t \in T^- \) with \( s \le t \) then \( -t \le -s \) so
+		\[ \E(X_t \mid \mathscr{F}_s) = \E(Y_{-t} \mid \mathscr{G}_{-s}) = Y_{-s} = X_s \]</p>
+	</details>
+</div>
+
+<p>Most authors define backwards martingales with negative indices, as above, in the first place. There are good reasons for doing so, since some of the fundamental theorems of martingales apply immediately to backwards martingales. However, for the <em>applications</em> of backwards martingales, this notation is artificial and clunky, so for the most part, we will use our original definition <a href="#dfn1" class="ref"></a>. The next result is another way to view a backwards martingale as an ordinary martingale. This one preserves nonnegative time, but introduces a finite time horizon. For \( t \in T \), let \( T_t = \{s \in T: s \le t\} \), a notation we have used often before.</p>
+
+<div class="unit" id="dfn3">
+	<p class="math">Suppose again that \( \bs Y = \{Y_t: t \in T\} \) is a backwards martingale with respect to \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \). Fix \( t \in T \) and define \( X^t_s = Y_{t-s} \) and \( \mathscr{F}^t_s = \mathscr{G}_{t-s} \) for \( s \in T_t \). Then \( \bs{X}^t = \{X^t_s: s \in T_t\} \) is a martingale relative to \( \mathfrak{F}^t = \{\mathscr{F}^t_s: s \in T_t\} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is essentially the same as for <a href="#dfn2" class="ref"></a>. Since \( \mathfrak G \) is a decreasing family of sub \( \sigma \)-algebras of \( \mathscr{F} \), the collection \( \mathfrak{F}^t \) is an increasing family of sub \( \sigma \)-algebras of \( \scr F \), and hence is a filtration. Next, \( X^t_s = Y_{t-s} \) is measurable with respect to \( \mathscr{G}_{t-s} = \mathscr{F}^t_s \) for \( s \in T_t \), so \( \bs{X}^t \) is adapted to \( \mathfrak{F}^t \). Finally, if \( r, \, s \in T_t \) with \( r \le s \) then \( t - s \le t - r \) so
+		\[ \E(X^t_s \mid \mathscr{F}^t_r) = \E(Y_{t-s} \mid \mathscr{G}_{t-r}) = Y_{t-r} = X^t_r \]</p>
+	</details>
+</div>
+
+<h4 id="prp">Properties</h4>
+
+<p>Backwards martingales satisfy a simple and important property.</p>
+
+<div class="unit" id="prp1">
+	<p class="math">Suppose that \( \bs Y = \{Y_t: t \in T\} \) is a backwards martingale with repsect to \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \). Then \( Y_t = \E(Y_0 \mid \mathscr{G}_t) \) for \( t \in T \) and hence \( \bs Y \) is <a href="../expect/Uniform.html">uniformly integrable</a>.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The fact that \( Y_t = \E(Y_0 \mid \mathscr{G}_t) \) for \( t \in T \) follows directly from the definition of a backwards martingale. Since we have assumed that \( \E(|Y_0|) \lt \infty \), it follows from a <a href="../expect/Uniform.html#exe2">basic property</a> that \( \bs Y \) is uniformly integrable.</p>
+	</details>
+</div>
+
+<p>Here is the <dfn>Doob backwards martingale</dfn>, analogous to the ordinary Doob martingale, and of course named for <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">Joseph Doob</a>. In a sense, this is the converse to <a href="#prp1" class="ref"></a>.</p>
+
+<div class="unit" id="prp2">
+	<p class="math">Suppose that \( Y \) is a random variable on our probability space \( (\Omega, \mathscr{F}, \P) \) with \( \E(|Y|) \lt \infty \), and that \(\mathfrak G = \{\mathscr{G}_t: t \in T\} \) is a decreasing family of sub \( \sigma \)-algebras of \( \mathscr{F} \), as above. Let \( Y_t = \E(Y \mid \mathscr{G}_t) \) for \( t \in T \). Then \( \bs Y = \{Y_t: t \in T\} \) is a backwards martingale with respect to \( \mathfrak G \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By definition, \( Y_t = \E(Y \mid \mathscr{G}_t) \) is measurable with respect to \( \mathscr{G}_t \). Also,
+		\[ \E(|Y_t|) = \E[|\E(Y \mid \mathscr{G}_t)|] \le \E[\E(|Y| \mid \mathscr{G}_t)] = \E(|Y|) \lt \infty, \quad  t \in T \]
+		Next, suppose that \( s, \, t \in T \) with \( s \le t \). Then \( \mathscr{G}_t \subseteq \mathscr{G}_s \) so by the tower property of conditional expected value,
+		\[ \E(Y_s \mid \mathscr{G}_t) = \E[\E(Y \mid \mathscr{G}_s) \mid \mathscr{G}_t] = \E(Y \mid \mathscr{G}_t) = Y_t \]</p>
+	</details>
+</div>
+
+<p>The convergence theorems are the most important results for the applications of backwards martingales. Recall once again that for \( k \in [1, \infty) \), the <dfn>k</dfn>-norm of a real-valued random variable \( X \) is 
+\[ \|X\|_k = \left[\E\left(|X|^k\right)\right]^{1/k} \]
+and the normed vector space \( \mathscr{L}_k \) consists of all \( X \) with \( \|X\|_k \lt \infty \). Convergence in the space \( \mathscr{L}_1 \) is also referred to as <dfn>convergence in mean</dfn>, and convergence in the space \( \mathscr{L}_2 \) is referred to as <dfn>convergence in mean square</dfn>. Here is the primary <dfn>backwards martingale convergence theorem</dfn>:</p>
+
+<div class="unit" id="prp3">
+	<p class="math">Suppose again that \( \bs Y = \{Y_t: t \in T\} \) is a backwards martingale with respect to \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \). Then there exists a random variable \( Y_\infty \) such that</p>
+	<ol class="sub">
+		<li>\( Y_t \to Y_\infty \) as \( t \to \infty \) with probability 1.</li>
+		<li>\( Y_t \to Y_\infty \) as \( t \to \infty \) in mean.</li>
+		<li>\( Y_\infty = \E(Y_0 \mid \mathscr{G}_\infty) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is essentially the same as the ordinary <a href="Convergence.html#mct">martingale convergence theorem</a> if we use the martingale constructed from \( \bs Y \) in <a href="#dfn3" class="ref"></a>. So, fix \( t \in T \) and let \( T_t = \{s \in T: s \le t\} \). Let \( X^t_s = Y_{t - s} \) and \( \mathscr{F}^t_s = \mathscr{G}_{t - s} \) for \( s \in T_t \), so that \( \bs{X}^t = \{X^t_s: s \in T_t\} \) is a martingale relative to \( \mathfrak{F}^t = \{\mathscr{F}^t_s: s \in T_t\} \). Now, for \( a, \, b \in \R \) with \( a \lt b \), let \( U_t(a, b) \) denote the number of up-crossings of \( [a, b] \) by \( \bs{X}^t \) on \( T_t \). Note that \( U_t(a, b) \) is also the number of <em>down-crossings</em> of \( [a, b] \) by \( \bs Y \) on \( T_t \). By the <a href="Inequalities.html#upc">up-crossing inequality</a> applied to the martingale \( \bs{X}^t \), 
+		\[\E[U_t(a, b)] \le \frac{1}{b - a}[\E(|X_t|) + |a|] = \frac{1}{b - a} [\E(|Y_0|) + |a|] \] 
+		Now let \( U_\infty(a, b) \) denote the number of down-crossings of \( [a, b] \) by \( \bs Y \) on all of \( T \). Since \( U_t \uparrow U_\infty \) as \( t \to -\infty \) it follows from the monotone convergence theorem that 
+		\[ E[U_\infty(a, b)] \le \frac{1}{b - a} [\E(|Y_0|) + |a|]\]
+		Hence with probability 1, \( U_\infty(a, b) \lt \infty \) for every \( a, \, b \in \Q \) with \( a \lt b \). By the characterization of convergence in terms of down-crossings (completely analogous to the one for up-crossings), there exists a random variable \( Y_{\infty} \) with values in \( \R^* = \R \cup \{-\infty, \infty\} \) such that \( Y_t \to Y_{\infty} \) as \( t \to \infty \). By <a href="../expect/Integral.html#lim1">Fatou's lemma</a>, 
+		\[ \E(|Y_\infty|) \le \liminf_{t \to \infty} \E(|Y_t|) \le \E(|Y_0|) \lt \infty \]
+		In particular, \( \P(Y_\infty \in \R) = 1 \). Since \( \bs Y \) is uniformly integrable, and \( Y_\infty \in \mathscr{L}_1 \), it follows that \( Y_t \to Y_\infty \) as \( t \to \infty \) in \( \mathscr{L}_1 \) also.<p>
+		<p>It remains to show that \( Y_\infty = \E(Y_0 \mid \mathscr{G}_\infty) \).  Let \( A \in \mathscr{G}_\infty \). Then \( A \in \mathscr{G}_t \) for every \( t \in T \). Since \( Y_t = \E(Y_0 \mid \mathscr{G}_t) \) it follows by definition that \( \E(Y_t; A) = \E(Y_0; A) \) for every \( t \in T \). Letting \( t \to \infty \) and using the dominated convergence theorem, gives \( \E(Y_\infty ; A) = \E(Y_0; A) \). Hence \( Y_\infty = \E(Y_0 \mid \mathscr{G}_\infty) \).</p>
+	</details>
+</div>
+
+<p>As a simple extension of the last result, if \( Y_0 \in \mathscr{L}_k \) for some \( k \in [1, \infty) \) then the convergence is in \( \mathscr{L}_k \) also.</p>
+
+<div class="unit">
+	<p class="math">Suppose again that \( \bs Y = \{Y_t: t \in T\} \) is a backwards martingale relative to \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \). If \( Y_0 \in \mathscr{L}_k \) for some \( k \in [1, \infty) \) then \( Y_t \to Y_\infty \) as \( t \to \infty \) in \(\mathscr{L}_k\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Theorem <a href="#prp3" class="ref"></a> applies, of course, so we know that there exists a random variable \( Y_\infty \in \mathscr{L}_1 \) such that \( Y_t \to Y_\infty \) as \( t \to \infty \) with probability 1 and in \( \mathscr{L}_1 \). The function \( x \mapsto |x|^k \) is convex on \( \R \) so by <a href="../expect/Conditional2.html">Jensen's inequality</a> for conditional expected value,
+		\[ \E(|Y_t|^k) = \E[|\E(Y_0 \mid \mathscr{G}_t)|^k] \le \E[\E(|Y_0|^k \mid \mathscr{G}_t] = \E(|Y_0|^k) \lt \infty \]
+		so \( Y_t \in \mathscr{L}_k \) for every \( t \in T \). By <a href="../expect/Integral.html#lim1">Fatou's lemma</a>, 
+		\[ \E(|Y_\infty|^k) \le \liminf_{t \to \infty} \E(|Y_t|^k) \le \E(|Y_0|^k) \lt \infty \]
+		so \( Y_\infty \in \mathscr{L}_k \) also. Next, since \( Y_t = \E(Y_0 \mid \mathscr{G}_t) \) and \( Y_\infty \) is measurable with respect to \( \mathscr{G}_t \), we can use Jensen's inequality again to get
+		\[ |Y_t - Y_\infty|^k = |\E(Y_0 - Y_\infty \mid \mathscr{G}_t)|^k \le \E(|Y_0 - Y_\infty|^k \mid \mathscr{G}_t) \]
+		It follows that the family of random variables \( \{|Y_t - Y_\infty|^k: t \in T\} \) is uniformly integrable, and hence \( \E(|Y_t - Y_\infty|^k) \to 0 \) as \( t \to \infty \).</p>
+	</details>
+</div>
+
+<h3>Applications</h3>
+
+<h4 id="lln">The Strong Law of Large Numbers</h4>
+
+<p>The <a href="../sample/LLN.html">strong law of large numbers</a> is one of the fundamental theorems of classical probability. Our original proof required that the underlying distribution have finite variance. Here we present an elegant proof using backwards martingales that does not require this extra assumption. So, suppose that \( \bs X = \{X_n: n \in \N_+\} \) is a sequence of independent, identically distributed random variables with common mean \( \mu \in \R \). In statistical terms, \( \bs X \) corresponds to <dfn>sampling</dfn> from the underlying distribution. Next let
+\[ Y_n = \sum_{i=1}^n X_i, \quad n \in \N \]
+so that \( \bs Y = \{Y_n: n \in \N\} \) is the partial sum process associated with \( \bs X \). Recall that the sequence \( \bs Y \) is also a discrete-time random walk. Finally, let \( M_n = Y_n / n \) for \( n \in \N_+ \) so that \( \bs M = \{M_n: n \in \N_+\} \) is the sequence of <dfn>sample means</dfn>. </p>
+
+<div class="unit">
+	<p class="math"><dfn>The law of large numbers</dfn></p>
+	<ol class="sub">
+		<li>\( M_n \to \mu \) as \( n \to \infty \) with probability 1.</li>
+		<li>\( M_n \to \mu \) as \( n \to \infty \) in mean.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>As usual, let \( (\Omega, \mathscr{F}, \P) \) denote the underlying probability space. Also, equalities involving random variables (and particularly conditional expected values) are assumed to hold with probability 1. Now, for \( n \in \N \), let
+		\[ \mathscr{G}_n = \sigma\{Y_n, Y_{n+1}, Y_{n+2}, \ldots\} = \sigma\{Y_n, X_{n+1}, X_{n+2} \ldots\}\]
+		so that \( \mathfrak G = \{\mathscr{G}_n: n \in \N\} \) is a decreasing family of sub \( \sigma \)-algebras of \( \mathscr{F} \). The core of the proof is to show that \( \bs M \) is a backwards martingale relative to \( \mathfrak G \). Let \( n \in \N_+ \). Clearly \( M_n \) is measurable with respect to \( \mathscr{G}_n \). By independence, \( \E(X_i \mid \mathscr{G}_n) = \E(X_i \mid Y_n) \) for \( i \in \{1, 2, \ldots, n\} \). By symmetry (the sequence \( \bs X \) is <a href="../prob/Probability2.html#exc">exchangeable</a>), \( \E(X_i \mid Y_n) = \E(X_j \mid Y_n) \) for \( i, \, j \in \{1, 2, \ldots, n\} \). Hence for \( i \in \{1, 2, \ldots, n\} \)
+		\[ Y_n = \E(Y_n \mid \mathscr{G}_n) = \sum_{j=1}^n E(X_j \mid \mathscr{G}_n) = \sum_{j=1}^n \E(X_i \mid \mathscr{G}_n) = n \E(X_i \mid \mathscr{G}_n) \]
+		so that \( \E(X_i \mid \mathscr{G}_n) = Y_n / n = M_n \) for each \( i \in \{1, 2, \ldots, n\} \). Next,
+		\[ \E(Y_n \mid \mathscr{G}_{n+1}) = \E(Y_{n+1} - X_{n+1} \mid \mathscr{G}_{n+1}) = Y_{n+1} - \E(X_{n+1} \mid \mathscr{G}_{n+1}) = Y_{n+1} - \frac{1}{n+1} Y_{n+1} = \frac{n}{n + 1} Y_{n+1} \]
+		Dividing by \( n \) gives \( \E(M_n \mid \mathscr{G}_{n+1}) = M_{n+1} \) and hence \( \bs M \) is a backwards martingale with respect to \( \mathfrak G \). From the backwards martingale convergence theorem, there exists \( M_\infty \) such that \( M_n \to M_\infty \) as \( n \to \infty \) with probability 1 and in mean. Next, for \( n, \, k \in \N_+ \) simple algebra gives
+		\[ M_{n+k} = \frac{1}{n + k} \sum_{i=1}^k X_i + \frac{n}{n + k} \frac{1}{n} \sum_{i = k + 1}^{k + n} X_i \]
+		Letting \( n \to \infty \) then shows that
+		\[ M_\infty = \lim_{n \to \infty} \frac{1}{n} \sum_{i = k + 1}^{k + n} X_i \]
+		for every \( k \in \N_+ \). Hence \( M_\infty \) is a tail random variable for the IID sequence \( \bs X \). From the <a href="Convergence.html#kol">Kolmogorov 0-1 law</a>, \( M_\infty \) must be a constant. Finally, convergence in mean implies that the means converge, and since \( \E(M_n) = \mu \) for each \( n \), it follows that \( M_\infty = \mu \). </p>
+	</details>
+</div>
+
+<h4 id="exc">Exchangeable Variables</h4>
+
+<p>We start with a probability space \( (\Omega, \mathscr F, \P) \) and another measurable space \( (S, \mathscr S) \). Suppose that \( \bs X = (X_1, X_2, \ldots) \) is a sequence of random variables each taking values in \( S \). Recall that \( \bs X \) is <dfn>exchangeable</dfn> if for every \( n \in \N \), every permutation of \( (X_1, X_2, \ldots, X_n) \) has the same distribution on \( (S^n, \mathscr{S}^n) \) (where \( \mathscr{S}^n \) is the \( n \)-fold product \( \sigma \)-algebra). Clearly if \( \bs X \) is a sequence of independent, identically distributed variables, then \( \bs X \) is exchangeable. Conversely, if \( \bs X \) is exchangeable then the variables are identically distributed (by definition), but are not necessarily independent. The most famous example of a sequence that is exchangeable but not independent is <a href="../urn/Polya.html">P&oacute;lya's urn process</a>, named for <a href="JavaScript:openAncillary('../biographies/Polya.html')" class="ancillary">George P&oacute;lya</a>. On the other hand, <em>conditionally</em> independent and identically distributed sequences <em>are</em> exchangeable. Thus suppose that \( (T, \mathscr{T}) \) is another measurable space and that \( \Theta \) is a random variable taking values in \( T \).</p>
+
+<div class="unit" id="exc1">
+	<p class="math">If \( \bs X \) is conditionally independent and identically distributed given \( \Theta \), then \( \bs X \) is exchangeable.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Implicit in the statement is that the variables in the sequence have a regular conditional distribution \( \mu_\Theta \) given  \( \Theta \). Then for every \( n \in \N_+ \), the conditional distribution of every permutation of \( (X_1, X_2, \ldots, X_n) \), given \( \Theta \), is \( \mu^n_\Theta \) on \( (S^n, \mathscr{S}^n) \), where \( \mu_\Theta^n \) is the \( n \)-fold product measure. Unconditionally, the distribution of any permutation is \( B \mapsto \E[\mu^n_\Theta(B)] \) for \( B \in \mathscr{S}^n \).</p>
+	</details>
+</div>
+
+<p>Often the setting of this theorem arises when we start with a sequence of independent, identically distributed random variables that are governed by a parametric distribution, and then randomize one of the parameters. In a sense, we can always think of the setting in this way: Imagine that \( \theta \in T \) is a parameter for a distribution on \( S \). A special case is the <a href="../bernoulli/BetaBernoulli.html">beta-Bernoulli</a> process, in which the success parameter \( p \) in sequence of <a href="../bernoulli/index.html">Bernoulli Trials</a> is randomized with the <a href="../special/Beta.html">beta distribution</a>. On the other hand, P&oacute;lya's urn process is an example of an exchangeable sequence that does not at first seem to have anything to do with randomizing parameters. But in fact, we know that P&oacute;lya's urn process is a special case of the beta-Bernoulli process. This connection gives a hint of <dfn>de Finetti's theorem</dfn>, named for <a href="JavaScript:openAncillary('../biographies/DeFinetti.html')" class="ancillary">Bruno de Finetti</a>, which we consider next. This theorem states any exchangeable sequence of indicator random variables corresponds to randomizing the success parameter in a sequence of Bernoulli trials.</p>
+
+<div class="unit" id="exc2">
+	<p class="math"><strong>de Finetti's Theorem</strong>. Suppose that \( \bs X = (X_1, X_2, \ldots) \) is an exchangeable sequence of random variables, each taking values in \( \{0, 1\} \). Then there exists a random variable \( P \) with values in \( [0, 1] \), such that given \( P = p \in [0, 1] \), \( \bs X \) is a sequence of Bernoulli trials with success parameter \( p \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>As usual, we need some notation. First recall the <a href="../foundations/Structures.html#per">falling power</a> notation \( r^{(j)} = r (r - 1) \cdots (r - j + 1) \) for \( r \in \R \) and \( j \in \N \). Next for \( n \in \N_+ \) and \( k \in \{0, 1, \ldots, n\} \), let
+		\[ B^n_k = \left\{(x_1, x_2, \ldots, x_n) \in \{0, 1\}^n: \sum_{i=0}^n x_i = k\right\} \]
+		That is, \( B^n_k \) is the set of bit strings of length \( n \) with 1 occurring exactly \( k \) times.  Of course, \( \#(B^n_k) = \binom{n}{k} = n^{(k)} / k! \).</p>
+		<p>Suppose now that \( \bs X = (X_1, X_2, \ldots) \) is an exchangeable sequence of variables with values in \( \{0, 1\} \). For \( n \in \N_+ \) let \( Y_n = \sum_{i=1}^n X_i \) and \( M_n = Y_n / n \). So \( \bs Y = \{Y_n: n \in \N_+\} \) is the partial sum process associated with \( \bs X \) and \( \bs M = \{M_n: n \in \N_+\} \) the sequence of sample means. Let \( \mathscr{G}_n = \sigma\{Y_n, Y_{n+1}, \ldots\} \) and \( \mathscr{G}_\infty = \bigcap_{n=0}^\infty \mathscr{G}_n \). The family of \( \sigma \)-algebras \( \mathfrak G = \{\mathscr{G}_n: n \in \N_+\} \) is decreasing. The key to the proof is to find two backwards martingales and use the backwards martingale convergence theorem in <a href="#prp3" class="ref"></a>.</p>
+		<p>Let \( m \in \N_+ \) and \( k \in \{0, 1, \ldots m\} \)  The crucial insight is that by exchangeability, given \( Y_m = k \), the random vector \( (X_1, X_2, \ldots, X_m) \) is uniformly distributed on \( B^m_k \). So if \( n \in \N_+ \) and \( n \le m \), the random vector \( (X_1, X_2, \ldots, X_n) \), again given \( Y_m = k \), fits the <a href="../urn/Hypergeometric.html">hypergeometric model</a>: a sample of size \( n \) chosen at random and without replacement from a population of \( m \) objects of which \( k \) are type 1 and \( m - k \) are type 0. Thus, if \( j \in \{0, 1, \ldots, n\} \) and \( (x_1, x_2, \ldots, x_n) \in B^n_j \) then
+		\[ \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid Y_m = k) = \frac{k^{(j)} (m - k)^{(n - j)}}{m^{(n)}} \]
+		Equivalently,
+		\[ \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid Y_m) = \frac{Y_m^{(j)} (m - Y_m)^{(n - j)}}{m^{(n)}} \]
+		Given \( Y_m \), the variables \( (Y_{m+1}, Y_{m+2}, \ldots) \) give no additional information about the distribution of \( (X_1, X_2, \ldots, X_n) \) and hence
+		\[ \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid \mathscr{G}_m) =\E[\bs{1}(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n) \mid \mathscr{G}_n] = \frac{Y_m^{(j)} (m - Y_m)^{(n - j)}}{m^{(n)}} \]
+		For fixed \( n \), \( j \), and \( (x_1, x_2, \ldots, x_n) \in B^n_j \), the conditional expected value in the middle of the displayed equation, as a function of \( m \), is a Doob backward martingale <a href="#prp1" class="ref"></a> with respect to \( \mathfrak G \) and hence converges to \( \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid \mathscr{G}_\infty) \) as \( m \to \infty \).</p>
+		<p>Next we show that \( \bs M \) is a backwards martingale with respect to \( \mathfrak G \). Trivially \( M_n \) is measurable with respect to \( \mathscr{G}_n \) and \( \E(M_n) \le 1 \) for each \( n \in \N \). Thus we need to show that \( \E(M_n \mid \mathscr{G}_m) = M_m \) for \( m, \, n \in \N_+ \) with \( n \le m \). From our previous work with \( (X_1, X_2, \ldots, X_n) \) we know that the conditional distribution of \( Y_n \) given \( Y_m = k \) is hypergeometric with parameters \( m \), \( k \), and \( n \):
+		\[\P(Y_n = j \mid Y_m = k) = \binom{n}{j} \frac{k^{(j)} (m - k)^{(n - j)}}{m^{(n)}}, \quad j \in \{0, 1, \ldots, n\}\]
+		Recall that the mean of the hypergeometric distribution is the sample size times the proportion of type 1 objects in the population. Thus,
+		\[ \E(M_n \mid Y_m = k) = \frac{1}{n} \E(Y_n \mid Y_m = k) = \frac{1}{n} n \frac{k}{m} = \frac{k}{m}  \]
+		Or equivalently, \( \E(M_n \mid Y_m) = Y_m / m = M_m \).  Once again, given \( Y_m \), the variables \( Y_{m+1}, Y_{m+2} \) give no additional information and so \( \E(Y_n \mid \mathscr{G}_m) = Y_m \). Hence \( \bs M \) is a backwards martingale with respect to \( \mathfrak G \). From the backwards martingale convergence theorem <a href="#prp3" class="ref"></a>, there exists a random variable \( P \) such that \( M_n \to P \) as \( n \to \infty \) with probability 1.</p>
+		<p>It just remains to connect the dots. Suppose now that \( n \in \N_+ \) and \( j \in \{0, 1, \ldots n\} \) and that \( m \in \N_+ \) and \( k_m \in \{0, 1, \ldots, m\} \). From simple calculus, if \( n \) and \( j \) are fixed and \( k_m / m \to p \in [0, 1] \) as \( m \to \infty \) then
+		\[ \frac{k_m^{(j)} (m - k_m)^{(n - j)}}{m^{(n)}} \to p^j (1 - p)^{n - j} \text{ as } m \to \infty \]
+		(You may recall that this computation is used in the proof of the convergence of the hypergeometric distribution to the binomial.) Returning to the joint distribution, recall that if \( (x_1, x_2, \ldots, x_n) \in B^n_j \) then
+		\[ \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid \mathscr{G}_m) = \frac{Y_m^{(j)} (m - Y_m)^{(n - j)}}{m^{(n)}} \]
+		Let \( m \to \infty \). Since \( Y_m / m \to P \) as \( m \to \infty \) we get
+		\[ \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid \mathscr{G}_\infty) = P^j (1 - P)^{n - j} \]
+		Random variable \( P \) is measurable with respect to \( \mathscr{G}_\infty \) so
+		\[ \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid P) = P^j (1 - P)^{n - j} \text{ as } m \to \infty \]
+		Given \( P = p \in [0, 1] \), \( \bs X \) is a sequence of Bernoulli trials with success parameter \( p \).</p>
+	</details>
+</div>
+
+<p>De Finetti's theorem has been extended to much more general sequences of exchangeable variables. Basically, if \( \bs X = (X_1, X_2, \ldots) \) is an exchangeable sequence of random variables, each taking values in a significantly nice measurable space \( (S, \mathscr{S}) \) then there exists a random variable \( \Theta \) such that \( \bs X \) is independent and identically distributed given \( \Theta \). In the proof, the result that \( M_n \to P \) as \( n \to \infty \) with probability 1, where \( M_n = \frac{1}{n} \sum_{i=1}^n X_i \), is known as <dfn>de Finetti's strong law of large numbers</dfn>. De Finetti's theorem, and it's generalizations are important in Bayesian statistical inference. For an exchangeable sequence of random variables (our observations in a statistical experiment), there is a hidden, random parameter \( \Theta \). Given \( \Theta = \theta \), the variables are independent and identically distributed. We gain information about \( \Theta \) by imposing a <dfn>prior distribution</dfn> on \( \Theta \) and then updating this, based on our observations and using Baye's theorem, to a <dfn>posterior distribution</dfn>.</p>
+
+<p>Stated more in terms of distributions, de Finetti's theorem states that the distribution of \( n \) distinct variables in the exchangeable sequence is a <dfn>mixture</dfn> of product measures. That is, if \( \mu_\theta \) is the distribution of a generic \( X \) on \( (S, \mathscr{S}) \) given \( \Theta = \theta \), and \( \nu \) is the distribution of \( \Theta \) on \( (T, \mathscr{T}) \), then the distribution of \( n \) of the variables on \( (S^n \mathscr{S}^n) \) is
+\[ B \mapsto \int_T \mu_\theta^n(B) \, d\nu(\theta)  \]</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Properties.html" title="Properties and Constructions">2</a></li>
+		<li class="child"><a href="Stop.html" title="Stopping Times">3</a></li>
+		<li class="child"><a href="Inequalities.html" title="Inequalities">4</a></li>
+		<li class="child"><a href="Convergence.html" title="Convergence">5</a></li>
+		<li class="current">6</li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

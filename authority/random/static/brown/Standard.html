@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+	<title>Standard Brownian Motion</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Brownian motion, normal distribution, random walk, transformation, irregularity, strong Markov property, reflection principle, martingale, maximum, hitting time, arcsine distribution, law of the iterated logarithm">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+	<script src="../apps/Apps.js"></script>
+	<script src="../apps/Distributions.js"></script>
+	<script>
+		"use strict";
+		class BrownApp extends App {
+			constructor(name) {
+				super(name);
+			}
+			initialize() {
+				super.initialize();
+				const runButton = new RunButton(this.toolbar, this.name);
+				const stopButton = new StopButton(this.toolbar, this.name);
+				const resetButton = new ResetButton(this.toolbar, this.name);
+				this.graph = new Canvas(this.graphs, 200, 200, "Sample path");
+				this.dot = this.graph.makeDot();
+				this.graph.setBounds(-4, 4, -4, 4);
+				this.graph.makeAxis(-4, 0, 1, HOR);
+				this.graph.makeText("-4", -4, 0, BELOW);
+				this.graph.makeText("4", 4, 0, BELOW);
+				this.graph.makeAxis(0, -4, 1, VERT);
+				this.graph.makeText("-4", 0, -4, LEFT);
+				this.graph.makeText("4", 0, 4, LEFT);
+				this.dDist = new NormalDistribution(0, Math.sqrt(1 / 200));
+				this.reset();
+			}
+			reset() {
+				clearInterval(this.ID);
+				this.x = 0; this.y = 0;
+				this.graph.setDot(this.dot, this.x, this.y, 4, "red");
+			}
+			stop() {
+				clearInterval(this.ID);
+			}
+			run() {
+				this.ID = setInterval(this.takeStep.bind(this), 20);
+			}
+			takeStep () {
+				let dx = this.dDist.simulate(), dy = this.dDist.simulate();
+				this.x += dx; this.y += dy;
+				this.graph.setDot(this.dot, this.x, this.y, 4, "red");
+			}
+		}
+		const app = new BrownApp("app");
+	</script>
+</head>
+
+<body onload="app.initialize();">
+
+<div class="latex">
+	\( \newcommand{\P}{\mathbb{P}} \)
+	\( \newcommand{\E}{\mathbb{E}} \) 
+	\( \newcommand{\R}{\mathbb{R}} \) 
+	\( \newcommand{\N}{\mathbb{N}} \)
+	\( \newcommand{\Z}{\mathbb{Z}} \)
+	\( \newcommand{\D}{\mathbb{D}} \)
+	\( \newcommand{\bs}{\boldsymbol} \)
+	\( \newcommand{\cov}{\text{cov}} \)
+	\( \newcommand{\cor}{\text{cor}} \)
+	\( \newcommand{\var}{\text{var}} \)
+	\( \newcommand{\sd}{\text{sd}} \)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Brownian Motion</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Drift.html" title="Brownian Motion with Drift">2</a></li>
+		<li class="child"><a href="Bridge.html" title="The Brownian Bridge">3</a></li>
+		<li class="child"><a href="Geometric.html" title="Geometric Brownian Motion">4</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>1. Standard Brownian Motion</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<h4 id="his">History</h4>
+
+<p>In 1827, the botanist <a href="JavaScript:openAncillary('../biographies/Brown.html')" class="ancillary">Robert Brown</a> noticed that tiny particles from pollen, when suspended in water, exhibited continuous but very jittery and erratic motion.  In his <q>miracle year</q> in 1905, <a href="JavaScript:openAncillary('../biographies/Einstein.html')" class="ancillary">Albert Einstein</a> explained the behavior physically, showing that the particles were constantly being bombarded by the molecules of the water, and thus helping to firmly establish the atomic theory of matter.  Brownian motion as a mathematical random process was first constructed in rigorous way by <a href="JavaScript:openAncillary('../biographies/Wiener.html')" class="ancillary">Norbert Wiener</a> in a series of papers starting in 1918. For this reason, the Brownian motion process is also known as the <dfn>Wiener process</dfn>.</p>
+
+
+<div class="unit" id="his1">
+	<p class="app">Run the simulation below to get an idea of what Mr. Brown may have observed under his microscope.</p>
+	<div id="app" class="app"></div>
+</div>
+
+<p>Along with the <a href="../bernoulli/index.html">Bernoulli trials process</a> and the <a href="../poisson/index.html">Poisson process</a>, the Brownian motion process is of central importance in probability.  Each of these processes is based on a set of idealized assumptions that lead to a rich mathematial theory. In each case also, the process is used as a building block for a number of related random processes that are of great importance in a variety of applications. In particular, Brownian motion and related processes are used in applications ranging from physics to statistics to economics.</p>
+
+<h4 id="def">Definition</h4>
+
+<div class="unit" id="def1">
+	<p class="dfn">A <dfn>standard Brownian motion</dfn> is a random process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) with state space \( \R \) that satisfies the following properties:</p>
+	<ol class="sub">
+		<li>\( X_0 = 0 \) (with probability 1).</li>
+		<li>\( \bs{X} \) has stationary increments. That is, for \( s, \; t \in [0, \infty) \) with \( s \lt t \), the distribution of \( X_t - X_s \) is the same as the distribution of \( X_{t - s} \).</li>
+		<li>\( \bs{X} \) has independent increments. That is, for \( t_1, t_2, \ldots, t_n \in [0, \infty) \) with \( t_1 \lt t_2 \lt \cdots \lt t_n \), the random variables \( X_{t_1}, X_{t_2} - X_{t_1}, \ldots, X_{t_n} - X_{t_{n-1}} \) are independent.</li>
+		<li>\( X_t \) is normally distributed with mean 0 and variance \( t \) for each \( t \in (0, \infty) \).</li>
+		<li>With probability 1, \( t \mapsto X_t \) is continuous on \( [0, \infty) \).</li>
+	</ol>
+</div>
+
+<p>To understand the assumptions physically, let's take them one at a time.</p>
+
+<ol class="sub">
+	<li>Suppose that we measure the position of a Brownian particle in one dimension, starting at an arbitrary time which we designate as \( t = 0 \), with the initial position designated as \( x = 0 \). Then this assumption is satisfied by convention. Indeed, occasionally, it's convenient to relax this assumption and allow \( X_0 \) to have other values.</li>
+	<li>This is a statement of <dfn>time homogeneity</dfn>: the underlying dynamics (namely the jostling of the particle by the molecules of water) do not change over time, so the distribution of the displacement of the particle in a time interval \( [s, t] \) depends only on the length of the time interval.</li>
+	<li>This is an idealized assumption that would hold approximately if the time intervals are large compared to the tiny times between collisions of the particle with the molecules.</li>
+	<li>This is another idealized assumption based on the central limit theorem: the position of the particle at time \( t \) is the result of a very large number of collisions, each making a very small contribution. The fact that the mean is 0 is a statement of <dfn>spatial homogeneity</dfn>: the particle is no more or less likely to be jostled to the right than to the left. Next, recall that the assumptions of <a href="../markov/General.html#inc">stationary, independent increments</a> means that \( \var(X_t) = \sigma^2 t \) for some positive constant \( \sigma^2 \). By a change in time scale, we can assume \( \sigma^2 = 1 \), although we will consider more general Brownian motions <a href="Drift.html">with drift and scaling</a> in the next section. </li>
+	<li>Finally, the continuity of the sample paths is an essential assumption, since we are modeling the position of a physical particle as a function of time.</li>
+</ol>
+
+<p>Of course, the first question we should ask is whether there <em>exists</em> a stochastic process satisfying definition <a href="#def1" class="ref"></a>.  Fortunately, the answer is yes, although the proof is complicated.</p>
+
+<div class="unit" id="def2">
+	<p class="math">There exists a probability space \( (\Omega, \mathscr{F}, \P) \) and a stochastic process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) on this probability space satisfying the assumptions in definition <a href="#def1" class="ref"></a>.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The assumptions in definition <a href="#def1" class="ref"></a> lead to a consistent set of finite dimensional distributions (which are given in <a href="#dis1" class="ref"></a>). Thus by <a href="../prob/Processes.html">Kolmogorov existence theorem</a>, there exists a stochastic process \( \bs{U} = \{U_t: t \in [0, \infty)\} \) that has these finite dimensional distributions. However, \( \bs{U} \) does not have continuous sample paths, but we can construct from \( \bs{U} \) an equivalent process that does have continuous sample paths.</p>
+		<p>First <a href="../foundations/Sets.html#dyr">recall</a> that a <dfn>binary rational</dfn> (or <dfn>dyadic rational</dfn>) in \( [0, \infty) \) is a number of the form \( k / 2^n \) where \( k, \, n \in \N \). Let \( \D_+ \) denote the set of all binary rationals in \( [0, \infty) \), and recall that \( \D_+ \) is countable but also <dfn>dense</dfn> in \( [0, \infty) \) (that is, if \( t \in [0, \infty) \setminus \D_+ \) then there exists \( t_n \in \D_+ \) for \( n \in \N_+ \) such that \( t_n \to t \) as \( n \to \infty \)).</p>
+		<p>Now, for \( n \in \N_+ \), let \( X_n(t) = U_t \) if \( t \) is a binary rational of the form \( k \big/ 2^n \) for some \( k \in \N \). If \( t \) is not such a binary rational, define \( X_n(t) \) by linear interpolation between the the closest binary rationals of this form on either side of \( t \). Then \( X_n(t) \to U(t) \) as \( n \to \infty \) for every \( t \in \D_+\), and with probability 1, the convergence is uniform on \( \D_+ \cap [0, T] \) for each \( T \gt 0 \). It then follows that \( \bs{U} \) is continuous on \( \D_+ \) with probability 1.</p>
+		<p>For the last step, let \( X_t = \lim_{s \to t, \; s \in \D_+} U_s \) for \( t \in [0, \infty) \). The limit exists since \( \bs{U} \) is continuous on \( \D_+ \) with probability 1. The process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is continuous on \( [0, \infty) \) with probability 1, and has the same finite dimensional distributions as \( \bs{U} \).</p>
+	</details>
+</div>
+
+<div class="unit" id="def3">
+	<p class="app">Run the simulation of the <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">standard Brownian motion process</a> a few times in single-step mode. Note the qualitative behavior of the sample paths. Run the simulation 1000 times and compare the empirical density function and moments of \( X_t \) to the true probabiltiy density function and moments.</p>
+</div>
+
+<h4 id="wlk">Brownian Motion as a Limit of Random Walks</h4>
+
+<p>Clearly the underlying dynamics of the Brownian particle being knocked about by molecules suggests a random walk as a possible model, but with tiny time steps and tiny spatial jumps.  Let \( \bs{X} = (X_0, X_1, X_2, \ldots) \) be the <a href="../bernoulli/Walk.html">symmetric simple random walk</a>. Thus, \( X_n = \sum_{i=1}^n U_i \) where \( \bs{U} = (U_1, U_2, \ldots) \) is a sequence of independent variables with \( \P(U_i = 1) = \P(U_i = -1) = \frac{1}{2} \) for each \( i \in \N_+ \). Recall that \( \E(X_n) = 0 \) and \( \var(X_n) = n \) for \( n \in \N \). Also, since \( \bs{X} \) is the partial sum process associated with an IID sequence, \( \bs{X} \) has stationary, independent increments (but of course in discrete time). Finally, recall that by the central limit theorem, \( X_n \big/ \sqrt{n} \) converges to the standard normal distribution as \( n \to \infty \). Now, for \( h, d \in (0, \infty) \) the continuous time process
+\[ \bs{X}_{h, d} = \left\{d X_{\lfloor t / h \rfloor}: t \in [0, \infty) \right\} \]
+is a jump process with jumps at \( \{0, h, 2 h, \ldots\} \) and with jumps of size \( \pm d \). Basically we would like to let \( h \downarrow 0 \) and \( d \downarrow 0 \), but this cannot be done arbitrarily. Note that \( \E\left[X_{h, d}(t)\right] = 0 \) but \( \var\left[X_{h,d}(t)\right] = d^2 \lfloor t / h \rfloor \). Thus, by the central limit theorem, if we take \( d = \sqrt{h} \) then the distribution of \( X_{h, d}(t) \) will converge to the normal distribution with mean 0 and variance \( t \) as \( h \downarrow 0 \). More generally, we might hope that all of requirements in the definition in <a href="#def1" class="ref"></a> are satisfied by the limiting process, and if so, we have a standard Brownian motion.</p>
+
+<div class="unit" id="wlk1">
+	<p class="app">Run the simulation of the <a href="JavaScript:openAncillary('../apps/RandomWalk.html')" class="ancillary">random walk process</a> for increasing values of \( n \). In particular, run the simulation several times with \( n = 100 \). Compare the qualitative behavior with the <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">standard Brownian motion process</a>. Note that the scaling of the random walk in time and space is effecitvely accomplished by scaling the horizontal and vertical axes in the graph window.</p>
+</div>
+
+<h4 id="dis">Finite Dimensional Distributions</h4>
+
+<p>Let \( \bs{X} = \{X_t: t \in [0, \infty)\} \) be a standard Brownian motion. It follows from part (d) of definition <a href="#def1" class="ref"></a> that \( X_t \) has probability density function \( f_t \) given by
+\[ f_t(x) = \frac{1}{\sqrt{2 \pi t}} \exp\left(-\frac{x^2}{2 t}\right), \quad x \in \R \]
+This family of density functions determines the finite dimensional distributions of \( \bs{X} \).</p>
+
+<div class="unit" id="dis1">
+	<p class="math">If \( t_1, t_2, \ldots, t_n \in (0, \infty) \) with \( 0 \lt t_1 \lt t_2 \cdots \lt t_n \) then \( (X_{t_1}, X_{t_2}, \ldots, X_{t_n}) \) has probability density function \( f_{t_1, t_2, \ldots, t_n} \) given by
+	\[ f_{t_1, t_2, \ldots, t_n}(x_1, x_2, \ldots, x_n) = f_{t_1}(x_1) f_{t_2 - t_1}(x_2 - x_1) \cdots f_{t_n - t_{n-1}}(x_n - x_{n-1}), \quad (x_1, x_2, \ldots, x_n) \in \R^n \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows because \(\bs{X}\) has stationary, independent increments.</p>
+	</details>
+</div>
+
+<div class="unit" id="dis2">
+	<p class="math">\( \bs{X} \) is a Gaussian process with mean function mean function \( m(t) = 0 \) for \( t \in [0, \infty) \) and covariance function \( c(s, t) = \min\{s, t\} \) for \( s, t \in [0, \infty) \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The fact that \(\bs{X}\) is a Gaussian process follows because \(X_t\) is normally distributed for each \(t \in T\) and \(\bs{X}\) has stationary, independent increments. The mean function is 0 by assumption. For the covariance function, suppose \( s, \, t \in [0, \infty) \) with \( s \le t \). Since \( X_s \) and \( X_t - X_s \) are independent, we have
+		\[ \cov(X_s, X_t) = \cov\left[X_s, X_s + (X_t - X_s)\right] = \var(X_s) + 0 = s \]</p>
+	</details>
+</div>
+
+<p>Recall that for a Gaussian process, the finite dimensional (multivariate normal) distributions are completely determined by the mean function \( m \) and the covariance function \( c \). Thus, it follows that a standard Brownian motion is characterized as a continuous Gaussian process with the mean and covariance functions in the last theorem. Note also that
+\[ \cor(X_s, X_t) = \frac{\min\{s, t\}}{\sqrt{s t}} = \sqrt{\frac{\min\{s, t\}}{\5\{s, t\}}}  ,\quad (s, t) \in [0, \infty)^2 \]
+We can also give the higher moments and the <a href="../expect/Generating.html#mgf">moment generating function</a> for \( X_t \).</p>
+
+<div class="unit">
+	<p class="math">For \( n \in \N \) and \( t \in [0, \infty) \),</p>
+	<ol class="sub">
+		<li>\( \E\left(X_t^{2n}\right) = 1 \cdot 3 \cdots (2 n - 1) t^n = (2 n)! t^n \big/ (n! 2^n) \)</li>
+		<li>\( \E\left(X_t^{2n + 1}\right) = 0 \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These moments follow from standard results, since \( X_t \) is <a href="../special/Normal.html">normally distributed</a> with mean 0 and variance \( t \).</p>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="math">For \( t \in [0, \infty) \), \( X_t \) has moment generating function given by
+	\[ \E\left(e^{u X_t}\right) = e^{t u / 2}, \quad u \in \R \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, this is a standard result for the normal distribution.</p>
+	</details>
+</div>
+
+<h4 id="trn">Simple Transformations</h4>
+
+<p>There are several simple transformations that preserve standard Brownian motion and will give us insight into some of its properties. As usual, our starting place is a standard Brownian motion \( \bs{X} = \{X_t: t \in [0, \infty)\} \). Our first result is that reflecting the paths of \( \bs{X} \) in the line \( x = 0 \) gives another standard Brownian motion</p>
+
+<div class="unit" id="trn1">
+	<p class="math">Let \( Y_t = -X_t \) for \( t \ge 0 \). Then \( \bs{Y} = \{Y_t: t \ge 0\} \) is also a standard Brownian motion.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Clearly the new process is still a Gaussian process, with mean function \( \E(-X_t) = -\E(X_t) = 0 \) for \( t \in [0, \infty) \) and covariance function \( \cov(-X_s, -X_t) = \cov(X_s, X_t) = \min\{s, t\} \) for \( (s, t) \in [0, \infty)^2 \). Finally, since \( \bs{X} \) is continuous, so is \( \bs{Y} \).</p>
+	</details>
+</div>
+
+<p>Our next result is related to the Markov property, which we explore in more detail below. If we <q>restart</q> Brownian motion at a fixed time \( s \), and shift the origin to \( X_s \), then we have another standard Brownian motion. This means that Brownian motion is both <dfn>temporally and spatially homogeneous</dfn>.</p>
+
+<div class="unit" id="trn2">
+	<p class="math">Fix \( s \in [0, \infty) \) and define \( Y_t = X_{s + t} - X_s \) for \( t \ge 0 \). Then \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) is also a standard Brownian motion.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( \bs{X} \) has stationary, independent increments, the process \( \bs{Y} \) is equivalent in distribution to \( \bs{X} \). Clearly also \(\bs{Y} \) is continuous since \( \bs{X} \) is.</p>
+	</details>
+</div>
+
+<p>Our next result is a simple time reversal, but to state this result, we need to restrict the time parameter to a bounded interval of the form \( [0, T] \) where \( T \gt 0 \). The upper endpoint \( T \) is sometimes referred to as a <dfn>finite time horizon</dfn>. Note that \( \{X_t: t \in [0, T]\} \) still satisfies definition <a href="#def1" class="ref"></a>, but with the time parameters restricted to \( [0, T] \).</p>
+
+<div class="unit" id="trn3">
+	<p class="math">Define \( Y_t = X_{T - t} - X_T \) for \( 0 \le t \le T \). Then \( \bs{Y} = \left\{Y_t: t \in [0, T]\right\} \) is also a standard Brownian motion on \( [0, T] \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>\( \bs{Y} \) is a Gaussian process, since a finite, linear combination of variables from this process reduces to a finite, linear combination of variables from \( \bs{X} \). Next, \( \E(Y_t) = \E(X_{T - t}) - \E(X_T) = 0 \). Next, if \( s, \; t \in [0, T] \) with \( s \le t \) then 
+		\begin{align}
+			\cov(Y_s, Y_t) &amp; = \cov(X_{T - s} - X_T, X_{T-t} - X_t) = \cov(X_{T-s}, X_{T-t}) - \cov(X_{T-s}, X_T) - \cov(X_T, X_{T-t}) + \cov(X_T, X_t) \\
+			&amp; = (T - t) - (T - s) - (T - t) + T = s 
+		\end{align}
+		Finally, \( t \mapsto Y_t \) is continuous on \( [0, T] \) with probability 1, since \( t \mapsto X_t \) is continuous on \( [0, T] \) with probability 1.</p>
+	</details>
+</div>
+
+<p>Our next transformation involves scaling \( \bs{X} \) both temporally and spatially, and is known as <dfn>self-similarity</dfn>.</p>
+
+<div class="unit" id="trn5">
+	<p class="math">Let \( a \in (0, \infty) \) and define \( Y_t = \frac{1}{a} X_{a ^2 t} \) for \( t \ge 0 \). Then \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) is also a standard Brownian motion.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Once again, \( \bs{Y} \) is a Gaussian process, since finite, linear combinations of variables in \(\bs{Y}\) reduce to finite, linear combinations of variables in \(\bs{X}\).  Next, \( \E(Y_t) = a \E(X_{a^2 t}) = 0 \) for \( t \gt 0 \), and for \( s, \, t \gt 0 \) with \( s \lt t \),
+		\[ \cov(Y_s, Y_t) = \cov\left(\frac{1}{a} X_{a^2 s}, \frac{1}{a} X_{a^2 t}\right) = \frac{1}{a^2} \cov\left(X_{a^2 s}, X_{a^2 t}\right) = \frac{1}{a^2} a^2 s = s \]
+		Finally \( \bs{Y} \) is a continuous process since \( \bs{X} \) is continuous.</p>
+	</details>
+</div>
+
+<p>Note that the graph of \( \bs{Y} \) can be obtained from the graph of \( \bs{X} \) by scaling the time axis \( t \) by a factor of \( a^2 \) and scaling the spatial axis \( x \) by a factor of \( a \). The fact that the temporal scale factor must be the square of the spatial scale factor is clearly related to Brownian motion as the limit of random walks. Note also that this transformation amounts to <q>zooming in or out</q> of the graph of \( \bs{X} \) and hence Brownian motion has a self-similar, fractal quality, since the graph is unchanged by this transformation. This also suggests that, although continuous, \( t \mapsto X_t \) is highly irregular.  We consider this in the next subsection.</p>
+
+<p>Our final transformation is referred to as <dfn>time inversion</dfn>.</p>
+
+<div class="unit" id="trn4">
+	<p class="math">Let \( Y_0 = 0 \) and \( Y_t = t X_{1/t} \) for \( t \gt 0 \). Then \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) is also a standard Brownian motion.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Clearly \( \bs{Y} \) is a Gaussian process, since finite, linear combinations of variables in \(\bs{Y}\) reduce to finite, linear combinations of variables in \(\bs{X}\).  Next, \( \E(Y_t) = t \E(X_{1/t}) = 0 \) for \( t \gt 0 \), and for \( s, \, t \gt 0 \) with \( s \lt t \),
+		\[ \cov\left(Y_s, Y_t\right) = \cov\left(s X_{1/s}, t X_{1/t}\right) = s t \, \cov\left(X_{1/s}, X_{1/t}\right) = s t \frac{1}{t} = s \]
+		Since \( t \mapsto X_t \) is continuous on \( [0, \infty) \) with probability 1, \( t \mapsto Y_t \) is continuous on \( (0, \infty) \) with probability 1.  Thus, all that remains is to show continuity at \( t = 0 \). Thus we need to show that with probability 1, \( t X_{1/t} \to 0 \) as \( t \downarrow 0 \). or equivalently, \( X_s / s \to 0 \) as \( s \uparrow \infty \). But this last statement holds by the law of the iterated logarithm <a href="#lil1" class="ref"></a>, given below.</p>
+	</details>
+</div>
+
+<h4 id="irr">Irregularity</h4>
+
+<p>Definition <a href="#def1" class="ref"></a> suggest that standard Brownian motion \( \bs{X} = \{X_t: t \in [0, \infty)\} \) cannot be a smooth, differentiable function.  Consider the usual difference quotient at \( t \), 
+\[ \frac{X_{t+h} - X_t}{h} \]
+By the stationary increments property, if \( h \gt 0 \), the numerator has the same distribution as \( X_h \), while if \( h \lt 0 \), the numerator has the same distribution as \( -X_{-h} \), which in turn has the same distribution as \( X_{-h} \). So, in both cases, the difference quotient has the same distribution as \( X_{\left|h\right|} \big/ h \), and this variable has the normal distribution with mean 0 and variance \( \left|h\right| \big/ h^2 = 1 \big/ \left|h\right| \). So the variance of the difference quotient diverges to \( \infty \) as \( h \to 0\), and hence the difference quotient does not even converge in distribution, the weakest form of convergence.</p> 
+
+<p>Theorem <a href="#trn5" class="ref"></a> also suggests that Brownian motion cannot be differentiable. The intuitive meaning of <em>differentiable</em> at \( t \) is that the function is <em>locally linear</em> at \( t \)&mdash;as we zoon in, the graph near \( t \) begins to look like a line (whose slope, of course, is the derivative). But as we zoon in on Brownian motion, (in the sense of the transformation), it always looks the same, and in particular, just as jagged. More formally, if \( \bs{X} \) is differentiable at \( t \), then so is the transformed process \( \bs{Y} \), and the chain rule gives \( Y^\prime(t) = a X^\prime(a^2 t) \). But \( \bs{Y} \) is also a standard Brownian motion for every \( a \gt 0 \), so something is clearly wrong. While not rigorous, these examples are motivation for the following theorem:</p>
+
+<div class="unit" id="irr1">
+	<p class="math">With probability 1, \( \bs{X} \) is nowhere differentiable on \( [0, \infty) \).</p>
+</div>
+
+<div class="unit" id="irr2">
+	<p class="app">Run the simulation of the <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">standard Brownian motion process</a>. Note the continuity but very jagged quality of the sample paths. Of course, the simulation cannot really capture Brownian motion with complete fidelity.</p>
+</div>
+
+<p>The following theorems gives a more precise measure of the irregularity of standard Brownian motion.</p>
+
+<div class="unit" id="irr3">
+	<p class="math">Standard Brownian motion \( \bs{X} \) has <a href="../foundations/Metric.html#hol">H&ouml;lder exponent</a> \( \frac{1}{2} \). That is, \( \bs{X} \) is H&ouml;lder continuous with exponent \( \alpha \) for every \( \alpha \lt \frac{1}{2} \), but is not H&ouml;lder continuous with exponent \( \alpha \) for any \( \alpha \gt \frac{1}{2} \).</p>
+</div>
+
+<p>In particular, \( \bs{X} \) is not Lipschitz continuous, and this shows again that it is not differentiable. The following result states that in terms of Hausdorff dimension, the graph of standard Brownian motion lies midway between a simple curve (dimension 1) and the plane (dimension 2).</p>
+
+<div class="unit" id="irr4">
+	<p class="math">The graph of standard Brownian motion has Hausdorff dimension \( \frac{3}{2} \).</p>
+</div>
+
+<p>Yet another indication of the irregularity of Brownian motion is that it has infinite total variation on any interval of positive length.</p>
+
+<div class="unit" id="irr5">
+	<p class="math">Suppose that \( a, \, b \in \R \) with \( a \lt b \). Then the total variation of \( \bs{X} \) on \( [a, b] \) is \( \infty \).</p>
+</div>
+
+<h4 id="mar">The Markov Property and Stopping Times</h4>
+
+<p>As usual, we start with a standard Brownian motion \( \bs{X} = \{X_t: t \in [0, \infty)\} \). Recall that a  <a href="../markov/General.html">Markov process</a> has the property that the future is independent of the past, given the present state. Because of the stationary, independent increments property, Brownian motion has the property. As a minor note, to view \( \bs{X} \) as a Markov process, we sometimes need to relax Assumption 1 and let \( X_0 \) have an arbitrary value in \( \R \). Let \( \mathscr{F}_t = \sigma\{X_s: 0 \le s \le t\} \), the sigma-algebra generated by the process up to time \( t \in [0, \infty) \). The family of \(\sigma\)-algebras \(\mathfrak{F} = \{\mathscr{F}_t: t \in [0, \infty)\}\) is known as a <a href="../prob/Stop.html">filtration</a>.</p>
+
+<div class="unit" id="mar1">
+	<p class="math">Standard Brownian motion is a time-homogeneous Markov process with transition probability density \( p \) given by
+	\[ p_t(x, y) = f_t(y - x) = \frac{1}{\sqrt{2 \pi t}} \exp\left[-\frac{(y - x)^2}{2 t} \right], \quad t \in (0, \infty); \; x, \, y \in \R \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Fix \( s \in [0, \infty) \). The theorem follows from the fact that the process \( \{X_{s+t} - X_s: t \in [0, \infty)\} \) is another standard Brownian motion, as shown in <a href="#trn2" class="ref"></a>, and is independent of \( \mathscr{F}
+	</details>
+</div>
+
+<div class="unit" id="mar2">
+	<p class="math">The transtion density \( p \) satisfies the following <dfn>diffusion equations</dfn>. The first is known as the <dfn>forward equation</dfn> and the second as the <dfn>backward equation</dfn>.
+	\begin{align}
+		\frac{\partial}{\partial t} p_t(x, y) &amp; = \frac{1}{2} \frac{\partial^2}{ \partial y^2} p_t(x, y) \\
+		\frac{\partial}{\partial t} p_t(x, y) &amp; = \frac{1}{2} \frac{\partial^2}{ \partial x^2} p_t(x, y)
+	\end{align}</p>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follows from standard calculus.</p>
+	</details>
+</div>
+
+<p>The diffusion equations are so named, because the spatial derivative in the first equation is with respect to \( y \), the state <em>forward</em> at time \( t \), while the spatial derivative in the second equation is with respect to \( x \), the state <em>backward</em> at time 0.</p>
+
+<p>Recall that a random time \( \tau \) taking values in \( [0, \infty] \) is a <dfn>stopping time</dfn> with respect to the process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) if \( \{\tau \le t\} \in \mathscr{F}_t \) for every \( t \in [0, \infty) \). Informally, we can determine whether or not \( \tau \le t \) by observing the process up to time \( t \). An important special case is the first time that our Brownian motion hits a specified state. Thus, for \(x \in \R\) let \(\tau_x = \inf\{t \in [0, \infty): X_t = x\}\). The random time \(\tau_x\) is a stopping time.</p>
+
+<p>For a stopping time \( \tau \), we need the \( \sigma \)-algebra of events that can be defined in terms of the process up to the random time \( \tau \), analogous to \( \mathscr{F}_t \), the \( \sigma \)-algebra of events that can be defined in terms of the process up to a fixed time \( t \). The appropriate definition is
+\[ \mathscr{F}_\tau = \{B \in \mathscr{F}:  B \cap \{\tau \le t\} \in \mathscr{F}_t \text{ for all } t \ge 0\} \]
+See the section on <a href="../prob/Stop.html">Filtrations and Stopping Times</a> for more information on filtrations, stopping times, and the \(\sigma\)-algebra associated with a stopping time. </p>
+
+<p>The <dfn>strong Markov property</dfn> is the Markov property generalized to stopping times. Standard Brownian motion \( \bs{X} \) is also a strong Markov process. The best way to say this is by a generalization of <a href="#trn2" class="ref"></a>.</p>
+
+<div class="unit" id="mar3">
+	<p class="math">Suppose that \( \tau \) is a stopping time and define \( Y_t = X_{\tau + t} - X_\tau \) for \( t \in [0, \infty) \). Then \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) is a standard Brownian motion and is independent of \( \mathscr{F}_\tau \).</p>
+</div>
+
+<h4 id="ref">The Reflection Principle</h4>
+
+<p>Many interesting properties of Brownian motion can be obtained from a clever idea known as the <dfn>reflection principle</dfn>. As usual, we start with a standard Brownian motion \( \bs{X} = \{X_t: t \in [0, \infty) \} \). Let \( \tau \) be a stopping time for \( \bs{X} \). Define 
+\[ W_t = \begin{cases} X_t, &amp; 0 \le t \lt \tau \\ 2 X_\tau - X_t, &amp; \tau \le t \lt \infty \end{cases} \]
+Thus, the graph of \( \bs{W} = \{W_t: t \in [0, \infty)\} \) can be obtained from the graph of \( \bs{X} \) by reflecting in the line \( x = X_\tau \) after time \( \tau \). In particular, if the stopping time \( \tau \) is \( \tau_a \), the first time that the process hits a specified state \( a \gt 0 \), then the graph of \( \bs{W} \) is obtained from the graph of \( \bs{X} \) by reflecting in the line \( x = a \) after time \( \tau_a \).</p>
+
+<div class="unit" id="ref1">
+	<p class="app">Open the simulation of <a href="JavaScript:openAncillary('../apps/ReflectedBrownianMotion.html')" class="ancillary">reflecting Brownian motion</a>. This app shows the process \( \bs{W} \) corresponding to the the stopping time \( \tau_a \), the time of first visit to a positive state \( a \). Run the simulation in single step mode until you see the reflected process several times. Make sure that you understand how the process \( \bs{W} \) works.</p>
+</div>
+
+<div class="unit" id="ref2">
+	<p class="math">The reflected process \(\bs{W} = \{W_t: t \in [0, \infty)\}\) is also a standard Brownian motion.</p>
+</div>
+
+<div class="unit" id="ref3">
+	<p class="app">Run the simulation of the <a href="JavaScript:openAncillary('../apps/ReflectedBrownianMotion.html')" class="ancillary">reflected Brownian motion process</a> 1000 times. Compaure the empirical density function and moments of \( W_t \) to the true probability density function and moments.</p>
+</div>
+
+<h4 id="mrt">Martingales</h4>
+
+<p>As usual, let \( \bs{X} = \{X_t: t \in [0, \infty)\} \) be a standard Brownian motion, and let \( \mathscr{F}_t = \sigma\{X_s: 0 \le s \le t\} \) for \( t \in [0, \infty) \), so that \( \mathfrak{F} = \{\mathscr{F}_t: t \in [0, \infty)\} \) is the natural filtration for \( \bs{X} \). There are several important <a href="../martingales/index.html">martingales</a> associated with \( \bs{X} \). We will study a couple of them in this section, and others in subsequent sections. Our first result is that \( \bs{X} \) itself is a martingale, simply by virtue of having stationary, independent increments and 0 mean.</p>
+
+<div class="unit" id="mrt1">
+	<p class="math">\( \bs{X} \) is a martingale with respect to \( \mathfrak{F} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, this is true of any process with stationary, independent increments and 0 mean, but we give the proof anyway, for completeness. Let \( s, \, t \in [0, \infty) \) with \( s \lt t \). Since \( X_s \) is measurable with respect to \( \mathscr{F}_s \) and \( X_t - X_s \) is independent of \( \mathscr{F}_s \) we have
+		\[ \E\left(X_t \mid \mathscr{F}_s\right) = \E\left[X_s + (X_t - X_s) \mid \mathscr{F}_s\right] = X_s + \E(X_t - X_s) = X_s\]</p>
+	</details>
+</div>
+
+<p>The next martingale is a little more interesting.</p>
+
+<div class="unit" id="mrt2">
+	<p class="math">Let \( Y_t = X_t^2 - t \) for \( t \in [0, \infty) \). Then \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) is a martingale with respect to \( \mathfrak{F} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( s, \, t \in [0, \infty) \) with \( s \lt t \). Then
+		\[ Y_t = X_t^2 - t = \left[X_s + (X_t - X_s)\right]^2 - t = X_s^2 + 2 X_s (X_t - X_s) + (X_t - X_s)^2 - t \]
+		Since \( X_s \) is measurable with respect to \( \mathscr{F}_s \) and \( X_t - X_s \) is independent of \( \mathscr{F}_s \) we have
+		\[ \E\left(Y_t \mid \mathscr{F}_s\right) = X_s^2 + 2 X_s \E(X_t - X_s) + \E\left[(X_t - X_s)\right]^2 - t \]
+		But \( \E(X_t - X_s) = 0 \) and \( \E\left[(X_t - X_s)^2\right] = \var(X_t - X_s) = t - s \) so \( \E\left(Y_t \mid \mathscr{F}_s\right) = X_s^2 - s = Y_s \).</p>
+	</details>
+</div>
+
+<h4 id="5">Maximums and Hitting Times</h4>
+
+<p>As usual, we start with a standard Brownian motion \( \bs{X} = \{X_t: t \in [0, \infty) \} \). For \( y \in [0, \infty) \) recall that \( \tau_y = \min\{t \ge 0: X_t = y\} \) is the first time that the process hits state \( y \).  Of course, \( \tau_0 = 0 \). For \( t \in [0, \infty) \), let \( Y_t = \5\{X_s: 0 \le s \le t\} \), the maximum value of \( \bs{X} \) on the interval \( [0, t] \). Note that \( Y_t \) is well defined by the continuity of \( \bs{X} \), and of course \( Y_0 = 0 \). Thus we have two new stochastic processes: \( \{\tau_y: y \in [0, \infty)\} \) and \( \{Y_t: t \in [0, \infty)\} \). Both have index set \( [0, \infty) \) and (as we will see) state space \( [0, \infty) \). Moreover, the processes are inverses of each other in a sense:</p>
+
+<div class="unit" id="max1">
+	<p class="math">For \( t, \; y \in (0, \infty) \), \( \tau_y \le t \) if and only if \( Y_t \ge y \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since standard Brownian motion starts at 0 and is continuous, both events mean that the the process hits state \( y \) in the interval \( [0, t] \).</p>
+	</details>
+</div>
+
+<p>Thus, if we can compute the distribution of \( Y_t \) for each \( t \in (0, \infty) \) then we can compute the distribution of \( \tau_y \) for each \( y \in (0, \infty) \), and conversely.</p>
+
+<div class="unit" id="max2">
+	<p class="math">For \( y \gt 0 \), \( \tau_y \) has the same distribution as \( y^2 \big/ Z^2 \), where \( Z \) is a standard normal variable. The probability density function \( g_y \) is given by
+	\[ g_y(t) = \frac{y}{\sqrt{2 \pi t^3}} \exp\left(-\frac{y^2}{2 t}\right), \quad t \in (0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( t \gt 0 \). From <a href="#max1" class="ref"></a>, note that \( X_t \ge y \implies Y_t \ge y \implies \tau_y \le t \). Hence
+		\[ \P(X_t \ge y) = \P(X_t \ge y, \tau_y \le t) = \P(X_t \ge y \mid \tau_y \le t) \P(\tau_y \le t) \]
+		But from the strong Markov property <a href="#mar3" class="ref"></a>, \( s \mapsto X(\tau_y + s) - y \) is another standard Brownian motion. Hence \( \P(X_t \ge y \mid \tau_y \le t) = \frac{1}{2} \). Therefore
+		\[ \P(\tau_y \le t) = 2 \P(X_t \ge y) = \frac{2}{\sqrt{2 \pi t}} \int_y^\infty e^{-x^2 / 2 t} \, dx = \frac{2}{\sqrt{2 \pi}} \int_{y/\sqrt{t}}^\infty e^{-z^2/2} \, dz \]
+		The second integral follows from the first by the change of variables \( z = x \big/ \sqrt{t} \). We can recognize this integral as \( \P\left(y^2 \big/ Z^2 \le t\right) \) where \( Z \) has a standard normal distribution. Taking the derivative of the integral with respect to \( t \) gives the PDF.</p>
+	</details>
+</div>
+
+<p>The distribution of \( \tau_y \) is the <dfn>L&eacute;vy distribution</dfn> with scale parameter \( y^2 \), and is named for the French mathematician <a href="JavaScript:openAncillary('../biographies/Levy.html')" class="ancillary">Paul L&eacute;vy</a>. The <a href="../special/Levy.html">L&eacute;vy distribution</a> is studied in more detail in the chapter on <a href="../special/index.html">special distributions</a>.</p>
+
+<div class="unit" id="max3">
+	<p class="app">Open the simulation of <a href="JavaScript:openAncillary('../apps/ReflectedBrownianMotion.html')" class="ancillary">refelcted Brownian motion</a> again. Note the shape and location of the probability density function of \( \tau \), the hitting time to state 1. Run the simulation in single step mode a few times. Then run the experiment 1000 times and compare the empirical density function to the probability density function.</p>
+</div>
+
+<div class="unit" id="max4">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/SpecialSimulator.html')" class="ancillary">special distribution simulator</a> and select the L&eacute;vy distribution. Vary the parameters and note the shape and location of the probability density function. For selected values of the parameters, run the simulation 1000 times and compare the empirical density function to the probability density function.</p>
+</div>
+
+<div class="unit" id="max5">
+	<p class="math">Standard Brownian motion is <dfn>recurrent</dfn>. That is, \( \P(\tau_y \lt \infty) = 1 \) for every \( y \in \R \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose first that \( y \gt 0 \). From the proof of <a href="#max3" class="ref"></a>,
+		\[ \P(\tau_y \lt \infty) = \lim_{t \to \infty} \P(\tau_y \le t) = \frac{2}{\sqrt{2 \pi}} \int_0^\infty e^{-z^2 / 2} \, dz = 1 \]
+		Note that the integral above is equivalent to the integral of the standard normal PDF over \( \R \). In particular, the function \( g_y \) given above really is a valid PDF. If \( y \lt 0 \) then by symmetry, \( \tau_y \) has the same distribution as \( \tau_{-y} \), so \( \P(\tau_y \lt \infty) = 1 \). Trivially, \( \tau_0 = 0 \).</p>
+	</details>
+</div>
+
+<p>Thus, for each \( y \in \R \), \( \bs{X} \) eventually hits \( y \) with probability 1. Actually we can say more:</p>
+
+<div class="unit" id="max6">
+	<p class="math">With probability 1, \( \bs{X} \) visits every point in \( \R \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By continuity, if \( \bs{X} \) reaches \( y \gt 0 \) then \( \bs{X} \) visits every point in \( [0, y] \). By symmetry, a similar statement holds for \( y \lt 0\). Thus the event that \( \bs{X} \) visits every point in \( \R \) is \( \bigcap_{n=1}^\infty \left(\{\tau_n \lt \infty\} \cap \{\tau_{-n} \lt \infty\}\right) \). The probability of a countable intersection of events with probability 1 still has probability 1.</p>
+	</details>
+</div>
+
+<p>On the other hand,</p>
+
+<div class="unit" id="max7">
+	<p class="math">Standard Brownian motion is <dfn>null recurrent</dfn>. That is, \( \E(\tau_y) = \infty \) for every \( y \in \R \setminus \{0\} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By symmetry, it suffices to consider \( y \gt 0 \). From <a href="#max2" class="ref"></a>,
+		\[ \E(\tau_y) = \int_0^\infty \P(\tau_y \gt t) \, dt = \frac{2}{\sqrt{2 \pi}} \int_0^\infty \int_0^{y / \sqrt{t}} e^{-z^2 / 2} \, dz \, dt \]
+		Changing the order of integration gives
+		\[ \E(\tau_y) = \frac{2}{\sqrt{2 \pi}} \int_0^\infty \int_0^{y^2/z^2} e^{-z^2 / 2} \, dt \, dz = \frac{2 y^2}{\sqrt{2 \pi}} \int_0^\infty \frac{1}{z^2} e^{-z^2 / 2} \, dz\]
+		Next we get a lower bound on the last integral by integrating over the interval \( [0, 1] \) and noting that \( e^{-z^2 / 2} \ge e^{-1/2} \) on this integral.  Thus,
+		\[ \E(\tau_y) \ge \frac{2 y^2 e^{-1/2}}{\sqrt{2 \pi}} \int_0^1 \frac{1}{z^2} \, dz = \infty \]</p>
+	</details>
+</div>
+
+<div class="unit" id="max8">
+	<p class="math">The process \( \{\tau_x: x \in [0, \infty)\} \) has stationary, independent increments.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof relies on the temporal and spatial homogeneity of Brownian motion and the strong Markov property. Suppose that \( x, \; y \in [0, \infty) \) with \( x \lt y \). By continuity, \( \bs{X} \) must reach \( x \) before reaching \( y \). Thus, \( \tau_y = \tau_x + (\tau_y - \tau_x) \). But \( \tau_y - \tau_x \) is the hitting time to \( y - x \) for the process \( t \mapsto X(\tau_x + t) - x \), and as shown in <a href="#mar3" class="ref"></a>, this process is also a standard Brownian motion, independent of \( \mathscr{F}(\tau_x) \). Hence \( \tau_y - \tau_x \) is independent of \( \mathscr{F}(\tau_x) \) and has the same distribution as \( \tau_{y-x} \).</p>
+	</details>
+</div>
+
+<div class="unit" id="max9">
+	<p class="math">The family of probability density functions \( \{g_x: x \in (0, \infty)\} \) is closed under convolution. That is, \( g_x * g_y = g_{x+y} \) for \( x, \, y \in (0, \infty) \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows immediately from <a href="#max8" class="ref"></a>. A direct proof is an interesting exercise.</p>
+	</details>
+</div>
+
+<p>Now we turn our attention to the maximum process \( \{Y_t: t \in [0, \infty)\} \), the <q>inverse</q> of the hitting process \( \{\tau_y: y \in [0, \infty)\} \).</p>
+
+<div class="unit" id="max10">
+	<p class="math">For \( t \gt 0 \), \( Y_t \) has the same distribution as \( \left|X_t\right| \), known as the <dfn>half-normal distribution</dfn> with scale parameter \( t \). The probability density function is </p>
+	\[ h_t(y) = \sqrt{\frac{2}{\pi t}} \exp\left(-\frac{y^2}{2 t}\right), \quad y \in [0, \infty) \]
+	<details>
+		<summary>Details:</summary>
+		<p>From <a href="#max1" class="ref"></a> and <a href="#max2" class="ref"></a>, \( \P(Y_t \ge y) = \P(\tau_y \le t) = 2 \P(X_t \ge y) = \P\left(\left|X_t\right| \ge y\right) \) for \( y \ge 0 \). By definition, \( \left|X_t\right| \) has the half-normal distribution with parameter \( t \). In particular,
+		\[ \P(Y_t \ge y) = \frac{2}{\sqrt{2 \pi t}} \int_y^\infty e^{-x^2 / 2 t} \, dx \]
+		Taking the negative derivative of the integral above, with respect to \( y \), gives the PDF.</p>
+	</details>
+</div>
+
+<p>The half-normal distribution is a special case of the <a href="../special/FoldedNormal.html">folded normal distribution</a>, which is studied in more detail in the chapter on <a href="../special/index.html">special distributions</a>.</p>
+
+<div class="unit" id="max11">
+	<p class="math">For \( t \ge 0 \), the mean and variance of \( Y_t \) are</p>
+	<ol class="sub">
+		<li>\( \E(Y_t) = \sqrt{\frac{2 t} {\pi}} \)</li>
+		<li>\( \var(Y_t) = t \left(1 - \frac{2}{\pi}\right) \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These follow from standard results for the <a href="../special/FoldedNormal.html">half-normal distribution</a>.</p>
+	</details>
+</div>
+
+<div class="unit" id="max12">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">standard Brownian motion simulation</a>, select the maximum value. Vary the parameter \( t \) and note the shape of the probability density function and the location and size of the mean-standard deviation bar.  Run the simulation 1000 times and compare the empirical density and moments to the true probability density function and moments.</p>
+</div>
+
+<div class="unit" id="max13">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/SpecialSimulator.html')" class="ancillary">special distribution simulator</a> and select the folded-normal distribution. Vary the parameters and note the shape and location of the probability density function and the size and location of the mean-standard deviation bar. For selected values of the parameters, run the simulation 1000 times and compare the empirical density function and moments to the true density function and moments.</p>
+</div>
+
+<h4 id="arc">Zeros and Arcsine Laws</h4>
+
+<p>As usual, we start with a standard Brownian motion \( \bs{X} = \{X_t: t \in [0, \infty)\} \). Study of the zeros of \( \bs{X} \) lead to a number of probability laws referred to as <dfn>arcsine laws</dfn>, because as we might guess, the probabilities and distributions involve the arcsine function.</p>
+
+<div class="unit" id="arc1">
+	<p class="math">For \( s, \; t \in [0, \infty) \) with \( s \lt t \), let \( E(s, t) \) be the event that \( \bs{X} \) has a zero in the time interval \( (s, t) \). That is, \( \E(s, t) = \{X_u = 0 \text{ for some } u \in (s, t)\} \). Then
+	\[ \P\left[E(s, t)\right] = 1 - \frac{2}{\pi} \arcsin\left(\sqrt{\frac{s}{t}}\right) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Conditioning on \( X_s \) and using symmetry gives
+		\[ \P\left[E(s, t)\right] = \int_{-\infty}^\infty \P\left[E(s, t) \mid X_s = x\right] f_s(x) \, dx = 2 \int_{-\infty}^0 \P\left[E(s, t) \mid X_s = x\right] f_s(x) \, dx \]
+		But by the homogeneity of \( \bs{X} \) in time and space, note that for \( x \gt 0 \), \( \P\left[E(s, t) \mid X_s = -x\right] = \P(\tau_x \lt t - s) \). That is, a process in state \( -x \) at time \( s \) that hits 0 before time \( t \) is the same as a process in state 0 at time 0 reaching state \( x \) before time \( t - s \). Hence
+		\[ \P\left[E(s, t)\right] = \int_0^\infty \int_0^{t-s} g_x(u) f_s(-x) \, du \, dx \]
+		where \( g_x \) is the PDF of \( \tau_x \) from <a href="#max2" class="ref"></a>.  Substituting gives
+		\[ \P\left[E(s, t)\right] = \frac{1}{\pi \sqrt{s}} \int_0^{t-s} u^{-3/2} \int_0^\infty x \exp\left[-\frac{1}{2} x^2 \left(\frac{u + s}{u s} \right) \right] \, dx \, du = \frac{\sqrt{s}}{\pi} \int_0^{t-s} \frac{1}{(u + s) \sqrt{u}} \, du\]
+		Finally substituting \( v = \sqrt{u / s} \) in the last integral give
+		\[ \P\left[E(s, t)\right] = \frac{2}{\pi} \int_0^{\sqrt{t/s - 1}} \frac{1}{v^2 + 1} \, dv = \frac{2}{\pi} \arctan \left(\sqrt{\frac{t}{s} - 1}\right) = 1 - \frac{2}{\pi} \arcsin\left(\sqrt{\frac{s}{t}} \right) \]</p>
+	</details>
+</div>
+
+<p>In paricular, \( \P\left[E(0, t)\right] = 1 \) for every \( t \gt 0 \), so with probability 1, \( \bs{X} \) has a zero in \( (0, t) \). Actually, we can say a bit more:</p>
+
+<div class="unit" id="arc2">
+	<p class="math">For \( t \gt 0 \), \( \bs{X} \) has infinitely many zeros in \( (0, t) \) with probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The event that \( \bs{X} \) has infinitely many zeros in \( (0, t) \) is \( \bigcap_{n=1}^\infty E(0, t / n) \). The intersection of a countable collection of events with probability 1 still has probability 1.</p>
+	</details>
+</div>
+
+<p>Theorem <a href="#arc2" class="ref"></a> is further evidence of the very strange and irregular behavior of Brownian motion. Note also that \( \P\left[E(s, t)\right] \) depends only on the ratio \( s / t \). Thus, \( \P\left[E(s, t)\right] = \P\left[E(1 / t, 1 / s)\right]\) and \(\P\left[E(s, t)\right] = \P\left[E(c s, c t)\right] \) for every \( c \gt 0 \). So, for example the probability of at least one zero in the interval \( (2, 5) \) is the same as the probability of at least one zero in \( (1/5, 1/2) \), the same as the probability of at least one zero in \( (6, 15) \), and the same as the probability of at least one zero in \( (200, 500) \).</p>
+
+<div class="unit" id="arc3">
+	<p class="math">For \( t \gt 0 \), let \( Z_t \) denote the time of the last zero of \( \bs{X} \) before time \( t \). That is, \( Z_t = \max\left\{s \in [0, t]: X_s = 0\right\} \). Then \( Z_t \) has the <dfn>arcsine distribution</dfn> with parameter \( t \). The distribution function \( H_t \) and the probability density function \( h_t \) are given by
+	\begin{align}
+		H_t(s) &amp; = \frac{2}{\pi} \arcsin\left(\sqrt{\frac{s}{t}}\right), \quad  0 \le s \le t \\
+		h_t(s) &amp; =  \frac{1}{\pi \sqrt{s (t - s)}}, \quad 0 \lt s \lt t
+	\end{align}</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( 0 \le s \lt t \), the event \( Z_t \le s \) is the same as \( \lef[E(s, t)\right]^c \), that there are no zeros in the interval \( (s, t) \). Hence the formula for \( H_t \) follows from <a href="#arc1" class="ref"></a>. Taking the derivative of \( H_t \) and simplifying gives the formula for \( h_t \).</p>
+	</details>
+</div>
+
+<p>The density function of \( Z_t \) is \( u \)-shaped and symmetric about the midpoint \( t / 2 \), so the points with the largest density are those near the endpoints 0 and \( t \), a surprising result at first. The <a href="../special/Arcsine.html">arcsine distribution</a> is studied in more detail in the chapter on <a href="../special/index.html">special distributions</a>.</p>
+
+<div class="unit" id="arc4">
+	<p class="math">The mean and variance of \( Z_t \) are</p>
+	<ol class="sub">
+		<li>\( \E(Z_t) = t / 2 \)</li>
+		<li>\( \E(Z_t) = t^2 / 8 \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These are standard results for the arcsine distribution. That the mean is the midpoint \(t/2\) also follows from symmetry, of course.</p>
+	</details>
+</div>
+
+<div class="unit" id="arc5">
+	<p class="app">In the simulation of <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">standard Brownian motion</a>, select the last zero variable. Vary the parameter \( t \) and note the shape of the probability density function and the size and location of the mean-standard deviation bar. For selected values of \( t \) run the simulation is single step mode a few times and note the position of the last zero. Finally, run the simulation 1000 times and compare the empirical density function and moments to the true probability density function and moments.</p>
+</div>
+
+<div class="unit" id="arc6">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/SpecialSimulator.html')" class="ancillary">special distribution simulator</a> and select the arcsine distribution. Vary the parameters and note the shape and location of the probability density function and the size and location of the mean-standard deviation bar. For selected values of the parameters, run the simulation 1000 times and compare the empirical density function and moments to the true density function and moments.</p>
+</div>
+
+<p>Now let \( Z = \{t \in [0, \infty): X_t = 0\} \) denote the set of zeros of \( \bs{X} \), so that \( Z \) is a random subset of \( [0, \infty) \). The theorem below gives some of the strange properties of the random set \( Z \), but to understand these, we need to review some definitions. A <dfn>nowhere dense</dfn> set is a set whose closure has empty interior. A <dfn>perfect set</dfn> is a set with no isolated points. As usual, we let \( \lambda \) denote Lebesgue measure on \( \R \).</p>
+
+<div class="unit">
+	<p class="math">With probability 1,</p>
+	<ol class="sub">
+		<li>\( Z \) is closed.</li>
+		<li>\( \lambda(Z) = 0 \)</li>
+		<li>\( Z \) is nowhere dense.</li>
+		<li>\( Z \) is perfect.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Note that \( Z\) is the inverse image of the closed set \( \{0\} \) under the function \( t \mapsto X_t \). Since this function is continuous with probability 1, \( Z \) is closed with probability 1.</li>
+			<li>For each \( t \in (0, \infty) \) note that \( \P(t \in Z) = \P(X_t = 0) = 0 \) since \( X_t \) has a continuous distribution. Using <a href="../foundations/Properties.html#fub">Fubini's theorem</a>
+			\[ \E\left[\lambda(Z)\right] = \E \left[\int_0^\infty \bs{1}_Z(t) \, d\lambda(t)\right] = \int_0^\infty \E\left[\bs{1}_Z(t)\right] \, d\lambda(t) = 0 \]
+			and hence \( \P\left[\lambda(Z) = 0\right] = 1 \),</li>
+			<li>Since \( Z \) is closed and has Lebesgue measure 0, it's interior is empty (all of these statements with probability 1).</li>
+			<li>Suppose that \( s \in Z \). Then by <a href="#trn1" class="ref"></a>, \( t \mapsto X_{s + t} \) is also a standard Brownian motion. But then by <a href="#arc2" class="ref"></a>, with probability 1, \( \bs{X} \) has a zero in the interval \( (s, s + 1 / n) \) for every \( n \in \N_+ \). Hence \( s \) is not an isolated point of \( Z \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>The following theorem gives a deeper property of \( Z \). The Hausdorff dimension of \( Z \) is midway between that of a point (dimension 0) and a line (dimension 1).</p>
+
+<div class="unit">
+	<p class="math">\( Z \) has Hausdorff dimension \(\frac{1}{2}\).</p>
+</div>
+
+<h4 id="lil">The Law of the Iterated Logarithm</h4>
+
+<p>As usual, let \( \bs{X} = \{X_t: t \in [0, \infty)\} \) be standard Brownian motion. By definition, we know that \( X_t \) has the normal distribution with mean 0 and standard deviation \( \sqrt{t} \), so the function \( x = \sqrt{t} \) gives some idea of how the process grows in time. The precise growth rate is given by the famous <dfn>law of the iterated logarithm</dfn></p>
+
+<div class="unit" id="lil1">
+	<p class="math">With probability 1,
+	\[ \limsup_{t \to \infty} \frac{X_t}{\sqrt{2 t \ln \ln t}} = 1 \]</p>
+</div>
+
+<h3>Computational Exercises</h3>
+
+<p>In the following exercise, \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a standard Brownian motion process.</p>
+
+<div class="unit">
+	<p class="math">Explicitly find the probability density function, covariance matrix, and correlation matrix of \( (X_{0.5}, X_1, X_{2.3}) \).</p>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Brownian Motion</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Drift.html" title="Brownian Motion with Drift">2</a></li>
+		<li class="child"><a href="Bridge.html" title="The Brownian Bridge">3</a></li>
+		<li class="child"><a href="Geometric.html" title="Geometric Brownian Motion">4</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

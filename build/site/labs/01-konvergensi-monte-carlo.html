@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="id-ID" xml:lang="id-ID">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Gordan Žitković (penulis sumber donor)" />
+  <meta name="author" content="Codex (penerjemahan, adaptasi, dan tambahan penguasaan atas arahan pengguna)" />
+  <title>Konvergensi Monte Carlo</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../reader.css" />
+  <script defer="" src="../MathJax/tex-svg.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Konvergensi Monte Carlo</h1>
+<p class="author">Gordan Žitković (penulis sumber donor)</p>
+<p class="author">Codex (penerjemahan, adaptasi, dan tambahan penguasaan
+atas arahan pengguna)</p>
+</header>
+<div id="o009-lab-convergence-mc" class="lab">
+<blockquote>
+<p><strong>Asal komponen dan lisensi.</strong> Bagian “Eksperimen Monte
+Carlo” dan “Makna matematis” menerjemahkan serta mengadaptasi baris
+758–832 dari <code>source/02-simulation.Rmd</code> karya Gordan Žitković
+pada komit <code>e2b35ad91a3689454ae6455e8ffc510a90760c0d</code>.
+Donornya dilepas dengan CC0 1.0 Universal; terjemahan dan adaptasi
+bahasa Indonesia ini dilepas dengan CC BY 4.0. Bagian yang berlabel
+<strong>Tambahan asli</strong> merupakan materi baru dan juga dilepas
+dengan CC BY 4.0.</p>
+</blockquote>
+<h2 id="o009-lab-convergence-mc-experiment">Eksperimen Monte Carlo</h2>
+<div id="o009-exercise-convergence-mc-estimation" class="exercise">
+<p>Gunakan metode Monte Carlo untuk menaksir nilai harapan peubah acak
+eksponensial berparameter <span class="math inline">\(\lambda=4\)</span>
+dengan <span class="math inline">\(n=10\)</span>, <span
+class="math inline">\(n=1.000\)</span>, dan <span
+class="math inline">\(n=1.000.000\)</span> simulasi. Bandingkan setiap
+taksiran dengan nilai eksak.</p>
+</div>
+<p>Untuk peubah acak eksponensial berparameter <span
+class="math inline">\(\lambda\)</span>, nilai harapannya adalah <span
+class="math inline">\(1/\lambda\)</span>. Karena itu, nilai eksak dalam
+eksperimen ini adalah <span class="math inline">\(1/4=0{,}25\)</span>.
+Potongan berikut hanya memakai R dasar. Tiga pemanggilan
+<code>set.seed</code> mempertahankan benih deterministik sumber donor,
+sedangkan baris terakhir mencetak tabel CSV kanonik ke keluaran
+standar.</p>
+<div class="sourceCode" id="o009_lab_convergence_mc"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="o009_lab_convergence_mc-1"><a href="#o009_lab_convergence_mc-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12341</span>)</span>
+<span id="o009_lab_convergence_mc-2"><a href="#o009_lab_convergence_mc-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">rexp</span>(<span class="dv">10</span>, <span class="at">rate=</span><span class="dv">4</span>)</span>
+<span id="o009_lab_convergence_mc-3"><a href="#o009_lab_convergence_mc-3" aria-hidden="true" tabindex="-1"></a>err <span class="ot">=</span> <span class="fl">0.25</span> <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="o009_lab_convergence_mc-4"><a href="#o009_lab_convergence_mc-4" aria-hidden="true" tabindex="-1"></a>estimate_10 <span class="ot">=</span> <span class="fu">mean</span>(x)</span>
+<span id="o009_lab_convergence_mc-5"><a href="#o009_lab_convergence_mc-5" aria-hidden="true" tabindex="-1"></a>error_10 <span class="ot">=</span> err</span>
+<span id="o009_lab_convergence_mc-6"><a href="#o009_lab_convergence_mc-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="o009_lab_convergence_mc-7"><a href="#o009_lab_convergence_mc-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12342</span>)</span>
+<span id="o009_lab_convergence_mc-8"><a href="#o009_lab_convergence_mc-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">rexp</span>(<span class="dv">1000</span>, <span class="at">rate=</span><span class="dv">4</span>)</span>
+<span id="o009_lab_convergence_mc-9"><a href="#o009_lab_convergence_mc-9" aria-hidden="true" tabindex="-1"></a>err <span class="ot">=</span> <span class="fl">0.25</span> <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="o009_lab_convergence_mc-10"><a href="#o009_lab_convergence_mc-10" aria-hidden="true" tabindex="-1"></a>estimate_1000 <span class="ot">=</span> <span class="fu">mean</span>(x)</span>
+<span id="o009_lab_convergence_mc-11"><a href="#o009_lab_convergence_mc-11" aria-hidden="true" tabindex="-1"></a>error_1000 <span class="ot">=</span> err</span>
+<span id="o009_lab_convergence_mc-12"><a href="#o009_lab_convergence_mc-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="o009_lab_convergence_mc-13"><a href="#o009_lab_convergence_mc-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12342</span>)</span>
+<span id="o009_lab_convergence_mc-14"><a href="#o009_lab_convergence_mc-14" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">rexp</span>(<span class="dv">1000000</span>, <span class="at">rate=</span><span class="dv">4</span>)</span>
+<span id="o009_lab_convergence_mc-15"><a href="#o009_lab_convergence_mc-15" aria-hidden="true" tabindex="-1"></a>err <span class="ot">=</span> <span class="fl">0.25</span> <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="o009_lab_convergence_mc-16"><a href="#o009_lab_convergence_mc-16" aria-hidden="true" tabindex="-1"></a>estimate_1000000 <span class="ot">=</span> <span class="fu">mean</span>(x)</span>
+<span id="o009_lab_convergence_mc-17"><a href="#o009_lab_convergence_mc-17" aria-hidden="true" tabindex="-1"></a>error_1000000 <span class="ot">=</span> err</span>
+<span id="o009_lab_convergence_mc-18"><a href="#o009_lab_convergence_mc-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="o009_lab_convergence_mc-19"><a href="#o009_lab_convergence_mc-19" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">=</span> <span class="fu">c</span>(estimate_10, estimate_1000, estimate_1000000)</span>
+<span id="o009_lab_convergence_mc-20"><a href="#o009_lab_convergence_mc-20" aria-hidden="true" tabindex="-1"></a>errors <span class="ot">=</span> <span class="fu">c</span>(error_10, error_1000, error_1000000)</span>
+<span id="o009_lab_convergence_mc-21"><a href="#o009_lab_convergence_mc-21" aria-hidden="true" tabindex="-1"></a>results <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="o009_lab_convergence_mc-22"><a href="#o009_lab_convergence_mc-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">c</span>(<span class="st">&quot;10&quot;</span>, <span class="st">&quot;1000&quot;</span>, <span class="st">&quot;1000000&quot;</span>),</span>
+<span id="o009_lab_convergence_mc-23"><a href="#o009_lab_convergence_mc-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="fu">c</span>(<span class="dv">12341</span><span class="dt">L</span>, <span class="dv">12342</span><span class="dt">L</span>, <span class="dv">12342</span><span class="dt">L</span>),</span>
+<span id="o009_lab_convergence_mc-24"><a href="#o009_lab_convergence_mc-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.12f&quot;</span>, estimates),</span>
+<span id="o009_lab_convergence_mc-25"><a href="#o009_lab_convergence_mc-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">exact_value =</span> <span class="fu">rep</span>(<span class="fu">sprintf</span>(<span class="st">&quot;%.12f&quot;</span>, <span class="fl">0.25</span>), <span class="dv">3</span>),</span>
+<span id="o009_lab_convergence_mc-26"><a href="#o009_lab_convergence_mc-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">signed_error =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.12f&quot;</span>, errors),</span>
+<span id="o009_lab_convergence_mc-27"><a href="#o009_lab_convergence_mc-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">absolute_error =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.12f&quot;</span>, <span class="fu">abs</span>(errors)),</span>
+<span id="o009_lab_convergence_mc-28"><a href="#o009_lab_convergence_mc-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
+<span id="o009_lab_convergence_mc-29"><a href="#o009_lab_convergence_mc-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="o009_lab_convergence_mc-30"><a href="#o009_lab_convergence_mc-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="o009_lab_convergence_mc-31"><a href="#o009_lab_convergence_mc-31" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(results, <span class="at">file=</span><span class="st">&quot;&quot;</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>, <span class="at">quote=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">benih</th>
+<th style="text-align: right;">taksiran</th>
+<th style="text-align: right;">nilai eksak</th>
+<th style="text-align: right;">galat bertanda</th>
+<th style="text-align: right;">galat mutlak</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">12341</td>
+<td style="text-align: right;">0.177976805338</td>
+<td style="text-align: right;">0.250000000000</td>
+<td style="text-align: right;">0.072023194662</td>
+<td style="text-align: right;">0.072023194662</td>
+</tr>
+<tr>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">12342</td>
+<td style="text-align: right;">0.256464342623</td>
+<td style="text-align: right;">0.250000000000</td>
+<td style="text-align: right;">-0.006464342623</td>
+<td style="text-align: right;">0.006464342623</td>
+</tr>
+<tr>
+<td style="text-align: right;">1000000</td>
+<td style="text-align: right;">12342</td>
+<td style="text-align: right;">0.250381011435</td>
+<td style="text-align: right;">0.250000000000</td>
+<td style="text-align: right;">-0.000381011435</td>
+<td style="text-align: right;">0.000381011435</td>
+</tr>
+</tbody>
+</table>
+<p>Perintah <code>mean</code> menghitung rata-rata suatu vektor. Dalam
+percobaan ini, <code>rexp</code> menghasilkan peubah-peubah acak
+eksponensial yang disimpan dalam vektor <code>x</code>, lalu
+<code>mean(x)</code> menghitung rata-rata sampelnya. Kolom
+<code>signed_error</code> memakai konvensi sumber, yaitu <span
+class="math inline">\(0{,}25-\bar X_n\)</span>; kolom
+<code>absolute_error</code> mengabaikan tandanya.</p>
+<h2 id="o009-concept-monte-carlo-lln">Makna matematis</h2>
+<p>Misalkan <span class="math inline">\(X_1,X_2,\ldots\)</span> adalah
+peubah acak yang saling bebas dan berdistribusi sama, dengan nilai
+harapan yang ada. Hukum bilangan besar menyatakan</p>
+<p><span class="math display">\[
+\frac{1}{n}\bigl(X_1+X_2+\cdots+X_n\bigr)
+\longrightarrow \mathbb{E}[X_1]
+\quad\text{ketika }n\to\infty.
+\]</span></p>
+<p>Monte Carlo memakai pernyataan ini dengan arah tujuan yang praktis:
+nilai <span class="math inline">\(\mathbb{E}[X_1]\)</span> hendak
+dihitung, sedangkan pembangkit bilangan acak menyediakan sampel dari
+distribusi yang sama. Rata-rata sampel di ruas kiri kemudian dipakai
+untuk menaksir limit teoretis di ruas kanan. Dalam hasil khusus ini,
+galat mengecil ketika <span class="math inline">\(n\)</span> bertambah;
+pola itu merupakan bukti empiris, bukan jaminan bahwa galat setiap
+realisasi harus menurun secara monoton. Metode yang sama berguna jauh
+melampaui contoh ini karena banyak kuantitas dapat dinyatakan sebagai
+nilai harapan suatu peubah acak.</p>
+<h2 class="original-addition" id="o009-mastery-convergence-mc">Tambahan
+asli: dari simulasi ke konvergensi dalam peluang</h2>
+<div id="o009-exercise-convergence-mc-mastery" class="exercise">
+<p>Untuk <span class="math inline">\(\bar X_n=n^{-1}\sum_{i=1}^n
+X_i\)</span> dan suatu <span
+class="math inline">\(\varepsilon&gt;0\)</span>, kerjakan hal-hal
+berikut.</p>
+<ol type="1">
+<li>Salin taksiran, galat bertanda, dan galat mutlak untuk <span
+class="math inline">\(n=10,1.000,1.000.000\)</span> dari tabel hasil
+menjadi satu tabel ringkas.</li>
+<li>Hubungkan kejadian <span class="math inline">\(A_n=\{\lvert\bar
+X_n-1/4\rvert&gt;\varepsilon\}\)</span> dengan definisi konvergensi
+dalam peluang.</li>
+<li>Jelaskan mengapa tiga hasil simulasi tersebut mendukung intuisi
+konvergensi, tetapi tidak membuktikannya.</li>
+</ol>
+</div>
+<div id="o009-hint-convergence-mc-mastery-1" class="hint">
+<p><strong>Petunjuk 1.</strong> Gunakan baris tabel CSV dengan nilai
+<code>n</code> yang sama; jangan menghitung ulang dengan benih baru.</p>
+</div>
+<div id="o009-hint-convergence-mc-mastery-2" class="hint">
+<p><strong>Petunjuk 2.</strong> <span class="math inline">\(\bar
+X_n\xrightarrow{P}1/4\)</span> berarti <span
+class="math inline">\(\mathbb{P}(A_n)\to0\)</span> untuk setiap <span
+class="math inline">\(\varepsilon&gt;0\)</span>.</p>
+</div>
+<div id="o009-hint-convergence-mc-mastery-3" class="hint">
+<p><strong>Petunjuk 3.</strong> Untuk <span
+class="math inline">\(X_i\sim\operatorname{Exp}(4)\)</span>, <span
+class="math inline">\(\operatorname{Var}(X_i)=1/16\)</span>. Terapkan
+ketaksamaan Chebyshev pada <span class="math inline">\(\bar X_n\)</span>
+untuk memperoleh argumen yang berlaku bagi semua <span
+class="math inline">\(n\)</span>.</p>
+</div>
+<div id="o009-answer-convergence-mc-mastery" class="answer">
+<p><strong>Jawaban ringkas.</strong> Tabel yang diminta adalah tiga
+baris hasil eksekusi di atas. Hubungan teoretisnya ialah <span
+class="math inline">\(\mathbb{P}(A_n)=\mathbb{P}(|\bar
+X_n-1/4|&gt;\varepsilon)\to0\)</span> untuk setiap <span
+class="math inline">\(\varepsilon&gt;0\)</span>. Tiga realisasi hanya
+memberi pengamatan atas tiga rata-rata sampel; pengamatan itu tidak
+menetapkan peluang kejadian untuk semua <span
+class="math inline">\(n\)</span>.</p>
+</div>
+<div id="o009-solution-convergence-mc-mastery" class="solution">
+<p><strong>Penyelesaian lengkap.</strong> Pertama, pindahkan tiga baris
+keluaran CSV ke tabel dengan kolom <span
+class="math inline">\(n\)</span>, taksiran, galat bertanda, dan galat
+mutlak. Karena <span
+class="math inline">\(X_i\sim\operatorname{Exp}(4)\)</span>,</p>
+<p><span class="math display">\[
+\mathbb{E}[X_i]=\frac14,
+\qquad
+\operatorname{Var}(X_i)=\frac1{16},
+\qquad
+\operatorname{Var}(\bar X_n)=\frac1{16n}.
+\]</span></p>
+<p>Untuk setiap <span class="math inline">\(\varepsilon&gt;0\)</span>,
+ketaksamaan Chebyshev memberikan</p>
+<p><span class="math display">\[
+\mathbb{P}(A_n)
+=\mathbb{P}\!\left(\left|\bar X_n-\frac14\right|&gt;\varepsilon\right)
+\leq \frac{1}{16n\varepsilon^2}
+\longrightarrow 0.
+\]</span></p>
+<p>Jadi, <span class="math inline">\(\bar
+X_n\xrightarrow{P}1/4\)</span>. Ketaksamaan ini merupakan pembuktian
+karena membatasi peluang galat untuk setiap <span
+class="math inline">\(n\)</span> dan setiap <span
+class="math inline">\(\varepsilon&gt;0\)</span>. Sebaliknya, tiga baris
+simulasi hanya berasal dari tiga realisasi tertentu. Bahkan jika ketiga
+galat mutlaknya mengecil, hasil itu tetap tidak mengesampingkan
+realisasi lain yang galatnya lebih besar atau urutan galat yang tidak
+monoton.</p>
+</div>
+</div>
+</body>
+</html>

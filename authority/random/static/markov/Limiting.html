@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Stationary and Limiting Distributions</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Markov chain, discrete time, positive recurrence, null recurrence, invariant distribution, limiting distribution">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+	</head>
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\( \newcommand{\cl}{\text{cl}} \)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Recurrence and Transience">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="current">6</li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>6. Stationary and Limiting Distributions</h2>
+</header>
+
+<p>In this section, we study some of the deepest and most interesting parts of the theory of discrete-time Markov chains, involving two different but complementary ideas: stationary distributions and limiting distributions.  The theory of <a href="../renewal/index.html">renewal processes</a> plays a critical role.</p>
+
+<h3 id="bas">Basic Theory</h3>
+
+<p>As usual, our starting point is a (time homogeneous) <a href="Discrete.html">discrete-time Markov chain</a> \( \bs{X} = (X_0, X_1, X_2, \ldots) \) with (countable) state space \( S \) and transition probability matrix \( P \). In the background, of course, is a <a href="../foundations/Measure.html">probability space</a> \( (\Omega, \mathscr{F}, \P) \) so that \( \Omega \) is the sample space, \( \mathscr{F} \) the \( \sigma \)-algebra of events, and \( \P \) the probability measure on \( (\Omega, \mathscr{F}) \). For \( n \in \N \), let \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \), the \( \sigma \)-algebra of events determined by the chain up to time \( n \), so that \( \mathfrak{F} = \{\mathscr{F}_0, \mathscr{F}_1, \ldots\}\) is the natural <a href="../prob/Stop.html">filtration</a> associated with \( \bs{X} \).</p>
+
+<h4 id="ren">The Embedded Renewal Process</h4>
+
+<p>Let \( y \in S \) and \( n \in \N_+ \). We will denote the number of visits to \( y \) during the first \( n \) positive time units by
+\[ N_{y,n} = \sum_{i=1}^n \bs{1}(X_i = y) \]
+Note that \( N_{y,n} \to N_y  \) as \( n \to \infty \), where
+\[ N_y = \sum_{i=1}^\infty \bs{1}(X_i = y) \]
+is the total number of visits to \( y \) at positive times, one of the important random variables that we studied in the section on <a href="Recurrence.html">transience and recurrence</a>. For \( n \in \N_+ \), we denote the time of the \( n \)th visit to \( y \) by
+\[ \tau_{y,n} = \min\{k \in \N_+: N_{y,k} = n\} \]
+where as usual, we define \( \min(\emptyset) = \infty \). Note that \( \tau_{y,1} \) is the time of the first visit to \( y \), which we denoted simply by \(\tau_y \) in the section on <a href="Recurrence.html">transience and recurrence</a>. The times of the visits to \( y \) are <a href="../prob/Stop.html">stopping times</a> for \( \bs{X} \). That is, \( \{\tau_{y,n} = k\} \in \mathscr{F}_k \) for \( n \in \N_+ \) and \( k \in \N \). Recall also the definition of the hitting probability to state \( y \) starting in state \( x \):
+\[ H(x, y) = \P\left(\tau_y \lt \infty \mid X_0 = x\right), \quad (x, y) \in S^2 \]</p>
+
+<div class="unit" id="ren1">
+	<p class="math">Suppose that \( x, \, y \in S \), and that \( y \) is recurrent and \( X_0 = x \).</p>
+	<ol class="sub">
+		<li>If \( x = y \), then the successive visits to \( y \) form a <a href="../renewal/index.html">renewal process</a>.</li>
+		<li>If \( x \ne y \) but \( x \to y \), then the successive visits to \( y \) form a <a href="../renewal/Delayed.html">delayed renewal process</a>.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( \tau_{y,0} = 0 \) for convenience.</p>
+		<ol class="sub">
+			<li>Given \( X_0 = y \), the sequence \( \left(\tau_{y,1}, \tau_{y,2}, \ldots\right) \) is the sequence of arrival times of a renewal process. Every time the chain reaches state \( y \), the process starts over, independently of the past, by the Markov property. Thus the interarrival times \( \tau_{y,n+1} - \tau_{y,n} \) for \( n \in \N \) are conditionally independent, and are identically distributed, given \( X_0 = y \).</li>
+			<li>If \( x \ne y \) but \( x \to y \), then given \( X_0 = x \), the sequence \( \left(\tau_{y,1}, \tau_{y,2}, \ldots\right) \) is the sequence of arrival times of a delayed renewal process. By the same argument as in (a), the interarrival times \( \tau_{y,n+1} - \tau_{y,n} \) for \( n \in \N \) are conditionally independent, given \( X_0 = x \), and all but \( \tau_{y,1} \) have the same distribution.</li>
+		</ol>
+	</details>
+</div>
+
+<p>As noted in the proof, \( \left(\tau_{y,1}, \tau_{y,2}, \ldots\right) \) is the sequence of arrival times and \( \left(N_{y,1}, N_{y,2}, \ldots\right) \) is the associated sequence of counting variables for the embedded renewal process associated with the recurrent state \( y \). The corresponding renewal function, given \( X_0 = x \), is the function \( n \mapsto G_n(x, y) \) where
+\[ G_n(x, y) = \E\left(N_{y,n} \mid X_0 = x\right) = \sum_{k=1}^n P^k(x, y), \quad n \in \N \]
+Thus \( G_n(x, y) \) is the expected number of visits to \( y \) in the first \( n \) positive time units, starting in state \( x \). Note that \( G_n(x, y) \to G(x, y) \) as \( n \to \infty \) where \( G \) is the <a href="Recurrence.html#pot">potential matrix</a> that we studied previously. This matrix gives the expected total number visits to state \( y \in S \), at positive times, starting in state \( x \in S \):
+\[ G(x, y) = \E\left(N_y \mid X_0 = x\right) = \sum_{k=1}^\infty P^k(x, y) \]</p>
+
+<h4 id="lim">Limiting Behavior</h4>
+
+<p>The <a href="../renewal/LimitTheorems.html">limit theorems of renewal theory</a> can now be used to explore the limiting behavior of the Markov chain.  Let \( \mu(y) = \E(\tau_y \mid X_0 = y) \) denote the mean return time to state \( y \), starting in \( y \). In the following results, it may be the case that \( \mu(y) = \infty \), in which case we interpret \( 1 / \mu(y) \) as 0.</p>
+
+<div class="unit" id="lim1">
+	<p class="math">If \( x, \, y \in S \) and \( y \) is recurrent then
+	\[ \P\left( \frac{1}{n} N_{n,y} \to \frac{1}{\mu(y)} \text{ as } n \to \infty \biggm| X_0 = x \right) = H(x, y) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This result follows from the <a href="../renewal/LimitTheorems.html#lln">strong law of large numbers</a> for renewal processes.</p>
+	</details>
+</div>
+
+<p>Note that \( \frac{1}{n} N_{y,n} = \frac{1}{n} \sum_{k=1}^n \bs{1}(X_k = y) \) is the average number of visits to \( y \) in the first \( n \) positive time units.</p>
+
+<div class="unit" id="lim2">
+	<p class="math">If \( x, \, y \in S \) and \( y \) is recurrent then
+	\[ \frac{1}{n} G_n(x, y) = \frac{1}{n} \sum_{k=1}^n P^k(x, y) \to \frac{H(x, y)}{\mu(y)} \text{ as } n \to \infty \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This result follows from the <a href="../renewal/LimitTheorems.html#ele">elementary renewal theorem</a> for renewal processes.</p>
+	</details>
+</div>
+
+<p>Note that \( \frac{1}{n} G_n(x, y) = \frac{1}{n} \sum_{k=1}^n P^k(x, y) \) is the expected average number of visits to \( y \) during the first \( n \) positive time units, starting at \( x \).</p>
+
+<div class="unit" id="lim3">
+	<p class="math">If \( x, \, y \in S \) and \( y \) is recurrent and aperiodic then
+	\[ P^n(x, y) \to \frac{H(x, y)}{\mu(y)} \text{ as } n \to \infty \]</p>
+	<details>
+	<summary>Details:</summary>
+	<p>This result follows from the <a href="../renewal/LimitTheorems.html#ren">renewal theorem</a> for renewal processes.</p>
+	</details>
+</div>
+
+<p>Note that \( H(y, y) = 1 \) by the very definition of a recurrent state. Thus, when \( x = y \), <a href="#lim1" class="ref"></a> gives convergence with probability 1, and the limits in <a href="#lim2" class="ref"></a> and <a href="#lim3" class="ref"></a> are simply \( 1 / \mu(y) \). By contrast, we already know the corresponding limiting behavior when \( y \) is transient.</p>
+
+<div class="unit" id="lim4">
+	<p class="math">If \(x, \,  y \in S \) and \( y \) is transient then</p>
+	<ol class="sub">
+		<li>\( \P\left(\frac{1}{n} N_{y,n} \to 0 \text{ as } n \to \infty \mid X_0 = x\right) = 1 \)</li>
+		<li>\( \frac{1}{n} G_n(x, y) = \frac{1}{n} \sum_{k=1}^n P^k(x, y) \to 0 \text{ as } n \to \infty \)</li>
+		<li>\( P^n(x, y) \to 0 \) as \( n \to \infty \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Note that \(0 \le \frac{1}{n} N_{y,n} \le \frac{1}{n} N_y\). But if \( y \) is transient, \( \P(N_y \lt \infty \mid X_0 = x) = 1 \) and hence \( \P\left(\frac{1}{n} N_y \to 0 \text{ as } n \to \infty \mid X_0 = x\right) = 1 \) so the result follows from the squeeze theorem for limits.</li>
+			<li>Similarly, note that
+			\[0 \le \frac{1}{n} \sum_{k=1}^n P^k(x, y) \le \frac{1}{n} \sum_{k=1}^\infty P^k(x, y)\]
+			If \( y \) is transient, \( G(x, y) = \sum_{k=1}^\infty P^k(x, y) \lt \infty \) and hence \( \frac{1}{n} G(x, y) \to 0 \) as \( n \to \infty \). Again the result follows from the squeeze theorem for limits.</li>
+			<li>Once more, if \( y \) is transient, \( G(x, y) = \sum_{k=1}^\infty P^k(x, y) \lt \infty \) and therefore \( P^n(x, y) \to 0 \) as \( n \to \infty \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>On the other hand, if \( y \) is transient then \( \P(\tau_y = \infty \mid X_0 = y) \gt 0 \) by the very definition of a transience. Thus \( \mu(y) = \infty \), and so the results in parts (b) and (c) agree with the corresponding results above for a recurrent state. Here is a summary.</p>
+
+<div class="unit" id="lim5">
+	<p class="math">For \( x, \, y \in S \), 
+	\[ \frac{1}{n} G_n(x, y) = \frac{1}{n} \sum_{k=1}^n P^k(x, y) \to \frac{H(x, y)}{\mu(y)} \text{ as } n \to \infty \]
+	If \( y \) is transient or if \( y \) is recurrent and aperiodic, 
+	\[ P^n(x, y) \to \frac{H(x, y)} {\mu(y)} \text{ as } n \to \infty \]</p>
+</div>
+
+<h4 id="pos">Positive and Null Recurrence</h4>
+
+<p>Clearly there is a fundamental dichotomy in terms of the limiting behavior of the chain, depending on whether the mean return time to a given state is finite or infinite. Thus the following definition is natural.</p> 
+
+<div class="unit" id="pos1">
+	<p class="dfn">Let \( x \in S \).</p>
+	<ol class="sub">
+		<li>State \( x \) is <dfn>positive recurrent</dfn> if \( \mu(x) \lt \infty \).</li>
+		<li>If \( x \) is recurrent but \( \mu(x) = \infty \) then state \( x \) is <dfn>null recurrent</dfn>.</li>
+	</ol>
+</div>
+
+<p>Implicit in the definition is the following simple result:</p>
+
+<div class="unit" id="pos2">
+	<p class="math">If \( x \in S \) is positive recurrent, then \( x \) is recurrent.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that if \( \E(\tau_x \mid X_0 = x) \lt \infty \) then \( \P(\tau_x \lt \infty \mid X_0 = x) = 1 \).</p>
+	</details>
+</div>
+
+<p>On the other hand, it is possible to have \( \P(\tau_x \lt \infty \mid X_0 = x) = 1 \), so that \( x \) is recurrent, and also \( \E(\tau_x \mid X_0 = x) = \infty \), so that \( x \) is null recurrent. Simply put, a random variable can be finite with probability 1, but can have infinite expected value. A classic example is the <a href="../special/Pareto.html">Pareto distribution</a> with shape parameter \( a \in (0, 1) \).</p>
+
+<p>Like recurrence/transience, and period, the null/positive recurrence property is a <dfn>class property</dfn>.</p>
+
+<div class="unit" id="pos3">
+	<p class="math">If \( x \) is positive recurrent and \( x \to y \) then \( y \) is positive recurrent.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( x \) is positive recurrent and \( x \to y \). Recall that \( y \) is recurrent and \( y \to x \). Hence there exist \( i, \, j \in \N_+ \) such that \( P^i(x, y) \gt 0 \) and \( P^j(y, x) \gt 0 \). Thus for every \( k \in \N_+ \), \( P^{i+j+k}(y, y) \ge P^j(y, x) P^k(x, x) P^i(x, y) \). Averaging over \( k \) from 1 to \( n \) gives
+		\[ \frac{G_n(y, y)}{n } - \frac{G_{i+j}(y, y)}{n} \ge P^j(y, x) \frac{G_n(x, x)}{n} P^i(x, y)\]
+		Letting \( n \to \infty \) and using <a href="#lim2" class="ref"></a> gives
+		\[ \frac{1}{\mu(y)} \ge P^j(y, x) \frac{1}{\mu(x)} P^i(x, y) \gt 0 \]
+		Therefore \( \mu(y) \lt \infty \) and so \( y \) is also positive recurrent.</p>
+	</details>
+</div>
+
+<p>Thus, the terms <dfn>positive recurrent</dfn> and <dfn>null recurrent</dfn> can be applied to equivalence classes (under the <em>to and from</em> equivalence relation),  as well as individual states. When the chain is irreducible, the terms can be applied to the chain as a whole.</p>
+
+<p>Recall that a nonempty set of states \( A \) is <dfn>closed</dfn> if \( x \in A \) and \( x \to y \) implies \( y \in A \). Here are some simple results for a finite, closed set of states.</p>
+
+<div class="unit" id="pos4">
+	<p class="math">If \( A \subseteq S \) is finite and closed, then \( A \) contains a positive recurrent state.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Fix a state \( x \in A \) and note that \( P^k(x, A) = \sum_{y \in A} P^k(x, y) = 1 \) for every \( k \in \N_+ \) since \( A \) is closed. Averaging over \( k \) from 1 to \( n \) gives
+		\[ \sum_{y \in A} \frac{G_n(x, y)}{n} = 1 \]
+		for every \( n \in \N_+ \). Note that the change in the order of summation is justified since both sums are finite. Assume now that all states in \( A \) are transient or null recurrent. Letting \( n \to \infty \) in the displayed equation gives the contradiction \( 0 = 1 \). Again, the interchange of sum and limit is justified by the fact that \( A \) is finite.</p>
+	</details>
+</div>
+
+<div class="unit" id="pos5">
+	<p class="math">If \( A \subseteq S \) is finite and closed, then \( A \) contains no null recurrent states.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( x \in A \). Note that \( [x] \subseteq A \) since \( A \) is closed. Suppose that \( x \) is recurrent. Note that \( [x] \) is also closed and finite and hence must have a positive recurrent state by <a href="#pos4" class="ref"></a>. Hence the equivalence class \( [x] \) is positive recurrent and thus so is \( x \).</p>
+	</details>
+</div>
+
+<div class="unit" id="pos6">
+	<p class="math">If \( A \subseteq S \) is finite and irreducible, then \( A \) is a positive recurrent equivalence class.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>We already know that \( A \) is a recurrent equivalence class, from our study of transience and recurrence. From <a href="#pos5" class="ref"></a>, \( A \) is positive recurrent.</p>
+	</details>
+</div>
+
+<p>In particular, a Markov chain with a finite state space cannot have null recurrent states; every state must be transient or positive recurrent.</p>
+
+<h4 id="rev">Limiting  Behavior, Revisited</h4>
+
+<p>Returning to the limiting behavior, suppose that the chain \( \bs{X} \) is irreducible, so that either all states are transient, all states are null recurrent, or all states are positive recurrent. From <a href="#lim5" class="ref"></a>, if the chain is transient or if the chain is recurrent and aperiodic, then
+\[ P^n(x, y) \to \frac{1}{\mu(y)} \text{ as } n \to \infty \text{ for every } x \in S \]
+Note in particular that the limit is independent of the initial state \( x \). Of course in the transient case and in the null recurrent and aperiodic case, the limit is 0.  Only in the positive recurrent, aperiodic case is the limit positive, which motivates our next definition.
+
+<div class="unit" id="rev1">
+	<p class="dfn">A Markov chain \( \bs{X} \) that is irreducible, positive recurrent, and aperiodic, is said to be <dfn>ergodic</dfn>.</p>
+</div>
+
+In the ergodic case, as we will see, \( X_n \) has a limiting distribution as \( n \to \infty \) that is independent of the initial distribution.</p>
+
+<p>The behavior when the chain is <a href="Periodicity.html">periodic</a> with period \( d \in \{2, 3, \ldots\} \) is a bit more complicated, but we can understand this behavior by considering the \( d \)-step chain \( \bs{X}_d = (X_0, X_d, X_{2 d}, \ldots) \) that has transition matrix \( P^d \). Essentially, this allows us to trade <em>periodicity</em> (one form of complexity) for <em>reducibility</em> (another form of complexity). Specifically, recall that the \( d \)-step chain is aperiodic but has \( d \) equivalence classes \( (A_0, A_1, \ldots, A_{d-1}) \); and these are the <dfn>cyclic classes</dfn> of original chain \( \bs{X} \).</p>
+
+<figure>
+	<figcaption>The cyclic classes of a chain with period \( d \)</figcaption>
+	<img src="CyclicClasses.png" alt="The cyclic classes of a periodic chain">
+</figure>
+
+<div class="unit" id="rev2">
+	<p class="math">The mean return time to state \( x \) for the \( d \)-step chain \( \bs{X}_d \) is \( \mu_d(x) = \mu(x) / d \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that every single step for the \( d \)-step chain corresponds to \( d \) steps for the original chain.</p>
+	</details>
+</div>
+
+<div class="unit" id="rev3">
+	<p class="math">Let \( i, \, j, \, k \in \{0, 1, \ldots, d - 1\} \),</p>
+	<ol class="sub">
+		<li>\( P^{n d + k}(x, y) \to d / \mu(y) \) as \( n \to \infty \) if \( x \in A_i \) and \( y \in A_j \) and \( j = (i + k) \mod d \).</li>
+		<li>\( P^{n d + k}(x, y) \to 0 \) as \( n \to \infty \) in all other cases.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follow from <a href="#rev2" class="ref"></a> and the cyclic behavior of the chain.</p>
+	</details>
+</div>
+
+<div class="unit" id="rev4">
+	<p class="math">If \( y \in S \) is null recurrent or transient then regardless of the period of \( y \), \( P^n(x, y) \to 0 \) as \( n \to \infty \) for every \( x \in S \).</p>
+</div>
+
+<h4 id="inv">Invariant Distributions</h4>
+
+<p>Our next goal is to see how the limiting behavior is related to invariant distributions.  Suppose that \( f \) is a probability density function on the state space \( S \). Recall that \( f \) is <dfn>invariant</dfn> for \( P \) (and for the chain \( \bs{X} \)) if \( f P = f \). It follows immediately that \( f P^n = f \) for every \( n \in \N \). Thus, if \( X_0 \) has probability density function \( f \) then so does \( X_n \) for each \( n \in \N \), and hence \( \bs{X} \) is a sequence of identically distributed random variables. A bit more generally, suppose that \( g: S \to [0, \infty) \) is invariant for \( P \), and let \( C = \sum_{x \in S} g(x) \). If \( 0 \lt C \lt \infty \) then \( f \) defined by \( f(x) = g(x) / C \) for \( x \in S \) is an invariant probability density function.</p>
+
+<div class="unit" id="inv1">
+	<p class="math">Suppose that \( g: S \to [0, \infty) \) is invariant for \( P \) and satisfies \( \sum_{x \in S} g(x) \lt \infty \). Then
+	\[ g(y) = \frac{1}{\mu(y)} \sum_{x \in S} g(x) H(x, y), \quad y \in S \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall again that \( g P^k = g \) for every \( k \in \N \) since \( g \) is invariant for \( P \). Averaging over \( k \) from 1 to \( n \) gives \( g G_ n / n = g \) for each \( n \in \N_+ \). Explicitly,
+		\[ \sum_{x \in S} g(x) \frac{G_n(x, y)}{n} = g(y), \quad y \in S \]
+		Letting \( n \to \infty \) and using <a href="#lim2" class="ref"></a> gives the result. The <a href="../foundations/Properties.html#dct">dominated convergence theorem</a> justifies interchanging the limit with the sum, since the terms are positive, \( \frac{1}{n}G_n(x, y) \le 1 \), and \( \sum_{x \in S} g(x) \lt \infty \).</p>
+	</details>
+</div>
+
+<p>Note that if \( y \) is transient or null recurrent, then \( g(y) = 0 \). Thus, a invariant function with finite sum, and in particular an invariant probability density function must be concentrated on the positive recurrent states.</p>
+
+<p>Suppose now that the chain \( \bs{X} \) is irreducible. If \( \bs{X} \) is transient or null recurrent, then from the previous result, the only nonnegative functions that are invariant for \( P \) are functions that satisfy \( \sum_{x \in S} g(x) = \infty \) and the function that is identically 0: \( g = \bs{0} \). In particular, the chain does not have an invariant distribution. On the other hand, if the chain is positive recurrent, then \( H(x, y) = 1 \) for all \( x, \, y \in S \). Thus, from the previous result, the only possible invariant probability density function is the function \( f \) given by \( f(x) = 1 / \mu(x) \) for \( x \in S \). Any other nonnegative function \( g \) that is invariant for \( P \) and has finite sum, is a multiple of \( f \) (and indeed the multiple is sum of the values). Our next goal is to show that \( f \) really is an invariant probability density function.</p>
+
+<div class="unit" id="inv2">
+	<p class="math">If \( \bs{X} \) is an irreducible, positive recurrent chain then the function \( f \) given by \( f(x) = 1 / \mu(x) \) for \( x \in S \) is an invariant probability density function for \( \bs{X} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( f(x) = 1 / \mu(x) \) for \( x \in S \), and let \( A \) be a finite subset of \( S \). Then \( \sum_{y \in A} \frac{1}{n} G_n(x, y) \le 1 \) for every \( x \in S \). Letting \( n \to \infty \) and using <a href="#lim3" class="ref"></a> gives \( \sum_{y \in A} f(y) \le 1 \). The interchange of limit and sum is justified since \( A \) is finite. Since this is true for every finite \( A \subseteq S \), it follows that \( C \le 1 \) where \( C = \sum_{y \in S} f(y) \). Note also that \( C \gt 0 \) since the chain is positive recurrent. Next note that
+		\[ \sum_{y \in A} \frac{1}{n} G_n(x, y) P(y, z) \le \frac{1}{n} G_{n+1}(x, z) \]
+		for every \( x, \, z \in S \). Letting \( n \to \infty \) gives \( \sum_{y \in A} f(y) P(y, z) \le f(z) \) for every \( z \in S \). It then follows that \( \sum_{y \in S} f(y) P(y, z) \le f(z) \) for every \( z \in S \). Suppose that strict inequality holds for some for some \( z \in S \). Then
+		\[ \sum_{z \in S} \sum_{y \in S} f(y) P(y, z) \lt \sum_{z \in S} f(z) \]
+		Interchanging the order of summation on the left in the displayed inequality yields the contradiction \( C \lt C \). Thus \( f \)  is invariant for \( P \). Hence \( f / C \) is an invariant probability density function. By the uniqueness result noted earlier, it follows that \( f / C = f \) so that in fact \( C = 1 \).</p>
+	</details>
+</div>
+
+<p>In summary, an irreducible, positive recurrent Markov chain \( \bs{X} \) has a unique invariant probability density function \( f \) given by \( f(x) = 1 / \mu(x) \) for \( x \in S \). We also now have a <em>test</em> for positive recurrence. An irreducible Markov chain \( \bs{X} \) is positive recurrent if and only if there exists a positive function \( g \) on \( S \) that is invariant for \( P \) and satisfies \( \sum_{x \in S} g(x) \lt \infty \) (and then, of course, normalizing \( g \) would give \( f \)).</p>
+
+<p>Consider now a general Markov chain \( \bs{X} \) on \( S \).  If \( \bs{X} \) has no positive recurrent states, then as noted earlier, there are no invariant distributions. Thus, suppose  that \( \bs{X} \) has a collection of positive recurrent equivalence classes \( (A_i: i \in I) \) where \( I \) is a nonempty, countable index set. The chain restricted to \( A_i \)  is irreducible and positive recurrent for each \( i \in I \), and hence has a unique invariant probability density function \( f_i \) on \( A_i \) given by
+\[ f_i(x) = \frac{1}{\mu(x)}, \quad x \in A_i \]
+We extend \( f_i \) to \( S \) by defining \( f_i(x) = 0 \) for \( x \notin A_i \), so that \( f_i \) is a probability density function on \( S \). All invariant probability density functions for \( \bs{X} \) are mixtures of these functions:</p>
+
+<div class="unit" id="inv3">
+	<p class="math">\( f \) is an invariant probability density function for \( \bs{X} \) if and only if \( f \) has the form 
+	\[ f(x) = \sum_{i \in I} p_i f_i(x), \quad x \in S \]
+	where \( (p_i: i \in I) \) is a probability density function on the index set \( I \). That is, \( f(x) = p_i f_i(x) \) for \( i \in I \) and \( x \in A_i \), and \( f(x) = 0 \) otherwise.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( A = \bigcup_{i \in I} A_i \), the set of positive recurrent states. Suppose that \( f \) has the form given in the theorem. Since \( f(x) = 0 \) for \( x \notin A \) we have
+		\[(f P)(y) = \sum_{x \in S} f(x) P(x, y) = \sum_{i \in I} \sum_{x \in A_i} p_i f_i(x) P(x, y)\] 
+		Suppose that \( y \in A_j \) for some \( j \in I \). Since \( P(x, y) = 0 \) if \( x \in A_i \) and \( i \ne j \), the last sum becomes
+		\[(f P)(y) = p_j \sum_{x \in A_j} f_j(x) P(x, y) = p_j f_j(y) = f(y)\]
+		because \( f_j \) is invariant for the \( P \) restricted to \( A_j \). If \( y \notin A \) then \( P(x, y) = 0 \) for \( x \in A \) so the sum above becomes \( (f P)(y) = 0 = f(y) \). Hence \( f \) is invariant. Moreover,
+		\[\sum_{x \in S} f(x) = \sum_{i \in I} \sum_{x \in A_i} f(x) = \sum_{i \in I} p_i \sum_{x \in A_i} f_i(x) = \sum_{i \in I} p_i = 1\]
+		so \( f \) is a PDF on \( S \). Conversely, suppose that \( f \) is an invariant PDF for \( \bs{X} \). We know that \( f \) is concentrated on the positive recurrent states, so \( f(x) = 0 \) for \( x \notin A\). For \( i \in I \) and \( y \in A_i \)
+		\[\sum_{x \in A_i} f(x) P(x, y) = \sum_{x \in S} f(x) P(x, y) = f(y)\]
+		since \( f \) is invariant for \( P \) and since, as noted before, \( f(x) P(x, y) = 0 \) if \( x \notin A_i \). It follows that \( f \) restricted to \( A_i \) is invariant for the chain restricted to \( A_i \) for each \( i \in I \). Let \( p_i = \sum_{x \in A_i} f(x) \), the normalizing constant for \( f \) restricted to \( A_i \). By uniqueness, the restriction of \( f / p_i \) to \( A_i \) must be \( f_i \), so \( f \) has the form given in the theorem. </p>
+	</details>
+</div>
+
+<h4 id="mea">Invariant Measures</h4>
+
+<p>Suppose that \( \bs{X} \) is irreducible. In this section we are interested in general functions \( g: S \to [0, \infty) \) that are invariant for \( \bs{X} \), so that \( g P = g \). A function \( g: S \to [0, \infty) \) defines a <a href="../foundations/Measure.html">positive measure</a> \( \nu \) on \( S \) by the simple rule
+\[ \nu(A) = \sum_{x \in A} g(x), \quad A \subseteq S \]
+so in this sense, we are interested in invariant positive measures for \( \bs{X} \) that may not be probability measures. Technically, \( g \) is the density function of \( \nu \) with respect to counting measure \( \# \) on \( S \).</p>
+
+<p>From our work above, We know the situation if \( \bs{X} \) is positive recurrent. In this case, there exists a unique invariant probability density function \( f \) that is positive on \( S \), and every other nonnegative invariant function \( g \) is a nonnegative multiples of \( f \). In particular, either \( g = \bs{0} \), the zero function on \( S \), or \( g \) is positive on \( S \) and satisfies \( \sum_{x \in S} g(x) \lt \infty \).</p>
+
+<p>We can generalize to chains that are simply recurrent, either null or positive. We will show that there exists a positive invariant function that is unique, up to multiplication by positive constants. To set up the notation, recall that \( \tau_x = \min\{k \in \N_+: X_k = x\} \) is the first positive time that the chain is in state \( x \in S \). In particular, if the chain starts in \( x \) then \( \tau_x \) is the time of the first return to \( x \). For \( x \in S \) we define the function \( \gamma_x \) by
+\[ \gamma_x(y) = \E\left(\sum_{n=0}^{\tau_x - 1} \bs{1}(X_n = y) \biggm| X_0 = x\right), \quad y \in S \]
+so that \( \gamma_x(y) \) is the expected number of visits to \( y \) before the first return to \( x \), starting in \( x \). Here is the existence result.</p>
+
+<div class="unit" id="mea1">
+	<p class="math">Suppose that \( \bs X \) is recurrent. For \( x \in S \),</p>
+
+	<ol class="sub">
+		<li>\( \gamma_x(x) = 1 \)</li>
+		<li>\( \gamma_x \) is invariant for \( \bs X \)</li>
+		<li>\( \gamma_x(y) \in (0, \infty) \) for \( y \in S \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>By definition, given \( X_0 = x \), we have \( X_0 = x \) but \( X_n \ne x \) for \( n \in \{1, \ldots, \tau_x - 1\} \). Hence \( \gamma_x(x) = 1 \).</li>
+			<li>Since the chain is recurrent, with probability 1 we have \( \tau_x \lt \infty \) and \( X_{\tau_x} = x \). Hence for \( y \in S \),
+			\[ \gamma_x(y) = \E\left(\sum_{n=0}^{\tau_x - 1} \bs{1}(X_n = y) \biggm| X_0 = x\right) = \E\left(\sum_{n=1}^{\tau_x} \bs{1}(X_n = y) \biggm| X_0 = x\right) \]
+			(Note that if \( x = y \) then with probability 1, the \( n = 0 \) term in the first sum and the \( n = \tau_x \) term in the second sum are 1 and the remaining terms are 0. If \( x \ne y \), the \( n = 0 \) term in the first sum and the \( n = \tau_x \) term in the second sum are 0 with probability 1, so again the the two sums are the same.) Hence
+			\[ \gamma_x(y) = \E\left(\sum_{n=1}^\infty \bs{1}(X_n = y, \tau_x \ge n) \biggm| X_0 = x\right) = \sum_{n=1}^\infty \P(X_n = y, \tau_x \ge n \mid X_0 = x) \]
+			Next we partition on the values of \( X_{n-1} \) in the sum to obtain
+			\begin{align*} 
+				\gamma_x(y) &amp; = \sum_{n=1}^\infty \sum_{z \in S} \P(X_n = y, X_{n-1} = z, \tau_x \ge n \mid X_0 = x)\\
+				&amp; = \sum_{n=1}^\infty \sum_{z \in S} \P(X_n = y \mid X_{n-1} = z, \tau_x \ge n, X_0 = x) \P(X_{n-1} = z, \tau_x \ge n \mid X_0 = x) 
+			\end{align*}
+			But \( \{X_0 = x, \tau_x \ge n\} \in \mathscr{F}_{n-1} \) (that is, the events depend only on \( (X_0, \ldots, X_{n-1})) \). Hence by the Markov property, the first factor in the last displayed equation is simply \( \P(X_n = y \mid X_{n-1} = z) = P(z, y) \). Substituting and re-indexing the sum gives
+			\begin{align*}
+				\gamma_x(y) &amp; = \sum_{n=1}^\infty \sum_{z \in S} P(z, y) \P(X_{n-1} = z, \tau_x \ge n \mid X_0 = x) = \sum_{z \in S} P(z, y) \E\left(\sum_{n=1}^{\tau_x} \bs{1}(X_{n-1} = z) \biggm| X_0 = x \right) \\
+				&amp; = \sum_{z \in S} P(z, y) \E\left(\sum_{m=0}^{\tau_x - 1} \bs{1}(X_m = z) \biggm| X_0 = x\right)  = \sum_{z \in S} P(z, y) \gamma_x(z) = \gamma_x P(y) 
+			\end{align*}</li>
+			<li>By the invariance in part (b), \( \gamma_x = \gamma_x P^n \) for every \( n \in \N \). Let \(y \in S \). Since the chain is irreducible, there exists \( j \in \N \) such that \( P^j(x, y) \gt 0 \). Hence
+			\[ \gamma_x(y) = \gamma_x P^j(y) \ge \gamma_x(x) P^j(x, y) = P^j(x, y) \gt 0 \ \]
+			Similarly, there exists \( k \in \N \) such that \( P^k(y, x) \gt 0 \). Hence
+			\[ 1 = \gamma_x(x) = \gamma_xP^k(x) \ge \gamma_x(y) P^k(y, x) \]
+			and therefore \( \gamma_x(y) \le 1 / P^k(y, x) \lt \infty \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Next is the uniqueness result.</p>
+
+<div class="unit" id="mea2">
+	<p class="math">Suppose again that \( \bs X \) is recurrent and that \( g: S \to [0, \infty) \) is invariant for \( \bs X \). For fixed \( x \in S \),
+	\[ g(y) = g(x) \gamma_x(y), \quad y \in S \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( S_x = S - \{x\} \) and let \( y \in S \). Since \( g \) is invariant,
+		\[ g(y) = g P(y) = \sum_{z \in S} g(z) P(z, y) = \sum_{z \in S_x} g(z) P(z, y) + g(x) P(x, y) \]
+		Note that the last term is \( g(x) \P(X_1 = y, \tau_x \ge 1 \mid X_0 = x) \). Repeating the argument for \( g(z) \) in the sum above gives
+		\[ g(y) = \sum_{z \in S_x} \sum_{w \in S_x} g(w) P(w, z)P(z, y) + g(x) \sum_{z \in S_x} P(x, z) P(z, y) + g(x) P(x, y) \]
+		The last two terms are 
+		\[ g(x) \left[\P(X_2 = y, \tau_x \ge 2 \mid X_0 = x) + \P(X_1 = y, \tau_x \ge 1 \mid X_0 = x)\right] \]
+		Continuing in this way shows that for each \( n \in \N_+ \),
+		\[ g(y) \ge g(x) \sum_{k=1}^n \P(X_k = y, \tau_x \ge k \mid X_0 = x)  \]
+		Letting \( n \to \infty \) then shows that \( g(y) \ge g(x) \gamma_x(y) \). Next, note that the function \(h = g - g(x) \gamma_x \) is invariant, since it is a difference of two invariant functions, and as just shown, is nonnegative. Also, \( h(x) = g(x) - g(x) \gamma_x(x) = 0 \). Let \( y \in S \). Since the chain is irreducible, there exists \( j \in \N \) such that \( P^j(y, x) \gt 0 \). Hence
+		\[ 0 = h(x) = hP^j(x) \ge h(y) P^j(y, x) \ge 0  \]
+		Since \( P^j(y, x) \gt 0 \) it follows that \( h(y) = 0 \).</p>
+	</details>
+</div>
+
+<p>Thus, suppose that \( \bs{X} \) is null recurrent. Then there exists an invariant function \( g \) that is positive on \( S \) and satisfies \( \sum_{x \in S} g(x) = \infty \). Every other nonnegative invariant function is a nonnegative multiple of \( g \). In particular, either \( g = \bs{0} \), the zero function on \( S \), or \( g \) is positive on \( S \) and satisfies \( \sum_{x \in S} g(x) = \infty \). The section on <a href="Reliability.html">reliability chains</a> gives an example of the invariant function for a null recurrent chain.</p>
+
+<p>The situation is complicated when \( \bs{X} \) is transient. In this case, there may or may not exist nonnegative invariant functions that are not identically 0. When they do exist, they may not be unique (up to multiplication by nonnegative constants). But we still know that there are no invariant probability density functions, so if \( g \) is a nonnegative function that is invariant for \( \bs{X} \) then either \( g = \bs{0} \) or \( \sum_{x \in S} g(x) = \infty \). The section on <a href="WalkGraph.html">random walks on graphs</a> provides lots of examples of transient chains with nontrivial invariant functions. In particular, the non-symmetric random walk on \( \Z \) has a two-dimensional space of invariant functions.</p>
+
+<h3 id="Examples">Examples and Applications</h3>
+
+<h4 id="fin">Finite Chains</h4>
+
+<div class="unit" id="fin1">
+	<p class="math">Consider again the general <a href="Discrete.html#two">two-state chain</a> on \( S = \{0, 1\} \) with transition probability matrix given below, where \( p, \, q \in (0, 1) \) are parameters.
+	\[ P = \left[ \begin{matrix} 1 - p &amp; p \\ q &amp; 1 - q \end{matrix} \right]  \]</p>
+	<ol class="sub">
+		<li>Find the invariant distribution. </li>
+		<li>Find the mean return time to each state. </li>
+		<li>Find \( \lim_{n \to \infty} P^n \) without having to go to the trouble of diagonalizing \( P \), as we did in the <a href="Discrete.html">introduction</a>.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>\( f = \left(\frac{q}{p + q}, \frac{p}{p + q} \right) \)</li>
+			<li>\( \mu = \left( \frac{p + q}{q}, \frac{p + q}{p} \right) \)</li>
+			<li>\( P^n \to \frac{1}{p + q} \left[ \begin{matrix} q &amp; p \\ q &amp; p \end{matrix} \right] \) as \( n \to \infty \).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="app">Open the simulation of the <a href="JavaScript:openAncillary('../apps/TwoState.html')" class="ancillary">two-state chain</a>. Run the simulation 1000 times for various values of \(p\) and \(q\), and note the limiting behavior.</p>
+</div>
+
+<div class="unit" id="fin2">
+	<p class="math">Consider a Markov chain with state space \( S = \{a, b, c, d\} \) and transition matrix \( P \) given below:
+	\[ P = \left[ \begin{matrix}
+		\frac{1}{3} &amp; \frac{2}{3} &amp; 0 &amp; 0 \\
+		1 &amp; 0 &amp; 0 &amp; 0 \\
+		0 &amp; 0 &amp; 1 &amp; 0 \\
+		\frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4}
+	\end{matrix} \right] \]</p>
+	<ol class="sub">
+		<li>Draw the state diagram. </li>
+		<li>Determine the equivalent classes and classify each as transient or positive recurrent. </li>
+		<li>Find all invariant probability density functions. </li>
+		<li>Find the mean return time to each state. </li>
+		<li>Find \( \lim_{n \to \infty} P^n \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>
+				<figure>
+					<figcaption>State graph</figcaption>
+					<img src="State1.png" alt="State1.png">
+				</figure>
+			</li>
+			<li>\( \{a, b\} \) recurrent; \( \{c\} \) recurrent; \( \{d\} \) transient.</li>
+			<li>\( f = \left( \frac{3}{5} p, \frac{2}{5} p, 1 - p, 0 \right) \), \( 0 \le p \le 1 \)</li>
+			<li>\( \mu = \left(\frac{5}{3}, \frac{5}{2}, 1, \infty \right) \)</li>
+			<li>\( P^n \to \left[ \begin{matrix} 
+				\frac{3}{5} &amp; \frac{2}{5} &amp; 0 &amp; 0 \\
+				\frac{3}{5} &amp; \frac{2}{5} &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 1 &amp; 0 \\
+				\frac{2}{5} &amp; \frac{4}{15} &amp; \frac{1}{3} &amp; 0
+			\end{matrix} \right] \) as \( n \to \infty \)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="fin3">
+	<p class="math">Consider a Markov chain with state space \( S = \{1, 2, 3, 4, 5, 6\} \) and transition matrix \( P \) given below:
+	\[ P = \left[ \begin{matrix}
+		0 &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} &amp; 0 \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+		\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{4} &amp; 0 \\
+		0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+		0 &amp; 0 &amp; \frac{1}{3} &amp; 0 &amp; \frac{2}{3} &amp; 0 \\
+		0 &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; 0 &amp; \frac{1}{4}
+	\end{matrix} \right] \]</p>
+	<ol class="sub">
+		<li>Sketch the state graph. </li>
+		<li>Find the equivalence classes and classify each as transient or positive recurrent. </li>
+		<li>Find all invariant probability density functions. </li>
+		<li>Find the mean return time to each state.</li>
+		<li>Find \( \lim_{n \to \infty} P^n \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>
+				<figure>
+					<figcaption>State graph</figcaption>
+					<img src="State2.png" alt="State2.png">
+				</figure>
+			</li>
+			<li>\( \{1, 3, 5\} \) recurrent; \( \{2, 6\} \) transient; \( \{4\} \) recurrent.</li>
+			<li>\( f = \left(\frac{2}{19}p, 0, \frac{8}{19} p, 1 - p, \frac{9}{19}p, 0\right), \quad 0 \le p \le 1  \)</li>
+			<li>\( \mu = \left(\frac{19}{2}, \infty, \frac{19}{8}, 1, \frac{19}{8}, \infty\right) \)</li>
+			<li> \( P^n \to \left[ \begin{matrix}
+				\frac{2}{19} &amp; 0 &amp; \frac{8}{19} &amp; 0 &amp; \frac{9}{19} &amp; 0 \\
+				\frac{1}{19} &amp; 0 &amp; \frac{4}{19} &amp; \frac{1}{2} &amp; \frac{9}{38} &amp; 0 \\
+				\frac{2}{19} &amp; 0 &amp; \frac{8}{19} &amp; 0 &amp; \frac{9}{19} &amp; 0 \\
+				0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+				\frac{2}{19} &amp; 0 &amp; \frac{8}{19} &amp; 0 &amp; \frac{9}{19} &amp; 0 \\
+				\frac{1}{19} &amp; 0 &amp; \frac{4}{19} &amp; \frac{1}{2} &amp; \frac{9}{38} &amp; 0 \\
+			\end{matrix} \right] \) as \( n \to \infty \).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="fin4">
+	<p class="math">Consider a Markov chain with state space \( S = \{1, 2, 3, 4, 5, 6\} \) and transition matrix \( P \) given below:
+	\[ P = \left[ \begin{matrix}
+		\frac{1}{2} &amp; \frac{1}{2} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; \frac{3}{4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{4} &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; 0 &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; 0 &amp; \frac{1}{4} \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{2}
+	\end{matrix} \right] \]</p>
+	<ol class="sub">
+		<li>Sketch the state graph. </li>
+		<li>Find the equivalence classes and classify each as transient or positive recurrent. </li>
+		<li>Find all invariant probability density functions. </li>
+		<li>Find the mean return time to each state. </li>
+		<li>Find \( \lim_{n \to \infty} P^n \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>
+				<figure>
+					<figcaption>State graph</figcaption>
+					<img src="State3.png" alt="State3.png">
+				</figure>
+			</li>
+			<li>\( \{1, 2\} \) recurrent; \( \{3, 4\} \) transient; \( \{5, 6\} \) recurrent.</li>
+			<li>\( f = \left(\frac{1}{3} p, \frac{2}{3} p, 0, 0, \frac{1}{2}(1 - p), \frac{1}{2}(1 - p) \right), \quad 0 \le p \le 1 \)</li>
+			<li>\( \mu = \left(3, \frac{3}{2}, \infty, \infty, 2, 2 \right) \)</li>
+			<li>\( P^n \to \left[ \begin{matrix}
+				\frac{1}{3} &amp; \frac{2}{3} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				\frac{1}{3} &amp; \frac{2}{3} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				\frac{4}{15} &amp; \frac{8}{15} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				\frac{1}{5} &amp; \frac{2}{5} &amp; 0 &amp; 0 &amp; \frac{1}{5} &amp; \frac{1}{5} \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{2}
+			\end{matrix} \right] \) as \( n \to \infty \)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="fin5">
+	<p class="math">Consider the Markov chain with state space \( S = \{1, 2, 3, 4, 5, 6, 7\} \) and transition matrix \( P \) given below:</p>
+	\[ P = \left[ \begin{matrix}
+		0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; 0 &amp; 0 \\
+		0 &amp; 0 &amp; \frac{1}{3} &amp; 0 &amp; \frac{2}{3} &amp; 0 &amp; 0 \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{3} &amp; \frac{2}{3} \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{3}{4} &amp; \frac{1}{4} \\
+		\frac{1}{2} &amp; \frac{1}{2} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; \frac{3}{4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+	\end{matrix} \right] \]
+	<ol class="sub">
+		<li>Sketch the state digraph, and show that the chain is irreducible with period 3. </li>
+		<li>Identify the cyclic classes.</li>
+		<li>Find the invariant probability density function.</li>
+		<li>Find the mean return time to each state.</li>
+		<li>Find \( \lim_{n \to \infty} P^{3 n} \).</li>
+		<li>Find \( \lim_{n \to \infty} P^{3 n + 1} \).</li>
+		<li>Find \( \lim_{n \to \infty} P^{3 n + 2} \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>
+				<figure>
+					<figcaption>State graph</figcaption>
+					<img src="State4.png" alt="State4.png">
+				</figure>
+			</li>
+			<li>Cyclic classes: \( \{1, 2\} \), \( \{3, 4, 5\} \), \( \{6, 7\} \)</li>
+			<li>\( f = \frac{1}{1785}(232, 363, 237, 58, 300, 333, 262) \)</li>
+			<li>\( \mu = 1785 \left( \frac{1}{232}, \frac{1}{363}, \frac{1}{237}, \frac{1}{58}, \frac{1}{300} \frac{1}{333}, \frac{1}{262} \right) \)</li>
+			<li>\( P^{3 n} \to \frac{1}{585} \left[ \begin{matrix}
+				232 &amp; 363 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				232 &amp; 363 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 237 &amp; 58 &amp; 300 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 237 &amp; 58 &amp; 300 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 237 &amp; 58 &amp; 300 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 333 &amp; 262 \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 333 &amp; 262 \\
+			\end{matrix} \right] \) as \( n \to \infty \)</li>
+			<li>\( P^{3 n + 1} \to \frac{1}{585} \left[ \begin{matrix}
+				0 &amp; 0 &amp; 237 &amp; 58 &amp; 300 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 237 &amp; 58 &amp; 300 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 333 &amp; 262 \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 333 &amp; 262 \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 333 &amp; 262 \\
+				232 &amp; 363 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				232 &amp; 363 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+			\end{matrix} \right] \) as \( n \to \infty \)</li>
+			<li>\( P^{3 n + 2} \to \frac{1}{585} \left[ \begin{matrix}
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 333 &amp; 262 \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 333 &amp; 262 \\
+				232 &amp; 363 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				232 &amp; 363 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				232 &amp; 363 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 237 &amp; 58 &amp; 300 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 237 &amp; 58 &amp; 300 &amp; 0 &amp; 0
+			\end{matrix} \right] \) as \( n \to \infty \)</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="spe">Special Models</h4>
+
+<div class="unit" id="spe1">
+<p class="math">Positive recurrence, invariant distributions, and limiting distributions are discussed in separate sections for each of the following special models:</p>
+<ol class="sub">
+	<li><a href="Ehrenfest.html">Ehrenfest chains</a></li>
+	<li><a href="BernoulliLaplace.html">Bernoulli-Laplace chains</a></li>
+	<li><a href="Reliability.html">reliability chains</a></li>
+	<li><a href="BirthDeath.html">birth-death chains</a></li>
+	<li><a href="Queuing.html">queuing chains</a></li>
+	<li><a href="WalkGraph.html">random walks on graphs</a></li>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Recurrence and Transience">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="current">6</li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

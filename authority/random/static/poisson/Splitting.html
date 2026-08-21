@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Thinning and Superposition</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, Poisson process, Bernoulli trials, splitting, thinning, superposition, point estimation">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\skw}{\text{skew}}\) 
+	\(\newcommand{\kur}{\text{kurt}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="current">5</li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>5. Thinning and Superposition</h2>
+</header>
+
+<div class="unit" id="poi">
+	<p class="dfn">Recall that a <a href="Introduction.html">Poisson process</a> with rate \(r \in (0, \infty)\) defines three interrelated stochastic processes:</p>
+	<ol class="sub">
+		<li>The sequence of <dfn>inter-arrival times</dfn> \( \bs{X} = (X_1, X_2, \ldots) \). These are <a href="../prob/Independence.html">indpendent random variables</a> and each has the <a href="Exponential.html">exponential distribution</a> on \([0, \infty)\) with rate \(r\).</li>
+		<li>The sequence of <dfn>arrival times</dfn> \(\bs{T} = (T_0, T_1, \ldots)\). This is the partial sum sequence associated with \(\bs X\), so that \(T_n\) has the <a href="Gamma.html">gamma distribution</a> on \([0, \infty)\) for \(n \in \N_+\) with shape parameter \(n\) and rate parameter \(r\).</li>
+		<li>The <a href="Poisson.html">counting process</a> \(\bs{N} = (N_t: t \ge 0)\) where \(N_t\) is the number of arrivals in \((0, t]\) for \(t \in [0, \infty)\) and has the <a href="Poisson.html">Poisson distribution</a> on \(\N\)  with parameter \(r t\). This process has an inverse relationship with \(\bs T\) so that \(\N_t \ge n\) if and only if \(T_n \le t\) for \(n \in \N\) and \(t \in [0, \infty)\).</li>
+	</ol>
+</div>
+
+<h3>Thinning</h3>
+
+<p><dfn>Thinning</dfn> or <dfn>splitting</dfn> a Poisson process refers to classifying each random point, independently, into one of a finite number of different types.  The random points of a given type also form Poisson processes, and these processes are independent.  Our exposition will concentrate on the case of just two types, but this case has all of the essential ideas.</p>
+
+<h4 id="two">The Two-Type Process</h4>
+
+<div class="unit" id="two1">
+	<p class="dfn">Consider a Poisson process with rate \(r \in (0, \infty)\). Suppose that each arrival, independently of the others, is one of two types: type 1 with probability \(p\) and type 0 with probability \(1 - p\), where \(p \in (0, 1)\) is a parameter. Here are some common examples:</p>
+	<ol class="sub">
+		<li>The arrivals are radioactive emissions and each emitted particle is either <em>detected</em> (type 1) or <em>missed</em> (type 0) by a counter. </li>
+		<li>The arrivals are customers at a service station and each customer is classified as either <em>male</em> (type 1) or <em>female</em> (type 0).</li>
+	</ol>
+</div>
+
+<p>We want to consider the type 1 and type 0 random points separately.  For this reason, the new random process is usually referred to as <dfn>thinning</dfn> or <dfn>splitting</dfn> the original Poisson process. In some applications, the type 1 points are <em>accepted</em> while the type 0 points are <em>rejected</em>. The main result of this section is that the type 1 and type 0 points form separate Poisson processes, with rates \(r p\) and \(r (1-p)\) respectively, and are independent. We will explore this important result from several points of view.</p>
+
+<p>In the previous sections, we have explored the analogy between the <a href="../bernoulli/Introduction.html">Bernoulli trials</a> process and the Poisson process. Both have the strong renewal property that at each fixed time and at each arrival time, the process stochastically <q>restarts</q>, independently of the past. The difference, of course, is that time is discrete in the Bernoulli trials process and continuous in the Poisson process. In this section, we have both processes simultaneously, and given our previous explorations, it's perhaps not surprising that this leads to some interesting mathematics.</p>
+
+<div class="unit" id="two2">
+	<p class="dfn">Consider the two-type Poisson process in <a href="#two1" class="ref"></a>. In addition to the processes \(\bs{X}\), \(\bs{T}\), and \(\bs{N}\) in <a href="#poi" class="ref"></a>, we have a sequence of Bernoulli trials \(\bs{I} = (I_1, I_2, \ldots)\) with success parameter \(p\). Indicator variable \(I_j\) specifies the type of the \(j\)th arrival. Moreover, because of our assumptions, \(\bs{I}\) is independent of \(\bs{X}\), \(\bs{T}\), and \(\bs{N}\).</p>
+</div>
+
+Recall that \(V_k\), the trial number of the \(k\)th success has the <a href="../bernoulli/NegativeBinomial.html">negative binomial distribution</a> with parameters \(k\) and \(p\) for \(k \in \N_+\). We take \(V_0 = 0\) by convention. Also,  \(U_k\), the number of trials needed to go from the \((k-1)\)st success to the \(k\)th success has the <a href="../bernoulli/Geometric.html">geometric distribution</a> with success parameter \(p\) for \(k \in \N_+\). Moreover, \(\bs{U} = (U_1, U_2, \ldots)\) is independent and \(\bs{V} = (V_0, V_1, \ldots)\) is the partial sum process associated with \(\bs{U}\):
+
+\begin{align}
+	V_k &amp; = \sum_{i=1}^k U_i, \quad k \in \N \\
+	U_k &amp; = V_k - V_{k-1}, \quad k \in \N_+
+\end{align}
+
+As noted above, the Bernoulli trials process can be thought of as random points in <em>discrete</em> time, namely the trial numbers of the successes. With this understanding, \(\bs{U}\) is the sequence of inter-arrival times and \(\bs{V}\) is the sequence of arrival times.</p>
+
+<p>The next result shows that the type 1 points form a Poisson process with rate \(p r\).</p>
+
+<div class="unit" id="irt1">
+	<p class="math">For the two-type process in <a href="#two2" class="ref"></a>, consider just the type 1 points. The time between the arrival of \((k - 1)\)st and \(k\)th type 1 point is
+	\[ Y_k = \sum_{i = V_{k-1} + 1}^{V_k} X_i, \quad k \in \N_+ \]
+	\(\bs{Y} = (Y_1, Y_2, \ldots)\) is a sequence of independent variables and each has the exponential distribution with rate parameter \(p r\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \(Y_k\) has \(U_k\) terms. From the renewal properties of the Poisson process and the Bernoulli trials process, the inter-arrival times are independent and identically distributed.  Each inter-arrival time is the sum of a random number of independent terms; each term has the exponential distribution with rate \(r\), and the number of terms has the geometric distribution on \(\N_+\) with parameter \(p\). Moreover, the number of terms is independent of the terms themselves. We showed in the section on the <a href="Exponential.html">exponential distribution</a> that a random sum of this form has the exponential distribution with parameter \(r p\).</p>
+	</details>
+</div>
+
+<p>Similarly, if \(\bs{Z} = (Z_1, Z_2, \ldots)\) is the sequence of interarrvial times for the type 0 points, then \(\bs{Z}\) is a sequence of independent variables, and each has the exponential distribution with rate \((1 - p) r\). Moreover, \(\bs{Y}\) and \(\bs{Z}\) are independent.</p>
+
+<div class="unit">
+	<p class="dfn">For \(t \in [0, \infty)\), let \(M_t\) denote the number of type 1 arrivals in \((0, t]\) and \(W_t\) the number of type 0 arrivals in \((0, t]\). So \(\bs{M} = (M_t: t \ge 0)\) and \(\bs{W} = (W_t: t \ge 0)\) are the counting processes for the type 1 arrivals and for the type 0 arrivals.</p>
+</div>
+
+The next result follows from the previous results, but a direct proof is interesting.</p>
+
+<div class="unit" id="cnt1">
+	<p class="math">For \(t \ge 0\), \(M_t\) has the Poisson distribution with parameter \(p r\), \(W_t\) has the Poisson distribution with parameter \((1 - p) r\), and \(M_t\) and \(W_t\) are independent.</p>
+	<details>
+	<summary>Details:</summary>
+		<p>The important observation is that the conditional distribution of \(M_t\) given \(N_t = n\) is <a href="../bernoulli/Binomial.html">binomial</a> with parameters \(n\) and \(p\). Thus for \(j \in \N\) and \(k \in \N\),
+		\begin{align}
+			\P(M_t = j, W_t = k) &amp; = \P(M_t = j, N_t = j + k) = \P(N_t = j + k) \P(M_t = j \mid N_t = j + k) \\
+			&amp; = e^{-r t} \frac{(r t)^{j + k}}{(j + k)!} \frac{(j + k)!}{j! k!} p^j (1 - p)^k \\
+			&amp; = e^{-p r t} \frac{(p r t)^j}{j!} e^{-(1 - p) r t} \frac{\left[(1 - p) r t\right]^k}{k!}
+		\end{align}</p>
+	</details>
+</div>
+
+<div class="unit" id="cnt2">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/PoissonSplit.html')" class="ancillary">two-type Poisson experiment</a> vary \(r\), \(p\), and \(t\) with the scrollbars and note the shape of the probability density functions. For various values of the parameters, run the experiment 1000 times and compare the relative frequency functions to the probability density functions.</p>
+</div>
+
+<h4 id="est">Estimating the Number of Arrivals</h4>
+
+<p>Suppose that the type 1 arrivals are observable, but not the type 0 arrivals. This setting is natural, for example, if the arrivals are radioactive emissions, and the type 1 arrivals are emissions that are detected by a counter, while the type 0 arrivals are emissions that are missed. Suppose that for a given \(t \gt 0\), we would like to estimate the total number arrivals \(N_t\) after observing the number of type 1 arrivals \(M_t\).</p>
+
+<div class="unit" id="est1">
+	<p class="math">The conditional distribution of \(N_t\) given \(M_t = k\) is the same as the distribution of \(k + W_t\).
+	\[ \P(N_t = n \mid M_t = k) = e^{-(1 - p) r t} \frac{\left[(1 - p) r t\right]^{n - k}}{(n - k)!}, \quad n \in \{k, k + 1, \ldots\} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall from <a href="#cnt1" class="ref"></a> that \(M_t\) and \(W_t\) are independent. Thus, for \(n \in \N\),
+		\begin{align}
+			\P(N_t = n \mid M_t = k) &amp; = \frac{\P(N_t = n, M_t = k)}{\P(M_t = k)} = \frac{\P(M_t = k, W_t = n - k)}{\P(M_t = k)} \\
+			&amp; = \frac{\P(M_t = k) \P(W_t = n - k)}{\P(M_t = k)} = \P(W_t = n - k)
+		\end{align}
+		The form of the probability density function follows since \(W_t\) as the Poisson distribution with parameter \((1 - p) r\).</p>
+	</details>
+</div>
+
+<div class="unit" id="est2">
+	<p class="math">\(\E(N_t \mid M_t = k) = k + (1 - p)\,r\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows easily from exercise <a href="est1" class="ref"></a> since \(\E(N_t \mid M_t = k) = \E(k + W_t) = k + (1 - p) r\).</p>
+	</details>
+</div>
+
+<p>So if the overall rate \(r\) of the process and the probability \(p\) that an arrival is type 1 are known, then it follows form the general theory of <a href="../expect/Conditional.html">conditional expectation</a> that the best <a href="../point/Estimators.html">estimator</a> of \(N_t\) based on \(M_t\), in the least squares sense, is
+\[ \E(N_t \mid M_t) = M_t + (1 - p) r \]</p>
+
+<div class="unit" id="est3">
+	<p class="math">The mean square error is \(\E\left(\left[N_t - \E(N_t \mid M_t)\right]^2 \right) = (1 - p) r t\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \(N_t - \E(N_t \mid M_t) = W_t - (1 - p) r\). Thus the mean square error is just \(\var(W_t) = (1 - p) r t\).</p>
+	</details>
+</div>
+
+<p>As you might guess, the results in this subsection generalize from 2 types to \(k\) types for general \(k \in \N_+\). Once again, we start with a Poisson process with rate \(r \gt 0\). Suppose that each arrival, independently of the others, is type \(i\) with probability \(p_i\) for \(i \in \{0, 1, \ldots, k - 1\}\). Of course we must have \(p_i \ge 0\) for each \(i\) and \(\sum_{i=0}^{k-1} p_i = 1\).  Then for each \(i\), the type \(i\) points form a Poisson process with rate \(p_i  r\), and these processes are independent.</p>
+
+<h3 id="sup">Superposition</h3>
+
+<p>Complementary to splitting or thinning a Poisson process is <dfn>superposition</dfn>: if we combine the random points in time from independent Poisson processes, then we have a new Poisson processes.  The rate of the new process is the sum of the rates of the processes that were combined. Once again, our exposition will concentrate on the superposition of two processes.  This case contains all of the essential ideas.</p>
+
+<h4 id="suptwo">Two Processes</h4>
+
+<div class="unit">
+	<p class="dfn">Suppose that we have two independent Poisson processes. We will denote the sequence of inter-arrival times, the sequence of arrival times, and the counting variables for the process \( i \in \{1, 2\} \) by \( \bs{X}^i = \left(X_1^i, X_2^i \ldots\right) \), \( \bs{T}^i = \left(T_1^i, T_2^i, \ldots\right) \), and \( \bs{N}^i = \left(N_t^i: t \in [0, \infty)\right) \), and we assume that process \( i \) has rate \( r_i \in (0, \infty) \). The new process that we want to consider is obtained by simply combining the random points. That is, the new random points are \( \left\{T_n^1: n \in \N_+\right\} \cup \left\{T_n^2: n \in \N_+\right\} \), but of course then ordered in time. We will denote the sequence of inter-arrival times, the sequence of arrival times, and the counting variables for the new process by \( \bs{X} = (X_1, X_2 \ldots) \), \( \bs{T} = (T_1, T_2, \ldots) \), and \( \bs{N} = \left(N_t: t \in [0, \infty)\right) \).</p>
+</div>
+
+<p>Clearly if \( A \) is an interval in \( [0, \infty) \) then 
+\[ N(A) = N^1(A) + N^2(A) \]
+the number of combined points in \( A \) is simply the sum of the number of point in \( A \) for processes 1 and 2. It's also worth noting that
+\[ X_1 = \min\{X^1_1, X^2_1\} \]
+the first arrival for the combined process is the smaller of the first arrival times for processes 1 and 2. The other inter-arrival times, and hence also the arrival times, for the combined process are harder to state.</p>
+
+<div class="unit" id="suptwo1">
+	<p class="math">The combined process is a Poisson process with rate \( r_1 + r_2 \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>As noted above, if \( A \) is a subinterval of \( [0, \infty) \) then \( N(A) = N^1(A) + N^2(A) \). The first term has the Poisson distribution with parameter \( r_1 \lambda(A) \), the second term has the Poisson distribution with parameter \( r_2 \lambda(A) \), and the terms are independent. Hence \( N(A) \) has the Poisson distribution with parameter \( r_1 \lambda(A) + r_2 \lambda(A) = (r_1 + r_2) \lambda(A) \). Thus the counting process has stationary, Poisson distributed increments. Next, if \( (A_1, A_2, \ldots, A_n)\) is a sequence of disjoint subintervals of \( [0, \infty) \) then 
+		\[ \left(N(A_1), N(A_2), \ldots, N(A_n)\right) = \left(N^1(A_1) + N^2(A_1), N^1(A_2) + N^2(A_2), \ldots, N^1(A_n) + N^2(A_n) \right) \]
+		is an independent sequence, so the counting process has independent increments.</p>
+	</details>
+</div>
+
+<h3>Computational Exercises</h3>
+
+<div class="unit" id="exe1">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/PoissonSplit.html')" class="ancillary">two-type Poisson experiment</a>, set \(r = 2\), \(t = 3\), and \(p = 0.7\). Run the experiment 1000 times, Compute the appropriate relative frequency functions and investigate empirically the independence of the number of type 1 points and the number of type 0 points.</p>
+</div>
+
+<div class="unit" id="exe2">
+	<p class="math">Suppose that customers arrive at a service station according to the Poisson model, with rate \(r = 20\) per hour. Moreover, each customer, independently, is female with probability 0.6 and male with probability 0.4. Find the probability that in a 2 hour period, there will be at least 20 women and at least 15 men. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.5814</p>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/PoissonSplit.html')" class="ancillary">two-type Poisson experiment</a>, set \(r = 3\), \(t = 4\), and \(p = 0.8\). Run the experiment 100 times.</p>
+	<ol class="sub">
+		<li>Compute the estimate of \(N_t\) based on \(M_t\) for each run.</li>
+		<li>Over the 100 runs, compute average of the sum of the squares of the errors.</li>
+		<li>Compare the result in (b) with <a href="#exe2" class="ref"></a>.</li>
+	</ol>
+</div>
+
+<div class="unit">
+	<p class="math">Suppose that a piece of radioactive material emits particles according to the Poisson model at a rate of \( r = 100 \) per second. Moreover, assume that a counter detects each emitted particle, independently, with probability 0.9. Suppose that the number of detected particles in a 5 second period is 465. </p>
+	<ol class="sub">
+		<li>Estimate the number of particles emitted.</li>
+		<li>Compute the mean square error of the estimate.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>515</li>
+			<li>50</li>
+		</ol>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="current">5</li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

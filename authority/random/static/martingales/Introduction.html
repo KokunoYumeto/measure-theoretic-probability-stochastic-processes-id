@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Introduction</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, stochastic process, martingale, sub-martingale, super-martingale, martingale difference sequence, random walk, partial product, beta-Bernoulli process, Polya's urn process, independent increments, likelihood ratio test, branching process, Doob's martingale">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Properties.html" title="Properties and Constructions">2</a></li>
+		<li class="child"><a href="Stop.html" title="Stopping Times">3</a></li>
+		<li class="child"><a href="Inequalities.html" title="Inequalities">4</a></li>
+		<li class="child"><a href="Convergence.html" title="Convergence">5</a></li>
+		<li class="child"><a href="Backwards.html" title="Backwards Martingales">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>1. Introduction</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<h4 id="asm">Basic Assumptions</h4>
+
+<p>For our basic ingredients, we start with a <a href="../prob/Processes.html">stochastic process</a> \( \bs{X} = \{X_t: t \in T\} \) on an underlying probability space \( (\Omega, \mathscr{F}, \P) \), having state space \( \R \), and where the index set \( T \) (representing time) is either \( \N \) (discrete time) or \( [0, \infty) \) (continuous time). So to review what all this means, \( \Omega \) is the <a href="../prob/Events.html">sample space</a>, \( \mathscr{F} \) the <a href="../foundations/Measure.html">\( \sigma \)-algebra</a> of events, \( \P \) the probability measure on \( (\Omega, \mathscr{F}) \), and \( X_t \) is a random variable with values in \( \R \) for each \( t \in T \). Next, we have a <a href="../prob/Stop.html">filtration</a> \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), and we assume that \( \bs{X} \) is <dfn>adapted</dfn> to \( \mathfrak{F} \). To review again, \( \mathfrak{F} \) is an increasing family of sub \( \sigma \)-algebras of \( \mathscr{F} \), so that \( \mathscr{F}_s \subseteq \mathscr{F}_t \subseteq \mathscr{F} \) for \( s, \, t \in T \) with \( s \le t \), and \( X_t \) is measurable with respect to \( \mathscr{F}_t \) for \( t \in T \). We think of \( \mathscr{F}_t \) as the collection of events up to time \( t \in T \), thus encoding the information available at time \( t \). Finally, we assume that \( \E\left(\left|X_t\right|\right) \lt \infty \), so that the <a href="../expect/Properties.html">mean</a> of \( X_t \) exists as a real number, for each \( t \in T \).</p>
+
+<p>There are two important special cases of the basic setup. The simplest case, of course, is when \( \mathscr{F}_t = \sigma\{X_s: s \in T, \, s \le t\} \) for \( t \in T \), so that \( \mathfrak{F} \) is the <dfn>natural filtration</dfn> associated with \( \bs{X} \). Another case that arises frequently is when we have a second stochastic process \(\bs{Y} = \{Y_t: t \in T\} \) on \( (\Omega, \mathscr{F}, \P) \) with values in a general measure space \( (S, \mathscr{S}) \), and \( \mathfrak{F} \) is the natural filtration associated with \( \bs{Y} \). So in this case, our main assumption is that \( X_t \) is measurable with respect to \( \sigma\{Y_s: s \in T, \, s \le t\} \) for \( t \in T \).</p>
+
+<p>The theory of martingales is beautiful, elegant, and mostly accessible in discrete time, when \( T = \N \). But as with the theory of <a href="../markov/General.html">Markov processes</a>, martingale theory is technically much more complicated in continuous time, when \( T = [0, \infty) \). In this case, additional assumptions about the continuity of the sample paths \( t \mapsto X_t \) and the filtration \( t \mapsto \mathscr{F}_t \) are often necessary in order to have a nice theory. Specifically, we will assume that the process\( \bs X \) is right continuous and has left limits, and that the filtration \( \mathfrak F \) is right continuous and complete. These are the <dfn>standard assumptions</dfn> in continuous time.</p>
+
+<h4 id="dfn">Definitions</h4>
+
+<p>For the basic definitions that follow, you may need to review <a href="../expect/Conditional2.html">conditional expected value</a> with respect to a \( \sigma \)-algebra. </p>
+
+<div class="unit" id="dfn1">
+	<p class="dfn">The process \(\bs{X}\) is a <dfn>martingale</dfn> with respect to \( \mathfrak{F} \) if \( \E\left(X_t \mid \mathscr{F}_s\right) = X_s \) for all \( s, \, t \in T \) with \( s \le t \).</p>
+</div>
+
+<p>In the special case that \( \mathfrak{F} \) is the natural filtration associated with \( \bs{X} \), we simply say that \( \bs{X} \) is a martingale, without reference to the filtration. In the special case that we have a second stochastic process \( \bs{Y} = \{Y_t: t \in T\} \) and \( \mathfrak{F} \) is the natural filtration associated with \( \bs{Y} \), we say that \( \bs{X} \) is a martingale with respect to \( \bs{Y} \).</p>
+
+<p>The term <em>martingale</em> originally referred to a portion of the harness of a horse, and was later used to describe gambling strategies, such as the one used in the <a href="../bernoulli/Geometric.html#pet">Petersburg paradox</a>, in which bets are doubled when a game is lost. To interpret the definitions above in terms of gambling, suppose that a gambler is at a casino, and that \( X_t \) represents her fortune at time \( t \in T\) and \( \mathscr{F}_t \) the information available to her at time \( t \). Suppose now that \( s, \, t \in T \) with \( s \lt t \) and that we think of \( s \) as the current time, so that \( t \) is a future time. If \( \bs{X} \) is a martingale with respect to \( \mathfrak{F} \) then the games are fair in the sense that the gambler's expected fortune at the future time \( t \) is the same as her current fortune at time \( s \). To venture a bit from the casino, suppose that \( X_t \) is the price of a stock, or the value of a stock index, at time \( t \in T \). If \( \bs X \) is a martingale, then the expected value at a future time, given all of our information, is the present value.</p>
+
+<figure id="fig1">
+	<figcaption>An English-style breastplate with a running martingale attachement. By Danielle M., <a href="http://creativecommons.org/licenses/by/3.0" class="external" target="external">CC BY 3.0</a>, from <a href="https://commons.wikimedia.org/w/index.php?curid=13264705" class="external" target="external">Wikipedia</a></figcaption>
+	<img src="Martingale.png" alt="Martingale harness">
+</figure>
+
+<p>But as we will see, martingales are useful in probability far beyond the application to gambling and even far beyond financial applications generally. Indeed, martingales are of fundamental importance in modern probability theory. Here are two related definitions, with equality in the martingale condition replaced by inequalities.</p>
+
+<div class="unit" id="dfn2">
+	<p class="dfn">Suppose again that the process \( \bs X \) and the filtration \( \mathfrak F \) satisfy the basic assumptions in <a href="#asm" class="ref"></a> above.</p>
+	<ol class="sub">
+		<li>\( \bs{X} \) is a <dfn>sub-martingale</dfn> with respect to \( \mathfrak{F} \) if \( \E\left(X_t \mid \mathscr{F}_s\right) \ge X_s \) for all \( s, \, t \in T \) with \( s \le t \).</li>
+		<li>\( \bs{X} \) is a <dfn>super-martingale</dfn> with respect to \( \mathfrak{F} \) if \( \E\left(X_t \mid \mathscr{F}_s\right) \le X_s \) for all \( s, \, t \in T \) with \( s \le t \).</li>
+	</ol>
+</div>
+
+<p>In the gambling setting, a sub-martingale models games that are favorable to the gambler on average, while a super-martingale models games that are unfavorable to the gambler on average. To venture again from the casino, suppose that \( X_t \) is the price of a stock, or the value of a stock index, at time \( t \in T \). If \( \bs X \) is a sub-martingale, the expected value at a future time, given all of our information, is greater than the present value, and  if \( \bs X \) is a super-martingale then the expected value at the future time is less than the present value. One hopes that a stock index is a sub-martingale.</p>
+
+<p>Clearly \( \bs{X} \) is a martingale with respect to \( \mathfrak{F} \) if and only if it is both a sub-martingale and a super-martingale. Finally, recall that the conditional expected value of a random variable with respect to a \( \sigma \)-algebra is itself a random variable, and so the equations and inequalities in the definitions should be interpreted as holding with probability 1. In this section generally, statements involving random variables are assumed to hold with probability 1.</p>
+
+<p>The conditions that define martingale, sub-martingale, and super-martingale make sense if the index set \( T \) is any <a href="../foundations/Order.html">totally ordered set</a>. In some applications that we will consider later, \( T = \{0, 1, \ldots, n\} \) for fixed \( n \in \N_+ \). In the section on <a href="Backwards.html">backwards martingales</a>, \( T = \{-n: n \in \N\} \) or \( T = (-\infty, 0] \). In the case of discrete time when \( T = \N \), we can simplify the definitions slightly.</p>
+
+<div class="unit" id="dfn3">
+	<p class="math">Suppose that \( \bs X = \{X_n: n \in \N\} \) satisfies the basic assumptions above.</p>
+	<ol class="sub">
+		<li>\(\bs{X}\) is a martingale with respect to \( \frak{F} \) if and only if \( \E\left(X_{n+1} \mid \mathscr{F}_n\right) = X_n \) for all \( n \in \N \).</li>
+		<li>\(\bs{X}\) is a sub-martingale with respect to \( \frak{F} \) if and only if \( \E\left(X_{n+1} \mid \mathscr{F}_n\right) \ge X_n \) for all \( n \in \N \).</li>
+		<li>\(\bs{X}\) is a super-martingale with respect to \( \frak{F} \) if and only if \( \E\left(X_{n+1} \mid \mathscr{F}_n\right) \le X_n \) for all \( n \in \N \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The conditions in the definitions clearly imply the conditions here, so we just need to show the opposite implications. Thus, assume that the condition in (a) holds and suppose that \( k, \, n \in \N \) with \( k \lt n \). Then \( k \le n - 1 \) so \( \mathscr{F}_k \subseteq \mathscr{F}_{n-1} \) and hence
+		\[ \E\left(X_n \mid \mathscr{F}_k\right) = \E\left[\E\left(X_n \mid \mathscr{F}_{n-1}\right) \mid \mathscr{F}_k \right] = \E\left(X_{n-1} \mid \mathscr{F}_k\right) \]
+		Repeating the argument, we get to
+		\[ \E\left(X_n \mid \mathscr{F}_k\right) = \E\left(X_{k+1} \mid \mathscr{F}_k\right) = X_k \]
+		The proof for sub and super-martingales is analogous, with inequalities replacing the last equality.</p>
+	</details>
+</div>
+
+<p>The relations that define martingales, sub-martingales, and super-martingales hold for the ordinary (unconditional) expected values.</p>
+
+<div class="unit" id="prp3">
+	<p class="math">Suppose that \( s, \, t \in T \) with \( s \le t \).</p>
+	<ol class="sub">
+		<li>If \( \bs{X} \) is a martingale with respect to \( \frak{F} \) then \( \E(X_s) = \E(X_t) \).</li>
+		<li>If \( \bs{X} \) is a sub-martingale with respect to \( \frak{F} \) then \( \E(X_s) \le \E(X_t) \).</li>
+		<li>If \( \bs{X} \) is a super-martingale with respect to \( \frak{F} \) then \( \E(X_s) \ge \E(X_t) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The results follow directly from the definitions, and the critical fact that \( \E\left[\E\left(X_t \mid \mathscr{F}_s\right)\right] = \E(X_t) \) for \( s, \, t \in T \).</p>
+	</details>
+</div>
+
+<p>So if \( \bs X \) is a martingale then \( \bs X \) has constant expected value, and this value is referred to as the mean of \( \bs X \).</p>
+
+<h3>Examples</h3>
+
+<p>The goal for the remainder of this section is to give some classical examples of martingales, and by doing so, to show the wide variety of applications in which martingales occur. We will return to many of these examples in subsequent sections. Without further ado, we assume that all random variables are real-valued, unless otherwise specified, and that all expected values mentioned below exist in \( \R \). Be sure to try the proofs yourself before expanding the details.</p>
+
+<h4 id="cst">Constant Sequence</h4>
+
+<p>Our first example is rather trivial, but still worth noting.</p>
+
+<div class="unit" id="cst1">
+	<p class="math">Suppose that \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) is a filtration on the probability space \( (\Omega, \mathscr{F}, \P) \) and that \( X \) is a random variable that is measurable with respect to \( \mathscr{F}_0 \) and satisfies \( \E(\left|X\right|) \lt \infty \). Let \( X_t = X \) for \( t \in T \). Them \( \bs{X} = \{X_t: t \in T\} \) is a martingale with respect to \( \mathfrak{F} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( X \) is measurable with respect to \( \mathscr{F}_0 \), it is measurable with respect to \( \mathscr{F}_t \) for all \( t \in T \). Hence \( \bs{X} \) is adapted to \( \mathfrak{F} \). If \( s, \, t \in T \) with \( s \le t \), then \( \E(X_t \mid \mathscr{F}_s) = \E(X \mid \mathscr{F}_s) = X = X_s \).</p>
+	</details>
+</div>
+
+<h4 id="sum">Partial Sums</h4>
+
+<p>For our next discussion, we start with one of the most basic martingales in discrete time, and the one with the simplest interpretation in terms of gambling. Suppose that \( \bs{V} = \{V_n: n \in \N\} \) is a sequence of independent random variables with \( \E(|V_k|) \lt \infty \) for \( k \in \N \). Let
+\[ X_n = \sum_{k=0}^n V_k, \quad n \in \N \]</p>
+so that \( \bs X = \{X_n: n \in \N\} \) is simply the <dfn>partial sum process</dfn> associated with \( \bs V \).
+
+<div class="unit" id="sum1">
+	<p class="math">For the partial sum process \( \bs X \),</p>
+	<ol class="sub">
+		<li>If \( \E(V_n) \ge 0 \) for \( n \in \N_+ \) then \( \bs X \) is a sub-martingale.</li>
+		<li>If \( \E(V_n) \le 0 \) for \( n \in \N_+ \) then \( \bs X \) is a super-martingale.</li>
+		<li>If \( \E(V_n) = 0 \) for \( n \in \N_+ \) then \( \bs X \) is a martingale.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} = \sigma\{V_0, V_1, \ldots, V_n\}\) for \( n \in \N \) . Note first that
+		\[ \E(|X_n|) \le \sum_{k=0}^n \E(|V_k|) \lt \infty, \quad n \in \N \]
+		Next,
+		\[ \E\left(X_{n+1} \mid \mathscr{F}_n\right) = \E\left(X_n + V_{n+1} \mid \mathscr{F}_n\right) = \E\left(X_n \mid \mathscr{F}_n\right) + \E\left(V_{n+1} \mid \mathscr{F}_n\right) = X_n + \E(V_{n+1}), \quad n \in \N \]
+		The last equality holds since \( X_n \) is measurable with respect to \( \mathscr{F}_n \) and \( V_{n+1} \) is independent of \( \mathscr{F}_n \). The results now follow from the definitions.</p>
+	</details>
+</div>
+
+<p>In terms of gambling, if \( X_0 = V_0 \) is the gambler's initial fortune and \( V_i \) is the gambler's net winnings on the \( i \)th game, then \( X_n \) is the gamblers net fortune after \( n \) games for \( n \in \N_+ \). But partial sum processes associated with independent sequences are important far beyond gambling. In fact, much of classical probability deals with partial sums of independent and <em>identically distributed</em> variables. The entire chapter on <a href="../sample/index.html">Random Samples</a> explores this setting.</p>
+
+<p>Note that \( \E(X_n) = \sum_{k=0}^n \E(V_k) \). Hence condition (a) is equivalent to \( n \mapsto \E(X_n) \) increasing, condition (b) is equivalent to \( n \mapsto \E(X_n) \) decreasing, and condition (c) is equivalent to \( n \mapsto \E(X_n) \) constant. Here is another martingale associated with the partial sum process, known as the <dfn>second moment martingale</dfn>.</p>
+
+<div class="unit" id="sum2">
+	<p class="math">Suppose that \( \E(V_k) = 0 \) for \( k \in \N_+ \) and \( \var(V_k) \lt \infty \) for \( k \in \N \). Let 
+	\[Y_n = X_n^2 - \var(X_n), \quad n \in \N \]
+	Then \( \bs Y = \{Y_n: n \in \N\} \) is a martingale with respect to \( \bs X \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, let \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \) for \( n \in \N \). Since the sequence \( \bs V \) is independent, note that 
+		\[ \var(X_n) = \var\left(\sum_{k=0}^n V_k\right) = \sum_{k=0}^n \var(V_k)\] 
+		Also, \( \var(V_k) = \E(V_k^2) \) since \( \E(V_k) = 0 \) for \( k \in \N_+ \). In particular, \( \E(|Y_n|) \lt \infty \) for \( n \in \N \). Next for \( n \in \N \),
+		\begin{align*}
+			\E(Y_{n+1} \mid \mathscr{F}_n) &amp;= \E\left[X_{n+1}^2 - \var(X_{n+1}) \mid \mathscr{F}_n\right] = \E\left[(X_n + V_{n+1})^2 - \var(X_{n+1}) \mid \mathscr{F}_n\right] \\
+			&amp;= \E\left[X_n^2 + 2 X_n V_{n+1} + V_{n+1}^2 - \var(X_{n+1}) \mid \mathscr{F}_n\right] = X_n^2 + 2 X_n \E(V_{n+1}) + \E(V_{n+1}^2) - \var(X_{n+1})
+		\end{align*}
+		since \( X_n \) is measurable with respect to \( \mathscr{F}_n \) and \( V_{n+1} \) is independent of \( \mathscr{F}_n \). But \( \E(V_{n+1}) = 0 \) and \( E(V_{n+1}^2) - \var(X_{n+1}) = - \var(X_n) \). Hence we have \( \E(Y_{n+1} \mid \mathscr{F}_n) = X_n^2 - \var(X_n) = Y_n \) for \( n \in \N \).</p>
+	</details>
+</div>
+
+<p>So under the assumptions in this theorem, both \( \bs X \) and \( \bs Y \) are martingales. We will generalize the results for partial sum processes below in the discussion on processes with independent increments in <a href="#inc" class="ref"></a>.</p>
+
+<h4 id="mds">Martingale Difference Sequences</h4>
+
+<p>In the last discussion, we saw that the partial sum process associated with a sequence of independent, mean 0 variables is a martingale. Conversely, every martingale in discrete time can be written as a partial sum process of <em>uncorrelated</em> mean 0 variables. This representation gives some significant insight into the theory of martingales generally. Suppose that \( \bs X = \{X_n: n \in \N\} \) is a martingale with respect to the filtration \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \). </p>
+
+<div class="unit" id="mds1">
+	<p class="dfn">Let \( V_0 = X_0 \) and \( V_n = X_n - X_{n-1} \) for \( n \in \N_+ \). The process \( \bs V = \{V_n: n \in \N\} \) is the <dfn>martingale difference sequence</dfn> associated with \( \bs X \) and 
+	\[ X_n = \sum_{k=0}^n V_k, \quad n \in \N \]</p>
+</div>
+
+<p>As promised, the martingale difference variables have mean 0, and in fact satisfy a stronger property.</p>
+
+<div class="unit" id="mds2">
+	<p class="math">Suppose that \( \bs V = \{V_n: n \in \N\} \) is the martingale difference sequence associated with \( \bs X \). Then</p>
+	<ol class="sub">
+		<li>\( \bs V \) is adapted to \( \mathfrak F \).</li>
+		<li>\( \E(V_n \mid \mathscr{F}_k) = 0 \) for \( k, \, n \in \N \) with \( k \lt n \).</li>
+		<li>\( \E(V_n) = 0 \) for \( n \in \N_+ \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Of course \( V_0 = X_0 \) is measurable with respect to \( \mathscr{F}_0 \). For \( n \in \N_+ \), \( X_n \) and \( X_{n-1} \), and hence \( V_n \) are measurable with respect to \( \mathscr{F}_n \)</li>
+			<li>Let \( k \in \N \). By the martingale and adapted properties, 
+			\[ \E(V_{k+1} \mid \mathscr{F}_k) = \E(X_{k+1} \mid \mathscr{F}_k) - E(X_k \mid \mathscr{F}_k) = X_k - X_k = 0\]
+			Next by the tower property, 
+			\[ \E(V_{k+2} \mid \mathscr{F}_k) = \E[\E(V_{k+2} \mid \mathscr{F}_{k+1}) \mid \mathscr{F}_k] = 0 \]
+			Continuing (or using induction) gives the general result.</li>
+			<li>Since \( \bs X \) is a martingale, it has constant mean, as noted above. Hence \( \E(V_n) = \E(X_n) - \E(X_{n-1}) = 0 \) for \( n \in \N_+ \). We could also use part (b).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Also as promised, if the martingale variables have finite <a href="../expect/Variance.html">variance</a>, then the martingale difference variables are <a href="../expect/Covariance.html">uncorrelated</a>. </p>
+
+<div class="unit" id="mds3">
+	<p class="math">Suppose again that \( \bs V = \{V_n: n \in \N\} \) is the martingale difference sequence associated with the martingale \( \bs X \). Assume that \( \var(X_n) \lt \infty \) for \( n \in \N \). Then \( \bs V \) is an uncorrelated sequence. Moreover,
+	\[ \var(X_n) = \sum_{k=0}^n \var(V_k) = \var(X_0) + \sum_{k=1}^n \E(V_k^2), \quad n \in \N \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( k, \, n \in \N \) with \( k \lt n \). To show that \( V_k \) and \( V_n \) are uncorrelated, we just need to show that \( \E(V_k V_n) = 0 \) (since \( E(V_n) = 0 \)). But by the previous result,
+		\[ \E(V_k V_n) = \E[\E(V_k V_n \mid \mathscr{F}_k)] = \E[V_k \E(V_n \mid \mathscr{F}_k)] = 0  \]
+		Finally, the variance of a sum of uncorrelated variables is the sum of the variances. Since \( V_k \) has mean 0, \( \var(V_k) = \E(V_k^2) \) for \( k \in \N_+ \). Hence the formula for \( 
+		\var(X_n) \) holds.</p>
+	</details>
+</div>
+
+<p>We now know that a discrete-time martingale is the partial sum process associated with a sequence of uncorrelated variables. Hence we might hope that there are martingale versions of the fundamental theorems that hold for a partial sum process associated with an independent sequence. This turns out to be true, and is a basic reason for the importance of martingales.</p>
+
+<h4 id="wlk">Discrete-Time Random Walks</h4>
+
+<p>Suppose that \( \bs V = \{V_n: n \in \N\} \) is a sequence of independent random variables with \( \{V_n: n \in \N_+\} \) identically distributed. We assume that \( \E(|V_n|) \lt \infty \) for \( n \in \N \) and we let \( a \) denote the common mean of \( \{V_n: n \in \N_+\} \). Let \( \bs X = \{X_n: n \in \N\} \) be the partial sum process associated with \( \bs V \) so that
+\[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]
+This setting is a special case of the more general partial sum process considered in <a href="#sum" class="ref"></a>. The process \( \bs X \) is sometimes called a (discrete-time) <dfn>random walk</dfn>. The initial position \( X_0 = V_0 \) of the walker can have an arbitrary distribution, but then the <dfn>steps</dfn> that the walker takes are independent and identically distributed. In terms of gambling, \( X_0 = V_0 \) is the initial fortune of the gambler playing a sequence of independent and identical games. If \( V_i \) is the amount won (or lost) on game \( i \in \N_+ \), then \( X_n \) is the gambler's net fortune after \( n \) games. </p>
+
+<div class="unit" id="wlk1">
+	<p class="math">For the random walk \( \bs X \),</p>
+	<ol class="sub">
+		<li>\( \bs X \) is a martingale if \( a = 0 \).</li>
+		<li>\( \bs X \) is a sub-martingale if \( a \ge 0 \).</li>
+		<li>\( \bs X \) is a super-martingale if \( a \le 0 \)</li>
+	</ol>
+</div>
+
+<p>For the second moment martingale, suppose that \( V_n \) has common mean \( a = 0 \) and common variance \( b^2 \lt \infty \) for \( n \in \N_+ \), and that \( \var(V_0) \lt \infty \).</p>
+
+<div class="unit" id="wlk2">
+	<p class="math">Let \( Y_n = X_n^2 - \var(V_0) - b^2 n \) for \( n \in \N \). Then \( \bs Y = \{Y_n: n \in \N\} \) is a martingale with respect to \( \bs X \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows from the corresponding result for a general partial sum process, above, since
+		\[ \var(X_n) = \sum_{k=0}^n \var(V_k) = \var(V_0) + b^2 n, \quad n \in \N \]</p>
+	</details>
+</div>
+
+<p>We will generalize the results for discrete-time random walks below, in the discussion on <a href="#inc">processes with stationary, independent increments</a>.</p>
+
+<h4 id="prd">Partial Products</h4>
+
+<p>Our next discussion is similar to the one on partial sum processes in <a href="#sum" class="ref"></a>, but with products instead of sums. So suppose that \( \bs V = \{V_n: n \in \N\} \) is an independent sequence of nonnegative random variables with \( \E(V_n) \lt \infty \) for \( n \in \N \). Let
+\[ X_n = \prod_{i=0}^n V_i, \quad n \in \N \]
+so that \( \bs X = \{X_n: n \in \N\} \) is the <dfn>partial product process</dfn> associated with \( \bs X \).</p>
+
+<div class="unit" id="prd1">
+	<p class="math">For the partial product process \( \bs X \),</p>
+	<ol class="sub">
+		<li>If \( \E(V_n) = 1 \) for \( n \in \N_+ \) then \( \bs X \) is a martingale with respect to \( \bs V \)</li>
+		<li>If \( \E(V_n) \ge 1 \) for \( n \in \N_+ \) then \( \bs X \) is a sub-martingale with respect to \( \bs V \)</li>
+		<li>If \( \E(V_n) \le 1 \) for \( n \in \N_+ \) then \( \bs X \) is a super-martingale with respect to \( \bs V \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( \mathscr{F}_n = \sigma\{V_0, V_1, \ldots, V_n\}\) for \( n \in \N \). Since the variables are independent,
+		\[ \E(X_n) = \prod_{i=0}^n \E(V_i) \lt \infty \]
+		Next,
+		\[ \E\left(X_{n+1} \mid \mathscr{F}_n\right) = \E\left(X_n V_{n+1} \mid \mathscr{F}_n\right) = X_n E(V_{n+1} \mid \mathscr{F}_n) = X_n \E(V_{n+1}) \quad n \in \N \]
+		since \( X_n \) is measurable with respect to \( \mathscr{F}_n \) and \( V_{n+1} \) is independent of \( \mathscr{F}_n \). The results now follow from the definitions.</p>
+	</details>
+</div>
+
+<p>As with random walks, a special case of interest is when \( \{V_n: n \in \N_+\} \) is an identically distributed sequence.</p>
+
+<h4 id="srw">The Simple Random Walk</h4>
+
+<p>Suppose now that that \( \bs{V} = \{V_n: n \in \N\} \) is a sequence of independent random variables with \( \P(V_i = 1) = p \) and \( \P(V_i = -1) = 1 - p \) for \( i \in \N_+ \), where \( p \in (0, 1) \). Let \( \bs{X}  = \{X_n: n \in \N\} \) be the partial sum process associated with \( \bs{V} \) so that
+\[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]
+Then \( \bs{X} \) is the <a href="../bernoulli/Walk.html">simple random walk</a> with parameter \( p \), and of course, is a special case of the more general random walk studied in <a href="#wlk" class="ref"></a>. In terms of gambling, our gambler plays a sequence of independent and identical games, and on each game, wins &euro;1 with probability \( p \) and loses &euro;1 with probability \( 1 - p \). So if \( V_0 \) is the gambler's initial fortune, then \( X_n \) is her net fortune after \( n \) games.</p>
+
+<div class="unit" id="srw1">
+	<p class="math">For the simple random walk,</p>
+	<ol class="sub">
+		<li>If \( p \gt \frac{1}{2} \) then \( \bs{X} \) is a sub-martingale.</li>
+		<li>If \( p \lt \frac{1}{2} \) then \( \bs{X} \) is a super-martingale.</li>
+		<li>If \( p = \frac{1}{2} \) then \( \bs{X} \) is a martingale.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( \E(V_n) = p - (1 - p) = 2 p - 1 \) for \( n \in \N_+ \), so the results follow from <a href="#wlk1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>So case (a) corresponds to favorable games, case (b) to unfavorable games, and case (c) to fair games.</p>
+
+<div class="unit" id="srw2">
+	<p class="app">Open the simulation of the <a href="JavaScript:openAncillary('../apps/RandomWalk.html')" class="ancillary">simple symmetric random</a>. For various values of the number of trials \( n \), run the simulation 1000 times and note the general behavior of the sample paths.</p>
+</div>
+
+<p>Here is the second moment martingale for the simple, symmetric random walk.</p>
+
+<div class="unit" id="srw3">
+	<p class="math">Consider the simple random walk with parameter \( p = \frac{1}{2} \), and let \( Y_n = X_n^2 - \var(V_0) -  n \) for \( n \in \N \). Then \( \bs{Y} = \{Y_n: n \in \N\} \) is a martingale with respect to \( \bs{X} \)</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( \E(V_i) = 0 \) and \( \var(V_i) = 1 \) for each \( i \in \N_+ \), so the result follows from the general result above.</p>
+	</details>
+</div>
+
+<p>But there is another martingale that can be associated with the simple random walk, known as <dfn>De Moivre's martingale</dfn> and named for one of the early pioneers of probability theory, <a href="JavaScript:openAncillary('../biographies/DeMoivre.html')" class="ancillary">Abraham De Moivre</a>.</p>
+
+<div class="unit" id="srw4">
+	<p class="math">For \( n \in \N \) define
+	\[ Z_n = \left(\frac{1 - p}{p}\right)^{X_n} \]
+	Then \( \bs{Z} = \{Z_n: n \in \N\} \) is a martingale with respect to \( \bs{X} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that 
+		\[ Z_n = \prod_{k=0}^n \left(\frac{1 - p}{p}\right)^{V_k}, \quad n \in \N \]
+		and
+		\[ \E\left[\left(\frac{1 - p}{p}\right)^{V_k}\right] = \left(\frac{1 - p}{p}\right)^1 p + \left(\frac{1 - p}{p}\right)^{-1} (1 - p) = 1, \quad k \in \N_+ \]
+		So the result follows from <a href="#prd1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<h4 id="bet">The Beta-Bernoulli Process</h4>
+
+<p>Recall that the <a href="../bernoulli/BetaBernoulli.html">beta-Bernoulli process</a> is constructed by randomizing the success parameter in a <a href="../bernoulli/Introduction.html">Bernoulli trials process</a> with a <a href="../special/Beta.html">beta distribution</a>. Specifically we have a random variable \( P \) that has the beta distribution  with parameters \( a, \, b \in (0, \infty) \), and a sequence of indicator variables \( \bs X = (X_1, X_2, \ldots) \) such that given \( P = p \in (0, 1) \), \( \bs X \) is a sequence of independent variables with \( \P(X_i = 1) = p \) for \( i \in \N_+ \). As usual, we couch this in reliability terms, so that \( X_i = 1 \) means <dfn>success</dfn> on trial \( i \) and \( X_i = 0 \) means <dfn>failure</dfn>. In our study of this process, we showed that the finite-dimensional distributions are given by
+\[ \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n) = \frac{a^{[k]} b^{[n-k]}}{(a + b)^{[n]}}, \quad n \in \N_+, \; (x_1, x_2, \ldots, x_n) \in \{0, 1\}^n \]
+where we use the <a href="../foundations/Structures.html">ascending power notation</a> \( r^{[j]} = r ( r + 1) \cdots (r + j - 1) \) for \( r \in \R \) and \( j \in \N \). Next, let \( \bs{Y} = \{Y_n: n \in \N\} \) denote the partial sum process associated with \( \bs{X} \), so that once again,
+\[ Y_n = \sum_{i=1}^n X_i, \quad n \in \N \]
+Of course \( Y_n \) is the number of success in the first \( n \) trials and has the beta-binomial distribution defined by
+\[ \P(Y_n = k) = \binom{n}{k} \frac{a^{[k]} b^{[n-k]}}{(a + b)^{[n]}}, \quad k \in \{0, 1, \ldots, n\} \]
+Now let
+\[ Z_n = \frac{a + Y_n}{a + b + n}, \quad n \in \N\]
+This variable also arises naturally. Let \( \mathscr{F}_n = \sigma\{X_1, X_2, \ldots, X_n\}\) for \( n \in \N \). Then as shown in the section on the beta-Bernoulli process, \( Z_n = \E(X_{n+1} \mid \mathscr{F}_n) = \E(P \mid \mathscr{F}_n) \). In statistical terms, the second equation means that \( Z_n \) is the <dfn>Bayesian estimator</dfn> of the unknown success probability \( p \) in a sequence of Bernoulli trials, when \( p \) is modeled by the random variable \( P \).</p>
+
+<div class="unit" id="bet1">
+	<p class="math">\( \bs Z = \{Z_n: n \in \N\} \) is a martingale with respect to \( \bs X \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( 0 \le Z_n \le 1 \) so \( \E(Z_n) \lt \infty \) for \( n \in \N \). Next,
+		\[\E\left(Z_{n+1} \mid \mathscr{F}_n\right) = \E\left[\frac{a + Y_{n+1}}{a + b + n + 1} \biggm| \mathscr{F}_n\right] = \frac{\E\left[a + \left(Y_n + X_{n+1}\right) \mid \mathscr{F}_n\right]}{a + b + n + 1} = \frac{a + Y_n + \E\left(X_{n+1} \mid \mathscr{F}_n\right)}{a + b + n + 1} \]
+		As noted above, \( \E(X_{n+1} \mid \mathscr{F}_n) = (a + Y_n) / (a + b + n) \). Substituting into the displayed equation above and doing a bit of algebra we have
+		\[ \E(Z_{n+1} \mid \mathscr{F}_n) = \frac{(a + Y_n) + (a + Y_n) / (a + b + n)}{a + b + n + 1} = \frac{a + Y_n}{a + b + n} = Z_n \]</p>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/BetaBinomial.html')" class="ancillary">beta-Binomial experiment</a>. Run the simulation 1000 times for various values of the parameters, and compare the empirical probability density function with the true probability density function.</p>
+</div>
+
+<h4 id="urn">P&oacute;lya's Urn Process</h4>
+
+<p>Recall that in the simplest version of <a href="../urn/Polya.html">P&oacute;lya's urn process</a>, we start with an urn containing \( a \) red and \( b \) green balls. At each discrete time step, we select a ball at random from the urn and then replace the ball and add \( c \) new balls of the same color to the urn. For the parameters, we need \( a, \, b \in \N_+ \) and \( c \in \N \). For \( i \in \N_+ \), let \( X_i \) denote the color of the ball selected on the \( i \)th draw, where 1 means red and 0 means green. The process \( \bs{X} = \{X_n: n \in \N_+\} \) is a classical example of a sequence of exchangeable yet dependent variables. Let \( \bs{Y} = \{Y_n: n \in \N\} \) denote the partial sum process associated with \( \bs{X} \), so that once again,
+\[ Y_n = \sum_{i=1}^n X_i, \quad n \in \N \]
+Of course \( Y_n \) is the total number of red balls selected in the first \( n \) draws. Hence at time \( n \in \N \), the total number of red balls in the urn is \( a + c Y_n \), while the total number of balls in the urn is \( a + b + c n \) and so the <em>proportion</em> of red balls in the urn is
+\[ Z_n = \frac{a + c Y_n}{a + b + c n} \]</p>
+
+<div class="unit" id="urn1">
+	<p class="math">\( \bs{Z} = \{Z_n: n \in \N\} \) is a martingale with respect to \( \bs{X} \).</p>
+	<details>
+	<summary>Details:</summary>
+		<p><strong>Indirect proof:</strong> If \( c = 0 \) then \( Z_n = a / (a + b) \) for \( n \in \N \) so \( \bs Z \) is a constant martingale. If \( c \in \N_+ \) then \( \bs Z \) is equivalent to the beta-Bernoulli process with parameters \( a / c \) and \( b / c \). Moreover, 
+		\[ Z_n = \frac{a + c Y_n}{a + b + c n} = \frac{a / c + Y_n}{a / c + b / c + n}, \quad n \in \N \]
+		So \( \bs Z \) is a martingale by <a href="#bet1" class="ref"></a>.</p>
+		<p><strong>Direct Proof:</strong> Trivially, \( 0 \le Z_n \le 1 \) so \( \E(Z_n) \lt \infty \) for \( n \in \N \). Let \( \mathscr{F}_n = \sigma\{X_1, X_2, \ldots, X_n\} \). For \( n \in \N \),
+		\[\E\left(Z_{n+1} \mid \mathscr{F}_n\right) = \E\left[\frac{a + c Y_{n+1}}{a + b + c(n + 1)} \biggm| \mathscr{F}_n\right] = \frac{\E\left[a + c \left(Y_n + X_{n+1}\right) \mid \mathscr{F}_n\right]}{a + b + c(n + 1)} = \frac{a + c Y_n + c \E\left(X_{n+1} \mid \mathscr{F}_n\right)}{a + b + c n + c} \]
+		since \( Y_n \) is measurable with respect to \( \mathscr{F}_n \). But the probability of selecting a red ball on draw \( n + 1 \), given the history of the process up to time \( n \), is simply the proportion of red balls in the urn at time \( n \). That is,
+		\[ \E\left(X_{n+1} \mid \mathscr{F}_n\right) = \P\left(X_{n+1} = 1 \mid \mathscr{F}_n\right) = Z_n = \frac{a + c Y_n}{a + b + c n} \]
+		Substituting and simplifying gives \( \E\left(Z_{n+1} \mid \mathscr{F}_n\right) = Z_n \).</p>
+	</details>
+</div>
+
+<div class="unit" id="urn2">
+	<p class="app">Open the simulation of <a href="JavaScript:openAncillary('../apps/Polya.html')" class="ancillary">P&oacute;lya's Urn Experiment</a>. Run the simulation 1000 times for various values of the parameters, and compare the empirical probability density function of the number of red ball selected to the true probability density function.</p>
+</div>
+
+<h4 id="inc">Processes with Independent Increments.</h4>
+
+<p>Our first example above concerned the partial sum process in <a href="#sum" class="ref"></a> \( \bs{X} \) associated with a sequence of independent random variables \( \bs{V} \). Such processes are the only ones in discrete time that have <em>independent increments</em>. That is, for \( m, \, n \in \N \) with \( m \le n \), \( X_n - X_m \) is independent of \( (X_0, X_1, \ldots, X_m) \). The random walk process in <a href="#wlk" class="ref"></a> has the additional property of <em>stationary increments</em>. That is, the distribution of \( X_n - X_m \) is the same as the distribution of \( X_{n-m} - X_0 \) for \( m, \, n \in \N \) with \( m \le n \). Let's consider processes in discrete or continuous time with these properties. Thus, suppose that \( \bs{X} = \{X_t: t \in T\} \) satisfying the basic assumptions in <a href="#asm" class="ref"></a> above relative to the filtration \( \mathfrak{F} = \left\{\mathscr{F}_s: s \in T\right\} \). Here are the two definitions.</p>
+
+<div class="unit" id="inc1">
+	<p class="math">The process \( \bs X \) has</p>
+	<ol class="sub">
+		<li><dfn>Independent increments</dfn> if \( X_t - X_s \) is independent of \( \mathscr{F}_s \) for all \( s, \, t \in T \) with \( s \le t \).</li>
+		<li><dfn>Stationary increments</dfn> if \( X_t - X_s \) has the same distribution as \( X_{t-s} - X_0 \) for all \( s, \, t \in T \).</li>
+	</ol>
+</div>
+
+<p>Processes with <a href="../markov/General.html">stationary and independent increments</a> were studied in the chapter on <a href="../markov/index.html" class="man">Markov processes</a>. In continuous time (with the continuity assumptions we have imposed), such a process is known as a <dfn>L&eacute;vy process</dfn>, named for <a href="JavaScript:openAncillary('../biographies/Levy.html')" class="ancillary">Paul L&eacute;vy</a>, and also as a <dfn>continuous-time random walk</dfn>. For a process with independent increments (not necessarily stationary), the connection with martingales depends on the mean function \( m \) given by \( m(t) = \E(X_t) \) for \( t \in T \).</p>
+
+<div class="unit" id="inc2">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) has independent increments.</p>
+	<ol class="sub">
+		<li>If \( m \) is increasing then \( \bs{X} \) is a sub-martingale.</li>
+		<li>If \( m \) is decreasing then \( \bs X \) is a super-martingale.</li>
+		<li>If \( m \) is constant then \( \bs X \) is a martingale</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is just like the one above for partial sum processes. Suppose that \( s, \, t \in [0, \infty) \) with \( s \lt t \). Then
+		\[ E\left(X_t \mid \mathscr{F}_s\right) = \E\left[X_s + (X_t - X_s) \mid \mathscr{F}_s\right] = \E\left(X_s \mid \mathscr{F}_s\right) + \E\left(X_t - X_s \mid \mathscr{F}_s\right)\]
+		But \( X_s \) is measurable with respect to \( \mathscr{F}_s \) and \( X_t - X_s \) is independent of \( \mathscr{F}_s \) So
+		\[ \E\left(X_t \mid \mathscr{F}_s\right) = X_s + \E(X_t - X_s) = X_s + m(t) - m(s) \]</p>
+	</details>
+</div>
+
+<p>Compare this result with the corresponding result for the partial sum process in <a href="#sum1" class="ref"></a>. Suppose now that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a stochastic process as above, with mean function \( m \), and let \( Y_t = X_t - m(t) \) for \( t \in [0, \infty) \). The process \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) is sometimes called the <dfn>compensated process</dfn> associated with \( \bs{X} \) and has mean function 0. If \( \bs{X} \) has independent increments, then clearly so does \( \bs{Y} \). Hence the following result is a trivial corollary to our previous theorem.</p>
+
+<div class="unit" id="inc3">
+	<p class="math">Suppose that \( \bs{X} \) has independent increments. The compensated process \( \bs{Y} \) is a martingale.</p>
+</div>
+
+<p>Next we give the <dfn>second moment martingale</dfn> for a process with independent increments, generalizing the second moment martingale for a partial sum process in <a href="#sum2" class="ref"></a>.</p>
+
+<div class="unit" id="inc4">
+	<p class="math">Suppose that \( \bs X = \{X_t: t \in T\} \) has independent increments with constant mean function and and with \( \var(X_t) \lt \infty \) for \( t \in T \). Then \( \bs Y = \{Y_t: t \in T\} \) is a martingale where
+	\[ Y_t = X_t^2 - \var(X_t), \quad t \in T \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is essentially the same as for the partial sum process in discrete time. Suppose that \( s, \, t \in T \) with \( s \lt t \). Note that \( \E(Y_t \mid \mathscr{F}_s) = \E(X_t^2 \mid \mathscr{F}_s) - \var(X_t) \). Next,
+		\[ X_t^2 = [(X_t - X_s) + X_s]^2 = (X_t - X_s)^2 + 2 (X_t - X_s) X_s + X_s^2 \]
+		But \( X_t - X_s \) is independent of \( \mathscr{F}_s \), \( X_s \) is measurable with respect to \( \mathscr{F}_s \), and \( E(X_t - X_s) = 0 \) so
+		\[ \E(X_t^2 \mid \mathscr{F}_s) = \E[(X_t - X_s)^2] + 2 X_s \E(X_t - X_s) + X_s^2 = \E[(X_t - X_s)^2] + X_s^2 \]
+		But also by independence and since \( X_t - X_s \) has mean 0,
+		\[ \var(X_t) = \var[(X_t - X_s) + X_s] = \var(X_s) + \var(X_t - X_s)^2 = \var(X_s) + \E[(X_t - X_s)^2 \]
+		Putting the pieces together gives
+		\[ \E(Y_t \mid \mathscr{F}_s) = X_s^2 - \var(X_s) = Y_s \]</p>
+	</details>
+</div>
+
+<p>Of course, since the mean function is constant, \( \bs X \) is also a martingale. For processes with independent <em>and</em> stationary increments (that is, random walks), the last two theorems simplify, because the mean and variance functions simplify.</p>
+
+<div class="unit" id="inc5">
+	<p class="math">Suppose that \( \bs X = \{X_t: t \in T\} \) has stationary, independent increments, and let \( a = \E(X_1 - X_0) \). Then</p>
+	<ol class="sub">
+		<li>\( \bs X \) is a martingale if \( a = 0 \)</li>
+		<li>\( \bs X \) is a sub-martingale if \( a \ge 0 \)</li>
+		<li>\( \bs X \) is a super-martingale if \( a \le 0 \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that the mean function \( m \) is given by \( m(t) = \E(X_0) + a t \) for \( t \in T \), so the result follows from the corresponding result in <a href="#inc2" class="ref"></a> for a process with independent increments.</p>
+	</details>
+</div>
+
+<p>Compare this result with the corresponding result in <a href="#wlk1" class="ref"></a> for discrete-time random walks. Our next result is the second moment martingale. Compare this with the second moment martingale in <a href="#wlk2" class="ref"></a> for discrete-time random walks.</p>
+
+<div class="unit" id="inc6">
+	<p class="math">Suppose that \( \bs X = \{X_t: t \in T\} \) has stationary, independent increments with \( \E(X_0) = \E(X_1) \) and \( b^2 = \E(X_1^2) \lt \infty \). Then \( \bs Y = \{Y_t: t \in T\} \) is a martingale where
+	\[ Y_t = X_t^2 - \var(X_0) - b^2 t, \quad t \in T \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that if \( \E(X_0) = \E(X_1) \) then \( \bs X \) has constant mean function. Also, \(\var(X_t) = \var(X_0) + b^2 t \), so the result follows from the corresponding result for a process with independent increments.</p>
+	</details>
+</div>
+
+<p>In discrete time, as we have mentioned several times, all of these results reduce to the earlier results for <a href="#sum">partial sum processes</a> and <a href="#wlk">random walks</a>. In continuous time, the <a href="../poisson/Poisson.html">Poisson processes</a>, named of course for <a href="JavaScript:openAncillary('../biographies/Poisson.html')" class="ancillary">Simeon Poisson</a>, provides examples. The standard (homogeneous) Poisson counting process \( \bs N = \{N_t: t \in [0, \infty)\} \) with constant rate \( r \in (0, \infty) \) has stationary, independent increments and mean function given by \( m(t) = r t \) for \( t \in [0, \infty) \). More generally, suppose that \( r: [0, \infty) \to (0, \infty) \) is piecewise continuous (and non-constant). The non-homogeneous Poisson counting process \( \bs N = \{N_t: t \in [0, \infty)\} \) with rate function \( r \) has independent increments and mean function given by
+\[ m(t) = \int_0^t r(s) \, ds, \quad t \in [0, \infty) \]
+The increment \( N_t - N_s \) has the Poisson distribution with parameter \( m(t) - m(s) \) for \( s, \, t \in [0, \infty) \) with \( s \lt t \), so the process does not have stationary increments.  In all cases, \( m \) is increasing, so the following results are corollaries of our general results:</p>
+
+<div class="unit" id="inc7">
+	<p class="math">Let \( \bs N = \{N_t: t \in [0, \infty)\} \) be the Poisson counting process with rate function \( r: [0, \infty) \to (0, \infty) \). Then
+	<ol class="sub">
+		<li>\( \bs N \) is a sub-martingale</li>
+		<li>The compensated process \( \bs X = \{N_t - m(t): t \in [0, \infty)\} \) is a martinagle.</li>
+	</ol>
+</div>
+
+<div class="unit" id="inc8">
+	<p class="app">Open the simulation of the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson counting experiment</a>. For various values of \( r \) and \( t \), run the experiment 1000 times and compare the empirical probability density function of the number of arrivals with the true probability density function.</p>
+</div>
+
+<p>We will see further examples of processes with stationary, independent increments in continuous time (and so also examples of continuous-time martingales) in our study of <a href="../brown/index.html">Brownian motion</a>.</p>
+
+<h4 id="lrt">Likelihood Ratio Tests</h4>
+
+<p>Suppose that \( (S, \mathscr{S}, \mu) \) is a general measure space, and that \( \bs{X} = \{X_n: n \in \N\} \) is a sequence of independent, identically distributed random variables, taking values in \( S \). In statistical terms, \( \bs{X} \) corresponds to <dfn>sampling</dfn> from the common distribution, which is usually not completely known. Indeed, the central problem in statistics is to draw inferences about the distribution from observations of \( \bs{X} \). Suppose now that the underlying distribution either has probability density function \( g_0 \) or probability density function \( g_1 \), with respect to \( \mu \). We assume that \( g_0 \) and \( g_1 \) are positive on \( S \). Of course the common special cases of this setup are</p>
+
+<ul>
+	<li>\( S \) is a measurable subset of \( \R^n \) for some \( n \in \N_+ \) and \( \mu = \lambda^n \) is \( n \)-dimensional Lebesgue measure on \( S \).</li>
+	<li>\( S \) is a countable set and \( \mu = \# \) is counting measure on \( S \).</li>
+</ul>
+
+<p>The <a href="../hypothesis/Likelihood.html">likelihood ratio test</a> is a <a href="../hypothesis/index.html">hypothesis test</a>, where the null and alternative hypotheses are</p>
+
+<ul>
+	<li>\( H_0 \): the probability density function is \( g_0 \).</li>
+	<li>\( H_1 \): the probability density function is \( g_1 \).</li>
+</ul>	 
+	  
+<p>The test is based on the test statistic
+\[ L_n = \prod_{i=1}^n \frac{g_0(X_i)}{g_1(X_i)}, \quad n \in \N \]
+known as the <dfn>likelihood ratio test statistic</dfn>. Small values of the test statistic are evidence in favor of the alternative hypothesis \( H_1 \). Here is our result.</p>
+
+<div class="unit" id="lrt1">
+	<p class="math">Under the alternative hypothesis \( H_1 \), the process \( \bs{L} = \{L_n: n \in \N\} \) is a martingale with respect to \( \bs{X} \), known as the <dfn>likelihood ratio martingale</dfn>.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( \mathscr{F}_n = \sigma\{X_1, X_2, \ldots, X_n\} \). For \( n \in \N \),
+		\[ \E\left(L_{n+1} \mid \mathscr{F}_n\right) = \E\left[L_n \frac{g_0(X_{n+1})}{g_1(X_{n+1})} \biggm| \mathscr{F}_n\right] = L_n \E\left[\frac{g_0(X_{n+1})}{g_1(X_{n+1})}\right] \]
+		Since \( L_n \) is measurable with respect to \( \mathscr{F}_n \) and \( g_0(X_{n+1}) \big/ g_1(X_{n+1}) \) is independent of \( \mathscr{F}_n \). But under \( H_1 \), and using the change of variables formula for expected value, we have
+		\[ \E\left[\frac{g_0(X_{n+1})}{g_1(X_{n+1})}\right] = \int_S \frac{g_0(x)}{g_1(x)} g_1(x) \, d\mu(x) = \int_S g_0(x) \, d\mu(x) = 1 \]
+		This result also follows essentially from <a href="#prd" class="ref"></a> on partial products.  The sequence \( \bs Z = (Z_1, Z_2, \ldots) \) given by \( Z_i = g_0(X_i) / g_1(X_i) \) for \( i \in \N_+ \) is independent and identically distributed, and as just shown, has mean 1 under \( H_1 \).</p>
+	</details>
+</div>
+
+<h4 id="brn">Branching Processes</h4>
+
+<p>In the simplest model of a <dfn>branching process</dfn>, we have a system of <dfn>particles</dfn> each of which can die out or split into new particles of the same type. The fundamental assumption is that the particles act independently, each with the same offspring distribution on \( \N \). We will let \( f \) denote the (discrete) <a href="../dist/Discrete.html">probability density function</a> of the number of offspring of a particle, \( m \) the <a href="../expect/Properties.html">mean</a> of the distribution, and \( \phi \) the <a href="../expect/Generating.html#pgf">probability generating function</a> of the distribution. Thus, if \( U \) is the number of children of a particle, then \( f(n) = \P(U = n) \) for \( n \in \N \), \( m = \E(U) \), and \( \phi(t) = \E\left(t^U\right) \) defined at least for \( t \in (-1, 1] \).</p>
+
+<p>Our interest is in <em>generational time</em> rather than <em>absolute time</em>: the original particles are in generation 0, and recursively, the children a particle in generation \( n \) belong to generation \( n + 1 \). Thus, the stochastic process of interest is \( \bs{X} = \{X_n: n \in \N\} \) where \( X_n \) is the number of particles in the \( n \)th generation for \( n \in \N \). The process \( \bs{X} \) is a <a href="../markov/index.html">Markov chain</a> and was studied in the section on <a href="../markov/Branching.html">discrete-time branching chains</a>. In particular, one of the fundamental problems is to compute the probability \( q \) of extinction starting with a single particle:
+\[ q = \P(X_n = 0 \text{ for some } n \in \N \mid X_0 = 1) \]
+Then, since the particles act independently, the probability of extinction starting with \( x \in \N \) particles is simply \( q^x \). We will assume that \( f(0) \gt 0 \) and \( f(0) + f(1) \lt 1 \). This is the interesting case, since it means that a particle has a positive probability of dying without children and a positive probability of producing more than 1 child.  The fundamental result, you may recall, is that \( q \) is the smallest fixed point of \( \phi \) (so that \( \phi(q) = q \)) in the interval \( [0, 1] \). Here are two martingales associated with the branching process:</p>
+
+<div class="unit" id="brn1">
+	<p class="math">Each of the following is a martingale with respect to \( \bs X \).</p>
+	<ol class="sub">
+		<li>\( \bs{Y} = \{Y_n: n \in \N\} \) where \( Y_n = X_n / m^n \) for \( n \in \N \).</li>
+		<li>\( \bs{Z} = \{Z_n: n \in \N\} \) where \( Z_n = q^{X_n} \) for \( n \in \N \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \). For \( n \in \N \), note that \( X_{n+1} \) can be written in the form
+		\[ X_{n+1} = \sum_{i=1}^{X_n} U_i \]
+		where \( \bs{U} = (U_1, U_2, \ldots) \) is a sequence of independent variables, each with PDF \( f \) (and hence mean \( \mu \) and PGF \( \phi \)), and with \( \bs{U} \) independent of \( \mathscr{F}_n \). Think of \( U_i \) as the number of children of the \( i \)th particle in generation \( n \). </p>
+		<ol class="sub">
+			<li>For \( n \in \N \),
+			\[ \E(Y_{n+1} \mid \mathscr{F}_n) = \E\left(\frac{X_{n+1}}{m^{n+1}} \biggm| \mathscr{F}_n\right) = \frac{1}{m^{n+1}} \E\left(\sum_{i=0}^{X_n} U_i \biggm| \mathscr{F}_n\right) = \frac{1}{m^{n+1}} m X_n = \frac{X_n}{m^n} = Y_n \]</li>
+			<li>For \( n \in \N \)
+			\[ \E\left(Z_{n+1} \mid \mathscr{F}_n\right) = \E\left(q^{X_{n+1}} \mid \mathscr{F}_n\right) = 	\E\left(q^{\sum_{i=1}^{X_n} U_i} \biggm| \mathscr{F}_n\right) = \left[\phi(q)\right]^{X_n} = q^{X_n} = Z_n\]</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="doo">Doob's Martingale</h4>
+
+<p>Our next example is one of the simplest, but most important. Indeed, as we will see later in the section on <a href="Convergence.html">convergence</a>, this type of martingale is almost universal in the sense that every <a href="../expect/Uniform.html">uniformly integrable</a> martingale is of this type. The process is constructed by conditioning a fixed random variable on the \( \sigma \)-algebras in a given filtration, and thus <em>accumulating information</em> about the random variable.</p>
+
+<div class="unit" id="doo1">
+	<p class="math">Suppose that \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) is a filtration on the probability space \( (\Omega, \mathscr{F}, \P) \), and that \( X \) is a real-valued random variable with \( \E\left(\left|X\right|\right) \lt \infty \). Define \( X_t = \E\left(X \mid \mathscr{F}_t\right) \) for \( t \in T \). Then \( \bs{X} = \{X_t: t \in T\} \) is a martingale with respect to \( \mathfrak{F} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( t \in T \), recall that \( |X_t| = |\E(X \mid \mathscr{F}_t)| \le \E(|X| \mid \mathscr{F}_t) \). Taking expected values gives \( \E(|X_t|) \le \E(|X|) \lt \infty \). Suppose that \( s, \, t \in T \) with \( s \lt t \). Using the tower property of conditional expected value,
+		\[ \E\left(X_t \mid \mathscr{F}_s\right) = \E\left[\E\left(X \mid \mathscr{F}_t\right) \mid \mathscr{F}_s\right] = \E\left(X \mid \mathscr{F}_s\right) = X_s \]</p>
+	</details>
+</div>
+
+<p>The martingale in the last theorem is known as <dfn>Doob's martingale</dfn> and is named for <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">Joseph Doob</a> who did much of the pioneering work on martingales. It's also known as the <dfn>L&eacute;vy martingale</dfn>, named for <a href="JavaScript:openAncillary('../biographies/Levy.html')" class="ancillary">Paul L&eacute;vy</a>.</p>
+
+<p>Doob's martingale arises naturally in the statistical context of <a href="../point/Bayes.html">Bayesian estimation</a>. Suppose that \( \bs X = (X_1, X_2, \ldots) \) is a sequence of independent random variables whose common distribution depends on an unknown real-valued parameter \( \theta \), with values in a parameter space \( A \subseteq \R \). For each \( n \in \N_+ \), let \( \mathscr{F}_n = \sigma\{X_1, X_2, \ldots, X_n\} \) so that \( \mathfrak F = \{\mathscr{F}_n: n \in \N_+\} \) is the natural filtration associated with \( \bs X \). In Bayesian estimation, we model the unknown parameter \( \theta \) with a random variable \( \Theta \) taking values in \( A \) and having a specified <dfn>prior distribution</dfn>. The <dfn>Bayesian estimator</dfn> of \( \theta \) based on the sample \( \bs{X}_n = (X_1, X_2, \ldots, X_n) \) is 
+\[ U_n = \E(\Theta \mid \mathscr{F}_n), \quad n \in \N_+ \]
+So it follows that the sequence of Bayesian estimators \( \bs U = (U_n: n \in \N_+) \) is a Doob martingale. The estimation referred to in the discussion of the <a href="#bet">beta-Bernoulli</a> process above is a special case.</p>
+
+<h4 id="den">Density Functions</h4>
+
+<p>For this example, you may need to review the sections on <a href="../foundations/General.html">general measures</a> and <a href="../foundations/Density.html">density functions</a>. We start with our probability space \( (\Omega, \mathscr{F}, \P) \) and filtration \( \mathfrak{F} = \{\mathscr{F}_n: n \in \N\} \) in discrete time. Suppose now that \( \mu \) is a finite measure on the sample space \( (\Omega, \mathscr{F}) \). For each \( n \in \N \), the restriction of \( \mu \) to \( \mathscr{F}_n \) is a measure on the measurable space \( (\Omega, \mathscr{F}_n) \), and similarly the restriction of \( \P \) to \(\mathscr{F}_n\) is a probability measure on \( (\Omega, \mathscr{F}_n) \). To save notation and terminology, we will refer to these as <dfn>\( \mu \) and \( \P \) on \(\mathscr{F}_n\)</dfn>, respectively. Suppose now that \( \mu \) is absolutely continuous with respect to \( \P \) on \( \mathscr{F}_n \) for each \( n \in \N \). Recall that this means that if \( A \in \mathscr{F}_n \) and \( \P(A) = 0 \) then \( \mu(B) = 0 \) for every \( B \in \mathscr{F}_n \) with \( B \subseteq A \). By the <a href="../foundations/Density.html#lrn">Radon-Nikodym theorem</a>, \( \mu \)  has a density function \( X_n: \Omega \to \R \) with respect to \( \P \) on \(\mathscr{F}_n\) for each \( n \in \N_+ \). The density function of a measure with respect to a positive measure is known as a <dfn>Radon-Nikodym derivative</dfn>. The theorem and the derivative are named for <a href="JavaScript:openAncillary('../biographies/Radon.html')" class="ancillary">Johann Radon</a> and <a href="JavaScript:openAncillary('../biographies/Nikodym.html')" class="ancillary">Otto Nikodym</a>. Here is our main result.</p>
+
+<div class="unit" id="den1">
+	<p class="math">\( \bs X = \{X_n: n \in \N\} \) is a martingale with respect to \( \mathfrak F \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( n \in \N \). By definition, \( X_n \) is measurable with respect to \( \mathscr{F}_n \). Also, \( \E(|X_n|) = \|\mu\|\) (the total variation of \( \mu \)) for each \( n \in \N \). Since \( \mu \) is a finite measure, \( \|\mu\| \lt \infty \). By definition,
+		\[ \mu(A) = \int_A X_n d \P = \E(X_n; A), \quad A \in \mathscr{F}_n \]
+		On the other hand, if \( A \in \mathscr{F}_n \) then \( A \in \mathscr{F}_{n+1} \) and so \( \mu(A) = \E(X_{n+1}; A) \). So to summarize, \( X_n \) is \( \mathscr{F}_n \)-measurable and \( \E(X_{n+1}; A) = \E(X_n ; A) \) for all \( A \in \mathscr{F}_n \). By definition, this means that \( \E(X_{n+1} \mid \mathscr{F}_n) = X_n \), and so \( \bs X \) is a martingale with respect to \( \mathfrak F \).</p>
+	</details>
+</div>
+
+<p>Note that \( \mu \) may not be absolutely continuous with respect to \( \P \) on \( \mathscr{F} \) or even on \( \mathscr{F}_\infty = \sigma \left(\bigcup_{n=0}^\infty \mathscr{F}_n\right) \). On the other hand, if \( \mu \) <em>is</em> absolutely continuous with respect to \( \P \) on \( \mathscr{F}_\infty \) then \( \mu \) has a density function \( X \) with respect to \( \P \) on \( \mathscr{F}_\infty \). So a natural question in this case is the relationship between the martingale \( \bs X \) and the random variable \( X \). You may have already guessed the answer, but at any rate it will be given in the section on <a href="Convergence.html#den">convergence</a>.</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Properties.html" title="Properties and Constructions">2</a></li>
+		<li class="child"><a href="Stop.html" title="Stopping Times">3</a></li>
+		<li class="child"><a href="Inequalities.html" title="Inequalities">4</a></li>
+		<li class="child"><a href="Convergence.html" title="Convergence">5</a></li>
+		<li class="child"><a href="Backwards.html" title="Backwards Martingales">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

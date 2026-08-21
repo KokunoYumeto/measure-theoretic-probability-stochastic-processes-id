@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>The Poisson Distribution</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, Poisson process, Poisson distribution, normal distribution, central limit theorem, uniform distribution, binomial distribution">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\skw}{\text{skew}}\) 
+	\(\newcommand{\kur}{\text{kurt}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="current">4</li>
+		<li class="child"><a href="Splitting.html" title="Thinning and Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>4. The Poisson Distribution</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<p>Recall that the <a href="Introduction.html">Poisson process</a> models random points in the time set \([0, \infty)\) subject to a strong renewal property that states that at each arrival time and at each fixed time, the process restarts independently of the past. Here is a review of what we have so far:</p>
+
+<div class="unit" id="dfn1">
+	<p class="dfn">The <dfn>inter-arrival times</dfn> \(\bs{X} = (X_1, X_2, \ldots)\) are independent and each has the <a href="Exponential.html">exponential distribution</a> with rate parameter \(r \), for some \( r \in (0, \infty) \). The common probability density function \(f\) is given by
+	\[f(t) = r e^{- r t}, \quad t \in [0, \infty)\]
+	</p>
+</div>
+
+<div class="unit">
+	<p class="dfn">The sequence of <dfn>arrival times</dfn> \(\bs{T} = (T_0, T_1, T_2, \ldots)\) is the partial sum process associated with \(\bs{X}\):
+	\[ T_n = \sum_{i = 1}^n X_i, \quad n \in \N \]
+	and hence the sequence has stationary, independent increments. For \(n \in \N_+\), \(T_n\) has the <a href="Gamma.html">gamma distribution</a> with rate parameter \(r\) and shape parameter \(n\) and has density function \(f_n\) given by 
+	\[ f_n(t) = r^n \frac{t^{n-1}}{(n-1)!} e^{-r t}, \quad t \in [0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>\(T_0 = 0\) is not considered an arrival, but this convention makes certain formulas nicer.</p>
+	</details>
+</div>
+
+<p>Exercise <a href="#dfn1" class="ref"></a> and <a href="#dfn2"></a> each characterize the Poisson process with rate \( r \). But in this section we are interested in the associated counting process.</p>
+
+<div class="unit" id="dfn3">
+	<p class="dfn">For \(t \in [0, \infty)\) let \(N_t\) denotes the number of arrivals in the interval \((0, t]\), so that \( N_t = \max\{n \in \N: T_n \le t\} \). The process \(\bs{N} = (N_t: t \in [0, \infty))\) is the <dfn>counting process</dfn> and has an inverse relationship with \(\bs T\) in the sense that \(N_t \ge n\) if and only if \(T_n \le t\) for \(n \in \N_+\) and \(t \in (0, \infty)\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The event \(N_t \ge 0\) and the event \(T_n \le t\) both mean that there are at least \(n\) arrivals in \((0, t]\).</p>
+	</details>
+</div>
+
+<p>We will show that \( N_t \) has a <dfn>Poisson distribution</dfn>, named for <a href="JavaScript:openAncillary('../biographies/Poisson.html')" class="ancillary">Simeon Poisson</a>, one of the most important distributions in probability theory. Our exposition will alternate between properties of the distribution and properties of the counting process. The two are intimately intertwined.  It's not too much of an exaggeration to say that wherever there is a Poisson <em>distribution</em>, there is a Poisson <em>process</em> lurking in the background.</p>
+
+<h4 id="pdf">Probability density function.</h4>
+
+<div class="unit" id="pdf1">
+	<p class="math">For \( t \in [0, \infty) \), the probability density function of \(N_t\) is given by</p>
+	\[ \P(N_t = n) = e^{-r t} \frac{(r t)^n}{n!}, \quad n \in \N \]
+	<details>
+	<summary>Details:</summary>
+	<p>Using <a href="#dfn2" class="ref"></a> and <a href="#dfn3" class="ref"></a>, and integration by parts, we have
+	\[ \P(N_t \ge n) = \P(T_n \le t) = \int_0^t f_n(s) \, ds = 1 - \sum_{k=0}^{n-1} e^{-r t} \frac{(r t)^k}{k!}, \quad n \in \N  \]
+	For \(n \in \N\) we have \(\P(N_t = n) = \P(N_t \ge n) - \P(N_t \ge n + 1)\). Simplifying gives the result.</p>
+	</details>
+</div>
+
+<p>Note that the distribution of \(N_t\) depends on the paramters \(r\) and \(t\) only through the product \(r t\). The distribution is called the <dfn>Poisson distribution</dfn> with parameter \(r t\). </p>
+
+<div class="unit" id="pdf2">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a>, vary \(r\) and \(t\) with the scrollbars and note the shape of the probability density function. For various values of \(r\) and \(t\), run the experiment 1000 times and compare the relative frequency function to the probability density function.</p>
+</div>
+
+<div class="unit" id="pdf3">
+	<p class="math">In general, a random variable \(N\) with values in \(\N\) has the <dfn>Poisson distribution</dfn> with parameter \(a \in (0, \infty)\) if it has the probability density function
+	\[ g(n) = e^{-a} \frac{a^n}{n!}, \quad n \in \N \]</p>
+	<ol class="sub">
+		<li>\(g(n - 1) \lt g(n)\) if and only if \(n \lt a\).</li>
+		<li>If \(a \notin \N_+\), there is a single mode at \(\lfloor a \rfloor\).</li>
+		<li>If \(a \in \N_+\), there are consecutive modes at \(a - 1\) and \(a\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Part (a) follows from simple algebra, and similarly, \( g(n - 1) = g(n) \) if and only if \( n = a \) (and thus \( a \in \N_+ \)). Parts (b) and (c) then follow.</p>
+	</details>
+</div>
+
+<p>The Poisson distribution does not have simple closed-form <a href="../dist/CDF.html">distribution function</a> or <a href="../dist/CDF.html#qnt">quantile function</a>. Trivially, we can write the distribution function as a sum of the probability density function.</p>
+
+<div class="unit" id="pdf4">
+	<p class="math">The Poisson distribution with parameter \( a \) has distribution function \( G \) given by
+	\[ G(n) = \sum_{k=0}^n e^{-a} \frac{a^k}{k!}, \quad n \in \N \]</p>
+</div>
+
+<div class="unit" id="pdf5">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/QuantileApp.html')" class="ancillary">quantile app</a>, select the Poisson distribution, and select CDF view. Vary the parameter and note the shape of the distribution and quantile functions. For various values of the parameter, compute the quartiles.</p>
+</div>
+
+<p>Sometimes it's convenient to allow the parameter \( a \) to be 0. This <dfn>degenerate</dfn> Poisson distribution is simply point mass at 0. That is, with the usual conventions regarding nonnegative integer powers of 0, the probability density function \( g \) above reduces to \( g(0) = 1 \) and \( g(n) = 0 \) for \( n \in \N_+ \).</p>
+
+<h4 id="mom">Moments</h4>
+
+<p>Suppose that \(N\) has the Poisson distribution with parameter \(a \gt 0\). Naturally we want to know the <a href="../expect/Properties.html">mean</a>, <a href="../expect/Variance.html">variance</a>, <a href="../expect/Skew.html#skw">skewness</a> and <a href="../expect/Skew.html#kur">kurtosis</a>, and the <a href="../expect/Generating.html#pgf">probability generating function</a> of \(N\). The easiest moments to compute are the factorial moments. For this result, recall the falling power notation for the number of permutations of size \(k\) chosen from a population of size \(n\):
+\[ n^{(k)} = n (n - 1) \cdots [n - (k + 1)] \]</p>
+
+<div class="unit" id="mom1">
+	<p class="math">The factorial moment of \(N\) of order \(k \in \N\) is \(\E\left[N^{(k)}\right] = a^k\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Using the standard change of variables formula for expected value,
+		\[ \E[N^{(k)}] = \sum_{n=0}^\infty n^{(k)} e^{-a} \frac{a^n}{n!} = e^{-a} a^k \sum_{n=k}^\infty \frac{a^{n-k}}{(n-k)!} = e^{-a} a^k e^a = a^k \]</p>
+	</details>
+</div>
+
+<div class="unit" id="mom2">
+	<p class="math">The mean and variance of \(N\) are the parameter \(a\).</p>
+	<ol class="sub">
+		<li>\(\E(N) = a\)</li>
+		<li>\(\var(N) = a\)</li>
+	</ol>
+	<details>
+	<summary>Details:</summary>
+		<p>The results follow from <a href="#mom1" class="ref"></a>.</p>
+		<ol class="sub">
+			<li>\(\E(N) = \E\left[N^{(1)}\right] = a\).</li>
+			<li>\(\E(N^2) = \E\left[N^{(2)}\right] + \E(N) = a^2 + a\).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="mom3">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/SpecialSimulator.html')" class="ancillary">special distribution simulator</a> and select the Poisson distribution. Vary the parameter and note the location and size of the mean\( \pm \)standard deviation bar. For selected values of the parameter, run the simulation 1000 times and compare the empirical mean and standard deviation to the distribution mean and standard deviation.</p>
+</div>
+
+<div class="unit" id="mom4">
+	<p class="math">The skewness and kurtosis of \( N \) are</p>
+	<ol class="sub">
+		<li>\( \skw(N) = 1 / \sqrt{a} \)</li>
+		<li>\( \kur(N) = 3 - 5 / a \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follow from the computational formulas for skewness and kurtosis and <a href="#mom1" class="ref"></a>. Specifically,</p>
+		<ol class="sub">
+			<li>\( E(N^3) = a^3 + 3 a^2 + a \) and \( \skw(N) = [\E(N^3) - 3 a^2 - a^3] / a^{3/2} \)
+			</li>
+			<li>\( \E(N^4) = a^4 + 6 a^3 + 7 a^2 - 5 a \) and \(\kur(N) = [\E(N^4) - 4 a \E(N^3) + 6 a^3 + 3 a^4] / a^2 \)
+			</li>
+		</ol>
+	</details>
+</div>
+
+<p>Note that the Poisson distribution is positively skewed, but \( \skw(N) \to 0 \) as \( a \to \infty \). Recall also that the <dfn>excess kurtosis</dfn> is \( \kur(N) - 3 = -5 / a \to 0 \) as \( a \to \infty \). This limit is related to the convergence of the Poisson distribution to the normal, discussed below in <a href="#nor" class="ref"></a>.</p>
+
+<div class="unit" id="mom5">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/SpecialSimulator.html')" class="ancillary">special distribution simulator</a> and select the Poisson distribution. Vary the parameter and note the shape of the probability density function in the context of the results on skewness and kurtosis above.</p>
+</div>
+
+<div class="unit" id="mom6">
+	<p class="math">The probability generating function \( P \) of \(N\) is given by
+	\[ P(s) = \E\left(s^N\right) = e^{a(s - 1)}, \quad s \in \R \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Using the change of variables formula again,
+		\[ \E(s^N) = \sum_{n=0}^\infty s^n e^{-a} \frac{a^n}{n!} = e^{-a} \sum_{n=0}^\infty \frac{(a s)^n}{n!} = e^{-a} e^{a s}, \quad s \in \R \]</p>
+	</details>
+</div>
+
+<p>Returning to the Poisson counting process \(\bs{N} = (N_t: t \ge 0)\) with rate parameter \(r\), it follows that \(\E(N_t) = r t\) and \(\var(N_t) = r t\) for \(t \ge 0\). Once again, we see that \(r\) can be interpreted as the average arrival <em>rate</em>. In an interval of length \(t\), we expect about \(r t\) arrivals.</p>
+
+<div class="unit" id="mom7">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a>, vary \(r\) and \(t\) with the scrollbars and note the location and size of the mean\( \pm \)standard deviation bar. For various values of \(r\) and \(t\), run the experiment 1000 times and compare the sample mean and standard deviation to the distribution mean and standard deviation, respectively.</p>
+</div>
+
+<h4 id="rte">Estimating the Rate</h4>
+
+<p>Suppose again that we have a Poisson process with rate \( r \in (0, \infty) \). In many practical situations, the rate \(r\) in unknown and must be <a href="../point/index.html">estimated</a> based on observing data. For fixed \(t \gt 0\), a natural estimator of the rate \(r\) is \(N_t / t\).</p>
+
+<div class="unit" id="rte1">
+	<p class="math">The mean and variance of \(N_t / t\) are</p>
+	<ol class="sub">
+		<li>\(\E(N_t / t) = r\)</li>
+		<li>\(\var(N_t / t) = r / t\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These result follow easily from \(\E(N_t) = \var(N_t) = r t\) and basic properties of expected value and variance.</p>
+	</details>
+</div>
+
+<p>Part (a) means that the estimator is unbiased. Since this is the case, the variance in part (b) gives the mean square error. Since \(\var(N_t)\) decreases to 0 as \(t \to \infty\), the estimator is consistent.</p>
+
+<h3 id="prp">Additional Properties</h3>
+
+<h4 id="inc">Increments and Characterizations</h4>
+
+<p>Let's explore the basic renewal assumption of the Poisson model in terms of the counting process \(\bs{N} = (N_t: t \ge 0)\). Recall that \(N_t\) is the number of arrivals in the interval \((0, t]\), so it follows that if \(s, \, t \in [0, \infty)\) with \(s \lt t\), then \(N_t - N_s\) is the number of arrivals in the interval \((s, t]\). Of course, the arrival times have continuous distributions, so the probability that an arrival occurs at a specific point \(t\) is 0. Thus, it does not really matter if we write the interval above as \((s, t]\), \((s, t)\), \([s, t)\) or \([s, t]\).</p>
+
+<div class="unit" id="inc1">
+	<p class="math">The process \(\bs{N}\) has stationary, independent increments.</p>
+	<ol class="sub">
+		<li>If \(s, \, t \in [0, \infty)\) with \(s \lt t\) then \(N_t - N_s\) has the same distribution as \(N_{t-s}\), namely Poisson with parameter \(r (t - s)\).</li>
+		<li>If \(t_1, \, t_2, \, t_3 \ldots \in [0, \infty)\) with \(t_1 \lt t_2 \lt t_3 \lt \cdots\) then \(\left(N_{t_1}, N_{t_2} - N_{t_1}, N_{t_3} - N_{t_2}, \ldots\right)\) is an independent sequence. </li>
+	</ol>
+</div>
+
+<p>Statements about the increments of the counting process can be expressed more elegantly in terms of the more general counting process. Recall first that \([0, \infty)\) is given the standard <a href="../foundations/Measurable.html">\(\sigma\)-algebra</a> of Borel measurable subsets, and the standard (Lebesgue) <a href="../foundations/Mea`">measure</a> \(\lambda\) that generalizes length.</p>
+
+<div class="unit">
+	<p class="dfn">For measurable \(A \subseteq [0, \infty)\), let \(N(A)\) denote the number of random points in \(A\):
+	\[ N(A) = \#\left\{n \in \N_+: T_n \in A\right\} \]</p>
+</div>
+
+<p>So in particular, \( N_t = N(0, t] \). Thus, note that \( t \mapsto N_t \) is a (random) <a href="../foundations/Existence.html#sti">distribution function</a> and \( A \mapsto N(A) \) is the (random) <a href="../foundations/Measure.html">measure</a> associated with this distribution function. Here is our third characterization of the Poisson process.</p>
+
+<div class="unit" id="inc2">
+	<p class="math">A random process of points in \([0, \infty)\) is a Poisson process with rate \( r \in (0, \infty) \) if and only if the following properties hold:.</p>
+	<ol class="sub">
+		<li>If \( A \subseteq [0, \infty) \) is measurable then \( N(A) \) has the Poisson distribution with parameter \( r \lambda(A) \).</li>
+		<li>if \( \{A_i: i \in I\} \) is a countable, disjoint collection of measurable sets in \( [0, \infty) \) then \( \{N(A_i): i \in I\} \) is a set of independent variables.</li>
+	</ol>
+</div>
+
+<p>From a modeling point of view, the assumptions of stationary, independent increments are ones that might be reasonably made. But the assumption that the increments have <em>Poisson</em> distributions does not seem as clear. Our next characterization of the process is more primitive in a sense, because it just imposes some limiting assumptions (in addition to stationary, independent increments.</p>
+
+<div class="unit" id="inc3">
+	<p class="math">A random process of points in \([0, \infty)\) is a Poisson process with rate \( r \in (0, \infty) \) if and only if the following properties hold:</p>
+	<ol class="sub">
+		<li>If \( A, \, B \subseteq [0, \infty) \) are measurable and \(\lambda(A) = \lambda(B)\), then \(N(A)\) and \(N(B)\) have the same distribution.</li>
+		<li>if \( \{A_i: i \in I\} \) is a countable, disjoint collection of measurable sets in \( [0, \infty) \) then \( \{N(A_i): i \in I\} \) is a set of independent variables.</li>
+		<li>If \( A_n \subseteq [0, \infty) \) is measurable and \(\lambda(A_n) \gt 0\) for \(n \in \N_+\), and if \(\lambda(A_n) \to 0\) as \(n \to \infty\) then
+		\begin{align}
+			&amp;\frac{\P\left[N(A_n) = 1\right]}{\lambda(A_n)} \to r \text{ as } n \to \infty \\
+			&amp;\frac{\P\left[N(A_n) \gt 1\right]}{\lambda(A_n)} \to 0 \text{ as } n \to \infty
+		\end{align}
+		</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>As usual, let \(N_t = N(0, t]\), the number of arrivals in \( (0, t] \), and in addition let \(P_n(t) = \P(N_t = n)\) for \(t \ge 0\) and \(n \in \N\). Note first that \(P_0\) satisfies the following differential equation and initial condition:
+		\[ P_0^\prime(t) = -r P_0(t), \; t \gt 0; \quad P_0(0) = 1 \]
+		Hence \(P_0(t) = e^{-r t}\) for \(t \ge 0\). Next for \(n \in \N_+\), \(P_n\) satisfies the following differential equation and initial condition
+		\[P_n^\prime(t) = -r P_n(t) + r P_{n-1}(t), \; t \gt 0; \quad P_n(0) = 0 \]
+		Hence \(P_n(t) = e^{-r t} (r t)^n / n!\) for \(t \ge 0\) and therefore \(N_t\) has the Poisson distribution with parameter \(r t\).</p>
+	</details>
+</div>
+
+<p>Of course, part (a) is the stationary assumption and part (b) the independence assumption. The first limit in (c) is sometimes called the <dfn>rate property</dfn> and the second limit the <dfn>sparseness property</dfn>. In a <q>small</q> time interval of length \( dt \), the probability of a single random point is approximately \( r \, dt \), and the probability of two or more random points is negligible.</p>
+
+<h4 id="sum">Sums</h4>
+
+<p>The Poisson distribution is closed with respect to sums of independent variables.</p>
+
+<div class="unit" id="sum1">
+	<p class="math">Suppose that \(N\) and \(M\) are independent random variables, and that \(N\) has the Poisson distribution with parameter \(a \in (0, \infty)\) and \(M\) has the Poisson distribution with parameter \(b \in (0, \infty)\). Then \(N + M\) has the Poisson distribution with parameter \(a + b\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>There are several ways to prove this result, but the one that gives the most insight is a probabilistic proof based on the Poisson process. Thus suppose that \(\bs{N} = (N_t: t \ge 0)\) is a Poisson counting process with rate 1. We can associate \(N\) with \(N_a\) and \(M\) with \(N_{a + b} - N_a\), since these have the correct distributions and are independent. But then \(N + M\) is \(N_{a + b}\).</p>
+		<p>Our next proof uses probability generating functions. From <a href="#mom4" class="ref"></a>, \( M \) has PGF \( P(s) = e^{a (s - 1)} \) for \( s \in \R \), and \( N \) has PGF \( Q(s) = e^{b(s-1)} \) for \( s \in \R \). Hence \( M + N \) has PGF \( P(s) Q(s) = e^{(a+b)(s-1)} \) for \( s \in \R \). But this is the PGF of the Poisson distribution with parameter \( a + b \).</p>
+		<p>Our third proof uses probability density functions. From exericse <a href="#pdf2" class="ref"></a>, \( M \) has PDF \( g(n) = e^{-a} a^n / n! \) for \( n \in \N \), and \( N \) has PDF \( h(n) = e^{-b} b^n / n! \) for \( n \in \N \). Hence the PDF of \( M + N \) is the convolution \( g * h \). For \( n \in \N \),
+		\[ (g * h)(n) = \sum_{k=0}^n g(k) h(n - k) = \sum_{k=0}^n e^{-a} \frac{a^k}{k!} e^{-b} \frac{b^{n-k}}{(n - k)!} = e^{-(a+b)} \frac{1}{n!} \sum_{k=0}^n \frac{n!}{k! (n - k)!} a^k b^{n-k}\]
+		By the binomial theorem, the last sum is \( (a + b)^n \). </p>
+	</details>
+</div>
+
+<p>From the last theorem, it follows that the Poisson distribution is <a href="../special/Divisible.html">infinitely divisible</a>. That is, a Poisson distributed variable can be written as the sum of an arbitrary number of independent, identically distributed (in fact also Poisson) variables.</p>
+
+<div class="unit" id="sum2">
+	<p class="math">Suppose that \( N \) has the Poisson distribution with parameter \( a \in (0, \infty) \). Then for \( n \in \N_+ \), \( N \) has the same distribution as \( \sum_{i=1}^n N_i \) where \( (N_1, N_2, \ldots, N_n) \) are independent, and each has the Poisson distribution with parameter \( a / n \).</p>
+</div>
+
+<h4 id="nor">Normal Approximation</h4>
+
+<p>Because of the representation as a sum of independent, identically distributed variables, it's not surprising that the Poisson distribution can be approximated by the normal.</p>
+
+<div class="unit" id="nor1">
+	<p class="math">Suppose that \(N_t\) has the Poisson distribution with parameter \(t \gt 0\). Then the distribution of the variable below converges to the standard <a href="../special/Normal.html">normal distribution</a> as \(t \to \infty\).
+	\[ Z_t = \frac{N_t - t}{\sqrt{t}} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>As usual, we can assume that \((N_t: t \ge 0)\) is the Poisson counting process with rate 1. Note that \(Z_t\) is simply the <a href="../expect/Variance.html#std">standard score</a> associated with \(N_t\). For \(n \in \N_+\), \(N_n\) is the sum of \(n\) independent variables, each with the Poisson distribution with parameter 1. Thus, from the <a href="../sample/CLT.html">central limit theorem</a>, the distribution of \(Z_n\) converges to the standard normal distribution as \(n \to \infty\). For general \(t \in [0, \infty)\), it's possible to write \(Z_t = Z_n + W_t\) where \(n = \lfloor t \rfloor\) and \(W_t \to 0\) as \(t \to \infty\) (in probability and hence in distribution).</p>
+	</details>
+</div>
+
+<p>So if \(N\) has the Poisson distribution with parameter \(a \in (0, \infty)\), and \(a\) is <q>large</q>, then the distribution of \(N\) is approximately normal with mean \(a\) and standard deviation \(\sqrt{a}\).  When using the normal approximation, we should remember to use the <a href="../sample/CLT.html#cor">continuity correction</a>, since the Poisson is a discrete distribution.</p>
+
+<div class="unit" id="nor2">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a>, set \(r = t = 1\). Increase \(t\) and note how the graph of the probability density function becomes more bell-shaped.</p>
+</div>
+
+<h4 id="exp">General Exponential</h4>
+
+<p>The Poisson distribution is a member of the <a href="../special/GeneralExponential.html">general exponential family</a> of distributions. This fact is important in various statistical procedures.</p>
+
+<div class="unit" id="exp1">
+	<p class="math">Suppose that \(N\) has the Poisson distribution with parameter \(a \in (0, \infty)\). This distribution is a one-parameter exponential family with natural parameter \(\ln(a)\) and natural statistic \(N\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows from the form of the Poisson PDF in <a href="#pdf2" class="ref"></a>
+		\[ g(n) = e^{-a} \frac{a^n}{n!} = \frac{e^{-a}}{n!} \exp\left[n \ln (a)\right], \quad n \in \N \]</p>
+	</details>
+</div>
+
+<h4 id="uni">The Uniform Distribution</h4>
+
+<p>The Poisson process has some basic connections to the uniform distribution. Consider again the Poisson process with rate \(r \gt 0\). As usual, \(\bs{T} = (T_0, T_1, \ldots)\) denotes the arrival time sequence and \(\bs{N} = (N_t: t \ge 0)\) the counting process.</p>
+
+<div class="unit" id="uni1">
+	<p class="math">For \(t \gt 0\), the conditional distribution of \(T_1\) given \(N_t = 1\) is <a href="../dist/Continuous.html">uniform</a> on the interval \((0, t]\).</p>
+	<details>
+	<summary>Details:</summary>
+		<p>Given \(N_t = 1\) (one arrival in \((0, t]\)) the arrival time \(T_1\) takes values in \((0, t]\). From independent and stationary increments properties,
+		\[ \P(T_1 \le s \mid N_t = 1) = \P(N_s = 1, N_t - N_s = 0 \mid N_t = 1) = \frac{\P(N_s = 1, N_t - N_s = 0)}{\P(N_t = 1)}  = \frac{\P(N_s = 1) \P(N_t - N_s = 0)}{\P(N_t = 1)}\]
+		Hence using the Poisson distribution,
+		\[ \P(T_1 \le s \mid N_t = 1) = \frac{e^{-r\,s} s e^{-r(t - s)}}{e^{-r\,t} t} = \frac{s}{t}, \quad 0 \lt s \le t \]</p>
+	</details>
+</div>
+
+<div class="unit" id="uni2">
+	<p class="math">More generally, for \(t \gt 0\) and \(n \in \N_+\), the conditional distribution of \((T_1, T_2, \ldots, T_n)\) given \(N_t = n\) is the same as the distribution of the <a href="../sample/OrderStatistics.html">order statistics</a> of a <a href="../sample/Introduction.html">random sample</a> of size \(n\) from the uniform distribution on the interval \((0, t]\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( 0 \lt t_1 \lt t_2 \lt t_n \lt t \). On the event \( N_t = n \), the probability density of \( (T_1, T_2, \ldots, T_n) \) at \( (t_1, t_2, \ldots, t_n) \) is the probability density function of independent inter-arrival times \( \left(t_1, t_2 - t_1, \ldots, t_n - t_{n-1}\right) \) times the probability of no arrivals in the interval \((t_n, t) \). Hence given \( N_t = n \), the conditional density of \( (T_1, T_2, \ldots, T_n) \) at \( (t_1, t_2, \ldots, t_n) \) is
+		\[ \frac{r e^{- r t_1} r e^{-r (t_2 - t_1)} \cdots r e^{-r(t_n - t_{n-1})} e^{-r(t - t_n)}}{e^{-r t} (r t)^n \big/n!} = \frac{n!}{t^n} \]
+		But this is the PDF of the order statistics from a sample of size \( n \) from the uniform distribution on \( [0, t] \).</p>
+	</details>
+</div>
+
+<p>Note that the conditional distribution in <a href="#uni2" class="ref"></a> is independent of the rate \(r\). This means that, in a sense, the Poisson model gives the most <q>random</q> distribution of points in time.</p>
+
+<h4 id="bin">The Binomial Distribution</h4>
+
+<p>The Poisson distribution has important connections to the <a href="../bernoulli/Binomial.html">binomial distribution</a>. First we consider a conditional distribution based on the number of arrivals of a Poisson process in a given interval, as we did in the last subsection.</p>
+
+<div class="unit" id="bin1">
+	<p class="math">Suppose that \( (N_t: t \in [0, \infty)) \) is a Poisson counting process with rate \( r \in (0, \infty) \). If \( s, \, t \in (0, \infty) \) with \( s \lt t \), and \(n \in \N_+\), then the conditional distribution of \(N_s\) given \(N_t = n\) is binomial with trial parameter \(n\) and success parameter \(p = s / t\). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that given \(N_t = n\), the number of arrivals \(N_s\) in \((0, s]\) takes values in \(\{0, 1 \ldots, n\}\). Again, the stationary and independent increments properties are critical for the proof.
+		\[ \P(N_s = k \mid N_t = n) = \frac{\P(N_s = k, N_t = n)}{\P(N_t = n)} = \frac{\P(N_s = k, N_t - N_s = n - k)}{\P(N_t = n)} = \frac{\P(N_s = k) \P(N_t - N_s = n - k)}{\P(N_t = n)} \]
+		Subsitituting into the Poisson PDFs gives
+		\[ \P(N_s = k \mid N_t = n) = \frac{\left(e^{-r s}(r s)^k / k!\right)\left(e^{-r(t-s)}[(r(t - s)]^{n-k}/(n - k)!\right)}{e^{-r t}(r t)^n / n!}  = \frac{n!}{k! (n - k)!} \left(\frac{s}{t}\right)^k \left(1 - \frac{s}{t}\right)^{n-k}\]</p>
+	</details>
+</div>
+
+<p>Note again that the conditional distribution in <a href="#bin1" class="ref"></a> does not depend on the rate \(r\). Given \( N_t = n \), each of the \( n \) arrivals, independently of the others, falls into the interval \( (0, s] \) with probability \( s / t \) and into the interval \( (s, t] \) with probability \( 1 - s / t = (t - s) / t \). Here is essentially the same result, outside of the context of the Poisson process.</p>
+
+<div class="unit" id="bin2">
+	<p class="math">Suppose that \( M \) has the Poisson distribution with parameter \( a \in (0, \infty) \), \( N \) has the Poisson distribution with parameter \( b \in (0, \infty) \), and that \( M \) and \( N \) are independent. Then the conditional distribution of \( M \) given \( M + N = n \) is binomial with parameters \( n \) and \( p = a / (a + b) \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is essentially the same as in <a href="#bin1" class="ref"></a>, with minor modifications. First recall from <a href="#sum1" class="ref"></a> that \( M + N \) has the Poisson distribution with parameter \( a + b \). For \( n, \, k \in \N \) with \( k \le n \),
+		\[ \P(M = k \mid M + N = n) = \frac{\P(M = k, M + N = n)}{\P(M + N = n)} = \frac{\P(M = k, N = n - k)}{\P(N + M = n)} = \frac{\P(M = k) \P(N = n - k)}{\P(M + N = n)} \]
+		Subsitituting into the Poisson PDFs gives
+		\[ \P(M = k \mid M + N = n) = \frac{\left(e^{-a} a^k / k!\right)\left(e^{-b} b^{n-k}/(n - k)!\right)}{e^{-(a + b)}(a + b)^n / n!}  = \frac{n!}{k! (n - k)!} \left(\frac{a}{a + b}\right)^k \left(1 - \frac{a}{a + b}\right)^{n-k}\]</p>
+	</details>
+</div>
+
+<p>More importantly, the Poisson distribution is the limit of the binomial distribution in a certain sense. As we will see, this convergence result is related to the analogy between the Bernoulli trials process and the Poisson process that we discussed in the <a href="Introduction.html#ber">introduction</a>, the section on the <a href="Exponential.html#geo">exponential distribution</a>, and the section on the <a href="Gamma.html#ber">gamma distribution</a>.</p>
+
+<div class="unit" id="bin3">
+	<p class="math">Suppose that \( p_n \in (0, 1) \) for \( n \in \N_+ \) and that \( n p_n \to a \in (0, \infty) \) as \( n \to \infty \). Then the binomial distribution with parameters \(n\) and \(p_n\) <a href="../dist/Convergence.html">converges</a> to the Poisson distribution with parameter \(a\) as \(n \to \infty\). That is, for fixed \(k \in \N\),
+	\[ \binom{n}{k} p_n^k (1 - p_n)^{n-k} \to e^{-a} \frac{a^k}{k!} \text{ as } n \to \infty \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The binomial PDF with parameters \( n \) and \( p_n \) at \( k \in \{0, 1, \ldots, n\} \) can be written as
+		\[ \frac{1}{k!}\left[n p_n\right]\left[(n - 1) p_n\right] \cdots \left[(n - k + 1) p_n\right] \left(1 - n \frac{p_n}{n}\right)^{n-k} \]
+		But \((n - j) p_n \to a\) as \(n \to \infty\) for fixed \(j\). Also, using a basic theorem from calculus, \(\left(1 - n p_n / n\right)^{n-k} \to e^{-a}\) as \(n \to \infty\).</p>
+		<p>An easier proof uses probability generating functions. For \(s \in \R\), using the same basic limit from calculus,
+		\[ \left[(1 - p_n) + p_n s\right]^n \to e^{a(s - 1)} \text{ as } n \to \infty \]
+		The left side is the PGF of the binomial distribution with parameters \( n \) and \( p_n \), while the right side is the PGF of the Poisson distribution with parameter \( a \).</p>
+	</details>
+</div>
+
+<div class="unit" id="bin4">
+	<p class="math">In the context of <a href="#bin3" class="ref"></a>, the mean and variance of the binomial distribution converge to the mean and variance of the limiting Poisson distribution, respectively.</p>
+	<ol class="sub">
+		<li>\(n p_n \to a\) as \(n \to \infty\)</li>
+		<li>\(n p_n (1 - p_n) \to a\) as \(n \to \infty\)</li>
+	</ol>
+</div>
+
+<p>Of course the convergence of the means is precisely the basic assumption in <a href="#bin3" class="ref"></a>, and is further evidence that this is the essential assumption. But for a deeper look, let's return to the analogy between the Bernoulli trials process and the Poisson process. Recall that both have the strong renewal property that at each fixed time, and at each arrival time, the process stochastically starts over, independently of the past. The difference, of course, is that time is discrete in the Bernoulli trials process and continuous in the Poisson process. The convergence result is a special case of the more general fact that if we run Bernoulli trials at a faster and faster rate but with a smaller and smaller success probability, in just the right way, the Bernoulli trials process converges to the Poisson process.  Specifically, suppose that we have a <em>sequence</em> of Bernoulli trials processes.  In process \(n\) we perform the trials at a rate of \(n\) per unit time, with success probability \(p_n\). Our basic assumption is that \(n p_n \to r\) as \(n \to \infty\) where \(r \gt 0\). Now let \(Y_{n,t}\) denote the number of successes in the time interval \((0,t]\) for Bernoulli trials process \(n\), and let \(N_t\) denote the number of arrivals in this interval for the Poisson process with rate \( r \). Then \( Y_{n,t} \) has the binomial distribution with parameters \(\lfloor n t \rfloor\) and \(p_n\), and of course \( N_t \) has the Poisson distribution with parameter \( r t \).</p>
+
+<div class="unit" id="bin5">
+	<p class="math">For \(t \gt 0\), the distribution of \(Y_{n,t}\) converges to the distribution of \(N_t\) as \(n \to \infty\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( n t - 1 \lt \lfloor n t \rfloor \le n t \) and hence \( n p_n t - p_n \lt \lfloor n t \rfloor p_n \le n p_n t \). Since \( n p_n \to r \) and \( p_n \to 0 \) as \( n \to \infty \), it follows from the squeeze theorem for limits that \( \lfloor n t \rfloor p_n \to r t \) as \( n \to \infty \). Thus, the result follows from <a href="#bin2" class="ref"></a>.</p>
+	</details>
+</div>
+
+<div class="unit" id="bin6">
+	<p class="app">Compare the Poisson experiment and the binomial timeline experiment.</p>
+	<ol class="sub">
+		<li>Open the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a> and set \( r = 1 \) and \( t = 5 \). Run the experiment a few times and note the general behavior of the random points in time. Note also the shape and location of the probability density function and the mean\( \pm \)standard deviation bar.</li>
+		<li>Now open the <a href="JavaScript:openAncillary('../apps/BinomialTimeline.html')" class="ancillary">binomial timeline experiment</a> and set \( n = 100 \) and \( p = 0.05 \). Run the experiment a few times and note the general behavior of the random points in time. Note also the shape and location of the probability density function and the mean\( \pm \)standard deviation bar.</li>
+	</ol>
+</div>
+
+<p>From a practical point of view, the convergence of the binomial distribution to the Poisson means that if the number of trials \(n\) is <q>large</q> and the probability of success \(p\) <q>small</q>, so that \(n p^2\) is small, then the binomial distribution with parameters \(n\) and \(p\) is well approximated by the Poisson distribution with parameter \(r = n p\).  This is often a useful result, because the Poisson distribution has fewer parameters than the binomial distribution (and often in real problems, the parameters may only be known approximately). Specifically, in the approximating Poisson distribution, we do not need to know the number of trials \(n\) and the probability of success \(p\) <em>individually</em>, but only in the <em>product</em> \(n p\). The condition that \(n p^2\) be small means that the variance of the binomial distribution, namely \(n p (1 - p) = n p - n p^2\) is approximately \(r = n p\), the variance of the approximating Poisson distribution.</p>
+
+<p>Recall that the <a href="../bernoulli/Binomial.html">binomial distribution</a> can also be approximated by the <a href="../special/Normal.html">normal distribution</a>, by virtue of the <a href="../sample/CLT.html">central limit theorem</a>. The normal approximation works well when \(n p\) and \(n (1 - p)\) are large; the rule of thumb is that both should be at least 5. The Poisson approximation works well, as we have already noted, when \(n\) is large and \( n p^2 \) small.</p>
+
+<h4 id="geo">The Geometric Distribution</h4>
+
+<p>The following gives a connection between the Poisson, <a href="Exponential.html">exponential</a>, and <a href="../bernoulli/Geometric.html">geometric distributions</a>. </p>
+
+<div class="unit" id="geo1">
+	<p class="math">Suppose that \(T\) has the exponential distribution on \([0, \infty)\) with rate parameter \(\alpha \in (0, 1)\). Suppose also that \(\bs N = (N_t: t \in [0, \infty))\) is a Poisson counting process, independent of \(T\), and with rate \(\beta \in (0, \infty)\). Then \(N_T\) has the geometric distribution on \(\N\) with success parameter \(\alpha / (\alpha + \beta)\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For and analytic proof, the main tool is conditioning on \(T\):
+		\begin{align*}
+			\P(N_T = k) &amp; = \E[\P(N_T = k \mid T)] = \int_0^\infty \P(N_t = k) \alpha e^{-\alpha t} \, dt = \int_0^\infty e^{- \beta t} \frac{(\beta t)^k}{k!} \alpha e^{-\alpha t} \, dt \\
+			&amp; = \alpha \frac{\beta ^k}{k!} \int_0^\infty t^k e^{-(\alpha + \beta) t} \, dt = \alpha \frac{\beta ^k}{k!} \frac{k!} {(\alpha + \beta)^{k + 1}} = \frac{\alpha}{\alpha + \beta} \left(\frac{\beta} {\alpha + \beta}\right)^k, \quad k \in \N
+		\end{align*}
+		</p>
+		<p>We can also give a more probabilistic argument based on the ordering and memoryless properties discussed in the section on the <a href="Exponential.html">exponential distribution</a>. Let \(\bs X = (X_1, X_2, \ldots)\) denote the sequence of interarrival times corresponding to the counting process \(\bs N\). So these are independent variables, each having the exponential distribution with parameter \(\beta\). The indicator variables \(\bs 1 (T \lt X_j)\) where \(j \in \N_+)\) forms a sequence of Bernoulli trials with success parameter \(\alpha / (\alpha + \beta)\). Using the extended memoryless property and independence,
+		\begin{align*}
+			\P(N_T \ge k) &amp; = \P(T \gt X_1, T \gt X_1 + X_2, \ldots, T \gt X_1 + \cdots + X_k)\\
+			&amp; = \P(T \gt X_1) \P(T \gt X_1 + X_2 \mid T \gt X_1) \cdots \P(T \gt X_1 + \cdots + X_k \mid T \gt X_1 + \cdots + X_{k - 1}) \\
+			&amp; = \P(T \gt X_1) \P(T \gt X_2) \cdots \P(T \gt X_k) = \left(\frac{\beta}{\alpha + \beta}\right)^k, \quad k \in \N
+		\end{align*}
+		so \(N_T\) has the geometric distribution on \(\N\) with success parameter \(\alpha / (\alpha + \beta)\) and can be interpreted as the number of failures before the first success for the Bernoulli trials defined above.</p>
+	</details>
+</div>
+
+<h3>Computational Exercises</h3>
+
+<div class="unit" id="exe1">
+	<p class="math">Suppose that requests to a web server follow the Poisson model with rate \(r = 5\) per minute. Find the probability that there will be at least 8 requests in a 2 minute period. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.7798</p>
+	</details>
+</div>
+
+<div class="unit" id="exe2">
+	<p class="math">Defects in a certain type of wire follow the Poisson model with rate 1.5 per meter. Find the probability that there will be no more than 4 defects in a 2 meter piece of the wire. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.8153</p>
+	</details>
+</div>
+
+<div class="unit" id="exe3">
+	<p class="math">Suppose that customers arrive at a service station according to the Poisson model, at a rate of \(r = 4\). Find the mean and standard deviation of the number of customers in an 8 hour period.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>32, 5.657</p>
+	</details>
+</div>
+
+<div class="unit" id="exe4">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a>, set \(r = 5\) and \(t = 4\). Run the experiment 1000 times and compute the following:</p>
+	<ol class="sub">
+		<li>\(\P(15 \le N_4 \le 22) \)</li>
+		<li>The relative frequency of the event \(\{15 \le N_4 \le 22\}\).</li>
+		<li>The normal approximation to \(\P(15 \le N_4 \le 22)\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>0.6157</li>
+			<li value="3">0.6025</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe5">
+	<p class="math">Suppose that requests to a web server follow the Poisson model with rate \(r = 5\) per minute. Compute the normal approximation to the probability that there will be at least 280 requests in a 1 hour period. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.8818</p>
+	</details>
+</div>
+
+<div class="unit" id="exe6">
+	<p class="math">Suppose that requests to a web server follow the Poisson model, and that 1 request comes in a five minute period. Find the probability that the request came during the first 3 minutes of the period. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.6</p>
+	</details>
+</div>
+
+<div class="unit" id="exe7">
+	<p class="math">Suppose that requests to a web server follow the Poisson model, and that 10 requests come during a 5 minute period. Find the probability that at least 4 requests came during the first 3 minutes of the period. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.9452</p>
+	</details>
+</div>
+
+<div class="unit" id="exe8">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a>, set \(r = 3\) and \(t = 5\). Run the experiment 100 times.</p>
+	<ol class="sub">
+		<li>For each run, compute the estimate of \(r\) based on \(N_t\).</li>
+		<li>Over the 100 runs, compute the average of the squares of the errors.</li>
+		<li>Compare the result in (b) with \( \var(N_t) \).</li>
+	</ol>
+</div>
+
+<div class="unit" id="exe9"> 
+	<p class="math">Suppose that requests to a web server follow the Poisson model with unknown rate \(r\) per minute. In a one hour period, the server receives 342 requests. Estimate \(r\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>\(r = 5.7\) per minute</p>
+	</details>
+</div>
+
+<div class="unit" id="exe10">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/BinomialTimeline.html')" class="ancillary">binomial experiment</a>, set \(n = 30\) and \(p = 0.1\), and run the simulation 1000 times. Compute and compare each of the following:</p>
+	<ol class="sub">
+		<li>\(\P(Y_{30} \le 4)\)</li>
+		<li>The relative frequency of the event \(\{Y_{30} \le 4\}\)</li>
+		<li>The Poisson approximation to \(\P(Y_{30} \le 4)\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>0.8245</li>
+			<li value="3">0.8153</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe11">
+	<p class="math">Suppose that we have 100 memory chips, each of which is defective with probability 0.05, independently of the others. Approximate the probability that there are at least 3 defectives in the batch. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.7350</p>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/BinomialTimeline.html')" class="ancillary">binomial timeline experiment</a>, set \(n = 40\) and \(p = 0.1\) and run the simulation 1000 times. Compute and compare each of the following:</p>
+	<ol class="sub">
+		<li>\(\P(Y_{40} \gt 5)\)</li>
+		<li>The relative frequency of the event \(\{Y_{40} \gt 5\}\)</li>
+		<li>The Poisson approximation to \(\P(Y_{40} \gt 5)\)</li>
+		<li>The normal approximation to \(\P(Y_{40} \gt 5)\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>0.2063</li>
+			<li value="3">0.2149</li>
+			<li>0.2146</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/BinomialTimeline.html')" class="ancillary">binomial timeline experiment</a>, set \(n = 100\) and \(p = 0.1\) and run the simulation 1000 times. Compute and compare each of the following:</p>
+	<ol class="sub">
+		<li>\(\P(8 \lt Y_{100} \lt 15)\)</li>
+		<li>The relative frequency of the event \(\{8 \lt Y_{100} \lt 15\}\)</li>
+		<li>The Poisson approximation to \(\P(8 \lt Y_{100} \lt 15)\)</li>
+		<li>The normal approximation to \(\P(8 \lt Y_{100} \lt 15)\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>0.6066</li>
+			<li value="3">0.5837</li>
+			<li>0.6247</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="math">A text file contains 1000 words. Assume that each word, independently of the others, is misspelled with probability \(p\).</p>
+	<ol class="sub">
+		<li>If \(p = 0.015\), approximate the probability that the file contains at least 20 misspelled words.</li>
+		<li>If \(p = 0.001\), approximate the probability that the file contains at least 3 misspelled words.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The true distribution of the number of misspelled words is binomial, with \( n = 1000 \) and \( p \).</p>
+		<ol class="sub">
+			<li>The normal approximation (with \( \mu = n p = 15 \) and \( \sigma^2 = n p (1 - p) = 14.775 \)) is 0.120858. The Poisson approximation (with parameter \( n p = 15 \)) is 0.124781. The true binomial probability is 0.123095.</li>
+			<li>The Poisson approximation (with parameter \( n p = 1 \)) is 0.0803014. The true binomial probability is 0.0802093.</li>
+		</ol>
+	</details>
+</div>
+
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="current">4</li>
+		<li class="child"><a href="Splitting.html" title="Thinning and Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

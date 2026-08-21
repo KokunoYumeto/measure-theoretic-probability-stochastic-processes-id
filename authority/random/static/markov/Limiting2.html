@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Stationary and Limiting Distributions</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Markov chain, continuous time, leads-to relation, hitting matrix, closed set, irreducible set, null recurrence, positive recurrence, invariant function, limiting distribution, two-state chain">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\)
+	\(\newcommand{\cl}{\text{cl}}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="current">18</li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>18. Stationary and Limting Distributions of Continuous-Time Chains</h2>
+</header>
+
+<p>In this section, we study the limiting behavior of <a href="Continuous.html">continuous-time Markov chains</a> by focusing on two interrelated ideas: invariant (or stationary) distributions and limiting distributions. In some ways, the limiting behavior of continuous-time chains is simpler than the <a href="Limiting.html">limiting behavior</a> of discrete-time chains, in part because the complications caused by <a href="Periodicity.html">periodicity</a> in the discrete-time case do not occur in the continuous-time case. Nonetheless as we will see, the limiting behavior of a continuous-time chain is closely related to the limiting behavior of the embedded, discrete-time jump chain.</p>
+
+<h3 id="pre">Review</h3>
+
+<p>Once again, our starting point is a time-homogeneous, continuous-time Markov chain \( \bs{X} = \{X_t: t \in [0, \infty)\} \) defined on an underlying probability space \( (\Omega, \mathscr{F}, \P) \) and with discrete state space \( (S, \mathscr{S}) \). By definition, this means that \( S \) is countable with the discrete topology, so that \( \mathscr{S} \) is the \( \sigma \)-algebra of all subsets of \( S \).</p>
+
+<p>Let's review what we have so far. We assume that the Markov chain \( \bs{X} \) is <dfn>regular</dfn>. Among other things, this means that the basic <a href="Continuous.html">structure</a> of \( \bs{X} \) is determined by the <dfn>transition times</dfn> \( \bs{\tau} = (\tau_0, \tau_1, \tau_2, \ldots) \) and the <dfn>jump chain</dfn> \( \bs{Y} = (Y_0, Y_1, Y_2, \ldots) \). First, \( \tau_0 = 0 \) and \( \tau_1 = \tau = \inf\{t \gt 0: X_t \ne X_0\} \). The time-homogeneous and Markov properties imply that the distribution of \( \tau \) given \( X_0 = x \) is <a href="../poisson/Exponential.html">exponential</a> with parameter \( \lambda(x) \in [0, \infty) \). Part of regularity is that \( \bs{X} \) is right continuous so that there are no <dfn>instantaneous states</dfn> where \( \lambda(x) = \infty \), which would mean \( \P(\tau = 0 \mid X_0 = x) = 1 \). On the other hand, \( \lambda(x) \in (0, \infty) \) means that \( x \) is a <dfn>stable state</dfn> so that \( \tau \) has a proper exponential distribution given \( X_0 = x \), with \( \P(0 \lt \tau \lt \infty \mid X_0 = x) = 1 \). Finally, \( \lambda(x) = 0 \) means that \( x \) is an <dfn>absorbing state</dfn> so that \( \P(\tau = \infty \mid X_0 = x) = 1 \). The remaining transition times are defined recursively: \( \tau_{n+1} = \inf\left\{t \gt \tau_n: X_t \ne X_{\tau_n}\right\} \) if \( \tau_n \lt \infty \) and \( \tau_{n+1} = \infty \) if \( \tau_n = \infty \). Another component of regularity is that with probability 1, \( \tau_n \to \infty \) as \( n \to \infty \), ruling out the <dfn>explosion event</dfn> of infinitely many jumps in finite time. The jump chain \( \bs{Y} \) is formed by sampling \( \bs{X} \) at the transition times (until the chain is sucked into an absorbing state, if that happens). That is, with \( M = \sup\{n: \tau_n \lt \infty\} \) and for \( n \in \N \), we define \( Y_n = X_{\tau_n} \) if \( n \le M \) and \( Y_n = X_{\tau_M} \) if \( n \gt M \). Then \( \bs{Y} \) is a discrete-time Markov chain with one-step transition matrix \( Q \) given \( Q(x, y) = \P(X_\tau = y \mid X_0 = x) \) if \( (x, y) \in S^2  \) with \( x \) stable and \( Q(x, x) = 1 \) if \( x \in S \) is absorbing.</p>
+
+<p>The <a href="Transition.html">transition matrix</a> \( P_t \) at time \( t \in [0, \infty) \) is given by \( P_t(x, y) = \P(X_t = y \mid X_0 = x) \) for \( (x, y) \in S^2 \). The time-homogenous and Markov properties imply that the collection of transition matrices \( \bs{P} = \{P_t: t \in [0, \infty)\} \) satisfies the <dfn>Chapman-Kolmogorov equations</dfn> \( P_s P_t = P_{s+t} \) for \( s, \, t \in [0, \infty) \), and hence is a <dfn>semigroup</dfn>. of transition matrices The transition semigroup \( \bs{P} \) and the initial distribution of \( X_0 \) determine all of the finite-dimensional distributions of \( \bs{X} \). Since there are no instantaneous states, \( P \) is <dfn>standard</dfn> which means that \( P_t \to I \) as \( t \downarrow 0 \) (as matrices, and so pointwise). The fundamental relationship between \( \bs{P} \) on the one hand, and \( \lambda \) and \( Q \) on the other, is
+\[ P_t(x, y) = I(x, y) e^{-\lambda(x) t} + \int_0^t \lambda(x) e^{-\lambda(x) s} Q P_{t - s} (x, y) \, ds, \quad (x, y) \in S^2 \]
+From this, it follows that the matrix function \( t \mapsto P_t \) is differentiable (again, pointwise) and satisfies the <dfn>Kolmogorov backward equation</dfn> \( \frac{d}{dt} P_t = G P_t \), where the <dfn>infinitesimal generator matrix</dfn> \( G \) is given by \( G(x, y) = -\lambda(x) I(x, y) + \lambda(x) Q(x, y) \) for \( (x, y) \in S^2 \). If we impose the stronger assumption that \( \bs{P} \) is <dfn>uniform</dfn>, which means that \( P_t \to I \) as \( t \downarrow 0 \) as operators on \( \mathscr{B} \) (so with respect to the supremum norm), then the backward equation as well as the companion <dfn>Kolmogorov forward equation</dfn> \( \frac{d}{dt} P_t = = P_t G \) hold as operators on \( \mathscr{B} \). In addition, we have the matrix exponential representation \( P_t = e^{t G} \) for \( t \in [0, \infty) \). The uniform assumption is equivalent to the exponential parameter function being bounded.</p>
+
+<p>Finally, for \( \alpha \in [0, \infty) \), the \( \alpha \) <a href="Potentials2.html">potential matrix</a> \( U_\alpha \) of \( \bs{X} \) is \( U_\alpha = \int_0^\infty e^{-\alpha t} P_t \, dt \). The <dfn>resolvent</dfn> \( \bs{U} = \{U_\alpha: \alpha \in (0, \infty)\} \) is the Laplace transform of \( \bs{P} \) and hence gives the same information as \( \bs{P} \). From this point of view, the time-homogeneous and Markov properties lead to the <dfn>resolvent equation</dfn> \( U_\alpha = U_\beta + (\beta - \alpha) U_\alpha U_\beta \) for \( \alpha, \, \beta \in (0, \infty) \) with \( \alpha \le \beta \). For \( \alpha \in (0, \infty) \), the \( \alpha \) potential matrix is related to the generator by the fundamental equation \( \alpha U_\alpha = I + G U_\alpha \). If \( \bs{P} \) is uniform, then this equation, as well as the companion \( \alpha U_\alpha = I + U_\alpha G \) hold as operators on \( \mathscr{B} \), which leads to \( U_\alpha = (\alpha I - G)^{-1} \).</p>
+
+<h3 id="bas">Basic Theory</h3>
+
+<h4 id="rel">Relations and Classification</h4>
+
+<p>We start our discussion with relations among states and classifications of states. These are the same ones that we studied for discrete-time chains in our study of <a href="Recurrence.html">recurrence and transience</a>, applied here to the jump chain \( \bs{Y} \). But as we will see, the relations and classifications make sense for the continuous-time chain \( \bs{X} \) as well. The discussion is complicated slightly when there are absorbing states. Only when \( \bs{X} \) is in an absorbing state can we not interpret the values of \( \bs{Y} \) as the values of \( \bs{X} \) at the transition times (because of course, there are no transitions when \( \bs{X} \) is in an absorbing state). But \( x \in S \) is absorbing for the continuous-time chain \( \bs{X} \) if and only if \( x \) is absorbing for the jump chain \( \bs{Y} \), so this trivial exception is easily handled.</p>
+
+<p>For \( y \in S \) let \( \rho_y = \inf\{n \in \N_+: Y_n = y\} \), the (discrete) hitting time to \( y \) for the jump chain \( \bs{Y} \), where as usual, \( \inf(\emptyset) = \infty \). That is, \( \rho_y \) is the first positive (discrete) time that \( \bs{Y} \) in in state \( y \). The analogous random time for the continuous-time chain \( \bs{X} \) is  \(\tau_{\rho_y} \), where naturally we take \( \tau_\infty = \infty \). This is the first time that \( \bs{X} \) is in state \( y \), not counting the possible initial period in \( y \). Specifically, suppose \( X_0 = x \). If \( x \ne y \) then \( \tau_{\rho_y} = \inf\{t \gt 0: X_t = y\} \). If \( x = y \) then \( \tau_{\rho_y} = \inf\{t \gt \tau_1: X_t = y\} \).</p>
+
+<div class="unit" id="rel1">
+	<p class="dfn">Define the <dfn>hitting matrix</dfn> \( H \) by
+	\[ H(x, y) = \P(\rho_y \lt \infty \mid Y_0 = x), \quad (x, y) \in S^2 \]
+	Then \(H(x, y) = \P\left(\tau_{\rho_y} \lt \infty \mid X_0 = x\right)\) except when \( x \) is absorbing and \( y = x \).
+	</p>
+</div>
+
+<p>So for the continuous-time chain, if \( x \in S \) is stable then \( H(x, x) \) is the probability that, starting in \( x \), the chain \( \bs{X} \) returns to \( x \) after its initial period in \( x \). If \( x, \, y \in S \) are distinct, then \( H(x, y) \) is simply the probability that \( \bs{X} \), starting in \( x \), eventually reaches \( y \). It follows that the basic <a href="../foundations/Relations.html">relation</a> among states makes sense for either the continuous-time chain \( \bs{X} \) as well as its jump chain \( \bs{Y} \).</p> 
+
+<div class="unit" id="rel2">
+	<p class="dfn">Define the <dfn>leads to</dfn> relation \( \to \) on \( S^2 \) by \( x \to y \) if \( x = y \) or \( H(x, y) \gt 0 \).
+</p>
+</div>
+
+<p>The relation \( \to \) is <dfn>reflexive</dfn> by definition: \( x \to x \) for every \( x \in S \). From our previous study of discrete-time chains, we know it's also <dfn>transitive</dfn>: if \( x \to y \) and \( y \to z \) then \( x \to z \) for \( x, \, y, \, z \in S \). We also know that \( x \to y \) if and only if there is a directed path in the state graph from \( x \) to \( y \), if and only if \( Q^n(x, y) \gt 0 \) for <em>some</em> \( n \in \N \). For the continuous-time transition matrices, we have a stronger result that in turn makes a stronger case that the <em>leads to</em> relation is fundamental for \( \bs{X} \).</p>
+
+<div class="unit" id="rel3">
+	<p class="math">Suppose \( (x, y) \in S^2 \).
+	<ol class="sub">
+		<li>If \( x \to y \) then \( P_t(x, y) \gt 0 \) for all \( t \in (0, \infty) \).</li>
+		<li>If \( x \not \to y \) then \( P_t(x, y) = 0 \) for all \( t \in (0, \infty) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>This result is proved in the section on <a href="Transition.html">transition matrices and generators</a>.</p>
+	</details>
+</div>
+
+<p>This result is known as the <dfn>L&eacute;vy dichotomy</dfn>, and is named for <a href="JavaScript:openAncillary('../biographies/Levy.html')" class="ancillary">Paul L&eacute;vy</a>. Let's recall a couple of other definitions:</p>
+
+<div class="unit" id="rel4">
+	<p class="dfn1">Suppose that \( A \) is a nonempty subset of \( S \).</p>
+	<ol class="sub">
+		<li>\( A \) is <dfn>closed</dfn> if \( x \in A \) and \( x \to y \) imply \( y \in A \).</li>
+		<li>\( A \) is <dfn>irreducible</dfn> if \( A \) is closed and has no proper closed subset.</li>
+	</ol>
+</div>
+
+<p>If \( S \) is irreducible, we also say that the chain \( \bs{X} \) itself is irreducible.</p>
+
+<div class="unit" id="rel5">
+	<p class="dfn">If \( A \) is a nonempty subset of \( S \), then \( \cl(A) = \{y \in S: x \to y \text{ for some } x \in A\} \) is the smallest closed set containing \( A \), and is called the <dfn>closure</dfn> of \( A \).</p>
+</div>
+
+<div class="unit" id="rel6">
+	<p class="math">Suppose that \( A \subseteq S \) is closed. Then </p>
+	<ol class="sub">
+		<li>\( P^A_t \), the restriction of \( P_t \) to \( A \times A\), is a transition probability matrix on \( A \) for every \( t \in [0, \infty) \).</li>
+		<li>\( \bs{X} \) restricted to \( A \) is a continuous-time Markov chain with transition semigroup \( \bs{P}^A = \left\{P^A_t: t \in [0, \infty)\right\} \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>If \( x \in A \) and \( y \notin A \), then \( x \) does not lead to \( y \) so in particular \( P_t(x, y) = 0 \). It follows that \( \sum_{y \in A} P_t(x, y) = 1 \) for \( x \in A \) so \( P^A_t \) is a transition probability matrix.</li>
+			<li>This follows from (a). If the chain starts in \( A \), then the chain remains in \( A \) for all time, and of course, the Markov property still holds.</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="rel7">
+	<p class="dfn">Define the <dfn>to and from</dfn> relation \( \leftrightarrow \) on \( S \) by \( x \leftrightarrow y \) if \( x \to y \) and \( y \to x \) for \( (x, y) \in S^2 \).</p>
+</div>
+
+<p>The relation \( \leftrightarrow \) defines an <a href="../foundations/Equivalence.html">equivalence relation</a> on \( S \) and hence partitions \( S \) into mutually disjoint equivalence classes. Recall from our study of discrete-time chains that a closed set is not necessarily an equivalence class, nor is an equivalence class necessarily closed. However, an irreducible set is an equivalence class, but an equivalence class may not be irreducible. The importance of the relation \( \leftrightarrow \) stems from the fact that many important properties of Markov chains (in discrete or continuous time) turn out to be <dfn>class properties</dfn>, shared by all states in an equivalence class. The following definition is fundamental, and once again, makes sense for either the continuous-time chain \( \bs{X} \) or its jump chain \( \bs{Y} \).</p>
+
+<div class="unit" id="rel8">
+	<p class="dfn">Let \( x \in S \).</p>
+	<ol class="sub">
+		<li>State \( x \) is <dfn>transient</dfn> if \( H(x, x) \lt 1 \)</li>
+		<li>State \( x \) is <dfn>recurrent</dfn> if \( H(x, x) = 1 \).</li>
+	</ol>
+</div>
+
+<p>Recall from our study of discrete-time chains that if \( x \) is recurrent and \( x \to y \) then \( y \) is recurrent and \( y \to x \). Thus, recurrence and transience are class properties, shared by all states in an equivalence class.</p>
+
+<h4 id="tme">Time Spent in a State</h4>
+
+<p>For \( x \in S \), let \( N_x \) denote the number of visits to state \( x \) by the jump chain \( \bs{Y} \), and let \( T_x \) denote the total time spent in state \( x \) by the continuous-time chain \( \bs{X} \). Thus
+\[ N_x = \sum_{n=0}^\infty \bs{1}(Y_n = x), \quad T_x = \int_0^\infty \bs{1}(X_t = x) \, dt \]
+The expected values \( R(x, y) = \E(N_y \mid Y_0 = x) \) and \( U(x, y) = \E(T_y \mid X_0 = x) \) for \( (x, y) \in S^2 \) define the <dfn>potential matrices</dfn> of \( \bs{Y} \) and \( \bs{X} \), respectively. From our previous study of discrete-time chains, we know the distribution and mean of \( N_y \) given \( Y_0 = x \) in terms of the hitting matrix \( H \).  The next two results give a review:</p>
+
+<div class="unit" id="tme1">
+	<p class="math">Suppose that \( x, \, y \in S \) are distinct. Then</p>
+	<ol class="sub">
+		<li>\(\P(N_y = n \mid Y_0 = y) = H^{n-1}(y, y)[1 - H(y, y)]\) for \( n \in \N_+ \)</li>
+		<li>\( \P(N_y = 0 \mid Y_0 = x) = 1 - H(x, y) \) and \( \P(N_y = n \mid Y_0 = x) = H(x, y) H^{n-1}(y, y) [1 - H(y, y)] \) for \( n \in \N_+ \)</li>
+	</ol>
+</div>
+
+<p>Let's take cases. First suppose that \( y \) is recurrent. In part (a), \( \P(N_y = n \mid Y_0 = y) = 0 \) for all \( n \in \N_+ \), and consequently \( \P(N_y = \infty \mid Y_0 = y) = 1 \). In part (b), \( \P(N_y = n \mid Y_0 = x) = 0 \) for \( n \in \N_+ \), and consequently \( \P(N_y = 0 \mid Y_0 = x) = 1 - H(x, y) \) while \( \P(N_y = \infty \mid Y_0 = x) = H(x, y) \). Suppose next that \( y \) is transient. Part (a) specifies a proper <a href="../bernoulli/Geometric.html">geometric distribution</a> on \( \N_+ \) while in part (b), probability \( 1 - H(x, y) \) is assigned to 0 and the remaining probability \( H(x, y) \) is geometrically distributed over \( \N_+ \) as in (a). In both cases, \( N_y \) is finite with probability 1. Next we consider the expected value, that is, the (discrete) potential. To state the results succinctly we will use the convention that \( a / 0 = \infty \) if \( a \gt 0 \) and \( 0 / 0 = 0 \).</p>
+
+<div class="unit">
+	<p class="math">Suppose again that \( x, \, y \in S \) are distinct. Then</p>
+	<ol class="sub" id="tme2">
+		<li>\( R(y, y) = 1 \big/ [1 - H(y, y)] \)</li>
+		<li>\( R(x, y) = H(x, y) \big/ [1 - H(y, y)] \)</li>
+	</ol>
+</div>
+
+<p>Let's take cases again. If \( y \in S \) is recurrent then \( R(y, y) = \infty \), and for \( x \in S \) with \( x \ne y \), either \( R(x, y) = \infty \) if \( x \to y \) or \( R(x, y) = 0 \) if \( x \not \to y \). If \( y \in S \) is transient, \( R(y, y) \) is finite, as is \( R(x, y) \) for every \( x \in S \) with \( x \ne y \). Moreover, there is an inverse relationship of sorts between the potential and the hitting probabilities.</p>
+
+<p>Naturally, our next goal is to find analogous results for the continuous-time chain \( \bs{X} \). For the distribution of \( T_y \) it's best to use the <a href="../dist/CDF.html">right distribution function</a>.</p>
+
+<div class="unit" id="tme3">
+	<p class="math">Suppose that \( x, \, y \in S \)  are distinct. Then for \( t \in [0, \infty) \)</p>
+	<ol class="sub">
+		<li>\( \P(T_y \gt t \mid X_0 = y) = \exp\left\{-\lambda(y) [1 - H(y, y)] t\right\} \)
+		<li>\(\P(T_y \gt t \mid X_0 = x) = H(x, y) \exp\{-\lambda(y) [1 - H(y, y)] t\}\)
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is by conditioning on \( N_y \).</p>
+		<ol class="sub">
+			<li>First, if \( H(y, y) = 1 \) (so that \( y \) is recurrent), then either \( y \) is absorbing  with \( \P(\tau_1 = \infty \mid X_0 = y) = 1 \) or \( y \) is stable and recurrent, so that \( \P(N_y = \infty \mid X_0 = y) = 1 \). In the second case, starting in state \( y \), \( T_y \) is the sum of infinitely many independent variables, each with the exponential distribution with parameter \( \lambda(y) \in (0, \infty) \). In both cases, \( \P(T_y = \infty \mid X_0 = y) = 1 \) and so \( \P(T_y \gt t \mid X_0 = y) = 1 \) for every \( t \in [0, \infty) \). So suppose that \( H(y, y) \lt 1 \) so that \( y \) is transient. Then
+			\[ \P(T_y \gt t \mid X_0 = y) = \sum_{n=1}^\infty \P(T_y \gt t \mid X_0 = y, N_y = n) \P(N_y = n \mid X_0 = y) \]
+			Given \( N_y = n \), \( T_y \) is the sum of \( n \) independent variables, each having the exponential distribution with parameter \( \lambda(y) \). So \( T_y \) has the <a href="../poisson/Gamma.html">gamma distribution</a> with parameters \( n \) and \( \lambda(y) \) and hence
+			\[ \P(T_y \gt t \mid X_0 = y, N_y = n) = \sum_{k=0}^{n-1} e^{-\lambda(y) t} \frac{[\lambda(y) t]^k}{k!} \]
+			From the previous result, \( \P(N_y = n \mid X_0 = y) = \P(N_y = n \mid Y_0 = y) = H^{n-1}(y, y) [1 - H(y, y)] \). We substitute, change the order of summation, use geometric series and then exponential series:
+			\begin{align*} 
+				\P(T_y \gt t \mid X_0 = y) &amp; = \sum_{n=1}^\infty \left(\sum_{k=0}^{n-1} e^{-\lambda(y) t} \frac{[\lambda(y) t]^k}{k!}\right) H^{n-1}(y, y) [1 - H(y, y)] \\ 
+				&amp; = e^{-\lambda(y) t} [1 - H(y, y)] \sum_{k=0}^\infty \frac{[\lambda(y) t]^k}{k!} \sum_{n=k+1}^\infty H^{n-1}(y, y) \\ 
+				&amp; = e^{-\lambda(y) t} \sum_{k=0}^\infty \frac{[\lambda(y) t]^k}{k!} H^k(y, y) = e^{-\lambda(y) t} \exp[\lambda(y) H(y, y) t] 
+			\end{align*}
+			Simplifying gives the result.</li>
+			<li>The proof is similar. If \( H(y, y) = 1 \) so that \( y \) is recurrent, then starting in state \( x \), either \( T_y = 0\) if \( N_y = 0 \), which occurs with probability \( 1 - H(x, y) \) or \( T_y = \infty \) if \( N_y = \infty \), which occurs with probability \( H(x, y) \). If \( H(y, y) \lt 1 \) so that \( y \) is transient, then the result follows from conditioning on \( N_y \) as in (a), except that \( \P(T_y = 0 \mid X_0 = x) = \P(N_y = 0 \mid Y_0 = x) = 1 - H(x, y)\).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Let's take cases as before. Suppose first that \( y \) is recurrent. In part (a), \( \P(T_y \gt t \mid X_0 = y) = 1 \) for every \( t \in [0, \infty) \) and hence \( \P(T_y = \infty \mid X_0 = y) = 1 \). In part (b), \( \P(T_y \gt t \mid X_0 = x) = H(x, y) \) for every \( t \in [0, \infty) \) and consequently \( \P(T_y = 0 \mid X_0 = x) = 1 - H(x, y) \) while \( \P(T_y = \infty \mid X_0 = x) = H(x, y) \). Suppose next that \( y \) is transient. From part (a), the distribution of \( T_y \) given \( X_0 = y \) is exponential with parameter \( \lambda(y) [1 - H(y, y)] \). In part (b), the distribution assigns probability \(1 - H(x, y) \) to 0 while the remaining probability \( H(x, y) \) is exponentially distributed over \( (0, \infty) \) as in (a). Taking expected value, we get a very nice relationship between the potential matrix \( U \) of the continuous-time  chain \( \bs{X} \) and the potential matrix \( R \) of the discrete-time jump chain \( \bs{Y} \):</p>
+
+<div class="unit" id="tme4">
+	<p class="math">For every \( (x, y) \in S^2 \),
+	\[ U(x, y) = \frac{R(x, y)}{\lambda(y)} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>If \( y \) is recurrent, then \( U(x, y) = R(x, y) \) and the common value is either 0 if \( H(x, y) = 0 \) or \( \infty \) if \( H(x, y) = 1 \). So suppose that \( y \) is transient. We can compute the expected value of \( T_y \) by integrating the right distribution function in the previous theorem. In case \( x = y \), we have
+		\[ U(y, y) = \int_0^\infty \exp\{-\lambda(y)[1 - H(y, y)]t\} \, dt = \frac{1}{\lambda(y)[1 - H(y, y)]} = \frac{R(y, y)}{\lambda(y)}\]
+		In the case that \( x \) and \( y \) are distinct,
+		\[ U(x, y) = \int_0^\infty H(x, y)\exp\{-\lambda(y)[1 - H(y, y)]t\} \, dt = \frac{H(x, y)}{\lambda(y)[1 - H(y, y)]} = \frac{R(x, y)}{\lambda(y)} \]</p>
+	</details>
+</div>
+
+<p>In particular, \( y \in S \) is transient if and only if \( R(x, y) \lt \infty \) for every \( x \in S \), if and only  if \( U(x, y) \lt \infty \) for every \( x \in S \). On the other hand, \( y \) is recurrent if and only if \( R(x, y) = U(x, y) = \infty \) if \( x \to y \) and \( R(x, y) = U(x, y) = 0 \) if \( x \not \to y \).</p>
+
+<h4 id="rec">Null and Positive Recurrence</h4>
+
+<p>Unlike transience and recurrence, the definitions of null and positive recurrence of a state \( x \in S \) are different for the continuous-time chain \( \bs{X} \) and its jump chain \( \bs{Y} \). This is because these definitions depend on the <em>expected</em> hitting time to \( x \), starting in \( x \), and not just the <em>finiteness</em> of this hitting time. For \( x \in S \), let \( \nu(x) = \E(\rho_x \mid Y_0 = x) \), the expected (discrete) return time to \( x \) starting in \( x \). Recall that \( x \) is <dfn>positive recurrent</dfn> for \( \bs{Y} \) if \( \nu(x) \lt \infty \) and \( x \) is <dfn>null recurrent</dfn> if \( x \) is recurrent but not positive recurrent, so that \( H(x, x) = 1 \) but \( \nu(x) = \infty \). The definitions are similar for \( \bs{X} \), but using the continuous hitting time \( \tau_{\rho_x} \).</p>
+
+<div class="unit" id="rec1">
+	<p class="math">For \( x \in S \), let \( \mu(x) = 0 \) if \( x \) is absorbing and \( \mu(x) = \E\left(\tau_{\rho_x} \mid X_0 = x\right) \) if \( x \) is stable. So if \( x \) is stable, \( \mu(x) \) is the expected return time to \( x \) starting in \( x \) (after the initial period in \( x \)).</p>
+	<ol class="sub">
+		<li>State \( x \) is <dfn>positive recurrent</dfn> for \( \bs{X} \) if \( \mu(x) \lt \infty \). </li>
+		<li>State \( x \) is <dfn>null recurrent</dfn> for \( \bs{X} \) if \( x \) recurrent but not positive recurrent, so that \( H(x, x) = 1 \) but \( \mu(x) = \infty \).</li>
+	</ol>
+</div>
+
+<p>A state \( x \in S \) can be positive recurrent for \( \bs{X} \) but null recurrent for its jump chain \( \bs{Y} \) or can be null recurrent for \( \bs{X} \) but positive recurrent for \( \bs{Y} \). But like transience and recurrence, positive and null recurrence are <dfn>class properties</dfn>, shared by all states in an equivalence class under the <em>to and from</em> equivalence relation \( \leftrightarrow \).</p>
+
+<h4 id="inv">Invariant Functions</h4>
+
+<p>Our next discussion concerns functions that are invariant for the transition matrix \( Q \) of the jump chain \( \bs{Y} \) and functions that are invariant for the transition semigroup \( \bs{P} = \{P_t: t \in [0, \infty)\} \) of the continuous-time chain \( \bs{X} \). For both discrete-time and continuous-time chains, there is a close relationship between invariant functions and the limiting behavior in time.</p>
+
+<p>First let's recall the definitions. A function \( f: S \to [0, \infty) \) is <dfn>invariant</dfn> for \( Q \) (or for the chain \( \bs{Y} \)) if \( f Q = f \). It then follows that \( f Q^n = f \) for every \( n \in \N \). In continuous time we must <em>assume</em> invariance at each time. That is, a function \( f: S \to [0, \infty) \) is invariant for \( \bs{P} \) (or for the chain \( \bs{X} \)) if \( f P_t = f \) for all \( t \in [0, \infty) \). Our interest is in nonnegative functions, because we can think of such a function as the density function, with respect to counting measure, of a positive measure on \( S \). We are particularly interested in the special case that \( f \) is a <em>probability density function</em>, so that \( \sum_{x \in S} f(x) = 1 \). If \( Y_0 \) has a probability density function \( f \) that is invariant for \( Q \), then \( Y_n \) has probability density function \( f \) for all \( n \in \N \) and hence \( \bs{Y} \) is <dfn>stationary</dfn>. Similarly, if \( X_0 \) has a probability density function \( f \) that is invariant for \( \bs{P} \) then \( X_t \) has probability density function \( f \) for every \( t \in [0, \infty) \) and once again, the chain \( \bs{X} \) is <dfn>stationary</dfn>.</p>
+
+<p>Our first result shows that there is a one-to-one correspondence between invariant functions for \( Q \) and zero functions for the generator \( G \).</p>
+
+<div class="unit" id="inv1">
+	<p class="math">Suppose \( f: S \to [0, \infty) \). Then \( f G = 0 \) if and only if \( (\lambda f) Q = \lambda f \), so that \( \lambda f \) is invariant for \( Q \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This is a simple consequence of the definition of the generator: 
+		\[ f G(y) = \sum_{x \in S} f(x) G(x, y) = -\lambda(y) f(y) + \sum_{x \in S} f(x) \lambda(x) Q(x, y), \quad y \in S \]
+		or in functional form, \( f G = - \lambda f + (\lambda f) Q \)</p>
+	</details>
+</div>
+
+<p>If our chain \( \bs{X} \) has no absorbing states, then \( f: S \to [0, \infty) \) is invariant for \( Q \) if and only if \( (f / \lambda ) G = 0 \).</p>
+
+<div class="unit" id="inv2">
+	<p class="math">Suppose that \( f: S \to [0, \infty) \). Then \( f \) is invariant for \( \bs{P} \) if and only if \( f G = 0 \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p><strong>Proof 1:</strong> Assume that \( \lambda \) is bounded, so that the transition semigroup \( \bs{P} \) is uniform. Then \( P_t = e^{t G} \) for \( t \in [0, \infty) \). So if \( f: S \to [0, \infty) \) then
+		\[ f P_t = f (e^{t G}) = f \sum_{n=0}^\infty \frac{t^n}{n!} G^n = f + \sum_{n=1}^\infty \frac{t^n}{n!} f G^n \]
+		Since \( f \) is nonnegative, \( f P_t = f \) if and only if \( f G = 0 \) (in which case \( f G^n = 0 \) for every \( n \in \N_+ \)).</p>
+		<p><strong>Proof 2:</strong> Suppose that \( f P_t = f \) for \( t \in [0, \infty) \). Then \( \frac{d}{dt} (f P_t) = 0 \) for \( t \in [0, \infty) \). But using the Kolmogorov backward equation, \( \frac{d}{dt} (f P_t) = f \frac{d}{dt} P_t = f G P_t = 0 \). Letting \( t = 0 \) we conclude that \( f G = 0 \). Conversely, if \( f G = 0 \) then \( \frac{d}{dt} (f P_t) = f \frac{d}{dt} P_t = f G P_t = 0 \) for \( t \in [0, \infty) \). It follows that \( f P_t \) is constant in \( t \in [0, \infty) \). Since \( f P_0 = f \) it follows that \( f P_t = f \) for all \( t \in [0, \infty) \).</p>
+</details>
+</div>
+
+<p>So combining <a href="#inv1" class="ref"></a> and <a href="#inv2" class="ref"></a> we see that \( f \) is invariant for the continuous-time chain \( \bs{X} \) if and only if \( \lambda f \) is invariant for the jump chain \( \bs{Y} \). Our next result shows how functions that are invariant for \( \bs{X} \) are related to the <a href="Potentials2.html">resolvent</a> \( \bs{U} = \{U_\alpha: \alpha \in (0, \infty)\} \). To appreciate the result, recall that for \( \alpha \in (0, \infty) \) the matrix \( \alpha U_\alpha \) is a <em>probability</em> matrix, and in fact \( \alpha U_\alpha(x, \cdot) \) is the conditional probability density function of \( X_T \), given \( X_0 = x \), where \( T \) is independent of \( \bs{X} \) and has the exponential distribution with parameter \( \alpha \). So \( \alpha U_\alpha \) is a transition matrix just as \( P_t \) is a transition matrix, but corresponding to the exponentially distributed random time \( T \) with parameter \( \alpha \in (0, \infty) \) rather than the deterministic time \( t \in [0, \infty) \).</p>
+
+<div class="unit" id="inv3">
+	<p class="math">Suppose that \( f: S \to [0, \infty) \). If \( f G = 0 \) then \( f (\alpha U_\alpha) = f\) for \( \alpha \in (0, \infty) \). Conversely if \( f (\alpha U_\alpha) = f \) for \( \alpha \in (0, \infty) \) then \( f G = 0 \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that \( I + G U_\alpha = \alpha U_\alpha \) for \( \alpha \in (0, \infty) \). Hence if \( f G = 0 \) then 
+		\[ f (\alpha U_\alpha) = f + f G U_\alpha = f \]
+		Conversely, suppose that \( f (\alpha U_\alpha) = f \). Then
+		\[ f G U_\alpha = \int_0^\infty e^{-\alpha t} f G P_t dt = 0 \] 
+		As a function of \( \alpha \in (0, \infty) \), the integral on the right side is the Laplace transform of the time function \( t \mapsto f G P_t \). Hence we must have \( f G P_t = 0 \) for \( t \in (0, \infty) \), and letting \( t \downarrow 0 \) gives \( f G = 0 \).</p>
+	</details>
+</div>
+
+<p>So extending our summary, \( f: S \to [0, \infty) \) is invariant for the transition semigroup \( \bs{P} = \{P_t: t \in [0, \infty)\} \)  if and only if \( \lambda f \) is invariant for jump transition matrices \( \{Q^n: n \in \N\} \) if and only if \( f G = 0 \) if and only if \( f \) is invariant for the collection of probability matrices \( \{\alpha U_\alpha: \alpha \in (0, \infty)\} \). From our knowledge of the theory for discrete-time chains, we now have the following fundamental result:</p>
+
+<div class="unit" id="inv4">
+	<p class="math">Suppose that \( \bs{X} \) is irreducible and recurrent.</p>
+	<ol class="sub">
+		<li>There exists \( g: S \to (0, \infty) \) that is invariant for \( \bs{X} \).</li>
+		<li>If \( f \) is invariant for \( \bs{X} \), then  \(f = c g \) for some constant \( c \in [0, \infty) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The result is trivial if \( S \) consists of a single, necessarily absorbing, state. Otherwise, there are no absorbing states, since \( \bs{X} \) is irreducible and so \( \lambda(x) \gt 0 \) for \( x \in S \). From the result above, \( f \) is invariant for \( \bs{X} \) if and only if \( \lambda f \) is invariant for \( \bs{Y} \). But \( \bs{Y} \) is also irreducible and recurrent, so we know that there exists a strictly positive function that is invariant for \( \bs{Y} \), and every other function that is invariant for \( \bs{Y} \) is a nonnegative multiple of this one. Hence the same is true for \( \bs{X} \).</p>
+	</details>
+</div>
+
+<p>Invariant functions have a nice interpretation in terms of <em>occupation times</em>, an interpretation that parallels the <a href="Limiting.html#mea">discrete case</a>. The potential gives the expected total time in a state, starting in another state, but here we need to consider the expected time in a state during a <em>cycle</em> that starts and ends in another state.</p>
+
+<div class="unit" id="inv5">
+	<p class="dfn">For \( x \in S \), define the function \( \gamma_x \) by
+	\[ \gamma_x(y) = \E\left(\int_0^{\tau_{\rho_x}} \bs{1}(X_s = y) \, ds \biggm| X_0 = x\right), \quad y \in S \]
+	so that \( \gamma_x(y) \) is the expected <dfn>occupation time</dfn> in state \( y \) before the first return to \( x \), starting in \( x \).</p>
+</div>
+
+<div class="unit" id="inv6">
+	<p class="math">Suppose again that \( \bs{X} \) is irreducible and recurrent. For \( x \in S \),</p>
+	<ol class="sub">
+		<li>\( \gamma_x: S \to (0, \infty) \)</li>
+		<li>\( \gamma_x \) is invariant for \( \bs X \)</li>
+		<li>\( \gamma_x(x) = 1 / \lambda(x) \)</li>
+		<li>\(\mu(x) = \sum_{y \in S} \gamma_x(y)\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>As is often the case, the proof is based on results that we already have for the embedded jump chain. For \( x \in S \), define
+		\[ \delta_x(y) = \E\left(\sum_{n=0}^{\rho_x - 1} \bs{1}(Y_n = y) \biggm| Y_0 = x\right), \quad y \in S \]
+		so that \( \delta_x(y) \) is the expected number of visits to \( y \) before the first return to \( x \), starting in \( x \), for the jump chain \( \bs Y = (Y_0, Y_1, \ldots) \). Since \( \bs X \) is irreducible and recurrent, so is \( \bs Y \). From our results in the <a href="Limiting.html#mea">discrete case</a> we know that</p>
+		<ol class="sub">
+			<li>\( \delta_x: S \to (0, \infty) \)</li>
+			<li>\( \delta_x \) is invariant for \( \bs Y \)</li>
+			<li>\( \delta_x(x) = 1 \)</li>
+		</ol>
+		<p>From our results above, it follows that the function \( y \mapsto \delta_x(y) / \lambda(y) \) satisfies properties (a), (b), and (c) in the theorem. But each visit to \( y \) by the jump chain \( \bs Y \) has expected length \( 1 / \lambda(y) \) for the continuous-time chain \( \bs X \). It follows that \( \gamma_x(y) = \delta_x(y) / \lambda(y) \) for \( x, \, y \in S \). By definition, \( \gamma_x(y) \) is the expected occupation time in \( y \) before the first return to \( x \), starting in \( x \). Hence, summing over \( y \in S \) gives the expected return time to \( x \), starting in \( x \), so (d) holds.</p>
+	</details>
+</div>
+
+<p>So now we have some additional insight into positive and null recurrence for the continuous-time chain \( \bs{X} \) and the associated jump chain \( \bs{Y} \). Suppose again that the chains are irreducible and recurrent. There exist \( g: S \to (0, \infty) \) that is invariant for \( \bs{Y} \), and then \( g / \lambda \) is invariant for \( \bs{X} \). The invariant functions are unique up to multiplication by positive constants. The jump chain \( \bs{Y} \) is positive recurrent if and only if \( \sum_{x \in S} g(x) \lt \infty\) while the continuous-time chain \( \bs{X} \) is positive recurrent if and only if \( \sum_{x \in S} g(x) \big/ \lambda(x) \lt \infty \). Note that if \( \lambda \) is bounded (which is equivalent to the transition semigroup \( \bs{P} \) being uniform), then \( \bs{X} \) is positive recurrent if and only if \( \bs{Y} \) is positive recurrent.</p>
+
+<div class="unit" id="inv7">
+	<p class="math">Suppose again that \( \bs{X} \) is irreducible and recurrent.</p>
+	<ol class="sub">
+		<li>If \( \bs{X} \) is null recurrent then \( \bs{X} \) does not have an invariant probability density function.</li>
+		<li>If \( \bs{X} \) is positive recurrent then \( \bs{X} \) has a unique positive, invariant probability density function.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>From the previous result, there exists \( g: S \to (0, \infty) \) that is invariant for \( \bs{X} \), and every other invariant function is a nonnegative multiple of this one. The function \( f \) given by
+		\[ f(y) = \frac{g(y)}{\sum_{x \in S} g(x)}, \quad y \in S \]
+		is uniquely defined (that is, unchanged if we replace \( g \) by \( c g \) where \( c \gt 0 \)).</p>
+		<ol class="sub">
+			<li>If \( \sum_{x \in S} g(x) = \infty \) then \( f(y) = 0 \) for every \( y \in S \).</li>
+			<li>If \( \sum_{x \in S} g(x) \lt \infty \) then \( f(y) \gt 0 \) for every \( y \in S \) and \( \sum_{y \in S} f(y) = 1 \).</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="lim">Limiting Behavior</h4>
+
+<p>Our next discussion focuses on the limiting behavior of the transition semigroup \( \bs{P} = \{P_t: t \in [0, \infty)\} \). Our first result is a simple corollary of <a href="#tme4" class="ref"></a>.</p>
+
+<div class="unit" id="lim1">
+	<p class="math">If \( y \in S \) is transient, then \( P_t(x, y) \to 0 \) as \( t \to \infty \) for every \( x \in S \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows from <a href="#tme4" class="ref"></a>. If \( y \in S \) is transient, then for any \( x \in S \),
+		\[ U(x, y) = \int_0^\infty P_t(x, y) \, dt \lt \infty \]
+		and so we must have \( P_t(x, y) \to 0 \) as \( t \to \infty \).</p>
+	</details>
+</div>
+
+<p>So we should turn our attention to the recurrent states. The set of recurrent states partitions into equivalent classes under \( \leftrightarrow \), and each of these classes is irreducible. Hence we can assume without loss of generality that our continuous-time chain \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is irreducible and recurrent. To avoid trivialities, we will also assume that \( S \) has at least two states. Thus, there are no absorbing states and so \( \lambda(x) \gt 0 \) for \( x \in S \). Here is the main result.</p>
+
+<div class="unit" id="lim2">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is irreducible and recurrent. Then \(f(y) = \lim_{t \to \infty} P_t(x, y)\) exists for each \( y \in S \), independently of \( x \in S \). The function \( f \) is invariant for \( \bs{X} \) and
+	\[ f(y) = \frac{\gamma_x(y)}{\mu(x)}, \quad y \in S \]</p>
+	<ol class="sub">
+		<li>If \( \bs{X} \) is null recurrent then \( f(y) = 0 \) for all \( y \in S \).</li>
+		<li>If \( \bs{X} \) is positive recurrent then \( f(y) \gt 0 \) for all \( y \in S \) and \( \sum_{y \in S} f(y) = 1 \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The basic idea is that
+		\[ \lim_{t \to \infty} P_t(x, y) = \lim_{t \to \infty} \frac{1}{t} \int_0^t P_s(x, y) ds \]
+		The expression on the right is the limiting proportion of time spent in \( y \in S \), starting in \( x \in S \). This proportion is \( \gamma_x(y) \big/ \mu(x) \), so the results follow from <a href="#inv5" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>The limiting function \( f \) can be computed in a number of ways. First we find a function \( g: S \to (0, \infty) \) that is invariant for \( \bs{X} \). We can do this by solving </p>
+
+<ul>
+	<li>\( g P_t = g \) for \( t \in (0, \infty) \)</li>
+	<li>\( g G = 0 \)</li>
+	<li>\( g (\alpha U_\alpha) = g \) for \( \alpha \in (0, \infty) \)</li>
+	<li>\( h Q = h \) and then \( g = h / \lambda \)</li>
+</ul>
+
+<p>The function \( g \) is unique up to multiplication by positive constants. If \( \sum_{x \in S} g(x) \lt \infty \), then we are in the positive recurrent case and so \( f \) is simply \( g \) normalized:
+\[ f(y) = \frac{g(y)}{\sum_{x \in S} g(x)}, \quad y \in S \]
+</p>
+
+<p>Exercise <a href="#lim3" class="ref"></a> given next is known as the <dfn>ergodic theorem</dfn> for continuous-time Markov chains. It can also be thought of as a <a href="../sample/LLN.html">strong law of large numbers</a> for continuous-time Markov chains.</p>
+
+<div class="unit" id="lim3">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is irreducible and positive recurrent, with (unique) invariant probability density function \( f \). If \( h: S \to \R \) then
+	\[ \frac{1}{t} \int_0^t h(X_s) ds \to \sum_{x \in S} f(x) h(x) \text{ as } t \to \infty \]
+	with probability 1, assuming that the sum on the right converges absolutely.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>First, let \( x, \, y \in S \) and let \( h = \bs{1}_y \), the indicator function of \( y \). Then given \( X_0 = x \), \( \frac{1}{t} \int_0^t h(X_s) ds \) is the average occupation time in state \( y \), starting in state \( x \), over the time interval \( [0, t] \). In expected value, this is \( \frac{1}{t} \int_0^t P_s(x, y) ds \) which we know converges to \( f(y) \) as \( t \to \infty \), independently of \( x \). So in this special case, the ergodic theorem states that the convergence is with probability 1 also. A general function \( h: S \to \R \) is a linear combination of the indicator functions of the points in \( S \), so the ergodic theorem is plausible.</p>
+	</details>
+</div>
+
+<p>Note that no assumptions are made about \( X_0 \), so the limit is independent of the initial state. By now, this should come as no surprise. After a long period of time, the Markov chain \( \bs{X} \) <q>forgets</q> about the initial state. Note also that \( \sum_{x \in S} f(x) h(x) \) is the expected value of \( h \), thought of as a random variable on \( S \) with probability measure defined by \( f \). On the other hand, \( \frac{1}{t} \int_0^t h(X_s) ds \) is the average of the time function \( s \mapsto h(X_s) \) on the interval \( [0, t] \). So the ergodic theorem states that the limiting <dfn>time average</dfn> on the left is the same as the <dfn>spatial average</dfn> on the right.</p>
+
+
+<h3 id="app">Applications and Exercises</h3>
+
+<h4 id="two">The Two-State Chain</h4>
+
+<p>The continuous-time, two-state chain has been studied in the last several sections. The following result puts the pieces together and completes the picture.</p>
+
+<div class="unit" id="two1">
+	<p class="math">Consider the continuous-time Markov chain \( \bs{X} = \{X_t: t \in [0, \infty)\} \) on \( S = \{0, 1\} \) with transition rate \( a \in (0, \infty) \) from 0 to 1 and transition rate \( b \in (0, \infty) \) from 1 to 0. Give each of the following</p>
+	<ol class="sub">
+		<li>The transition matrix \( Q^n \) for \( \bs{Y} \) at \( n \in \N \).</li>
+		<li>The infinitesimal generator \( G \).</li>
+		<li>The transition matrix \( P_t \) for \( \bs{X} \) at \( t \in [0, \infty) \).</li>
+		<li>The invariant probability density function for \( \bs{Y} \).</li>
+		<li>The invariant probability density function for \( \bs{X} \).</li>
+		<li>The limiting behavior of \( Q^n \) as \( n \to \infty \).</li>
+		<li>The limiting behavior of \( P_t \) as \( t \to \infty \).</li>
+	</ol>
+	<details>
+	<summary>Details:</summary>
+		<p>Note that since the transition rates \( a \) and \( b \) are positive, the chain is irreducible.</p>
+		<ol class="sub">
+			<li>First, \( Q = \left[\begin{matrix} 0 &amp; 1 \\ 1 &amp; 0 \end{matrix} \right] \) and then for \( n \in \N \), \( Q^n = Q \) if \( n \) is odd and \( Q^n = I \) if \( n \) is even.</li>
+			<li>\( G = \left[\begin{matrix} -a &amp; a \\ b &amp; -b \end{matrix} \right] \).</li>
+			<li>\( P_t = \frac{1}{a + b} \left[\begin{matrix} b &amp; a \\ b &amp; a \end{matrix} \right] - \frac{1}{a + b} e^{-(a + b)t} \left[\begin{matrix} -a &amp; a \\ b &amp; -b\end{matrix}\right]\) for \( t \in [0, \infty) \).</li>
+			<li>\( f_d = \left[\begin{matrix} \frac{1}{2} &amp; \frac{1}{2} \end{matrix}\right] \)</li>
+			<li>\( f_c = \left[\begin{matrix} \frac{b}{a + b} &amp; \frac{a}{a + b} \end{matrix} \right]\)</li>
+			<li>As in (a), \( Q^{2 n} = I \) and \( Q^{2 n + 1} = Q \) for \( n \in \N \). So there are two sub-sequential limits. The jump chain \( \bs{Y} \) is periodic with period 2.</li>
+			<li>\( P_t \to \frac{1}{a + b} \left[\begin{matrix} b &amp; a \\ b &amp; a \end{matrix} \right] \) as \( t \to \infty \). Each row is \( f_c \).</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="cmp">Computational Exercises</h4>
+
+<p>The following continuous-time chain has also been studied in the previous three sections.</p>
+
+<div class="unit" id="cmp1">
+	<p class="math">Consider the Markov chain \( \bs{X} = \{X_t: t \in [0, \infty)\} \) on \( S = \{0, 1, 2\} \) with exponential parameter function \( \lambda = (4, 1, 3) \) and jump transition matrix
+	\[ Q = \left[\begin{matrix} 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\ 1 &amp; 0 &amp; 0 \\ \frac{1}{3} &amp; \frac{2}{3} &amp; 0\end{matrix}\right] \]</p>
+	<ol class="sub">
+		<li>Recall the generator matrix \( G \).</li>
+		<li>Find the invariant probability density function \( f_d \) for \( \bs{Y} \) by solving \( f_d Q = f_d \).</li>
+		<li>Find the invariant probability density function \( f_c \) for \( \bs{X} \) by solving \( f_c G = 0 \).</li>
+		<li>Verify that \( \lambda f_c \) is a multiple of \( f_d \).</li>
+		<li>Describe the limiting behavior of \( Q^n \) as \( n \to \infty \).</li>
+		<li>Describe the limiting behavior of \( P_t \) as \( t \to \infty \).</li>
+		<li>Verify the result in (f) by recalling the transition matrix \( P_t \) for \( \bs{X} \) at \( t \in [0, \infty) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>\( G = \left[\begin{matrix} -4 &amp; 2 &amp; 2 \\ 1 &amp; -1 &amp; 0 \\ 1 &amp; 2 &amp; -3 \end{matrix}\right] \)</li>
+			<li>\( f_d = \frac{1}{14} \left[\begin{matrix} 6 &amp; 5 &amp; 3 \end{matrix} \right] \)</li>
+			<li>\( f_c = \frac{1}{15} \left[\begin{matrix} 3 &amp; 10 &amp; 2 \end{matrix} \right] \)</li>
+			<li>\( \lambda f_c = \frac{1}{15} \left[\begin{matrix} 12 &amp; 10 &amp; 6\end{matrix} \right] = \frac{28}{15} f_d\)</li>
+			<li>\( Q^n \to \frac{1}{14} \left[\begin{matrix} 6 &amp; 5 &amp; 3 \\ 6 &amp; 5 &amp; 3 \\ 6 &amp; 5 &amp; 3 \end{matrix} \right] \) as \( n \to \infty \)</li>
+			<li>\( P_t \to \frac{1}{15} \left[\begin{matrix} 3 &amp; 10 &amp; 2 \\ 3 &amp; 10 &amp; 2 \\ 3 &amp; 10 &amp; 2 \end{matrix}\right]  \) as \( t \to \infty \)</li>
+			<li>\( P_t = \frac{1}{15} \left[\begin{matrix} 3 + 12 e^{-5 t} &amp; 10 - 10 e^{-3 t} &amp; 2 - 12 e^{-5 t} + 10 e^{-3 t} \\ 3 - 3 e^{-5 t} &amp; 10 + 5 e^{-3 t} &amp; 2 + 3 e^{-5t} - 5 e^{-3 t} \\ 3 - 3 e^{-5 t} &amp; 10 - 10 e^{-3 t} &amp; 2 + 3 e^{-5 t} + 10 e^{-3 t} \end{matrix}\right] \) for \( t \in [0, \infty) \)</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="spc">Special Models</h4>
+
+<div class="unit" id="spc1">
+<p class="math">Stationary and limiting distributions for the folloing special models are discussed in separate sections.</p>
+<ol class="sub">
+	<li><a href="Poisson.html#lim">chains subordinate to the Poisson process</a>.</li>
+	<li><a href="BirthDeath2.html#lim">continuous-time birth-death chains</a></li>
+	<li><a href="Queuing2.html#lim">continuous-time queuing chains</a></li>
+</ol>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="current">18</li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

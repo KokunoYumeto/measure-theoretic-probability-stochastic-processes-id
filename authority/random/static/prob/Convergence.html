@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Convergence</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, increasing events, decreasing events, continuity theorems, Borel-Cantelli lemmas, convergence with probability 1, convergence in probability">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Q}{\mathbb{Q}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\ms}{\mathscr}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">1. Probability Spaces</a></li>
+		<li class="child"><a href="Experiments.html" title="Random Experiments">1</a></li>
+		<li class="child"><a href="Events.html" title="Events and Random Variables">2</a></li>
+		<li class="child"><a href="Probability.html" title="Probability Measures">3</a></li>
+		<li class="child"><a href="Conditional.html" title="Conditional Probability">4</a></li>
+		<li class="child"><a href="Independence.html" title="Independence">5</a></li>
+		<li class="current">6</li>
+		<li class="child"><a href="Probability2.html" title="Probability Spaces Revisted">7</a></li>
+		<li class="child"><a href="Processes.html" title="Stochastic Processes">8</a></li>
+		<li class="child"><a href="Stop.html" title="Filtrations and Stopping Times">9</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+
+	<h2>6. Convergence</h2>
+</header>
+
+<blockquote>
+	<q>Great fleas have little fleas upon their backs to bite 'em, <br>
+	And little fleas have lesser fleas, and so ad infinitum.<br>
+	And the great fleas themselves, in turn, have greater fleas to go on;<br>
+	While these again have greater still, and greater still, and so on.</q><br>
+	&mdash;<a href="JavaScript:openAncillary('../biographies/DeMorgan.html')" class="ancillary">Agustus De Morgan</a>, <cite>A Budget of Paradoxes</cite>
+</blockquote>
+
+<p>In this section we discuss several topics related to convergence of events and random variables, a subject of fundamental importance in probability theory. In particular the results that we obtain will be important for properties of <a href="../dist/CDF.html">distribution functions</a> and for the weak and strong <a href="../sample/LLN.html">laws of large numbers</a>. As usual, our starting point is a <a href="../prob/Experiments.html">random experiment</a> modeled by a <a href="Probability.html">probability space</a> \( (S, \ms S, \P) \). So to review, \( S \) is the set of outcomes, \( \ms S \) the \( \sigma \)-algebra of events</a>, and \( \P \) the probability measure</a> on the sample space \( (S, \ms S) \).</p>
+
+<h3>Basic Theory</h3>
+
+<h4 id="seq">Sequences of events</h4>
+
+<p>Our first discussion deals with sequences of events and various types of limits of such sequences. The limits are also event. We start with two simple definitions.</p>
+
+<div class="unit" id="seq1">
+	<p class="dfn">Suppose that \( (A_1, A_2, \ldots) \) is a sequence of events.</p>
+	<ol class="sub">
+		<li>The sequence is <dfn>increasing</dfn> if \( A_n \subseteq A_{n+1} \) for every \( n \in \N_+ \).</li>
+		<li>The sequence is <dfn>decreasing</dfn> if \( A_{n+1} \subseteq A_n \) for every \( n \in \N_+ \).</li>
+	</ol>
+</div>
+
+<p>Note that these are the standard definitions of <a href="../foundations/Order.html">increasing and decreasing</a> relative to the ordinary total order \( \le \) on the index set \( \N_+ \) and the subset partial order \( \subseteq \) on the collection of events. The terminology is also justified by the corresponding indicator variables.</p>
+
+<div class="unit" id="seq2">
+	<p class="math">Suppose that \( (A_1, A_2, \ldots) \) is a sequence of events, and let \(I_n = \bs 1_{A_n}\) denote the indicator variable of the event \(A_n\) for \(n \in \N_+\). </p>
+	<ol class="sub">
+		<li>The sequence of events is increasing if and only if the sequence of indicator variables is increasing in the ordinary sense. That is, \(I_n \le I_{n+1}\) for each \(n \in \N_+\).</li>
+		<li>The sequence of events is decreasing if and only if the sequence of indicator variables is decreasing in the ordinary sense. That is, \(I_{n+1} \le I_n\) for each \(n \in \N_+\).</li>
+	</ol>
+	<details>
+	<summary>Details:</summary>
+		<p>Both parts follow from the fact that if \( A \) and \( B \) are events then \( A \subseteq B \) if and only if \( \bs 1_A \le \bs 1_B \). To see this note that \( A \subseteq B \) if and only if \( s \in A \) implies \( s \in B \) for \( s \in S \), if and only if \( \bs 1_A(s) = 1 \) implies \( \bs 1_B(s) = 1 \) for \( s \in S \). Since indicator functions only take the values 0 and 1, the last statement is equivalent to \( \bs 1_A \le \bs 1_B \).</p>
+	</details>
+</div>
+
+<figure>
+	<figcaption>A sequence of increasing events and their union</figcaption>
+	<img src="Increasing1.png" alt="A sequence of increasing events">
+	<figcaption>A sequence of decreasing events and their intersection</figcaption>
+	<img src="Decreasing.png" alt="A sequence of decreasing events">
+</figure>
+
+<p>If a sequence of events is either increasing or decreasing, we can define the <dfn>limit</dfn> of the sequence in a way that turns out to be quite natural.</p>
+
+<div class="unit" id="seq3">
+	<p class="dfn">Suppose that \( (A_1, A_2, \ldots) \) is a sequence of events.</p>
+	<ol class="sub">
+		<li>If the sequence is increasing, we define \( \lim_{n \to \infty} A_n = \bigcup_{n=1}^\infty A_n \).</li>
+		<li>If the sequence is decreasing, we define \( \lim_{n \to \infty} A_n = \bigcap_{n=1}^\infty A_n \).</li>
+	</ol>
+</div>
+
+<p>Once again, the terminology is clarified by the corresponding indicator variables.</p>
+
+<div class="unit" id="evt1">
+	<p class="math">Suppose again that \( (A_1, A_2, \ldots) \) is a sequence of events, and  let \(I_n = \bs 1_{A_n}\) denote the indicator variable of \(A_n\) for \(n \in \N_+\).</p>
+	<ol class="sub">
+		<li>If the sequence of events is increasing, then \( \lim_{n \to \infty} I_n \) is the indicator variable of \( \bigcup_{n = 1}^\infty A_n \)</li>
+		<li>If the sequence of events is decreasing, then \( \lim_{n \to \infty} I_n \) is the indicator variable of \( \bigcap_{n = 1}^\infty A_n \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>If \( s \in \bigcup_{n=1}^\infty A_n\) then \( s \in A_k \) for some \( k \in \N_+ \). Since the events are increasing, \( s \in A_n \) for every \( n \ge k \). In this case, \( I_n(s) = 1 \) for every \( n \ge k \) and hence \( \lim_{n \to \infty} I_n(s) = 1 \). On the other hand, if \( s \notin \bigcup_{n=1}^\infty A_n \) then \( s \notin A_n \) for every \( n \in \N_+ \). In this case, \( I_n(s) = 0\) for every \( n \in \N_+ \) and hence \( \lim_{n \to \infty} I_n(s) = 0 \).</li>
+			<li>If \( s \in \bigcap_{n=1}^\infty A_n \) then \( s \in A_n \) for each \( n \in \N_+ \). In this case, \( I_n(s) = 1 \) for each \( n \in \N_+ \) and hence \( \lim_{n \to \infty} I_n(s) = 1 \). If \( s \notin \bigcap_{n=1}^\infty A_n\) then \( s \notin A_k \) for some \( k \in \N_+ \). Since the events are decreasing, \( s \notin A_n \) for all \( n \ge k \). In this case, \( I_n(s) = 0 \) for \( n \ge k \) and hence \( \lim_{n \to \infty} I_n(s) = 0 \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>An arbitrary union of events can always be written as a union of increasing events, and an arbitrary intersection of events can always be written as an intersection of decreasing events:</p>
+
+<div class="unit" id="evt2">
+	<p class="math">Suppose that \((A_1, A_2, \ldots)\) is a sequence of events. Then</p>
+	<ol class="sub">
+		<li>\(\bigcup_{i = 1}^ n A_i\) is increasing in \(n \in \N_+\) and \(\bigcup_{i = 1}^\infty A_i = \lim_{n \to \infty} \bigcup_{i = 1}^n A_i\).</li>
+		<li>\(\bigcap_{i=1}^n A_i\) is decreasing in \(n \in \N_+\) and \(\bigcap_{i=1}^\infty A_i = \lim_{n \to \infty} \bigcap_{i=1}^n A_i\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Trivially \( \bigcup_{i=1}^n A_i \subseteq \bigcup_{i=1}^{n+1} A_i \). The second statement simply means that \( \bigcup_{n=1}^\infty \bigcup_{i  = 1}^n A_i = \bigcup_{i=1}^\infty A_i\).</li>
+			<li>Trivially \( \bigcap_{i=1}^{n+1} A_i \subseteq \bigcap_{i=1}^n A_i \). The second statement simply means that \( \bigcap_{n=1}^\infty \bigcap_{i=1}^n A_i = \bigcap_{i=1}^\infty A_i \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>There is a more interesting and useful way to generate increasing and decreasing sequences from an arbitrary sequence of events, using the <em>tail</em> segment of the sequence rather than the <em>initial</em> segment.</p>
+
+<div class="unit" id="evt3">
+	<p class="math">Suppose that \( (A_1, A_2, \ldots) \) is a sequence of events. Then</p>
+	<ol class="sub">
+		<li>\(\bigcup_{i=n}^\infty A_i\) is decreasing in \(n \in \N_+\).</li>
+		<li>\(\bigcap_{i=n}^\infty A_i\) is increasing in \(n \in \N_+\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Clearly \(\bigcup_{i=n+1}^\infty A_i \subseteq \bigcup_{i=n}^\infty A_i\) </li>
+			<li>Clearly \(\bigcap_{i=n}^\infty A_i \subseteq \bigcap_{i=n+1}^\infty A_i\)</li>
+		</ol>
+	</details>
+</div>
+
+<p>Since the new sequences defined in <a href="#evt3" class="ref"></a> are decreasing and increasing, respectively, we can take their limits. These are the <dfn>limit superior</dfn> and <dfn>limit inferior</dfn>, respectively, of the original sequence.</p>
+
+<div class="unit" id="evt4">
+	<p class="dfn">Suppose that \( (A_1, A_2, \ldots) \) is a sequence of events. Define</p>
+	<ol class="sub">
+		<li>\( \limsup_{n \to \infty} A_n = \lim_{n \to \infty} \bigcup_{i=n}^\infty A_i = \bigcap_{n=1}^\infty \bigcup_{i=n}^\infty A_i \). This is the event that occurs if an only if \( A_n \) occurs for infinitely many values of \( n \).</li>
+		<li>\( \liminf_{n \to \infty} A_n = \lim_{n \to \infty} \bigcap_{i=n}^\infty A_i = \bigcup_{n=1}^\infty \bigcap_{i=n}^\infty A_i \). This is the event that occurs if an only if \( A_n \) occurs for all but finitely many values of \( n \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>From the definition, the event \( \limsup_{n \to \infty} A_n \) occurs if and only if for each \( n \in \N_+ \) there exists \( i \ge n \) such that \( A_i \) occurs.</li>
+			<li>From the definition, the event \( \liminf_{n \to \infty} A_n \) occurs if and only if there exists \( n \in \N_+ \) such that \( A_i \) occurs for every \( i \ge n \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Once again, the terminology and notation are clarified by the corresponding indicator variables. You may need to review limit inferior and limit superior for sequences of real numbers in the section on <a href="../foundations/Order.html">partial orders</a>.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \( (A_1, A_2, \ldots) \) is a sequence of events, and et \(I_n = \bs 1_{A_n}\) denote the indicator variable of \(A_n\) for \(n \in \N_+\). Then
+	<ol class="sub">
+		<li>\(\limsup_{n \to \infty} I_n \) is the indicator variable of \(\limsup_{n \to \infty} A_n\).</li>
+		<li>\(\liminf_{n \to \infty} I_n \) is the indicator variable of \(\liminf_{n \to \infty} A_n\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>By <a href="#evt1" class="ref"></a>, \( \lim_{n \to \infty} \bs 1\left(\bigcup_{i=n}^\infty A_i\right) \) is the indicator variable of \( \limsup_{n \to \infty} A_n \). But \(\bs 1\left(\bigcup_{i=n}^\infty A_i\right) = \max\{I_i: i \ge n\}\) and hence \( \lim_{n \to \infty} \bs 1\left(\bigcup_{i=n}^\infty A_i\right) = \limsup_{n \to \infty} I_n \).</li>
+			<li>By <a href="#evt1" class="ref"></a>, \( \lim_{n \to \infty} \bs 1\left(\bigcap_{i=n}^\infty A_i\right) \) is the indicator variable of \( \liminf_{n \to \infty} A_n \). But \(\bs 1\left(\bigcap_{i=n}^\infty A_i\right) = \min\{I_i: i \ge n\}\) and hence \( \lim_{n \to \infty} \bs 1\left(\bigcap_{i=n}^\infty A_i\right) = \liminf_{n \to \infty} I_n \).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="math">Suppose that \( (A_1, A_2, \ldots) \) is a sequence of events. Then \(\liminf_{n \to \infty} A_n \subseteq \limsup_{n \to \infty} A_n\).</p>
+	<details>
+	<summary>Details:</summary>
+	<p>If \( A_n \) occurs for all but finitely many \( n \in \N_+ \) then certainly \( A_n \) occurs for infinitely many \( n \in \N_+ \).</p>
+	</details>
+</div>
+
+<div class="unit" id="evt5">
+	<p class="math">Suppose that \( (A_1, A_2, \ldots) \) is a sequence of events. Then</p>
+	<ol class="sub">
+		<li>\(\left( \limsup_{n \to \infty} A_n \right)^c = \liminf_{n \to \infty} A_n^c\)</li>
+		<li>\(\left( \liminf_{n \to \infty} A_n \right)^c = \limsup_{n \to \infty} A_n^c\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follows from <a href="../foundations/Sets.html#dem">De Morgan's laws</a>.</p>
+	</details>
+</div>
+
+<h4 id="con">The Continuity Theorems</h4>
+
+<p>Generally speaking, a function is <dfn>continuous</dfn> if it preserves limits. Thus, the following results are the <dfn>continuity theorems of probability</dfn>. Part (a) is the continuity theorem for increasing events and part (b) the continuity theorem for decreasing events.</p>
+
+<div class="unit" id="con1">
+	<p class="math">Suppose that \((A_1, A_2, \ldots)\) is a sequence of events.</p>
+	<ol class="sub">
+		<li>If the sequence is increasing then \(\lim_{n \to \infty} \P(A_n) = \P\left( \lim_{n \to \infty} A_n \right) = \P\left(\bigcup_{n=1}^\infty A_n\right)\)</li>
+		<li>If the sequence is decreasing then \(\lim_{n \to \infty} \P(A_n) = \P\left( \lim_{n \to \infty} A_n \right) = \P\left(\bigcap_{n=1}^\infty A_n\right)\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Let \(B_1 = A_1\) and let \(B_i = A_i \setminus A_{i-1}\) for \(i \in \{2, 3, \ldots\}\). Note that the collection of events \(\{B_1, B_2, \ldots \}\) is pairwise disjoint and has the same union as \(\{A_1, A_2, \ldots \}\). From the countable additivity property of \(\P\) and the definition of infinite series,
+			\[ \P\left(\bigcup_{i=1}^\infty A_i\right) = \P\left(\bigcup_{i=1}^\infty B_i\right) = \sum_{i = 1}^\infty \P(B_i) = \lim_{n \to \infty} \sum_{i = 1}^n \P(B_i) \]
+			But \( \P(B_1) = \P(A_1) \) and \( \P(B_i) = \P(A_i) - \P(A_{i-1}) \) for \( i \in \{2, 3, \ldots\} \). Therefore \( \sum_{i=1}^n \P(B_i) = \P(A_n) \) and hence we have \(  \P\left(\bigcup_{i=1}^\infty A_i\right) = \lim_{n \to \infty} \P(A_n) \).
+			<figure>
+				<figcaption>The construction in the continuity theorem for increasing events</figcaption>
+				<img src="Increasing2.png" alt="The construction in the continuity theorem">
+			</figure>
+			</li>
+			<li>The sequence of complements \(\left(A_1^c, A_2^c, \ldots\right)\) is increasing. Hence using part (a), De Morgan's law, and the complement rule we have
+			\[ \P\left(\bigcap_{i=1}^\infty A_i \right) = 1 - \P\left(\bigcup_{i=1}^\infty A_i^c\right) = 1 - \lim_{n \to \infty} \P(A_n^c) = \lim_{n \to \infty} \left[1 - \P\left(A_n^c\right)\right] = \lim_{n \to \infty} \P(A_n) \]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<p>The continuity theorems can be applied to the increasing and decreasing sequences that we constructed in <a href="#evt2" class="ref"></a> and <a href="#evt4" class="ref"></a></p>
+
+<div class="unit" id="con2">
+	<p class="math">Suppose that \((A_1, A_2, \ldots)\) is a sequence of events.</p>
+	<ol class="sub">
+		<li>\(\P\left( \bigcup_{i=1}^\infty A_i \right) = \lim_{n \to \infty} \P\left( \bigcup_{i = 1}^n A_i \right)\)</li>
+		<li>\(\P\left( \bigcap_{i=1}^\infty A_i \right) = \lim_{n \to \infty} \P\left( \bigcap_{i = 1}^n A_i \right)\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follow immediately from the continuity theorems <a href="#evt2" class="ref"></a>.</p>
+	</details>
+</div>
+
+<div class="unit" id="con3">
+	<p class="math">Suppose that \( (A_1, A_2, \ldots) \) is a sequence of events. Then</p>
+	<ol class="sub">
+		<li>\(\P\left(\limsup_{n \to \infty} A_n\right) = \lim_{n \to \infty} \P\left(\bigcup_{i=n}^\infty A_i\right)\)</li>
+		<li>\(\P\left(\liminf_{n \to \infty} A_n\right) = \lim_{n \to \infty} \P\left(\bigcap_{i=n}^\infty A_i\right)\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follows directly from definitions <a href="#evt4" class="ref"></a>, and the continuity theorems <a href="#evt2" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>Theorem <a href="#finadd" class="ref"></a> next shows that the countable additivity axiom for a probability measure is equivalent to <dfn>finite additivity</dfn> and the continuity property for increasing events.</p>
+
+<div class="unit" id="finadd">
+	<p class="math">Temporarily, suppose that \( \P \) is only finitely additive, but satisfies the continuity property for increasing events <a href="#con1" class="ref"></a> (a). Then \( \P \) is countably additive.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( (A_1, A_2, \ldots) \) is a sequence of pairwise disjoint events. Since we are assuming that \( \P \) is finitely additive we have
+		\[ \P\left(\bigcup_{i=1}^n A_i\right) = \sum_{i=1}^n \P(A_i) \]
+		If we let \( n \to \infty \), the left side converges to \( \P\left(\bigcup_{i = 1}^\infty A_i\right) \) by the continuity assumption and <a href="#con2" class="ref"></a>, while the right side converges to \( \sum_{i=1}^\infty \P(A_i) \) by the definition of an infinite series.</p>
+	</details>
+</div>
+
+<p>There are a few mathematicians who reject the countable additivity axiom of probability measure in favor of the weaker finite additivity axiom. Whatever the philosophical arguments may be, life is certainly much harder without the continuity theorems.</p>
+
+<h4 id="bcl">The Borel-Cantelli Lemmas</h4>
+
+<p>The <dfn>Borel-Cantelli Lemmas</dfn>, named after <a href="JavaScript:openAncillary('../biographies/Borel.html')" class="ancillary">Emil Borel</a> and <a href="JavaScript:openAncillary('../biographies/Cantelli.html')" class="ancillary">Francessco Cantelli</a>, are very important tools in probability theory. The first lemma gives a condition that is sufficient to conclude that infinitely many events occur with probability 0.</p>
+
+<div class="unit" id="bcl1">
+	<p class="math"><strong>First Borel-Cantelli Lemma</strong>. Suppose that \( (A_1, A_2, \ldots) \) is a sequence of events. If \(\sum_{n=1}^\infty \P(A_n) \lt \infty\) then \(\P\left(\limsup_{n \to \infty} A_n\right) = 0\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>From <a href="#con3" class="ref"></a>, we have \( \P\left(\limsup_{n \to \infty} A_n\right) = \lim_{n \to \infty} \P\left(\bigcup_{i = n}^\infty A_i \right)  \). But from <a href="Probability.html#boo">Boole's inequality</a>, \( \P\left(\bigcup_{i = n}^\infty A_i \right) \le \sum_{i = n}^\infty \P(A_i) \). Since \( \sum_{i = 1}^\infty \P(A_i) \lt \infty \), we have \( \sum_{i = n}^\infty \P(A_i) \to 0 \) as \( n \to \infty \).</p>
+	</details>
+</div>
+
+<p>The second lemma gives a condition that is sufficient to conclude that infinitely many <a href="Independence.html">independent</a> events occur with probability 1.</p>
+
+<div class="unit" id="bcl2">
+	<p class="math"><strong>Second Borel-Cantelli Lemma</strong>. Suppose that \((A_1, A_2, \ldots)\) is a sequence of independent events. If \(\sum_{n=1}^\infty \P(A_n) = \infty\) then \(\P\left( \limsup_{n \to \infty} A_n \right) = 1\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note first that \(1 - x \le e^{-x}\) for every \(x \in \R\), and hcnce \( 1 - \P(A_i) \le \exp\left[-\P(A_i)\right] \) for each \( i \in \N_+ \). From <a href="#con3" class="ref"></a> and <a href="#evt5" class="ref"></a>,
+		\[ \P\left[\left(\limsup_{n \to \infty} A_n\right)^c\right] = \P\left(\liminf_{n \to \infty} A_n^c\right) = \lim_{n \to \infty} \P \left(\bigcap_{i = n}^\infty A_i^c\right) \]
+		But by independence and the inequality above,
+		\[ \P\left(\bigcap_{i = n}^\infty A_i^c\right) = \prod_{i = n}^\infty \P\left(A_i^c\right)  = \prod_{i = n}^\infty \left[1 - \P(A_i)\right] \le \prod_{i = n}^\infty \exp\left[-\P(A_i)\right] = \exp\left(-\sum_{i = n}^\infty \P(A_i) \right) = 0  \]</p>
+	</details>
+</div>
+
+<p>For independent events, both Borel-Cantelli lemmas apply of course, and lead to a <dfn>zero-one law</dfn>.</p>
+
+<div class="unit">
+	<p class="math">If \( (A_1, A_2, \ldots) \) is a sequence of independent events then \( \limsup_{n \to \infty} A_n \) has probability 0 or 1:</p>
+	<ol class="sub">
+		<li>If \(\sum_{n=1}^\infty \P(A_n) \lt \infty\) then \(\P\left( \limsup_{n \to \infty} A_n \right) = 0\).</li>
+		<li>If \(\sum_{n=1}^\infty \P(A_n) = \infty\) then \(\P\left( \limsup_{n \to \infty} A_n \right) = 1\).</li>
+	</ol>
+</div>
+
+<p>This result is actually a special case of a more general zero-one law, known as the <a href="Probability2.html">Kolmogorov zero-one law</a> named for <a href="JavaScript:openAncillary('../biographies/Kolmogorov.html')" class="ancillary">Andrei Kolmogorov</a>. Also, we can use the zero-one law to derive a calculus theorem that relates infinite series and infinte products. This derivation is an example of the <dfn>probabilistic method</dfn>&mdash;the use of probability to obtain results, seemingly unrelated to probability, in other areas of mathematics.</p>
+
+<div class="unit" id="prd">
+	<p class="math">Suppose that \( p_i \in (0, 1) \) for each \( i \in \N_+ \). Then
+	\[ \prod_{i=1}^\infty p_i \gt 0 \text{ if and only if } \sum_{i=1}^\infty (1 - p_i) \lt \infty \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>We can easily construct a probability space with a sequence of independent events \( (A_1, A_2, \ldots) \) such that \( \P(A_i) = 1 - p_i \) for each \( i \in \N_+ \). The result then follows from the proofs of the two Borel-Cantelli lemmas in <a href="#bcl1" class="ref"></a> and <a href="#bcl2" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>Our next result is a simple application of the second Borel-Cantelli lemma <a href="#bcl2" class="ref"></a> to independent replications of a basic experiment.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(A\) is an event in a basic random experiment with \(\P(A) \gt 0\). In the compound experiment that consists of independent replications of the basic experiment, the event <q>\(A\) occurs infinitely often</q> has probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( p \) denote the probability of \( A \) in the basic experiment. In the compound experiment, we have a sequence of independent events \( (A_1, A_2, \ldots) \) with \( \P(A_n) = p \) for each \( n \in \N_+ \) (these are <q>independent copies</q> of \( A \)). But \( \sum_{n = 1}^\infty \P(A_n) = \infty \) since \( p \gt 0 \) so the result follows from the second Borel-Cantelli lemma <a href="#bcl2" class="ref"></a>.</p>
+	</details>
+</div>
+
+<h4 id="lim">Convergence of Random Variables</h4>
+
+<p>Our next discussion concerns two ways that a sequence of random variables defined for our experiment can <q>converge</q>. These are fundamentally important concepts, since some of the deepest results in probability theory are limit theorems involving random variables. The most important special case is when the random variables are real valued, but the proofs are essentially the same for variables with values in a <a href="../foundations/Metric.html">metric space</a>, so we will use the more general setting.</p>
+
+<p>Thus, suppose that \( (S, d) \) is a metric space, and that \(\ms S \) is the corresponding Borel \( \sigma \)-algebra</a> (that is, the \( \sigma \)-algebra generated by the topology), so that our measurable space is \( (S, \ms S) \). Here is the most important special case:</p>
+
+<div class="unit">
+	<p class="math">For \( n \in \N_+ \), the \( n \)-dimensional <dfn>Euclidean space</dfn> is \( (\R^n, d_n) \) where
+	\[ d_n(\bs x, \bs y) = \sqrt{\sum_{i=1}^n (y_i - x_i)^2}, \quad \bs x = (x_1, x_2 \ldots, x_n), \, \bs y = (y_1, y_2, \ldots, y_n) \in \R^n \]
+	</p>
+</div>
+
+<p>Euclidean spaces are named for <a href="JavaScript:openAncillary('../biographies/Euclid.html')" class="ancillary">Euclid</a>, of course. As noted above, the one-dimensional case where \( d(x, y) = |y - x| \) for \( x, \, y \in \R \) is particularly important. Returning to the general metric space, recall that if \( (x_1, x_2, \ldots) \) is a sequence in \( S \) and \( x \in S \), then \( x_n \to x\) as \( n \to \infty \) means that \( d(x_n, x) \to 0 \) as \( n \to \infty \) (in the usual calculus sense). For the rest of our discussion, we assume that \( (X_1, X_2, \ldots) \) is a sequence of random variable with values in \( S \) and \( X \) is a random variable with values in \( S \), all defined on an underlying probability space \( (\Omega, \ms F, \P) \).</p>
+
+<div class="unit" id="lim1">
+	<p class="dfn">We say that \(X_n \to X\) as \(n \to \infty\) <dfn>with probability 1</dfn> if the <em>event</em> that \( X_n \to X \) as \( n \to \infty \) has probability 1. That is,
+	\[\P\{\omega \in \Omega: X_n(\omega) \to X(\omega) \text{ as } n \to \infty\} = 1\]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>We need to make sure that the definition makes sense, in that the statement that \( X_n \) converges to \( X \) as \( n \to \infty \) defines a valid event. Note that \(X_n\) does <em>not</em> converge to \(X\) as \(n \to \infty\) if and only if  for some \(\epsilon \gt 0\), \(d(X_n, X) \gt \epsilon\) for infinitely many \(n \in \N_+\). Note that if the this condition holds for a given \( \epsilon \gt 0 \) then it holds for all smaller \( \epsilon \gt 0 \). Moreover, there are arbitrarily small rational \( \epsilon \gt 0 \) so \(X_n\) does not converge to \(X\) as \(n \to \infty\) if and only if  for some rational \(\epsilon \gt 0\), \(d(X_n, X) \gt \epsilon\) for infinitely many \(n \in \N_+\). Hence
+		\[ \left\{X_n \to X \text{ as } n \to \infty\right\}^c = \bigcup_{\epsilon \in \Q_+} \limsup_{n \to \infty} \left\{d(X_n, X) \gt \epsilon\right\} \]
+		where \( \Q_+ \) is the set of positive rational numbers. A critical point to remember is that this set is countable. So, building a little at a time, note that \( \left\{d(X_n, X) \gt \epsilon\right\} \) is an event for each \( \epsilon \in \Q_+ \) and \( n \in \N_+ \) since \( X_n \) and \( X \) are random variables. Next, the limit superior of a sequence of events is an event. Finally, a countable union of events is an event.</p>
+	</details>
+</div>
+
+<p>As good probabilists, we usually suppress references to the underlying sample space \((\Omega, \ms F)\) and write the definition simply as \( \P(X_n \to X \text{ as } n \to \infty) = 1 \). The statement that an event has probability 1 is usually the strongest affirmative statement that we can make in probability theory. So convergence with probability 1 is the strongest form of convergence. The phrases <dfn>almost surely</dfn> and <dfn>almost everywhere</dfn> are sometimes used instead of the phrase <em>with probability 1</em>.</p>
+
+<p>Recall that metrics \( d \) and \( e \) on \( S \) are <dfn>equivalent</dfn> if they  generate the same topology on \( S \). Recall also that convergence of a sequence is a <dfn>topological property</dfn>. That is, if \( (x_1, x_2, \ldots) \) is a sequence in \( S \) and \( x \in S \), and if \( d,  \, e \) are equivalent metrics on \( S \), then \( x_n \to x \) as \( n \to \infty \) relative to \( d \) if and only if \( x_n \to x \) as \( n \to \infty \) relative to \( e \). So for our random variables as defined above, it follows that \( X_n \to X \) as \( n \to \infty \) with probability 1 relative to \( d \) if and only if \( X_n \to X \) as \( n \to \infty \) with probability 1 relative to \( e \).</p>
+
+<div class="unit" id="lim2">
+	<p class="math">The following statements are equivalent:</p>
+	<ol class="sub">
+		<li>\( X_n \to X \) as \( n \to \infty \) with probability 1.</li>
+		<li>\(\P\left[d(X_n, X) \gt \epsilon \text{ for infinitely many } n \in \N_+\right] = 0 \) for every rational \(\epsilon \gt 0\).</li>
+		<li>\(\P\left[d(X_n, X) \gt \epsilon \text{ for infinitely many } n \in \N_+\right] = 0\) for every \(\epsilon \gt 0\).</li>
+		<li>\(\P\left[d(X_k,  X) \gt \epsilon \text{ for some } k \ge n\right] \to 0\) as \(n \to \infty\) for every \(\epsilon \gt 0\).	</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>From the details in definition <a href="#lim1" class="ref"></a>, \(  \P(X_n \to X \text{ as } n \to \infty) = 1 \) if and only if
+		\[ \P\left(\bigcup_{\epsilon \in \Q_+} \left\{d(X_n, X) \gt \epsilon \text{ for infinitely many } n \in \N_+\right\} \right) = 0 \]
+		where again \( \Q_+ \) is the set of positive rational numbers. But by Boole's inequality, a countable union of events has probability 0 if and only if every event in the union has probability 0. Thus, (a) is equivalent to (b). Statement (b) is clearly equivalent to (c) since there are arbitrarily small positive rational numbers. Finally, (c) is equivalent to (d) by the continuity theorem <a href="#con3" class="ref"></a>. </p>
+	</details>
+</div>
+
+<p>Our next result gives a fundamental criterion for convergence with probability 1:</p>
+
+<div class="unit" id="lim3">
+	<p class="math">If \(\sum_{n=1}^\infty \P\left[d(X_n, X) \gt \epsilon\right] \lt \infty\) for every \(\epsilon \gt 0\) then \(X_n \to X\) as \(n \to \infty\) with probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By the first Borel-Cantelli lemma <a href="#bcl1" class="ref"></a>, if  \(\sum_{n = 1}^\infty \P\left[d(X_n, X) \gt \epsilon\right) \lt \infty\) then \(\P\left[d(X_n, X) \gt \epsilon \text{ for infinitely many } n \in \N_+\right) = 0\). Hence the result follows from <a href="#lim2" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>Here is our next mode of convergence.</p>
+
+<div class="unit">
+	<p class="dfn">We say that \(X_n \to X\) as \(n \to \infty\) <dfn>in probability</dfn> if
+	\[\P\left[d(X_n, X) \gt \epsilon\right] \to 0 \text{ as } n \to \infty \text{ for each } \epsilon \gt 0\]</p>
+</div>
+
+<p>The phrase <em>in probability</em> sounds superficially like the phrase <em>with probability 1</em>. However, as we will soon see, convergence in probability is much weaker than convergence with probability 1. Indeed, convergence with probability 1 is often called <dfn>strong convergence</dfn>, while convergence in probability is often called <dfn>weak convergence</dfn>. </p>
+
+<div class="unit">
+	<p class="math">If \(X_n \to X\) as \(n \to \infty\) with probability 1 then \(X_n \to X\) as \(n \to \infty\) in probability.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( \epsilon \gt 0 \). Then \( \P\left[d(X_n, X) \gt \epsilon\right] \le \P\left[d(X_k, X) \gt \epsilon \text{ for some } k \ge n\right]\). But if \( X_n \to X \) as \( n \to \infty \) with probability 1, then the expression on the right converges to 0 as \(  n \to \infty \) by part (d) of <a href="#lim2" class="ref"></a>. Hence \( X_n \to X \) as \( n \to \infty \) in probability.</p>
+	</details>
+</div>
+
+<p>The converse fails with a passion. A simple counterexample is given in <a href="#cxe" class="ref"></a>. However, there is a partial converse that is very useful.</p>
+
+<div class="unit" id="sub">
+	<p class="math">If \(X_n \to X\) as \(n \to \infty\) in probability, then there exists a subsequence \((n_1, n_2, n_3 \ldots)\) of \(\N_+\) such that \(X_{n_k} \to X\) as \(k \to \infty\) with probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( X_n \to X \) as \( n \to \infty \) in probability. Then for each \(k \in \N_+\) there exists \(n_k \in \N_+\) such that \(\P\left[d\left(X_{n_k}, X \right) \gt 1 / k \right] \lt 1 / k^2\). We can make the choices so that \(n_k \lt n_{k+1}\) for each \(k\). It follows that \(\sum_{k=1}^\infty \P\left[d\left(X_{n_k}, X\right) \gt \epsilon \right] \lt \infty\) for every \(\epsilon \gt 0\). By <a href="#lim3" class="ref"></a>, \(X_{n_k} \to X\) as \(n \to \infty\) with probability 1.</p>
+		<p>Note that the proof works because \(1 / k \to 0\) as \(k \to \infty\) and \(\sum_{k=1}^\infty 1 / k^2 \lt \infty\). Any two sequences with these properties would work just as well.</p>
+	</details>
+</div>
+
+<p>There are two other modes of convergence that we will discuss later:</p>
+
+<ul>
+	<li><a href="../dist/Convergence.html">Convergence in distribution</a></li>
+	<li><a href="../expect/Spaces.html#con">Convergence in mean</a></li>
+</ul>
+
+<h3>Examples and Applications</h3>
+
+<h4>Coins</h4>
+
+<div class="unit">
+	<p class="math">Suppose that we have an infinite sequence of coins labeled \(1, 2, \ldots\) Moreover, coin \(n\) has probability of heads \(1 / n^a\) for each \(n \in \N_+\), where \(a \gt 0\) is a parameter. We toss each coin in sequence one time. In terms of \(a\), find the probability of the following events: </p>
+	<ol class="sub">
+		<li>infinitely many heads occur</li>
+		<li>infinitely many tails occur</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p> Let \(H_n\) be the event that toss \(n\) results in heads, and \(T_n\) the event that toss \(n\) results in tails.</p>
+		<ol class="sub">
+			<li>\(\P\left(\limsup_{n \to \infty} H_n\right) = 1\), \(\P\left(\limsup_{n \to \infty} T_n\right) = 1\) if \(a \in (0, 1]\)</li>
+			<li>\(\P\left(\limsup_{n \to \infty} H_n\right) = 0\), \(\P\left(\limsup_{n \to \infty} T_n\right) = 1\) if \(a \in (1, \infty)\)</li>
+		</ol>
+	</details>
+</div>
+
+<p>The following exercise gives a simple example of a sequence of random variables that converge in probability but not with probability 1. Naturally, we are assuming the standard metric on \( \R \).</p>
+
+<div class="unit" id="cxe">
+	<p class="math">Suppose again that we have a sequence of coins labeled \(1, 2, \ldots\), and that coin \(n\) lands heads up with probability \(\frac{1}{n}\) for each \(n \in \N_+\). We toss the coins in order to produce a sequence \((X_1, X_2, \ldots)\) of independent indicator random variables with
+	\[\P(X_n = 1) = \frac{1}{n}, \; \P(X_n = 0) = 1 - \frac{1}{n}; \quad n \in \N_+\]</p>
+	<ol class="sub">
+		<li>\(\P(X_n = 0 \text{ for infinitely many } n) = 1\), so that infinitely many tails occur with probability 1.</li>
+		<li>\(\P(X_n = 1 \text{ for infinitely many } n) = 1\), so that infinitely many heads occur with probability 1.</li>
+		<li>\(\P(X_n \text{ does not converge as } n \to \infty) = 1\).</li>
+		<li>\(X_n \to 0\) as \(n \to \infty\) in probability.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>This follow from the second Borel-Cantelli lemma <a href="#bcl2" class="ref"></a>, since \( \sum_{n = 1}^\infty \P(X_n = 0) = \infty \)</li>
+			<li>This also follows from the second Borel-Cantelli lemma <a href="#bcl2" class="ref"></a>, since \( \sum_{n = 1}^\infty \P(X_n = 1) = \infty \).</li>
+			<li>This follows from parts (a) and (b). Recall that the intersection of two events with probability 1 still has probability 1.</li>
+			<li>Suppose \( 0 \lt \epsilon \lt 1 \).  Then \( \P\left(\left|X_n - 0\right| \gt \epsilon\right) = \P(X_n = 1) = \frac{1}{n} \to 0 \) as \( n \to \infty \).</li>
+		</ol>
+	</details>
+</div>
+
+<h4>Discrete Spaces</h4>
+
+<p>Recall that a measurable space \( (S, \ms S) \) is <dfn>discrete</dfn> if \( S \) is countable and \( \ms S \) is the collection of all subsets of \( S \) (the power set of \( S \)). Moreover, \( \ms S \) is the Borel \( \sigma \)-algebra corresponding to the <dfn>discrete metric</dfn> \( d \) on \( S \) given by \( d(x, x) = 0 \) for \( x \in S \) and \( d(x, y) = 1 \) for distinct \( x, \, y \in S \). How do convergence with probability 1 and convergence in probability work for the discrete metric? </p>
+
+<div class="unit">
+	<p class="math">Suppose that \( (S, \ms S) \) is a discrete space. Suppose further that \( (X_1, X_2, \ldots) \) is a sequence of random variables with values in \( S \) and \( X \) is a random variable with values in \( S \), all defined on the probability space \( (\Omega, \ms F, \P) \). Relative to the discrete metric \( d \), </p>
+	<ol class="sub">
+		<li>\( X_n \to X \) as \( n \to \infty \) with probability 1 if and only if \( \P(X_n = X \text{ for all but finitely many } n \in \N_+) = 1 \).</li>
+		<li>\( X_n \to X \) as \( n \to \infty \) in probability if and only if \( \P(X_n \ne X) \to 0 \) as \( n \to \infty \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>If \( (x_1, x_2, \ldots) \) is a sequence of points in \( S \) and \( x \in S \), then relative to metric \( d \), \( x_n \to x \) as \( n \to \infty \) if and only if \( x_n = x \) for all but finitely many \( n \in \N_+ \).</li>
+			<li>If \( \epsilon \ge 1 \) then \( \P[d(X_n, X) \gt \epsilon] = 0 \). If \( \epsilon \in (0, 1) \) then \( \P[d(X_n, X) \gt \epsilon] = \P(X_n \ne X) \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Of course, it's important to realize that a discrete space can be the Borel space for metrics other than the discrete metric.</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">1. Probability Spaces</a></li>
+		<li class="child"><a href="Experiments.html" title="Random Experiments">1</a></li>
+		<li class="child"><a href="Events.html" title="Events and Random Variables">2</a></li>
+		<li class="child"><a href="Probability.html" title="Probability Measures">3</a></li>
+		<li class="child"><a href="Conditional.html" title="Conditional Probability">4</a></li>
+		<li class="child"><a href="Independence.html" title="Independence">5</a></li>
+		<li class="current">6</li>
+		<li class="child"><a href="Probability2.html" title="Probability Spaces Revisted">7</a></li>
+		<li class="child"><a href="Processes.html" title="Stochastic Processes">8</a></li>
+		<li class="child"><a href="Stop.html" title="Filtrations and Stopping Times">9</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+{
+  "$id": "https://example.invalid/o009/backend/outcomes.csv.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "cognitive_level": {
+      "enum": [
+        "understand",
+        "apply",
+        "analyze",
+        "prove"
+      ],
+      "type": "string"
+    },
+    "course_id": {
+      "pattern": "^course\\.[A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "locale": {
+      "enum": [
+        "id-ID"
+      ],
+      "type": "string"
+    },
+    "outcome_id": {
+      "pattern": "^outcome\\.[A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "active"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "outcome_id",
+    "course_id",
+    "label",
+    "locale",
+    "cognitive_level",
+    "status"
+  ],
+  "title": "Strict row schema for outcomes.csv",
+  "type": "object",
+  "x-csv": {
+    "encoding": "utf-8",
+    "header": [
+      "outcome_id",
+      "course_id",
+      "label",
+      "locale",
+      "cognitive_level",
+      "status"
+    ],
+    "line_ending": "CRLF"
+  }
+}

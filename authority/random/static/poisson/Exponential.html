@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>The Exponential Distribution</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, Poisson process, exponential distribution, memoryless property, inter-arrival time, constant failure rate, order statistics, geometric distribution, scale family, exponential family, truncated exponential distribution">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\skw}{\text{skew}}\) 
+	\(\newcommand{\kur}{\text{kurt}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="current">2</li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Thinning and Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>2. The Exponential Distribution</h2>
+</header>
+
+<h3 id="bth">Basic Theory</h3>
+
+<h4 id="mem">The Memoryless Property</h4>
+
+<p>Recall that in the basic model of the <a href="Introduction.html">Poisson process</a>, we have <q>points</q> that occur randomly in continuous time, modeled by \([0, \infty)\). The sequence of inter-arrival times is \(\bs{X} = (X_1, X_2, \ldots)\). The strong renewal assumption states that at each arrival time and at each fixed time, the process must probabilistically restart, independent of the past.  The first part of that assumption implies that \(\bs{X}\) is a sequence of independent, identically distributed variables. The second part of the assumption implies that if the first arrival has not occurred by time \(s\), then the time remaining until the arrival occurs must have the same distribution as the first arrival time itself. This is known as the <dfn>memoryless property</dfn> and can be stated in terms of a general random variable as follows:</p>
+
+<div class="unit">
+	<p class="dfn">Suppose that \( X \) takes values in \( [0, \infty) \). Then \( X \) has the <dfn>memoryless property</dfn> if the conditional distribution of \(X - s\) given \(X \gt s\) is the same as the distribution of \(X\) for every \( s \in [0, \infty) \). Equivalently,
+	\[ \P(X \gt t + s \mid X \gt s) = \P(X \gt t), \quad s, \; t \in [0, \infty) \]</p>
+</div>
+
+<p>The memoryless property determines the distribution of \(X\) up to a positive parameter, as we will see now.</p>
+
+<div class="unit" id="dst1">
+	<p class="math">Suppose that \(X\) takes values in \( [0, \infty) \) and satisfies the memoryless property. Then \(X\) has a continuous distribution and there exists \(r \in (0, \infty)\) such that the distribution function \(F\) of \(X\) is
+	\[ F(t) = 1 - e^{-r\,t}, \quad t \in [0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \(F^c = 1 - F\) denote the  denote the <a href="../dist/CDF.html#rel">right-tail distribution function</a> of \(X\) (also known as the <dfn>reliability function</dfn>), so that \(F^c(t) = \P(X \gt t)\) for \(t \ge 0\). From the definition of conditional probability, the memoryless property is equivalent to the <dfn>law of exponents</dfn>:
+		\[ F^c(t + s) = F^c(s) F^c(t), \quad s, \; t \in [0, \infty) \]
+		Let \(a = F^c(1)\). Implicit in the memoryless property is \(\P(X \gt t) \gt 0\) for \(t \in [0, \infty)\), so \(a \gt 0\). If \(n \in \N_+\) then
+		\[ F^c(n) = F^c\left(\sum_{i=1}^n 1\right) = \prod_{i=1}^n F^c(1) = \left[F^c(1)\right]^n = a^n \]
+		Next, if \(n \in \N_+\) then
+		\[ a = F^c(1) = F^c\left(\frac{n}{n}\right) = F^c\left(\sum_{i=1}^n \frac{1}{n}\right) = \prod_{i=1}^n F^c\left(\frac{1}{n}\right) = \left[F^c\left(\frac{1}{n}\right)\right]^n \] 
+		so \(F^c\left(\frac{1}{n}\right) = a^{1/n}\). Now suppose that \(m \in \N\) and \(n \in \N_+\). Then
+		\[ F^c\left(\frac{m}{n}\right) = F^c\left(\sum_{i=1}^m \frac{1}{n}\right) = \prod_{i=1}^m F^c\left(\frac{1}{n}\right) = \left[F^c\left(\frac{1}{n}\right)\right]^m = a^{m/n} \]
+		Thus we have \(F^c(q) = a^q\) for rational \(q \in [0, \infty)\). For \(t \in [0, \infty)\), there exists a sequence of rational numbers \((q_1, q_2, \ldots)\) with \(q_n \downarrow t\) as \(n \uparrow \infty\). We have \(F^c(q_n) = a^{q_n}\) for each \(n \in \N_+\). But \(F^c\) is continuous from the right, so taking limits gives \(a^t = F^c(t) \). Now let \(r = -\ln(a)\). Then \(F^c(t) = e^{-r\,t}\) for \(t \in [0, \infty)\).</p>
+	</details>
+</div>
+
+<div class="unit" id="dst2">
+	<p class="math">The probability density function of \(X\) is
+	\[ f(t) = r \, e^{-r\,t}, \quad t \in [0, \infty) \]</p>
+	<ol class="sub">
+		<li>\( f \) is decreasing on \( [0, \infty) \).</li>
+		<li>\( f \) is concave upward on \( [0, \infty) \).</li>
+		<li>\( f(t) \to 0 \) as \( t \to \infty \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The probability density function follows from <a href="#dst1" class="ref"></a> since \( f = F^\prime \). The properties in parts (a)&ndash;(c) are simple.</p>
+	</details>
+</div>
+
+<p>The probability distribution defined by the distribution function in <a href="#dst1" class="ref"></a> or equivalently the probability density function in <a href="#dst2" class="ref"></a> is the <dfn>exponential distribution</dfn> with <dfn>rate parameter</dfn> \(r\). The reciprocal \(\frac{1}{r}\) is the <a href="../special/LocationScale.html">scale parameter</a> (as will be justified in <a href="#sca1" class="ref"></a>). Note that the mode of the distribution is 0, regardless of the parameter \( r \), not very helpful as a measure of center.</p>
+
+<div class="unit" id="dst4">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Gamma.html')" class="ancillary">gamma experiment</a>, set \(n = 1\) so that the simulated random variable has an exponential distribution. Vary \(r\) with the scrollbar and watch how the shape of the probability density function changes. For selected values of \(r\), run the experiment 1000 times and compare the empirical density function to the probability density function.</p>
+</div>
+
+<div class="unit" id="dst5">
+	<p class="math">The <a href="../dist/CDF.html#qnt">quantile function</a> of \(X\) is
+	\[ F^{-1}(p) = \frac{-\ln(1 - p)}{r}, \quad p \in [0, 1) \]</p>
+	<ol class="sub">
+		<li>The median of \(X\) is \(\frac{1}{r} \ln(2) \approx 0.6931 \frac{1}{r}\)</li>
+		<li>The first quartile of \(X\) is \(\frac{1}{r}[\ln(4) - \ln(3)] \approx 0.2877 \frac{1}{r}\)</li>
+		<li>The third quartile \(X\) is \(\frac{1}{r} \ln(4) \approx 1.3863 \frac{1}{r}\)</li>
+		<li>The interquartile range is \(\frac{1}{r} \ln(3) \approx 1.0986 \frac{1}{r}\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The formula for \( F^{-1} \) follows from <a href="#dst1" class="ref"></a> by solving \( p = F^{-1}(t) \) for \( t \) in terms of \( p \).</p>
+	</details>
+</div>
+
+<div class="unit" id="dst6">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/QuantileApp.html')" class="ancillary">quantile app</a>, select the exponential distribution. Vary the scale parameter (which is \( 1/r \)) and note the shape of the distribution/quantile function. For selected values of the parameter, compute a few values of the distribution function and the quantile function.</p>
+</div>
+
+<p>Returning to the Poisson model, we have our first formal definition:</p>
+
+<div class="unit" id="dst7">
+	<p class="math">A process of random points in time is a <dfn>Poisson process</dfn> with rate \( r \in (0, \infty) \) if and only the interarrvial times are independent, and each has the exponential distribution with rate \( r \).</p>
+</div>
+
+<h4 id="frt">Constant Failure Rate</h4>
+
+<p>Suppose now that \(X\) has a continuous distribution on \([0, \infty)\) and is interpreted as the lifetime of a device. If \(F\) denotes the distribution function of \(X\), then \(F^c = 1 - F\) is the reliability function of \(X\). If \(f\) denotes the probability density function of \(X\) then the <a href="../dist/CDF.html#rel">failure rate function</a> \( h \) is given by
+\[ h(t) = \frac{f(t)}{F^c(t)}, \quad t \in [0, \infty) \]
+The property of constant failure rate, like the memoryless property, characterizes the exponential distribution.</p>
+
+<div class="unit" id="frt1">
+	<p class="math">Random variable \(X\) has constant failure rate \(r \in (0, \infty)\) if and only if \(X\) has the exponential distribution with parameter \(r\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>If \(X\) has the exponential distribution with rate \(r \gt 0\), then from <a href="#dst1" class="ref"></a>, the reliability function is \(F^c(t) = e^{-r t}\) and from <a href="#dst2" class="ref">,</a> the probability density function is \(f(t) = r e^{-r t}\), so trivially \(X\) has constant rate \(r\). For the converse, recall that in general, the distribution of a lifetime variable \(X\) is determined by the failure rate function \(h\). Specifically, if \(F^c = 1 - F\) denotes the reliability function, then \((F^c)^\prime = -f\), so \(-h = (F^c)^\prime / F^c\). Integrating and then taking exponentials gives
+		\[ F^c(t) = \exp\left(-\int_0^t h(s) \, ds\right), \quad t \in [0, \infty) \]
+		In particular, if \(h(t) = r\) for \(t \in [0, \infty)\), then \(F^c(t) = e^{-r t}\) for \(t \in [0, \infty)\).</p>
+	</details>
+</div>
+
+<p>The memoryless and constant failure rate properties are the most famous characterizations of the exponential distribution, but are by no means the only ones. Indeed, entire books have been written on characterizations of this distribution.</p>
+
+<h4 id="mom">Moments</h4>
+
+<p>Suppose again that \(X\) has the exponential distribution with rate parameter \(r \gt 0\). Naturaly, we want to know the the <a href="../expect/Properties.html">mean</a>, <a href="../expect/Variance.html">variance</a>, and various other moments of \(X\).</p>
+
+<div class="unit" id="mom1">
+	<p class="math">If \(n \in \N\) then \(\E\left(X^n\right) = n! \big/ r^n\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By the change of variables theorem for expected value,
+		\[ \E\left(X^n\right) = \int_0^\infty t^n r e^{-r\,t} \, dt\]
+		Integrating by parts gives \(\E\left(X^n\right) = \frac{n}{r} \E\left(X^{n-1}\right)\) for \(n \in \N+\). Of course \(\E\left(X^0\right) = 1\) so the result now follows by induction.</p>
+	</details>
+</div>
+
+<p>More generally, \(\E\left(X^a\right) = \Gamma(a + 1) \big/ r^a\) for every \(a \in [0, \infty)\), where \(\Gamma\) is the <a href="../special/Gamma.html">gamma function</a>.</p>
+
+<div class="unit" id="mom2">
+	<p class="math">In particular.</p>
+	<ol class="sub">
+		<li>\(\E(X) = \frac{1}{r}\)</li>
+		<li>\(\var(X) = \frac{1}{r^2}\)</li>
+		<li>\(\skw(X) = 2\)</li>
+		<li>\(\kur(X) = 9\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follow from <a href="#mom1" class="ref"></a> and the compuational formulas for variance, skewness, and kurtosis.</p>
+	</details>
+</div>
+
+<p>In the context of the Poisson process, the parameter \(r\) is known as the <dfn>rate</dfn> of the process. On average, there are \(1 / r\) time units between arrivals, so the arrivals come at an average rate of \(r\) per unit time. The Poisson process is completely determined by the sequence of inter-arrival times, and hence is completely determined by the rate \( r \).</p>
+
+<p>Note also that the mean and standard deviation are equal for an exponential distribution, and that the median is always smaller than the mean. Recall also that skewness and kurtosis are standardized measures, and so do not depend on the parameter \(r\) (which is the reciprocal of the scale parameter). The <dfn>excess kurtosis</dfn> is \(\kur(X) - 3 = 6\).</p>
+
+<div class="unit" id="mom3">
+	<p class="math">The <a href="../expect/Generating.html#mgf">moment generating function</a> of \(X\) is
+	\[ M(s) = \E\left(e^{s X}\right) = \frac{r}{r - s}, \quad s \in (-\infty, r) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By the change of variables theorem
+		\[ M(s) = \int_0^\infty e^{s t} r e^{-r t} \, dt = \int_0^\infty r e^{(s - r)t} \, dt \]
+		The integral evaluates to \( \frac{r}{r - s} \) if \( s \lt r \) and to \( \infty \) if \( s \ge r \).</p>
+	</details>
+</div>
+
+<div class="unit" id="mom4">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Gamma.html')" class="ancillary">gamma experiment</a>, set \(n = 1\) so that the simulated random variable has an exponential distribution. Vary \(r\) with the scrollbar and watch how the mean\( \pm \)standard deviation bar changes. For various values of \(r\), run the experiment 1000 times and compare the empirical mean and standard deviation to the distribution mean and standard deviation, respectively.</p>
+</div>
+
+<h3 id="prp">Additional Properties</h3>
+
+<p>The exponential distribution has a number of interesting and important mathematical properties. First, and not surprisingly, it's a member of the <a href="../special/GeneralExponential.html">general exponential family</a>.</p>
+
+<div class="unit" id="prp1">
+	<p class="math">Suppose that \( X \) has the exponential distribution with rate parameter \( r \in (0, \infty) \). Then \( X \) has a one parameter general exponential distribution, with natural parameter \( -r \) and natural statistic \( X \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows directly from the form of the PDF in <a href="#dst2" class="ref"></a> and the definition of the general exponential family.</p>
+	</details>
+</div>
+
+<h4 id="sca">The Scaling Property</h4>
+
+<p>As suggested earlier, the exponential distribution is a <a href="../special/LocationScale.html">scale family</a>, and \(1/r\) is the scale parameter. Hence the distribution is trivially closed under scale transformations.</p>
+
+<div class="unit" id="sca1">
+	<p class="math">Suppose that \(X\) has the exponential distribution with rate parameter \(r \gt 0\) and that \(c \gt 0\). Then \(c X\) has the exponential distribution with rate parameter \(r / c\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \(t \ge 0\), \(\P(c\,X \gt t) = \P(X \gt t / c) = e^{-r (t / c)} = e^{-(r / c) t}\).</p>
+	</details>
+</div>
+
+<p>Recall that multiplying a random variable by a positive constant frequently corresponds to a change of units (minutes into hours for a lifetime variable, for example). Thus, the exponential distribution is preserved under such changes of units. In the context of the Poisson process, this has to be the case, since the memoryless property, which led to the exponential distribution in the first place, clearly does not depend on the time units.</p>
+
+<p>In fact, the exponential distribution with rate parameter 1 is referred to as the <dfn>standard exponential distribution</dfn>. From <a href="#sca1" class="ref"></a>, if \( Z \) has the standard exponential distribution and \( r \gt 0 \), then \( X = \frac{1}{r} Z \) has the exponential distribution with rate parameter \( r \). Conversely, if \( X \) has the exponential distribution with rate \( r \gt 0 \) then \( Z = r X \) has the standard exponential distribution.</p>
+
+<p>Similarly, the Poisson process with rate parameter 1 is referred to as the <dfn>standard Poisson process</dfn>. If \( Z_i \) is the \( i \)th inter-arrival time for the standard Poisson process for \( i \in \N_+ \), then letting \( X_i = \frac{1}{r} Z_i \) for \( i \in \N_+ \) gives the inter-arrival times for the Poisson process with rate \( r \). Conversely if \( X_i \) is the \( i \)th inter-arrival time of the Poisson process with rate \( r \gt 0 \) for \( i \in \N_+ \), then \( Z_i = r X_i \) for \( i \in \N_+ \) gives the inter-arrival times for the standard Poisson process.</p>
+
+<h4 id="geo">Relation to the Geometric Distribution</h4>
+
+<p>In many respects, the <a href="../bernoulli/Geometric.html">geometric distribution</a> is a discrete version of the exponential distribution. In particular, recall that the geometric distribution on \( \N_+ \) is the only distribution on \(\N_+\) with the memoryless and constant rate properties. So it is not surprising that the two distributions are also connected through various transformations and limits.</p>
+
+<div class="unit" id="geo1">
+	<p class="math">Suppose that \(X\) has the exponential distribution with rate parameter \(r \gt 0\). Then</p>
+	<ol class="sub">
+		<li>\(\lfloor X \rfloor\) has the geometric distributions on \(\N\) with success parameter \(1 - e^{-r}\).</li>
+		<li>\(\lceil X \rceil\) has the geometric distributions on \(\N_+\) with success parameter \(1 - e^{-r}\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \(F\) denote the distribution function of \(X\) in <a href="#dst1" class="ref"></a></p>
+		<ol class="sub">
+			<li>For \(n \in \N\) note that \(\P(\lfloor X \rfloor = n) = \P(n \le X \lt n + 1) = F(n + 1) - F(n)\). Substituting into and simplifying gives \(\P(\lfloor X \rfloor = n) = (e^{-r})^n (1 - e^{-r})\).</li>
+			<li>For \(n \in \N_+\) note that \(\P(\lceil X \rceil = n) = \P(n - 1 \lt X \le n) = F(n) - F(n - 1)\). Substituting and simplifying gives \(\P(\lceil X \rceil = n) = (e^{-r})^{n - 1} (1 - e^{-r})\).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Our next discussion generalizes part (a) of <a href="#geo1" class="ref"></a> and also introduces the <dfn>truncated exponential distribution</dfn>. In a sense, this discussion is a continuous version of the <a href="../bernoulli/Geometric.html#act">alternating coin tossing problem</a> studied in the section on the <a href="../bernoulli/Geometric.html">geometric distribution</a>.</p>
+
+<div class="unit" id="geo2">
+	<p class="math">Suppose that \(X\) has the exponential distribution with rate parameter \(r \in (0, \infty)\) and let \(t \in (0, \infty)\). Define \(N = \max\{n \in \N: n t \lt X\}\) and \(Y = X - N t\) so that \(X = N t + Y\). Then</p>
+	<ol class="sub">
+		<li>\(N\) and \(Y\) are independent.</li>
+		<li>\(N\) has the geometric distribution on \(\N\) with success parameter \(1 - e^{-r t}\)</li>
+		<li>\(Y\) has a continuous distribution on \([0, t]\) with probability density function \(g\) given by
+			\[g(s) = \frac{r e^{-r s}}{1 - e^{-r t}}, \quad s \in [0, t]\]
+		</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \(n \in \N\) and \(s \in [0, t]\). Then
+		\[\P(N = n, Y \le s) = \P(n t \lt X \le n t + s) = e^{-r n t} - e^{-r(n t + s)} = e^{-r n t}\left(1 - e^{-r s}\right)\]
+		The independence of \(Y\) and \(N\) now follows from the <a href="../dist/Joint.html#fac">factroing theorem</a> since the last expression is a product of a function of \(n\) only and a function of \(s\) only. But more explicitly we can rewrite the expression as
+		\[\P(N = n, Y \le s) = \left(e^{-r t}\right)^n\left(1 - e^{-r t}\right) \frac{1 - e^{-r s}}{1 - e^{-r t}}, \quad n \in \N, \, s \in [0, t]\]
+		The function \(n \mapsto \left(e^{-r t}\right)^n\left(1 - e^{-r t}\right)\) is the PDF of the geometric distribution on \(\N\) with success parameter \(1 - e^{-r t}\) while the function \(s \mapsto \left(1 - e^{-r s}\right) / \left(1 - e^{- r t}\right) \) is tje cumulative distribution function for a continuous distribution on \([0, t]\) with PDF given in part (b).</p>
+	</details>
+</div>
+
+<div class="unit" id="geo3">
+	<p class="math">In the context of <a href="#geo2" class="ref"></a>, the distribution of \(Y\) is the same as the conditional distribution of \(X\) given \(X \le t\), and this is the exponential distribution <dfn>truncated at \(t\)</dfn>.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>If \(f\) denotes the PDF of \(X\) then the conditional PDF of \(X\) given \(X \le t\) is given by \(f(s) / \P(X \le t)\) for \(s \in [0, t]\), and of course this is the function \(g\) in <a href="#geo2" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>It's not difficult to find the <a href="../expect/Properties.html">mean</a>, <a href="../expect/Variance.html">variance</a>, and <a href="../expect/Generating.html">moment generating function</a> of the truncated exponential distribution directly from the density function, but the relationship between \(X\), \(Y\) and \(N\), and the independence of \(Y\) and \(N\), provides another clever method.</p>
+
+<div class="unit" id="geo4">
+	<p class="math">Suppose that \(Y\) has the exponential distribution with parameter \(r \in (0, \infty)\) truncated at \(t \in (0, \infty)\) as in <a href="#geo2" class="ref"></a>. Then</p>
+	<ol class="sub">
+		<li>The mean of \(Y\) is
+			\[\E(Y) = \frac{1}{r} - t \frac{e^{-rt}}{1 - e^{-rt}}\]</li>
+		<li>The variance of \(Y\) is 
+			\[\var(Y) = \frac{1}{r^2} - t^2 \frac{e^{-rt}}{\left(1 - e^{-rt}\right)^2}\]</li>
+		<li>The moment generating function of \(Y\) is given by
+			\[\E\left(e^{s Y}\right) = \frac{r}{r - s} \frac{1 - e^{-(r - s)t}}{1 - e^{-r t}}, \quad s \lt t\]
+		</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The crucial facts are that \(X = t N + Y\) and that \(N\) and \(Y\) are independent.</p>
+		<ol class="sub">
+			<li>\(\E(X) = t \E(N) + \E(Y)\). But \(\E(X) = 1 / r \) and \(\E(N) = e^{-r t} / (1 - e^{-r t})\).</li>
+			<li>\(\var(X) = t^2 \var(N) + \var(Y)\). But \(\var(X) = 1 / r^2\) and \(\var(N) = e^{-r t} / (1 - e^{-r t})^2\).</li>
+			<li>\(\E\left(e^{s X}\right) = \E\left(e^{s t N}\right) \E\left(e^{s Y}\right)\). But \(\E\left(e^{s X}\right) = r / (r - s)\) for \(s \lt r\) and \(\E\left(e^{s t N}\right) = \left(1 - e^{-r t}\right) / \left(1 - e^{-r t} e^{r s}\right)\) for \(s \lt r\)</li>
+		</ol>
+	</details>
+</div>
+
+<p>Finally for this discussion, we note some limiting distributions of \(Y\).</p>
+
+<div class="unit" id="geo5">
+	<p class="math">Suppose again that \(Y\) has the exponential distribution with parameter \(r \in (0, \infty)\) truncated at \(t \in (0, \infty)\) as in <a href="#geo2" class="ref"></a>. Then</p>
+	<ol class="sub">
+		<li>The distribution of \(Y\) converges to the exponential distribution with parameter \(r\) as \(t \uparrow \infty\).</li>
+		<li>The distribution of \(Y\) converges to the uniform distribution on \([0, t]\) as \(r \downarrow 0\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Part (a) is obvious from <a href="#geo2" class="ref"></a> or <a href="#geo3" class="ref"></a>. Part (b) also follows from <a href="#geo2" class="ref"></a> or from part (c) of <a href="#geo4" class="ref"></a> and L'Hospital's rule.</p>
+	</details>
+</div>
+
+<p>The following connection between the exponential and geometric distributions is interesting by itself, but will also be very important in the section on <a href="Splitting.html">splitting Poisson processes</a>. In words, a random, geometrically distributed sum of independent, identically distributed exponential variables is itself exponential.</p>
+
+<div class="unit" id="geo6">
+	<p class="math">Suppose that \(\bs{X} = (X_1, X_2, \ldots)\) is a sequence of independent variables, each with the exponential distribution with rate \(r\). Suppose that \(U\) has the geometric distribution on \(\N_+\) with success parameter \(p\) and is independent of \(\bs{X}\). Then \(Y = \sum_{i=1}^U X_i\) has the exponential distribution with rate \(r p\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that the moment generating function of \(Y\) is \(P \circ M\) where \(M\) is the common moment generating function of the terms in the sum, and \(P\) is the probability generating function of the number of terms \(U\). But \(M(s) = r \big/ (r - s)\) for \(s \lt r\) and \(P(s) = p s \big/ \left[1 - (1 - p)s\right]\) for \(s \lt 1 \big/ (1 - p)\). Thus,
+		\[ (P \circ M)(s) = \frac{p r \big/ (r - s)}{1 - (1 - p) r \big/ (r - s)} = \frac{pr}{pr - s}, \quad s \lt pr \]
+		It follows that \(Y\) has the exponential distribution with parameter \(p r\)</p>
+	</details>
+</div>
+
+<p>The next result explores the connection between the Bernoulli trials process and the Poisson process that was begun in the <a href="Introduction.html#ber">introduction</a>. </p>
+
+<div class="unit" id="geo7">
+	<p class="math">For \( n \in \N_+ \), suppose that \( U_n \) has the geometric distribution on \( \N_+ \) with success parameter \( p_n \in (0, 1) \), where \( n p_n \to r \in (0, \infty\) \) as \( n \to \infty \). Then the distribution of \( U_n / n \) <a href="../dist/Convergence.html">converges</a> to the exponential distribution with parameter \( r \) as \( n \to \infty \). </p>
+	<details>
+	<summary>Details:</summary>
+		<p>Let \( F_n \) denote the CDF of \( U_n / n \). Then for \( x \in [0, \infty) \)
+		\[ F_n(x) = \P\left(\frac{U_n}{n} \le x\right) = \P(U_n \le n x) = \P\left(U_n \le \lfloor n x \rfloor\right) = 1 - \left(1 - p_n\right)^{\lfloor n x \rfloor} \]
+		But by a famous limit from calculus, \( \left(1 - p_n\right)^n = \left(1 - \frac{n p_n}{n}\right)^n \to e^{-r} \) as \( n \to \infty \), and hence \( \left(1 - p_n\right)^{n x} \to e^{-r x} \) as \( n \to \infty \). But by definition, \( \lfloor n x \rfloor \le n x \lt \lfloor n x \rfloor + 1\) or equivalently, \( n x - 1 \lt \lfloor n x \rfloor \le n x \) so it follows that \( \left(1 - p_n \right)^{\lfloor n x \rfloor} \to e^{- r x} \) as \( n \to \infty \). Hence \( F_n(x) \to 1 - e^{-r x} \) as \( n \to \infty \), which is the CDF of the exponential distribution.</p>
+	</details>
+</div>
+
+<p>To understand this result more clearly, suppose that we have a <em>sequence</em> of Bernoulli trials processes. In process \( n \in \N_+ \), we run the trials at a rate of \( n \) per unit time, with probability of success \( p_n \). Thus, the actual time of the first success in process \( n \) is \( U_n / n \). The last result shows that if \( n p_n \to r \gt 0 \) as \( n \to \infty \), then the sequence of Bernoulli trials processes converges to the Poisson process with rate parameter \( r \) as \( n \to \infty \). We will return to this point in subsequent sections.</p>
+
+<h4 id="ord">Orderings and Order Statistics</h4>
+
+<div class="unit" id="ord1">
+	<p class="math">Suppose that \(X\) and \(Y\) have exponential distributions with parameters \(a\) and \(b\), respectively, and are independent. Then
+	\[ \P(X \lt Y) = \frac{a}{a + b} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This result can be proved in a straightforward way by integrating the joint PDF of \((X, Y)\) over \(\{(x, y): 0 \lt x \lt y \lt \infty\}\). A more elegant proof uses conditioning and the moment generating function in <a href="#mom3" class="ref"></a>:
+		\[ \P(Y \gt X) = \E\left[\P(Y \gt X \mid X)\right] = \E\left(e^{-b X}\right) = \frac{a}{a + b}\]</p>
+	</details>
+</div>
+
+<p>The next result gives an important random version of the memoryless property.</p>
+
+<div class="unit" id="ord2">
+	<p class="math">Suppose that \(X\) and \(Y\) are independent variables with values in \([0, \infty)\) and that \(Y\) has the exponential distribution with rate parameter \(r \gt 0\). Then \(X\) and \(Y - X\) are conditionally independent given \(X \lt Y\), and the conditional distribution of \(Y - X\) is also exponential with parameter \(r\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \(A \subseteq [0, \infty)\) (measurable of course) and \(t \ge 0\). Then
+		\[ \P(X \in A, Y - X \ge t \mid X \lt Y) = \frac{\P(X \in A, Y - X \ge t)}{\P(X \lt Y)} \]
+		But conditioning on \(X\) we can write the numerator as
+		\[ \P(X \in A, Y - X \gt t) = \E\left[\P(X \in A, Y - X \gt t \mid X)\right] = \E\left[\P(Y \gt X + t \mid X), X \in A\right] = \E\left[e^{-r(t + X)}, X \in A\right] = e^{-rt} \E\left(e^{-r\,X}, X \in A\right) \]
+		Similarly, conditioning on \(X\) gives \(\P(X \lt Y) = \E\left(e^{-r\,X}\right)\). Thus
+		\[ \P(X \in A, Y - X \gt t \mid X \lt Y) = e^{-r\,t} \frac{\E\left(e^{-r\,X}, X \in A\right)}{\E\left(e^{-rX}\right)} \]
+		Letting \(A = [0, \infty)\) we have \(\P(Y \gt t) = e^{-r\,t}\) so given \(X \lt Y\), the variable \(Y - X\) has the exponential distribution with parameter \(r\). Letting \(t = 0\), we see that given \(X \lt Y\), variable \(X\) has the distribution
+		\[ A \mapsto \frac{\E\left(e^{-r\,X}, X \in A\right)}{\E\left(e^{-r\,X}\right)} \]
+		Finally, because of the factoring, \(X\) and \(Y - X\) are conditionally independent given \(X \lt Y\).</p>
+	</details>
+</div>
+
+<p>For our next discussion, suppose that \(\bs{X} = (X_1, X_2, \ldots, X_n)\) is a sequence of independent random variables, and that \(X_i\) has the exponential distribution with rate parameter \(r_i \gt 0\) for each \(i \in \{1, 2, \ldots, n\}\).</p>
+
+<div class="unit" id="ord3">
+	<p class="math">Let \(U = \min\{X_1, X_2, \ldots, X_n\}\). Then \(U\) has the exponential distribution with parameter \(\sum_{i=1}^n r_i\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that in general, \(\{U \gt t\} = \{X_1 \gt t, X_2 \gt t, \ldots, X_n \gt t\}\) and therefore by independence, \(F^c(t) = F^c_1(t) F^c_2(t) \cdots F^c_n(t)\) for \(t \ge 0\), where \(F^c\) is the reliability function of \(U\) and \(F^c_i\) is the reliability function of \(X_i\) for each \(i\). When \(X_i\) has the exponential distribution with rate \(r_i\) for each \(i\), we have \(F^c(t) = \exp\left[-\left(\sum_{i=1}^n r_i\right) t\right]\) for \(t \ge 0\).</p>
+	</details>
+</div>
+
+<p>In the context of reliability, if a series system has independent components, each with an exponentially distributed lifetime, then the lifetime of the system is also exponentially distributed, and the failure rate of the system is the sum of the component failure rates. In the context of random processes, if we have \(n\) independent Poisson process, then the new process obtained by combining the random points in time is also Poisson, and the rate of the new process is the sum of the rates of the individual processes (we will return to this point latter).</p>
+
+<div class="unit" id="ord4">
+	<p class="math">Let \(V = \max\{X_1, X_2, \ldots, X_n\}\). Then \(V\) has distribution function \( F \) given by
+	\[ F(t) = \prod_{i=1}^n \left(1 - e^{-r_i t}\right), \quad t \in [0, \infty) \]
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that in general, \(\{V \le t\} = \{X_1 \le t, X_2 \le t, \ldots, X_n \le t\}\) and therefore by independence, \(F(t) = F_1(t) F_2(t) \cdots F_n(t)\) for \(t \ge 0\), where \(F\) is the distribution function of \(V\) and \(F_i\) is the distribution function of \(X_i\) for each \(i\).</p>
+	</details>
+</div>
+
+<p>Consider the special case where \( r_i = r \in (0, \infty) \) for each \( i \in \N_+ \). In statistical terms, \(\bs{X}\) is a random sample of size \( n \) from the exponential distribution with parameter \( r \). From <a href="#ord3" class="ref"></a>, the minimum \(U\) has the exponential distribution with rate \(n r\) while by <a href="#ord4" class="ref"></a>, the maximum \(V\) has distribution function \(F(t) = \left(1 - e^{-r t}\right)^n\) for \(t \in [0, \infty)\). Recall that \(U\) and \(V\) are the first and last <a href="../sample/OrderStatistics.html">order statistics</a>, respectively.</p>
+
+<div class="unit" id="ord5">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/OrderStatistic.html')" class="ancillary">order statistic experiment</a>, select the exponential distribution.</p>
+	<ol class="sub">
+		<li>Set \(k = 1\) (this gives the minimum \(U\)). Vary \(n\) with the scrollbar and note the shape of the probability density function. For selected values of \(n\), run the simulation 1000 times and compare the empirical density function to the true probability density function.</li>
+		<li>Vary \(n\) with the scrollbar, set \(k = n\) each time (this gives the maximum \(V\)), and note the shape of the probability density function. For selected values of \(n\), run the simulation 1000 times and compare the empirical density function to the true probability density function.</li>
+	</ol>
+</div>
+
+<p>Curiously, the distribution of the maximum of independent, identically distributed exponential variables is also the distribution of the sum of independent exponential variables, with rates that grow linearly with the index.</p>
+
+<div class="unit" id="ord6">
+	<p class="math">Suppose that \( r_i = i r \) for each \( i \in \{1, 2, \ldots, n\} \) where \( r \in (0, \infty) \). Then \( Y = \sum_{i=1}^n X_i \) has distribution function \( F \) given by
+	\[ F(t) = (1 - e^{-r t})^n, \quad t \in [0, \infty) \]
+	</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By assumption, \( X_k \) has PDF \( f_k \) given by \( f_k(t) = k r e^{-k r t} \) for \( t \in [0, \infty) \). We want to show that \( Y_n = \sum_{i=1}^n X_i\) has PDF \( g_n \) given by 
+		\[ g_n(t) = n r e^{-r t} (1 - e^{-r t})^{n-1}, \quad t \in [0, \infty) \]
+		The PDF of a sum of independent variables is the <a href="../dist/Transformations.html#sum">convolution</a> of the individual PDFs, so we want to show that
+		\[ f_1 * f_2 * \cdots * f_n = g_n, \quad n \in \N_+ \]
+		The proof is by induction on \( n \). Trivially \( f_1 = g_1 \), so suppose the result holds for a given \( n \in \N_+ \). Then
+		\begin{align*}
+			g_n * f_{n+1}(t) &amp; = \int_0^t g_n(s) f_{n+1}(t - s) ds = \int_0^t n r e^{-r s}(1 - e^{-r s})^{n-1} (n + 1) r e^{-r (n + 1) (t - s)} ds \\
+			&amp; = r (n + 1) e^{-r(n + 1)t} \int_0^t n(1 - e^{-rs})^{n-1} r e^{r n s} ds
+		\end{align*}
+		Now substitute \( u = e^{r s} \) so that \( du = r e^{r s} ds \) or equivalently \(r ds = du / u\). After some algebra,
+		\begin{align*}
+			g_n * f_{n+1}(t) &amp; = r (n + 1) e^{-r (n + 1)t} \int_1^{e^{rt}} n (u - 1)^{n-1} du \\
+			&amp; = r(n + 1) e^{-r(n + 1) t}(e^{rt} - 1)^n = r(n + 1)e^{-rt}(1 - e^{-rt})^n = g_{n+1}(t)
+		\end{align*}</p>
+</details>
+</div>
+
+<p>This result has an application to the <dfn>Yule process</dfn>, named for <a href="JavaScript:openAncillary('../biographies/Yule.html')" class="ancillary">George Yule</a>. The <a href="../markov/Branching2.html#yul">Yule process</a>, which has some parallels with the Poisson process, is studied in the chapter on <a href="../markov/index.html">Markov processes</a>. We can now generalize <a href="#ord1" class="ref"></a>:</p>
+
+<div class="unit" id="ord7">
+	<p class="math">For \(i \in \{1, 2, \ldots, n\}\),
+	\[ \P\left(X_i \lt X_j \text{ for all } j \ne i\right) = \frac{r_i}{\sum_{j=1}^n r_j} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>First, note that \(X_i \lt X_j\) for all \(i \ne j\) if and only if \(X_i \lt \min\{X_j: j \ne i\}\). But the minimum on the right is independent of \(X_i\) and by <a href="#ord3" class="ref"></a>, has the exponential distribution with parameter \(\sum_{j \ne i} r_j\). The result now follows from <a href="#ord1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>Suppose that for each \(i\), \(X_i\) is the time until an event of interest occurs (the arrival of a customer, the failure of a device, etc.) and that these times are independent and exponentially distributed.  Then the <em>first</em> time \(U\) that one of the events occurs is also exponentially distributed, and the probability that the first event to occur is event \(i\) is proportional to the rate \(r_i\).</p>
+
+<div class="unit" id="ord8">
+	<p class="math">The probability of a total ordering is
+	\[ \P(X_1 \lt X_2 \lt \cdots \lt X_n) = \prod_{i=1}^n \frac{r_i}{\sum_{j=i}^n r_j} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( A = \left\{X_1 \lt X_j \text{ for all } j \in \{2, 3, \ldots, n\}\right\} \). then
+		\[ \P(X_1 \lt X_2 \lt \cdots \lt X_n) = \P(A, X_2 \lt X_3 \lt \cdots \lt X_n) = \P(A) \P(X_2 
+		\lt X_3 \lt \cdots \lt X_n \mid A) \]
+		But \( \P(A) = \frac{r_1}{\sum_{i=1}^n r_i} \) from the previous result, and \( \{X_2 \lt X_3 \lt \cdots \lt X_n\} \) is independent of \( A \). Thus we have
+		\[ \P(X_1 \lt X_2 \lt \cdots \lt X_n) = \frac{r_1}{\sum_{i=1}^n r_i} \P(X_2 \lt X_3 \lt \cdots \lt X_n) \]
+		so the result follows by induction.</p>
+	</details>
+</div>
+
+<p>Of course, the probabilities of other orderings can be computed by permuting the parameters appropriately in <a href="#ord8" class="ref"></a>.</p>
+
+<p>Results <a href="#ord3" class="ref"></a> and <a href="#ord7" class="ref"></a> are very important in the theory of <a href="../markov/Continuous.html">continuous-time Markov chains</a>. But for that application and others, it's convenient to extend the exponential distribution to two degenerate cases: point mass at 0 and point mass at \( \infty \) (so the first is the distribution of a random variable that takes the value 0 with probability 1, and the second the distribution of a random variable that takes the value \( \infty \) with probability 1). In terms of the rate parameter \( r \) and the distribution function \( F \), point mass at 0 corresponds to \( r = \infty \) so that \( F(t) = 1 \) for \( 0 \lt t \lt \infty \). Point mass at \( \infty \) corresponds to \( r = 0 \) so that \( F(t) = 0 \) for \( 0 \lt t \lt \infty \). The memoryless property, as expressed in terms of the reliability function \( F^c \), still holds for these degenerate cases on \( (0, \infty) \):
+\[ F^c(s) F^c(t) = F^c(s + t), \quad s, \, t \in (0, \infty) \]
+We also need to extend some of results above for a finite number of variables to a countably infinite number of variables. So for the remainder of this discussion, suppose that \( \{X_i: i \in I\} \) is a countable collection of independent random variables, and that \( X_i \) has the exponential distribution with parameter \( r_i \in (0, \infty) \) for each \( i \in I \).</p>
+
+<div class="unit" id="ord9">
+	<p class="math">Let \( U = \inf\{X_i: i \in I\} \). Then \( U \) has the exponential distribution with parameter \( \sum_{i \in I} r_i \)</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is almost the same as in <a href="#ord3" class="ref"></a>. Note that \( \{U \ge t\} = \{X_i \ge t \text{ for all } i \in I\} \) and so 
+		\[ \P(U \ge t) = \prod_{i \in I} \P(X_i \ge t) = \prod_{i \in I} e^{-r_i t} = \exp\left[-\left(\sum_{i \in I} r_i\right)t \right] \]
+		If \( \sum_{i \in I} r_i \lt \infty \) then \( U \) has a proper exponential distribution with the sum as the parameter. If \( \sum_{i \in I} r_i = \infty \) then \( P(U \ge t) = 0 \) for all \( t \in (0, \infty) \) so \( P(U = 0) = 1 \).
+	</details>
+</div>
+
+<div class="unit" id="ord10">
+	<p class="math">For \(i \in \N_+\),
+	\[ \P\left(X_i \lt X_j \text{ for all } j \in I - \{i\}\right) = \frac{r_i}{\sum_{j \in I} r_j} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>First note that since the variables have continuous distributions and \( I \) is countable,
+		\[ \P\left(X_i \lt X_j \text{ for all } j \in I - \{i\} \right) = \P\left(X_i \le X_j \text{ for all } j \in I - \{i\}\right)\]
+		Next note that \(X_i \le X_j\) for all \(j \in I - \{i\}\) if and only if \(X_i \le U_i \) where \(U_i = \inf\left\{X_j: j \in I - \{i\}\right\}\). But \( U_i \) is independent of \(X_i\) and, by <a href="#ord8" class="ref"></a>, has the exponential distribution with parameter \(s_i = \sum_{j \in I - \{i\}} r_j\). If \( s_i = \infty \), then \( U_i \) is 0 with probability 1, and so \( P(X_i \le U_i) = 0 = r_i / s_i \). If \( s_i \lt \infty \), then \( X_i \) and \( U_i \) have proper exponential distributions, and so the result now follows from <a href="#ord1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>We need one last result in this setting: a condition that ensures that the sum of an infinite collection of exponential variables is finite with probability one.</p>
+
+<div class="unit" id="ord11">
+	<p class="math">Let \( Y = \sum_{i \in I} X_i \) and \( \mu = \sum_{i \in I} 1 / r_i \). Then \( \mu = \E(Y) \) and \( \P(Y \lt \infty) = 1 \) if and only if \( \mu \lt \infty \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The result is trivial if \( I \) is finite, so assume that \( I = \N_+ \). Recall that \( \E(X_i) = 1 / r_i \) and hence \( \mu = \E(Y) \). Trivially if \( \mu \lt \infty \) then \( \P(Y \lt \infty) = 1 \). Conversely, suppose that \( \P(Y \lt \infty) = 1 \). Then \( \P(e^{-Y} \gt 0) = 1 \) and hence \( \E(e^{-Y}) \gt 0 \). Using independence and the moment generating function in <a href="#mom3" class="ref"></a>,
+		\[ \E(e^{-Y}) = \E\left(\prod_{i=1}^\infty e^{-X_i}\right) = \prod_{i=1}^\infty \E(e^{-X_i}) = \prod_{i=1}^\infty \frac{r_i}{r_i + 1} \gt 0\]
+		Next <a href="../prob/Convergence.html#prd">recall</a> that if \( p_i \in (0, 1) \) for \( i \in \N_+ \) then
+		\[ \prod_{i=1}^\infty p_i \gt 0 \text{ if and only if } \sum_{i=1}^\infty (1 - p_i) \lt \infty \]
+		Hence it follows that
+		\[ \sum_{i=1}^\infty \left(1 - \frac{r_i}{r_i + 1}\right) = \sum_{i=1}^\infty \frac{1}{r_i + 1} \lt \infty \]
+		In particular, this means that \( 1/(r_i + 1) \to 0 \) as \( i \to \infty \) and hence \( r_i \to \infty \) as \( i \to \infty \). But then
+		\[ \frac{1/(r_i + 1)}{1/r_i} = \frac{r_i}{r_i + 1} \to 1 \text{ as } i \to \infty \]
+		By the comparison test for infinite series, it follows that
+		\[ \mu = \sum_{i=1}^\infty \frac{1}{r_i} \lt \infty \]</p>
+	</details>
+</div>
+
+
+<h3 id="exe">Computational Exercises</h3>
+
+<div class="unit" id="exe1">
+	<p class="math">Show directly that the exponential probability density function is a valid probability density function.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Clearly \( f(t) = r e^{-r t} \gt 0 \) for \( t \in [0, \infty) \). Simple integration that
+		\[ \int_0^\infty r e^{-r t} \, dt = 1 \]</p>
+	</details>
+</div>
+
+<div class="unit" id="exe2">
+	<p class="math">Suppose that the length of a telephone call (in minutes) is exponentially distributed with rate parameter \(r = 0.2\). Find each of the following:</p>
+	<ol class="sub">
+		<li>The probability that the call lasts between 2 and 7 minutes.</li>
+		<li>The median, the first and third quartiles, and the interquartile range of the call length.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \(X\) denote the call length.</p>
+		<ol class="sub">
+			<li>\(\P(2 \lt X \lt 7) = 0.4237\)</li>
+			<li>\(q_1 = 1.4384\), \(q_2 = 3.4657\), \(q_3 = 6.9315\), \(q_3 - q_1 = 5.4931\)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe3">
+	<p class="math">Suppose that the lifetime of a certain electronic component (in hours) is exponentially distributed with rate parameter \(r = 0.001\). Find each of the following:</p>
+	<ol class="sub">
+		<li>The probability that the component lasts at least 2000 hours.</li>
+		<li>The median, the first and third quartiles, and the interquartile range of the lifetime.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \(T\) denote the lifetime</p>
+		<ol class="sub">
+			<li>\(\P(T \ge 2000) = 0.1353\)</li>
+			<li>\(q_1 = 287.682\), \(q_2 = 693.147\), \(q_3 = 1386.294\), \(q_3 - q_1 = 1098.612\)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe4">
+	<p class="math">Suppose that the time between requests to a web server (in seconds) is exponentially distributed with rate parameter \(r = 2\). Find each of the following:</p>
+	<ol class="sub">
+		<li>The mean and standard deviation of the time between requests.</li>
+		<li>The probability that the time between requests is less that 0.5 seconds.</li>
+		<li>The median, the first and third quartiles, and the interquartile range of the time between requests.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \(T\) denote the time between requests.</p>
+		<ol class="sub">
+			<li>\(\E(T) = 0.5\), \(\sd(T) = 0.5\)</li>
+			<li>\(\P(T \lt 0.5) = 0.6321\)</li>
+			<li>\(q_1 = 0.1438\), \(q_2 = 0.3466\), \(q_3 = 0.6931\), \(q_3 - q_1 = 0.5493\)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe5">
+	<p class="math">Suppose that the lifetime \(X\) of a fuse (in 100 hour units) is exponentially distributed with \(\P(X \gt 10) = 0.8\). Find each of the following:</p>
+	<ol class="sub">
+		<li>The rate parameter.</li>
+		<li>The mean and standard deviation.</li>
+		<li>The median, the first and third quartiles, and the interquartile range of the lifetime.</li>
+	</ol>
+	<details>
+	<summary>Details:</summary>
+		<p> Let \(X\) denote the lifetime.</p>
+		<ol class="sub">
+			<li>\(r = 0.02231\)</li>
+			<li>\(\E(X) = 44.814\), \(\sd(X) = 44.814\)</li>
+			<li>\(q_1 = 12.8922\), \(q_2 = 31.0628\), \(q_3 = 62.1257\), \(q_3 - q_1 = 49.2334\)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe6">
+	<p class="math">The position \(X\) of the first defect on a digital tape (in cm) has the exponential distribution with mean 100. Find each of the following:</p>
+	<ol class="sub">
+		<li>The rate parameter.</li>
+		<li>The probability that \(X \lt 200\) given \(X \gt 150\).</li>
+		<li>The standard deviation.</li>
+		<li>The median, the first and third quartiles, and the interquartile range of the position.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \(X\) denote the position of the first defect.</p>
+		<ol class="sub">
+			<li>\(r = 0.01\)</li>
+			<li>\(\P(X \lt 200 \mid X \gt 150) = 0.3935\)</li>
+			<li>\(\sd(X) = 100\)</li>
+			<li>\(q_1 = 28.7682\), \(q_2 = 69.3147\), \(q_3 = 138.6294\), \(q_3 - q_1 = 109.6812\)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe7">
+	<p class="math">Suppose that \( X, \, Y, \, Z \) are independent, exponentially distributed random variables with respective parameters \( a, \, b, \, c \in (0, \infty) \). Find the probability of each of the 6 orderings of the variables.</p>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>\( \P(X \lt Y \lt Z) = \frac{a}{a + b + c} \frac{b}{b + c} \)</li>
+			<li>\( \P(X \lt Z \lt Y) = \frac{a}{a + b + c} \frac{c}{b + c} \)</li>
+			<li>\( \P(Y \lt X \lt Z) = \frac{b}{a + b + c} \frac{a}{a + c} \)</li>
+			<li>\( \P(Y \lt Z \lt X) = \frac{b}{a + b + c} \frac{c}{a + c} \)</li>
+			<li>\( \P(Z \lt X \lt Y) = \frac{c}{a + b + c} \frac{a}{a + b} \)</li>
+			<li>\( \P(Z \lt Y \lt X) = \frac{c}{a + b + c} \frac{b}{a + b} \)</li>
+		</ol>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="current">2</li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Thinning and Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+event_id,event_type,artifact_id,result,detail,timestamp,status
+qa.o009.build-lab-input-binding,input-binding,artifact.input.site-build-receipt,pass,receipt=c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085 current=c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085,2026-08-21T11:00:56.872828+00:00,recorded
+qa.o009.build-manifest-binding,build-binding,artifact.input.site-build-receipt,pass,receipt=c7dcaf31439066f3a2191937bcad7dce18dba5d4044bdaa25c7b434dcf369c3d current=c7dcaf31439066f3a2191937bcad7dce18dba5d4044bdaa25c7b434dcf369c3d,2026-08-21T11:00:56.872828+00:00,recorded
+qa.o009.build-theory-input-binding,input-binding,artifact.input.site-build-receipt,pass,receipt=185888375673550452d1d2428cd0b4203fecd31f0f338fc6c703849642a7809a current=185888375673550452d1d2428cd0b4203fecd31f0f338fc6c703849642a7809a,2026-08-21T11:00:56.872828+00:00,recorded
+qa.o009.graph-completeness,graph-validation,artifact.exporter.backend,pass,records=340 relations=103,2026-08-21T11:00:56.872828+00:00,recorded
+qa.o009.o006-prerequisite,prerequisite-boundary,artifact.exporter.backend,pass,O006/C140 prerequisite relation is present,2026-08-21T11:00:56.872828+00:00,recorded
+qa.o009.rights-component-separation,rights-binding,artifact.input.zitkovic-license,pass,donor units use witnessed CC0; Indonesian adaptation units use CC-BY-4.0,2026-08-21T11:00:56.872828+00:00,recorded
+qa.o009.theory-structure,structural-translation,artifact.input.target-convergence,pass,"first-boundary validator accepted translated theory topology, TeX, ids, and locale",2026-08-21T11:00:56.872828+00:00,recorded

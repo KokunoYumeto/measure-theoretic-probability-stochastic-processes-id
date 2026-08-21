@@ -1,0 +1,61 @@
+{
+  "schema": "o009.runtime-lock.v1",
+  "as_of": "2026-08-21",
+  "r": {
+    "authority_url": "https://cran.r-project.org/bin/windows/base/R-4.6.1-win.exe",
+    "authority_md5_url": "https://cran.r-project.org/bin/windows/base/md5sum.R-4.6.1.txt",
+    "installer_path": "authority/runtime/R-4.6.1-win.exe",
+    "installer_bytes": 91749976,
+    "installer_md5": "7907f3a20ec8ec88cd0da279024b8e27",
+    "installer_sha256": "c5424c40cd70ef85765a55d2ff96bb602b5f30ed536938ff004f14db5db3c2df",
+    "installed_path": "tools/R-4.6.1",
+    "rscript_path": "tools/R-4.6.1/bin/Rscript.exe",
+    "version": "R version 4.6.1 (2026-06-24 ucrt)",
+    "platform": "windows",
+    "rng_kind": [
+      "Mersenne-Twister",
+      "Inversion",
+      "Rejection"
+    ],
+    "execution_environment": {
+      "LC_ALL": "C",
+      "R_USER": "fresh per-run temporary directory",
+      "arguments": [
+        "--vanilla"
+      ]
+    },
+    "packages_required_for_first_lab": []
+  },
+  "first_lab_execution": {
+    "source": "source/labs/01-konvergensi-monte-carlo.Rmd",
+    "chunk_label": "o009_lab_convergence_mc",
+    "result": "pass",
+    "rows": [
+      {
+        "n": "10",
+        "seed": "12341",
+        "estimate": "0.177976805338",
+        "exact_value": "0.250000000000",
+        "signed_error": "0.072023194662",
+        "absolute_error": "0.072023194662"
+      },
+      {
+        "n": "1000",
+        "seed": "12342",
+        "estimate": "0.256464342623",
+        "exact_value": "0.250000000000",
+        "signed_error": "-0.006464342623",
+        "absolute_error": "0.006464342623"
+      },
+      {
+        "n": "1000000",
+        "seed": "12342",
+        "estimate": "0.250381011435",
+        "exact_value": "0.250000000000",
+        "signed_error": "-0.000381011435",
+        "absolute_error": "0.000381011435"
+      }
+    ]
+  },
+  "public_repository_policy": "Do not commit the 91.7 MB installer or installed runtime. Commit this lock, the build harness, and exact authority URL/checksums."
+}

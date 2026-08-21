@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>The Brownian Bridge</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, stochastic process, Brownian bridge, Brownian motion, normal distribution, empirical distribution function">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\( \newcommand{\P}{\mathbb{P}} \)
+	\( \newcommand{\E}{\mathbb{E}} \) 
+	\( \newcommand{\R}{\mathbb{R}} \) 
+	\( \newcommand{\N}{\mathbb{N}} \)
+	\( \newcommand{\Z}{\mathbb{Z}} \)
+	\( \newcommand{\bs}{\boldsymbol} \)
+	\( \newcommand{\cov}{\text{cov}} \)
+	\( \newcommand{\cor}{\text{cor}} \)
+	\( \newcommand{\var}{\text{var}} \)
+	\( \newcommand{\sd}{\text{sd}} \)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Brownian Motion</a></li>
+		<li class="child"><a href="Standard.html" title="Standard Brownian Motion">1</a></li>
+		<li class="child"><a href="Drift.html" title="Brownian Motion with Drift">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Geometric.html" title="Geometric Brownian Motion">4</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>5. The Brownian Bridge</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<h4 id="def">Definition and Constructions</h4>
+
+<p>In the most common formulation, the <dfn>Brownian bridge process</dfn> is obtained by taking a <a href="Standard.html">standard Brownian motion process</a> \( \bs{X} \), restricted to the interval \( [0, 1] \), and conditioning on the event that \( X_1 = 0 \). Since \( X_0 = 0 \) also, the process is <q>tied down</q> at both ends, and so the process in between forms a <q>bridge</q> (albeit a very jagged one). The Brownian bridge turns out to be an interesting stochastic process with surprising applications, including a very important application to statistics. In terms of a definition, however, we will give a list of characterizing properties as we did for standard Brownian motion and for Brownian motion with <a href="Drift.html">drift and scaling</a>.</p>
+
+<div class="unit" id="def1">
+	<p class="dfn">A <dfn>Brownian bridge</dfn> is a stochastic process \( \bs{X} = \{X_t: t \in [0, 1]\} \) with state space \( \R \) that satisfies the following properties:</p>
+	<ol class="sub">
+		<li>\( X_0 = 0 \) and \( X_1 = 0 \) (each with probability 1).</li>
+		<li>\( \bs{X} \) is a Gaussian process.</li>
+		<li>\( \E(X_t) = 0 \) for \( t \in [0, 1] \).</li>
+		<li>\( \cov(X_s, X_t) = \min\{s, t\} - s t \) for \( s, \, t \in [0, 1] \).</li>
+		<li>With probability 1, \( t \mapsto X_t \) is continuous on \( [0, 1] \).</li>
+	</ol>
+</div>
+
+<p>So, in short, a Brownian bridge \( \bs{X} \) is a continuous Gaussian process with \( X_0 = X_1 = 0 \), and with mean and covariance functions given in (c) and (d), respectively. Naturally, the first question is whether there exists such a process. The answer is yes, of course, otherwise why would we be here? But in fact, we will see several ways of constructing a Brownian bridge from a standard Brownian motion. To help with the proofs, recall that a standard Brownian motion process \( \bs{Z} = \{Z_t: t \in [0, \infty)\} \) is a continuous Gaussian process with \( Z_0 = 0 \), \( \E(Z_t) = 0 \) for \( t \in [0, \infty) \) and \( \cov(Z_s, Z_t) = \min\{s, t\} \) for \( s, \, t \in [0, \infty) \). Here is our first construction:</p>
+
+<div class="unit" id="def2">
+	<p class="math">Suppose that \(\bs{Z} = \{Z_t: t \in [0, \infty)\} \) is a standard Brownian motion, and let \( X_t = Z_t - t Z_1 \) for \( t \in [0, 1] \). Then \( \bs{X} = \{X_t: t \in [0, 1]\} \) is a Brownian bridge.</p>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Note that \( X_0 = Z_0 = 0 \) and \( X_1 = Z_1 - Z_1 = 0 \).</li>
+			<li>Linear combinations of the variables in \( \bs{X} \) reduce to linear combinations of the variables in \( \bs{Z} \) and hence have normal distributions. Thus \( \bs{X} \) is a Gaussian process.</li>
+			<li>\( E(X_t) = \E(Z_t) - t \E(Z_1) = 0 \) for \( t \in [0, 1] \)</li>
+			<li>\( \cov(X_s, X_t) = \cov(Z_s - s Z_1, Z_t - t Z_1) = \cov(Z_s, Z_t) - t \, \cov(Z_s, Z_1) - s \, \cov(Z_1, Z_t) + s t \, \cov(Z_1, Z_1) = \min\{s, t\} - s t - s t + s t \) for \( s, \, t \in [0, 1] \).</li>
+			<li>\( t \mapsto X_t \) is continuous on \( [0, 1] \) since \( t \mapsto Z_t \) is continuous on \( [0, 1] \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Let's see the Brownian bridge in action.</p>
+
+<div class="unit" id="def3">
+	<p class="app">Run the simulation of the <a href="JavaScript:openAncillary('../apps/BrownianBridge.html')" class="ancillary">Brownian bridge process</a> in single step mode a few times.</p>
+</div>
+
+<p>For the Brownian bridge \( \bs{X} \), note in particular that \( X_t \) is normally distributed with mean 0 and variance \( t (1 - t) \) for \( t \in [0, 1] \). Thus, the variance increases and then decreases on \( [0, 1] \) reaching a maximum of \( 1/4 \) at \( t = 1/2 \). Of course, the variance is 0 at \( t = 0 \) and \( t = 1 \), since \( X_0 = X_1 = 0 \) deterministically.</p>
+
+<div class="unit" id="def4">
+	<p class="app">Open the simulation of the <a href="JavaScript:openAncillary('../apps/BrownianBridge.html')" class="ancillary">Brownian bridge process</a>. Vary \( t \) and note the change in the probability density function and moments. For various values of \( t \), run the simulation 1000 times and compare the empirical density function and moments to the true density function and moments.</p>
+</div>
+
+<p>Conversely to the construction in <a href="#def2" class="ref"></a>, we can build a standard Brownian motion on the time interval \( [0, 1] \) from a Brownian bridge.</p>
+
+<div class="unit" id="def5">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in [0, 1]\} \) is a Brownian bridge, and suppose that \( Z \) is a random variable with a standard normal distribution, independent of \( \bs{X} \). Let \( Z_t = X_t + t Z \) for \( t \in [0, 1] \). Then \( \bs{Z} = \{Z_t: t \in [0, 1]\} \) is a standard Brownian motion on \( [0, 1] \).</p>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Note that \( Z_0 = X_0 = 0 \).</li>
+			<li>Linear combinations of the variables in \( \bs{Z} \) reduce to linear combinations of the variables in \( \bs{X} \) and hence have normal distributions. Thus \( \bs{Z} \) is a Gaussian process.</li>
+			<li>\( \E(Z_t) = \E(X_t) + t \E(Z) = 0 \) for \( t \in [0, 1] \).</li>
+			<li>\( \cov(Z_s, Z_t) = \cov(X_s + s Z, X_t + t Z) = \cov(X_s, X_t) + t \, \cov(X_s, Z) + s \, \cov(X_t, Z) + s t \, \var(Z) = \min\{s, t\} - s t + 0 + 0 + s t = \min\{s, t\} \) for \( s, \, t \in [0, 1] \).</li>
+			<li>\( t \mapsto Z_t \) is continuous on \( [0, 1] \) since \( t \mapsto X_t \) is continuous on \( [0, 1] \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Here's another way to construct a Brownian bridge from a standard Brownian motion.</p>
+
+<div class="unit" id="def7">
+	<p class="math">Suppose that \( \bs{Z} = \{Z_t: t \in [0, \infty)\} \) is a standard Brownian motion. Define \( X_1 = 0 \) and 
+	\[ X_t = (1 - t) Z\left(\frac{t}{1 - t}\right), \quad t \in [0, 1) \]
+	Then \( \bs{X} = \{X_t: t \in [0, 1]\} \) is a Brownian bridge.</p>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Note that \( X_0 = Z_0 = 0 \) and by definition, \( X_1 = 0 \).</li>
+			<li>Linear combinations of variables in \( \bs{X} \) reduce to linear combinations of variables in \( \bs{Z} \) and hence have normal distributions. Thus \( \bs{X} \) is a Gaussian process.</li>
+			<li>For \( t \in [0, 1] \),
+			\[ \E(X_t) = (1 - t) \E\left[Z\left(\frac{t}{1 - t}\right)\right] = 0 \]</li>
+			<li>If \( s, \, t \in [0, 1) \) with \( s \lt t \) then \( s \big/ (1 - s) \lt t \big/ (1 - t) \) so
+			\[ \cov(X_s, X_t) = \cov\left[(1 - s) Z\left(\frac{s}{1 - s}\right), (1 - t) Z\left(\frac{t}{1 - 	t}\right)\right] = (1 - s)(1 - t) \frac{s}{1 - s} = s (1 - t) \]</li>
+			<li>Finally, \( t \mapsto X_t \) is continuous with probability 1 on \( [0, 1) \), and with probability 1, \( X_t = (1 - t) Z\left[t \big/ (1 - t)\right] \to 0 \) as \( t \uparrow 1 \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Conversely, we can construct a standard Brownian motion from a Brownian bridge.</p>
+
+<div class="unit" id="def8">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in [0, 1]\} \) is a Brownian bridge. Define
+	\[ Z_t = (1 + t) X\left(\frac{t}{1 + t}\right), \quad t \in [0, \infty) \]
+	Then \( \bs{Z} = \{Z_t: t \in [0, \infty)\} \) is a standard Brownian motion process.</p>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Note that \( Z_0 = X_0 = 0 \)</li>
+			<li>Linear combinations of the variables in \( \bs{Z} \) reduce to linear combinations of the variables in \( X \), and hence have normal distributions. Thus \( \bs{Z} \) is a Gaussian process.</li>
+			<li>For \( t \in [0, \infty) \), 
+			\[ \E(Z_t) = (1 + t) \E\left[X\left(\frac{t}{1 + t}\right)\right] = 0 \]</li>
+			<li>If \( s, \, t \in [0, 1] \) with \( s \lt t \) Then \( s \big/ (1 + s) \lt t \big/ (1 + t) \) so
+			\[ \cov(Z_s, Z_t) = \cov\left[(1 + s) X\left(\frac{s}{1 + s}\right), (1 + t) X\left(\frac{t}{1 + t}\right)\right] = (1 + s)(1 + t) \left[\frac{s}{1 + s} - \frac{s}{1 + s}\frac{t}{1 + t}\right] = s \]</li>
+			<li>Since \( t \mapsto X_t \) is continuous, \( t \mapsto Z_t \) is continuous</li>
+		</ol>
+	</details>
+</div>
+
+<p>We return to the comments at the beginning of this section, on conditioning a standard Brownian motion to be 0 at time 1. Unlike the previous two constructions, note that we are not transforming the random variables, rather we are changing the underlying <em>probability measure</em>.</p>
+
+<div class="unit" id="def6">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a standard Brownian motion. Then conditioned on \( X_1 = 0 \), the process \( \{X_t: t \in [0, 1]\} \) is a Brownian bridge process.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Part of the argument is based on properties of the <a href="../special/MultiNormal.html">multivariate normal distribution</a>. The conditioned process is still continuous and is still a Gaussian process. In particular, suppose that \( s, \, t \in [0, 1] \) with \( s \lt t \). Then \( (X_t, X_1) \) has a joint normal distribution with parameters specified by the mean and covariance functions of \( \bs{X} \). By standard computations, the conditional distribution of \( X_t \) given \( X_1 = 0 \) is normal with mean 0 and variance \( t (1 - t) \). Similarly, the joint distribution of \( (X_s, X_t, X_1) \) is normal with parameters specified by the mean and covariance functions of \( \bs{X} \). Again, by standard computations, the conditional distribution of \( (X_s, X_t) \) given \( X_1 = 0 \) is bivariate normal with 0 means and with \( \cov(X_s, X_t \mid X_1 = 0) = s (1 - t) \).</p>
+	</details>
+</div>
+
+<p>Finally, the Brownian bridge can be defined in terms a stochastic integral</p>
+
+<div class="unit">
+	<p class="math">Suppose that \( \bs{Z} = \{Z_t: t \in [0, \infty)\} \) is standard Brownian motions. Define \( X_1 = 0 \) and
+	\[ X_t = (1 - t) \int_0^t \frac{1}{1 - s} \, dZ_s, \quad t \in [0, 1) \]
+	Then \( \bs{X} = \{X_t: t \in [0, 1]\} \) is a Brownian bridge process.</p>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Note that \( X_0 = 0 \) and by definition, \( X_1 = 0 \).</li>
+			<li>Since the integrand in the stochastic integral is deterministic, \( \bs{X} \) is a Gaussian process.</li>
+			<li>\( \bs{X} \) is continuous on \( [0, 1) \) with probability 1, as a basic property of stochastic integrals. Moreover, \( X_t \to 0 \) as \( t \uparrow 1 \) as a consequence of the martingale inequality.</li>
+			<li>\( \E(X_t) = 0 \) since the stochastic integral has mean 0.</li>
+			<li>Suppose that \( s, \, t \in [0, 1] \) with \( s \le t \). Then
+			\[ \cov(X_s, X_t) = \cov\left[(1 - s) \int_0^s \frac{1}{1 - u} \, dZ_u, (1 - t)\left(\int_0^s \frac{1}{1 - u} \, dZ_u + \int_s^t \frac{1}{1 - u} \, dZ_u\right)\right] \]
+			But \( \int_0^s \frac{1}{1 - u} \, dZ_u \) and \( \int_s^t \frac{1}{1 - u} \, dZ_u \) are independent,
+			\[ \cov(X_s, X_t) = (1 - s)(1 - t) \var\left(\int_0^s \frac{1}{1 - u} \, dZ_u\right) \]
+			But then by the Ito isometry,
+			\[ \cov(X_s, X_t) = (1 - s)(1 - t) \int_0^s \frac{1}{(1 - u)^2} \, du = (1 - s)(1 - t) \left(\frac{1}{1 - s} - 1\right) = (1 - t)s \]</li>
+		</ol>
+	</details>
+</div>
+
+<p>In differential form, the process above can be written as 
+\[ d X_t = \frac{X_t}{1 - t} \, dt  + dZ_t, \; X_0 = 0 \]</p>
+
+<h4 id="gen">The General Brownian Bridge</h4>
+
+<p>The processes constructed above (in several ways!) is the <dfn>standard</dfn> Brownian bridge. it's a simple matter to generalize the process so that it starts at \( a \) and ends at \( b \), for arbitrary \( a, \, b \in \R \).</p>
+
+<div class="unit" id="gen1">
+	<p class="math">Suppose that \( \bs{Z} = \{Z_t: t \in [0, 1]\} \) is a standard Brownian bridge process. Let \( a, \, b \in \R \) and define
+	\( X_t = (1 - t) a + t b + Z_t\) for  \( t \in [0, 1] \). Then \( \bs{X} = \{X_t: t \in [0, 1]\} \) is a <dfn>Brownian bridge process from \( a \) to \( b \)</dfn>.</p>
+</div>
+
+<p>Of course, any of the constructions above for standard Brownian bridge can be modified to produce a general Brownian bridge. Here are the characterizing properties.</p>
+
+<div class="unit" id="gen2">
+	<p class="math">The Brownian bridge process \( \bs{X} = \{X_t: t \in [0, 1]\} \) from \( a \) to \( b \) is characterized by the following properties:</p>
+	<ol class="sub">
+		<li>\( X_0 = a \) and \( X_1 = b \) (each with probability 1).</li>
+		<li>\( \bs{X} \) is a Gaussian process.</li>
+		<li>\( \E(X_t) = (1 - t) a + t b \) for \( t \in [0, 1] \).</li>
+		<li>\( \cov(X_s, X_t) = \min\{s, t\} - s t \) for \( s, \, t \in [0, 1] \).</li>
+		<li>With probability 1, \( t \mapsto X_t \) is continuous on \( [0, 1] \).</li>
+	</ol>
+</div>
+
+
+<h3 id="app">Applications</h3>
+
+<h4 id="edf">The Empirical Distribution Function</h4>
+
+<p>We start with a problem that is one of the most basic in statistics. Suppose that \( T \) is a real-valued random variable with an unknown distribution. Let \( F \) denote the <a href="../dist/CDF.html">distribution function</a> of \( T \), so that \( F(t) = \P(T \le t) \) for \( t \in \R \). Our goal is to construct an <a href="../point/Estimators.html">estimator</a> of \( F \), so naturally our first step is to <em>sample</em> from the distribution of \( T \). This generates a sequence \( \bs{T} = (T_1, T_2, \ldots) \) of independent variables, each with the distribution of \( T \) (and so with distribution function \( F \)). Think of \( \bs{T} \) as a sequence of independent <em>copies</em> of \( T \). For \( n \in \N_+ \) and \( t \in \R \), the natural estimator of \( F(t) \) based on the first \( n \) sample values is 
+\[ F_n(t) = \frac{1}{n}\sum_{i=1}^n \bs{1}(T_i \le t) \]
+which is simply the proportion of the first \( n \) sample values that fall in the interval \( (-\infty, t] \). Appropriately enough, \( F_n \) is known as the <dfn>empirical distribution function</dfn> corresponding to the sample of size \( n \). Note that \( \left(\bs{1}(T_1 \le t), \bs{1}(T_2 \le t), \ldots\right) \) is a sequence of independent, identically distributed indicator variables (and hence is a sequence of <a href="../bernoulli/index.html">Bernoulli Trials</a>), and corresponds to sampling from the distribution of \( \bs{1}(T \le t) \). The estimator \( F_n(t) \) is simply the <a href="../sample/Mean.html">sample mean</a> of the first \( n \) of these variables. The numerator, the number of the original sample variables with values in \( (-\infty, t] \), has the <a href="../bernoulli/Binomial.html">binomial distribution</a> with parameters \( n \) and \( F(t) \). Like all sample means from independent, identically distributed samples, \( F_n(t) \) satisfies some basic and important properties. A summary is given below, but to make sense of some of these facts, you need to recall the mean and variance of the indicator variable that we are sampling from: \( \E\left[\bs{1}(T \le t)\right] = F(t) \), \( \var\left[\bs{1}(T \le t)\right] = F(t)\left[1 - F(t)\right] \)</p>
+
+<div class="unit" id="edf1">
+	<p class="math">For fixed \( t \in \R \),</p>
+	<ol class="sub">
+		<li>\( \E\left[F_n(t)\right] = F(t) \) so \( F_n(t) \) is an unbiased estimator of \( F(t) \)</li>
+		<li>\( \var\left[F_n(t)\right] = F(t)\left[1 - F(t)\right] \big/ n \) so \( F_n(t) \) is a consistent estimator of \( F(t) \)</li>
+		<li>\( F_n(t) \to F(t) \) as \( n \to \infty \) with probability 1, the <a href="../sample/LLN.html">strong law of large numbers</a>.</li>
+		<li>\( \sqrt{n}\left[F_n(t) - F(t)\right] \) has mean 0 and variance \( F(t)\left[1 - F(t)\right] \) and <a href="../dist/Convergence.html">converges</a> to the normal distribution with these parameters as \( n \to \infty \), the <a href="../sample/CLT.html">central limit theorem</a>.</li>
+	</ol>
+</div>
+
+<p>Theorem <a href="#edf1" class="ref"></a> gives us a great deal of information about \( F_n(t) \) for <em>fixed</em> \( t \), but now we want to let \( t \) vary and consider the expression in (d), namely \( t \mapsto \sqrt{n}\left[F_n(t) - F(t)\right] \), as a random process for each \( n \in \N_+ \). The key is to consider a very special distribution first.</p>
+
+<p>Suppose that \( T \) has the <a href="../special/UniformContinuous.html">standard uniform distribution</a>, that is, the continuous uniform distribution on the interval \( [0, 1] \). In this case the distribution function is simply \( F(t) = t \) for \( t \in [0, 1] \), so we have the sequence of stochastic processes \( \bs{X}_n = \left\{X_n(t): t \in [0, 1]\right\} \) for \( n \in \N_+ \), where
+\[ X_n(t) = \sqrt{n}\left[F_n(t) - t\right] \]
+Of course, the previous results apply, so the process \( \bs{X}_n \) has mean function 0, variance function \( t \mapsto t(1 - t) \), and for fixed \( t \in [0, 1] \), the distribution \( X_n(t) \) converges to the corresponding normal distribution as \( n \to \infty \). Here is the new bit of information, the covariance function of \( \bs{X}_n \) is the same as that of the Brownian bridge!</p>
+
+<div class="unit" id="edf2">
+	<p class="math">\( \cov\left[X_n(s), X_n(t)\right] = \min\{s, t\} - s t \) for \( s, \, t \in [0, 1] \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( s \le t \). From basic properties of covariance,
+		\[ \cov\left[X_n(s), X_n(t)\right] = n \, \cov\left[F_n(s), F_n(t)\right] = \frac{1}{n} \cov\left(\sum_{i=1}^n \bs{1}(T_i \le s), \sum_{j=1}^n \bs{1}(T_j \le t)\right) = \frac{1}{n} \sum_{i=1}^n \sum_{j=1}^n \cov\left[\bs{1}(T_i \le s) \bs{1}(T_j \le t)\right] \]
+		But if \( i \ne j \), the variables \( \bs{1}(T_i \le s) \) and \( \bs{1}(T_j \le t) \) are independent, and hence have covariance 0. On the other hand,
+		\[ \cov\left[\bs{1}(T_i \le s), \bs{1}(T_i \le t)\right] = \P(T_i \le s, T_i \le t) - \P(T_i \le s) \P(T_i \le t) = \P(T_i \le s) - \P(T_i \le s) \P(T_i \le t) = s - st \]
+		hence
+		\[ \cov\left[X_n(s), X_n(t)\right] = \frac{1}{n} \sum_{i=1}^n \cov\left[\bs{1}(T_i \le s), \bs{1}(T_i \le t)\right] = s - s t\]</p>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Brownian Motion</a></li>
+		<li class="child"><a href="Standard.html" title="Standard Brownian Motion">1</a></li>
+		<li class="child"><a href="Drift.html" title="Brownian Motion with Drift">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Geometric.html" title="Geometric Brownian Motion">4</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+	<title>Delayed Renewal Processes</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, renewal process, delayed renewal process, stationary point process, pattern matching, multinomial trials">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\cov}{\text{cov}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">14. Renewal Processes</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Equations.html" title="Renewal Equations">2</a></li>
+		<li class="child"><a href="LimitTheorems.html" title="Renewal Limit Theorems">3</a></li>
+		<li class="current">4</li>	<li class="child"><a href="Alternating.html" title="Alternating Renewal Processes">5</a></li>
+		<li class="child"><a href="Reward.html" title="Renewal Reward Processes">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>4. Delayed Renewal Processes</h2>
+</header>
+
+<h3 id="bas">Basic Theory</h3>
+
+<h4 id="pre">Preliminaries</h4>
+
+<p>A <dfn>delayed renewal process</dfn> is just like an ordinary renewal process, except that the first arrival time is allowed to have a different distribution than the other interarrival times.  Delayed renewal processes arise naturally in applications and are also found embedded in other random processes.  For example, in a <a href="../markov/index.html">Markov chain</a>, visits to a fixed state, <em>starting in that state</em> form the random times of an ordinary renewal process. But visits to a fixed state, <em>starting in another state</em> form a delayed renewal process.</p>
+
+<div class="unit" id="pre1">
+	<p class="dfn"><dfn>Delayed renewal process</dfn></p>
+	<ol class="sub">
+		<li>The <dfn>interarrival times</dfn> \( \bs{X} = (X_1, X_2, \ldots) \) are independent variables taking values in \( [0, \infty) \), with \( (X_2, X_3, \ldots) \) copies of a random variable \(X\) satisfying \( \P(X \gt 0) \gt 0 \).</li>
+		<li>The <dfn>arrival time sequence</dfn> \(\bs T = (T_0, T_1, \ldots)\) is the partial sum sequence associated with \(\bs X\) so that \(T_0 = 0\) and \(T_n\) is the time of the \(n\)th arrival for \(n \in \N_+\):
+		\[ T_n = \sum_{i=1}^n X_i \]</li>
+		<li>The <dfn>counting process</dfn> is \(\bs N = (T_n: t \in [0, \infty)\) where \(N_t\) is the number of arrivals in \([0, t]\) for \(t \in [0, \infty)\):
+		\[ N_t = \sum_{n=1}^\infty \bs{1}(T_n \le t) = \max\{n \in \N: T_n \le t\} \]</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>As before, \(T_0 = 0\) is not counted as an arrival, but there may other arrivals at time 0. That is, it's possible that \(T_n = 0\) for \(n \in \N_+\).</p>
+	</details>
+</div>
+
+<p>If we restart the clock at time \( T_1 = X_1 \), we have an ordinary renewal process with interarrival sequence \( (X_2, X_3, \ldots) \). We use some of the standard notation developed in the <a href="Introduction.html">introduction</a> for this renewal process. In particular, \( F \) denotes the common distribution function and \( \mu \) the common mean of \( X_i \) for \( i \in \{2, 3, \ldots\} \). Similarly \( F_n = F^{*n} \) denotes the distribution function of the sum of \( n \) independent variables with distribution function \( F \), and \( M \) denotes the renewal function:
+\[ M(t) = \sum_{n=1}^\infty F_n(t), \quad t \in [0, \infty) \]
+On the other hand, we will let \( G \) denote the distribution function of \( X_1 \) (the special interarrival time, different from the rest), and we will let \( G_n \) denote the distribution function of \( T_n \) for \( n \in \N_+ \). As usual, \( F^c = 1 - F \) and \( G^c = 1 - G \) are the corresponding right-tail distribution functions.</p>
+
+<div class="unit" id="pre2">
+	<p class="math">\( G_n = G * F_{n-1} = F_{n-1} * G\) for \( n \in \N_+ \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The follows from the fact that \( T_n \) is the sum of \( n \) independent random variables; the first has distribution function \( G \) and the remaining \( n - 1 \) have distribution function \( F \).</p>
+	</details>
+</div>
+
+<p>Finally, we will let \( U \) denote the renewal function for the delayed renewal process. Thus, \( U(t) = \E(N_t) \) is the expected number of arrivals in \( [0, t] \) for \( t \in [0, \infty) \).</p>
+
+<div class="unit" id="pre3">
+	<p class="math">The delayed renewal function satisfies
+	\[ U(t) = \sum_{n=1}^\infty G_n(t), \quad t \in [0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is just as before.
+		\[ U(t) = \E(N_t) = \E\left(\sum_{n=1}^\infty \bs{1}(T_n \le t)\right) = \sum_{n=1}^\infty \P(T_n \le t) = \sum_{n=1}^\infty G_n(t) \]</p>
+	</details>
+</div>
+
+<div class="unit" id="pre4">
+	<p class="math">The delayed renewal function \( U \) satisfies the equation \( U = G + M * G \); that is,
+	\[ U(t) = G(t) + \int_0^t M(t - s) \, dG(s), \quad t \in [0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof follows from conditioning on the time of the first arrival \( T_1 = X_1 \). Note first that \( \E(N_t \mid X_1 = s) = 0 \) if \( s \gt t \) and \( \E(N_t \mid X_1 = s) = 1 + M(t - s) \) if \( 0 \le s \le t \). Hence</p>
+		\[ U(t) = \int_0^\infty \E(N_t \mid X_1 = s) \, dG(s) = \int_0^t [1 + M(t - s)] \, dG(s) = G(t) + \int_0^t M(t - s) \, dG(s)  \]
+	</details>
+</div>
+
+<div class="unit" id="pre5">
+	<p class="math">The delayed renewal function \( U \) satisfies the renewal equation \( U = G + U * F \); that is,
+	\[ U(t) = G(t) + \int_0^t U(t - s) \, dF(s), \quad t \in [0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that
+		\[ U = \sum_{n=1}^\infty G_n =  G +  \sum_{n=2}^\infty G_n  = G + \sum_{n=2}^\infty ( G_{n-1} * F )  = G + \left(\sum_{n=1}^\infty G_n\right) * F = G + U * F \]
+	</details>
+</div>
+
+<h4 id="asy">Asymptotic Behavior</h4>
+
+<p>In a delayed renewal process only the first arrival time is changed. So it's not surprising that the asymptotic behavior of a delayed renewal process is the same as the asymptotic behavior of the corresponding regular renewal process.  Our first result is the <dfn>strong law of large numbers</dfn> for the delayed renewal process.</p>
+
+<div class="unit" id="asy1">
+	<p class="math">\( N_t / t \to 1 / \mu \) as \( t \to \infty \) with probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>We will show that \( T_n / n \to \mu \) as \( n \to \infty \) with probability 1. Then, the proof is exactly like the proof of the <a href="LimitTheorems.html#lln1">law of large numbers</a> for a regular renewal process. For \( n \in \{2, 3, \ldots \}\),
+		\[ \frac{T_n}{n} = \frac{X_1}{n} + \frac{n - 1}{n} \frac{1}{n - 1} \sum_{i=2}^n  X_i \]
+		But \( \frac{X_1}{n} \to 0 \) as \( n \to \infty \) with probability 1; of course \( \frac{n}{n - 1} \to 1\) as \( n \to \infty \); and \( \frac{1}{n - 1} \sum_{i=2}^n X_i \to \mu\) as \( n \to \infty \) with probability 1 by the ordinary strong law of large numbers.</p>
+	</details>
+</div>
+
+<p>Our next result is the <dfn>elementary renewal theorem</dfn> for the delayed renewal process.</p>
+
+<div class="unit" id="asy2">
+	<p class="math">\( U(t) / t \to 1 / \mu \) as \( t \to \infty \).</p>
+</div>
+
+<p>Next we have the <dfn>renewal theorem</dfn> for the delayed renwal process, also known as <dfn>Blackwell's theorem</dfn>, named for <a href="javascript:openAncillary('../biographies/Blackwell.html')" class="ancillary">David Blackwell</a>.</p>
+
+<div class="unit" id="asy3">
+	<p class="math">For \( h \gt 0 \), \( U(t, t + h] = U(t + h) - U(t) \to h / \mu \) as \( t \to \infty \) in each of the following cases:</p>
+	<ol class="sub">
+		<li>\( F \) is non-arithmetic</li>
+		<li>\( F \) is arithmetic with span \( d \in (0, \infty) \), and \( h \) is a multiple of \( d \).</li>
+	</ol>
+</div>
+
+<p>Finally we have the <dfn>key renewal theorem</dfn> for the delayed renewal process.</p>
+
+<div class="unit" id="asy4">
+	<p class="math">Suppose that the renewal process is non-arithmetic and that \( g: [0, \infty) \to [0, \infty) \) is directly Riemann integrable. Then
+	\[ (g * U)(t) = \int_0^t g(t - s) \, dU(s) \to \frac{1}{\mu} \int_0^\infty g(x) \, dx \text{ as } t \to \infty \]</p>
+</div>
+
+<h4 id="sta">Stationary Point Processes</h4>
+
+<p>Recall that a <dfn>point process</dfn> is a stochastic process that models a discrete set of random points in a measure space \( (S, \mathscr{S}, \lambda) \). Often, of course, \( S \subseteq \R^n \) for some \( n \in \N_+ \) and \( \lambda \) is the corresponding \( n \)-dimensional Lebesgue measure.  The special cases \( S  = \N \) with counting measure and \( S = [0, \infty) \) with length measure are of particular interest, in part because renewal and delayed renewal processes give rise to point processes in these spaces.</p>
+
+<p>For a general point process on \( S \), we use our standard notation and denote the number of random points \( A \in \mathscr{S} \) by \( N(A) \). There are a couple of natural properties that a point process may have. In particular, the process is said to be <dfn>stationary</dfn> if \( \lambda(A) = \lambda(B)  \) implies that \( N(A) \) and \( N(B) \) have the same distribution for \( A, \; B \in \mathscr{S} \).  In \( [0, \infty) \) the term <dfn>stationary increments</dfn> is often used, because the stationarity property means that for \( s, \, t \in [0, \infty) \), the distribution of \( N(s, s + t] = N_{s + t} - N_s \) depends only on \( t \) .</p>
+
+<p>Consider now a regular renewal process.  We showed earlier that the asymptotic distributions of the current life and remaining life are the same. Intuitively, after a very long period of time, the renewal process looks pretty much the same forward in time or backward in time.  This suggests that if we make the renewal process into a delayed renewal process by giving the first arrival time this asymptotic distribution, then the resulting point process will be stationary. This is indeed the case. Consider the setting and notation of the preliminary subsection above.</p>
+
+<div class="unit" id="sta1">
+	<p class="math">For the delayed renewal process, the point process \( \bs{N} \) is stationary if and only if the initial arrival time has distribution function
+	\[ G(t) = \frac{1}{\mu} \int_0^t F^c(s) \, ds, \quad t \in [0, \infty) \]
+	in which case the renewal function is \( U(t) = t / \mu \) for \( t \in [0, \infty) \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose first that \( \bs{N} \) has stationary increments.  In particular, this means that the arrival times have continuous distributions.  For \( s, \, t \in [0, \infty) \),
+		\[U(s + t) = \E(N_{s + t}) = \E[(N_{s + t} - N_t) + N_t] = \E(N_{s + t} - N_t) + \E(N_t) = U(s) + U(t)  \]
+		A theorem from analysis states that the only increasing solutions to such a functional equation are linear functions, and hence \( U(t) = c t \) for some positive constant \( c \). Substituting \( m_d \) into the renewal equation in <a href="#pre4" class="ref"></a> above gives
+		\[ c t = G(t) + \int_0^t c (t - s) \, dF(s) = G(t) + c t \, F(t) - \int_0^t c s \, dF(s) \]
+		Integrating by parts in the last integral and simplifying gives
+		\[ G(t) = c \int_0^t F^c(s) \, ds \]
+		Finally, if we let \( t \to \infty \), the left side converges to 1 and the right side to \( c \mu \), so \( c = 1 / \mu \). Thus \( G \) has the form given in the statement of the theorem and \( U(t) = t / \mu \) for \( t \in [0, \infty) \).</p>
+		<p>Conversely, suppose that \( G \) has the form given in the theorem.  Note that this is a continuous distribution with density function \( t \mapsto F^c(t) \big/ \mu \). Substituting into the renewal equation in <a href="#pre4" class="ref"></a> above, it follows that the renewal density \( U^\prime \) satisfies
+		\[ U^\prime = \frac{1}{\mu} F^c + \frac{1}{\mu}F^c * \sum_{n=1}^\infty F_n = \frac{1}{\mu} \]
+		Hence \( U(t) = t / \mu \) for \( t \ge 0 \).  Next, the process \( \bs{N} \) has stationary increments if and only if the remaining life \( R_t \) at time \( t \) has distribution function \( G \) for each \( t \). Arguing just as in <a href="Equations.html">Section 2</a>, we have
+		\[ \P(R_t \gt y) = G^c(t + y) + \int_0^t F^c(t + y -  s) \, d m_d(s), \quad y \ge 0 \]
+		But \( G^c(t + y) =  \frac{1}{\mu} \int_{t+y}^\infty F^c(u) \, du\) and \( dU(s) = \frac{1}{\mu} \, ds \), so substituting into the last displayed equation and using a simple substitution in the integral gives
+		\[ \P(R_t \gt y) = \frac{1}{\mu} \int_{t+y}^\infty  F^c(u) \, du + \frac{1}{\mu} \int_y^{t+y} F^c(u) \, du = \frac{1}{\mu} \int_y^\infty F^c(u) \, du \]</p>
+	</details>
+</div>
+
+<h3>Examples and Applications</h3>
+
+<h4 id="pat">Patterns in Multinomial Trials</h4>
+
+<p>Suppose that \( \bs{L} = (L_1, L_2, \ldots) \) is a sequence of independent, identically distributed random variables taking values in a finite set \( S \), so that \( \bs{L} \) is a sequence of <a href="../bernoulli/Multinomial.html">multinomial trials</a>. Let \( f \) denote the common <a href="../dist/Discrete.html">probability density function</a> so that for a generic trial variable \( L \), we have \( f(a) = \P(L = a) \) for \( a \in S \). We assume that all outcomes in \( S \) are actually possible, so \( f(a) \gt 0 \) for \( a \in S \).</p>
+
+<p>In this section, we interpret \( S \) as an <dfn>alphabet</dfn>, and we write the sequence of variables in concatenation form, \(\bs{L} = L_1 L_2 \cdots\) rather than standard sequence form. Thus the sequence is an infinite string of letters from our alphabet \( S \). We are interested in the repeated occurrence of a particular finite substring of letters (that is, a <q>word</q> or <q>pattern</q>) in the infinite sequence. </p>
+
+<p>So, fix a word \( \bs a \) (again, a finite string of elements of \( S \)), and consider the successive random trial numbers \( (T_1, T_2, \ldots) \) where the word \( \bs a \) is completed in \( \bs{L} \). Since the sequence \( \bs{L} \) is independent and identically distributed, it seems reasonable that these variables are the arrival times of a renewal process. However there is a slight complication. An example may help.</p>
+
+<div class="unit" id="pat1">
+	<p class="math">Suppose that \( \bs{L} \) is a sequence of <a href="../bernoulli/index.html">Bernoulli Trials</a> (so \( S = \{0, 1\} \)). Suppose that the outcome of \( \bs{L} \) is 
+	\[ 101100101010001101000110\cdots \]</p>
+	<ol class="sub">
+		<li>For the word \( \bs a = 001 \) note that \( T_1 = 7 \), \( T_2 = 15 \), \( T_3 = 22 \)</li>
+		<li>For the word \( \bs b = 010 \), note that \( T_1 = 8 \), \( T_2 = 10 \), \( T_3 = 12 \), \( T_4 =19 \)</li>
+	</ol>
+</div>
+
+<p>In <a href="#pat1" class="ref"></a>, you probably noted an important difference between the two words. For \( \bs b \), a <dfn>suffix</dfn> of the word (a proper substring at the end) is also a <dfn>prefix</dfn> of the word (a proper substring at the beginning. Word \( \bs a \) does not have this property. So, once we <q>arrive</q> at \( \bs b \), there are ways to get to \( \bs b \) again (taking advantage of the suffix-prefix) that do not exist starting from the beginning of the trials. On the other hand, once we arrive at \( \bs a \), arriving at \( \bs a \) again is just like with a new sequence of trials. Thus we are lead to the following definition.</p>
+
+<div class="unit" id="pat2">
+	<p class="math">Suppose that \( \bs a \) is a finite word from the alphabet \( S \). If no proper suffix of \( \bs a \) is also a prefix, then \( \bs a \) is <dfn>simple</dfn>. Otherwise, \( \bs a \) is <dfn>compound</dfn>.</p>
+</div>
+
+<p>Returning to the general setting, let \( T_0 = 0 \) and then let \( X_n = T_n - T_{n-1}\) for \( n \in \N_+ \). For \( k \in \N \), let \( N_k = \sum_{n=1}^\infty \bs{1}(T_n \le k) \). For occurrences of the word \( \bs a \), \( \bs{X} = (X_1, X_2, \ldots) \) is the sequence of interarrival times, \( \bs{T} = (T_0, T_1, \ldots) \) is the sequence of arrival times, and \( \bs{N} = \{N_k: k \in \N\} \) is the counting process. If \( \bs a \) is simple, these form an ordinary renewal process. If \( \bs a \) is compound, they form a delayed renewal process, since \( X_1 \) will have a different distribution than \( (X_2, X_3, \ldots) \). Since the structure of a delayed renewal process subsumes that of an ordinary renewal process, we will work with the notation above for the delayed process. In particular, let \( U \) denote the renewal function. Everything in this paragraph depends on  the word \( \bs a \) of course, but we have suppressed this in the notation. </p>
+
+<p>Suppose \( \bs a = a_1 a_2 \cdots a_k \), where \( a_i \in S \) for each \( i \in \{1, 2, \ldots, k\} \), so that \( \bs a \) is a word of length \( k \). Note that \( X_1 \) takes values in \( \{k, k + 1, \ldots\} \). If \( \bs a \) is simple, this applies to the other interarrival times as well. If \( \bs a \) is compound, the situation is more complicated \( X_2, \, X_3, \ldots \) will have some minimum value \( j \lt k \), but the possible values are positive integers, of course, and include \(\{k + 1, k + 2, \ldots\}\). In any case, the renewal process is arithmetic with span 1. Expanding the definition of the probability density function \( f \), let
+\[ f(\bs a) = \prod_{i=1}^k f(a_i) \]
+so that \( f(\bs a) \) is the probability of forming \( \bs a \) with \( k \) consecutive trials. Let \( \mu(\bs a) \) denote the common mean of \( X_n \) for \( n \in \{2, 3, \ldots\} \), so \( \mu(\bs a) \) is the mean number of trials between occurrences of \( \bs a \). Let \( \nu(\bs a) = \E(X_1) \), so that \( \nu(\bs a) \) is the mean time number of trials until \( \bs a \) occurs for the first time. Our first result is an elegant connection between \( \mu(\bs a) \) and \( f(\bs a) \), which has a wonderfully simple proof from renewal theory.</p>
+
+<div class="unit" id="pat3">
+	<p class="math">If \( \bs a \) is a word in \( S \) then
+	\[ \mu(\bs a) = \frac{1}{f(\bs a)} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( \bs a \) has length \( k \), and consider the discrete interval \( (n, n + k] = \{n + 1, n + 2, \ldots, n + k\} \). By the renewal theorem in <a href="#asy3" class="ref"></a>, \( U(n, n + k] \to 1 / \mu(\bs a) \) as \( n \to \infty \). But \( N(n, n + k] \), the number of times that \( \bs a \) occurs in the interval, is either 1 or 0. Hence \( U(n, n + k] = f(\bs a) \) for any \( n \).</p>
+	</details>
+</div>
+
+<p>Our next goal is to compute \( \nu(\bs a) \) in the case that \( \bs a \) is a compound word.</p>
+
+<div class="unit" id="pat4">
+	<p class="math">Suppose that \( \bs a \) is a compound word, and that \( \bs b \) is the largest word that is a proper suffix and prefix of \( \bs a \). Then
+	\[ \nu(\bs a) = \nu(\bs b) + \mu(\bs a) = \nu(\bs b) + \frac{1}{f(\bs a)} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( \bs b \) is the largest prefix-suffix, the expected number of trials to go from \( \bs b \) to \( \bs a \) is the same as the expected number of trials to go from \( \bs a \) to \( \bs a \), namely \( \mu(\bs a) \). (Note that the paths from \( \bs b \) to \( \bs a \) are the same as the paths from \( \bs a \) to \( \bs a \).) But to form the word \( \bs a \) initially, the word \( \bs b \) must be formed first, so this result follows from the additivity of expected value and the previous result.</p>
+	</details>
+</div>
+
+<p>By repeated use of <a href="#pat4" class="ref"></a>, we can compute the expected number of trials needed to form any compound word.</p>
+
+<div class="unit" id="pat5">
+	<p class="math">Consider Bernoulli trials with success probability \( p \in (0, 1) \), and let \( q = 1 - p \). For each of the following strings, find the expected number of trials between occurrences and the expected number of trials to the first occurrence.</p>
+	<ol class="sub">
+		<li>\( \bs a = 001 \)</li>
+		<li>\( \bs b = 010 \)</li>
+		<li>\( \bs c = 1011011\)</li>
+		<li>\(\bs d =  11 \cdots 1 \) (\( k \) times)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+			<ol class="sub">
+				<li>\( \mu(\bs a) = \nu(\bs a) = \frac{1}{p q^2} \)</li>
+				<li>\( \mu(\bs b) = \frac{1}{p q^2} \), \( \nu(\bs b) = \frac{1}{q} + \frac{1}{p q^2} \)</li>
+				<li>\( \mu(\bs c) = \frac{1}{p^5 q^2} \), \( \nu(\bs c) = \frac{1}{p} + \frac{1}{p^3 q} + \frac{1}{p^5 q^2} \)</li>
+				<li>\( \mu(\bs d) = \frac{1}{p^k} \) \( \nu(\bs d) = \sum_{i=1}^k \frac{1}{p^i} \)</li>
+			</ol>
+	</details>
+</div>
+
+<p>Recall that an <dfn>ace-six flat die</dfn> is a six-sided die for which faces 1 and 6 have probability \(\frac{1}{4}\) each while faces 2, 3, 4, and 5 have probability \( \frac{1}{8} \) each. Ace-six flat dice are sometimes used by gamblers to cheat.</p>
+
+<div class="unit" id="pat6">
+	<p class="math">Suppose that an ace-six flat die is thrown repeatedly. Find the expected number of throws until the pattern \( 6165616 \) first occurs.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>From our main theorem,
+		\begin{align*}
+			\nu(6165616) &amp; = \frac{1}{f(6165616)} + \nu(616) = \frac{1}{f(6165616)} + \frac{1}{f(616)} + \nu(6) \\
+			&amp; = \frac{1}{f(6165616)} + \frac{1}{f(616)} + \frac{1}{f(6)} = \frac{1}{(1/4)^6(1/8)} + \frac{1}{(1/4)^3} + \frac{1}{1/4} = 32\,836
+		\end{align*}</p>
+	</details>
+</div>
+
+
+<div class="unit" id="pat7">
+	<p class="math">Suppose that a monkey types randomly on a keyboard that has the 26 lower-case letter keys and the space key (so 27 keys). Find the expected number of keystrokes until the monkey produces each of the following phrases:</p>
+	<ol class="sub">
+		<li><em>it was the best of times</em></li>
+		<li><em>to be or not to be</em></li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>\( 27^{24} \approx 2.258 \times 10^{34} \)</li>
+			<li>\( 27^5 + 27^{18} \approx 5.815 \times 10^{25} \)</li>
+		</ol>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">14. Renewal Processes</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Equations.html" title="Renewal Equations">2</a></li>
+		<li class="child"><a href="LimitTheorems.html" title="Renewal Limit Theorems">3</a></li>
+		<li class="current">4</li>	<li class="child"><a href="Alternating.html" title="Alternating Renewal Processes">5</a></li>
+		<li class="child"><a href="Reward.html" title="Renewal Reward Processes">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

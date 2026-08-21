@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+	<title>Discrete-Time Markov Chains</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Markov chain, discrete time, state graph, stopping time, transition matrix, Markov property, discrete time, potential matrix, two-state chain, doubly stochastic matrix">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>3. Discrete-Time Markov Chains</h2>
+</header>
+
+<p>In this and the next several sections, we consider a <a href="General.html">Markov process</a> with the discrete time space \( \N \) and with a discrete (countable) state space. Recall that a Markov process with a discrete state space is called a <dfn>Markov chain</dfn>, so we are studying <dfn>discrete-time Markov chains</dfn>.</p>
+
+<h3 id="rev">Review</h3>
+
+<p>We will review the basic definitions and concepts in the <a href="General.html">general introduction</a>. With both time and space discrete, many of these definitions and concepts simplify considerably. As usual, our starting point is a <a href="../foundations/Measure.html">probability space</a> \( (\Omega, \mathscr{F}, \P) \), so \( \Omega \) is the sample space, \( \mathscr{F} \) the \( \sigma \)-algebra of events, and \( \P \) the probability measure on \( (\Omega, \mathscr{F}) \). Let \( \bs{X} = (X_0, X_1, X_2, \ldots)\) be a <a href="../prob/Processes.html">stochastic process</a> defined on the probability space, with time space \( \N \) and with countable state space \( S \). In the context of the <a href="General.html">general introduction</a>, \( S \) is given the power set \( \mathscr{P}(S) \) as the \( \sigma \)-algebra, so all subsets of \( S \) are measurable, as are all functions from  \( S \) into another measurable space. Counting measure \( \# \) is the natural measure on \( S \), so integrals over \( S \) are simply sums. The same comments apply to the time space \( \N \): all subsets of \( \N \) are measurable and counting measure \( \# \) is the natural measure on \( \N \).</p>
+
+<p>The vector space \( \mathscr{B} \) consisting of bounded functions \( f: S \to \R \) will play an important role. The norm that we use is the <dfn>supremum norm</dfn> defined by
+\[ \|f\| = \sup\{\left|f(x)\right|: x \in S\}, \quad f \in \mathscr{B} \]
+</p>
+
+<p>For \( n \in \N \), let \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \), the \( \sigma \)-algebra generated by the process up to time \( n \). Thus \( \mathfrak{F} = \{\mathscr{F}_0, \mathscr{F}_1, \mathscr{F}_2, \ldots\} \) is the natural <a href="../prob/Stop.html">filtration</a> associated with \( \bs{X} \). We also let \( \mathscr{G}_n = \sigma\{X_n, X_{n+1}, \ldots\} \), the \( \sigma \)-algebra generated by the process from time \( n \) on. So if \( n \in \N \) represents the present time, then \( \mathscr{F}_n \) contains the events in the past and \( \mathscr{G}_n \) the events in the future.</p>
+
+<h4 id="dfn">Definitions</h4>
+
+<p>We start with the basic definition of the Markov property: the past and future are conditionally independent, given the present.</p>
+
+<div class="unit" id="dfn1">
+	<p class="dfn">\( \bs{X} = (X_0, X_1, X_2, \ldots) \) is a Markov chain if \( \P(A \cap B \mid X_n) = \P(A \mid X_n) \P(B \mid X_n) \) for every \( n \in \N \), \( A \in \mathscr{F}_n \) and \( B \in \mathscr{G}_n \).</p>
+</div>
+
+<p>There are a number of equivalent formulations of the Markov property for a discrete-time Markov chain. We give a few of these.</p>
+
+<div class="unit" id="dfn2">
+	<p class="math">\( \bs{X} = (X_0, X_1, X_2, \ldots) \) is a Markov chain if either of the following equivalent conditions is satisfied:</p>
+	<ol class="sub">
+		<li>\( \P(X_{n+1} = x \mid \mathscr{F}_n) = \P(X_{n+1} = x \mid X_n) \) for every \( n \in \N \) and \( x \in S \).</li>
+		<li>\( \E[f(X_{n+1}) \mid \mathscr{F}_n] = \E[f(X_{n+1}) \mid X_n] \) for every \(n \in \N \) and \( f \in \mathscr{B} \).</li>
+	</ol>
+</div>
+
+<p>Part (a) states that for \( n \in \N \), the conditional probability density function of \( X_{n+1} \) given \( \mathscr{F}_n \) is the same as the conditional probability density function of \( X_{n+1} \) given \( X_n \). Part (b) also states, in terms of expected value, that the conditional distribution of \( X_{n+1} \) given \( \mathscr{F}_n \) is the same as the conditional distribution of \( X_{n+1} \) given \( X_n \). Both parts are the Markov property looking just one time step in the future. But with discrete time, this is equivalent to the Markov property at general future times.</p>
+
+<div class="unit" id="dfn3">
+	<p class="math">\( \bs{X} = (X_0, X_1, X_2, \ldots) \) is a Markov chain if either of the following equivalent conditions is satisfied:</p>
+	<ol class="sub">
+		<li>\( \P(X_{n+k} = x \mid \mathscr{F}_n) = \P(X_{n+k} = x \mid X_n) \) for every \( n, \, k \in \N \) and \( x \in S \).</li>
+		<li>\( \E[f(X_{n+k}) \mid \mathscr{F}_n] = \E[f(X_{n+k}) \mid X_n] \) for every \(n, \, k \in \N \) and \( f \in \mathscr{B} \).</li>
+	</ol>
+</div>
+
+<p>Part (a) states that for \( n, \, k \in \N \), the conditional probability density function of \( X_{n+k} \) given \( \mathscr{F}_n \) is the same as the conditional probability density function of \( X_{n+k} \) given \( X_n \). Part (b) also states, in terms of expected value, that the conditional distribution of \( X_{n+k} \) given \( \mathscr{F}_n \) is the same as the conditional distribution of \( X_{n+k} \) given \( X_n \). In discrete time and space, the Markov property can also be stated without explicit reference to \( \sigma \)-algebras. If you are not familiar with measure theory, you can take this as the starting definition.</p>
+
+<div class="unit" id="dfn4">
+	<p class="math">\( \bs{X} = (X_0, X_1, X_2, \ldots) \) is a Markov chain if for every \( n \in \N \) and every sequence of states \( (x_0, x_1, \ldots, x_{n-1}, x,  y) \),
+	\[ \P(X_{n+1} = y \mid X_0 = x_0, X_1 = x_1, \ldots, X_{n-1} = x_{n-1}, X_n = x) = \P(X_{n+1} = y \mid X_n = x) \]</p>
+</div>
+
+<p>The theory of discrete-time Markov chains is simplified considerably if we add an additional assumption.</p>
+
+<div class="unit" id="dfn5">
+	<p class="math">A Markov chain \( \bs{X} = (X_0, X_1, X_2, \ldots) \) is <dfn>time homogeneous</dfn> if 
+	\[ \P(X_{n+k} = y \mid X_k = x) = \P(X_n = y \mid X_0 = x) \]
+	for every \( k, \, n \in \N \) and every \( x, \, y \in S \).</p>
+</div>
+
+<p>That is, the conditional distribution of \( X_{n+k} \) given \( X_k = x \) depends only on \( n \). So if \( \bs{X} \) is homogeneous (we usually don't bother with the <em>time</em> adjective), then the chain \( \{X_{k+n}: n \in \N\} \) given \( X_k = x \) is equivalent (in distribution) to the chain \( \{X_n: n \in \N\} \) given \( X_0 = x \). For this reason, the initial distribution is often unspecified in the study of Markov chains&mdash;if the chain is in state \( x \in S \) at a particular time \( k \in \N \), then it doesn't really matter how the chain got to state \( x \); the process essentially <q>starts over</q>, independently of the past. The term <dfn>stationary</dfn> is sometimes used instead of homogeneous.</p>
+
+<p>From now on, we will usually assume that our Markov chains are homogeneous. This is not as big of a loss of generality as you might think. A non-homogenous Markov chain can be turned into a homogeneous Markov process by enlarging the state space, as shown in the <a href="General.html#enl1">introduction to general Markov processes</a>, but at the cost of creating an uncountable state space. For a homogeneous Markov chain, if \( k, \, n \in \N \), \( x \in S \), and \( f \in \mathscr{B}\), then
+\[ \E[f(X_{k+n}) \mid X_k = x] = \E[f(X_n) \mid X_0 = x] \]
+</p>
+
+<h4 id="str">Stopping Times and the Strong Markov Property</h4>
+
+<p>Consider again a stochastic process \( \bs{X} = (X_0, X_1, X_2, \ldots) \) with countable state space \( S \), and with the natural filtration \( \mathfrak{F} = (\mathscr{F}_0, \mathscr{F}_1, \mathscr{F}_2, \ldots) \) as given above. Recall that a random variable \( \tau \) taking values in \( \N \cup \{\infty\} \) is a <dfn>stopping time</dfn> or a <dfn>Markov time</dfn> for \( \bs{X} \) if \( \{\tau = n\} \in \mathscr{F}_n \) for each \( n \in \N \). Intuitively, we can tell whether or not \( \tau = n \) by observing the chain up to time \( n \). In a sense, a stopping time is a random time that does not require that we see into the future. The following result gives the quintessential examples of stopping times.</p>
+
+<div class="unit" id="str1">
+	<p class="math">Suppose again \( \bs{X} = \{X_n: n \in \N\} \) is a discrete-time Markov chain with state space \( S \) as defined above. For \( A \subseteq S \), the following random times are stopping times:</p>
+	<ol class="sub">
+		<li>\( \rho_A = \inf\{n \in \N: X_n \in A\} \), the <dfn>entrance time</dfn> to \( A \).</li>
+		<li>\( \tau_A = \inf\{n \in \N_+: X_n \in A\} \), the <dfn>hitting time</dfn> to \( A \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( n \in \N \)</p>
+		<ol class="sub">
+			<li>\(\{\rho_A = n\} = \{X_0 \notin A, X_1 \notin A, \ldots, X_{n-1} \notin A, X_n \in A\} \in \mathscr{F}_n\)</li>
+			<li>\(\{\tau_A = n\} = \{X_1 \notin A, X_2 \notin A, \ldots, X_{n-1} \notin A, X_n \in A\} \in \mathscr{F}_n\)</li>
+		</ol>
+	</details>
+</div>
+
+<p>An example of a random time that is generally <em>not</em> a stopping time is the <em>last</em> time that the process is in \( A \):
+\[ \zeta_A = \max\{n \in \N_+: X_n \in A\} \]
+We cannot tell if \( \zeta_A = n \) without looking into the future: \( \{ \zeta_A = n\} = \{X_n \in A, X_{n+1} \notin A, X_{n+2} \notin A, \ldots\} \) for \( n \in \N \).</p>
+
+<p>If \( \tau \) is a stopping time for \( \bs{X} \), the \( \sigma \)-algebra associated with \( \tau \) is 
+\[ \mathscr{F}_\tau = \{A \in \mathscr{F}: A \cap \{\tau = n\} \in \mathscr{F}_n \text{ for all } n \in \N\} \]
+Intuitively, \( \mathscr{F}_\tau \) contains the events that can be described by the process up to the random time \( \tau \), in the same way that \( \mathscr{F}_n \) contains the events that can be described by the process up to the deterministic time \( n \in \N \). For more information see the section on <a href="../prob/Stop.html">filtrations and stopping times</a>.</p>
+
+<p>The <dfn>strong Markov property</dfn> states that the future is independent of the past, given  the present, when the present time is a stopping time. For a discrete-time Markov chain, the ordinary Markov property implies the strong Markov property.</p>
+
+<div class="unit" id="str2">
+	<p class="math">If \( \bs{X} = (X_0, X_1, X_2, \ldots) \) is a discrete-time Markov chain then \( \bs{X} \) has the strong Markov property. That is, if \( \tau \) is a finite stopping time for \( \bs{X} \) then</p>
+	<ol class="sub">
+		<li>\( \P(X_{\tau+k} = x \mid \mathscr{F}_\tau) = \P(X_{\tau+k} = x \mid X_\tau) \) for every \(  k \in \N \) and \( x \in S \).</li>
+		<li>\( \E[f(X_{\tau+k}) \mid \mathscr{F}_\tau] = \E[f(X_{\tau+k}) \mid X_\tau] \) for every \( k \in \N \) and \( f \in \mathscr{B} \).</li>
+	</ol>
+</div>
+
+<p>Part (a) states that the conditional probability density function of \( X_{\tau + k} \) given \( \mathscr{F}_\tau \) is the same as the conditional probability density function of \( X_{\tau + k} \) given just \( X_\tau \). Part (b) also states, in terms of expected value, that the conditional distribution of \( X_{\tau + k} \) given \( \mathscr{F}_\tau \) is the same as the conditional distribution of \( X_{\tau + k} \) given just \( X_\tau \). Assuming homogeneity as usual, the Markov chain \( \{X_{\tau + n}: n \in \N\} \) given \( X_\tau = x \) is equivalent in distribution to the chain \( \{X_n: n \in \N\} \) given \( X_0 = x \). </p>
+
+<h4 id="trn">Transition Matrices</h4>
+
+<p>Suppose again that \( \bs{X} = (X_0, X_1, X_2, \ldots) \) is a homogeneous, discrete-time Markov chain with state space \( S \). With a discrete state space, the <a href="General.html#trn">transition kernels</a> studied in the general introduction become transition <em>matrices</em>, with rows and columns indexed by \( S \) (and so perhaps of infinite size). The kernel operations become familiar matrix operations. The results in this section are special cases of the general results, but we sometimes give independent proofs for completeness, and because the proofs are simpler. You may want to review the section on <a href="../expect/Kernels.html">kernels</a> in the chapter on <a href="../expect/index.html">expected value</a>.</p>
+
+<div class="unit" id="trn1">
+	<p class="math">For \( n \in \N \) let
+	\[ P_n(x, y) = \P(X_n = y \mid X_0 = x), \quad (x, y) \in S \times S \]
+	The matrix \( P_n \) is the \( n \)-step <dfn>transition probability matrix</dfn> for \( \bs{X} \). </p>
+</div>
+
+<p>Thus, \( y \mapsto P_n(x, y) \) is the probability density function of \( X_n \) given \( X_0 = x \). In particular, \( P_n \) is a <dfn>probability matrix</dfn> (or <dfn>stochastic matrix)</dfn> since \( P_n(x, y) \ge 0 \) for \( (x, y) \in S^2 \) and \( \sum_{y \in S} P(x, y) = 1 \) for \( x \in S \). As with any nonnegative matrix on \( S \), \( P_n \) defines a kernel on \( S \) for \( n \in \N \):
+\[ P_n(x, A) = \sum_{y \in A} P_n(x, y) = \P(X_n \in A \mid X_0 = x), \quad x \in S, \, A \subseteq S \]
+So \( A \mapsto P_n(x, A) \) is the probability distribution of \( X_n \) given \( X_0 = x \). The next result is the <dfn>Chapman-Kolmogorov</dfn> equation, named for <a href="JavaScript:openAncillary('../biographies/Chapman.html')" class="ancillary">Sydney Chapman</a> and <a href="JavaScript:openAncillary('../biographies/Kolmogorov.html')" class="ancillary">Andrei Kolmogorov</a>. It gives the basic relationship between the transition matrices.</p>
+
+<div class="unit" id="trn2">
+	<p class="math">If \( m, \, n \in \N \) then \( P_m P_n = P_{m+n} \) </p>
+	<details>
+	<summary>Details:</summary>
+		<p>This follows from the Markov and time-homogeneous properties and a basic conditioning argument. If \( x, \, z \in S \) then
+		\[ P_{m+n}(x, z) = \P(X_{m+n} = z \mid X_0 = x) = \sum_{y \in S} \P(X_{m+n} = z \mid X_0 = x, X_m = y) \P(X_m = y \mid X_0 = x) \]
+		But by the Markov property and time-homogeneous properties
+		\[ \P(X_{m+n} = z \mid X_0 = x, X_m = y) = \P(X_n = z \mid X_0 = y) = P_n(y, z) \]
+		Of course also \( \P(X_m = y \mid X_0 = x) = P_m(x, y) \)
+		Hence we have
+		\[ P_{m+n}(x, z) = \sum_{y \in S} P_m(x, y) P_n(y, z) \]
+		The right side, by definition, is \( P_m P_n(x, z) \).</p>
+	</details>
+</div>
+
+<p>It follows immediately that the transition matrices are just the matrix powers of the one-step transition matrix. That is, letting \( P = P_1 \) we have \( P_n = P^n \) for all \( n \in \N \). Note that \( P^0 = I \), the identity matrix on \( S \) given by \( I(x, y) = 1 \) if \( x = y \) and 0 otherwise. The right operator corresponding to \( P^n \) yields an expected value.</p>
+
+<div class="unit" id="trn3">
+	<p class="math">Suppose that \( n \in \N \) and that \( f: S \to \R \). Then, assuming that the expected value exists,
+	\[ P^n f(x) = \sum_{y \in S} P^n(x, y) f(y) = \E[f(X_n) \mid X_0 = x], \quad x \in S \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows easily from the definitions:
+		\[ P^nf(x) = \sum_{y \in S} P^n(x, y) f(y) = \sum_{y \in S} \P(X_n = y \mid X_0 = x) f(y) = \E[f(X_n) \mid X_0 = x], \quad x \in S\]</p>
+	</details>
+</div>
+
+<p>The existence of the expected value is only an issue if \( S \) is infinte. In particular, the result holds if \( f \) is nonnegative or if \( f \in \mathscr{B} \) (which in turn would always be the case if \( S \) is finite). In fact, \( P^n \) is a linear <dfn>contraction operator</dfn> on the space \( \mathscr{B} \) for \( n \in \N \). That is, if \( f \in \mathscr{B} \) then \( P^n f \in \mathscr{B} \) and \( \|P^n f\| \le \|f\| \). The left operator corresponding to \( P^n \) is defined similarly. For \( f: S \to \R \)
+\[ f P^n(y) = \sum_{x \in S} f(x) P^n(x, y), \quad y \in S \]
+assuming again that the sum makes sense (as before, only an issue when \( S \) is infinite). The left operator is often restricted to nonnegative functions, and we often think of such a function as the density function (with respect to \( \# \)) of a positive measure on \( S \). In this sense, the left operator maps a density function to another density function.
+
+<div class="unit" id="trn4">
+	<p class="dfn">A function \( f: S \to \R \) is <dfn>invariant</dfn> for \( P \) (or for the chain \( \bs{X} \)) if \( f P = f \).</p>
+</div>
+
+<p>Clearly if \( f \) is invariant, so that \( f P = f \) then \( f P^n = f \) for all \( n \in \N \). If \( f \) is a probability density function, then so is \( f P \).</p>
+
+<div class="unit" id="trn5">
+	<p class="math">If \( X_0 \) has probability density function \( f \), then \( X_n \) has probability density function \( f P^n \) for \( n \in \N \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, this follows easily from definition <a href="#trn4" class="ref"></a> and a conditioning argument.
+		\[ \P(X_n = y) = \sum_{x \in S} \P(X_0 = x) \P(X_n = y \mid X_0 = x) = \sum_{x \in S} f(x) P^n(x, y) = f P^n(y), \quad y \in S \]</p>
+	</details>
+</div>
+
+<p>In particular, if \( X_0 \) has probability density function \( f \), and \( f \) is invariant for \( \bs{X} \), then \( X_n \) has probability density function \( f \) for all \( n \in \N \), so the sequence of variables \( \bs{X} = (X_0, X_1, X_2, \ldots) \) is identically distributed. Combining two results above, suppose that \( X_0 \) has probability density function \( f \) and that \( g: S \to \R \). Assuming the expected value exists, \( \E[g(X_n)] = f P^n g \). Explicitly,
+\[ \E[g(X_n)] = \sum_{x \in S} \sum_{y \in S} f(x) P^n(x, y) g(y) \]
+It also follows from exercise <a href="trn5" class="ref"></a> that the distribution of \( X_0 \) (the <dfn>initial distribution</dfn>) and the one-step transition matrix determine the distribution of \( X_n \) for each \( n \in \N \). Actually, these basic quantities determine the <em>finite dimensional distributions</em> of the process, a stronger result.</p>
+
+<div class="unit" id="trn6">
+	<p class="math">Suppose  that \( X_0 \) has probability density function \( f_0 \). For any sequence of states \( (x_0, x_1, \ldots, x_n) \in S^n, \),
+	\[ \P(X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n) = f_0(x_0) P(x_0, x_1) P(x_1, x_2) \cdots P(x_{n-1},x_n) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows directly from the Markov property and the <a href="../prob/Conditional.html">multiplication rule</a> of conditional probability:
+		\[ \P(X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n) = \P(X_0 = x_0) \P(X_1 = x_1 \mid X_0 = x_0) \P(X_2 = x_2 \mid X_0 = x_0, X_1 = x_1) \cdots \P(X_n = x_n \mid X_0 = x_0, \ldots, X_{n-1} = x_{n-1}) \]
+		But by the Markov property, this reduces to
+		\begin{align*}
+			\P(X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n) &amp; = \P(X_0 = x_0) \P(X_1 = x_1 \mid X_0 = x_0) \P(X_2 = x_2 \mid X_1 = x_1) \cdots \P(X_n = x_n \mid X_{n-1} = x_{n-1}) \\
+			&amp; = f_0(x_0) P(x_0, x_1) P(x_1, x_2) \cdots P(x_{n-1}, x_n) 
+		\end{align*}</p>
+	</details>
+</div>
+
+<p>Computations of this sort are the reason for the term <em>chain</em> in the name <em>Markov chain</em>. From this result, it follows that given a probability matrix \( P \) on \( S \) and a probability density function \( f \) on \( S \), we can construct a Markov chain \( \bs{X} = (X_0, X_1, X_2, \ldots) \) such that \( X_0 \) has probability density function \( f \) and the chain has one-step transition matrix \( P \). In applied problems, we often know the one-step transition matrix \( P \) from modeling considerations, and again, the initial distribution is often unspecified.</p>
+
+<p>There is a natural graph (in the combinatorial sense) associated with a homogeneous, discrete-time Markov chain.</p>
+
+<div class="unit" id="trn7">
+	<p class="dfn">Suppose again that \( \bs{X} = (X_0, X_1, X_2, \ldots) \) is a Markov chain with state space \( S \) and transition probability matrix \( P \). The <dfn>state graph</dfn> of \( \bs{X} \) is the directed graph with vertex set \( S \) and edge set \( E = \{(x, y) \in S^2: P(x, y) \gt 0\} \).</p>
+</div>
+
+<p>That is, there is a directed edge from \( x \) to \( y \) if and only if state \( x \) leads to state \( y \) in one step. Note that the graph may well have loops, since a state can certainly lead back to itself in one step. More generally, we have the following result:</p>
+
+<div class="unit" id="trn8">
+	<p class="math">Suppose again that \( \bs{X} = (X_0, X_1, X_2, \ldots) \) is a Markov chain with state space \( S \) and transition probability matrix \( P \). For \( x, \, y \in S \) and \( n \in \N_+ \), there is a directed path of length \( n \) in the state graph from \( x \) to \( y \) if and only if \( P^n(x, y) \gt 0 \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows since \( P^n(x, y) \gt 0 \) if and only if there exists a sequence of states \( (x_1, x_2, \ldots, x_{n-1})  \) with \( P(x, x_1) \gt 0, P(x_1, x_2) \gt 0, \ldots, P(x_{n-1}, y) \gt 0\). This is also precisely the condition for the existence of a directed path \( (x, x_1, \ldots, x_{n-1}, y) \) of length \( n \) from \( x \) to \( y \) in the state graph.</p>
+	</details>
+</div>
+
+<h4 id="pot">Potential Matrices</h4>
+
+<div class="unit" id="pot1">
+	<p class="dfn">For \( \alpha \in (0, 1] \), the <dfn>\( \alpha \)-potential matrix</dfn> \( R_\alpha \) of \( \bs{X} \) is
+	\[ R_\alpha = \sum_{n=0}^\infty \alpha^n P^n, \quad (x, y) \in S^2 \]</p>
+	<ol class="sub">
+		<li>\( R = R_1 \) is simply the <dfn>potential matrix</dfn> of \( \bs{X} \).</li>
+		<li>\( R(x, y) \) is the expected number of visits by \( \bs{X} \) to \( y \in S \), starting at \( x \in S \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>First the definition of \( R_\alpha \) as an infinite series of matrices makes sense since \( P^n \) is a nonnegative matrix for each \( n \). The interpretation of \( R(x, y) \) for \( (x, y) \in S^2 \) comes from interchanging sum and expected value, again justified since the terms are nonnegative.
+		\[ R(x, y) = \sum_{n=0}^\infty P^n(x, y) = \sum_{n=0}^\infty \E[\bs{1}(X_n = y) \mid X_0 = x] = \E\left( \sum_{n=0}^\infty \bs{1}(X_n = y) \biggm| X_0 = x\right) = \E[\#\{n \in \N: X_n = y\} \mid X_0 = x] \]</p>
+	</details>
+</div>
+
+<p>Note that it's quite possible that \( R(x, y) = \infty \) for some \( (x, y) \in S^2 \). In fact, knowing when this is the case is of considerable importance in <a href="Recurrence.html">recurrence and transience</a>, which we study in the next section. As with any nonnegative matrix, the \( \alpha \)-potential matrix defines a kernel and defines left and right operators. For the kernel,
+\[ R_\alpha(x, A) = \sum_{y \in A} R_\alpha(x, y) = \sum_{n=0}^\infty \alpha^n P^n(x, A), \quad x \in S, A \subseteq S \]
+In particular, \( R(x, A) \) is the expected number of visits by the chain to \( A \) starting in \( x \):
+\[ R(x, A) = \sum_{y \in A} R(x, y) = \sum_{n=0}^\infty P^n(x, A) = \E\left[\sum_{n=0}^\infty \bs{1}(X_n \in A)\right], \quad x \in S, \, A \subseteq S \]</p>
+
+<div class="unit" id="pot2">
+	<p class="math">If \( \alpha \in (0, 1) \), then \( R_\alpha(x, S) = \frac{1}{1 - \alpha} \) for all \( x \in S \). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Using geometric series,
+		\[ R_\alpha(x, S) = \sum_{n=0}^\infty \alpha^n P^n(x, S) = \sum_{n=0}^\infty \alpha^n = \frac{1}{1 - \alpha} \]</p>
+	</details>
+</div>
+
+<p>Hence \( R_\alpha \) is a bounded matrix for \( \alpha \in (0, 1) \) and \( (1 - \alpha) R_\alpha \) is a probability matrix. There is a simple interpretation of this matrix.</p>
+
+<div class="unit" id="pot3">
+	<p class="math">If \( \alpha \in (0, 1) \) then \( (1 - \alpha) R_\alpha(x, y) = \P(X_N = y \mid X_0 = x) \) for \( (x, y) \in S^2 \), where \( N \) is independent of \( \bs{X} \) and has the geometric distribution on \( \N \) with parameter \( 1 - \alpha \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( (x, y) \in S^2 \). Conditioning on \( N \) gives
+		\[ \P(X_N = y \mid X_0 = x) = \sum_{n=0}^\infty \P(N = n) \P(X_N = y \mid X_0 = x, N = n) \]
+		But by the substitution rule and the assumption of independence,
+		\[ \P(X_N = y \mid N = n, X_0 = x) = \E(X_n = y \mid N = n, X_0 = x) = \P(X_n = y \mid X_0 = x) = P^n (x, y) \]
+		Since \( N \) has the geometric distribution on \( N \) with parameter \( 1 - \alpha \) we have \( \P(N = n) = (1 - \alpha) \alpha^n \). Hence
+		\[ \P(X_N = y \mid X_0 = x) = \sum_{n=0}^\infty (1 - \alpha) \alpha^n P^n(x, y) = (1 - \alpha) R_\alpha(x, y) \]</p>
+	</details>
+</div>
+
+<p>So \( (1 - \alpha) R_\alpha \) can be thought of as a <em>transition matrix</em> just as \( P^n \) is a transition matrix, but corresponding to the <em>random time</em> \( N \) (with \( \alpha \) as a paraamter) rather than the <em>deterministic time</em> \( n \). An interpretation of the potential matrix \( R_\alpha \) for \( \alpha \in (0, 1) \) can also be given in economic terms. Suppose that we receive one monetary unit each time the chain visits a fixed state \( y \in S\). Then \( R(x, y) \) is the expected total reward, starting in state \( x \in S \). However, typically money that we will receive at times distant in the future have less value to us <em>now</em> than money that we will receive soon. Specifically suppose that a monetary unit at time \( n \in \N \) has a <dfn>present value</dfn> of \( \alpha^n \), so that \( \alpha \) is an <dfn>inflation factor</dfn> (sometimes also called a <dfn>discount factor</dfn>). Then \( R_\alpha (x, y) \) gives the expected total discounted reward, starting at \( x \in S \).</p>
+
+
+<div class="unit" id="pot4">
+	<p class="math">The potential kernels \( \bs{R} = \{R_\alpha: \alpha \in (0, 1)\} \) completely determine the transition kernels \( \bs{P} = \{P_n: n \in \N\}  \). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that for \( (x, y) \in S^2 \), the function \( \alpha \mapsto R_\alpha(x, y) \) is a power series in \( \alpha \) with coefficients \(n \mapsto P^n(x, y) \). In the language of combinatorics, \( \alpha \mapsto R_\alpha(x, y) \) is the <dfn>ordinary generating function</dfn> of the sequence \( n \mapsto P^n(x, y) \). As noted above, this power series has radius of convergence at least 1, so we can extend the domain to \( \alpha \in (-1, 1) \).  Thus, given the potential matrices, we can recover the transition matrices by taking derivatives and evaluating at 0:
+		\[ P^n(x, y) = \frac{1}{n!}\left[\frac{d^n}{d\alpha^n} R_\alpha(x, y) \right]_{\alpha = 0} \]</p>
+	</details>
+</div>
+
+<p>Of course, it's really only necessary to determine \( P \), the one step transition kernel, since the other transition kernels are powers of \( P \). In any event, it follows that the matrices \( \bs{R} = \{R_\alpha: \alpha \in (0, 1)\} \), along with the initial distribution, completely determine the finite dimensional distributions of the Markov chain \( \bs{X} \). The potential matrices commute with each other and with the transition matrices.</p>
+
+<div class="unit" id="pot5">
+	<p class="math">If \( \alpha, \, \beta \in (0, 1] \) and \( k \in \N \), then</p>
+	<ol class="sub">
+		<li>\( P^k R_\alpha = R_\alpha P^k = \sum_{n=0}^\infty \alpha^n P^{n+k} \)</li>
+		<li>\( R_\alpha R_\beta = R_\beta R_\alpha = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^{m+n} \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Distributing matrix products through matrix sums is allowed since the matrices are nonnegative.</p>
+		<ol class="sub">
+			<li>Directly
+			\[ R_\alpha P^k = \sum_{n=0}^\infty \alpha^n P^n P^k = \sum_{n=0}^\infty \alpha^n P^{n+k}\]
+			The other direction requires an interchange.
+			\[ P^k R_\alpha = P^k \sum_{n=0}^\infty \alpha^n P^n = \sum_{n=0}^\infty \alpha^n P^k P^n = \sum_{n=0}^\infty \alpha^n P^{n+k}\]</li>
+			<li>First, 
+			\[R_\alpha R_\beta = \sum_{m=0}^\infty \alpha^m P^m R_\beta = \sum_{m=0}^\infty \alpha^m P^m \left(\sum_{n=0}^\infty \beta^n P^n\right) = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^m P^n = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^{m+n}\]
+			The other direction is similar.</li>
+		</ol>
+	</details>
+</div>
+
+<p>The fundamental equation that relates the potential matrices is given next.</p>
+
+<div class="unit" id="pot6">
+	<p class="math">If \( \alpha, \, \beta \in (0, 1] \) with \( \alpha \ge \beta \) then
+	\[ \alpha R_\alpha = \beta R_\beta + (\alpha - \beta) R_\alpha R_\beta \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>If \( \alpha = \beta \) the equation is trivial, so assume \( \alpha \gt \beta \). From the previous result,
+		\[ R_\alpha R_\beta  = \sum_{j=0}^\infty \sum_{k=0}^\infty \alpha^j q^k P^{j+k} \]
+		Changing variables to sum over \( n = j + k \) and \( k \) gives
+		\[ R_\alpha R_\beta = \sum_{n=0}^\infty \sum_{k=0}^n \alpha^{n-k} \beta^k P^n = \sum_{n=0}^\infty  \sum_{k=0}^n \left(\frac{\beta}{\alpha}\right)^k \alpha^n P^n = \sum_{n=0}^\infty \frac{1 - \left(\frac{\beta}{\alpha}\right)^{n+1}}{1 - \frac{\beta}{\alpha}} \alpha^n P^n \]
+		Simplifying gives 
+		\[ R_\alpha R_\beta =  \frac{1}{\alpha - \beta} \left[\alpha R_\alpha - \beta R_\beta  \right]\]
+		Note that since \( \beta \lt 1 \), the matrix \( R_\beta \) has finite values, so we don't have to worry about the dreaded indeterminate form \( \infty - \infty \).</p>
+	</details>
+</div>
+
+<div class="unit" id="pot7">
+	<p class="math">If \( \alpha \in (0, 1] \) then \( I + \alpha R_\alpha P = I + \alpha P R_\alpha = R_\alpha \).</p>
+	<details>
+	<summary>Details:</summary>
+		<p>From <a href="#pot6" class="ref"></a>,
+		\[ I + \alpha R_\alpha P = I + \alpha P R_\alpha = I + \sum_{n=0}^\infty \alpha^{n+1} P^{n+1} = \sum_{n = 0}^\infty \alpha^n P^n  = R_\alpha  \]</p>
+	</details>
+</div>
+
+<p>This leads to an important result: when \( \alpha \in (0, 1) \), there is an inverse relationship between \( P \) and \( R_\alpha \).</p>
+
+<div class="unit" id="pot8">
+	<p class="math">If \( \alpha \in (0, 1) \), then 
+	<ol class="sub">
+		<li>\( R_\alpha = (I - \alpha P)^{-1} \)</li>
+		<li>\( P = \frac{1}{\alpha}\left(I - R_\alpha^{-1}\right) \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The matrices have finite values, so we can subtract. The identity \( I + \alpha R_\alpha P = R_\alpha \) leads to \( R_\alpha(I - \alpha P) = I \) and the identity \( I + \alpha P R_\alpha = R_\alpha \) leads to \( (I - \alpha P) R_\alpha = I \). Hence (a) holds. Part (b) follows from (a).</p>
+	</details>
+</div>
+
+<p>Exercise <a href="#pot8" class="ref"></a> shows again that the potential matrix \( R_\alpha \) determines the transition operator \( P \).</p>
+
+<h4 id="smp">Sampling in Time</h4>
+
+<p>If we sample a Markov chain at multiples of a fixed time \( k \), we get another (homogeneous) chain.</p>
+
+<div class="unit" id="smp1">
+	<p class="math">Suppose that \( \bs{X} = (X_0, X_1, X_2, \ldots) \) is an Markov chain with state space \( S \) and transition probability matrix \( P \). For fixed \( k \in \N_+ \), the sequence \(\bs{X}_k = (X_0, X_k, X_{2 k}, \ldots) \) is a Markov chain on \( S \) with transition probability matrix \( P^k \).</p>
+</div>
+
+<p>If we sample a Markov chain at a general increasing sequence of time points \( 0 \lt n_1 \lt n_2 \lt \cdots \) in \( \N \), then the resulting stochastic process \( \bs{Y} = (Y_0, Y_1, Y_2, \ldots)\), where \( Y_k = X_{n_k} \) for \( k \in \N \), is still a Markov chain, but is not time homogeneous in general. </p>
+
+<p>Recall that if \( A \) is a nonempty subset of \( S \), then \( P_A \) is the matrix \( P \) restricted to \( A \times A \). So \( P_A \) is a <em>sub</em>-stochastic matrix, since the row sums may be less than 1. Recall also that \( P_A^n \) means \( (P_A)^n \), not \( (P^n)_A \); in general these matrices are different.</p>
+
+<div class="unit" id="smp2">
+	<p class="math">If \( A \) is a nonempty subset of \( S \) then for \( n \in \N \),
+	\[ P_A^n(x, y) = \P(X_1 \in A, X_2 \in A, \ldots, X_{n-1} \in A, X_n = y \mid X_0 = x), \quad (x, y) \in A \times A \]</p>
+</div>
+
+<p>That is, \( P_A^n(x, y) \) is the probability of going from state \( x \) to \( y \) in \( n \) steps, remaining in \( A \) all the while. In terms of the state graph of \( \bs{X} \), it is the sum of products of probabilities along paths of length \( n \) from \( x \) to \( y \) that stay inside \( A \). </p>
+
+<h3 id="exa">Examples and Applications</h3>
+
+<h4 id="com">Computational Exercises</h4>
+
+<p>Let \( \bs{X} = (X_0, X_1, \ldots) \) be the Markov chain on \( S = \{a, b, c\} \) with transition matrix
+\[ P = \left[\begin{matrix} \frac{1}{2} &amp; \frac{1}{2} &amp; 0 \\ \frac{1}{4} &amp; 0 &amp;  \frac{3}{4} \\ 1 &amp; 0 &amp; 0 \end{matrix} \right] \]</p>
+
+<div class="unit" id="com1">
+	<p class="math">For the Markov chain \( \bs{X} \),</p>
+	<ol class="sub">
+		<li>Draw the state graph.</li>
+		<li>Find \( \P(X_1 = a, X_2 = b, X_3 = c \mid X_0 = a) \)</li>
+		<li>Find \( P^2 \)</li>
+		<li>Suppose that \( g: S \to \R \) is given by \( g(a) = 1 \), \( g(b) = 2 \), \( g(c) = 3 \). Find \( \E[g(X_2) \mid X_0 = x] \) for \( x \in S \).</li>
+		<li>Suppose that \( X_0 \) has the uniform distribution on \( S \). Find the probability density function of \( X_2 \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>The edge set is \(E = \{(a, a), (a, b), (b, a), (b, c), (c, a)\} \)</li>
+			<li>\( P(a, a) P(a, b) P(b, c) = \frac{3}{16} \)</li>
+			<li>By standard matrix multiplication,
+			\[ P^2 = \left[\begin{matrix} \frac{3}{8} &amp; \frac{1}{4} &amp; \frac{3}{8} \\ \frac{7}{8} &amp; \frac{1}{8} &amp; 0 \\ \frac{1}{2} &amp; \frac{1}{2} &amp; 0 \end{matrix} \right] \]</li>
+			<li>In matrix form,
+			\[ g = \left[\begin{matrix} 1 \\ 2 \\ 3 \end{matrix}\right], \quad P^2 g = \left[\begin{matrix} 2 \\ \frac{9}{8} \\ \frac{3}{2} \end{matrix} \right]  \]</li>
+			<li>In matrix form, \( X_0 \) has PDF \( f = \left[\begin{matrix} \frac{1}{3} &amp; \frac{1}{3} &amp; \frac{1}{3} \end{matrix} \right] \), and \( X_2 \) has PDF \( f P^2 = \left[\begin{matrix} \frac{7}{12} &amp; \frac{7}{24} &amp; \frac{1}{8} \end{matrix} \right] \).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="com2">
+	<p class="math">Let \( A = \{a, b\} \). Find each of the following:</p>
+	<ol class="sub">
+		<li>\( P_A \)</li>
+		<li>\( P_A^2 \)</li>
+		<li>\( (P^2)_A \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>\( P_A = \left[\begin{matrix} \frac{1}{2} &amp; \frac{1}{2} \\ \frac{1}{4} &amp; 0 \end{matrix}\right] \)</li>
+			<li>\( P_A^2 =  \left[\begin{matrix} \frac{3}{8} &amp; \frac{1}{4} \\ \frac{1}{8} &amp; \frac{1}{8} \end{matrix}\right]\)</li>
+			<li>\( (P^2)_A =  \left[\begin{matrix} \frac{3}{8} &amp; \frac{1}{4} \\ \frac{7}{8} &amp; \frac{1}{8} \end{matrix}\right]\)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="com3">
+	<p class="math">Find the invariant probability density function of \( \bs{X} \) </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Solving \( f P = f \) subject to the condition that \( f \) is a PDF gives \( f = \left[\begin{matrix} \frac{8}{15} &amp; \frac{4}{15} &amp; \frac{3}{15} \end{matrix}\right] \)</p>
+	</details>
+</div>
+
+<div class="unit" id="com4">
+	<p class="math">Compute the \( \alpha \)-potential matrix \( R_\alpha \) for \( \alpha \in (0, 1) \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Computing \( R_\alpha = (I - \alpha P)^{-1} \) gives
+		\[ R_\alpha = \frac{1}{(1 - \alpha)(8 + 4 \alpha + 3 \alpha^2)}\left[\begin{matrix} 8 &amp; 4 \alpha &amp; 3 \alpha^2 \\ 2 \alpha + 6 \alpha^2 &amp; 8 - 4 \alpha &amp; 6 \alpha - 3 \alpha^2 \\ 8 \alpha &amp; 4 \alpha^2 &amp; 8 - 4 \alpha - \alpha^2 \end{matrix}\right] \]
+		As a check on our work, note that the row sums are \( \frac{1}{1 - \alpha} \).</p>
+	</details>
+</div>
+
+<h4 id="two">The Two-State Chain</h4>
+
+<p>Perhaps the simplest, non-trivial Markov chain has two states, say \( S = \{0, 1\} \) and the transition probability matrix given below, where \( p \in (0, 1) \) and \( q \in (0, 1) \) are parameters.
+\[ P = \left[ \begin{matrix} 1 - p &amp; p \\ q &amp; 1 - q \end{matrix} \right] \]</p>
+
+<div class="unit" id="two1">
+	<p class="math">For \( n \in \N \),
+	\[ P^n = \frac{1}{p + q} \left[ \begin{matrix} q + p(1 - p - q)^n &amp; p - p(1 - p - q)^n \\ q - q(1 - p - q)^n &amp; p + q(1 - p - q)^n \end{matrix} \right]  \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The eigenvalues of \( P \) are 1 and \( 1 - p - q \). Next, \( B^{-1} P B = D \) where
+		\[ B = \left[ \begin{matrix} 1 &amp; - p \\ 1 &amp; q \end{matrix} \right], \quad D = \left[ \begin{matrix} 1 &amp; 0 \\ 0 &amp; 1 - p - q \end{matrix} \right] \]
+		Hence \( P^n = B D^n B^{-1} \), which gives the expression above.</p>
+	</details>
+</div>
+
+<div class="unit" id="two2">
+	<p class="math">As \( n \to \infty \),
+	\[ P^n \to \frac{1}{p + q} \left[ \begin{matrix} q &amp; p \\ q &amp; p \end{matrix} \right] \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( 0 \lt p + q \lt 2 \) and so \(-1 \lt 1 - (p + q) \lt 1\). Hence \( (1 - p - q)^n \to 0 \) as \( n \to \infty \).</p>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="app">Open the simulation of the <a href="JavaScript:openAncillary('../apps/TwoState.html')" class="ancillary">two-state, discrete-time Markov chain</a>. For various values of \( p \) and \( q \), and different initial states, run the simulation 1000 times. Compare the relative frequency distribution to the limiting distribution, and in particular, note the rate of convergence. Be sure to try the case \( p = q = 0.01 \)</p>
+</div>
+
+<div class="unit" id="two3">
+	<p class="math">The only invariant probability density function for the chain is
+	\[ f = \left[\begin{matrix} \frac{q}{p + q} &amp; \frac{p}{p + q} \end{matrix} \right] \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( f = \left[\begin{matrix} a &amp; b \end{matrix}\right] \). The matrix equation \( f P = f \) leads to \( -p a + q b = 0 \) so \( b = a \frac{p}{q} \). The condition \( a + b = 1 \) for \( f \) to be a PDF then gives \( a = \frac{q}{p + q} \), \( b = \frac{p}{p + q} \)</p>
+	</details>
+</div>
+
+<div class="unit" id="two4">
+	<p class="math">For \( \alpha \in (0, 1) \), the \( \alpha \)-potential matrix is
+	\[ R_\alpha = \frac{1}{(p + q)(1 - \alpha)} \left[\begin{matrix} q &amp; p \\ q &amp; p \\ \end{matrix}\right] + \frac{1}{(p + q)^2 (1 - \alpha)} \left[\begin{matrix} p &amp; -p \\ -q &amp; q \end{matrix}\right] \]
+	</p>
+	<details>
+		<summary>Details:</summary>
+		<p>In this case, \( R_\alpha \) can be computed directly as \( \sum_{n=0}^\infty \alpha^n P^n \) using geometric series.</p>
+	</details>
+</div>
+
+<p>In spite of its simplicity, the two state chain illustrates some of the basic <a href="limiting.html">limiting behavior</a> and the connection with invariant distributions that we will study in general in a later section.</p>
+
+<h4 id="ind">Independent Variables and Random Walks</h4>
+
+<p>Suppose that \( \bs{X} = (X_0, X_1, X_2, \ldots) \) is a sequence of independent random variables taking values in a countable set \( S \), and that \( (X_1, X_2, \ldots) \) are identically distributed with (discrete) probability density function \( f \).</p>
+
+<div class="unit" id="ind1">
+	<p class="math">\( \bs{X} \) is a Markov chain on \( S \) with transition probability matrix \( P \) given by \( P(x, y) = f(y) \) for \( (x, y) \in S \times S \). Also, \( f \) is invariant for \( P \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>As usual, let \( \mathscr{F}_n = \sigma\{X_0, X_1 \ldots, X_n\} \) for \( n \in \N \). Since the sequence \( \bs{X} \) is independent,
+		\[ \P(X_{n+1} = y \mid \mathscr{F}_n) = \P(X_{n+1} = y) = f(y), \quad y \in S \]
+		Also,
+		\[ f P(y) = \sum_{x \in S} f(x) P(x, y) = \sum_{x \in S} f(x) f(y) = f(y), \quad y \in S \]</p>
+	</details>
+</div>
+
+<p>As a Markov chain, the process \( \bs{X} \) is not very interesting, although of course it is very interesting in other ways. Suppose now that \( S = \Z \), the set of integers, and consider the <dfn>partial sum process</dfn> (or <dfn>random walk</dfn>) \( \bs{Y} \) associated with \( \bs{X} \):
+\[ Y_n = \sum_{i=0}^n X_i, \quad n \in \N \]</p>
+
+<div class="unit" id="ind2">
+	<p class="math">\( \bs{Y} \) is a Markov chain on \( \Z \) with transition probability matrix \( Q \) given by \( Q(x, y) = f(y - x) \) for \( (x, y) \in \Z \times \Z \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, let \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \) for \( n \in \N \). Then also, \( \mathscr{F}_n = \sigma\{Y_0, Y_1, \ldots, Y_n\} \) for \( n \in \N \). Hence
+		\[ \P(Y_{n+1} = y \mid \mathscr{F}_n) = \P(Y_n + X_{n+1} = y \mid \mathscr{F}_n) = \P(Y_n + X_{n+1} = y \mid Y_n), \quad y \in \Z \]
+		since the sequence \( \bs{X} \) is independent. In particular,
+		\[ \P(Y_{n+1} = y \mid Y_n = x) = \P(x + X_{n+1} = y \mid Y_n = x) = \P(X_{n+1} = y - x) = f(y - x), \quad (x, y) \in \Z^2 \]</p>
+	</details>
+</div>
+
+<p>Thus the probability density function \( f \) governs the distribution of a step size of the random walker on \( \Z \).</p>
+
+<div class="unit" id="ind3">
+	<p class="math">Consider the special case of the random walk on \( \Z \) with \( f(1) = p \) and \( f(-1) = 1 - p \), where \( p \in (0, 1) \).</p>
+	<ol class="sub">
+		<li>Give the transition matrix \( Q \) explicitly.</li>
+		<li>Give \( Q^n \) explicitly for \( n \in \N \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>\( Q(x, x - 1) = 1 - p \), \( Q(x, x + 1) = p \) for \( x \in Z \).</li>
+			<li>For \( k \in \{0, 1, \ldots, n\} \)
+			\[ Q^n(x, x + 2 k - n) = \binom{n}{k} p^k (1 - p)^{n-k} \]
+			This corresponds to \( k \) steps to the right and \( n - k \) steps to the left.</li>
+		</ol>
+	</details>
+</div>
+
+<p>This special case is the <dfn>simple random walk</dfn> on \( \Z \). When \( p = \frac{1}{2} \) we have the <dfn>simple, symmetric random walk</dfn>. The <a href="WalkGraph.html">simple random walk</a> on \( \Z \) is studied in more detail in a later section of this chapter. The <a href="../bernoulli/Walk.html">simple symmetric random walk</a> is studied in more detail in the chapter on <a href="../bernoulli/index.html">Bernoulli trials</a>.</p>
+
+<h4 id="dbl">Doubly Stochastic Matrices</h4>
+
+<div class="unit" id="dbl1">
+	<p class="dfn">A matrix \( P \) on \( S \) is <dfn>doubly stochastic</dfn> if it is nonnegative and if the row <em>and</em> columns sums are 1:
+	\[ \sum_{u \in S} P(x, u) = 1, \; \sum_{u \in s} P(u, y) = 1, \quad (x, y) \in S \times S \]</p>
+</div>
+
+<div class="unit" id="dbl2">
+	<p class="math">Suppose that \( \bs{X} \) is a Markov chain on a finite state space \( S \) with doubly stochastic transition matrix \( P \). Then the uniform distribution on \( S \) is invariant.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Constant functions are left invariant. Suppose that \( f(x) = c \) for \( x \in S \). Then
+		\[ f P(y) = \sum_{x \in S} f(x) P(x, y) = c \sum_{x \in S} P(x, y) = c, \quad y \in S \]
+		Hence if \( S \) is finite, the uniform PDF \( f \) given by \( f(x) = 1 \big/ \#(S) \) for \( x \in S \) is invariant.</p>
+	</details>
+</div>
+
+<div class="unit" id="dbl3">
+	<p class="math">If \( P \) and \( Q \) are doubly stochastic matrices on \( S \), then so is \( P Q \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( y \in S \),
+		\[ \sum_{x \in S} P Q(x, y) = \sum_{x \in S} \sum_{z \in S} P(x, z) Q(z, y) = \sum_{z \in S} Q(z, y) \sum_{x \in S} P(x, z) = \sum_{z \in S} Q(z, y) = 1  \]
+		The interchange of sums is valid since the terms are nonnegative.</p>
+	</details>
+</div>
+
+<p>It follows that if \( P \) is doubly stochastic then so is \( P^n \) for \( n \in \N \).</p>
+
+<div class="unit" id="dbl4">
+	<p class="math">Suppose that \( \bs{X} = (X_0, X_1, \ldots)\) is the Markov chain with state space \( S = \{-1, 0, 1\} \) and with transition matrix
+	\[ P = \left[\begin{matrix} \frac{1}{2} &amp; \frac{1}{2} &amp; 0 \\ 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\ \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \end{matrix} \right] \]</p>
+	<ol class="sub">
+		<li>Draw the state graph.</li>
+		<li>Show that \( P \) is doubly stochastic</li>
+		<li>Find \( P^2 \).</li>
+		<li>Show that the uniform distribution on \( S \) is the only invariant distribution for \( \bs{X} \).</li>
+		<li>Suppose that \( X_0 \) has the uniform distribution on \( S \). For \( n \in \N \), find \( \E(X_n) \) and \( \var(X_n) \).</li>
+		<li>Find the \( \alpha \)-potential matrix \( R_\alpha \) for \( \alpha \in (0, 1) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>The edge set is \( E = \{(-1, -1), (-1, 0), (0, 0), (0, 1), (1, -1), (1, 1)\} \)</li>
+			<li>Just note that the row sums and the column sums are 1.</li>
+			<li>By matrix multiplication,
+			\[ P^2 = \left[\begin{matrix} \frac{1}{4} &amp; \frac{1}{2} &amp; \frac{1}{4} \\ \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{2} \\ \frac{1}{2} &amp; \frac{1}{4} &amp; \frac{1}{4} \end{matrix} \right]\]</li>
+			<li>Let \( f = \left[\begin{matrix} p &amp; q &amp; r\end{matrix}\right] \). Solving the equation \( f P = f \) gives \( p = q = r \). The requirement that \( f \) be a PDF then forces the common value to be \( \frac{1}{3} \).</li>
+			<li>If \( X_0 \) has the uniform distribution on \( S \), then so does \( X_n \) for every \( n \in \N \), so \( \E(X_n) = 0 \) and \( \var(X_n) = \E\left(X_0^2\right) = \frac{2}{3} \).</li>
+			<li>\[ R_\alpha = (I - \alpha P)^{-1} = \frac{1}{(1 - \alpha)(4 - 2 \alpha + \alpha^2)}\left[\begin{matrix} 4 - 4 a + a^2 &amp; 2 a - a^2 &amp; a^2 \\ a^2 &amp; 4 - 4 a + a^2 &amp; 2 a - a^2 \\ 2 a - a^2 &amp; a^2 &amp; 4 - 4 a + a^2 \end{matrix}\right] \]</li>
+		</ol>
+	</details>
+</div>
+
+<p>Recall that a matrix \( M \) indexed by a countable set \( S \) is <dfn>symmetric</dfn> if \( M(x, y) = M(y, x) \) for all \( x, \, y \in S \).</p>
+
+<div class="unit" id="dbl5">
+	<p class="math">If \( P \) is a symmetric, stochastic matrix then \( P \) is doubly stochastic.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This is trivial since
+		\[ \sum_{x \in S} P(x, y) = \sum_{x \in S} P(y, x) = 1, \quad y \in S \]</p>
+	</details>
+</div>
+
+<p>The converse is not true. The doubly stochastic matrix in <a href="#dbl4" class="ref"></a> is not symmetric. But since a symmetric, stochastic matrix on a finite state space is doubly stochastic, the uniform distribution is invariant.</p>
+
+<div class="unit" id="dbl6">
+	<p class="math">Suppose that \( \bs{X} = (X_0, X_1, \ldots)\) is the Markov chain with state space \( S = \{-1, 0, 1\} \) and with transition matrix
+	\[ P = \left[\begin{matrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; \frac{1}{4} &amp; \frac{3}{4} \\ 0 &amp; \frac{3}{4} &amp; \frac{1}{4} \end{matrix} \right] \]</p>
+	<ol class="sub">
+		<li>Draw the state graph.</li>
+		<li>Show that \( P \) is symmetric</li>
+		<li>Find \( P^2 \).</li>
+		<li>Find all invariant probability density functions for \( \bs{X} \).</li>
+		<li>Find the \( \alpha \)-potential matrix \( R_\alpha \) for \( \alpha \in (0, 1) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>The edge set is \( E = \{(-1, -1), (0, 0), (0, 1), (1, 0), (1, 1)\} \)</li>
+			<li>Just note that \( P \) is symmetric with respect to the main diagonal.</li>
+			<li>By matrix multiplication,
+			\[ P^2 = \left[\begin{matrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; \frac{5}{8} &amp; \frac{3}{8} \\ 0 &amp; \frac{3}{8} &amp; \frac{5}{8} \end{matrix} \right]\]</li>
+			<li>Let \( f = \left[\begin{matrix} p &amp; q &amp; r\end{matrix}\right] \). Solving the equation \( f P = f \) gives simply \( r = q \). The requirement that \( f \) be a PDF forces \( p = 1 - 2 q \). Thus the invariant PDFs are \( f = \left[\begin{matrix} 1 - 2 q &amp; q &amp; q \end{matrix}\right]  \) where \( q \in \left[0, \frac{1}{2}\right] \). The special case \( q = \frac{1}{3} \) gives the uniform distribution on \( S \).</li>
+			<li>\[ R_\alpha = (I - \alpha P)^{-1} = \frac{1}{2 (1 - \alpha)^2 (2 + \alpha)}\left[\begin{matrix} 4 - 2 \alpha - 2 \alpha^2 &amp; 0 &amp; 0 \\ 0 &amp; 4 - 5 \alpha + \alpha^2 &amp; 3 \alpha - 3 \alpha^2 \\ 0 &amp; 3 \alpha - 3 \alpha^2 &amp; 4 - 5 \alpha + \alpha^2 \end{matrix}\right] \]</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="mod">Special Models</h4>
+
+<div class="unit" id="mod1">
+	<p class="math">The following Markov chains model interesting processes that are studied in separate sections.</p>
+	<ol class="sub">
+		<li><a href="Ehrenfest.html">Ehrenfest chains</a></li>
+		<li><a href="BernoulliLaplace.html">Bernoulli-Laplace chain</a>.</li>
+		<li><a href="Reliability.html">reliability chains</a>.</li>
+		<li><a href="Branching.html">branching chain</a>.</li>
+		<li><a href="Queuing.html">queuing chains</a>.</li>
+		<li><a href="WalkGraph.html">random walks on graphs</a>.</li>
+		<li><a href="BirthDeath.html">birth-death chains</a>.</li>
+	</ol>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Chains</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

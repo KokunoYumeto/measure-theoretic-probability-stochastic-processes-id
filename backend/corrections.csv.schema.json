@@ -1,0 +1,60 @@
+{
+  "$id": "https://example.invalid/o009/backend/corrections.csv.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "change_kind": {
+      "enum": [
+        "deterministic-output",
+        "original-addition"
+      ],
+      "type": "string"
+    },
+    "correction_id": {
+      "pattern": "^correction\\.[A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "string"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "accepted"
+      ],
+      "type": "string"
+    },
+    "target_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "correction_id",
+    "change_kind",
+    "source_id",
+    "target_id",
+    "description",
+    "evidence",
+    "status"
+  ],
+  "title": "Strict row schema for corrections.csv",
+  "type": "object",
+  "x-csv": {
+    "encoding": "utf-8",
+    "header": [
+      "correction_id",
+      "change_kind",
+      "source_id",
+      "target_id",
+      "description",
+      "evidence",
+      "status"
+    ],
+    "line_ending": "CRLF"
+  }
+}

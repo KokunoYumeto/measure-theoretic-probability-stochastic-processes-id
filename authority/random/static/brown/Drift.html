@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Brownian Motion with Drift</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Brownian motion, normal distribution, drift paramater, scale parameter, transformation, strong Markov property, stopping time">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\( \newcommand{\P}{\mathbb{P}} \)
+	\( \newcommand{\E}{\mathbb{E}} \) 
+	\( \newcommand{\R}{\mathbb{R}} \) 
+	\( \newcommand{\N}{\mathbb{N}} \)
+	\( \newcommand{\Z}{\mathbb{Z}} \)
+	\( \newcommand{\bs}{\boldsymbol} \)
+	\( \newcommand{\cov}{\text{cov}} \)
+	\( \newcommand{\cor}{\text{cor}} \)
+	\( \newcommand{\var}{\text{var}} \)
+	\( \newcommand{\sd}{\text{sd}} \)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Brownian Motion</a></li>
+		<li class="child"><a href="Standard.html" title="Standard Brownian Motion">1</a></li>
+		<li class="current">2</li>
+		<li class="child"><a href="Bridge.html" title="The Brownian Bridge">3</a></li>
+		<li class="child"><a href="Geometric.html" title="Geometric Brownian Motion">4</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>2. Brownian Motion with Drift and Scaling</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<h4 id="def">Definition</h4>
+
+<p>We start with the assumptions that govern <a href="Standard.html">standard Brownian motion</a>, except that we relax the restrictions on the parameters of the normal distribution.</p>
+
+<div class="unit" id="def1">
+	<p class="math">Suppose that \( \mu \in \R \) and \( \sigma \in (0, \infty) \). <dfn>Brownian motion</dfn> with drift parameter \( \mu \) and scale parameter \( \sigma \) is a random process \(\bs{X} = \{X_t: t \in [0, \infty)\}\) with state space \(\R\) that satisfies the following properties:</p>
+	<ol class="sub">
+		<li>\( X_0 = 0 \) (with probability 1).</li>
+		<li>\( \bs{X} \) has stationary increments. That is, for \( s, \, t \in [0, \infty) \) with \( s \lt t \), the distribution of \( X_t - X_s \) is the same as the distribution of \( X_{t - s} \).</li>
+		<li>\( \bs{X} \) has independent increments. That is, for \( t_1, t_2, \ldots, t_n \in [0, \infty) \) with \( t_1 \lt t_2 \lt \cdots \lt t_n \), the random variables \( X_{t_1}, X_{t_2} - X_{t_1}, \ldots, X_{t_n} - X_{t_{n-1}} \) are independent.</li>
+		<li>\( X_t \) has the normal distribution with mean \( \mu t \) and variance \( \sigma^2 t \) for \( t \in [0, \infty) \).</li>
+		<li>With probability 1, \( t \mapsto X_t \) is continuous on \( [0, \infty) \).</li>
+	</ol>
+</div>
+
+<p>Note that we cannot assign the parameters of the normal distribution of \(X_t\) arbitrarily. We know that since \(\bs{X}\) has <a href="../markov/General.html#inc">stationary, independent increments</a>, \(\E(X_t)\) and \(\var(X_t)\) must be linear functions of \( t \in [0, \infty) \). </p>
+
+<div class="unit" id="def2">
+	<p class="app">Open the simulation of <a href="JavaScript:openAncillary('../apps/DriftBrownianMotion.html')" class="ancillary">Brownian motion with drift and scaling</a>. Run the simulation in single step mode several times for various values of the parameters. Note the behavior of the sample paths. For selected values of the parameters, run the simulation 1000 times and compare the empirical density function and moments to the true density function and moments. </p>
+</div>
+
+<p>It's easy to construct Brownian motion with drift and scaling from a standard Brownian motion, so we don't have to worry about the existence question.</p>
+
+<div class="unit" id="def3">
+	<p class="math">Relation to standard Brownian motion.</p>
+	<ol class="sub">
+		<li>Suppose that \(\bs{Z} = \{Z_t: t \in [0, \infty)\}\) is a standard Brownian motion, and that \(\mu \in \R\) and \(\sigma \in (0, \infty)\). Let \(X_t = \mu t + \sigma Z_t\) for \(t \in [0, \infty)\). Then \(\bs{X} = \{X_t: t \in [0, \infty)\}\) is a Brownian motion with drift parameter \(\mu\) and scale parameter \(\sigma\).</li>
+		<li>Conversely, suppose that \(\bs{X} = \{X_t: t \in [0, \infty)\}\) is a Brownian motion with drift parameter \(\mu \in \R\) and scale parameter \(\sigma \in (0, \infty)\). Let \(Z_t = (X_t - \mu t) \big/ \sigma\) for \(t \in [0, \infty)\). Then \(\bs{Z} = \{Z_t: t \in [0, \infty)\}\) is a standard Brownian motion.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>It's straightforwrd to show that the processes \(\bs{X}\) and \(\bs{Z}\) satisfy the appropriate set of assumptions.</p>
+	</details>
+</div>
+
+<p>In differential form, part (a) can be written as
+\[ d X_t = \mu \, dt + \sigma \, d Z_t, \; X_0 = 0 \]</p>
+
+<h4 id="dis">Finite Dimensional Distributions</h4>
+
+<p>Suppose that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is Brownian motion with drift parameter \(\mu \in \R\) and scale parameter \(\sigma \in (0, \infty)\). It follows from part (d) of the definition in <a href="#def1" class="ref"></a> that \( X_t \) has probability density function \( f_t \) given by
+\[ f_t(x) = \frac{1}{\sigma \sqrt{2 \pi t}} \exp\left[-\frac{1}{2  \sigma^2 t} (x - \mu t)^2\right], \quad x \in \R \]
+This family of density functions determines the finite dimensional distributions of \( \bs{X} \).</p>
+
+<div class="unit" id="dis1">
+	<p class="math">If \( t_1, t_2, \ldots, t_n \in (0, \infty) \) with \( 0 \lt t_1 \lt t_2 \cdots \lt t_n \) then \( (X_{t_1}, X_{t_2}, \ldots, X_{t_n}) \) has probability density function \( f_{t_1, t_2, \ldots, t_n} \) given by
+	\[ f_{t_1, t_2, \ldots, t_n}(x_1, x_2, \ldots, x_n) = f_{t_1}(x_1) f_{t_2 - t_1}(x_2 - x_1) \cdots f_{t_n - t_{n-1}}(x_n - x_{n-1}), \quad (x_1, x_2, \ldots, x_n) \in \R^n \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows because \(\bs{X}\) has <a href="../markov/General.html#inc">stationary, independent increments</a>.</p>
+	</details>
+</div>
+
+<div class="unit" id="dis2">
+	<p class="math">\( \bs{X} \) is a Gaussian process with mean function mean function \( m \) and covariance function \( c \) given by</p>
+	<ol class="sub">
+		<li>\( m(t) = \mu t \) for \( t \in [0, \infty) \)</li>
+		<li>\( c(s, t) = \sigma^2 \min\{s, t\} \) for \( s, \, t \in [0, \infty) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The fact that \(\bs{X}\) is a Gaussian process follows from the construction \(X_t = \mu t + \sigma Z_t\) for \(t \in [0, \infty)\), where \(\bs{Z}\) is a standard Brownian motion. We know that \(\bs{Z}\) is a Gaussian process.  The form of the mean and covariance functions follow because \(\bs{X}\) has stationary, independent increments. Note that \(\mu\) and \(\sigma^2\) are the mean and variance of \(X_1\).</p>
+	</details>
+</div>
+
+<p>The correlation function is independent of the parameters, and thus is the same as for standard Brownian motion. This is hardly surprising since correlation is a standardized measure of association.
+\[ \cor(X_s, X_t) \frac{\sigma^2 \min\{s, t\}}{\sigma s \sigma t} = \frac{\min\{s, t\}}{s t} = \sqrt{\frac{\min\{s, t\}}{\max\{s, t\}}}, \quad (s, t) \in [0, \infty)^2 \]</p>
+
+<h4 id="trn">Transformations</h4>
+
+<p>There are a couple simple transformations that preserve Brownian motion, but perhaps change the drift and scale parameters. Our starting place is a Brownian motion \( \bs{X} = \{X_t: t \in [0, \infty)\} \) with drift parameter \( \mu \in \R \) and scale parameter \( \sigma \in (0, \infty) \). Our first result involves scaling \( \bs{X} \) is time and space (and possible reflecting in the spatial origin).</p>
+
+<div class="unit" id="trn1">
+	<p class="math">Let \( a \in \R \setminus \{0\} \) and \( b \in (0, \infty) \). Define \( Y_t = a X_ {b t} \) for \( t \ge 0 \). Then \( \bs{Y} = \{Y_t: t \ge 0\} \) is also a Brownian motion with drift parameter \( a b \mu \) and scale parameter \(\left|a\right| \sqrt{b} \sigma \). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Clearly the new process is still a Gaussian process. The mean function is \( \E(Y_t) = a \E(X_{b t}) = a b \mu t \) for \( t \in [0, \infty) \). The covariance function is \( \cov(Y_s, Y_t) = a^2 \cov(X_{bs}, X_{bt}) = a^2 \sigma^2 \min\{b s,  b t\} = a^2 b \sigma^2 \min\{s, t\} \) for \( (s, t) \in [0, \infty)^2 \). Finally, since \( \bs{X} \) is continuous, so is \( \bs{Y} \).</p>
+	</details>
+</div>
+
+<p>Suppose that \( a \gt 0 \) in the previous theorem, so that we are scaling temporally and spatially. In order to preserve the original drift parameter \(\mu\) we must have \(a b = 1\) (if \(\mu \ne 0\)). In order to preserve the original scale parameter \(\sigma\), we must have \( a \sqrt{b} = 1 \). We can't have both unless \(\mu = 0\), which leads to a slight generalization of one of our results for standard Brownian motion:</p>
+
+<div class="unit" id="trn2">
+	<p class="math">Suppose that \(\bs{X}\) is a Brownian motion with drift parameter \(\mu = 0\) and scale parameter \(\sigma > 0\). Suppose also that \(c \gt 0 \) and let \(Y_t = \frac{1}{c} X_{c^2 t}\) for \(t \ge 0\). Then \(\bs{Y} = \{Y_t: t \in [0, \infty)\}\) is also a Brownian motion with drift parameter 0 and scale parameter \(\sigma\).</p>
+</div>
+
+<p>Our next result is related to the Markov property, which we explore in more detail below. We return to the general case where \(\bs{X} = \{X_t: t \in [0, \infty)\}\) is a Brownian motion with drift parameter \(\mu \in \R\) and scale parameter \(\sigma \in (0, \infty)\). If we <q>restart</q> Brownian motion at a fixed time \( s \), and shift the origin to \( X_s \), then we have another Brownian motion with the same parameters.</p>
+
+<div class="unit" id="trn3">
+	<p class="math">Fix \( s \in [0, \infty) \) and define \( Y_t = X_{s + t} - X_s \) for \( t \ge 0 \). Then \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) is also a Brownian motion with the same drift and scale parameters.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Clearly \( \bs{Y} \) is also a Gaussian process. Moreover, \( \E(Y_t) = \E(X_{s + t}) - \E(X_s) = \mu(s + t) - \mu s = \mu t  \) for \( t \in [0, \infty) \). Also, if \( r, \, t \in [0, \infty) \) with \( r \le t \) then 
+		\begin{align}
+			\cov(Y_r, Y_t) &amp; = \cov(X_{s + r} - X_s, X_{s + t} - X_s) \\
+			&amp; = \cov(X_{s + r}, X_{s + t}) - \cov(X_{s + r}, X_s) - \cov(X_s, X_{s + t}) + \cov(X_s, X_s) \\
+			&amp; = \sigma^2 (s + r) - \sigma^2 s - \sigma^2 s + \sigma^2 s = \sigma^2 r
+		\end{align}
+		Finally, \( \bs{Y} \) is continuous by the continuity of \( \bs{X} \).</p>
+	</details>
+</div>
+
+<h4 id="mar">The Markov Property and Stopping Times</h4>
+
+<p>As usual, we start with a Brownian motion \( \bs{X} = \{X_t: t \in [0, \infty)\} \) with drift parameter \( \mu \) and scale parameter \( \sigma \). Recall again that a  <a href="../markov/General.html">Markov process</a> has the property that the future is independent of the past, given the present state. Because of the stationary, independent increments property, Brownian motion has the property. As a minor note, to view \( \bs{X} \) as a Markov process, we sometimes need to relax Assumption 1 and let \( X_0 \) have an arbitrary value in \( \R \). Let \( \mathscr{F}_t = \sigma\{X_s: 0 \le s \le t\} \), the sigma-algebra generated by the process up to time \( t \in [0, \infty) \). The family of \(\sigma\)-algebras \(\mathfrak{F} = \{\mathscr{F}_t: t \in [0, \infty)\}\) is known as a <a href="../prob/Stop.html">filtration</a>.</p>
+
+<div class="unit" id="mar1">
+	<p class="math">Brownian motion is a time-homogeneous Markov process with transition probability density \( p \) given by
+	\[ p_t(x, y) = f_t(y - x) =\frac{1}{\sigma \sqrt{2 \pi t}} \exp\left[-\frac{1}{2  \sigma^2 t} (y - x - \mu t)^2\right], \quad t \in (0, \infty); \; x, \, y \in \R \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Fix \( s \in [0, \infty) \). The result follows from the fact that the process \( \{X_{s+t} - X_s: t \in [0, \infty)\} \) is another standard Brownian motion, as noted in <a href="#trn3" class="ref"></a>, and is independent of \( \mathscr{F}_s \).
+	</details>
+</div>
+
+<div class="unit" id="mar2">
+	<p class="math">The transtion density \( p \) satisfies the following <dfn>diffusion equations</dfn>. The first is known as the <dfn>forward equation</dfn> and the second as the <dfn>backward equation</dfn>.</p>
+	\begin{align}
+		\frac{\partial}{\partial t} p_t(x, y) &amp; = -\mu \frac{\partial}{\partial y} p_t(x, y) + \frac{1}{2} \sigma^2 \frac{\partial^2}{ \partial y^2} p_t(x, y) \\
+		\frac{\partial}{\partial t} p_t(x, y) &amp; = \mu \frac{\partial}{\partial x} p_t(x, y) + \frac{1}{2} \sigma^2 \frac{\partial^2}{ \partial x^2} p_t(x, y)
+	\end{align}
+	<details>
+		<summary>Details:</summary>
+		<p>These results follows from standard calculus.</p>
+	</details>
+</div>
+
+<p>The diffusion equations are so named, because the spatial derivative in the first equation is with respect to \( y \), the state <em>forward</em> at time \( t \), while the spatial derivative in the second equation is with respect to \( x \), the state <em>backward</em> at time 0.</p>
+
+<p>Recall again that a random time \( \tau \) taking values in \( [0, \infty] \) is a <dfn>stopping time</dfn> with respect to the process \( \bs{X} \) if \( \{\tau \le t\} \in \mathscr{F}_t \) for every \( t \in [0, \infty) \). The \( \sigma \)-algebra associated with \( \tau \) is
+\[ \mathscr{F}_\tau = \left\{B \in \mathscr{F}:  B \cap \{\tau \le t\} \in \mathscr{F}_t \text{ for all } t \ge 0\right\} \]
+See the section on <a href="../prob/Stop.html">Filtrations and Stopping Times</a> for more information on filtrations, stopping times, and the \(\sigma\)-algebra associated with a stopping time. Brownian motion \( \bs{X} \) is also a strong Markov process.</p>
+
+<div class="unit" id="mar3">
+	<p class="math">Suppose that \( \tau \) is a stopping time and define \( Y_t = X_{\tau + t} - X_\tau \) for \( t \in [0, \infty) \). Then \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) is a Brownian motion with the same drift and scale parameters, and is independent of \( \mathscr{F}_\tau \).</p>
+</div>
+
+<!--
+<h3>Computational Exercises</h3>
+
+<div class="unit" id="exe1">
+<p class="math">Explicitly find the probability density function, covariance matrix, and correlation matrix of \( (X_{0.5}, X_1, X_{2.3}) \).</p>
+</div>
+-->
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Brownian Motion</a></li>
+		<li class="child"><a href="Standard.html" title="Standard Brownian Motion">1</a></li>
+		<li class="current">2</li>
+		<li class="child"><a href="Bridge.html" title="The Brownian Bridge">3</a></li>
+		<li class="child"><a href="Geometric.html" title="Geometric Brownian Motion">4</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Properties and Constructions</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, stochastic process, martingale, sub-martingale, super-martingale, convex function, martingale transform, Doob decomposition, Markov process, random walk, branching process, harmonic function, sub-harmonic function, super-harmonic function">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="current">2</li>
+		<li class="child"><a href="Stop.html" title="Stopping Times">3</a></li>
+		<li class="child"><a href="Inequalities.html" title="Inequalities">4</a></li>
+		<li class="child"><a href="Convergence.html" title="Convergence">5</a></li>
+		<li class="child"><a href="Backwards.html" title="Backwards Martingales">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>2. Properties and Constructions</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<h4 id="pre">Preliminaries</h4>
+
+<p>As in the <a href="Introduction.html">introduction</a>, we start with a <a href="../prob/Processes.html">stochastic process</a> \( \bs{X} = \{X_t: t \in T\} \) on an underlying probability space \( (\Omega, \mathscr{F}, \P) \), having state space \( \R \), and where the index set \( T \) (representing time) is either \( \N \) (discrete time) or \( [0, \infty) \) (continuous time). Next, we have a <a href="../prob/Stop.html">filtration</a> \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), and we assume that \( \bs{X} \) is <dfn>adapted</dfn> to \( \mathfrak{F} \). So \( \mathfrak{F} \) is an increasing family of sub \( \sigma \)-algebras of \( \mathscr{F} \) and \( X_t \) is measurable with respect to \( \mathscr{F}_t \) for \( t \in T \). We think of \( \mathscr{F}_t \) as the collection of events up to time \( t \in T \). We assume that \( \E\left(\left|X_t\right|\right) \lt \infty \), so that the <a href="../expect/Properties.html">mean</a> of \( X_t \) exists as a real number, for each \( t \in T \). Finally, in continuous time where \( T = [0, \infty) \), we make the standard assumptions that \( \bs X \) is right continuous and has left limits, and that the filtration \( \mathfrak F \) is right continuous and complete. Please recall the following from the introduction:</p>
+
+<div class="unit" id="pre1">
+	<p class="dfn">Definitions</p>
+	<ol class="sub">
+		<li>\( \bs X \) is a <dfn>martingale</dfn> with respect to \( \mathfrak F \) if \( \E(X_t \mid \mathscr{F}_s) = X_s \) for all \( s, \, t \in T \) with \( s \le t \).</li>
+		<li>\( \bs X \) is a <dfn>sub-martingale</dfn> with respect to \( \mathfrak F \) if \( \E(X_t \mid \mathscr{F}_s) \ge X_s \) for all \( s, \, t \in T \) with \( s \le t \).</li>
+		<li>\( \bs X \) is a <dfn>super-martingale</dfn> with respect to \( \mathfrak F \) if \( \E(X_t \mid \mathscr{F}_s) \le X_s \) for all \( s, \, t \in T \) with \( s \le t \).</li>
+	</ol>
+</div>
+
+<p>Our goal in this section is to give a number of basic properties of martingales and to give ways of constructing martingales from other types of processes. The deeper, fundamental theorems will be studied in the following sections.</p>
+
+<h4 id="prp">Basic Properties</h4>
+
+<p>Our first result is that the martingale property is preserved under a coarser filtration.</p>
+
+<div class="unit" id="prp1">
+	<p class="math">Suppose that the process \( \bs X \) and the filtration \( \mathfrak F \) satisfy the basic assumptions above and that \( \mathfrak G \) is a filtration coarser than \( \mathfrak F \) so that \( \mathscr{G}_t \subseteq \mathscr{F}_t \) for \( t \in T \). If \( \bs X \) is a martingale (sub-martingale, super-martingale) with respect to \( \mathfrak F \) and \( \bs X \) is adapted to \( \mathfrak G \) then \( \bs X \) is a martingale (sub-martingale, super-martingale) with respect to \( \mathfrak G \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( s, \, t \in T \) with \( s \le t \). The proof uses the tower and increasing properties of conditional expected value, and the fact that \( \bs X \) is adapted to \( \mathfrak G \)</p>
+		<ol class="sub">
+			<li>If \( \bs X \) is a martingale with respect to \( \mathfrak F \) then
+			\[ \E(X_t \mid \mathscr{G}_s) = \E\left[\E(X_t \mid \mathscr{F}_s) \mid \mathscr{G}_s\right] = \E(X_s \mid \mathscr{G}_s) = X_s \]
+			</li>
+			<li>If \( \bs X \) is a sub-martinagle with respect to \( \mathfrak F \) then 
+			\[ \E(X_t \mid \mathscr{G}_s) = \E\left[\E(X_t \mid \mathscr{F}_s) \mid \mathscr{G}_s\right] \ge \E(X_s \mid \mathscr{G}_s) = X_s \]
+			</li>
+			<li>If \( \bs X \) is a super-martinagle with respect to \( \mathfrak F \) then 
+			\[ \E(X_t \mid \mathscr{G}_s) = \E\left[\E(X_t \mid \mathscr{F}_s) \mid \mathscr{G}_s\right] \le \E(X_s \mid \mathscr{G}_s) = X_s \]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<p>In particular, if \( \bs{X} \) is a martingale (sub-martingale, super-martingale) with respect to <em>some</em> filtration, then it is a martingale (sub-martingale, super-martingale) with respect to its own natural filtration.</p>
+
+<p>The relations that define martingales, sub-martingales, and super-martingales hold for the ordinary (unconditional) expected values. We had this result in the last section, but it's worth repeating.</p>
+
+<div class="unit" id="prp3">
+	<p class="math">Suppose that \( s, \, t \in T \) with \( s \le t \).</p>
+	<ol class="sub">
+		<li>If \( \bs{X} \) is a martingale with respect to \( \frak{F} \) then \( \E(X_s) = \E(X_t) \).</li>
+		<li>If \( \bs{X} \) is a sub-martingale with respect to \( \frak{F} \) then \( \E(X_s) \le \E(X_t) \).</li>
+		<li>If \( \bs{X} \) is a super-martingale with respect to \( \frak{F} \) then \( \E(X_s) \ge \E(X_t) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The results follow directly from the definitions, and the critical fact that \( \E\left[\E\left(X_t \mid \mathscr{F}_s\right)\right] = \E(X_t) \) for \( s, \, t \in T \).</p>
+	</details>
+</div>
+
+<p>So if \( \bs X \) is a martingale then \( \bs X \) has constant expected value, and this value is referred to as the <dfn>mean</dfn> of \( \bs X \). The martingale properties are preserved under sums of the stochastic processes. </p>
+
+<div class="unit" id="prp4">
+	<p class="math">For the processes \( \bs{X} = \{X_t: t \in T\} \) and \( \bs{Y} = \{Y_t: t \in T\} \), let \( \bs{X} + \bs{Y} = \{X_t + Y_t: t \in T\} \). If \( \bs X \) and \( \bs Y \) are martingales (sub-martingales, super-martinagles) with respect to \( \mathfrak F \) then \( \bs X + \bs Y \) is a martingale (sub-martingale, super-martinagle) with respect to \( \mathfrak F \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The results follow easily from basic properties of expected value and conditional expected value. First note that \( \E\left(\left|X_t + Y_t\right|\right) \le \E\left(\left|X_t\right|\right) + \E\left(\left|Y_t\right|\right) \lt \infty \) for \( t \in T \). Next \( \E(X_t + Y_t \mid \mathscr{F}_s) = \E(X_t \mid \mathscr{F}_s) + \E(Y_t \mid \mathscr{F}_s)\) for \( s, \, t \in T \) with \( s \le t \).</p>
+	</details>
+</div>
+
+<p>The sub-martingale and super-martingale properties are preserved under multiplication by a positive constant and are reversed under multiplication by a negative constant.</p>
+
+<div class="unit" id="prp5">
+	<p class="math">For the process \( \bs{X} = \{X_t: t \in T\} \) and the constant \( c \in \R \), let \( c \bs{X} = \{c X_t: t \in T\} \).</p>
+	<ol class="sub">
+		<li>If \( \bs X \) is a martingale with respect to \( \mathfrak F \) then \( c \bs X \) is also a martingale with respect to \( \mathfrak F \)</li>
+		<li>If \( \bs X \) is a sub-martingale with respect to \( \mathfrak F \), then \(c \bs X \) is a sub-martingale if \( c \gt 0 \), a super-martingale if \( c \lt 0 \), and a martingale if \( c = 0 \).</li>
+		<li>If \( \bs X \) is a super-martingale with respect to \( \mathfrak F \), then \(c \bs X \) is a super-martingale if \( c \gt 0 \), a sub-martingale if \( c \lt 0 \), and a martingale if \( c = 0 \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The results follow easily from basic properties of expected value and conditional expected value. First note that \( \E\left(\left|c X_t \right|\right) = |c| \E\left(\left|X_t\right|\right) \lt \infty \) for \( t \in T \). Next \( \E(c X_t \mid \mathscr{F}_s) = c \E(X_t \mid \mathscr{F}_s) \) for \( s, \, t \in T \) with \( s \le t \).</p>
+	</details>
+</div>
+
+<p>Property (a) in <a href="#prp5" class="ref"></a>, together with the previous additive property, means that the collection of martingales with respect to a fixed filtration \( \mathfrak F \) forms a vector space. Here is a class of transformations that turns martingales into sub-martingales.</p>
+
+<div class="unit" id="prp6">
+	<p class="math">Suppose that \( \bs X \) takes values in an interval \( S \subseteq \R \) and that \( g: S \to \R \) is convex with \( \E\left[\left|g(X_t)\right|\right] \lt \infty \) for \( t \in T \). If either of the following conditions holds then \( g(\bs X) = \{g(X_t): t \in T\} \) is a sub-martingale with respect to \( \mathfrak F \):</p>
+	<ol class="sub">
+		<li>\( \bs X \) is a martingale.</li>
+		<li>\( \bs X \) is a sub-martingale and \( g \) is also increasing.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof uses <a href="../expect/Conditional2.html#jen">Jensen's inequality</a> for conditional expected value. If \( s, \, t \in T \) with \( s \le t \) then since \( g \) is convex,
+		\[ \E\left[g(X_t) \mid \mathscr{F}_s\right] \ge g\left[\E(X_t \mid \mathscr{F}_s)\right] \]</p>
+		<ol class="sub">
+			<li>Since \( \bs X \) is a martingale, \( \E(X_t \mid \mathscr{F}_s) = X_s \) so substituting into the displayed equation gives \( \E\left[g(X_t) \mid \mathscr{F}_s\right] \ge g(X_s) \).</li>
+			<li>Since \( \bs X \) is a sub-martingale, then \( \E(X_t \mid \mathscr{F}_s) \ge X_s \). Since \( g \) is also increasing, \( g\left[\E(X_t \mid \mathscr{F}_s)\right] \ge g(X_s) \). Substituting into the displayed equation gives \( \E\left[g(X_t) \mid \mathscr{F}_s\right] \ge g(X_s) \)</li>
+		</ol>
+	</details>
+</div>
+
+<figure id="fig2">
+	<figcaption>A convex function and several supporting lines</figcaption>
+	<img src="ConvexFunction.png" alt="A convex function">
+</figure>
+
+<p>Here is the most important special case of <a href="#prp6" class="ref"></a>:</p>
+
+<div class="unit" id="prp7">
+	<p class="math">Suppose again that \( \bs X \) is a martingale with respect to \( \mathfrak F \). Let \( k \in [1, \infty) \) and suppose that \( \E\left(|X_t|^k\right) \lt \infty \) for \( t \in T \). Then the process \( |\bs X|^k = \left\{\left|X_t\right|^k: t \in T\right\} \) is a sub-martingale with respect to \( \mathfrak F \)</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( k \in [1, \infty) \), the function \( x \mapsto |x|^k \) is convex on \( \R \).</p>
+	</details>
+</div>
+
+<figure>
+	<figcaption>The graphs of \( x \mapsto |x| \), \( x \mapsto |x|^2 \) and \( x \mapsto |x|^3 \) on the interval \( [-2, 2] \)</figcaption>
+	<img src="Powers.png" alt="Graphs of power functions">
+</figure>
+
+<p>In particular, if \( \bs X \) is a martingale relative to \( \mathfrak F \) then \( |\bs X| = \{|X_t|: t \in T\} \) is a sub-martingale relative to \( \mathfrak F \). Here is a related result that we will need later. First recall that the <dfn>positive and negative parts</dfn> of \( x \in \R \) are \( x^+ = \max\{x, 0\} \) and \( x^- = \max\{-x, 0\} \), so that \( x^+ \ge 0 \), \( x^- \ge 0 \), \( x = x^+ - x^- \), and \( |x| = x^+ + x^- \).</p>
+
+<figure id="fig3">
+	<figcaption>The graph of \( x \mapsto x^+ \) on the interval \( [-5, 5] \)</figcaption>
+	<img src="PositivePart.png" alt="Graph of the positive part">
+</figure>
+
+<div class="unit" id="prp8">
+	<p class="math">If \( \bs X = \{X_t: t \in T\} \) is a sub-martingale relative to \( \mathfrak F = \{\mathscr{F}_t: t \in T\}\) then \( \bs{X}^+ = \{X_t^+: t \in T\} \) is also a sub-martingale relative to \( \mathfrak F \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>As shown in the graph above, the function \( x \mapsto x^+ \) is increasing and convex on \( \R \).</p>
+	</details>
+</div>
+
+<p>Our last result of this discussion is that if we sample a continuous-time martingale at an increasing sequence of time points, we get a discrete-time martingale.</p>
+
+<div class="unit" id="prp9">
+	<p class="math">Suppose again that the process \( \bs X = \{X_t: t \in [0, \infty)\} \) and the filtration \( \mathfrak F = \{\mathscr{F}_t: t \in [0, \infty)\} \) satisfy the basic assumptions in <a href="#pre" class="ref"></a>. Suppose also that \( \{t_n: n \in \N\} \subset [0, \infty) \) is a strictly increasing sequence of time points with \( t_0 = 0 \), and define \( Y_n = X_{t_n} \) and \( \mathscr{G}_n = \mathscr{F}_{t_n} \) for \( n \in \N \). If \( \bs X \) is a martingale (sub-martingale, super-martingale) with respect to \( \mathfrak F \) then \( \bs Y = \{Y_n: n \in \N\} \) is a martingale (sub-martingale, super-martingale) with respect to \( \mathfrak G \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since the time points are increasing, it's clear that \( \mathfrak G \) is a discrete-time filtration. Next, \( \E(|Y_n|) = \E\left(\left|X_{t_n}\right|\right) \lt \infty \). Finally, suppose that \( \bs X \) is a martingale and \( n, \, k \in \N \) with \( k \lt n \). Then \( t_k \lt t_n \) so
+		\[ \E(Y_n \mid \mathscr{G}_k) = \E\left(X_{t_n} \mid \mathscr{F}_{t_k}\right) = X_{t_k} = Y_k \]
+		Hence \( \bs Y \) is also a martingale. The proofs for sub and super-martingales are similar, but with inequalities replacing the second equality.</p>
+	</details>
+</div>
+
+<p>This result is often useful for extending proofs of theorems in discrete time to continuous time.</p>
+
+<h4 id="trn">The Martingale Transform</h4>
+
+<p>Our next discussion, in discrete time, shows how to build a new martingale from an existing martingale and an predictable process. This construction turns out to be very useful, and has an interesting gambling interpretation. To review the definition, recall that \( \{Y_n: n \in \N_+\} \) is <dfn>predictable</dfn> relative to the filtration \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \) if \( Y_n\) is measurable with respect to \(\mathscr{F}_{n-1} \) for \( n \in \N_+ \). Think of \( Y_n \) as the bet that a gambler makes on game \( n \in \N_+ \). The gambler can base the bet on all of the information she has at that point, including the outcomes of the previous \( n - 1 \) games. That is, she can base the bet on the information encoded in \( \mathscr{F}_{n-1} \).</p>
+
+<div class="unit" id="trn1">
+	<p class="dfn">Suppose that \( \bs X = \{X_n: n \in \N\} \) is adapted to the filtration \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \) and that \( \bs Y = \{Y_n: n \in \N_+\} \) is predictable relative to \( \mathfrak F \). The <dfn>transform</dfn> of \( \bs X \) by \( \bs Y \) is the process \( \bs Y \cdot \bs X \) defined by
+	\[ (\bs Y \cdot \bs X)_n = X_0 + \sum_{k=1}^n Y_k (X_k - X_{k-1}), \quad n \in \N \]</p>
+</div>
+
+<p>The motivating example behind the transfrom, in terms of a gambler making a sequence of bets, is given in <a href="#srw1" class="ref"></a>. Note that \( \bs Y \cdot \bs X \) is also adapted to \( \mathfrak F \). Note also that the transform depends on \( \bs X \) only through \( X_0 \) and \( \{X_n - X_{n-1}: n \in \N_+\} \). If \( \bs X \) is a martingale, this sequence is the martingale difference sequence studied <a href="Introduction.html#mds">introduction</a>.</p>
+
+<div class="unit" id="trn2">
+	<p class="math">Suppose \( \bs X = \{X_n: n \in \N\} \) is adapted to the filtration \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \) and that \( \bs{Y} = \{Y_n: n \in \N\} \) is a bounded process, predictable relative to \( \mathfrak{F} \).</p>
+	<ol class="sub">
+		<li>If \( \bs X \) is a martingale relative to \( \mathfrak F \) then \( \bs Y \cdot \bs X \) is also a martingale relative to \( \mathfrak F \).</li>
+		<li>If \( \bs X \) is a sub-martingle relative to \( \mathfrak F \) and \( \bs Y \) is nonnegative, then \( \bs Y \cdot \bs X \) is also a sub-martingale relative to \( \mathfrak F \).</li>
+		<li>If \( \bs X \) is a super-martingle relative to \( \mathfrak F \) and \( \bs Y \) is nonnegative, then \( \bs Y \cdot \bs X \) is also a super-martingale relative to \( \mathfrak F \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( |Y_n| \le c \) for \( n \in \N \) where \( c \in (0, \infty) \). Then
+		\[ \E(|(\bs Y \cdot \bs X)_n|) \le \E(|X_0|) + c \sum_{k=1}^n [\E(|X_k|) + \E(|X_{k-1}|)] \lt \infty, \quad n \in \N \]
+		Next, for \( n \in \N \),
+		\begin{align*}
+			\E\left[(\bs Y \cdot \bs X)_{n+1} \mid \mathscr{F}_n\right] &amp;= \E\left[(\bs Y \cdot \bs X)_n + Y_{n+1} (X_{n+1} - X_n) \mid \mathscr{F}_n\right] = (\bs Y \cdot \bs X)_n + Y_{n+1} \E\left(X_{n+1} - X_n \mid \mathscr{F}_n\right)\\
+			&amp; = (\bs Y \cdot \bs X)_n + Y_{n+1} [\E(X_{n+1} \mid \mathscr{F}_n) - X_n]
+		\end{align*}
+		since \( (\bs Y \cdot \bs X)_n \), \( Y_{n+1} \) and \( X_n \) are \( \mathscr{F}_n \)-measurable. The results now follow from the definitions of martingle, sub-martingale, and super-martingale.</p>
+	</details>
+</div>
+
+<p>The construction in <a href="#trn2" class="ref"></a> is known as a <dfn>martingale transform</dfn>, and is a discrete version of the stochastic integral that we will study in the chapter on <a href="../brown/index.html">Brownian motion</a>. The result also holds if instead of \( \bs Y \) being bounded, we have \( \bs X \) bounded and \( \E(|Y_n|) \lt \infty \) for \( n \in \N_+ \)</p>
+
+<h4 id="doo">The Doob Decomposition</h4>
+
+<p>The next result, in discrete time, shows how to decompose a basic stochastic process into a martingale and a predictable process. The result is known as the <dfn>Doob decomposition theorem</dfn> and is named for <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">Joseph Doob</a> who developed much of the modern theory of martingales.</p>
+
+<div class="unit" id="dec1">
+	<p class="math">Suppose that \( \bs X = \{X_n: n \in \N\} \) satisfies the basic assumptions in <a href="#pre" class="ref"></a> above relative to the filtration \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \). Then \( X_n = Y_n + Z_n \) for \( n \in \N \) where \( \bs Y = \{Y_n: n \in \N\} \) is a martingale relative to \( \mathfrak F \) and \( \bs Z = \{Z_n: n \in \N\} \) is predictable relative to \( \mathfrak F \). The decomposition is unique.</p>
+	<ol class="sub">
+		<li>If \( \bs X \) is a sub-martingale relative to \( \mathfrak F \) then \( \bs Z \) is increasing.</li>
+		<li>If \( \bs X \) is a super-martingale relative to \( \mathfrak F \) then \( \bs Z \) is decreasing.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that the basic assumptions mean that \( \bs X = \{X_n: n \in \N\} \) is adapted to \( \mathfrak F \) and \( \E(|X_n|) \lt \infty \) for \( n \in \N \). Define \( Z_0 = 0 \) and
+		\[ Z_n = \sum_{k=1}^n \left[\E(X_k \mid \mathscr{F}_{k-1}) - X_{k-1}\right], \quad n \in \N_+ \]
+		Then \( Z_n \) is measurable with respect to \( \mathscr{F}_{n-1} \) for \( n \in \N_+ \) so \( \bs Z \) is predictable with respect to \( \mathfrak F \). Now define 
+		\[ Y_n = X_n - Z_n = X_n - \sum_{k=1}^n \left[\E(X_k \mid \mathscr{F}_{k-1}) - X_{k-1}\right], \quad n \in \N \]
+		Then \( \E(|Y_n|) \lt \infty \) and trivially \( X_n = Y_n + Z_n \) for \( n \in \N \). Next,
+		\begin{align*} 
+			\E(Y_{n+1} \mid \mathscr{F}_n) &amp; = \E(X_{n+1} \mid \mathscr{F}_n) - Z_{n+1} = \E(X_{n+1} \mid \mathscr{F}_n) - \sum_{k=1}^{n+1} \left[\E(X_k \mid \mathscr{F}_{k-1}) - X_{k-1}\right] \\ 
+			&amp; = X_n - \sum_{k=1}^n \left[\E(X_k \mid \mathscr{F}_{k-1}) - X_{k-1}\right] = Y_n, \quad n \in \N 
+		\end{align*}
+		Hence \( \bs Y \) is a martingale. Conversely, suppose that \( \bs X \) has the decomposition in terms of \( \bs Y \) and \( \bs Z \) given in the theorem. Since \( \bs Y \) is a martingale and \( \bs Z \) is predictable,
+		\begin{align*}
+			\E(X_n - X_{n-1} \mid \mathscr{F}_{n-1}) &amp; = \E(Y_n \mid \mathscr{F}_{n-1}) - \E(Y_{n-1} \mid \mathscr{F}_{n-1}) + \E(Z_n \mid \mathscr{F}_{n-1}) - \E(Z_{n-1} \mid \mathscr{F}_{n-1}) \\
+			&amp; = Y_{n-1} - Y_{n-1} + Z_n - Z_{n-1} = Z_n - Z_{n-1}, \quad n \in \N_+
+		\end{align*}
+		Also \( Z_0 = 0 \) so \( \bs X \) uniquely determines \( \bs Z \). But \( Y_n = X_n - Z_n \) for \( n \in \N \), so \( \bs X \) uniquely determines \( \bs Y \) also.</p>
+		<ol class="sub">
+			<li>If \( \bs X \) is a sub-martingale then \( \E(X_n \mid \mathscr{F}_{n-1}) - X_{n-1} \ge 0 \) for \( n \in \N_+ \) so \( \bs Z \) is increasing.</li>
+			<li>If \( \bs X \) is a super-martingale then \( \E(X_n \mid \mathscr{F}_{n-1}) - X_{n-1} \le 0 \) for \( n \in \N_+ \) so \( \bs Z \) is decreasing.</li>
+		</ol>
+	</details>
+</div>
+
+<p>A decomposition of this form is more complicated in continuous time, in part because the definition of a predictable process is more subtle and complex. The decomposition theorem holds in continuous time, with our basic assumptions and the additional assumption that the collection of random variables \( \{X_\tau: \tau \text{ is a finite-valued stopping time}\} \) is <a href="../expect/Uniform.html">uniformly integrable</a>. The result is known as the <dfn>Doob-Meyer decomposition theorem</dfn>, named additionally for Paul Meyer.</p>
+
+<h4 id="mar">Markov Processes</h4>
+
+<p>As you might guess, there are important connections between <a href="../markov/index.html">Markov processes</a> and martingales. Suppose that \( \bs X = \{X_t: t \in T\} \) is a (homogeneous) Markov process with state space \( (S, \mathscr{S}) \), relative to the filtration \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \). Let \( \bs P = \{P_t: t \in T\} \) denote the collection of <a href="../markov/General.html">transition kernesl</a> of \( \bs X \), so that 
+\[ P_t(x, A) = \P(X_t \in A \mid X_0 = x), \quad x \in S, A \in \mathscr{S} \]
+Recall that (like all probability kernels), \( P_t \) operates (on the right) on (measurable) functions \( h: S \to \R \) by the rule
+\[ P_t h(x) = \int_S P_t(x, dy) h(y) = \E[h(X_t) \mid X_0 = x], \quad x \in S \]
+assuming as usual that the expected value exists. Here is the critical definition that we will need.</p>
+
+<div class="unit">
+	<p class="dfn">Suppose that \( h: S \to \R \) and that \( \E[|h(X_t)|] \lt \infty \) for \( t \in T \).</p>
+	<ol class="sub">
+		<li>\( h \) is <dfn>harmonic</dfn> for \( \bs X \) if \( P_t h = h \) for \( t \in T \).</li>
+		<li>\( h \) is <dfn>sub-harmonic</dfn> for \( \bs X \) if \( P_t h \ge h \) for \( t \in T \).</li>
+		<li>\( h \) is <dfn>super-harmonic</dfn> for \( \bs X \) if \( P_t h \le h \) for \( t \in T \).</li>
+	</ol>
+</div>
+
+<p>The following theorem gives the fundamental connection between the two types of stochastic processes. Given the similarity in the terminology, the result may not be a surprise.</p>
+
+<div class="unit" id="mar1">
+	<p class="math">Suppose that \( h: S \to \R \) and \( \E[\left|h(X_t)\right|] \lt \infty \) for \( t \in T \). Define \( h(\bs X) = \{h(X_t): t \in T\} \).</p>
+	<ol class="sub">
+		<li>\( h \) is harmonic for \( \bs X \) if and only if \( h(\bs X) \) is a martingale with respect to \( \mathfrak F \).</li>
+		<li>\( h \) is sub-harmonic for \( \bs X \) if and only if \( h(\bs X) \) is a sub-martingale with respect to \( \mathfrak F \).</li>
+		<li>\( h \) is super-harmonic for \( \bs X \) if and only if \( h(\bs X) \) is a super-martingale with respect to \( \mathfrak F \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( s,\, t \in T \) with \( s \le t \). Then by the Markov property,
+		\[ \E[h(X_t) \mid \mathscr{F}_s] = \E[h(X_t) \mid X_s] = P_{t-s} h(X_s) \]
+		So if \( h \) is harmonic, \( \E[h(X_t) \mid \mathscr{F}_s] = h(X_s) \) so \( \{h(X_t): t \in T\} \) is a martingale. Conversely, if \( \{h(X_t): t \in T\} \) is a martingale, then \( P_{t-s}h(X_s) = h(X_s) \). Letting \( s = 0 \) and \( X_0 = x \) gives \( P_t h(x) = h(x) \) so \( h \) is harmonic. The proofs for sub and super-martingales are similar, with inequalities replacing the equalities.</p>
+	</details>
+</div>
+
+<p>Several of the examples given in the <a href="Introduction.html">introduction</a> can be re-interpreted in the context of harmonic functions of Markov chains. We explore some of these below.</p>
+
+<h3>Examples</h3>
+
+<p>Let \( \mathscr{R} \) denote the usual set of Borel measurable subsets of \( \R \), and for \( A \in \mathscr{R} \) and \( x \in \R \) let \( A - x = \{y - x: y \in A\} \). Let \( I \) denote the identity function on \( \R \), so that \( I(x) = x \) for \( x \in \R \). We will need this notation in a couple of our applications below.</p>
+
+<h4 id="wlk">Random Walks</h4>
+
+<p>Suppose that \( \bs V = \{V_n: n \in \N\} \) is a sequence of independent, real-valued random variables, with \( \{V_n: n \in \N_+\} \) identically distributed and having common probability measure \( Q \) on \( (\R, \mathscr{R}) \) and mean \( a \in \R \). Recall from the <a href="Introduction.html#wlk">introduction</a> that the partial sum process \( \bs X = \{X_n: n \in \N\} \) associated with \( \bs V \) is given by
+\[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]
+and that \( \bs X \) is a (discrete-time) <dfn>random walk</dfn>. But \( \bs X \) is also a discrete-time Markov process with one-step transition kernel \( P \) given by \( P(x, A) = Q(A - x) \) for \( x \in \R \) and \( A \in \mathscr{R} \).</p>
+
+<div class="unit" id="wlk1">
+	<p class="math">The identity function \( I \) is</p>
+	<ol class="sub">
+		<li>Harmonic for \( \bs X \) if \( a = 0 \).</li>
+		<li>Sub-harmonic for \( \bs X \) if \( a \ge 0 \).</li>
+		<li>Super-harmonic for \( \bs X \) if \( a \le 0 \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that
+		\[ PI(x) = \E(X_1 \mid X_0 = x) = x + \E(X_1 - X_0 \mid X_0 = x) = x + \E(V_1 \mid X_0 = x) = I(x) + a \ \]
+		Since \( V_1 \) and \( X_0 = V_0 \) are independent. The results now follow from the definitions.</p>
+	</details>
+</div>
+
+<p>It now follows from <a href="#mar1" class="ref"></a> that \( \bs X \) is a martingale if \( a = 0 \), a sub-martingale if \( a \gt 0 \), and a super-martingale if \( a \lt 0 \). We showed these results directly from the definitions in the introduction.</p>
+
+<h4 id="srw">The Simple Random Walk</h4>
+
+<p>Suppose now that that \( \bs{V} = \{V_n: n \in \N\} \) is a sequence of independent random variables with \( \P(V_i = 1) = p \) and \( \P(V_i = -1) = 1 - p \) for \( i \in \N_+ \), where \( p \in (0, 1) \). Let \( \bs{X}  = \{X_n: n \in \N\} \) be the partial sum process associated with \( \bs{V} \) so that 
+\[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]
+Then \( \bs{X} \) is the <a href="../bernoulli/Walk.html">simple random walk</a> with parameter \( p \). In terms of gambling, our gambler plays a sequence of independent and identical games, and on each game, wins &euro;1 with probability \( p \) and loses &euro;1 with probability \( 1 - p \). So if \( X_0 \) is the gambler's initial fortune, then \( X_n \) is her net fortune after \( n \) games. In the introduction we showed that \( \bs X \) is a martingale if \( p = \frac{1}{2} \), a super-martingale if \( p \lt \frac{1}{2} \), and a sub-martingale if \( p \gt \frac{1}{2} \). But suppose now that instead of making constant unit bets, the gambler makes bets that depend on the outcomes of previous games. This leads to a martingale transform as in <a href="#trn1" class="ref"></a>.</p>
+
+<div class="unit" id="srw1">
+	<p class="math">Suppose that the gambler bets \( Y_n \) on game \( n \in \N_+ \) (at even stakes), where \( Y_n \in [0, \infty) \) depends on \( (V_0, V_1, V_2, \ldots, V_{n-1}) \) and satisfies \( \E(Y_n) \lt \infty \). So the process \( \bs Y = \{Y_n: n \in \N_+\} \) is predictable with respect to \( \bs X \), and the gambler's net winnings after \( n \) games is
+	\[ (\bs Y \cdot \bs X)_n = V_0 + \sum_{k=1}^n Y_k V_k = X_0 + \sum_{k=1}^n Y_k (X_k - X_{k-1}) \]</p>
+	<ol class="sub">
+		<li>\( \bs Y \cdot \bs X \) is a sub-martingale if \( p \gt \frac{1}{2} \).</li>
+		<li>\( \bs Y \cdot \bs X \) is a super-martingale if \( p \lt \frac{1}{2} \).</li>
+		<li>\( \bs Y \cdot \bs X \) is a martingale if \( p = \frac{1}{2} \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These result follow immediately the martingale transforms in <a href="#wlk1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>The simple random walk \( \bs X \) is also a discrete-time Markov chain on \( \Z \) with one-step transition matrix \( P \) given by \( P(x, x + 1) = p \), \( P(x, x - 1) = 1 - p \).
+
+<div class="unit" id="mar3">
+	<p class="math">The function \( h \) given by \( h(x) = \left(\frac{1 - p}{p}\right)^x \) for \( x \in \Z \) is harmonic for \( \bs X \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( x \in \Z \),
+		\begin{align*}
+			P h(x) &amp; = p h(x + 1) + (1 - p) h(x - 1) = p \left(\frac{1 - p}{p}\right)^{x+1} + (1 - p) \left(\frac{1 - p}{p}\right)^{x-1} \\
+			&amp; \frac{(1 - p)^{x + 1}}{p^x} + \frac{(1 - p)^x}{p^{x-1}} = \left(\frac{1 - p}{p}\right)^x [(1 - p) + p] = h(x)
+		\end{align*}</p>
+	</details>
+</div>
+
+<p>It now follows from <a href="#mar1" class="ref"></a> that the process \( \bs Z = \{Z_n: n \in \N\} \) given by \( Z_n = \left(\frac{1 - p}{p}\right)^{X_n} \) for \( n \in \N \) is a martingale. We showed this directly from the definition in the <a href="Introduction.html#srw4">introduction</a>. As you may recall, this is <dfn>De Moivre's martingale</dfn> and named for <a href="JavaScript:openAncillary('../biographies/DeMoivre.html')" class="ancillary">Abraham De Moivre</a>.</p>
+
+<h4 id="brn">Branching Processes</h4>
+
+<p>Recall the discussion of the simple <dfn>branching process</dfn> from the <a href="Introduction.html#brn">introduction</a>. The fundamental assumption is that the particles act independently, each with the same offspring distribution on \( \N \). As before, we will let \( f \) denote the (discrete) <a href="../dist/Discrete.html">probability density function</a> of the number of offspring of a particle, \( m \) the <a href="../expect/Properties.html">mean</a> of the distribution, and \( \phi \) the <a href="../expect/Generating.html#pgf">probability generating function</a> of the distribution. We assume that \( f(0) \gt 0 \) and \( f(0) + f(1) \lt 1 \) so that a particle has a positive probability of dying without children and a positive probability of producing more than 1 child. Recall that \( q \) denotes the probability of extinction, starting with a single particle.</p>
+
+<p>The stochastic process of interest is \( \bs{X} = \{X_n: n \in \N\} \) where \( X_n \) is the number of particles in the \( n \)th generation for \( n \in \N \). Recall that \( \bs{X} \) is a <a href="../markov/Branching.html">discrete-time Markov chain</a> on \( \N \) with one-step transition matrix \( P \) given by \( P(x, y) = f^{* x}(y) \) for \( x, \, y \in \N \) where \( f^{*x} \) denotes the convolution power of order \( x \) of \( f \).</p>
+
+
+<div class="unit" id="brn1">
+	<p class="math">The function \( h \) given by \( h(x) = q^x \) for \( x \in \N \) is harmonic for \( \bs X \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( x \in \N \),
+		\[ Ph(x) = \sum_{y \in \N} P(x, y) h(y) = \sum_{y \in \N} f^{*x}(y) q^y \]
+		The last expression is the probability generating function of \( f^{*x} \) evaluated at \( q \). But this PGF is simply \( \phi^x \) and \( q \) is a fixed point of \( \phi \) so we have
+		\[ Ph(x) = [\phi(q)]^x = q^x = h(x) \]</p>
+	</details>
+</div>
+
+<p>It now follows from <a href="#mar1" class="ref"></a> that the process \( \bs Z = \{Z_n: n \in \N\} \) is a martingale where \( Z_n = q^{X_n} \) for \( n \in \N \). We showed this directly from the definition in the <a href="Introduction.html#brn1">introduction</a>. We also showed that the process \( \bs Y = \{Y_n: n \in \N\} \) is a martingale where \( Y_n = X_n / m^n \) for \( n \in \N \). But we can't write \( Y_n = h(X_n) \) for a function \( h \) defined on the state space, so we can't interpret this martingale in terms of a harmonic function.</p>
+
+<h4 id="inc">General Random Walks</h4>
+
+<p>Suppose that \( \bs X = \{X_t: t \in T\} \) is a stochastic process satisfying the basic assumptions in <a href="#pre" class="ref"></a> above relative to the filtration \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \). Recall from the <a href="Introduction.html#inc">introduction</a> that the term <dfn>increment</dfn> refers to a difference of the form \( X_{s+t} - X_s \) for \( s, \, t \in T \). The process \( \bs X \) has <dfn>independent increments</dfn> if this increment is always independent of \( \mathscr{F}_s \), and has <dfn>stationary increments</dfn> this increment always has the same distribution as \( X_t - X_0 \). In discrete time, a process with stationary, independent increments is simply a random walk in <a href="#wlk" class="ref"></a> as discussed above. In continuous time, a process with stationary, independent increments (and with the continuity assumptions we have imposed) is called a <dfn>continuous-time random walk</dfn>, and also a <dfn>L&eacute;vy process</dfn>, named for <a href="JavaScript:openAncillary('../biographies/Levy.html')" class="ancillary">Paul L&eacute;vy</a>.</p>
+
+<p>So suppose that \( \bs X \) has stationary, independent increments. For \( t \in T \) let \( Q_t \) denote the probability distribution of \( X_t - X_0 \) on \( (\R, \mathscr{R}) \), so that \( Q_t \) is also the probability distribution aof \( X_{s+t} - X_s \) for every \( s, \, t \in T \). From our previous study, we know that \( \bs X \) is a <a href="../markov/General.html#inc">Markov processes</a> with transition kernel \( P_t \) at time \( t \in T \) given by
+\[ P_t(x, A) = Q_t(A - x); \quad x \in \R, A \in \mathscr{R} \]
+We also know that \( \E(X_t - X_0) = a t \) for \( t \in T \) where \( a = \E(X_1 - X_0) \) (assuming of course that the last expected value exists in \( \R \)).</p>
+
+<div class="unit" id="inc1">
+	<p class="math">The identity function \( I \) is .</p>
+	<ol class="sub">
+		<li>Harmonic for \( \bs X \) if \( a = 0 \).</li>
+		<li>Sub-harmonic for \( \bs X \) if \( a \ge 0 \).</li>
+		<li>Super-harmonic for \( \bs X \) if \( a \le 0 \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that
+		\[ P_t I(x) = \E(X_t \mid X_0 = x) = x + \E(X_t - X_0 \mid X_0 = x) = I(x) + a t \]
+		since \( X_t - X_0 \) is independent of \( X_0 \). The results now follow from the definitions.</p>
+	</details>
+</div>
+
+<p>It now follows that \( \bs X \) is a martingale if \( a = 0 \), a sub-martingale if \( a \ge 0 \), and a super-martingale if \( a \le 0 \). We showed this directly in the <a href="Introduction.html#inc">introduction</a>. Recall that in continuous time, the <a href="../poisson/Poisson.html">Poisson counting process</a> has stationary, independent increments, as does <a href="../brown/Standard.html">standard Brownian motion</a></p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="current">2</li>
+		<li class="child"><a href="Stop.html" title="Stopping Times">3</a></li>
+		<li class="child"><a href="Inequalities.html" title="Inequalities">4</a></li>
+		<li class="child"><a href="Convergence.html" title="Convergence">5</a></li>
+		<li class="child"><a href="Backwards.html" title="Backwards Martingales">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+{
+  "authority_base": "https://www.randomservices.org/random/",
+  "authority_pages": [
+    "index.html",
+    "Introduction.html",
+    "Credits.html"
+  ],
+  "excluded_runtime_dependencies": [
+    "https://www.googletagmanager.com/gtag/js?id=UA-65822159-1"
+  ],
+  "fetched_at_utc": "2026-08-21T10:24:18.852083+00:00",
+  "file_count": 94,
+  "license_disposition": "The two current official pages conflict on the CC BY version. Both permit adaptation and commercial redistribution with attribution; retain both witnesses and do not assert one unqualified version.",
+  "license_witnesses": [
+    {
+      "license": "CC BY 2.0",
+      "license_url": "http://creativecommons.org/licenses/by/2.0/",
+      "path": "index.html"
+    },
+    {
+      "license": "CC BY 1.0",
+      "license_url": "http://creativecommons.org/licenses/by/1.0/",
+      "path": "Credits.html"
+    }
+  ],
+  "manifest_sha256": "2ee154a38b57201457538db8c0e7df592a052eade8dcfda217605810f04f21e4",
+  "schema": "o009.random-authority-freeze.v3",
+  "shared_prerequisite_exclusions": [
+    "sample/LLN.html",
+    "sample/CLT.html"
+  ],
+  "shared_build_dependencies": [
+    {
+      "bytes": 1704911,
+      "license": "Apache-2.0",
+      "license_path": "shared/MathJax/LICENSE",
+      "path": "shared/MathJax/tex-svg.js",
+      "sha256": "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a",
+      "url": "https://www.randomservices.org/MathJax/tex-svg.js"
+    },
+    {
+      "bytes": 4709,
+      "license": "Apache-2.0",
+      "license_path": "shared/MathJax/LICENSE",
+      "path": "shared/MathJax/input/tex/extensions/boldsymbol.js",
+      "sha256": "716cf8735d00abfb1627f8adbbf4aeb915ac9b5c55d47aeaf276e73dac6a2aa1",
+      "url": "https://www.randomservices.org/MathJax/input/tex/extensions/boldsymbol.js"
+    }
+  ],
+  "theory_pages": [
+    "prob/Convergence.html",
+    "prob/Probability2.html",
+    "prob/Processes.html",
+    "prob/Stop.html",
+    "dist/Convergence.html",
+    "expect/Conditional2.html",
+    "expect/Uniform.html",
+    "expect/Kernels.html",
+    "martingales/index.html",
+    "martingales/Introduction.html",
+    "martingales/Properties.html",
+    "martingales/Stop.html",
+    "martingales/Inequalities.html",
+    "martingales/Convergence.html",
+    "martingales/Backwards.html",
+    "markov/index.html",
+    "markov/General.html",
+    "markov/Potentials.html",
+    "markov/Discrete.html",
+    "markov/Recurrence.html",
+    "markov/Periodicity.html",
+    "markov/Limiting.html",
+    "markov/Continuous.html",
+    "markov/Transition.html",
+    "markov/Potentials2.html",
+    "markov/Limiting2.html",
+    "poisson/index.html",
+    "poisson/Introduction.html",
+    "poisson/Exponential.html",
+    "poisson/Gamma.html",
+    "poisson/Poisson.html",
+    "poisson/Splitting.html",
+    "poisson/Nonhomogeneous.html",
+    "poisson/Compound.html",
+    "poisson/General.html",
+    "renewal/index.html",
+    "renewal/Introduction.html",
+    "renewal/Equations.html",
+    "renewal/LimitTheorems.html",
+    "renewal/Delayed.html",
+    "renewal/Alternating.html",
+    "renewal/Reward.html",
+    "brown/index.html",
+    "brown/Standard.html",
+    "brown/Drift.html",
+    "brown/Bridge.html",
+    "brown/Geometric.html"
+  ],
+  "total_bytes": 1997915
+}

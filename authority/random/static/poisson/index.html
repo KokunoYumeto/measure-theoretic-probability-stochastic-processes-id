@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>The Poisson Process</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, Poisson process, Poisson distribution, exponential distribution, gamma distribution, Bernoulli trials, thinning, superposition, non-homogeneous Poisson process, compoound Poisson process, measure space">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<link rel="contents" href="../index.html">
+	<link rel="previous" href="../games/index.html">
+	<link rel="next" href="../renewal/index.html">
+	<script src="../Basic.js"></script>
+</head>
+
+<body>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="child"><a href="../foundations/index.html" title="Foundations">0</a></li>
+		<li class="child"><a href="../prob/index.html" title="Probability Spaces">1</a></li>
+		<li class="child"><a href="../dist/index.html" title="Distributions">2</a></li>
+		<li class="child"><a href="../expect/index.html" title="Expected Value">3</a></li>
+		<li class="child"><a href="../special/index.html" title="Special Distributions">4</a></li>
+		<li class="child"><a href="../sample/index.html" title="Random Samples">5</a></li>
+		<li class="child"><a href="../point/index.html" title="Point Estimation">6</a></li>
+		<li class="child"><a href="../interval/index.html" title="Set Estimation">7</a></li>
+		<li class="child"><a href="../hypothesis/index.html" title="Hypothesis Testing">8</a></li>
+		<li class="child"><a href="../buffon/index.html" title="Geometric Models">9</a></li>
+		<li class="child"><a href="../bernoulli/index.html" title="Bernoulli Trials">10</a></li>
+		<li class="child"><a href="../urn/index.html" title="Finite Sampling Models">11</a></li>
+		<li class="child"><a href="../games/index.html" title="Games of Chance">12</a></li>
+		<li class="current">13</li>
+		<li class="child"><a href="../renewal/index.html" title="Renewal Processes">14</a></li>
+		<li class="child"><a href="../markov/index.html" title="Markov Processes">15</a></li>
+		<li class="child"><a href="../martingales/index.html" title="Martingales">16</a></li>
+		<li class="child"><a href="../brown/index.html" title="Brownian Motion">17</a></li>
+	</ol>
+	<h1>13. The Poisson Process</h1>
+</header>
+
+<h4>Summary</h4>
+
+<p>The Poisson process is one of the most important random processes in probability theory.  It is widely used to model random <q>points</q> in time and space, such as the times of radioactive emissions, the arrival times of customers at a service center, and the positions of flaws in a piece of material.  Several important probability distributions arise naturally from the Poisson process&mdash;the Poisson distribution, the exponential distribution, and the gamma distribution.  The process has a beautiful mathematical structure, and is used as a foundation for building a number of other, more complicated random processes.</p>
+
+<h4>Basic Topics</h4>
+
+<ol>
+	<li><a href="Introduction.html">Introduction</a></li>
+	<li><a href="Exponential.html">The Exponential Distribution</a></li>
+	<li><a href="Gamma.html">The Gamma Distribution</a></li>
+	<li><a href="Poisson.html">The Poisson Distribution</a></li>
+</ol>
+
+<h4>Variations</h4>
+
+<ol start="5">
+	<li><a href="Splitting.html">Thinning and Superpositon</a></li>
+	<li><a href="Nonhomogeneous.html">Non-homogeneous Poisson Processes</a></li>
+	<li><a href="Compound.html">Compound Poisson Processes</a></li>
+	<li><a href="General.html">Poisson Processes on General Spaces</a></li>
+</ol>
+
+<h4>Apps</h4>
+
+<ul class="ancillary">
+	<li><a href="JavaScript:openAncillary('../apps/Gamma.html')" class="ancillary">Gamma Experiment</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson Experiment</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/PoissonSplit.html')" class="ancillary">Two-Type Poisson Experiment</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/Poisson2D.html')" class="ancillary">Two-Dimensional Poisson Process</a></li>
+</ul>
+
+<h4>Sources and Resources</h4>
+
+<ul>
+	<li><a href="http://www.google.com/search?q=Introduction+to+Probability+Models,+Ross" target="external" class="external">Introduction to Probability Models</a>. Sheldon Ross</li>
+	<li><a href="http://www.google.com/search?q=Stochastic+Processes,+Ross" target="external" class="external">Stochastic Processes</a>. Sheldon Ross</li>
+	<li><a href="http://www.google.com/search?q=A+First+Course+in+Stochastic+Processes,+Karlin,+Taylor" target="external" class="external">A First Course in Stochastic Processes</a>. Samuel Karlin and Howard Taylor</li>
+	<li><a href="http://www.google.com/search?q=Introduction+to+Stochastic+Processes,+Cinlar" target="external" class="external">Introduction to Stochastic Processes</a>. Erhan &Ccedil;inlar</li>
+	<li><a href="http://www.google.com/search?q=Poisson+Processes,+Kingman" target="external" class="external">Poisson Processes</a>. JFC Kingman</li>
+	<li><a href="http://www.google.com/search?q=Adventures+in+Stochastic+Processes,+Resnick" target="external" class="external">Adventures in Stochastic Processes</a>, Sidney I Resnick</li>
+	<li><a href="http://www.google.com/search?q=Probability+and+Random+Processes,+Grimmet,+Stitzaker" target="external" class="external">Probability and Random Processes</a>. Geoffrey Grimmett and David Stritzaker</li>
+</ul>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="child"><a href="../foundations/index.html" title="Foundations">0</a></li>
+		<li class="child"><a href="../prob/index.html" title="Probability Spaces">1</a></li>
+		<li class="child"><a href="../dist/index.html" title="Distributions">2</a></li>
+		<li class="child"><a href="../expect/index.html" title="Expected Value">3</a></li>
+		<li class="child"><a href="../special/index.html" title="Special Distributions">4</a></li>
+		<li class="child"><a href="../sample/index.html" title="Random Samples">5</a></li>
+		<li class="child"><a href="../point/index.html" title="Point Estimation">6</a></li>
+		<li class="child"><a href="../interval/index.html" title="Set Estimation">7</a></li>
+		<li class="child"><a href="../hypothesis/index.html" title="Hypothesis Testing">8</a></li>
+		<li class="child"><a href="../buffon/index.html" title="Geometric Models">9</a></li>
+		<li class="child"><a href="../bernoulli/index.html" title="Bernoulli Trials">10</a></li>
+		<li class="child"><a href="../urn/index.html" title="Finite Sampling Models">11</a></li>
+		<li class="child"><a href="../games/index.html" title="Games of Chance">12</a></li>
+		<li class="current">13</li>
+		<li class="child"><a href="../renewal/index.html" title="Renewal Processes">14</a></li>
+		<li class="child"><a href="../markov/index.html" title="Markov Processes">15</a></li>
+		<li class="child"><a href="../martingales/index.html" title="Martingales">16</a></li>
+		<li class="child"><a href="../brown/index.html" title="Brownian Motion">17</a></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+</body>
+</html>

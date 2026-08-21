@@ -1,0 +1,9 @@
+tools/
+authority/runtime/
+authority/zitkovic/*.zip
+__pycache__/
+*.py[cod]
+build/*
+!build/site/
+!build/site/**
+

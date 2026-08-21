@@ -1,0 +1,148 @@
+:root {
+  color-scheme: light dark;
+  --o009-paper: #fff;
+  --o009-ink: #17212b;
+  --o009-muted: #4c5b67;
+  --o009-border: #b8c7d1;
+  --o009-accent: #174f78;
+  --o009-panel: #eef6fb;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  box-sizing: border-box;
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 3vw, 3rem) 4rem;
+  color: var(--o009-ink);
+  background: var(--o009-paper);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+  line-height: 1.65;
+}
+
+body > p,
+body > ol,
+body > ul,
+body > h1,
+body > h2,
+body > h3,
+body > h4,
+body > blockquote,
+body > figure,
+body > .unit,
+body > .lab,
+body > .component-attribution,
+main {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: var(--o009-accent);
+  text-underline-offset: 0.14em;
+}
+
+:not(pre) > code,
+.component-attribution {
+  overflow-wrap: anywhere;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 0.2rem solid #d16a00;
+  outline-offset: 0.18rem;
+}
+
+.component-attribution,
+.original-addition,
+.exercise,
+.hint,
+.answer,
+.solution {
+  border: 1px solid var(--o009-border);
+  border-radius: 0.45rem;
+  padding: 0.85rem 1rem;
+  margin-block: 1rem;
+  background: var(--o009-panel);
+}
+
+.component-attribution {
+  border-left: 0.35rem solid var(--o009-accent);
+}
+
+details {
+  margin-block: 0.6rem;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 0.8rem;
+  border-radius: 0.35rem;
+  background: #18232d;
+  color: #f4f7f9;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+th,
+td {
+  border: 1px solid var(--o009-border);
+  padding: 0.45rem 0.6rem;
+  text-align: right;
+}
+
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --o009-paper: #111820;
+    --o009-ink: #eef4f8;
+    --o009-muted: #bdcbd4;
+    --o009-border: #536875;
+    --o009-accent: #85c9f4;
+    --o009-panel: #182733;
+  }
+}
+
+@media (max-width: 48rem) {
+  body {
+    padding-inline: 0.8rem;
+  }
+
+  .unit li,
+  mjx-container[display="true"] {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}

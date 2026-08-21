@@ -1,0 +1,63 @@
+{
+  "$id": "https://example.invalid/o009/backend/unit_map.csv.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "order": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "rights_id": {
+      "pattern": "^rights\\.[A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "source_local_id": {
+      "type": "string"
+    },
+    "translation_state": {
+      "enum": [
+        "authored",
+        "built",
+        "draft",
+        "external_dependency",
+        "source_frozen",
+        "structurally_verified",
+        "translated"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "parent_id",
+    "order",
+    "path",
+    "source_local_id",
+    "translation_state",
+    "rights_id"
+  ],
+  "title": "Strict row schema for unit_map.csv",
+  "type": "object",
+  "x-csv": {
+    "encoding": "utf-8",
+    "header": [
+      "id",
+      "parent_id",
+      "order",
+      "path",
+      "source_local_id",
+      "translation_state",
+      "rights_id"
+    ],
+    "line_ending": "CRLF"
+  }
+}

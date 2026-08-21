@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Uniformly Integrable Variables</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, expected value, vector space, uniformly integrable, sigma-algebra">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\)
+	\(\newcommand{\cov}{\text{cov}}\)
+	\(\newcommand{\cor}{\text{cor}}\)
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\ms}{\mathscr}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">3. Expected Value</a></li>
+		<li class="child"><a href="Properties.html" title="Definitions and Basic Properties">1</a></li>
+		<li class="child"><a href="Properties2.html" title="Additional Properties">2</a></li>
+		<li class="child"><a href="Variance.html" title="Variance">3</a></li>
+		<li class="child"><a href="Skew.html" title="Skewness and Kurtosis">4</a></li>
+		<li class="child"><a href="Covariance.html" title="Covariance and Correlation">5</a></li>
+		<li class="child"><a href="Generating.html" title="Generating Functions">6</a></li>
+		<li class="child"><a href="Conditional.html" title="Conditional Expected Value">7</a></li>
+		<li class="child"><a href="Matrices.html" title="Expected Value and Covariance Matrices">8</a></li>
+		<li class="child"><a href="Integral.html" title="Expected Value as an Integral">9</a></li>
+		<li class="child"><a href="Conditional2.html" title="Conditional Expected Value Revisited">10</a></li>
+		<li class="child"><a href="Spaces.html" title="Vector Spaces of Random Variables">11</a></li>
+		<li class="current">12</li>
+		<li class="child"><a href="Kernels.html" title="Kernels and Operators">13</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+
+	<h2>12. Uniformly Integrable Variables</h2>
+</header>
+
+<p>Two of the most important modes of convergence in probability theory are <a href="../prob/Convergence.html">convergence with probability 1</a>, and <a href="Spaces.html#con">convergence in mean</a>. As we have noted several times, neither mode of convergence implies the other. However, if we impose an additional condition on the sequence of variables, convergence in probability implies convergence in mean. The purpose of this brief section, is to explore the additional condition that is needed. This section is particularly important for the theory of <a href="../martingales/index.html">martingales</a>.</p>
+
+<h3>Basic Theory</h3>
+
+<p>As usual, our starting point is a <a href="../prob/Experiments.html">random experiment</a> modeled by a <a href="../prob/Probability2.html">probability space</a> \( (\Omega, \mathscr{F}, \P) \), so that \( \Omega \) is the set of outcomes, \( \mathscr{F} \) is the \( \sigma \)-algebra of events, and \( \P \) is the probability measure on the sample space \( (\Omega, \mathscr F) \). In this section, all random variables that are mentioned are assumed to be real valued, unless otherwise noted. Next, recall that for \( k \in [1, \infty) \), \( \mathscr{L}_k \) is the <a href="Spaces.html">vector space</a> of random variables \( X \) with \( \E(|X|^k) \lt \infty \), endowed with the norm \( \|X\|_k = \left[\E(X^k)\right]^{1/k} \). In particular, \( X \in \mathscr{L}_1 \) simply means that \( \E(|X|) \lt \infty \) so that \( \E(X) \) exists as a real number. Finally, recall the following notation for the <a href="Properties.html">expected value</a> of a random variable \(X\) over an event \(A\), assuming of course that the expected value makes sense:
+\[ \E(X; A) = \E(X \bs{1}_A) = \int_A X \, d\P \]</p>
+
+<h4>Definition</h4>
+
+<p>The following result is motivation for the main definition in this section.</p>
+
+<div class="unit" id="dfn1">
+	<p class="math">If \( X \) is a random variable then \( \E(|X|) \lt \infty \) if and only if \( \E(|X|; |X| \ge x) \to 0 \) as \( x \to \infty \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that that \( |X| \bs{1}(|X| \le x) \) is nonnegative, increasing in \( x \in [0, \infty) \) and \( |X| \bs{1}(|X| \le x) \to |X| \) as \( x \to \infty \). From the monotone convergence theorem, \( \E(|X|; |X| \le x) \to \E(|X|) \) as \( x \to \infty \). On the other hand,
+		\[ \E(|X|) = \E(|X|; |X| \le x) + \E(|X|; |X| \gt x) \]
+		If \( \E(|X|) \lt \infty \) then taking limits in the displayed equation shows that \( \E(|X|: |X| \gt x) \to 0 \) as \( x \to \infty \). On the other hand, \( \E(|X|; |X| \le x) \le x \). So if \( \E(|X|) = \infty \) then \( \E(|X|; |X| \gt x) = \infty \) for every \( x \in [0, \infty) \).</p>
+	</details>
+</div>
+
+<p>Suppose now that \( X_i \) is a random variable for each \( i \) in a nonempty index set \( I \) (not necessarily countable). The critical definition for this section is to require the convergence in the previous theorem to hold <em>uniformly</em> for the collection of random variables \( \bs X = \{X_i: i \in I\} \).</p>
+
+<div class="unit" id="dfn2">
+	<p class="dfn">The collection \( \bs X = \{X_i: i \in I\} \) is <dfn>uniformly integrable</dfn> if for each \( \epsilon \gt 0 \) there exists \( x \gt 0 \) such that for all \( i \in I \),
+	\[ \E(|X_i|; |X_i| \gt x) \lt \epsilon \]
+	Equivalently \( \E(|X_i|; |X_i| \gt x) \to 0 \) as \( x \to \infty \) uniformly in \( i \in I \).</p>
+</div>
+
+<h4>Properties</h4>
+
+<p>Our next discussion centers on conditions that ensure that the collection of random variables \( \bs X = \{X_i: i \in I\} \) is uniformly integrable. Here is an equivalent characterization:</p>
+
+<div class="unit" id="prp1">
+	<p class="math">The collection \( \bs X = \{X_i: i \in I\} \) is uniformly integrable if and only if the following conditions hold:</p>
+	<ol class="sub">
+		<li>\( \{\E(|X_i|): i \in I\} \) is bounded.</li>
+		<li>For each \( \epsilon \gt 0 \) there exists \( \delta \gt 0 \) such that if \( A \in \mathscr{F} \) and \( \P(A) \lt \delta \) then \( \E(|X_i|; A) \lt \epsilon \) for all \( i \in I \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( \bs X \) is uniformly integrable. With \( \epsilon = 1 \) there exists \( x \gt 0 \) such that \( \E(|X_i|; |X_i| \gt x) \lt 1 \) for all \( i \in I \). Hence
+		\[ \E(|X_i|) = \E(|X_i|; |X_i| \le x) + \E(|X_i|; |X_i| \gt x) \lt x + 1, \quad i \in I \]
+		so (a) holds. For (b), let \( \epsilon \gt 0 \). There exists \( x \gt 0 \) such that \( \E(|X_i|; |X_i| \gt x) \lt \epsilon / 2 \) for all \( i \in I \). Let \( \delta = \epsilon / 2 x \). If \( A \in \mathscr{F} \) and \( \P(A) \lt \delta \) then
+		\[ \E(|X_i|; A) = \E(|X_i|; A \cap \{|X| \le x\}) + \E(|X_i|; A \cap \{|X| \gt x\}) \le x \P(A) + \E(|X_i|; |X| \gt x) \lt \epsilon / 2 + \epsilon / 2 = \epsilon\]
+		Conversely, suppose that (a) and (b) hold. By (a), there exists \( c \gt 0 \) such that \( \E(|X_i|) \le c \) for all \( i \in I \). Let \( \epsilon \gt 0 \). By (b) there exists \( \delta \gt 0 \) such that if \( A \in \mathscr{F} \) with \( \P(A) \lt \delta \) then \( \E(|X_i|; A) \lt \epsilon \) for all \( i \in I \). Next, by <a href="Properties2.html#mar">Markov's inequality</a>,
+		\[ \P(|X_i| \gt x) \le \frac{\E(|X_i|)}{x} \le \frac{c}{x}, \quad i \in I \]
+		Pick \( x \gt 0 \) such that \( c / x \lt \delta \), so that \(\P(|X_i| \gt x) \lt \delta\) for each \( i \in I \). Then for each \( j \in I \), \( \E(|X_i|; |X_j| \gt x) \lt \epsilon \) for all \( i \in I \) and so in particular, \( \E(|X_i|; |X_i| \gt x) \lt \epsilon \) for all \( i \in I \). Hence \( \bs X \) is uniformly integrable.</p>
+	</details>
+</div>
+
+<p>Condition (a) means that \( \bs X \) is bounded (in norm) as a subset of the vector space \( \mathscr{L}_1 \). Trivially, a <em>finite</em> collection of absolutely integrable random variables is uniformly integrable.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \( I \) is finite and that \( \E(|X_i|) \lt \infty \) for each \( i \in I \). Then \( \bs X = \{X_i: i \in I\} \) is uniformly integrable. </p>
+</div>
+
+<p>A subset of a uniformly integrable set of variables is also uniformly integrable.</p>
+
+<div class="unit">
+	<p class="math">If \( \{X_i: i \in I\} \) is uniformly integrable and \( J \) is a nonempty subset of \( I \), then \( \{X_j: j \in J\} \) is uniformly integrable.</p>
+</div>
+
+<p>If the random variables in the collection are dominated in absolute value by a random variable with finite mean, then the collection is uniformly integrable.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \( Y \) is a nonnegative random variable with \( \E(Y) \lt \infty \) and that \( |X_i| \le Y \) for each \( i \in I \). Then \( \bs X = \{X_i: i \in I\} \) is uniformly integrable.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Clearly \( \E(|X_i|; |X_i| \gt x) \le E(Y; Y \gt x) \) for \( x \in [0, \infty) \) and for all \( i \in I \). The right side is independent of \( i \in I \), and by <a href="#dfn1" class="ref"></a>, converges to 0 as \( x \to \infty \). Hence \( \bs X \) is uniformly integrable.</p>
+	</details>
+</div>
+
+<p>The following result is more general, but essentially the same proof works.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \( \bs Y = \{Y_j: j \in J\} \) is uniformly integrable, and \( \bs X = \{X_i: i \in I\} \) is a set of variables with the property that for each \( i \in I \) there exists \( j \in J \) such that \( |X_i| \le |Y_j| \). Then \( \bs X \) is uniformly integrable.</p>
+</div>
+
+<p>As a simple corollary, if the variables are bounded in absolute value then the collection is uniformly integrable.</p>
+
+<div class="unit">
+	<p class="math">If there exists \( c \gt 0 \) such that \( |X_i| \le c \) for all \( i \in I \) then \( \bs X = \{X_i: i \in I\} \) is uniformly integrable.</p>
+</div>
+
+<p>Just having \( \E(|X_i|) \) bounded in \( i \in I \) (condition (a) in <a href="#prp1" class="ref"></a>) is not sufficient for \( \bs X = \{X_i: i \in I\} \) to be uniformly integrable; example <a href="#exe1" class="ref"></a> below is a counterexample. However, if \( \E\left(|X_i|^k\right) \) is bounded in \( i \in I \) for some \( k \gt 1 \), then \( \bs X \) <em>is</em> uniformly integrable. This condition means that \( \bs X \) is bounded (in norm) as a subset of the vector space \( \mathscr{L}_k \).</p>
+
+<div class="unit">
+	<p class="math">If \( \left\{\E\left(|X_i|^k\right): i \in I\right\} \) is bounded for some \( k \gt 1 \), then \( \{X_i: i \in I\} \) is uniformly integrable.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that for some \( k \gt 1 \) and \( c \gt 0 \), \( \E\left(|X_i|^k\right) \le c \) for all \( i \in I \). Then \( k - 1 \gt 0 \) and so \( t \mapsto t^{k-1} \) is increasing on \( (0, \infty) \). So if \( |X_i| \gt x \) for \( x \gt 0 \) then 
+		\[ |X_i|^k = |X_i| |X_i|^{k-1} \ge |X_i| x^{k-1} \]
+		Hence \( |X_i| \le |X_i|^k / x^{k-1} \) on the event \( |X_i| \gt x \). Therefore
+		\[ \E(|X_i|; |X_i| \gt x) \le \E\left(\frac{|X_i|^k}{x^{k-1}}; |X_i| \gt x\right) \le \frac{\E(|X_i|^k)}{x^{k-1}} \le \frac{c}{x^{k-1}} \]
+		The last expression is independent of \( i \in I \) and converges to 0 as \( x \to \infty \). Hence \( \bs X \) is uniformly integrable.</p>
+	</details>
+</div>
+
+<p>Uniformly integrability is closed under the operations of addition and scalar multiplication.</p>
+
+<div class="unit" id="add">
+	<p class="math">Suppose that \( \bs X = \{X_i: i \in I\} \) and \( \bs Y = \{Y_i: i \in I\} \) are uniformly integrable and that \( c \in \R \). Then each of the following collections is also uniformly integrable.</p>
+	<ol class="sub">
+		<li>\( \bs X + \bs Y = \{X_i + Y_i: i \in I\} \)</li>
+		<li>\( c \bs X = \{c X_i: i \in I\} \)</li>
+	</ol>
+
+	<details>
+		<summary>Details:</summary>
+		<p>We use the characterization in <a href="#prp1" class="ref"></a>.</p>
+		<ol class="sub">
+			<li>There exists \( a, \, b \in (0, \infty) \) such that \( \E(|X_i|) \le a \) and \( \E(|Y_i|) \le b \) for all \( i \in I \). Hence 
+			\[ \E(|X_i + Y_i|) \le \E(|X_i| + |Y_i|) \le \E(|X_i|) + \E(|Y_i|) \le a + b, \quad i \in I  \]
+			Next let \( \epsilon \gt 0 \). There exists \( \delta_1 \gt 0 \) such that if \( A \in \mathscr{F} \) with \( \P(A) \lt \delta_1 \) then \( \E(|X_i|; A) \lt \epsilon / 2 \) for all \( i \in I \), and similarly, there exists \( \delta_2 \gt 0 \) such that if \( A \in \mathscr{F} \) with \( \P(A) \lt \delta_2 \) then \( \E(|Y_i|; A) \lt \epsilon / 2 \) for all \( i \in I \). Hence if \( A \in \mathscr{F} \) with \( \P(A) \lt \delta_1 \wedge \delta_2 \) then
+			\[ \E(|X_i + Y_i|; A) \le \E(|X_i| + |Y_i|; A) = \E(|X_i|; A) + \E(|Y_i|; A) \lt \epsilon / 2 + \epsilon / 2 = \epsilon, \quad i \in I \]
+			</li>
+			<li>There exists \( a \in (0, \infty) \) such that \( \E(|X_i|) \le a \) for all \( i \in I \). Hence
+			\[ \E(|c X_i|) = |c| \E(|X_i|) \le c a, \quad i \in I \]
+			The second condition is trivial if \( c = 0 \), so suppose \( c \ne 0 \). For \( \epsilon \gt 0 \) there exists \( \delta \gt 0 \) such that if \( A \in \mathscr{F} \) and \( \P(A) \lt \delta \) then \( \E(|X_i|; A) \lt \epsilon / |c| \) for all \( i \in I \). Hence \( \E(|c X_i|; A) = |c| \E(|X_i|; A) \lt \epsilon \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>The following corollary is trivial, but will be needed in our discussion of convergence below.</p>
+
+<div class="unit" id="prp2">
+	<p class="math">Suppose that \( \{X_i: i \in I\} \) is uniformly integrable and that \( X \) is a random variable with \( \E(|X|) \lt \infty \). Then \( \{X_i - X: i \in I\} \) is uniformly integrable.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( Y_i = X \) for each \( i \in I \). Then \( \{Y_i: i \in I\} \) is uniformly integrable, so the result follows from <a href="#add" class="ref"></a>.</p>
+	</details>
+</div>
+
+<h4 id="con">Convergence</h4>
+
+<p>We now come to the main results, and the reason for the definition of uniform integrability in the first place. To set up the notation, suppose that \( X_n \) is a random variable for \( n \in \N_+ \) and that \( X \) is a random variable. We know that if \( X_n \to X \) as \( n \to \infty \) <a href="Spaces.html#con">in mean</a> then \( X_n \to X \) as \( n \to \infty \) <a href="../prob/Convergence.html#lim">in probability</a>. The converse is also true if and only if the sequence is uniformly integrable. Here is the first half:</p>
+
+<div class="unit" id="con1">
+	<p class="math">If \( X_n \to X \) as \( n \to \infty \) in mean, then \( \{X_n: n \in \N\} \) is uniformly integrable.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The hypothesis means that \( X_n \to X \) as \( n \to \infty \) in the vector space \( \mathscr{L}_1 \). That is, \( \E(|X_n|) \lt \infty \) for \( n \in \N_+ \), \( \E(|X|) \lt \infty \), and \( E(|X_n - X|) \to 0 \) as \( n \to \infty \). From the section on <a href="Spaces.html">vector spaces</a> of random variables, we know that this implies that \( \E(|X_n|) \to \E(|X|) \) as \( n \to \infty \), so \( \E(|X_n|) \) is bounded in \( n \in \N \). Let \( \epsilon \gt 0 \). Then there exists \( N \in \N_+ \) such that if \( n \gt N \) then \( \E(|X_n - X|) \lt \epsilon/2 \). Since all of our variables are in \( \mathscr{L}_1 \), for each \( n \in \N_+ \) there exists \( \delta_n \gt 0 \) such that if \( A \in \mathscr{F} \) and \( \P(A) \lt \delta_n \) then \( \E(|X_n - X|; A) \lt \epsilon / 2 \). Similarly, there exists \( \delta_0 \gt 0 \) such that if \( A \in \mathscr{F} \) and \( \P(A) \lt \delta_0 \) then \( \E(|X|; A) \lt \epsilon / 2 \). Let \( \delta = \min\{\delta_n: n \in \{0, 1, \ldots, N\}\} \) so \( \delta \gt 0 \). If \( A \in \mathscr{F} \) and \( \P(A) \lt \delta \) then
+		\[\E(|X_n|; A) = \E(|X_n - X + X|; A) \le \E(|X_n - X|; A) + \E(|X|; A), \quad n \in \N_+\]
+		If \( n \le N \) then \( \E(|X_n - X|; A) \le \epsilon / 2 \) since \( \delta \le \delta_n \). If \( n \gt N \) then \( \E(|X_n - X|; A) \le \E(|X_n - X|) \lt \epsilon / 2 \). For all \( n \), \( E(|X|; A) \lt \epsilon / 2 \) since \( \delta \le \delta_0 \). So for all \( n \in \N_+ \), \( \E(|X_n|: A) \lt \epsilon \) and hence \( \{X_n: n \in \N_+\} \) is uniformly integrable.</p>
+	</details>
+</div>
+
+<p>Here is the more important half, known as the <dfn>uniform integrability theorem</dfn>:</p>
+
+<div class="unit" id="con2">
+	<p class="math">If \( \{X_n: n \in \N_+\} \) is uniformly integrable and \( X_n \to X \) as \( n \to \infty \) in probability, then \( X_n \to X \) as \( n \to \infty \) in mean.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( X_n \to X \) as \( n \to \infty \) <a href="../prob/Convergence.html#sub">in probability</a>, we know that there exists a subsequence \( \left(X_{n_k}: k \in \N_+\right) \) of \( (X_n: n \in \N_+) \) such that \( X_{n_k} \to X \) as \( k \to \infty \) with probability 1. By the uniform integrability, \( \E(|X_n|) \) is bounded in \( n \in \N_+ \). Hence by <a href="Integral.html#lim1">Fatou's lemma</a>,
+		\[ \E(|X|) = \E\left(\liminf_{k \to \infty} \left|X_{n_k}\right|\right) \le \liminf_{n \to \infty} \E\left(\left|X_{n_k}\right|\right) \le \limsup_{n \to \infty} \E\left(\left|X_{n_k}\right|\right) \lt \infty \]
+		Let \( Y_n = X_n - X \) for \( n \in \N_+ \). From corollary <a href="#prp2" class="ref"></a>, we know that \( \{Y_n: n \in \N_+\} \) is uniformly integrable, and we also know that \( Y_n \) converges to 0 as \( n \to \infty \) in probability. Hence we need to show that \( Y_n \to 0 \) as \( n \to \infty \) in mean. Let \( \epsilon \gt 0 \). By uniform integrability, there exists \( \delta \gt 0 \) such that if \( A \in \mathscr{F} \) and \( \P(A) \lt \delta \) then \( \E(|Y_n|: A) \lt \epsilon / 2 \) for all \( n \in \N \). Since \( Y_n \to 0 \) as \( n \to \infty \) in probability, there exists \( N \in \N_+ \) such that if \( n \gt N \) then \( \P(|Y_n| \gt \epsilon / 2) \lt \delta \). Hence if \( n \gt N \) then
+		\[ \E(|Y_n|) = \E(|Y_n|; |Y_n|  \le \epsilon / 2) + \E(|Y_n|; |Y_n| \gt \epsilon / 2) \lt \epsilon / 2 + \epsilon / 2 = \epsilon \]
+		Hence \( Y_n \to 0 \) as \( n \to \infty \) in mean.</p>
+	</details>
+</div>
+
+<p>As a corollary, recall that if \( X_n \to X \) as \( n \to \infty \) with probability 1, then \( X_n \to X \) as \( n \to \infty \) in probability. Hence if \( \bs X = \{X_n: n \in \N_+\} \) is uniformly integrable then \( X_n \to X \) as \( n \to \infty \) in mean. </p>
+
+<h3>Examples</h3>
+
+<p>Our first example shows that bounded \( \mathscr{L}_1 \) norm is not sufficient for uniform integrability.</p>
+
+<div class="unit" id="exe1">
+	<p class="math">Suppose that \( U \) is uniformly distributed on the interval \( (0, 1) \) (so \( U \) has the <dfn>standard uniform distribution</dfn>). For \( n \in \N_+ \), let \( X_n = n \bs{1}(U \le 1 / n) \). Then</p>
+	<ol class="sub">
+		<li>\( \E(|X_n|) = 1 \) for all \( n \in \N_+ \)</li>
+		<li>\( \E(|X_n|; |X_n| \gt x) = 1 \) for \( x \gt 0 \), \( n \in \N_+ \) with \( n \gt x \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>First note that \( |X_n| = X_n \) since \( X_n \ge 0 \).</p>
+		<ol class="sub">
+			<li>By definition, \( \E(X_n) = n \P(U \le 1 / n) = n / n = 1 \) for \( n \in \N_+ \).</li>
+			<li>If \( n \gt x \gt 0 \) then \( X_n \gt x \) if and only if \( X_n = n \) if and only if \( U \le 1/n \). Hence \( \E(X_n; X_n \gt x) = n \P(U \le 1/n) = 1 \) as before.</li>
+		</ol>
+	</details>
+</div>
+
+<p>By part (b), \( \E(|X_n|; |X_n| \gt x) \) does not converge to 0 as \( x \to \infty \) uniformly in \( n \in \N_+ \), so \( \bs X = \{X_n: n \in \N_+\} \) is not uniformly integrable.</p>
+
+<p>The next example gives an important application to <a href="Conditional2.html">conditional expected value</a>. Recall that if \( X \) is a random variable with \( \E(|X|) \lt \infty \) and \( \ms{G} \) is a sub \( \sigma \)-algebra of \( \ms{F} \) then \( \E(X \mid \mathscr{G}) \) is the expected value of \( X \) given the information in \( \mathscr{G} \), and is the \( \mathscr{G} \)-measurable random variable closest to \( X \) in a sense. Indeed if \( X \in \ms{L}_2(\ms{F}) \) then \( \E(X \mid \ms{G}) \) is the projection of \( X \) onto \( \ms{L}_2(\ms{G}) \).</p>
+
+<div class="unit" id="exe2">
+	<p class="math">Suppose that \(\{X_i: i \in I\}\) is a uniformly integrable collection of random variables defined on the probability space \((\Omega, \ms F, \P)\). The the following collection is also uniformly integrable:
+	\[ \{\E(X_i \mid \ms G): i \in I, \ms G \text{ is a sub } \sigma \text{-algebra of } \ms F\} \]
+	<details>
+		<summary>Details:</summary>
+		<p>The proof uses both proposition <a href="#prp1" class="ref"></a> and definition <a href="#dfn2" class="ref"></a>. First, there exist \(C \in (0, \infty)\) with \(\E(|X_i|) \le C\) for all \(i \in I\). Let \(\epsilon > 0\). Then there exists \(\delta \gt 0\) such that if \(A \in \ms F\) with \(\P(A) \lt \delta\) then \(\E(|X_i|; A) \lt \epsilon\) for all \(i \in I\). Now let \(x = C / \delta\). If \(i \in I\) and \(\ms G\) is a sub \(\sigma\)-algebra of \(\ms F\) then by Markov's inequality and basic properties of condtional expected value,
+		\[ \P[|\E(X_i \mid \ms G)| \gt x] \le \E[|\E(X_i \mid \ms G)|] / x \le \E[\E(|X_i| \mid \ms G)] / x \le E(|X_i|) / x \le C / x = \delta\]
+		Hence since \(\{|\E(X_i \mid \ms G)| \gt x\} \in \ms G\) we have
+		\[ \E[|\E(X_i \mid \ms G)|; |\E(X_i \mid \ms G)| \gt x] \le \E[\E(|X_i| \mid \ms G); |\E(X_i \mid \ms G)| \gt x] = \E[|X_i|; |\E(X_i \mid \ms G)| \gt x] \lt \epsilon \]
+		</p>
+	</details>
+</div>
+
+<p>As a simple, but important corollary, if \(X\) is a random variable with \(\E(|X|) \lt \infty \) then the collection of conditional expected values of \(X\)
+\[ \{\E(X \mid \ms G): \ms G \text{ is a sub } \sigma \text{-algebra of }\ms F \} \]
+is uniformly integrable. The conditional expected values range from \( \E(X) \), when \( \mathscr{G} = \{\Omega, \emptyset\} \) to \( X \) itself, when \( \mathscr{G} = \mathscr{F} \).</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">3. Expected Value</a></li>
+		<li class="child"><a href="Properties.html" title="Definitions and Basic Properties">1</a></li>
+		<li class="child"><a href="Properties2.html" title="Additional Properties">2</a></li>
+		<li class="child"><a href="Variance.html" title="Variance">3</a></li>
+		<li class="child"><a href="Skew.html" title="Skewness and Kurtosis">4</a></li>
+		<li class="child"><a href="Covariance.html" title="Covariance and Correlation">5</a></li>
+		<li class="child"><a href="Generating.html" title="Generating Functions">6</a></li>
+		<li class="child"><a href="Conditional.html" title="Conditional Expected Value">7</a></li>
+		<li class="child"><a href="Matrices.html" title="Expected Value and Covariance Matrices">8</a></li>
+		<li class="child"><a href="Integral.html" title="Expected Value as an Integral">9</a></li>
+		<li class="child"><a href="Conditional2.html" title="Conditional Expected Value Revisited">10</a></li>
+		<li class="child"><a href="Spaces.html" title="Vector Spaces of Random Variables">11</a></li>
+		<li class="current">12</li>
+		<li class="child"><a href="Kernels.html" title="Kernels and Operators">13</a></li>		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

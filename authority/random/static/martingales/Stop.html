@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Stopping Times</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, martingale, stopping time, optional stopping, stopped martingale, random walk, Wald's equation, patterns in multinomial trials, secretary problem">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Properties.html" title="Properties and Constructions">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Inequalities.html" title="Inequalities">4</a></li>
+		<li class="child"><a href="Convergence.html" title="Convergence">5</a></li>
+		<li class="child"><a href="Backwards.html" title="Backwards Martingales">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>3. Stopping Times</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<p>As in the <a href="Introduction.html">introduction</a>, we start with a <a href="../prob/Processes.html">stochastic process</a> \( \bs{X} = \{X_t: t \in T\} \) on an underlying probability space \( (\Omega, \mathscr{F}, \P) \), having state space \( \R \), and where the index set \( T \) (representing time) is either \( \N \) (discrete time) or \( [0, \infty) \) (continuous time). Next, we have a <a href="../prob/Stop.html">filtration</a> \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), and we assume that \( \bs{X} \) is <dfn>adapted</dfn> to \( \mathfrak{F} \). So \( \mathfrak{F} \) is an increasing family of sub \( \sigma \)-algebras of \( \mathscr{F} \) and \( X_t \) is measurable with respect to \( \mathscr{F}_t \) for \( t \in T \). We think of \( \mathscr{F}_t \) as the collection of events up to time \( t \in T \). We assume that \( \E\left(\left|X_t\right|\right) \lt \infty \), so that the <a href="../expect/Properties.html">mean</a> of \( X_t \) exists as a real number, for each \( t \in T \). Finally, in continuous time where \( T = [0, \infty) \), we make the standard assumption that \( \bs X \) is right continuous and has left limits, and that the filtration \( \mathfrak F \) is right continuous and complete.</p>
+
+<p>Our general goal in this section is to see if some of the important martingale properties are preserved if the deterministic time \( t \in T \) is replaced by a (random) <a href="../prob/Stop.html">stopping time</a>. Recall that a random time \( \tau \) with values in \( T \cup \{\infty\} \) is a <dfn>stopping time</dfn> relative to \( \mathfrak F \) if \( \{\tau \le t\} \in \mathscr{F}_t \) for \( t \in T \). So a stopping time is a random time that does not require that we see into the future. That is, we can tell if \( \tau \le t \) from the information available at time \( t \). Next recall that the \( \sigma \)-algebra associated with the stopping time \( \tau \) is
+\[ \mathscr{F}_\tau = \left\{A \in \mathscr{F}: A \cap \{\tau \le t\} \in \mathscr{F}_t \text{ for all } t \in T\right\} \]
+So \( \mathscr{F}_\tau \) is the collection of events up to the random time \( \tau \) just as \( \mathscr{F}_t \) is the collection of events up to the deterministic time \( t \in T \). In terms of a gambler playing a sequence of games, the time that the gambler decides to stop playing must be a stopping time, and in fact this interpretation is the origin of the name. That is, the time when the gambler decides to stop playing can only depend on the information that the gambler has up to that point in time.</p>
+
+<h4 id="ost">Optional Stopping</h4>
+
+<p>The basic martingale equation \( \E(X_t \mid \mathscr{F}_s) = X_s \) for \( s, \, t \in T \) with \( s \le t \) can be generalized by replacing both \( s \) and \( t \) by bounded stopping times. The result is known as the <dfn>Doob's optional stopping theorem</dfn> and is named again for <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">Joseph Doob</a>. Suppose that \( \bs X = \{X_t: t \in T\} \) satisfies the basic assumptions above with respect to the filtration \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \)</p>
+
+<div class="unit" id="ost1">
+	<p class="math">Suppose that  are bounded stopping times relative to \( \mathfrak F \) with \( \rho \le \tau \). </p>
+	<ol class="sub">
+		<li>If \( \bs X \) is a martingale relative to \( \mathfrak F \) then \( \E(X_\tau \mid \mathscr{F}_\rho) = X_\rho \).</li>
+		<li>If \( \bs X \) is a sub-martingale relative to \( \mathfrak F \) then \( \E(X_\tau \mid \mathscr{F}_\rho) \ge X_\rho \).</li>
+		<li>If \( \bs X \) is a super-martingale relative to \( \mathfrak F \) then \( \E(X_\tau \mid \mathscr{F}_\rho) \le X_\rho \).</li>
+	</ol>
+	<details>
+	<summary>Details:</summary>
+	<p><strong>Proof in discrete time:</strong></p>
+	<ol class="sub">
+		<li>Suppose that \( \tau \le k \) where \( k \in \N_+ \) and let \( A \in \mathscr{F}_\tau \). For \( j \in \N \) with \( j \le k \), \( A \cap \{\tau = j\} \in \mathscr{F}_j \). Hence by  the martingale property,
+		\[ \E(X_k ; A \cap \{\tau = j\}) = \E(X_j ; A \cap \{\tau = j\}) = \E(X_\tau ; A \cap \{\tau = j\})\]
+		Since \( k \) is an upper bound on \( \tau \), the events \( A \cap \{\tau = j\} \) for \( j = 0, 1, \ldots, k \) partition \( A \), so summing the displayed equation over \( j \) gives \( \E(X_k ; A) = \E(X_\tau ; A) \). By definition of conditional expectation, \( \E(X_k \mid \mathscr{F}_\tau) = X_\tau \). But since \( k \) is also an upper bound for \( \rho \) we also have \( \E(X_k \mid \mathscr{F}_\rho) = X_\rho \). Finally using the tower property we have
+		\[ X_\rho = \E(X_k \mid \mathscr{F}_\rho) = \E[\E(X_k \mid \mathscr{F}_\rho) \mid \mathscr{F}_\tau] = \E[\E(X_k \mid \mathscr{F}_\tau) \mid \mathscr{F}_\rho] = \E(X_\tau \mid \mathscr{F}_\rho)\]
+		</li>
+		<li>If \( \bs X \) is a sub-martingale, then by the <a href="Properties.html#doo">Doob decomposition theorem</a>, \( X_n = Y_n + Z_n \) for \( n \in \N \) where \( \bs Y = \{Y_n: n \in \N\} \) is a martingale relative to \( \mathfrak F \) and \( \bs Z = \{Z_n: n \in \N\} \) is increasing and is predictable relative to \( \mathfrak F \). So 
+		\[  \E(X_\tau \mid \mathscr{F}_\rho) = \E(Y_\tau \mid \mathscr{F}_\rho) + \E(Z_\tau \mid \mathscr{F}_\rho)\]
+		But \( \E(Y_\tau \mid \mathscr{F}_\rho) = Y_\rho \) by part (a) and since \( \bs Z \) is increasing, \( \E(Z_\tau \mid \mathscr{F}_\rho) \ge \E(Z_\rho \mid \mathscr{F}_\rho) = Z_\rho \). Hence \( \E(X_\tau \mid \mathscr{F}_\rho) \ge X_\rho \).</li>
+		<li>The proof when \( \bs X \) is a super-martingale is just like (b), except that the process \( \bs Z \) is decreasing.</li>
+	</ol>
+	<p><strong>Proof in continuous time:</strong> Suppose that \( \bs X \) is a martingale. We need to show that \( \E(X_\tau; A) = \E(X_\rho; A) \) for every \( A \in \mathscr{F}_\rho \). Let \( \rho_n = \lceil 2^n \rho \rceil / 2^n \) and \( \tau_n = \lceil 2^n \tau \rceil / 2^n \) for \( n \in \N \). The stopping times \( \rho_n \) and \( \tau_n \) take values in a countable set \( T_n \) for each \( n \in \N \), and \( \rho_n \downarrow \rho \) and \( \tau_n \downarrow \tau \) as \( n \to \infty \). The process \( \{X_t: t \in T_n\} \) is a discrete-time martingale for each \( n \in \N \). By the right continuity of \( \bs X \),
+	\[ X_{\rho_n} \to X_\rho, \; X_{\tau_n} \to X_\tau \text{ as } n \to \infty \]
+	Suppose next that \( \tau \le c \) where \( c \in (0, \infty) \) so that \( \rho \le c \) also.  Then \( \rho_n \le c + 1 \) and \( \tau_n \le c + 1 \) for \( n \in \N \) so the discrete stopping times are uniformly bounded. From the discrete version of the theorem, \( X_{\rho_n} = \E\left(X_{c+1} \mid \mathscr{F}_{\rho_n}\right) \) and \( X_{\tau_n} = \E\left(X_{c+1} \mid \mathscr{F}_{\tau_n}\right) \) for \( n \in \N \). It then follows that the sequences \( \left\{X_{\rho_n}: n \in \N\right\} \) and \( \left\{X_{\tau_n}: n \in \N\right\} \) are <a href="../expect/Uniform.html">uniformly integrable</a> and hence \( X_{\rho_n} \to X_\rho \) and \( X_{\tau_n} \to X_\tau \) as \( n \to \infty \) <a href="../expect/Spaces.html#con">in mean</a> as well as with probability 1. Now let \( A \in \mathscr{F}_\rho \). Since \( \rho \le \rho_n \), \( \mathscr{F}_\rho \subseteq \mathscr{F}_{\rho_n} \) and so \( A \in \mathscr{F}_{\rho_n} \) for each \( n \in \N \). By the theorem in discrete time,
+	\[ \E\left(X_{\tau_n}; A\right) = \E\left(X_{\rho_n}: A\right), \quad n \in \N \]
+	Letting \( n \to \infty \) gives \( \E(X_\tau; A) = \E(X_\rho; A) \). The proofs in parts (b) and (c) are as in the discrete time.</p>
+	</details>
+</div>
+
+<p>The assumption that the stopping times are bounded is critical. A counterexample when this assumption does not hold is given in <a href="#srw2" class="ref"></a>. Here are a couple of simple corollaries:</p>
+
+<div class="unit" id="ost2">
+	<p class="math">Suppose again that \( \rho \) and \( \tau \) are bounded stopping times relative to \( \mathfrak F \) with \( \rho \le \tau \). </p>
+	<ol class="sub">
+		<li>If \( \bs X \) is a martingale relative to \( \mathfrak F \) then \( \E(X_\tau) = \E(X_\rho) \).</li>
+		<li>If \( \bs X \) is a sub-martingale relative to \( \mathfrak F \) then \( \E(X_\tau) \ge \E(X_\rho) \).</li>
+		<li>If \( \bs X \) is a super-martingale relative to \( \mathfrak F \) then \( \E(X_\tau) \le \E(X_\rho) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that \( \E(X_\tau) = \E[\E(X_\tau \mid \mathscr{F}_\rho)] \), so the results are immediate from the optional stopping theorem <a href="#ost1" class="ref"></a></p>
+	</details>
+</div>
+
+<div class="unit" id="ost3">
+	<p class="math">Suppose that \( \tau \) is a bounded stopping time relative to \( \mathfrak F \). </p>
+	<ol class="sub">
+		<li>If \( \bs X \) is a martingale relative to \( \mathfrak F \) then \( \E(X_\tau) = \E(X_0) \).</li>
+		<li>If \( \bs X \) is a sub-martingale relative to \( \mathfrak F \) then \( \E(X_\tau) \ge \E(X_0) \).</li>
+		<li>If \( \bs X \) is a super-martingale relative to \( \mathfrak F \) then \( \E(X_\tau) \le \E(X_0) \).</li>
+	</ol>
+</div>
+
+<h4 id="stp">The Stopped Martingale</h4>
+
+<p>For our next discussion, we first need to <a href="../prob/Stop.html#stc">recall</a> how to stop a stochastic process at a stopping time.</p>
+
+<div class="unit" id="stp1">
+	<p class="math">Suppose that \( \bs X \) satisfies the assumptions above and that \( \tau \) is a stopping time relative to the filtration \( \mathfrak F \). The <dfn>stopped proccess</dfn> \( X^\tau = \{X^\tau_t: t \in [0, \infty)\} \) is defined by
+	\[ X^\tau_t = X_{t \wedge \tau}, \quad t \in [0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>In continuous time, our standard assumptions ensure that \( \bs{X}^\tau \) is a valid stochastic process and is adapted to \( \mathfrak F \). That is, \( X^\tau_t \) is measurable with respect to \( \mathscr{F}_t \) for each \( t \in [0, \infty) \). Moreover, \( \bs{X}^\tau \) is also right continuous and has left limits.</p>
+</details>
+</div>
+
+<p>So \( X^\tau_t = X_t \) if \( t \lt \tau \) and \( X^\tau_t = X_\tau \) if \( t \ge \tau \). In particular, note that \( X^\tau_0 = X_0 \). If \( X_t \) is the fortune of a gambler at time \( t \in T \), then \( X^\tau_t \) is the revised fortune at time \( t \) when \( \tau \) is the stopping time of the gamber. Our next result, known as the <dfn>elementary stopping theorem</dfn>, is that a martingale stopped at a stopping time is still a martingale. </p>
+
+<div class="unit" id="stp2">
+	<p class="math">Suppose again that \( \bs X \) satisfies the assumptions above, and that \( \tau \) is a stopping time relative to \( \mathfrak F \).</p>
+	<ol class="sub">
+		<li>If \( \bs X \) is a martingale relative to \( \mathfrak F \) then so is \( \bs{X}^\tau \).</li>
+		<li>If \( \bs X \) is a sub-martingale relative to \( \mathfrak F \) then so is \( \bs{X}^\tau \).</li>
+		<li>If \( \bs X \) is a super-martingale relative to \( \mathfrak F \) then so is \( \bs{X}^\tau \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p><strong>General proof:</strong> If \( s, \, t \in T \) with \( s \le t \) then \( \tau \wedge s \) and \( \tau \wedge t \) are bounded stopping times with \( \tau \wedge s \le \tau \wedge t \). So the results follows immediately from the optional stopping theorem <a href="#ost1" class="ref"></a>. </p>
+		<summary></summary>
+		<p><strong>Special proof in discrete time:</strong> In discrete time, there is a simple direct proof using the <a href="Properties.html#trn">martingale transform</a>. So suppose that \( T = \N \) and define the process \( \bs Y = \{Y_n: n \in \N_+\} \) by 
+		\[ Y_n = \bs{1}(\tau \ge n) = 1 - \bs{1}(\tau \le n - 1), \quad n \in \N_+ \]
+		By definition of a stopping time, \( \{\tau \le n - 1\} \in \mathscr{F}_{n-1} \) for \( n \in \N_+ \), so the process \( \bs Y \) is predictable. Of course, \( \bs Y \) is a bounded, nonnegative process also. The transform of \( \bs X \) by \( \bs Y \) is
+		\[ (\bs Y \cdot \bs X)_n = X_0 + \sum_{k=1}^n Y_k (X_k - X_{k-1}) = X_0 + \sum_{k=1}^n \bs{1}(\tau \ge k)(X_k - X_{k-1}), \quad n \in \N_+ \]
+		But note that \( X^\tau_k - X^\tau_{k-1} = X_k - X_{k-1} \) if \( \tau \ge k \) and \( X^\tau_k - X^\tau_{k-1} = X_\tau - X_\tau = 0 \) if \( \tau \lt k \). That is, \( X^\tau_k - X^\tau_{k-1} = \bs{1}(\tau \ge k)(X_k - X_{k-1}) \). Hence
+		\[ (\bs Y \cdot \bs X)_n = X_0 + \sum_{k=1}^n (X^\tau_k - X^\tau_{k-1}) = X_0 + X^\tau_n - X^\tau_0 = X^\tau_n, \quad n \in \N_+ \]
+		But if \( \bs X \) is a martingale (sub-martingale) (super-martingale), then so is the transform \( \bs Y \cdot \bs X = \bs{X}_\tau\).</p>
+	</details>
+</div>
+
+<p>The elementary stopping theorem is bad news for the gambler playing a sequence of games. If the games are fair or unfavorable, then no stopping time, regardless of how cleverly designed, can help the gambler. Since a stopped martingale is still a martingale, the the mean property holds.</p>
+
+<div class="unit" id="stp3">
+	<p class="math">Suppose again that \( \bs X \) satisfies the assumptions above, and that \( \tau \) is a stopping time relative to \( \mathfrak F \). Let \( t \in T \).</p>
+	<ol class="sub">
+		<li>If \( \bs X \) is a martingale relative to \( \mathfrak F \) then \( \E(X_{t \wedge \tau}) = E(X_0) \)</li>
+		<li>If \( \bs X \) is a sub-martingale relative to \( \mathfrak F \) then \( \E(X_{t \wedge \tau}) \ge E(X_0) \)</li>
+		<li>If \( \bs X \) is a super-martingale relative to \( \mathfrak F \) then \( \E(X_{t \wedge \tau}) \le E(X_0) \)</li>
+	</ol>
+</div>
+
+<h4 id="dis">Optional Stopping in Discrete Time</h4>
+
+<p>A simple corollary of the optional stopping theorem <a href="#ost1" class="ref"></a> is that if \( \bs X \) is a martingale and \( \tau \) a bounded stopping time, then \( \E(X_\tau) = \E(X_0) \) (with the appropriate inequalities if \( \bs X \) is a sub-martingale or a super-martingale). Our next discussion centers on other conditions which give these results in discrete time. Suppose that \( \bs X = \{X_n: n \in \N\} \) satisfies the basic assumptions above with respect to the filtration \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \), and that \( \tau \) is a stopping time relative to \( \mathfrak F \).</p>
+
+<div class="unit" id="dis1">
+	<p class="math">Suppose that \( \left|X_n\right| \) is bounded uniformly in \( n \in \N \) and that \( \tau \) is finite. </p>
+	<ol class="sub" start="4">
+		<li>If \( \bs X \) is a martingale then \( \E(X_\tau) = \E(X_0) \).</li>
+		<li>If \( \bs X \) is a sub-martingale then \( \E(X_\tau) \ge \E(X_0) \).</li>
+		<li>If \( \bs X \) is a super-martingale then \( \E(X_\tau) \le \E(X_0) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Assume that \( \bs X \) is a super-martingale. The proof for a sub-martingale are similar, and then the results follow immediately for a martingale. The main tool is <a href="#stp3" class="ref"></a> for the stopped super-martingale:
+		\[ \E(X_{\tau \wedge n}) \le \E(X_0), \quad n \in \N \]
+		Since \( \tau \lt \infty \) with probability 1, \( \tau \wedge n \to \tau \) as \( n \to \infty \), also with probability 1. Since \( |X_n| \) is bounded in \( n \in T \), it follows from the <a href="../expect/Integral.html#lim2">bounded convergence theorem</a> that \( \E(X_{\tau \wedge n}) \to \E(X_\tau) \) as \( n \to \infty \). Letting \( n \to \infty \) in the displayed equation gives \( \E(X_\tau) \le \E(X_0) \).</p>
+	</details>
+</div>
+
+<div class="unit" id="dis2">
+	<p class="math">Suppose that \( \left|X_{n+1} - X_n\right| \) is bounded uniformly in \( n \in \N \) and that \( \E(\tau) \lt \infty \).</p>
+	<ol class="sub" start="4">
+		<li>If \( \bs X \) is a martingale then \( \E(X_\tau) = \E(X_0) \).</li>
+		<li>If \( \bs X \) is a sub-martingale then \( \E(X_\tau) \ge \E(X_0) \).</li>
+		<li>If \( \bs X \) is a super-martingale then \( \E(X_\tau) \le \E(X_0) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Assume that \( \bs X \) is a super-martingale. The proofs for a sub-martingale are similar, and then the results follow immediately for a martingale. The main tool once again is the mean property in <a href="#stp3" class="ref"></a> above for the stopped super-martingale:
+		\[ \E(X_{\tau \wedge n}) \le \E(X_0), \quad n \in \N \]
+		Suppose that \( |X_{n+1} - X_n| \le c \) where \( c \in (0, \infty) \). Then
+		\[ |X_{\tau \wedge n} - X_0| = \left|\sum_{k=1}^{\tau \wedge n} (X_k - X_{k-1})\right| \le \sum_{k=1}^{\tau \wedge n} |X_k - X_{k-1}| \le c (\tau \wedge n) \le c \tau \]
+		Hence \( |X_{\tau \wedge n}| \le c \tau + |X_0| \). Since \( \E(\tau) \lt \infty \) we know that \( \tau \lt \infty \) with probability 1, so as before, \( \tau \wedge n \to \tau \) as \( n \to \infty \). Also \(\E(c \tau + |X_0|) \lt \infty\) so by the <a href="../expect/Integral.html#lim2">dominated convergence theorem</a>, \( \E(X_{\tau \wedge n}) \to \E(X_\tau) \) as \( n \to \infty \). So again letting \( n \to \infty \) in the displayed equation gives \( \E(X_\tau) \le \E(X_0) \).</p>
+	</details>
+</div>
+
+<p>Let's return to our original interpretation of a martingale \( \bs{X} \) representing the fortune of a gambler playing fair games. The gambler could choose to quit at a random time \( \tau \), but \( \tau \) would have to be a stopping time, based on the gambler's information encoded in the filtration \( \mathfrak{F} \). Under the conditions of the theorem, no such scheme can help the gambler in terms of expected value.</p>
+
+<h3>Examples and Applications</h3>
+
+<h4 id="srw">The Simple Random Walk</h4>
+
+<p>Suppose that \( \bs{V} = (V_1, V_2, \ldots) \) is a sequence if independent, identically distributed random variables with \( \P(V_i = 1) = p \) and \( \P(V_i = -1) = 1 - p \) for \( i \in \N_+ \), where \( p \in (0, 1) \). Let \( \bs{X}  = (X_0, X_1, X_2, \ldots)\) be the partial sum process associated with \( \bs{V} \) so that 
+\[ X_n = \sum_{i=1}^n V_i, \quad n \in \N \]
+Then \( \bs{X} \) is the <a href="../bernoulli/Walk.html">simple random walk</a> with parameter \( p \). In terms of gambling, our gambler plays a sequence of independent and identical games, and on each game, wins &euro;1 with probability \( p \) and loses &euro;1 with probability \( 1 - p \). So \( X_n \) is the the gambler's total net winnings after \( n \) games. We showed in the <a href="Introduction.html">introduction</a> that \( \bs X \) is a martingale if \( p = \frac{1}{2} \) (the fair case), a sub-martingale if \( p \gt \frac{1}{2} \) (the favorable case), and a super-martingale if \( p \lt \frac{1}{2} \) (the unfair case). Now, for \( c \in \Z \), let 
+\[ \tau_c = \inf\{n \in \N: X_n = c\} \]
+where as usual, \( \inf(\emptyset) = \infty \). So \( \tau_c \) is the first time that the gambler's fortune reaches \( c \). What if the gambler simply continues playing until her net winnings is some specified positive number (say &euro;\(1\,000\,000 \) )? Is that a workable strategy?</p>
+
+<div class="unit" id="srw1">
+	<p class="math">Suppose that \( p = \frac{1}{2} \) and that \( c \in \N_+ \).</p>
+	<ol class="sub">
+		<li>\( \P(\tau_c \lt \infty) = 1 \)</li>
+		<li>\( \E\left(X_{\tau_c}\right) = c \ne 0 = \E(X_0) \)</li>
+		<li>\( \E(\tau_c) = \infty \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Parts (a) and (c) hold since \( \bs X \) is a <a href="../markov/Limiting.html">null recurrent Markov chain</a>. Part (b) follows from (a) since trivially \( X_{\tau_c} = c \) if \( \tau_c \lt \infty \).</p>
+	</details>
+</div>
+
+<p>Note that part (b) does not contradict the optional stopping theorem <a href="#ost2" class="ref"></a> because of part (c). The strategy of waiting until the net winnings reaches a specified goal \( c \) is unsustainable. Suppose now that the gambler plays until the net winnings either falls to a specified negative number (a loss that she can tolerate) or reaches a specified positive number (a goal she hopes to reach).</p>
+
+<div class="unit" id="srw2">
+	<p class="math">Suppose again that \( p = \frac{1}{2} \). For \( a, \, b \in \N_+ \), let \( \tau = \tau_{-a} \wedge \tau_b \). Then</p>
+	<ol class="sub">
+		<li>\( \E(\tau) \lt \infty \)</li>
+		<li>\( \E(X_\tau) = 0 \)</li>
+		<li>\( \P(\tau_{-a} \lt \tau_b) = b / (a + b) \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>We will let \( X_0 \) have an arbitrary value in the set \( \{-a, -a + 1, \ldots, b - 1, b\} \), so that we can use Markov chain techniques. Let \( m(x) = \E(\tau \mid X_0 = x) \) for \( x \) in this set. Conditioning on the first state and using the Markov property we have
+			\[ m(x) = 1 + \frac{1}{2} m(x - 1) + \frac{1}{2} m(x + 1), \quad x \in \{-a + 1, \ldots, b - 1\} \]
+			with boundary conditions \( m(-a) = m(b) = 0 \). The linear recurrence relation can be solved explicitly, but all that we care about is the fact that the solution is finite.</li>
+			<li>The optional sampling theorem <a href="#ost1" class="ref"></a> applies, so \( \E(X_\tau) = \E(X_0) = 0 \).</li>
+			<li>Let \( q = \P(\tau_{-a} \lt \tau_b) \) so that \( 1 - q = \P(\tau_b \lt \tau_{-a}) \). By definition, \( X_\tau = -a \) if \( \tau_{-a} \lt \tau_b \) and \( X_\tau = b \) if \( \tau_b \lt \tau_{-a} \). So from (b), \( q(-a) + (1 - q) b = 0  \) and therefore \( q = b / (a + b) \).
+			</li>
+		</ol>
+	</details>
+</div>
+
+<p>So gambling until the net winnings either falls to \( -a \) or reaches \( b \) is a workable strategy, but alas has expected value 0. Here's another example that shows that the first version of the optional sampling theorem can fail if the stopping times are not bounded.</p>
+
+<div class="unit" id="srw3">
+	<p class="math">Suppose again that \( p = \frac{1}{2} \). Let \( a, \, b \in \N_+ \) with \( a \lt b \). Then \( \tau_a \lt \tau_b \lt \infty \) but
+	\[ b = \E\left(X_{\tau_b} \mid \mathscr{F}_{\tau_a} \right) \ne X_{\tau_a} = a \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( X_0 = 0 \), the process \( \bs X \) must reach \( a \) before reaching \( b \). As before, \( \tau_b \lt \infty \) but \( \E(\tau_b) = \infty \) since \( \bs X \) is a null recurrent Markov chain.</p>
+	</details>
+</div>
+
+<p>This result does not contradict the optional stopping theorem <a href="#ost1" class="ref"></a> since the stopping times are not bounded.</p>
+
+<h4 id="wld">Wald's Equation</h4>
+
+<p><dfn>Wald's equation</dfn>, named for <a href="JavaScript:openAncillary('../biographies/Wald.html')" class="ancillary">Abraham Wald</a> is a formula for the expected value of the sum of a random number of independent, identically distributed random variables. We have considered this before, in our discussion of <a href="../expect/Conditional.html#sum">conditional expected value</a> and our discussion of <a href="../sample/CLT.html#wld">random samples</a>, but martingale theory leads to a particularly simple and elegant proof.</p>
+
+<div class="unit" id="wld1">
+	<p class="math">Suppose that \( \bs X = (X_n: n \in \N_+) \) is a sequence of independent, identically distributed variables with common mean \( \mu \in \R \). If \( N \) is a stopping time for \( \bs X \) with \( \E(N) \lt \infty \) then
+	\[ \E\left(\sum_{k=1}^N X_k\right) = \E(N) \mu \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( \mathfrak F \) denote the natural filtration associated with \( \bs X \). Let \( c = \E(|X_n|)\), so that by assumption, \( c \lt \infty \). Finally, let 
+		\[ Y_n = \sum_{k=1}^n (X_k - \mu) \, \quad n \in \N_+ \]
+		Then \( \bs Y = (Y_n: n \in \N_+) \) is a martingale relative to \( \mathfrak F \), with mean 0.  Note that
+		\[ \E(|Y_{n+1} - Y_n|) = \E(|X_{n+1} - \mu|) \le c + |\mu|, \quad n \in \N_+ \]
+		Hence a discrete version of the optional stopping theorem in <a href="#dis2" class="ref"></a> applies and we have \( \E(Y_N) = 0 \). Therefore
+		\[ 0 = \E(Y_N) = \E\left[\sum_{k=1}^N (X_k - \mu)\right] = \E\left(\sum_{k=1}^N X_k - N \mu\right) = \E\left(\sum_{k=1}^N X_k\right) - \E(N) \mu \]</p>
+	</details>
+</div>
+
+<h4 id="pat">Patterns in Multinomial Trials</h4>
+
+<p><a href="../renewal/Delayed.html#pat">Patterns in multinomial trials</a> were studied in <a href="../renewal/index.html">Chapter 14</a> on renewal processes. As is often the case, martingales provide a more elegant solution. Suppose that \( \bs{L} = (L_1, L_2, \ldots) \) is a sequence of independent, identically distributed random variables taking values in a finite set \( S \), so that \( \bs{L} \) is a sequence of <a href="../bernoulli/Multinomial.html">multinomial trials</a>. Let \( f \) denote the common <a href="../dist/Discrete.html">probability density function</a> so that for a generic trial variable \( L \), we have \( f(a) = \P(L = a) \) for \( a \in S \). We assume that all outcomes in \( S \) are actually possible, so \( f(a) \gt 0 \) for \( a \in S \).</p>
+
+<p>In this discussion, we interpret \( S \) as an <dfn>alphabet</dfn>, and we write the sequence of variables in concatenation form, \(\bs{L} = L_1 L_2 \cdots\) rather than standard sequence form. Thus the sequence is an infinite string of letters from our alphabet \( S \). We are interested in the first occurrence of a particular finite substring of letters (that is, a <q>word</q> or <q>pattern</q>) in the infinite sequence. The following definition will simplify the notation.</p>
+
+<div class="unit" id="pat1">
+	<p class="math">If \( \bs a = a_1 a_2 \cdots a_k \) is a word of length \( k \in \N_+ \) from the alphabet \( S \), define 
+	\[ f(\bs{a}) = \prod_{i=1}^k f(a_i) \]
+	so \( f(\bs a) \) is the probability of \( k \) consecutive trials producing word \( \bs a \).</p>
+</div>
+
+<p>So, fix a word \( \bs a = a_1 a_2 \cdots a_k \) of length \( k \in \N_+ \) from the alphabet \( S \), and consider the number of trials \( N_{\bs a} \) until \( \bs a \) is completed. Our goal is compute \( \nu(\bs a) = \E\left(N_{\bs a}\right) \). We do this by casting the problem in terms of a sequence of gamblers playing fair games and then using the optional stopping theorem <a href="#ost2" class="ref"></a> above. So suppose that if a gambler bets \( c \in (0, \infty) \) on a letter \( a \in S \) on a trial, then the gambler wins \( c / f(a) \) if \( a \) occurs on that trial and wins 0 otherwise. The expected value of this bet is
+\[ f(a) \frac{c}{f(a)} - c = 0 \]
+and so the bet is fair. Consider now a gambler with an initial fortune 1. When she starts playing, she bets 1 on \( a_1 \). If she wins, she bet her entire fortune \( 1 / f(a_1) \) on the next trial on \( a_2 \). She continues in this way: as long as she wins, she bets her entire fortune on the next trial on the next letter of the word, until either she loses or completes the word \( \bs a \).  Finally, we consider a sequence of independent gamblers playing this strategy, with gambler \( i \) starting on trial \( i \) for each \( i \in \N_+ \).</p>
+
+<div class="unit" id="pat2">
+	<p class="math">For a finite word \( \bs a \) from the alphabet \( S \), \( \nu(\bs a) \) is the total winnings by all of the players at time \( N_{\bs a} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( X_n \) denote the total fortunes of all of the gamblers after trial \( n \in \N_+ \). Since all of the bets are fair, \( \bs X = \{X_n: n \in \N_+\} \) is a martingale with mean 0. We will show that the conditions in the discrete version of the optional sampling theorem <a href="#dis2" class="ref"></a> hold. First, consider disjoint blocks of trials of length \( k \), that is
+		\[ \left((L_1, L_2, \ldots, L_k), (L_{k+1}, L_{k+2}, \ldots, L_{2 k}), \ldots\right) \]
+		Let \( M_{\bs a} \) denote the index of the first such block that forms the letter \( \bs a \). This variable has the <a href="../bernoulli/Geometric.html">geometric distribution</a> on \( \N_+ \) with success parameter \( f(\bs a) \) and so in particular, \( \E(M_\bs{a}) = 1 / f(\bs a) \). But clearly \( N_{\bs a} \le k M_{\bs a} \) so \( \nu(\bs a) \lt k / f(\bs a) \lt \infty \). Next note that all of the gamblers have stopped playing by time \( N \), so clearly \( |X_{n+1} - X_n| \le 1 / f(a) \) for \( n \in \N_+ \). So the optional stopping theorem applies, and hence \( \E\left(X_{N_a}\right) = 0 \). But note that \( \nu(\bs a) \) can also be interpreted as the expected amount of money invested by the gamblers (1 unit at each time until the game ends at time \( N_{\bs a} \)), and hence this must also be the total winnings at time \( N_{\bs a} \) (which is deterministic).</p>
+	</details>
+</div>
+
+<p>Given \( \bs a \), we can compute the total winnings precisely. By definition, trials \( N - k + 1, \ldots, N \) form the word \( \bs a \) for the first time. Hence for \( i \le N - k \), gambler \( i \) loses at some point. Also by definition, gambler \( N - k + 1 \) wins all of her bets, completes word \( \bs a \) and so collects \( 1 / f(\bs a)  \). The complicating factor is that gamblers \( N - k + 2, \ldots, N \) may or may not have won all of their bets at the point when the game ends. The following exercise illustrates this.</p>
+
+<div class="unit" id="pat3">
+	<p class="math">Suppose that \( \bs{L} \) is a sequence of <a href="../bernoulli/index.html">Bernoulli Trials</a> (so \( S = \{0, 1\} \)) with success probability \( p \in (0, 1) \). For each of the following strings, find the expected number of trials needed to complete the string.</p>
+	<ol class="sub">
+		<li>001</li>
+		<li>010</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( q = 1 - p \).</p>
+		<ol class="sub">
+			<li>For the word 001, gambler \( N - 2 \) wins \( \frac{1}{q^2 p} \) on her three bets. Gambler \( N - 2 \) makes two bets, winning the first but losing the second. Gambler \( N \) loses her first (and only) bet. Hence \( \nu(001) = \frac{1}{q^2 p} \)</li>
+			<li>For the word 010, gambler \( N - 2 \) wins \( \frac{1}{q^2 p} \) on her three bets as before. Gambler \( N - 1 \) loses his first bet. Gambler \( N \) wins \( 1 / q \) on his first (and only) bet. So \( \nu(010) = \frac{1}{q^2 p} + \frac{1}{q} \)</li>
+		</ol>
+	</details>
+</div>
+
+<p>The difference between the two words is that the word in (b) has a <dfn>prefix</dfn> (a proper string at the beginning of the word) that is also a <dfn>suffix</dfn> (a proper string at the end of the word). Word \( \bs a \) has no such prefix. Thus we are led naturally to the following dichotomy:</p>
+
+<div class="unit" id="pat4">
+	<p class="dfn">Suppose that \( \bs a \) is a finite word from the alphabet \( S \). If no proper prefix of \( \bs a \) is also a suffix, then \( \bs a \) is <dfn>simple</dfn>. Otherwise, \( \bs a \) is <dfn>compound</dfn>.</p>
+</div>
+
+<p>Here is the main result, which of course is the same as when the problem was solved using <a href="../renewal/Delayed.html#pat">renewal theory</a>.</p>
+
+<div class="unit" id="pat5">
+	<p class="math">Suppose that \( \bs a \) is a finite word in the alphabet \( S \).</p>
+	<ol class="sub">
+		<li>If \( \bs a \) is simple then \( \nu(\bs a) = 1 / f(\bs a) \).</li>
+		<li>If \( \bs a \) is compound, then \( \nu(\bs a) = 1 / f(\bs a) + \nu(\bs b) \) where \( \bs b \) is the longest word that is both a prefix and a suffix of \( \bs a \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The ingredients are in place from our previous discussion. Suppose that \( \bs a \) has length \( k \in \N_+ \).</p>
+		<ol class="sub">
+			<li>If \( \bs a \) is simple, only player \( N - k + 1 \) wins, and she wins \( 1 / f(\bs a) \). </li>
+			<li>Suppose \( \bs a \) is compound and \( \bs b \) is the largest proper prefix-suffix.  player \( N - k + 1 \) wins \( 1 / f(\bs a) \) as always. The winnings of players \( N - k + 2, \ldots, N \) are the same as the winnings of a new sequence of gamblers playing a new sequence of trials with the goal of reaching word \( \bs b \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>For a compound word, we can use (b) to reduce the computation to simple words.</p>
+
+<div class="unit" id="pat6">
+	<p class="math">Consider Bernoulli trials with success probability \( p \in (0, 1) \). Find the expected number of trials until each of the following strings is completed.</p>
+	<ol class="sub">
+		<li>\( 1011011\)</li>
+		<li>\(1 1 \cdots 1 \) (\( k \) times)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, let \( q = 1 - p \).</p>
+			<ol class="sub">
+				<li>\( \nu(1011011) = \frac{1}{p^5 q^2} + \nu(1011) = \frac{1}{p^5 q^2} + \frac{1}{p^3 q} + \nu(1) = \frac{1}{p^5 q^2} + \frac{1}{p^3 q} + \frac{1}{p}\)</li>
+				<li>Let \( \bs{1}_j \) denote a string of \( j \) 1s for \( j \in \N_+ \). If \( k \ge 2 \) then \( \nu(\bs{1}_k) = 1 / p^k + \nu(\bs{1}_{k-1}) \). Hence
+				\[ \nu(\bs{1}_k) = \sum_{j=1}^k \frac{1}{p^j} \]</li>
+			</ol>
+	</details>
+</div>
+
+<p>Recall that an <dfn>ace-six flat die</dfn> is a six-sided die for which faces 1 and 6 have probability \(\frac{1}{4}\) each while faces 2, 3, 4, and 5 have probability \( \frac{1}{8} \) each. Ace-six flat dice are sometimes used by gamblers to cheat.</p>
+
+<div class="unit" id="pat7">
+	<p class="math">Suppose that an ace-six flat die is thrown repeatedly. Find the expected number of throws until the pattern \( 6165616 \) occurs.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>From our main theorem,
+		\begin{align*}
+			\nu(6165616) &amp; = \frac{1}{f(6165616)} + \nu(616) = \frac{1}{f(6165616)} + \frac{1}{f(616)} + \nu(6) \\
+			&amp; = \frac{1}{f(6165616)} + \frac{1}{f(616)} + \frac{1}{f(6)} = \frac{1}{(1/4)^6(1/8)} + \frac{1}{(1/4)^3} + \frac{1}{1/4} = 32\,836
+		\end{align*}
+		</p>
+	</details>
+</div>
+
+<div class="unit" id="pat8">
+	<p class="math">Suppose that a monkey types randomly on a keyboard that has the 26 lower-case letter keys and the space key (so 27 keys). Find the expected number of keystrokes until the monkey produces each of the following phrases:</p>
+	<ol class="sub">
+		<li><em>it was the best of times</em></li>
+		<li><em>to be or not to be</em></li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>\( 27^{24} \approx 2.258 \times 10^{34} \)</li>
+			<li>\( 27^5 + 27^{18} \approx 5.815 \times 10^{25} \)</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="sec">The Secretary Problem</h4>
+
+<p>The <a href="../urn/Secretary.html">secretary problem</a> was considered in the chapter on <a href="../urn/index.html">finite sampling models</a>. In this discussion we will solve a variation of the problem using martingales. Suppose that there are \( n \in \N_+ \) candidates for a job, or perhaps potential marriage partners. The candidates arrive sequentially in random order and are interviewed. We measure the quality of each candidate by a number in the interval \( [0, 1] \). Our goal is to select the very best candidate, but once a candidate is rejected, she cannot be recalled. Mathematically, our assumptions are that the sequence of candidate variables \( \bs X = (X_1, X_2, \ldots, X_n) \) is <a href="../prob/Independence.html">independent</a> and that each is <a href="../dist/Continuous.html#uni">uniformly distributed</a> on the interval \( [0, 1] \) (and so has the <dfn>standard uniform distribution</dfn>). Our goal is to select a stopping time \( \tau \) with respect to \( \bs X \) that maximizes \( \E(X_\tau) \), the expected value of the chosen candidate. The following sequence will play a critical role as a sequence of thresholds.</p>
+
+<div class="unit" id="sec1">
+	<p class="math">Define the sequence \( \bs a = (a_k: k \in \N) \) by \( a_0 = 0 \) and \( a_{k+1} = \frac{1}{2}(1 + a_k^2) \) for \( k \in \N \). Then</p>
+	<ol class="sub">
+		<li>\( a_k \lt 1 \) for \( k \in \N \).</li>
+		<li>\( a_k \lt a_{k+1} \) for \( k \in \N \).</li>
+		<li>\( a_k \to 1 \) as \( k \to \infty \).</li>
+		<li>If \( X \) is uniformly distributed on \( [0, 1] \) then \( \E(X \vee a_k) = a_{k+1} \) for \( k \in \N \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Note that \( a_1 = \frac{1}{2} \lt 1 \). Suppose that \( a_k \lt 1 \) for some \( k \in \N_+ \). Then \(a_{k+1} = \frac{1}{2}(1 + a_k^2) \lt \frac{1}{2}(1 + 1) = 1 \)</li>
+			<li>Note that \( 0 = a_0 \lt a_1 = \frac{1}{2} \). Suppose that \( a_k \gt a_{k-1} \) for some \( k \in \N_+ \). Then \( a_{k+1} = \frac{1}{2}(1 + a_k^2) \gt \frac{1}{2}(1 + a_{k-1}^2) = a_k \).</li>
+			<li>Since the sequence is increasing and bounded above, \( a_\infty = \lim_{k \to \infty} a_k \) exists. Taking limits in the recursion relation gives \( a_\infty = \frac{1}{2}(1 + a_\infty^2) \) or equivalently \( (a_\infty - 1)^2 = 0 \).</li>
+			<li>For \( k \in \N \),
+			\[ \E(X \vee a_k) = \int_0^1 (x \vee a_k) dx = \int_0^{a_k} a_k \, dx + \int_{a_k}^1 x \, dx = \frac{1}{2}(1 + a_k^2) = a_{k+1} \]</li>
+		</ol>
+	</details>
+</div>
+
+<p>Since \( a_0 = 0 \), all of the terms of the sequence are in \( [0, 1) \) by (a). Approximations of the first 10 terms are 
+\[ (0, 0.5, 0.625, 0.695, 0.742, 0.775, 0.800, 0.820, 0.836, 0.850, 0.861, \ldots) \]
+Property (d) gives some indication of why the sequence is important for the secretary probelm. At any rate, the next theorem gives the solution. To simplify the notation, let \( \N_n = \{0, 1, \ldots, n\} \) and \( \N_n^+ = \{1, 2, \ldots, n\} \).</p>
+
+<div class="unit" id="sec2">
+	<p class="math">The stopping time \( \tau = \inf\left\{k \in \N_n^+: X_k \gt a_{n-k}\right\} \) is optimal for the secretary problem with \( n \) candidates. The optimal value is \( \E(X_\tau) = a_n \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( \mathfrak F = \{\mathscr{F}_k: k \in \N_n^+\} \) be the natural filtration of \( \bs X \), and suppose that \( \rho \) is a stopping time for \( \mathfrak F \). Define \( \bs Y = \{Y_k: k \in \N_n\} \) by \( Y_0 = 0 \) and \( Y_k = X_{\rho \wedge k} \vee a_{n-k} \) for \( k \in \N_n^+ \). We will show that \( \bs Y \) is a super-martingale with respect to \( \mathfrak F \). First, on the event \( \rho \le k - 1 \),
+		\[ \E(Y_k \mid \mathscr{F}_{k-1}) = \E[(X_\rho \vee a_{n-k}) \mid \mathscr{F}_{k-1}] = X_\rho \vee a_{n-k} \le X_\rho \vee a_{n - k + 1} = Y_{k-1}  \]
+		where we have used the fact that \( X_\rho \bs{1}(\rho \le k - 1) \) is measurable with respect to \( \mathscr{F}_{k-1} \) and the fact that the sequence \( \bs a \) is increasing. On the event \( \rho \gt k - 1 \),
+		\[ \E(Y_k \mid \mathscr{F}_{k-1}) = \E(X_k \vee a_{n-k} \mid \mathscr{F}_{k-1}) = \E(X_k \vee a_{n-k}) = a_{n - k + 1} \le Y_{k - 1} \]
+		where we have used the fact that \( X_k \) and \( \mathscr{F}_{k-1} \) are independent, and part (d) of <a href="#sec1" class="ref"></a>. Since \( \bs Y \) is a super-martingale and \( \rho \) is bounded, the optional stopping theorem applies and we have
+		\[ \E(X_\rho) \le \E(X_\rho \vee a_{n - \rho}) = \E(Y_\rho) \le E(Y_0) = a_n \]
+		so \( a_n \) is an upper bound on the expected value of the candidate chosen by the stopping time \( \rho \).</p>
+		<p>Next, we will show that in the special case that \( \rho = \tau \), the process \( \bs Y \) is a martingale. On the event \( \tau \le k - 1 \) we have \(\E(Y_k \mid \mathscr{F}_{k-1}) = X_\tau \vee a_{n-k}\) as before.  But by definition, \( X_\tau \ge a_{n - \tau} \ge a_{n - k + 1} \ge a_{n - k}  \) so on this event,
+		\[ \E(Y_k \mid \mathscr{F}_{k-1}) = X_\tau = X_\tau \vee a_{n - k + 1} = Y_{k-1} \]
+		On the event \( \tau \gt k - 1 \) we have \( \E(Y_k \mid \mathscr{F}_{k-1}) = a_{n-k+1}\) as before. But on this event, \(Y_{k-1} = a_{n-k+1} \). Now since \( \bs Y \) is a martingale and \( \tau \) is bounded, the optional stopping theorem applies and we have
+		\[ \E(X_\tau) = \E(X_\tau \vee a_{n-\tau}) = \E(Y_\tau) = \E(Y_0) = a_n \]</p>
+	</details>
+</div>
+
+<p>Here is a specific example:</p>
+
+<div class="unit">
+	<p class="math">For \( n = 5 \), the decision rule is as follows:</p>
+	<ol class="sub">
+		<li>Select candidate 1 if \( X_1 \gt 0.742 \); otherwise,</li>
+		<li>select candidate 2 if \( X_2 \gt 0.695 \); otherwise,</li>
+		<li>select candidate 3 if \( X_3 \gt 0.625 \); otherwise,</li>
+		<li>select candidate 4 if \( X_4 \gt 0.5 \); otherwise,</li>
+		<li>select candidate 5.</li>
+	</ol>
+	<p>The expected value of our chosen candidate is 0.775.</p>
+</div>
+
+ <p>In our original version of the <a href="../urn/Secretary.html">secretary problem</a>, we could only observe the <em>relative ranks</em> of the candidates, and our goal was to maximize the probability of picking the best candidate. With \( n = 5 \), the optimal strategy is to let the first two candidates go by and then pick the first candidate after that is better than all previous candidates, if she exists. If she does not exist, of course, we must select candidate 5. The probability of picking the best candidate is 0.433.</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Properties.html" title="Properties and Constructions">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Inequalities.html" title="Inequalities">4</a></li>
+		<li class="child"><a href="Convergence.html" title="Convergence">5</a></li>
+		<li class="child"><a href="Backwards.html" title="Backwards Martingales">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

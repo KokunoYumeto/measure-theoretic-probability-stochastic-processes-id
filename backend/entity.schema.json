@@ -1,0 +1,187 @@
+{
+  "$id": "https://example.invalid/o009/backend/entity-v2.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "concept_ids": {
+      "items": {
+        "pattern": "^concept\\.",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "edition_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "locale": {
+      "enum": [
+        "zxx",
+        "id-ID"
+      ]
+    },
+    "order": {
+      "minimum": 0,
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "parent_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    },
+    "record_type": {
+      "enum": [
+        "asset",
+        "concept",
+        "course",
+        "edition",
+        "outcome",
+        "program",
+        "resource",
+        "rights",
+        "segment",
+        "unit"
+      ]
+    },
+    "resource_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "responsible_workflow": {
+      "const": "o009-id-production"
+    },
+    "rights_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "schema": {
+      "const": "o009.backend.entity.v2"
+    },
+    "source_local_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_locator": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_sha256": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      ]
+    },
+    "source_target_relationship": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "enum": [
+            "adapts",
+            "authored",
+            "copies",
+            "documents",
+            "translates"
+          ]
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "active",
+        "external_dependency"
+      ]
+    },
+    "supersedes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target_sha256": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      ]
+    },
+    "timestamp": {
+      "const": "2026-08-21T11:00:56.872828+00:00"
+    },
+    "translation_state": {
+      "enum": [
+        "authored",
+        "built",
+        "draft",
+        "external_dependency",
+        "source_frozen",
+        "structurally_verified",
+        "translated"
+      ]
+    }
+  },
+  "required": [
+    "schema",
+    "record_type",
+    "id",
+    "source_local_id",
+    "parent_id",
+    "order",
+    "path",
+    "resource_id",
+    "edition_id",
+    "source_locator",
+    "source_sha256",
+    "target_sha256",
+    "locale",
+    "translation_state",
+    "source_target_relationship",
+    "concept_ids",
+    "rights_id",
+    "status",
+    "timestamp",
+    "responsible_workflow",
+    "supersedes",
+    "payload"
+  ],
+  "title": "O009 modular backend entity envelope v2",
+  "type": "object"
+}

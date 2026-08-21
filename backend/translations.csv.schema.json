@@ -1,0 +1,80 @@
+{
+  "$id": "https://example.invalid/o009/backend/translations.csv.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "locale": {
+      "enum": [
+        "id-ID"
+      ],
+      "type": "string"
+    },
+    "relationship": {
+      "enum": [
+        "adapts",
+        "translates"
+      ],
+      "type": "string"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "source_rights_id": {
+      "type": "string"
+    },
+    "source_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "verified"
+      ],
+      "type": "string"
+    },
+    "target_id": {
+      "type": "string"
+    },
+    "target_rights_id": {
+      "type": "string"
+    },
+    "target_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "translation_id": {
+      "pattern": "^translation\\.[A-Za-z0-9._:-]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "translation_id",
+    "source_id",
+    "target_id",
+    "relationship",
+    "source_sha256",
+    "target_sha256",
+    "source_rights_id",
+    "target_rights_id",
+    "locale",
+    "state"
+  ],
+  "title": "Strict row schema for translations.csv",
+  "type": "object",
+  "x-csv": {
+    "encoding": "utf-8",
+    "header": [
+      "translation_id",
+      "source_id",
+      "target_id",
+      "relationship",
+      "source_sha256",
+      "target_sha256",
+      "source_rights_id",
+      "target_rights_id",
+      "locale",
+      "state"
+    ],
+    "line_ending": "CRLF"
+  }
+}

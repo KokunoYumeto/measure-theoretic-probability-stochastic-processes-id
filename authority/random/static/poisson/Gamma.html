@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+	<title>The Gamma Distribution</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, Poisson process, gamma distribution, arrival time, Erlang distribution, scale family, normal distribution, central limit theorem, Bernoulli trials">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\skw}{\text{skew}}\) 
+	\(\newcommand{\kur}{\text{kurt}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Thinning and Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>3. The Gamma Distribution</h2>
+</header>
+
+<h3 id="bth">Basic Theory</h3>
+
+<p>We now know that the sequence of inter-arrival times \(\bs{X} = (X_1, X_2, \ldots)\) in the <a href="Introduction.html">Poisson process</a> is a sequence of <a href="../prob/Independence.html">independent </a> <a href="../prob/Events.html">random variables</a>, each having the <a href="Exponential.html">exponential distribution</a> with rate parameter \(r\), for some \(r \in (0, \infty)\). No other distribution gives the strong renewal assumption that we want: the property that the process probabilistically restarts, independently of the past, at each arrival time and at each fixed time. In this section we study the sequence of arrival times.</p>
+
+<div class="unit" id="dfn">
+	<p class="dfn">Let \(T_0 = 0\) and that for \(n \in \N_+\) let \(T_n\) denote the \(n\)th arrival time. So \(\bs{T} = (T_0, T_1, \ldots)\) is the partial sum process associated with the sequence of inter-arrival times \(\bs{X} = (X_1, X_2, \ldots)\).
+	\[ T_n = \sum_{i=0}^n X_i, \quad n \in \N \]</p>
+</div>
+
+<h4 id="pdf">Distribution Functions</h4>
+
+<p> Recall that the common <a href="../dist/Continuous.html">probability density function</a> of the inter-arrival times is
+\[ f(t) = r e^{-r t}, \quad 0 \le t \lt \infty \]
+Our first goal is to describe the distribution of the \( n \)th arrival \( T_n \).</p>
+
+<div class="unit" id="pdf1">
+	<p class="math">For \(n \in \N_+\), \(T_n\) has a continuous distribution with probability density function \( f_n \) given by
+	\[ f_n(t) = r^n \frac{t^{n-1}}{(n - 1)!} e^{-r t}, \quad 0 \le t \lt \infty\]</p>
+	<ol class="sub">
+		<li>\( f_n \) increases and then decreases, with mode at \( (n - 1) / r \).</li>
+		<li>\( f_1  \) is concave upward.  \( f_2 \) is concave downward and then upward, with inflection point at \( t = 2 / r \).  For \( n \ge 2 \), \( f_n \) is concave upward, then downward, then upward again with inflection points at \( t = \left[(n - 1) \pm \sqrt{n - 1}\right] \big/ r \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \(T_n\) is the sum of \(n\) independent variables, each with PDF \(f\), the PDF of \(T_n\) is the <a href="../dist/Transformations.html#sum">convolution</a> power of \(f\) of order \(n\). That is, \(f_n = f^{*n}\). A simple induction argument shows that \(f_n\) has the form given above. For example,
+		\[ f_2(t) = \int_0^t f(s) f(t - s) \, ds = \int_0^t r e^{-r s} r e^{-r(t-s)} \, ds = \int_0^t r^2 e^{-r t} \, ds = r^2 t \, e^{-r t}, \quad 0 \le t \lt \infty \]
+		Parts (a) and (b) follow from standard calculus.</p>
+	</details>
+</div>
+
+<p>The distribution with this probability density function is known as the <dfn>gamma distribution</dfn> with <dfn>shape parameter</dfn> \(n\) and <dfn>rate parameter</dfn> \(r\). It is lso known as the <dfn>Erlang distribution</dfn>, named for the Danish mathematician <a href="JavaScript:openAncillary('../biographies/Erlang.html')" class="ancillary">Agner Erlang</a>. Again, \(1 / r\) is the <a href="../special/LocationScale.html">scale parameter</a>, and that term will be justified below. The term <em>shape parameter</em> for \( n \) clearly makes sense in light of parts (a) and (b) of <a href="#pdf1" class="ref"></a>.  The term <em>rate parameter</em> for \( r \) is inherited from the inter-arrival times, and more generally from the underlying Poisson process itself: the random points are arriving at an average rate of \( r \) per unit time.  A more general version of the <a href="../special/Gamma.html">gamma distribution</a>, allowing non-integer shape parameters, is studied in the chapter on <a href="../special/index.html">on special distributions</a>. Note that since the arrival times are continuous, the probability of an arrival at any given instant of time is 0.</p>
+
+<div class="unit" id="pdf2">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Gamma.html')" class="ancillary">gamma experiment</a>, vary \(r\) and \(n\) with the scrollbars and watch how the shape of the probability density function changes. For various values of the parameters, run the experiment 1000 times and compare the empirical density function to the true probability density function.</p>
+</div>
+
+<p>The <a href="../dist/CDF.html">distribution function</a> and the <a href="../dist/CDF.html#qnt">quantile function</a> of the gamma distribution do not have simple, closed-form expressions.  However, it's easy to write the distribution function as a sum.</p>
+
+<div class="unit" id="pdf3">
+	<p class="math">For \( n \in \N_+ \), \( T_n \) has distribution function \( F_n \) given by
+	\[ F_n(t) = 1 - \sum_{k = 0}^{n - 1} e^{-r t} \frac{(r t)^k}{k!}, \quad t \in [0, \infty)  \]
+	and reliability function \(F_n^c\) given by 
+	\[ F_n^c(t) = \sum_{k = 0}^{n - 1} e^{-r t} \frac{(r t)^k}{k!}, \quad t \in [0, \infty)  \]
+	</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that
+		\[ F_n(t) = \int_0^t f_n(s) ds = \int_0^n r^n \frac{s^{n - 1}}{(n - 1)!} e^{-r s}  \]
+		The result follows by repeated integration by parts.</p>
+	</details>
+</div>
+
+<div class="unit" id="pdf4">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/QuantileApp.html')" class="ancillary">quantile app</a>, select the gamma distribution, and select CDF view. Vary the parameters and note the shape of the distribution and quantile functions. For selected values of the parameters, compute the quartiles.</p>
+</div>
+
+<p>Curiously, the reliability function can be written in terms of a sum of lower order gamma density functions.</p>
+
+<div class="unit" id="pdf5">
+	<p class="math">For \(n \in \N_+\),
+	\[F_n^c(t) = \frac{1}{r} \sum_{j = 1}^n f_j(t), \quad t \in [0, \infty)\]
+	</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows from <a href="#pdf1" class="ref"></a> and <a href="#pdf3" class="ref"></a> and a bit of algebra.</p>
+	</details>
+</div>
+
+<div class="unit" id="pdf6">
+	<p class="math">For \(n \in \N_+\) the failure rate function \(h_n\) of \(T_n\) is given by
+	\[ h_n(t) = \frac{r^n t^{n - 1}} {(n - 1)! \sum_{k = 0}^{n - 1} r^k t^k / k!}, \quad t \in [0, \infty)\]
+	\(T_n\) has increasing failure rate.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The formula for the failure rate function follows from the definition, \(h_n = f_n / F_n^c\) and from the results in <a href="#pdf1" class="ref"></a> and <a href="#pdf3" class="ref"></a>. With a little algebra, note that
+		\[\frac{1}{h_n(t)} = \frac{(n - 1)!}{r^n} \sum_{k = 0}^{n - 1} \frac{r^k}{k!} t^{k - (n - 1)}, \quad t \in [0, \infty) \]
+		The function \(t \mapsto t^{k - (n - 1)}\) is decreasing on \([0, \infty)\) for \(k \in \{0, 1, \ldots, n - 1\}\) and hence \(1 / h_n\) is decreasing as well.</p>
+	</details>
+</div>
+
+<p>The failure rate function is strictly increasing except when \(n = 1\). But in this case, the distribution is exponential and so of course has constant failure rate \(r\).</p>
+
+<h4 id="mom">Moments</h4>
+
+<p>The <a href="../expect/Properties.html">mean</a>, <a href="../expect/Variance.html">variance</a>, and <a href="../expect/Generating.html#mgf">moment generating function</a> of \(T_n\) can be found easily from the representation as a sum of independent exponential variables in <a href="#dfn" class="ref"></a> </p>
+
+<div class="unit" id="mom1">
+	<p class="math">The mean and variance of \(T_n\) are.</p>
+	<ol class="sub">
+		<li>\(\E\left(T_n\right) = n / r\)</li>
+		<li>\(\var\left(T_n\right) = n / r^2\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that the exponential distribution with rate parameter \(r\) has mean \(1 / r\) and variance \(1 / r^2\).</p>
+		<ol class="sub">
+			<li>The expected value of a sum is the sum of the expected values, so \(\E\left(T_n\right) = n / r\).</li>
+			<li>The variance of a sum of <em>independent</em> variables is the sum of the variances, so \(\var\left(T_n\right) = n / r^2\).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="mom2">
+	<p class="math">For \(k \in \N\), the moment of order \(k\) of \(T_n\) is
+	\[ \E\left(T_n^k\right) = \frac{(k + n - 1)!}{(n - 1)!} \frac{1}{r^k} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Using the standard change of variables theorem,
+		\[ \E\left(T_n^k\right) = \int_0^\infty t^k f_n(t) \, dt = \frac{r^{n-1}}{(n - 1)!} \int_0^\infty t^{k + n - 1} r e^{-r t} \, dt \]
+		But the integral on the right is the moment of order \(k + n - 1\) for the <a href="Exponential.html#mom">exponential distribution</a>, which is \((k + n - 1)! \big/ r^{k + n - 1}\). Simplifying gives the result.</p>
+	</details>
+</div>
+
+<p>More generally, the moment of order \(k \gt 0\) (not necessarily an integer) is
+\[ \E\left(T_n^k\right) = \frac{\Gamma(k + n)}{\Gamma(n)} \frac{1}{r^k} \]
+where \(\Gamma\) is the gamma function.</p>
+
+<div class="unit" id="mom3">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Gamma.html')" class="ancillary">gamma experiment</a>, vary \(r\) and \(n\) with the scrollbars and watch how the size and location of the mean\( \pm \)standard deviation bar changes. For various values of \(r\) and \(n\), run the experiment 1000 times and compare the empirical moments to the true moments.</p>
+</div>
+
+<p>Our next result gives the <a href="../expect/Skew.html#skw">skewness</a> and <a href="../expect/Skew.html#kur">kurtosis</a> of the gamma distribution.</p>
+
+<div class="unit" id="mom4">
+	<p class="math">The skewness and kurtosis of \( T_n \) are</p>
+	<ol class="sub">
+		<li>\( \skw(X) = \frac{2}{\sqrt{n}} \)</li>
+		<li>\( \kur(X) = 3 + \frac{6}{n} \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follows from <a href="#mom2" class="ref"></a> and the computational formulas for skewness and kurtosis.</p>
+	</details>
+</div>
+
+<p>In particular, note that the gamma distribution is positively skewed but \( \skw(X) \to 0 \) and as \( n \to \infty \). Recall also that the <dfn>excess kurtosis</dfn> is \( \kur(T_n) - 3 = \frac{6}{n} \to 0 \) as \( n \to \infty \). This result is related to the convergence of the gamma distribution to the normal, discussed below. Finally, note that the skewness and kurtosis do not depend on the rate parameter \( r \). This is because, as we show in <a href="#scl1" class="ref"></a>, \( 1 / r \) is a scale parameter.</p>
+
+<div class="unit" id="mom5">
+	<p class="math">The moment generating function of \(T_n\) is
+	\[ M_n(s) = \E\left(e^{s T_n}\right) = \left(\frac{r}{r - s}\right)^n, \quad -\infty \lt s \lt r \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that the MGF of a sum of independent variables is the product of the corresponding MGFs.  The <a href="Exponential.html#mom3">exponential distribution</a> with parameter \(r\) has MGF \(s \mapsto r / (r - s)\) for \(-\infty \lt s \lt r\).</p>
+	</details>
+</div>
+
+<p>The moment generating function can also be used to derive the moments of the gamma distribution in <a href="#mom2" class="ref"></a>; recall that \(M_n^{(k)}(0) = \E\left(T_n^k\right)\).</p>
+
+<h4 id="est">Estimating the Rate</h4>
+
+<p>In many practical situations, the rate \(r\) of the process in unknown and must be <a href="../point/index.html">estimated</a> based on data from the process. We start with a natural estimate of the scale parameter \(1 / r\). Note that
+\[ M_n = \frac{T_n}{n} = \frac{1}{n} \sum_{i=1}^n X_i \] 
+is the <a href="../sample/Mean.html">sample mean</a> of the first \(n\) inter-arrival times \((X_1, X_2, \ldots, X_n)\). In statistical terms, this sequence is a random sample of size \(n\) from the exponential distribution with rate \(r\).</p>
+
+<div class="unit" id="est1">
+	<p class="math">\(M_n\) satisfies the following properties:</p>
+	<ol class="sub">
+		<li>\(\E(M_n) = \frac{1}{r}\)</li>
+		<li>\(\var(M_n) = \frac{1}{n r^2}\)</li>
+		<li>\(M_n \to \frac{1}{r}\) as \(n \to \infty\) with probability 1</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Parts (a) and (b) follow from the expected value and variance of \(T_n\) in <a href="#mom1" class="ref"></a>, and standard properties of <a href="../expect/Properties.html">expected value</a> and <a href="../expect/Variance.html">variance</a>. Part (c) is the <a href="../sample/LLN.html">strong law of large numbers</a>.</p>
+	</details>
+</div>
+
+<p>The results in <a href="#est1" class="ref"></a> are standard properties of the <a href="../sample/Mean.html">sample mean</a> as an estimator of the distribution mean. In statistical terms, part (a) means that \(M_n\) is an <dfn>unbiased</dfn> estimator of \(1 / r\) and hence the variance in part (b) is the <dfn>mean square error</dfn>. Part (b) means that \(M_n\) is a <dfn>consistent</dfn> estimator of \(1 / r\) since \(\var(M_n) \downarrow 0\) as \(n \to \infty\). Part (c) is a stronger from of consistency. In general, the sample mean of a random sample from a distribution is an unbiased and consistent estimator of the distribution mean. On the other hand, a natural estimator of \(r\) itself is \(1 / M_n = n / T_n\). However, this estimator is positively biased.</p>
+
+<div class="unit">
+	<p class="math">\(\E(n / T_n) \ge r\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows immediately from  <a href="../expect/Properties2.html#jen">Jensen's inequality</a> since \(x \mapsto 1 / x\) is concave upward on \((0, \infty)\).</p>
+	</details>
+</div>
+
+<h3>Properties and Connections</h3>
+
+<h4 id="scl">Scaling</h4>
+
+<p>As noted above, the gamma distribution is a <a href="../special/LocationScale.html">scale family</a>.</p>
+
+<div class="unit" id="scl1">
+	<p class="math">Suppose that \( T \) has the gamma distribution with rate parameter \( r \in (0, \infty) \) and shape parameter \( n \in \N_+ \).  If \( c \in (0, \infty) \) then \( c T \) has the gamma distribution with rate parameter \( r / c \) and shape parameter \( n \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The moment generating function of \( c T \) is 
+		\[ \E[e^{s (c T)}] = \E[e^{(c s) T}] = \left(\frac{r}{r - cs}\right)^n = \left(\frac{r / c}{r / c - s}\right)^n, \quad s \lt \frac{r}{c} \]
+	</details>
+</div>
+
+<p>The scaling property also follows from the fact that the gamma distribution governs the arrival times in the Poisson process.  A time change in a Poisson process clearly does not change the strong renewal property, and hence results in a new Poisson process.</p>
+
+<h4 id="exp">General Exponential Family</h4>
+
+<p>The gamma distribution is also a member of the <a href="../special/GeneralExponential.html">general exponential</a> family of distributions.</p>
+
+<div class="unit" id="exp1">
+	<p class="math">Suppose that \( T \) has the gamma distribution with shape parameter \( n \in \N_+ \) and rate parameter \( r \in (0, \infty) \). Then \( T \) has a two parameter general exponential distribution with natural parameters \( n - 1 \) and \( -r \), and natural statistics \( \ln(T) \) and \( T \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows from the form of the PDF in <a href="#pdf1" class="ref"></a> and the definition of the general exponential family:
+		\[ f(t) = r^n \frac{t^{n-1}}{(n - 1)!} e^{-r t} = \frac{r^n}{(n - 1)!} \exp\left[(n - 1) \ln(t) - r t\right], \quad t \in (0, \infty) \]</p>
+</details>
+</div>
+
+<h4 id="inc">Increments</h4>
+
+<p>A number of important properties flow from the fact that the sequence of arrival times \(\bs{T} = (T_0, T_1, \ldots)\) is the partial sum process associated with the sequence of independent, identically distributed inter-arrival times \(\bs{X} = (X_1, X_2, \ldots)\).</p>
+
+<div class="unit" id="inc1">
+	<p class="math">The arrival time sequence \(\bs{T}\) has stationary, independent increments:</p>
+	<ol class="sub">
+		<li>If \(m \lt n\) then \(T_n - T_m\) has the same distribution as \(T_{n-m}\), namely the gamma distribution with shape parameter \(n - m\) and rate parameter \(r\).</li>
+		<li>If \(n_1 \lt n_2 \lt n_3 \lt \cdots\) then \(\left(T_{n_1}, T_{n_2} - T_{n_1}, T_{n_3} - T_{n_2}, \ldots\right)\) is an independent sequence.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The stationary and independent increments properties hold for any partial sum process associated with an independent, identically distributed sequence.</p>
+	</details>
+</div>
+
+<p>Of course, the stationary and independent increments properties are related to the fundamental <q>renewal</q> assumption that we started with.  If we fix \(n \in \N_+\), then \((T_n - T_n, T_{n+1} - T_n, T_{n+2} - T_n, \ldots)\) is independent of \((T_1, T_2, \ldots, T_n)\) and has the same distribution as \((T_0, T_1, T_2, \ldots)\). That is, if we <q>restart the clock</q> at time \(T_n\), then the process in the future looks just like the original process (in a probabilistic sense) and is indpendent of the past. Thus, we have our second characterization of the Poisson process.</p>
+
+<div class="unit" id="inc2">
+	<p class="math">A process of random points in time is a Poisson process with rate \( r \in (0, \infty) \) if and only if the arrival time sequence \( \bs{T} \) has stationary, independent increments, and for \( n \in \N_+ \), \( T_n \) has the gamma distribution with shape parameter \( n \) and rate parameter \( r \).</p>
+</div>
+
+<h4 id="sum">Sums</h4>
+
+<p>The gamma distribution is closed with respect to sums of independent variables, as long as the rate parameter is fixed.</p>
+
+<div class="unit" id="sum1">
+	<p class="math">Suppose that \(V\) has the gamma distribution with shape parameter \(m \in \N_+\) and rate parameter \(r \gt 0\), \(W\) has the gamma distribution with shape parameter \(n \in \N_+\) and rate parameter \(r\), and that \(V\) and \(W\) are independent. Then \(V + W\) has the gamma distribution with shape parameter \(m + n\) and rate parameter \(r\).</p>
+	<details>
+	<summary>Details:</summary>
+		<p>There are at least three different proofs of this fundamental result. Perhaps the best is a probabilistic proof based on the Poisson process. We start with an IID sequence \(\bs{X}\) of independent exponentially distributed variables, each with rate parameter \(r\). Then we can associate \(V\) with \(T_m\) and \(W\) with \(T_{m + n} - T_m\) so that \(V + W\) becomes \(T_{m + n}\). The result now follows from <a href="#dfn" class="ref"></a>.</p>
+		<p>Another simple proof uses moment generating functions. Recall again that the MGF of \(V + W\) is the product of the MGFs of \(V\) and of \(W\). A third, analytic proof uses convolution. Recall again that the PDF of \(V + W\) is the convolution of the PDFs of \(V\) and of \(W\).</p>
+	</details>
+</div>
+
+<h4 id="nor">Normal Approximation</h4>
+
+<div class="unit" id="nor1">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Gamma.html')" class="ancillary">gamma experiment</a>, vary \(r\) and \(n\) with the scrollbars and watch how the shape of the probability density function changes. Now set \(n = 10\) and for various values of \(r\) run the experiment 1000 times and compare the empirical density function to the true probability density function.</p>
+</div>
+
+<p>Even though you are restricted to relatively small values of \(n\) in the app, note that the probability density function of the \(n\)th arrival time becomes more bell-shaped as \(n\) increases (for \(r\) fixed). This is yet another application of the <a href="../sample/CLT.html">central limit theorem</a>, since \(T_n\) is the sum of \(n\) independent, identically distributed random variables (the inter-arrival times).</p>
+
+<div class="unit" id="nor2">
+	<p class="math">The distribution of the random variable \(Z_n\) below <a href="../dist/Convergence.html">converges</a> to the standard <a href="../special/Normal.html">normal distribution</a> as \(n \to \infty\):
+	\[ Z_n = \frac{r\,T_n - n}{\sqrt{n}} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>\(Z_n\) is the standard score associated with \(T_n\), so the result follows from the central limit theorem.</p>
+	</details>
+</div>
+
+<h4>Connection to Bernoulli Trials</h4>
+
+<p>We return to the analogy between the Bernoulli trials process and the Poisson process that started in the <a href="Introduction.html#ber">introduction</a> and continued in the last section on the <a href="Exponential.html#geo">exponential distribution</a>. If we think of the successes in a sequence of Bernoulli trials as random points in discrete time, then the process has the same strong renewal property as the Poisson process, but restricted to discrete time. That is, at each fixed time and at each arrival time, the process <q>starts over</q>, independently of the past.  In Bernoulli trials, the time of the \( n \)th arrival has the negative binomial distribution with parameters \( n \) and \( p \) (the success probability), while in the Poisson process, as we now know, the time of the \( n \)th arrival has the gamma distribution with parameters \( n \) and \( r \) (the rate).  Because of this strong analogy, we expect a relationship between these two processes.  In fact, we have the same type of limit as with the geometric and exponential distributions.</p>
+
+<div class="unit">
+	<p class="math">Fix \( n \in \N_+ \) and suppose that for each \( m \in \N_+ \) \( T_{m,n} \) has the negative binomial distribution with parameters \( n \) and \( p_m \in (0, 1) \), where \( m p_m \to r \in (0, \infty) \) as \( m \to \infty \). Then the distribution of \( T_{m,n} \big/ m \) converges to the gamma distribution with parameters \( n \) and \( r \) as \( m \to \infty \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( X_m \) has the geometric distribution on \( \N_+ \) with success parameter \( p_m \). We know from the <a href="Exponential.html#geo3">convergence result</a> in the last section that the distribution of \( X_m / m \) converges to the exponential distribution with rate parameter \( r \) as \( m \to \infty \). It follows that if \( M_m \) denotes the moment generating function of \( X_m / m \), then \( M_m(s) \to r / (r - s) \) as \( m \to \infty \) for \( s \lt r \). But then \( M_m^n \) is the MGF of \( T_{m,n} \big/ m \) and clearly 
+		\[ M_m^n(s) \to \left(\frac{r}{r - s}\right)^n \]
+		as \( m \to \infty \) for \( s \lt r \). The expression on the right is the MGF of the gamma distribution with shape parameter \( n \) and rate parameter \( r \).</p>
+	</details>
+</div>
+
+<h3 id="exe">Computational Exercises</h3>
+
+<div class="unit" id="exe1">
+	<p class="math">Suppose that customers arrive at a service station according to the Poisson model, at a rate of \(r = 3\) per hour. Relative to a given starting time, find the probability that the second customer arrives sometime after 1 hour. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.1991</p>
+	</details>
+</div>
+
+<div class="unit" id="exe2">
+	<p class="math">Defects in a type of wire follow the Poisson model, with rate 1 per 100 meter. Find the probability that the 5th defect is located between 450 and 550 meters. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.1746</p>
+	</details>
+</div>
+
+<div class="unit" id="exe3">
+	<p class="math">Suppose that requests to a web server follow the Poisson model with rate \(r = 5\). Relative to a given starting time, compute the mean and standard deviation of the time of the 10th request. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>2, 0.6325</p>
+	</details>
+</div>
+
+<div class="unit" id="exe4">
+	<p class="math">Suppose that \(Y\) has a gamma distribution with mean 40 and standard deviation 20. Find the shape parameter \(n\) and the rate parameter \(r\). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>\(r = 1 / 10\), \(n = 4\)</p>
+	</details>
+</div>
+
+<div class="unit" id="exe5">
+	<p class="math">Suppose that accidents at an intersection occur according to the Poisson model, at a rate of 8 per year. Compute the normal approximation to the event that the 10th accident (relative to a given starting time) occurs within 2 years.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.5752</p>
+	</details>
+</div>
+
+<div class="unit" id="exe6">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Gamma.html')" class="ancillary">gamma experiment</a>, set \(n = 5\) and \(r = 2\). Run the experiment 1000 times and compute the following:</p>
+	<ol class="sub">
+		<li>\(\P(1.5 \le T_t \le 3)\)</li>
+		<li>The relative frequency of the event \(\{1.5 \le T_5 \le 3\}\)</li>
+		<li>The normal approximation to \(\P(1.5 \le T_5 \le 3)\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>0.5302</li>
+			<li value="3">0.4871</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="math">Suppose that requests to a web server follow the Poisson model. Starting at 12:00 noon on a certain day, the requests are logged. The 100th request comes at 12:15. Estimate the rate of the process. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>\(r = 6.67\) hits per minute</p>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Thinning and Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Transience and Recurrence</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Markov chain, discrete time, recurrence, transience, potential, hitting probability, hitting time, leads-to relation, equivalence relation, finite chain">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\( \newcommand{\cl}{\text{cl}} \)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="current">4</li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Potentials">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>4. Transience and Recurrence</h2>
+</header>
+
+<p>The study of <a href="Discrete.html">discrete-time Markov chains</a>, particularly the limiting behavior, depends critically on the random times between visits to a given state. The nature of these random times leads to a fundamental dichotomy of the states.</p>
+
+<h3 id="bas">Basic Theory</h3>
+
+<p>As usual, our starting point is a <a href="../foundations/Measure.html">probability space</a> \( (\Omega, \mathscr{F}, \P) \), so that \( \Omega \) is the sample space, \( \mathscr{F} \) the \( \sigma \)-algebra of events, and \( \P \) the probability measure on \( (\Omega, \mathscr{F}) \). Suppose now that \( \bs{X} = (X_0, X_1, X_2, \ldots) \) is a (homogeneous) <a href="Discrete.html">discrete-time Markov chain</a> with (countable) state space \( S \) and transition probability matrix \( P \). So by definition, 
+\[ P(x, y) = \P(X_{n+1} = y \mid X_n = x) \]
+for \( x, \, y \in S \) and \( n \in \N \). Let \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \), the \( \sigma \)-algebra of events defined by the chain up to time \( n \in \N \), so that \( \mathfrak{F} = (\mathscr{F}_0, \mathscr{F}_1, \ldots) \) is the natural <a href="../prob/Stop.html">filtration</a> associated with \( \bs{X} \).</p>
+
+<h4 id="hit">Hitting Times and Probabilities</h4>
+
+<p>Let \( A \) be a nonempty subset of \( S \). Recall that the <dfn>hitting time</dfn> to \( A \) is the random variable that gives the first positive time that the chain is in \( A \):
+\[ \tau_A = \min\{n \in \N_+: X_n \in A\} \]
+Since the chain may <em>never</em> enter \( A \), the random variable \( \tau_A \) takes values in \( \N_+ \cup \{\infty\} \) (recall our convention that the minimum of the empty set is \( \infty \)). Recall also that \( \tau_A \) is a <a href="../prob/Stop.html">stopping time</a> for \( \bs{X} \). That is, \( \{\tau_A = n\} \in \mathscr{F}_n \) for \( n \in \N_+ \). Intuitively, this means that we can tell if \( \tau_A = n \) by observing the chain up to time \( n \). This is clearly the case, since explicitly
+\[ \{\tau_A = n\} = \{X_1 \notin A, \ldots, X_{n-1} \notin A, X_n \in A\} \]
+When \( A = \{x\} \) for \( x \in S \), we will simplify the notation to \( \tau_x \). This random variable gives the first positive time that the chain is in state \( x \). When the chain enters a set of states \( A \) for the first time, the chain must visit some state in \( A \) for the first time, so it's clear that
+\[ \tau_A = \min\{\tau_x: x \in A\}, \quad A \subseteq S \]
+Next we define two functions on \( S \) that are related to the hitting times.</p>
+
+<div class="unit" id="hit1">
+	<p class="defin">For \( x \in S \), \( A \subseteq S \) (nonempty), and \( n \in \N_+ \) define</p>
+	<ol class="sub">
+		<li>\( H_n(x, A) = \P(\tau_A = n \mid X_0 = x)\)</li>
+		<li>\(H(x, A) = \P(\tau_A \lt \infty \mid X_0 = x) \)</li>
+	</ol>
+	<p>So \( H(x, A) = \sum_{n=1}^\infty H_n(x, A) \).</p>
+</div>
+
+<p>Note that \( n \mapsto H_n(x, A) \) is the probability density function of \( \tau_A \), given \( X_0 = x \), except that the density function may be <em>defective</em> in the sense that the sum \( H(x, A) \) may be less than 1, in which case of course, \( 1 - H(x, A) = \P(\tau_A = \infty \mid X_0 = x) \). Again, when \( A = \{y\} \), we will simplify the notation to \( H_n(x, y) \) and \( H(x, y) \), respectively. In particular, \( H(x, x) \) is the probability, starting at \( x \), that the chain eventually returns to \( x \). If \( x \ne y \), \( H(x, y) \) is the probability, starting at \( x \), that the chain eventually reaches \( y \).  Just knowing when \( H(x, y) \) is 0, positive, and 1 will turn out to be of considerable importance in the overall structure and limiting behavior of the chain. As a function on \( S^2 \), we will refer to \( H \) as the <dfn>hitting matrix</dfn> of \( \bs{X} \). Note however, that unlike the transition matrix \( P \), we do not have the structure of a kernel. That is, \( A \mapsto H(x, A) \) is not a measure, so in particular, it is generally not true that \( H(x, A) = \sum_{y \in A} H(x, y) \). The same remarks apply to \( H_n \) for \( n \in \N_+ \). However, there are interesting relationships between the transition matrix and the hitting matrix.</p>
+
+<div class="unit" id="hit2">
+	<p class="math">\( H(x, y) \gt 0 \) if and only if \( P^n(x, y) \gt 0 \) for some \( n \in \N_+ \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( \{X_n = y\} \subseteq \{\tau_y \lt \infty\} \) for all \( n \in \N_+ \), and \( \{\tau_y \lt \infty\} = \{X_k = y \text{ for some } k \in \N_+\} \). From the <a href="../prob/Probability.html#bas">increasing property</a> of probability and <a href="../prob/Probability.html#boo">Boole's inequality</a> it follows that for each \( n \in \N_+ \),
+		\[ P^n(x, y) \le H(x, y) \le \sum_{k=1}^\infty P^k(x, y) \]</p>
+	</details>
+</div>
+
+<p>The following result gives a basic relationship between the sequence of hitting probabilities and the sequence of transition probabilities.</p>
+
+<div class="unit" id="hit3">
+	<p class="math">Suppose that \( (x, y) \in S^2 \). Then
+	\[ P^n(x, y) = \sum_{k=1}^n H_k(x, y) P^{n-k}(y, y),  \quad n \in \N_+ \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This result follows from conditioning on \( \tau_y \). Starting in state \( x \), the chain is in state \( y \) at time \( n \) if and only if the chain hits \( y \) for the first time at some previous time \( k \), and then returns to \( y \) in the remaining \( n - k \) steps. More formally,
+		\[ P^n(x, y) = \P(X_n = y \mid X_0 = x) = \sum_{k=0}^\infty \P(X_n = y \mid \tau_y = k, X_0 = x) \P(\tau_y = k \mid X_0 = x) \]
+		But the event \( \tau_y = k \)  implies \( X_k = y \) and is in \( \mathscr{F}_k \). Hence by the Markov property,
+		\[ \P(X_n = y \mid \tau_y = k, X_0 = x) = \P(X_n = y \mid X_k = y, \tau_y = k, X_0 = x) = \P(X_n = y \mid X_k = y) = P^k(x, y) \]
+		Of course, by definition, \( \P(\tau_y = k \mid X_0 = x) = H_k(x, y) \), so the result follows by substitution.</p>
+	</details>
+</div>
+
+<div class="unit" id="hit4">
+	<p class="math">Suppose that \( x \in S \) and \( A \subseteq S \). Then</p>
+	<ol class="sub">
+		<li>\( H_{n+1}(x, A) = \sum_{y \notin A} P(x, y) H_n(y, A) \) for \( n \in \N_+ \)</li>
+		<li>\( H(x, A) = P(x, A) + \sum_{y \notin A} P(x, y) H(y, A) \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follow form conditioning on \( X_1 \).</p>
+		<ol class="sub">
+			<li>Starting in state \( x \), the chain first enters \( A \) at time \( n + 1 \) if and only if the chain goes to some state \( y \notin A \) at time 1, and then from state \( y \), first enters \( A \) in \( n \) steps.
+			\[ H_{n+1}(x, A) = \P(\tau_A = n + 1 \mid X_0 = x) = \sum_{y \in S} \P(\tau_A = n + 1 \mid X_0 = x, X_1 = y) \P(X_1 = y \mid X_0 = x) \]
+			But \( \P(\tau_A = n + 1 \mid X_0 = x, X_1 = y) = 0 \) for \( y \in A \). By the Markov and time homogeneous properties, \( \P(\tau_A = n + 1 \mid X_0 = x,  X_1 = y) = \P(\tau_A = n \mid X_0 = y) = H_n(x, A) \) for \( y \notin A \). Of course \( \P(X_1 = y \mid X_0 = x) = P(x, y) \). So the result follows by substitution.</li>
+			<li>Starting in state \( x \), the chain eventually enters \( A \) if and only if it either enters \( A \) at the first step, or moves to some other state \( y \notin A \) at the first step, and then eventually enters \( A \) from \( y \).
+			\[ H(x, A) = \P(\tau_A \lt \infty \mid X_0 = x) = \sum_{y \in S} \P(\tau_A \lt \infty \mid X_1 =y, X_0 = x) \P(X_1 = y \mid X_0 = x)\]
+			But \( \P(\tau_A \lt \infty \mid X_1 = y, X_0 = x) = 1\) for \( y \in A \).  By the Markov and homogeneous properties, \(\P(\tau_A \lt \infty \mid X_1 = y, X_0 = x) =  \P(\tau_A \lt \infty \mid X_0 = y) = H(y, A) \) for \( y \notin A \). Substituting we have
+			\[ H(x, A) = \sum_{y \in A} P(x, y) + \sum_{y \notin A} P(x, y) H(y, A) = P(x, A) + \sum_{y \notin A} P(x, y) H(y, A) \]</li>
+		</ol>
+	</details>
+</div>
+
+<p>The following definition is fundamental for the study of Markov chains.</p>
+
+<div class="unit" id="hit5">
+	<p class="math">Let \( x \in S \).</p>
+	<ol class="sub">
+		<li>State \( x \) is <dfn>recurrent</dfn> if \( H(x, x) = 1 \).</li>
+		<li>State \( x \) is <dfn>transient</dfn> if \( H(x, x) \lt 1 \).</li>
+	</ol>
+</div>
+
+<p>Thus, starting in a recurrent state, the chain will, with probability 1, eventually return to the state.  As we will see, the chain will return to the state infinitely often with probability 1, and the times of the visits will form the arrival times of a <a href="../renewal/Introduction.html">renewal process</a>.  This will turn out to be the critical observation in the study of the limiting behavior of the chain. By contrast, if the chain starts in a transient state, then there is a positive probability that the chain will never return to the state.</p>
+
+<h4 id="pot">Counting Variables and Potentials</h4>
+
+<p>Again, suppose that \( A \) is a nonempty set of states. A natural complement to the hitting time to \( A \) is the <dfn>counting variable</dfn> that gives the number of visits to \( A \) (at positive times). Thus, let
+\[ N_A = \sum_{n=1}^\infty \bs{1}(X_n \in A) \]
+Note that \( N_A \) takes value in \( \N \cup \{\infty\} \). We will mostly be interested in the special case \( A = \{x\} \) for \( x \in S \), and in this case, we will simplify the notation to \( N_x \). </p>
+
+<div class="unit" id="pot1">
+	<p class="math">Let \( G(x, A) = \E(N_A \mid X_0 = x) \) for \( x \in S \) and \( A \subseteq S \). Then \( G \) is a kernel on \( S \) and
+	\[ G(x, A) = \sum_{n=1}^\infty P^n(x, A) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that 
+		\[ G(x, A) = \E \left(\sum_{n=1}^\infty \bs{1}(X_n \in A) \biggm| X_0 = x\right) = \sum_{n=1}^\infty \P(X_n \in A \mid X_0 = x) = \sum_{n=1}^\infty P^n(x, A) \]
+		The interchange of sum and expected value is justified since the terms are nonnegative. For fixed \( x \in S \), \( A \mapsto G(x, A) \) is a positive measure on \( S \) since \( A \mapsto P^n(x, A) \) is a probability measure on \( S \) for each \( n \in \N_+ \). Note also that \( A \mapsto N_A \) is a random, counting measure on \( S \) and hence \( A \mapsto G(x, A) \) is a (deterministic) positive measure on \( S \).</p>
+	</details>
+</div>
+
+<p>Thus \( G(x, A) \) is the expected number of visits to \( A \) at positive times. As usual, when \( A = \{y\} \) for \( y \in S \) we simplify the notation to \( G(x, y) \), and then more generally we have \( G(x, A) = \sum_{y \in A} G(x, y) \) for \( A \subseteq S \). So, as a matrix on \( S \), \( G = \sum_{n=1}^\infty P^n \). The matrix \( G \) is closely related to the <a href="Discrete.html#pot">potential matrix</a> \( R \) of \( \bs{X} \), given by \( R = \sum_{n=0}^\infty P^n \). So \( R = I + G \), and \( R(x, y) \) gives the expected number of visits to \( y \in S \) at all times (not just positive times), starting at \( x \in S \). The matrix \( G \) is more useful for our purposes in this section.</p>
+
+<p>The distribution of \( N_y \) has a simple representation in terms of the hitting probabilities. Note that because of the Markov property and time homogeneous property, whenever the chain reaches state \( y \), the future behavior is independent of the past and is stochastically the same as the chain starting in state \( y \) at time 0. This is the critical observation in the proof of the following theorem.</p>
+
+<div class="unit" id="pot2">
+	<p class="math">If \( x, \, y \in S \) then</p>
+	<ol class="sub">
+		<li>\(\P(N_y = 0 \mid X_0 = x) = 1 - H(x, y)\)</li>
+		<li>\( 	\P(N_y = n \mid X_0 = x) = H(x, y) [H(y, y)]^{n-1}[1 - H(y, y)] \) for \( n \in \N_+ \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>The event \( N_y = 0 \) means that the chain never reaches \( y \), starting in \( x \). The probability of this event is \( 1 - H(x, y) \).</li>
+			<li>For \( n \in \N_+ \), the event \( N_y = n \) means that the chain reaches \( y \), starting in \( x \), and then makes \( n - 1 \) returns to \( y \), and then never reaches \( y \) again. The probabilities of these three events are \( H(x, y) \), \( [H(y, y)]^{n-1} \), and \( 1 - H(y, y) \). The probabilities multiply by the Markov property.</li>
+		</ol>
+	</details>
+</div>
+
+<figure id="pot3">
+	<figcaption>Visits to state \( y \) starting in state \( x \)</figcaption>
+	<img src="Visits.png" alt="Visits to state y">
+</figure>
+
+<p>The essence of the proof is illustrated in the graphic above.  The thick lines are intended as reminders that these are not one step transitions, but rather represent all paths between the given vertices. Note that in the special case that \( x = y \) we have
+\[ \P(N_x = n \mid X_0 = x) = [H(x, x)]^n [1 - H(x, x)], \quad n \in \N \]
+In all cases, the counting variable \( N_y \) has essentially a <a href="../bernoulli/Geometric.html">geometric distribution</a>, but the distribution may well be <dfn>defective</dfn>, with some of the probability mass at \( \infty \). The behavior is quite different depending on whether \( y \) is transient or recurrent.</p>
+
+<div class="unit" id="pot4">
+	<p class="math">If \( x, \, y \in S \) and \( y \) is transient then</p>
+	<ol class="sub">
+		<li>\( \P(N_y \lt \infty \mid X_0 = x) = 1 \)</li>
+		<li>\( G(x, y) = H(x, y) \big/ [1 - H(y, y)] \)</li>
+		<li>\( H(x, y) = G(x, y) \big/ [1 + G(y, y)] \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>If \( y \) is transient then \( H(y, y) \lt 1 \). Hence using <a href="#pot2" class="ref"></a> and geometric series,
+			\[\P(N_y \in \N_+ \mid X_0 = x) = \sum_{n=1}^\infty \P(N_y = n \mid X_0 = x) = H(x, y) [1 - H(y, y)] \sum_{n=1}^\infty [H(y, y)]^{n-1} = H(x, y)\]
+			Hence 
+			\begin{align*}
+				\P(N_y \lt \infty \mid X_0 = x) &amp; = \P(N_y \in \N \mid X_0 = x) = \P(N_y = 0 \mid X_0 = x) + \P(N_y \in \N_+ \mid X_0 = x) \\
+				&amp; = [1 - H(x, y)] + H(x, y) = 1 \end{align*}</li>
+			<li>Using the derivative of the geometric series, 
+			\begin{align*}
+				G(x, y) &amp; = \E(N_y \mid X_0 = x) = \sum_{n=1}^\infty n \P(N_y = n \mid X_0 = x) \\
+				&amp; = H(x, y) [1 - H(y, y)]\sum_{n=1}^\infty n [H(y, y)]^{n-1} = \frac{H(x, y)}{1 - H(y, y)}
+			\end{align*}</li>
+			<li>From (b), \( G(y, y) = H(y, y) \big/[1 - H(y, y)] \) so solving for \( H(y, y) \) gives \( H(y, y) = G(y, y) \big/ [1 + G(y, y)] \). Substituting this back into (b) gives \( G(x, y) = H(x, y)[1 + G(y, y)] \).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="pot5">
+	<p class="math">if \( x, \, y \in S \) and \( y \) is recurrent then</p>
+	<ol class="sub">
+		<li>\( \P(N_y = 0 \mid X_0 = x) = 1 - H(x, y) \) and \( \P(N_y = \infty \mid X_0 = x) = H(x, y) \)</li>
+		<li>\( G(x, y) = 0 \) if \( H(x, y) = 0 \) and \( G(x, y) = \infty \) if \( H(x, y) \gt 0 \)</li>
+		<li>\( \P(N_y = \infty \mid X_0 = y) = 1 \) and \( G(y, y) = \infty \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>If \( y \) is recurrent, \( H(y, y) = 1 \) and so from <a href="#pot2" class="ref"></a>, \( \P(N_y = n \mid X_0 = x) = 0 \) for all \( n \in \N_+ \). Hence \( \P(N_y = \infty \mid X_0 = x) = 1 - \P(N_y = 0 \mid X_0 = x) = 1 - H(x, y) \).</li>
+			<li>If \( H(x, y) = 0 \) then \( \P(N_y = 0 \mid X_0 = x) = 1 \), so \( \E(N_y \mid X_0 = x) = 0 \). If \( H(x, y) \gt 0 \) then \( \P(N_y = \infty \mid X_0 = x) \gt 0 \) so \( \E(N_y \mid X_0 = x) = \infty \).</li>
+			<li>From <a href="#pot4" class="ref"></a>, \( \P(N_y = n \mid X_0 = y) = 0 \) for all \( n \in \N \), so \( \P(N_y = \infty \mid X_0 = y) = 1 \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Note that there is an invertible relationship between the matrix \( H \) and the matrix \( G \); if we know one we can compute the other. In particular, we can characterize the transience or recurrence of a state in terms of \( G \). Here is our summary so far:</p>
+
+<div class="unit" id="pot6">
+	<p class="dfn">Let \( x \in S \).</p>
+	<ol class="sub">
+		<li>State \( x \) is transient if and only if \( H(x, x) \lt 1 \) if and only if \( G(x, x) \lt \infty \).</li>
+		<li>State \( x \) is recurrent if and only if \( H(x, x) = 1 \) if and only if \( G(x, x) = \infty \).</li>
+	</ol>
+</div>
+
+<p>Of course, the classification also holds for the potential matrix \( R = I + G \). That is, state \( x \in S \) is transient if and only if \( R(x , x) \lt \infty \) and state \( x \) is recurrent if and only if \( R(x, x) = \infty \).</p>
+
+<h4 id="rel">Relations</h4>
+
+<p>The hitting probabilities suggest an important <a href="../foundations/Relations.html">relation</a> on the state space \( S \).</p>
+
+<div class="unit" id="rel1">
+	<p class="dfn">For \( (x, y) \in S^2 \), state \( x \) <dfn>leads to</dfn> state \( y \), denoted \( x \to y \), if either \( x = y \) or \( H(x, y) \gt 0 \).</p>
+</div>
+
+<p>It follows immediately from <a href="#hit2" class="ref"></a> that \( x \to y \) if and only if \( P^n(x, y) \gt 0 \) for some \( n \in \N \). In terms of the state graph of the chain, \( x \to y \) if and only if \( x = y \) or there is a directed path from \( x \) to \( y \). Note that the <em>leads to</em> relation is <dfn>reflexive</dfn> by definition: \( x \to x \) for every \( x \in S \). The relation has another important property as well.</p>
+
+<div class="unit" id="rel2">
+	<p class="math">The <em>leads to</em> relation is <dfn>transitive</dfn>: For \( x, \, y, \, z \in S \), if \( x \to y \) and \( y \to z \) then \( x \to z \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>If \( x \to y \) and \( y \to z \), then there exist \( j, \, k \in N \) such that \( P^j(x, y) \gt 0 \) and \( P^k(y, z) \gt 0 \). But then \( P^{j+k}(x, z) \ge P^j(x, y) P^k(y, z) \gt 0 \) so \( x \to z \).</p>
+	</details>
+</div>
+
+<p>The <em>leads to</em> relation naturally suggests a couple of other definitions that are important.</p>
+
+<div class="unit" id="rel3">
+	<p class="dfn">Suppose that \( A \subseteq S \) is nonempty.</p>
+	<ol class="sub">
+		<li>\( A \) is <dfn>closed</dfn> if \( x \in A \) and \( x \to y \) implies \( y \in A \).</li>
+		<li>\( A \) is <dfn>irreducible</dfn> if \( A \) is closed and has no proper closed subsets.</li>
+	</ol>
+</div>
+
+<div class="unit" id="rel4">
+	<p class="math">Suppose that \( A \subseteq S \) is closed. Then</p>
+	<ol class="sub">
+		<li>\( P_A \), the restriction of \( P \) to \( A \times A\), is a transition probability matrix on \( A \).</li>
+		<li>\( \bs{X} \) restricted to \( A \) is a Markov chain with transition probability matrix \( P_A \).	</li>
+		<li>\( (P^n)_A = (P_A)^n \) for \( n \in \N \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>If \( x \in A \) and \( y \notin A \), then \( x \) does not lead to \( y \) so in particular \( P(x, y) = 0 \). It follows that \( \sum_{y \in A} P(x, y) = 1 \) for \( x \in A \) so \( P_A \) is a transition probability matrix.</li>
+			<li>This follows from (a). If the chain starts in \( A \), then the chain remains in \( A \) for all time, and of course, the Markov property still holds.</li>
+			<li>Again, this follows from (a).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Of course, the entire state space \( S \) is closed by definition. If it is also irreducible, we say the Markov chain \( \bs{X} \) itself is <dfn>irreducible</dfn>. Recall that for a nonempty subset \( A \) of \( S \) and for \( n \in \N \), the notation \( P_A^n \) refers to \( (P_A)^n \) and not \( (P^n)_A \). In general, these are not the same, and in fact for \( x, \, y \in A \),
+\[ P_A^n(x, y) = \P(X_1 \in A, \ldots, X_{n-1} \in A, X_n = y \mid X_0 = x) \]
+the probability of going from \( x \) to \( y \) in \( n \) steps, remaining in \( A \) all the while. But if \( A \) is closed, then as noted in part (c), this is just \( P^n(x, y) \).</p>
+
+<div class="unit" id="rel5">
+	<p class="math">Suppose that \( A \) is a nonempty subset of \( S \). Then \( \cl(A) = \{y \in S: x \to y \text{ for some } x \in A\} \) is the smallest closed set containing \( A \), and is called the <dfn>closure</dfn> of \( A \). That is,</p>
+	<ol class="sub">
+		<li>\( \cl(A) \) is closed.</li>
+		<li>\( A \subseteq \cl(A) \).</li>
+		<li>If \( B \) is closed and \( A \subseteq B \) then \( \cl(A) \subseteq B \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Suppose that \( x \in \cl(A) \) and that \( x \to y \). Then there exists \( a \in A \) such that \( a \to x \). By the transitive property, \( a \to y \) and hence \( y \in \cl(A) \).</li>
+			<li>If \( x \in A \) then \( x \to x \) so \( x \in \cl(A) \).</li>
+			<li>Suppose that \( B \) is closed and that \( A \subseteq B \). If \( x \in \cl(A) \), then there exists \( a \in A \) such that \( a \to x \). Hence \( a \in B \) and \( a \to x \). Since \( B \) is closed, it follows that \( x \in B \). Hence \( \cl(A) \subseteq B \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Recall that for a fixed positive integer \( k \), \( P^k \) is also a transition probability matrix, and in fact governs the <dfn>\( k \)-step</dfn> Markov chain \( (X_0, X_k, X_{2 k}, \ldots) \). It follows that we could consider the <em>leads to</em> relation for this chain, and all of the results above would still hold (relative, of course, to the \( k \)-step chain).  Occasionally we will need to consider this relation,  which we will denote by \( \underset{k} \to \), particularly in our study of <a href="Periodicity.html">periodicity</a>.</p>
+
+<div class="unit" id="rel6">
+	<p class="math">Suppose that \( j, \, k \in \N_+ \). If \( x \, \underset{k}\to \, y \) and \( j \mid k \) then \( x \, \underset{j}\to \, y \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>If \( x \, \underset{k}\to \, y \) then there exists \( n \in \N \) such that \( P^{n k}(x, y) \gt 0 \). If \( j \mid k \), there exists \( m \in \N_+ \) such that \( k = m j \). Hence \( P^{n m j}(x, y) \gt 0 \) so \( x \, \underset{j}\to \, y \).</p>
+	</details>
+</div>
+
+<p>By combining the <em>leads to</em> relation \( \to \) with its inverse, the <dfn>comes from</dfn> relation \( \leftarrow \), we can obtain another very useful relation.</p>
+
+<div class="unit" id="rel7">
+	<p class="dfn">For \( (x, y) \in S^2 \), we say that \( x \) <dfn>to and from</dfn> \( y \) and we write \( x \leftrightarrow y \) if \( x \to y \) and \( y \to x \). </p>
+</div>
+
+<p>By definition, this relation is <dfn>symmetric</dfn>: if \( x \leftrightarrow y \) then \( y \leftrightarrow x \). From our work above, it is also reflexive and transitive. Thus, the <em>to and from</em> relation is an <a href="../foundations/Equivalence.html">equivalence relation</a>. Like all equivalence relations, it partitions the space into mutually disjoint <dfn>equivalence classes</dfn>. We will denote the equivalence class of a state \( x \in S \) by
+\[ [x] = \{y \in S: x \leftrightarrow y\} \]
+Thus, for any two states \( x, \, y \in S\), either \( [x] = [y] \) or \( [x] \cap [y] = \emptyset \), and moreover, \( \bigcup_{x \in S} [x] = S \).</p>
+
+<figure id="rel8">
+	<figcaption>The equivalence relation partitions \( S \) into mutually disjoint equivalence classes</figcaption>
+	<img src="Partition.png" alt="Equivalence classes">
+</figure>
+
+<div class="unit" id="rel9">
+	<p class="math">Two negative results:</p>
+	<ol class="sub">
+		<li>A closed set is not necessarily an equivalence class.</li>
+		<li>An equivalence class is not necessarily closed.</li>
+	</ol>
+	<details>
+		<summary>Example:</summary>
+		<p>Consider the trivial Markov chain with state space \( S = \{0, 1\} \) and transition matrix \( P = \left[\begin{matrix} 0 &amp; 1 \\ 0 &amp; 1\end{matrix}\right] \). So state 0 leads deterministically to 1 in one step, while state 1 is absorbing. For the <em>leads to</em> relation, the only relationships are \( 0 \to 0 \), \( 0 \to 1 \), and \( 1 \to 1 \). Thus, the equivalence classes are \( \{0\} \) and \( \{1\} \).</p>
+		<ol class="sub">
+			<li>The entire state space \( S \) is closed, but is not an equivalence class.</li>
+			<li>\( \{0\} \) is an equivalence class but is not closed.</li>
+		</ol>
+	</details>
+</div>
+
+<p>On the other hand, we have the following result:</p>
+
+<div class="unit" id="rel10">
+	<p class="math">If \( A \subseteq S \) is irreducible, then \( A \) is an equivalence class.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Fix \( x \in A \) (recall that closed sets are nonempty by definition). Since \( A \) is closed it follows that \( [x] \subseteq A \). Since \( A \) is irreducible, \( \cl(y) = A \) for each \( y \in A \) and in particular, \( \cl(x) = A \). It follows that \( x \leftrightarrow y \) for each \( y \in A \). Hence \( A \subseteq [x] \).</p>
+	</details>
+</div>
+
+<p>The <em>to and from</em> equivalence relation is very important because many interesting state properties turn out in fact to be <dfn>class properties</dfn>, shared by all states in a given equivalence class.  In particular, the recurrence and transience properties are class properties.</p>
+
+<h4 id="cls">Transient and Recurrent Classes</h4>
+
+<p>Our next result is of fundamental importance: a recurrent state can only lead to other recurrent states.</p>
+
+<div class="unit" id="cls1">
+	<p class="math">If \( x \) is a recurrent state and \( x \to y \) then \( y \) is recurrent and \( H(x, y) = H(y, x) = 1 \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The result trivially holds if \(  x = y \), so we assume \( x \ne y \). Let \( \alpha(x, y) \) denote the probability, starting at \( x \), that the chain reaches \( y \) without an intermediate return to \( x \). It must be the case that \( \alpha(x, y) \gt 0 \) since \( x \to y \). In terms of the graph of \( \bs{X} \), if there is a path from \( x \) to \( y \), then there is a path from \( x \) to \( y \) without cycles. Starting at \( x \), the chain could fail to return to \( x \) by first reaching \( y \) without an intermediate return to \( x \), and then from \( y \) never reaching \( x \). From the Markov and time homogeneous properties, it follows that \( 1 - H(x, x) \ge \alpha(x, y)[1 - H(y, x)] \ge 0 \). But \( H(x, x) = 1 \) so it follows that \( H(y, x) = 1 \).	So we now know that there exist positive integers \( j, \, k \) such that \( P^j(x, y) \gt 0 \) and \( P^k(y, x) \gt 0 \). Hence for every \( n \in \N \),
+		\[ P^{j + k + n}(y, y) \ge P^k(y, x) P^n(x, x) P^j(x, y) \]
+		Recall that \( G(x, x) = \infty \) since \( x \) is recurrent. Thus, summing over \( n \) in the displayed equation gives \( G(y, y) = \infty \). Hence \( y \) is recurrent. Finally, reversing the roles of \( x \) and \( y \), if follows that \( H(x, y) = 1 \)</p>
+	</details>
+</div>
+
+<p>From <a href="#cls1" class="ref"></a>, note that if \( x \) is recurrent, then all states in \( [x] \) are also recurrent. Thus, for each equivalence class, either all states are transient or all states are recurrent.  We can therefore refer to <dfn>transient or recurrent classes</dfn> as well as states.</p>
+
+<div class="unit" id="cls2">
+	<p class="math">If \( A \) is a recurrent equivalence class then \( A \) is irreducible.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( x \in A \) and that \( x \to y \). Since \( x \) is recurrent, \( y \) is also recurrent and \( y \to x \). Hence \( x \leftrightarrow y \) and so \( y \in A \) since \( A \) is an equivalence class. Suppose that \( B \subseteq A \) is closed. Since \( B \) is nonempty by definition, there exists \( x \in B \) and so \( x \in A \) also. For every \( y \in A \), \( x \leftrightarrow y \) so \( y \in B \) since \( B \) is closed. Thus \( A = B \) so \( A \) is irreducible.</p>
+	</details>
+</div>
+
+<div class="unit" id="cls3">
+	<p class="math">If \( A \) is finite and closed then \( A \) has a recurrent state.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Fix \( x \in A \). Since \( A \) is closed, it follows that \( \P(N_A = \infty \mid X_0 = x) = 1 \). Since \( A \) is finite, it follows that \( \P(N_y = \infty \mid X_0 = x) \gt 0 \) for some \( y \in A \). But then \( y \) is recurrent.</p>
+	</details>
+</div>
+
+<div class="unit" id="cls4">
+	<p class="math">If \( A \) is finite and irreducible then \( A \) is a recurrent equivalence class.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( A \) is an equivalence class by <a href="#rel10" class="ref"></a>, and \( A \) has a recurrent state by <a href="#cls3" class="ref"></a>. It follows that all states in \( A \) are recurrent.</p>
+	</details>
+</div>
+
+<p>Thus, the Markov chain \( \bs{X} \) will have a collection (possibly empty) of recurrent equivalence classes \( \{A_j: j \in J\} \) where \( J \) is a countable index set. Each \( A_j \) is irreducible. Let \( B \) denote the set of all transient states. The set \( B \) may be empty or may consist of a number of equivalence classes, but the class structure of \( B \) is usually not important to us. If the chain starts in \( A_j \) for some \( j \in J \) then the chain remains in \( A_j \) forever, visiting each state infinitely often with probability 1. If the chain starts in \( B \), then the chain may stay in \( B \) forever (but only if \( B \) is infinite) or may enter one of the recurrent classes \( A_j \), never to escape. However, in either case, the chain will visit a given transient state only finitely many time with probability 1. This basic structure is known as the <dfn>canonical decomposition</dfn> of the chain, and is shown in graphical form below. The edges from \( B \) are in gray to indicate that these transitions may not exist.</p>
+
+<figure>
+	<figcaption>The canonical decomposition of the state space</figcaption>
+	<img src="Classes.png" alt="The canonical decomposition">
+</figure>
+
+<h4 id="tst">Staying Probabilities and a Classification Test</h4>
+
+<div class="unit" id="tst1">
+	<p class="math">Suppose that \( A \) is a proper subset of \( S \). Then</p>
+	<ol class="sub">
+		<li>\(P_A^n(x, A) = \P(X_1 \in A, X_2 \in A, \ldots, X_n \in A \mid X_0 = x) \) for \( x \in A \)</li>
+		<li>\( \lim_{n \to \infty} P_A^n(x, A) = \P(X_1 \in A, X_2 \in A \ldots \mid X_0 = x) \) for \( x \in A \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that \( P_A^n \) means \( (P_A)^n \) where \( P_A \) is the restriction of \( P \) to \( A \times A \).</p>
+		<ol class="sub">
+			<li>This is a consequence of the Markov property, and is the probability that the chain stays in \( A \) at least through time \( n \), starting in \( x \in A \).</li>
+			<li>This follows from (a) and the <a href="../prob/Convergence.html#con">continuity theorem</a> for decreasing events. This is the probability that the chain stays in \( A \) forever, starting in \( x \in A \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Let \( g_A \) denote the function defined by part (b), so that
+\[ g_A(x) = \P(X_1 \in A, X_2 \in A, \ldots \mid X_0 = x), \quad x \in A \]
+The <dfn>staying probability function</dfn> \( g_A \) is an interesting complement to the hitting matrix studied above.  The following result characterizes this function and provides a method that can be used to compute it, at least in some cases.</p>
+
+<div class="unit" id="tst2">
+	<p class="math">For \( A \subset S \), \( g_A \) is the largest function on \( A \) that takes values in \( [0, 1] \) and satisfies \( g = P_A g \). Moreover, either \( g_A = \bs{0}_A \) or \( \sup\{g_A(x): x \in A\} = 1 \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( P_A^{n+1} \bs{1}_A = P_A P_A^n \bs{1}_A\) for \( n \in \N \). Taking the limit as \( n \to \infty \) and using the <a href="../foundations/Properties.html#bct">bounded convergence theorem</a> gives \( g_A = P_A g_A \). Suppose now that \( g \) is a function on \( A \) that takes values in \( [0, 1] \) and satisfies \( g = P_A g \). Then \( g \le \bs{1}_A \) and hence \( g \le P_A^n \bs{1}_A \) for all \( n \in \N \).	Letting \( n \to \infty \) it follows that \( g \le g_A \). Next, let \( c = \sup\{g_A(x): x \in A\} \). Then \( g_A \le c \, \bs{1}_A \) and hence \( g_A \le c \, P_A^n \bs{1}_A \) for each \( n \in \N \). Letting \( n \to \infty \) gives \( g_A \le c \, g_A \). It follows that either \( g_A = \bs{0}_A \) or \( c = 1 \).</p>
+	</details>
+</div>
+
+<p>Note that the characterization in <a href="#tst2" class="ref"></a> includes a <dfn>zero-one law</dfn> of sorts: either the probability that the chain stays in \( A \) forever is 0 for every initial state \( x \in A \), or we can find states in \( A \) for which the probability is arbitrarily close to 1. The next two results explore the relationship between the staying function and recurrence.</p>
+
+<div class="unit" id="tst3">
+	<p class="math">Suppose that \( \bs{X} \) is an irreducible, recurrent chain with state space \( S \). Then \( g_A = \bs{0}_A \) for every proper subset \( A \) of \( S \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Fix \( y \notin A \) and note that \( 0 \le g_A(x) \le 1 - H(x, y) \) for every \( x \in A \). But \( H(x, y) = 1 \) since the chain is irreducible and recurrent. Hence \( g_A(x) = 0 \) for \( x \in A \).</p>
+	</details>
+</div>
+
+<div class="unit" id="tst4">
+	<p class="math">Suppose that \( \bs{X} \) is an irreducible Markov chain with state space \( S \) and transition probability matrix \( P \). If there exists a state \( x \) such that \( g_A = \bs{0}_A \)  where \( A = S \setminus \{x\} \), then \( \bs{X} \) is recurrent.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>With \( A \) as defined above, note that \(1 - H(x, x) = \sum_{y \in A} P(x, y) g_A(y) \).	Hence \( H(x, x) = 1 \), so \( x \) is recurent. Since the \( \bs{X} \) is irreducible, it follows that \( \bs{X} \) is recurrent.</p>
+	</details>
+</div>
+
+<p>More generally, suppose that \( \bs{X} \) is a Markov chain with state space \( S \) and transition probability matrix \( P \). The last two theorems can be used to test whether an irreducible equivalence class \( C \) is recurrent or transient. We fix a state \( x \in C \) and set \( A = C \setminus \{x\} \). We then try to solve the equation \( g = P_A g \) on \( A \). If the only solution taking values in \( [0, 1] \) is \( \bs{0}_A \), then the class \( C \) is recurrent by <a href="#tst4" class="ref"></a>. If there are nontrivial solutions, then \( C \) is transient. Often we try to choose \( x \) to make the computations easy.</p>
+
+<h4 id="com">Computing Hitting Probabilities and Potentials</h4>
+
+<p>We now know quite a bit about Markov chains, and we can often classify the states and compute quantities of interest.  However, we do not yet know how to compute:</p>
+
+<ul>
+	<li>\( G(x, y) \) when \( x \) and \( y \) are transient</li>
+	<li>\( H(x, y) \) when \( x \) is transient and \( y \) is transient or recurrent.</li>
+</ul>
+
+<p>These problems are related, because of the general inverse relationship between the matrix \( H \) and the matrix \( G \) noted in our discussion above. As usual, suppose that \( \bs{X} \) is a Markov chain with state space \( S \), and let \( B \) denote the set of transient states. The next result shows how to compute \( G_B \), the matrix \( G \) restricted to the transient states. Recall that the values of this matrix are finite.</p>
+
+<div class="unit" id="com1">
+	<p class="math">\( G_B \) satisfies the equation \( G_B = P_B + P_B G_B \) and is the smallest nonnegative solution. If \( B \) is finite then \( G_B = (I_B - P_B)^{-1} P_B \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>First note the \( (P^n)_B = (P_B)^n \) since a path between two transient states can only pass through other transient states. Thus \( G_B = \sum_{n=1}^\infty P_B^n \). From the <a href="../foundations/Properties.html#mct">monotone convergence theorem</a> it follows that \( P_B G_B = G_B - P_B \). Suppose now that \( U \) is a nonnegative matrix on \( B \) satisfying \( U = P_B + P_B U \). Then \( U = \sum_{k=1}^n P_B^k + P_B^{n+1} U \) for each \( n \in \N_+\). Hence \( U \ge \sum_{k=1}^n P_B^k \) for every \( n \in \N_+ \) and therefore \( U \ge G_B \). It follows that \( (I_B - P_B)(I_B + G_B) = I_B \). If \( B \) is finite, the matrix \( I_B - P_B \) is invertible.</p>
+	</details>
+</div>
+
+<p>Now that we can compute \( G_B \), we can also compute \( H_B \) using <a href="#pot4" class="ref"></a>. All that remains is for us to compute the hitting probability \( H(x, y) \) when \( x \) is transient and \( y \) is recurrent. The first thing to notice is that the hitting probability is a class property.</p>
+
+<div class="unit" id="com2">
+	<p class="math">Suppose that \( x \) is transient and that \( A \) is a recurrent class. Then \( H(x, y) = H(x, A) \) for \( y \in A \).</p>
+</div>
+
+<p>That is, starting in the transient state \( x \in S \), the hitting probability to \( y \) is constant for \( y \in A \), and is just the hitting probability to the class \( A \). As before, let \( B \) denote the set of transient states and suppose that \( A \) is a recurrent equivalence class. Let \( h_A \) denote the function on \( B \) that gives the hitting probability to class \( A \), and let \( p_A \) denote the function on \( B \) that gives the probability of entering \( A \) on the first step:
+\[ h_A(x) = H(x, A), \; p_A(x) = P(x, A), \quad x \in B \]</p>
+
+<div class="unit" id="com3">
+	<p class="math">\( h_A = p_A + G_B p_A \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>First note that \( \P(\tau_A = n \mid X_0 = x) = (P_B^{n-1} p_A)(x) \) for \( n \in \N_+ \). The result then follows by summing over \( n \).</p>
+	</details>
+</div>
+
+<p>Exercise <a href="#com3" class="ref"></a> is adequate if we have already computed \( G_B \) (using exericse <a href="#com1" class="ref"></a>, for example).  However, we might just want to compute \( h_A \) directly.</p>
+
+<div class="unit" id="com4">
+	<p class="math">\( h_A \) satisfies the equation \( h_A = p_A + P_B h_A \) and is the smallest nonnegative solution. If \( B \) is finite, \( h_A = (I_B - P_B)^{-1} p_A \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>First, conditioning on \( X_1 \) gives \( h_A = p_A + P_B h_A \). Next suppose that \( h \) is nonnegative and satisfies \( h = p_A + P_B h \). Then \( h = p_A + \sum_{k=1}^{n-1} P_B^k p_A + P_B^n h \) for each \( n \in \N_+ \). Hence \( h \ge p_A + \sum_{k=1}^{n-1} P_B^k p_A \). Letting \( n \to \infty \) gives \( h \ge h_A \). The representation when \( B \) is finite follows from exericse <a href="#com1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<h3 id="exa">Examples and Applications</h3>
+
+<h4 id="fin">Finite Chains</h4>
+
+<div class="unit" id="fin1">
+	<p class="math">Consider a Markov chain with state space \( S = \{a, b, c, d\} \) and transition matrix \( P \) given below: </p>
+	\[ P = \left[ \begin{matrix}
+		\frac{1}{2} &amp; \frac{2}{3} &amp; 0 &amp; 0 \\
+		1 &amp; 0 &amp; 0 &amp; 0 \\
+		0 &amp; 0 &amp; 1 &amp; 0 \\
+		\frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4}
+	\end{matrix} \right] \]
+	<ol class="sub">
+		<li>Draw the state graph.</li>
+		<li>Find the equivalent classes and classify each as transient or recurrent.</li>
+		<li>Compute the matrix \( G \).</li>
+		<li>Compute the matrix \( H \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>
+				<figure>
+					<figcaption>State graph</figcaption>
+					<img src="State1.png" alt="State1.png">
+				</figure>
+			</li>
+			<li>\( \{a, b\} \) recurrent; \( \{c\} \) recurrent; \( \{d\} \) transient.</li>
+			<li>\( G = \left[ \begin{matrix}
+				\infty &amp; \infty &amp; 0 &amp; 0 \\
+				\infty &amp; \infty &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; \infty &amp; 0 \\
+				\infty &amp; \infty &amp; \infty &amp; \frac{1}{3}
+			\end{matrix} \right] \)</li>
+			<li>\( H = \left[ \begin{matrix}
+				1 &amp; 1 &amp; 0 &amp; 0 \\
+				1 &amp; 1 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 1 &amp; 0 \\
+				\frac{2}{3} &amp; \frac{2}{3} &amp; \frac{1}{3} &amp; \frac{1}{4}
+			\end{matrix} \right] \)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="fin2">
+	<p class="math">Consider a Markov chain with state space \( S = \{1, 2, 3, 4, 5, 6\} \) and transition matrix \( P \) given below: </p>
+	\[ P = \left[ \begin{matrix}
+		0 &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} &amp; 0 \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+		\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{4} &amp; 0 \\
+		0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+		0 &amp; 0 &amp; \frac{1}{3} &amp; 0 &amp; \frac{2}{3} &amp; 0 \\
+		0 &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; 0 &amp; \frac{1}{4}
+	\end{matrix} \right] \]
+	<ol class="sub">
+		<li>Sketch the state graph.</li>
+		<li>Find the equivalence classes and classify each as recurrent or transient.</li>
+		<li>Compute the matrix \( G \).</li>
+		<li>Compute the matrix \( H \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>
+				<figure>
+					<figcaption>State graph</figcaption>
+					<img src="State2.png" alt="State2.png">
+				</figure>
+			</li>
+			<li>\( \{1, 3, 5\} \) recurrent; \( \{2, 6\} \) transient; \( \{4\} \) recurrent.</li>
+			<li>\( G = \left[ \begin{matrix}
+				\infty &amp; 0 &amp; \infty &amp; 0 &amp; \infty &amp; 0 \\
+				\infty &amp; \frac{1}{2} &amp; \infty &amp; \infty &amp; \infty &amp; 2 \\
+				\infty &amp; 0 &amp; \infty &amp; 0 &amp; \infty &amp; 0 \\
+				0 &amp; 0 &amp; 0 &amp; \infty &amp; 0 &amp; 0 \\
+				\infty &amp; 0 &amp; \infty &amp; 0 &amp; \infty &amp; 0 \\
+				\infty &amp; \frac{1}{2} &amp; \infty &amp; \infty &amp; \infty &amp; 1 
+			\end{matrix} \right] \)</li>
+			<li>\( H = \left[ \begin{matrix}
+				1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+				\frac{1}{2} &amp; \frac{1}{3} &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; 1 \\
+				1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+				0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+				1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+				\frac{1}{2} &amp; \frac{1}{3} &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; \frac{1}{2} 
+			\end{matrix} \right] \)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="fin3">
+	<p class="math">Consider a Markov chain with state space \( S = \{1, 2, 3, 4, 5, 6\} \) and transition matrix \( P \) given below: </p>
+	\[ P = \left[ \begin{matrix}
+		\frac{1}{2} &amp; \frac{1}{2} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; \frac{3}{4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{4} &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; 0 &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; 0 &amp; \frac{1}{4} \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{2}
+	\end{matrix} \right] \]
+	<ol class="sub">
+		<li>Sketch the state graph.</li>
+		<li>Find the equivalence classes and classify each as recurrent or transient.</li>
+		<li>Compute the matrix \( G \).</li>
+		<li>Compute the matrix \( H \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>
+				<figure>
+					<figcaption>State graph</figcaption>
+					<img src="State3.png" alt="State3.png" title="State diagram">
+				</figure>
+			</li>
+			<li>\( \{1, 2\} \) recurrent; \( \{3, 4\} \) transient; \( \{5, 6\} \) recurrent.</li>
+			<li>\( G = \left[ \begin{matrix}
+				\infty &amp; \infty &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				\infty &amp; \infty &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				\infty &amp; \infty &amp; \frac{7}{5} &amp; \frac{4}{5} &amp; \infty &amp; \infty \\
+				\infty &amp; \infty &amp; \frac{4}{5} &amp; \frac{3}{5} &amp; \infty &amp; \infty \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; \infty &amp; \infty \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; \infty &amp; \infty 
+			\end{matrix} \right] \)</li>
+			<li>\( H = \left[ \begin{matrix}
+				1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				\frac{4}{5} &amp; \frac{4}{5} &amp; \frac{7}{12} &amp; \frac{1}{2} &amp; \frac{1}{5} &amp; \frac{1}{5} \\
+				\frac{3}{5} &amp; \frac{3}{5} &amp; \frac{1}{3} &amp; \frac{3}{8} &amp; \frac{2}{5} &amp; \frac{2}{5} \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 
+			\end{matrix} \right] \)</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="spe">Special Models</h4>
+
+<div class="unit" id="spe1">
+	<p class="math">Transience, recurrence, and hitting probabilities are important for each of the special models that are studied in later sections:</p>
+	<ol class="sub">
+		<li><a href="Ehrenfest.html">Ehrenfest chains</a></li>
+		<li><a href="BernoulliLaplace.html">Bernoulli-Laplace chains</a></li>
+		<li><a href="Reliability.html">reliability chains</a></li>
+		<li><a href="WalkGraph.html">random walks on graphs</a></li>
+		<li><a href="Branching.html">branching chains</a></li>
+		<li><a href="Queuing.html">queuing chains</a></li>
+		<li><a href="BirthDeath.html">birth-death chains</a></li>
+	</ol>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="current">4</li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Potentials">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

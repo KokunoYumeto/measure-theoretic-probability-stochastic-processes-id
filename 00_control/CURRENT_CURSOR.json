@@ -1,0 +1,35 @@
+{
+  "schema": "o009.cursor.v2",
+  "as_of": "2026-08-21",
+  "status": "first_boundary_verified_ready_to_publish",
+  "course_id": "O009",
+  "role_id": "D30",
+  "verified_boundary": {
+    "theory_target": "source/theory/prob/Convergence.html",
+    "theory_target_bytes": 40997,
+    "theory_target_sha256": "185888375673550452d1d2428cd0b4203fecd31f0f338fc6c703849642a7809a",
+    "lab_target": "source/labs/01-konvergensi-monte-carlo.Rmd",
+    "lab_target_bytes": 6499,
+    "lab_target_sha256": "c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085",
+    "site_manifest_sha256": "c7dcaf31439066f3a2191937bcad7dce18dba5d4044bdaa25c7b434dcf369c3d",
+    "build_receipt_sha256": "4764287c8a64a1b566074dfe95a2a786532044a35e9318fe266cd1fc4468b0d1",
+    "backend_manifest_sha256": "2bd9008f16aca2f80222e4f19ca7885c57e1cc706136da7133902847039cf638"
+  },
+  "next_translated_target": {
+    "source": "authority/random/static/prob/Probability2.html",
+    "target": "source/theory/prob/Probability2.html",
+    "target_state": "translated_structurally_verified_not_yet_built",
+    "target_bytes": 51686,
+    "target_sha256": "4cd3a1eb9edca1c3dc81eba39b97c018b339136241d8a668063e3bf62c1a4c32"
+  },
+  "next_source_order_unit": "authority/random/static/prob/Processes.html",
+  "next_action": "publish and anonymously verify first boundary, then integrate Probability2 and translate Processes",
+  "cross_lane_dependencies": [
+    {
+      "lane": "O006/C140",
+      "role": "shared prerequisite",
+      "scope": "Random sample chapter, including LLN and CLT",
+      "o009_action": "link translated module; do not translate or fork those bytes"
+    }
+  ]
+}

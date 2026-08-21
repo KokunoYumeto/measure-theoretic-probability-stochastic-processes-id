@@ -1,0 +1,3 @@
+correction_id,change_kind,source_id,target_id,description,evidence,status
+correction.o009.mastery.original-addition,original-addition,o009-lab-convergence-mc,o009-mastery-convergence-mc,Add a separately licensed mastery sequence connecting simulation to convergence in probability.,source/labs/01-konvergensi-monte-carlo.Rmd#o009-mastery-convergence-mc,accepted
+correction.o009.program.deterministic-output,deterministic-output,unit.donor.zitkovic.monte-carlo-exp.solution,o009-program-convergence-mc,"Preserve donor seeds, retain signed error, and emit a canonical CSV result table.",source/labs/01-konvergensi-monte-carlo.Rmd#o009_lab_convergence_mc,accepted

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Introduction</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, renewal process, Poisson process, arrival time, interarrival time, point process, counting process, current life, remaining life, total life, Bernoulli trials">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\cov}{\text{cov}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">14. Renewal Processes</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Equations.html" title="Renewal Equations">2</a></li>
+		<li class="child"><a href="LimitTheorems.html" title="Renewal Limit Theorems">3</a></li>
+		<li class="child"><a href="Delayed.html" title="Delayed Renewal Processes">4</a></li>
+		<li class="child"><a href="Alternating.html" title="Alternating Renewal Processes">5</a></li>
+		<li class="child"><a href="Reward.html" title="Renewal Reward Processes">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>1. Introduction</h2>
+</header>
+
+<p>A <dfn>renewal process</dfn> is an idealized stochastic model for <q>events</q> that occur randomly in time. These temporal events are generically referred to as <dfn>renewals</dfn> or <dfn>arrivals</dfn>. Here are some typical interpretations and applications.</p>
+
+<div class="unit" id="exm">
+	<p class="math">Examples</p>
+	<ol class="sub">
+		<li>The arrivals are <q>customers</q> arriving at a <q>service station</q>.  Again, the terms are generic.  A customer might be a person and the service station a store, but also a customer might be a file request and the service station a web server.</li>
+		<li>A device is placed in service and eventually fails.  It is replaced by a device of the same type and the process is repeated.  We do not count the replacement time in our analysis; equivalently we can assume that the replacement is immediate.  The times of the replacements are the renewals</li>
+		<li>The arrivals are times of some natural event, such as a lightening strike, a tornado or an earthquake, at a particular geographical point.</li>
+		<li>The arrivals are emissions of elementary particles from a radioactive source.</li>
+	</ol>
+</div>
+
+<h3 id="pro">Basic Processes</h3>
+
+<p>The basic model actually gives rise to several interrelated random processes: the sequence of interarrival times, the sequence of arrival times, and the counting process. The term <dfn>renewal process</dfn> can refer to any (or all) of these. There are also several natural <q>age</q> processes that arise.  In this section we will define and study the basic properties of each of these processes in turn.</p>
+
+<h4 id="iat">Interarrival Times</h4>
+
+<div class="unit">
+	<p class="math">Let \(X_1\) denote the time of the first arrival, and \(X_i\) the time between the \((i - 1)\)st and \(i\)th arrivals for \(i \in \{2, 3, \ldots)\).  The basic assumption is that the sequence of <dfn>interarrival times</dfn> \(\bs{X} = (X_1, X_2, \ldots)\) is a sequence of <a href="../prob/Independence.html">independent</a> copies of a <a href="../prob/Events.html">random variable</a> \(X\) with values in \([0, \infty)\) and with \(\P(X \gt 0) \gt 0\).</p>
+</div>
+
+<p>So the interarrival times are nonnegative, but not identically 0. In statistical terms, \(\bs X\) corresponds to <a href="../sample/Introduction.html">sampling</a> from the distribution of \(X\).</p>
+
+<div class="unit" id="iat1">
+	<p class="math">Let \(\mu = \E(X)\) denote the common <a href="../expect/Properties.html">mean</a> of the interarrival times. Then \(\mu \gt 0\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This is a basic fact from properties of expected value. For a simple proof, note that if \(\mu = 0\) then \(\P(X \gt x) = 0\) for every \(x \gt 0\) by <a href="../expect/Properties2.html#mar">Markov's inequality</a>. But then \(\P(X = 0) = 1\). .</p>
+	</details>
+</div>
+
+<p>It is possible that \(\mu = \infty\). If \(\mu \lt \infty\), we will let \(\sigma^2 = \var(X)\) denote the common <a href="../expect/Variance.html" >variance</a> of the interarrival times.</p>
+
+<div class="unit">
+	<p class="dfn">Let \(F\) denote the common <a href="../dist/CDF.html">distribution function</a> of the interarrival times, so that
+	\[ F(x) = \P(X \le x), \quad x \in [0, \infty) \]</p>
+</div>
+
+<p>The distribution function \(F\) turns out to be of fundamental importance in the study of renewal processes. We will let \(f\) denote the probability density function of the interarrival times if the distribution is <a href="../dist/Discrete.html">discrete</a> or if the distribution is <a href="../dist/Continuous.html">continuous</a> and has a probability density function (that is, if the distribution is <a href="../foundations/Density.html">absolutely continuous</a> with respect to Lebesgue measure on \( [0, \infty) \)). In the discrete case, the following definition turns out to be important:</p>
+
+<div class="unit">
+	<p class="dfn" id="iat0">If \( X \) takes values in the set \( \{n d: n \in \N\} \) for some \( d \in (0, \infty) \), then \( X \) (or its distribution) is said to be <dfn>arithmetic</dfn> (the terms <dfn>lattice</dfn> and <dfn>periodic</dfn> are also used). The largest such \( d \) is the <dfn>span</dfn> of \( X \).</p>
+</div>
+
+<p>The reason the definition is important is because the limiting behavior of renewal processes turns out to be more complicated when the interarrival distribution is arithmetic.
+
+<h4 id="art">The Arrival Times</h4>
+
+<div class="unit">
+	<p class="dfn">Let \(T_0 = 0\) and let \(T_n\) denote the time of the \(n\)th arrival for \(n \in \N_+\). The sequence \(\bs{T} = (T_0, T_1, \ldots)\) is the <dfn>arrival time process</dfn> and is the <dfn>partial sum proccess</dfn> associated with the sequence of interarrival times:
+	\[ T_n = \sum_{i = 1}^n X_i, \quad n \in \N \]</p>
+	<details>
+		<p>We follow our usual convention that the sum over an empty index set is 0 so the representation as a sum is correct when \(n = 0\). Note that \(T_0\) is not considered an arrival.</p>
+	</details>
+</div>
+
+ <p>So the arrival times can be obtained from the interarrival times, and conversely, the interarrival times can be reovered from the arrival times:
+\[ X_i = T_i - T_{i-1}, \quad i \in \N_+ \]
+A renewal process is so named because the process starts over, independently of the past, at each arrival time.</p>
+
+<figure id="art1">
+	<figcaption>The interarrival times and arrival times</figcaption>
+	<img src="Renewal1.png" alt="The interarrival times and arrival times">
+</figure>
+
+<div class="unit">
+	<p class="dfn">For \(n \in \N\), let \(F_n\) denote the distribution function of \(T_n\), so that
+	\[ F_n(t) = \P(T_n \le t), \quad t \in [0, \infty) \]</p>
+</div>
+
+<p>So \(F_1 = F\), the distribution function of the generic interarrival time \(X\). Recall that if \(X\) has probability density function \(f\) (in either the discrete or continuous case), then \(T_n\) has probability density function \(f_n = f^{*n} = f * f * \cdots * f\), the \(n\)-fold <a href="../dist/CDF.html">convolution power</a> of \(f\).</p>
+
+<div class="unit" id="art2">
+	<p class="math">The sequence of arrival times \(\bs{T}\) has <dfn>stationary, independent increments</dfn>:</p>
+	<ol class="sub">
+		<li>If \(m \le n\) then \(T_n - T_m\) has the same distribution as \(T_{n - m}\) and thus has distribution function \(F_{n - m}\)</li>
+		<li>If \(n_1 \le n_2 \le n_3 \le \cdots\) then \(\left(T_{n_1}, T_{n_2} - T_{n_1}, T_{n_3} - T_{n_2}, \ldots\right)\) is a sequence of independent random variables.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that these are properties that hold generally for the partial sum sequence associated with a sequence of IID variables.</p>
+	</details>
+</div>
+
+<div class="unit" id="art3">
+	<p class="math">Suppose that \(\mu \lt \infty\) and \(\sigma^2 \lt \infty\). Then</p>
+	<ol class="sub">
+		<li>\(\E\left(T_n\right) = n \mu\) for \(n \in \N\)</li>
+		<li>\(\var\left(T_n\right) = n \sigma^2\) for \(n \in \N\)</li>
+		<li>\(\cov\left(T_m, T_n\right) = \min\{m,n\} \sigma^2\) for \(m, \, n \in \N\).</li>
+	</ol>
+	<details>
+	<summary>Details:</summary>
+		<p>Part (a) follows, of course, from the additive property of expected value, and part (b) from the additive property of variance for sums of <em>independent</em> variables. For part (c), assume that \(m \le n\). Then \(T_n = T_m + (T_n - T_m)\). But \(T_m\) and \(T_n - T_m\) are independent, so
+		\[ \cov\left(T_m, T_n\right) = \cov\left[T_m, T_m + (T_n - T_m)\right]  = \cov(T_m, T_m) + \cov(T_m, T_n - T_m) = \var(T_m) = m \sigma^2 \]</p>
+	</details>
+</div>
+
+Exercise <a href="#art4" class="ref"></a> is the <a href="../sample/LLN.html">law of large numbers</a> applied to the arrival time sequence.
+
+<div class="unit" id="art4">
+	<p class="math">If \(\mu \lt \infty\) then \(T_n / n \to \mu\) as \(n \to \infty\)</p>
+	<ol class="sub">
+		<li>With probability 1 (the strong law).</li>
+		<li>In probability (the weak law).</li>
+	</ol>
+</div>
+
+<p>Note that \(T_n \le T_{n + 1}\) for \(n \in \N\) since the interarrival times are nonnegative. Also \(\P(T_n = T_{n-1}) = \P(X_n = 0) = F(0)\). This can be positive, so with positive probability, more than one arrival can occur at the same time. On the other hand, the arrival times are unbounded:</p>
+
+<div class="unit" id="art5">
+	<p class="math">\(T_n \to \infty\) as \(n \to \infty\) with probability 1.</p>
+	<details>
+	<summary>Details:</summary>
+		<p>Since \(\P(X \gt 0) \gt 0\), there exits \(t \gt 0\) such that \(\P(X \gt t) \gt 0\). From the <a href="../prob/Convergence.html#bcl">second Borel-Cantelli lemma</a> it follows that with probability 1, \(X_i \gt t\) for infinitely many \(n \in \N_+\). Therefore \(\sum_{i=1}^\infty X_i = \infty\) with probability 1.</p>
+	</details>
+</div>
+
+<h4 id="cnt">The Counting Process</h4>
+
+<div class="unit">
+	<p class="dfn">For \(t \ge 0\), let \(N_t\) denote the number of arrivals in the interval \([0, t]\):
+	\[ N_t = \sum_{n=1}^\infty \bs{1}(T_n \le t), \quad t \in [0, \infty) \]
+	The random process \(\bs{N} = (N_t: t \ge 0)\) is the <dfn>counting process</dfn>.</p>
+</div>
+
+<p>Recall again that \( T_0 = 0 \) is not considered an arrival, but it's possible to have \( T_n = 0 \) for \( n \in \N_+ \), so there may be one or more arrivals at time 0.</p>
+
+<div class="unit" id="cnt1">
+	<p class="math">\(N_t = \max\{n \in \N: T_n \le t\}\) for \(t \ge 0\).</p>
+</div>
+
+<div class="unit" id="cnt2">
+	<p class="math">If \(s, \, t \in [0, \infty)\) and \(s \le t\) then \(N_t - N_s\) is the number of arrivals in \((s, t]\).</p>
+</div>
+
+<p>Note that as a function of \(t\), \(N_t\) is a (random) step function with jumps at the distinct values of \((T_1, T_2, \ldots)\); the size of the jump at an arrival time is the number of arrivals at that time.  In particular, \(N\) is an increasing function of \(t\).</p>
+
+<figure id="cnt3">
+	<figcaption>The counting process</figcaption>
+	<img src="Renewal4.png" alt="The counting process">
+</figure>
+
+<p>More generally, we can define the (random) <a href="../foundations/Counting.html">counting measure</a> corresponding to the sequence of random points \((T_1, T_2, \ldots)\) in \([0, \infty)\).</p>
+
+<div class="unit">
+	<p class="dfn">For measurable \(A \subseteq [0, \infty)\), let \(N(A)\) denote the number of the random points in \(A\):
+	\[ N(A) = \sum_{n=1}^\infty \bs{1}(T_n \in A) \]</p>
+</div>
+
+<p>In particular, note that with our new notation, \(N_t = N[0, t]\) for \(t \ge 0\) and \(N(s, t] = N_t - N_s\) for \(s \le t\). So the random counting measure is completely determined by the counting process. The counting process is the <q>cumulative measure function</q> for the counting measure, analogous the cumulative distribution function of a probability measure.</p>
+
+<div class="unit" id="cnt4">
+	<p class="math">For \(t \ge 0\) and \(n \in \N\),</p>
+	<ol class="sub">
+		<li>\(T_n \le t\) if and only if \(N_t \ge n\)</li>
+		<li>\(N_t = n\) if and only if \(T_n \le t \lt T_{n+1}\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that the event in part (a) means that at there are at least \(n\) arrivals in \([0, t]\). The event in part (b) means that there are exactly \(n\) arrivals in \([0, t]\).</p>
+	</details>
+</div>
+
+<p>Of course, the complements of the events in (a) are also equivalent, so \( T_n \gt t \) if and only if \( N_t \lt n \). On the other hand, neither of the events \( N_t \le n \) and \( T_n \ge t \) implies the other. For example, we couse easily have \( N_t = n \) and \( T_n \lt t \lt T_{n + 1} \). Taking complements, neither of the events \( N_t \gt n \) and \( T_n \lt t \) implies the other. Exercise <a href="#cnt4" class="ref"></a> also shows that the arrival time process \( \bs{T} \) and the counting process \( \bs{N} \) are inverses of each other in a sense.</p>
+
+<div class="unit" id="cnt5">
+	<p class="math">The following events have probability 1:</p>
+	<ol class="sub">
+		<li>\(N_t \lt \infty\) for all \( t \in [0, \infty) \)</li>
+		<li>\(N_t \to \infty\) as \(t \to \infty\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The event in part (a) occurs if and only if \(T_n \to \infty\) as \(n \to \infty\), which occurs with probability 1 by <a href="#art5" class="ref"></a>. The event in part (b) occurs if and only if \(T_n \lt \infty\) for all \(n \in \N\) which also occurs with probability 1.</p>
+	</details>
+</div>
+
+<p>Exercise <a href="#cnt4" class="ref"></a> can also be used to obtain the probability distribution of the counting variables in terms of the interarrival distribution function \(F\).</p>
+
+<div class="unit" id="cnt6">
+	<p class="math">For \(t \ge 0\) and \(n \in \N\),</p>
+	<ol class="sub">
+		<li>\(\P(N_t \ge n) = F_n(t)\)</li>
+		<li>\(\P(N_t = n) = F_n(t) - F_{n+1}(t)\)</li>
+	</ol>
+</div>
+
+<p>The next result is little more than a restatement of <a href="#cnt4" class="ref"></a>. However, you may need to review the section on <a href="../prob/Stop.html">filtrations and stopping times</a> to understand the result</p>
+
+<div class="unit" id="cnt7">
+	<p class="math">For \( t \in [0, \infty) \), \( N_t + 1 \) is a stopping time for the sequence of interarrival times \( \bs{X} \)</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( N_t + 1 \) takes values in \( \N_+ \), so we need to show that the event \( \left\{N_t + 1 = n\right\} \) is measurable with respect to \( \mathscr{F}_n = \sigma\{X_1, X_2, \ldots, X_n\} \) for \( n \in \N_+ \). But from <a href="#cnt4" class="ref"></a>, \( N_t + 1 = n \) if and only if \( N_t = n - 1 \) if and only if \( T_{n-1} \le t \lt T_n \). The last event is clearly measurable with respect to \( \mathscr{F}_n \).</p>
+	</details>
+</div>
+
+<h4 id="ren">The Renewal Function</h4>
+
+<div class="unit" id="ren1">
+	<p class="dfn">The function \( M \) that gives the expected number of arrivals up to time \(t\) is the <dfn>renewal function</dfn>:
+	\[ M(t) = \E(N_t), \quad t \in [0, \infty) \]</p>
+</div>
+
+<p>The renewal function turns out to be of fundamental importance in the study of renewal processes. Indeed, the renewal function essentially characterizes the renewal process. It will take awhile to fully understand this, but the following exercise is a first step:</p>
+
+<div class="unit" id="ren2">
+	<p class="math">The renewal function is given in terms of the interarrival distribution function by
+	\[ M(t) = \sum_{n=1}^\infty F_n(t), \quad 0 \le t \lt \infty \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that \(N_t = \sum_{n=1}^\infty \bs{1}(T_n \le t)\). Taking expected values gives the result. Note that the interchange of sum and expected value is valid because the terms are nonnegative.</p>
+	</details>
+</div>
+
+<p>Note that we have not yet shown that \(M(t) \lt \infty\) for \(t \ge 0\), and note also that this does not follow from <a href="#ren2" class="ref"></a>. However, we will establish this finiteness condition in <a href="#mgf1" class="ref"></a> below. If \( M \) is differentiable, the derivative \( m = M^\prime \) is known as the <dfn>renewal density</dfn>, so that \( m(t) \) gives the expected rate of arrivals per unit time at \( t \in [0, \infty) \). The renewal function defines a measure:</p>
+
+<div class="unit" id="ren3">
+	<p class="math">For measurable \(A \subseteq [0, \infty)\), let \(M(A) = \E[N(A)]\), the expected number of arrivals in \(A\). Then \(M\) is a positive measure on \([0, \infty)\), known as the <dfn>renewal measure</dfn>.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>\(N\) is a measure on \([0, \infty)\) (albeit a random one). So if \((A_1, A_2, \ldots)\) is a sequence of disjoint, measurable subsets of \([0, \infty)\) then
+		\[ N\left(\bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty N(A_i) \]
+		Taking expected values gives
+		\[ m\left(\bigcup_{i=1}^\infty A_i \right) = \sum_{i=1}^\infty m(A_i) \]
+		Again, the interchange of sum and expected value is justified since the terms are nonnegative.</p>
+	</details>
+</div>
+
+<p>The renewal measure can be expressed in terms of the arrival times:</p>
+
+<div class="unit" id="ren4">
+<p class="math">For measurable \(A \subseteq [0, \infty)\),
+\[ M(A) = \sum_{n=1}^\infty \P(T_n \in A) \]</p>
+<details>
+	<summary>Details:</summary>
+	<p>Recall that \(N(A) = \sum_{n = 1}^\infty \bs{1}(T_n \in A)\). Taking expected values gives the result. Again, the interchange of expected value and infinite series is justified since the terms are nonnegative.</p>
+	</details>
+</div>
+
+<p>The renewal function actually determines the entire renewal measure.</p>
+
+<div class="unit" id="ren5">
+	<p class="math">If \( s\, \, t \in [0, \infty) \) with \(s \le t\) then \(M(t) - M(s) = M(s, t]\), the expected number of arrivals in \((s, t]\).</p>
+</div>
+
+<p>The renewal function is the <q>cumulative measure function</q>, analogous to the cumulative distribution function of a probability measure. So every renewal process naturally leads to two measures on \([0, \infty)\), the random counting measure corresponding to the arrival times, and the measure associated with the expected number of arrivals.</p>
+
+<h4 id="age">The Age Processes</h4>
+
+<div class="unit" id="age1">
+	<p class="math">For \(t \in [0, \infty)\), \(T_{N_t} \le t \lt T_{N_t + 1}\). That is, \(t\) is in the random renewal interval \([T_{N_t}, T_{N_t + 1})\).</p>
+</div>
+
+<p>Consider the reliability example in <a href="#exm" class="ref"></a>, so that whenever a device fails, it is immediately replaced by a new device of the same type. Then the sequence of interarrival times \(\bs{X}\) is the sequence of lifetimes, while \(T_n\) is the time that the \(n\)th device is placed in service. There are several other natural random processes that can be defined.</p>
+
+<div class="unit" id="age2">
+	<p class="dfn">The random variable
+	\[ C_t = t - T_{N_t}, \quad t \in [0, \infty) \]
+	is the <dfn>current life</dfn> at time \(t\), and the random process \(\bs{C} = (C_t: t \ge 0)\) is the <dfn>current life process</dfn>.</p>
+</div>
+
+<p>Random variable \(C_t\) takes values in the interval \([0, t]\), and in the reliability setting, is the age of the device that is in service at time \(t\).</p>
+
+<div class="unit" id="age3">
+	<p class="dfn">The random variable
+	\[ R_t = T_{N_t + 1} - t, \quad t \in [0, \infty) \]
+	is the <dfn>remaining life</dfn> at time \(t\), and the random process \(\bs{R} = (R_t: t \ge 0)\) is the <dfn>remaining life process</dfn>.</p>
+</div>
+
+<p>Random variable \(R_t\) takes values in the interval \((0, \infty)\), and in the reliability setting, is the time remaining until the device that is in service at time \(t\) fails.</p>
+
+<figure id="age4">
+	<figcaption>The current and remaining life at time \( t \)</figcaption>
+	<img src="Renewal2.png" alt="The current and remaining life">
+</figure>
+
+<div class="unit" id="age5">
+	<p class="dfn">The random variable
+	\[ L_t = C_t + R_t = T_{N_t+1} - T_{N_t} = X_{N_t + 1}, \quad t \in [0, \infty) \]
+	is the <dfn>total life</dfn> at time \(t\), and the random process \(\bs{L} = (L_t: t \ge 0)\) is the <dfn>total life process</dfn>.</p>
+</div>
+
+<p>Random variable \(L_t\) takes values in \([0, \infty)\), and in the reliability setting, gives the total life of the device that is in service at time \(t\). Tail events of the current and remaining life can be written in terms of each other and in terms of the counting variables.</p>
+
+<div class="unit" id="age6">
+	<p class="math"> Suppose that \(t \in [0, \infty)\), \(x \in [0, t]\), and \(y \in [0, \infty)\). Then</p>
+	<ol class="sub">
+		<li>\(\{R_t \gt y\} = \{N_{t+y} - N_t = 0\}\)</li>
+		<li>\(\{C_t \ge x \} = \{R_{t-x} \gt x\} = \{N_t - N_{t-x} = 0\}\)</li>
+		<li>\(\{C_t \ge x, R_t \gt y\} = \{R_{t-x} \gt x + y\} = \{N_{t+y} - N_{t-x} = 0\}\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The events in part (a) mean that there is no arrival in the interval \((t, t + y]\). The events in part (b) mean that there is no arrival in the interval \((t - x, t]\). Finally, the events in part (c) mean that there is no arrival in the interval \((t - x, t + x]\).</p>
+	</details>
+</div>
+
+<figure id="age7">
+	<figcaption>The events of interest for the current and remaining life</figcaption>
+	<img src="Renewal3.png" alt="The events of interest for the current and remaining life">
+</figure>
+
+<p>Of course, the various equivalent events in <a href="#age6" class="ref"></a> must have the same probability.  In particular, it follows that if we know the distribution of \(R_t\) for all \(t\) then we also know the distribution of \(C_t\) for all \(t\), and in fact we know the joint distribution of \( (R_t, C_t) \) for all \(t\) and hence also the distribution of \(L_t\) for all \(t\).</p>
+
+<p>For fixed \( t \in (0, \infty) \) the total life at \( t \) (the lifetime of the device in service at time \( t \)) is stochastically larger than a generic lifetime. This result, a bit surprising at first, is known as the <dfn>inspection paradox</dfn>. Let \( X \) denote fixed interarrival time.</p>
+
+<div class="unit" id="age8">
+	<p class="math">\( \P(L_t \gt x) \ge \P(X \gt x) \) for \( x \ge 0 \). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that \( L_t = X_{N_t + 1} \). The proof is by conditioning on \( N_t \). An important tool is the fact that if \( A \) and \( B \) are nested events in a probability space (one a subset of the other), then the events are positively correlated, so that \( \P(A \mid B) \ge \P(A) \). Recall that \( F \) is the common CDF of the interarrival times. First
+		\[ \P\left(X_{N_t + 1} \gt x \mid N_t = 0\right) = \P(X_1 \gt x \mid X_1 \gt t) \ge \P(X_1 \gt x) = 1 - F(x) \]
+		Next, for \( n \in \N_+ \),
+		\[ \P\left(X_{N_t + 1} \gt x \mid N_t = n\right) = \P\left(X_{n + 1} \gt x \mid T_n \le t \lt T_{n + 1}\right) = \P(X_{n+1} \gt x \mid T_n \le t \lt T_n + X_{n+1}) \]
+		We condition this additionally on \( T_n \), the time of the \( n \)th arrival. For \( s \le t \), and since \( X_{n+1} \) is independent of \( T_n \), we have
+		\[ \P(X_{n+1} \gt x \mid T_n = s, \, X_{n+1} \gt t - s) = \P(X_{n+1} \gt x \mid X_{n + 1} \gt t - s) \ge \P(X_{n + 1} \gt x) = 1 - F(x) \]
+		It follows that \( \P\left(X_{N_t + 1} \gt x \mid N_t = n\right) \ge 1 - F(x) \) for every \( n \in \N \), and hence
+		\[ \P\left(X_{N_t + 1} \gt x\right) = \sum_{n=0}^\infty \P\left(X_{N_t + 1} \gt x \mid N_t = n\right) \P(N_t = n) \ge \sum_{n=0}^\infty \left[1 - F(x)\right] \P(N_n = n) = 1 - F(x) \]</p>
+	</details>
+</div>
+
+<p>The basic comparison in <a href="#cmp1" class="ref"></a> is often useful, particularly for obtaining various bounds. The idea is very simple: if the interarrival times are shortened, the arrivals occur more frequently.</p>
+
+<div class="unit" id="cmp1">
+<p class="math">Suppose now that we have two interarrival sequences, \(\bs{X} = (X_1, X_2, \ldots)\) and \(\bs{Y} = (Y_1, Y_2, \ldots)\) defined on the same probability space, with \(Y_i \le X_i\) (with probability 1) for each \(i\). Then for \(n \in \N\) and \(t \in [0, \infty)\),</p>
+
+<ol class="sub">
+	<li>\(T_{Y,n} \le T_{X,n}\)</li>
+	<li>\(N_{Y,t} \ge N_{X,t}\)</li>
+	<li>\(m_Y(t) \ge m_X(t)\)</li>
+</ol>
+</div>
+
+<h3 id="exa">Examples and Special Cases</h3>
+
+<h4 id="ber">Bernoulli Trials</h4>
+
+<p>Suppose that \( \bs{X} = (X_1, X_2, \ldots) \) is a sequence of <a href="../bernoulli/index.html">Bernoulli Trials</a> with success parameter \(p \in (0, 1)\). Recall that \(\bs{X}\) is a sequence of independent, identically distributed  indicator variables with \(\P(X = 1) = p\).
+
+<div class="unit" id="ber1">
+	<p class="math">Recall the random processes derived from \(\bs{X}\):</p>
+	<ol class="sub">
+		<li>\(\bs{Y} = (Y_0, Y_1, \ldots)\) where \(Y_n\) the number of success in the first \(n\) trials. The sequence \(\bs{Y}\) is the partial sum process associated with \(\bs{X}\). The variable \(Y_n\) has the <a href="../bernoulli/Binomial.html">binomial distribution</a> with parameters \(n\) and \(p\).</li>
+		<li>\(\bs{U} = (U_1, U_2, \ldots)\) where \(U_n\) the number of trials needed to go from success number \(n - 1\) to success number \(n\). These are independent variables, each having the <a href="../bernoulli/Geometric.html">geometric distribution</a> on \( \N_+ \) with parameter \(p\).</li>
+		<li>\(\bs{V} = (V_0, V_1, \ldots)\) where \(V_n\) is the trial number of success \(n\). The sequence \(\bs{V}\) is the partial sum process associated with \(\bs{U}\). The variable \(V_n\) has the <a href="../bernoulli/NegativeBinomial.html">negative binomial distribution</a> with parameters \(n\) and \(p\).</li>
+	</ol>
+</div>
+
+<p>It is natural to view the successes as arrivals in a discrete-time renewal process.</p>
+
+<div class="unit" id="ber2">
+	<p class="math">Consider the renewal process with interarrival sequence \(\bs{U}\). Then</p>
+	<ol class="sub">
+		<li>The basic assumptions are satisfied and that the mean interarrival time is \(\mu = 1 / p\).</li>
+		<li>\(\bs{V}\) is the sequence of arrival times.</li>
+		<li>\(\bs{Y}\) is the counting process (restricted to \(\N\)).</li>
+		<li>The renewal function is \(M(n) = n p\) for \(n \in \N\).</li>
+	</ol>
+</div>
+
+<p>So from <a href="#ber2" class="ref"></a>, the renewal measure is proportional to counting measure on \(\N_+\).</p>
+
+<div class="unit" id="ber3">
+	<p class="app">Run the <a href="JavaScript:openAncillary('../apps/BinomialTimeline.html')" class="ancillary">binomial timeline experiment</a> 1000 times for various values of the parameters \(n\) and \(p\). Compare the empirical distribution of the counting variable to the true distribution.</p>
+</div>
+
+<div class="unit" id="ber4">
+	<p class="app">Run the <a href="JavaScript:openAncillary('../apps/NegativeBinomial.html')" class="ancillary">negative binomial experiment</a> 1000 times for various values of the parameters \(k\) and \(p\). Compare the empirical distribution of the arrival time to the true distribution.</p>
+</div>
+
+<div class="unit" id="ber5">
+	<p class="math">Consider again the renewal process with interarrival sequence \(\bs{U}\). For \(n \in \N\),</p>
+	<ol class="sub">
+		<li>The current life and remaining life at time \(n\) are independent.</li>
+		<li>The remaining life at time \(n\) has the same distribution as an interarrival time \(U\), namely the geometric distribution on \( \N_+ \) with parameter \(p\).</li>
+		<li>The current life at time \(n\) has a truncated geometric distribution with parameters \(n\) and \(p\):
+		\[ \P(C_n = k) = \begin{cases} p(1 - p)^k, &amp; k \in \{0, 1, \ldots, n - 1\} \\ (1 - p)^n, &amp; k = n \end{cases}	 \]
+		</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follow from <a href="#age6" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>This renewal process starts over, independently of the past, not only at the arrival times, but at fixed times \(n \in \N\) as well. The Bernoulli trials process (with the successes as arrivals) is the only discrete-time renewal process with this property, which is a consequence of the memoryless property of the geometric interarrival distribution.</p>
+
+<p>We can also use the indicator variables as the interarrival times. This may seem strange at first, but actually turns out to be useful.</p>
+
+<div class="unit" id="ber6">
+	<p class="math">Consider the renewal process with interarrival sequence \(\bs{X}\).</p>
+	<ol class="sub">
+		<li>The basic assumptions are satisfied and that the mean interarrival time is \(\mu = p\).</li>
+		<li>\(\bs{Y}\) is the sequence of arrival times.</li>
+		<li>The number of arrivals at time 0 is \(U_1 - 1\) and the number of arrivals at time \(i \in \N_+\) is \(U_{i+1}\).</li>
+		<li>The number of arrivals in the interval \([0, n]\) is \(V_{n+1} - 1\) for \(n \in \N\). This gives the counting process.</li>
+		<li>The renewal function is \(M(n) = \frac{n + 1}{p} - 1\) for \(n \in \N\).</li>
+	</ol>
+</div>
+
+<p>The age processes are not very interesting for this renewal process.</p>
+
+<div class="unit" id="ber7">
+	<p class="math">For \(n \in \N\) (with probability 1),</p>
+	<ol class="sub">
+		<li>\(C_n = 0\)</li>
+		<li>\(R_n = 1\)	</li>
+	</ol>
+</div>
+
+<p>As an application renewal process in <a href="#ber6" class="ref"></a>, we can show that the <a href="../expect/Generating.html#mgf">moment generating function</a> of the counting variable \(N_t\) in an arbitrary renewal process is finite in an interval about 0 for every \(t \in [0, \infty)\). This implies that \(N_t\) has finite moments of all orders and in particular that \(M(t) \lt \infty\) for every \(t \in [0, \infty)\).</p>
+
+<p>Suppose that \(\bs{X} = (X_1, X_2, \ldots)\) is the interarrival sequence for a renewal process. By the basic assumptions, there exists \(a \gt 0\) such that \(p = \P(X \ge a) \gt 0\). We now consider the renewal process with interarrival sequence \(\bs{X}_a = (X_{a,1}, X_{a,2}, \ldots)\), where \(X_{a,i} = a\,\bs{1}(X_i \ge a)\) for \(i \in \N_+\). The renewal process with interarrival sequence \(\bs{X}_a\) is just like the renewal process with Bernoulli interarrivals in <a href="#ber6" class="ref"></a>, except that the arrival times occur at the points in the sequence \((0, a, 2 a, \ldots)\), instead of \( (0, 1, 2, \ldots) \).</p>
+
+<div class="unit" id="mgf1">
+	<p class="math">For each \(t \in [0, \infty)\), \(N_t\) has finite moment generating function in an interval about 0, and hence \( N_t \) has moments of all orders at 0.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note first that \(X_{a,i} \le X_i\) for each \(i \in \N_+\). Recall the moment generating function \(\Gamma\) of the geometric distribution with parameter \(p\) is
+		\[ \Gamma(s) = \frac{e^s p}{1 - (1 - p) e^s}, \quad s \lt -\ln(1 - p) \]
+		But as in <a href="#ber6" class="ref"></a>, \(N_{a,t}\) can be written as \(a (V_{n + 1} - 1)\) where \(n = \lfloor a / t \rfloor\) and where \(V_{n + 1}\) is a sum of \(n + 1\) IID geometric variables, each with parameter \(p\). We don't really care about the explicit form of the MGF of \(N_{a, t}\), but it is clearly finite in an interval of the from \((-\infty, \epsilon)\) where \(\epsilon \gt 0\). But \(N_t \le N_{t,a}\), so its MGF is also finite on this interval.</p>
+	</details>
+</div>
+
+<h4 id="poi">The Poisson Process</h4>
+
+<p>The <a href="../poisson/index.html">Poisson process</a>, named after <a href="JavaScript:openAncillary('../biographies/Poisson.html')" class="ancillary">Simeon Poisson</a>, is the most important of all renewal processes. Here are the essential properties of this process:</p>
+
+<div class="unit" id="poi1">
+	<p class="math">Properties of the Poisson process with rate \( r \in (0, \infty) \).</p>
+	<ol class="sub">
+		<li>The interarrival times have the <a href="../poisson/Exponential.html">exponential distribution</a> with rate parameter \(r\). Thus, the basic assumptions above are satisfied and the mean interarrival time is \(\mu = 1 / r\).</li>
+		<li>The exponential distribution is the only distribution with the memoryless property on \([0, \infty)\).</li>
+		<li>For \(n \in \N_+\), the time of the \(n\)th arrival \(T_n\) has the <a href="../poisson/Gamma.html">gamma distribution</a> with shape parameter \(n\) and rate parameter \(r\).</li>
+		<li>The counting process \(\bs{N} = (N_t: t \ge 0)\) has stationary, independent increments and \(N_t\) has the <a href="../poisson/Poisson.html">Poisson distribution</a> with parameter \(r t\) for \(t \in [0, \infty)\).</li>
+		<li>In particular, the renewal function is \(m(t) = r t\) for \(t \in [0, \infty)\).</li>
+	</ol>
+</div>
+
+<p>Note that the renewal measure is a multiple of the standard measure (Lebesgue measure) on \([0, \infty)\).</p>
+
+<div class="unit" id="poi2">
+	<p class="math">Consider again the Poisson process with rate parameter \(r\). For \(t \in [0, \infty)\),</p>
+	<ol class="sub">
+		<li>The current life and remaining life at time \(t\) are independent.</li>
+		<li>The remaining life at time \(t\) has the same distribution as an interarrival time \(X\), namely the exponential distribution with rate parameter \(r\).</li>
+		<li>The current life at time \(t\) has a truncated exponential distribution with parameters \(t\) and \(r\):
+		\[ \P(C_t \ge s) = \begin{cases} e^{-r s}, &amp; 0 \le s \le t \\ 0, &amp; s \gt t \end{cases} \]
+		</li>
+	</ol>
+	<details>
+	<summary>Details:</summary>
+		<p>These results follow from <a href="#age6" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>The Poisson process starts over, independently of the past, not only at the arrival times, but at fixed times \(t \in [0, \infty)\) as well. The Poisson process is the only renewal process with this property, which is a consequence of the memoryless property of the exponential interarrival distribution.</p>
+
+<div class="unit" id="poi3">
+	<p class="app">Run the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a> 1000 times for various values of the parameters \(t\) and \(r\). Compare the empirical distribution of the counting variable to the true distribution.</p>
+</div>
+
+<div class="unit" id="poi4">
+	<p class="app">Run the <a href="JavaScript:openAncillary('../apps/Gamma.html')" class="ancillary">gamma experiment</a> 1000 times for various values of the parameters \(n\) and \(r\). Compare the empirical distribution of the arrival time to the true distribution.</p>
+</div>
+
+<h4 id="sim">Simulation Exercises</h4>
+
+<div class="unit">
+	<p class="app">Open the <a href="JavaScript:openAncillary('../apps/Renewal.html')" class="ancillary">renewal experiment</a> and set \( t = 10 \). For each of the following interarrival distributions, run the simulation 1000 times and note the shape and location of the empirical distribution of the counting variable. Note also the mean of the interarrival distribution in each case.</p>
+	<ol class="sub">
+		<li>The <a href="../special/UniformContinuous.html">continuous uniform distribution</a> on the interval \( [0, 1] \) (the standard uniform distribution).</li>
+		<li>the <a href="../special/UniformDiscrete.html">discrete uniform distribution</a> starting at \( a = 0 \), with step size \( h = 0.1 \), and with \( n = 10 \) points.</li>
+		<li>The <a href="../special/Gamma.html">gamma distribution</a> with shape parameter \( k = 2 \) and scale parameter \( b = 1 \).</li>
+		<li>The <a href="../special/Beta.html">beta distribution</a> with left shape parameter \( a = 3 \) and right shape parameter \( b = 2 \).</li>
+		<li>The <a href="../special/ExponentialLogarithmic.html">exponential-logarithmic distribution</a> with shape parameter \( p = 0.1 \) and scale parameter \( b = 1 \).</li>
+		<li>The <a href="../special/Gompertz.html">Gompertz distribution</a> with shape paraemter \( a = 1 \) and scale parameter \( b = 1 \).</li>
+		<li>The <a href="../special/Wald.html">Wald distribution</a> with mean \( \mu = 1 \) and shape parameter \( \lambda = 1 \).</li>
+		<li>The <a href="../special/Weibull.html">Weibull distribution</a> with shape parameter \( k = 2 \) and scale parameter \( b = 1 \).</li>
+	</ol>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">14. Renewal Processes</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Equations.html" title="Renewal Equations">2</a></li>
+		<li class="child"><a href="LimitTheorems.html" title="Renewal Limit Theorems">3</a></li>
+		<li class="child"><a href="Delayed.html" title="Delayed Renewal Processes">4</a></li>
+		<li class="child"><a href="Alternating.html" title="Alternating Renewal Processes">5</a></li>
+		<li class="child"><a href="Reward.html" title="Renewal Reward Processes">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

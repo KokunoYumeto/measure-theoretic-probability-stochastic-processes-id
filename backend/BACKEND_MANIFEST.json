@@ -1,0 +1,124 @@
+{
+  "build_manifest_sha256": "c7dcaf31439066f3a2191937bcad7dce18dba5d4044bdaa25c7b434dcf369c3d",
+  "build_receipt_sha256": "4764287c8a64a1b566074dfe95a2a786532044a35e9318fe266cd1fc4468b0d1",
+  "entity_count": 123,
+  "exporter_sha256": "457a059db310a180e82f704c9284c8ac9f210958325e66d88f8700e3183b5575",
+  "files": [
+    {
+      "bytes": 3893,
+      "path": "aliases.csv",
+      "sha256": "78997c80d7146873b953c646667d182b1fd909e0d991efc8ada9f54c50125c8d"
+    },
+    {
+      "bytes": 1092,
+      "path": "aliases.csv.schema.json",
+      "sha256": "f9ddd1f140ffe93812879fe2541ea013e9d398b8e00ecb6e57498dbe7a519bbb"
+    },
+    {
+      "bytes": 2470,
+      "path": "artifacts.csv",
+      "sha256": "ef3ded766ac33fef3ffa8396cccb8fd0055bcd8e9b50dc2b002e5a112c357460"
+    },
+    {
+      "bytes": 1385,
+      "path": "artifacts.csv.schema.json",
+      "sha256": "eb69a25a0a190b7d1a7a42e296fc5bae47e3858be7ca38394281dc800830206f"
+    },
+    {
+      "bytes": 664,
+      "path": "corrections.csv",
+      "sha256": "131d8428a2b80c32e11ce5394fec1d0f93623e9657aa9a624dfa1ab975f76cec"
+    },
+    {
+      "bytes": 1167,
+      "path": "corrections.csv.schema.json",
+      "sha256": "6c17d5f02720545116045cdfc9716b4c2ed26e2989378ddb9cc72a7bda05c61e"
+    },
+    {
+      "bytes": 103853,
+      "path": "entities.jsonl",
+      "sha256": "dcc615063305bbbd81227229eb1ebb0fad807447a48a39bb2752357f0755eb53"
+    },
+    {
+      "bytes": 3269,
+      "path": "entity.schema.json",
+      "sha256": "7ed5358d94341b94e2094bac8747783cc7d158d27671f766787a7792f1f117ee"
+    },
+    {
+      "bytes": 654,
+      "path": "outcomes.csv",
+      "sha256": "c7510cb7e450ea03b144b6e8f0549fe62a06679abaf5ed499487a9d602d5211a"
+    },
+    {
+      "bytes": 1153,
+      "path": "outcomes.csv.schema.json",
+      "sha256": "3cced081f903fc8503f59db2203d6c733da96a1e6ee54e04375de56f844b99ea"
+    },
+    {
+      "bytes": 1616,
+      "path": "qa_events.csv",
+      "sha256": "7e1bc776a497de58077ce42b005362dd734c31bde8c56a0b5b7b37191b07451d"
+    },
+    {
+      "bytes": 1338,
+      "path": "qa_events.csv.schema.json",
+      "sha256": "8d682612e511a46f952a3b5170db84065fae77afa7ffb2ca2df49bd1cde3219a"
+    },
+    {
+      "bytes": 21277,
+      "path": "relations.csv",
+      "sha256": "2996dd751c4bfd74e9d52e34e81d3ccc85577bd499a8b618bb4950d3efde3d93"
+    },
+    {
+      "bytes": 1203,
+      "path": "relations.csv.schema.json",
+      "sha256": "4c45d9532f4e2cc32698f5598f98705f03d6b4dee5d244f03f38b5795a542368"
+    },
+    {
+      "bytes": 253221,
+      "path": "segments.jsonl",
+      "sha256": "c522cd224b80f89b0fc7d8fe1d6544fbb6c1e0b3c7e77a85bbb0ede005698176"
+    },
+    {
+      "bytes": 1377,
+      "path": "terms.csv",
+      "sha256": "cc8c762cbb7ff262972b2089d7171a2d6bd51c689f09876713c0bd802beb9a3c"
+    },
+    {
+      "bytes": 961,
+      "path": "terms.csv.schema.json",
+      "sha256": "8e40a6223849aa5e00fca740f8da51a0d207bad07ff163aa1fdfacb14bb1fd3c"
+    },
+    {
+      "bytes": 1891,
+      "path": "translations.csv",
+      "sha256": "4d144b193203ddba89fbaa68e409f13d401a929a98856444736a931ac48262a7"
+    },
+    {
+      "bytes": 1572,
+      "path": "translations.csv.schema.json",
+      "sha256": "af0c491fc8735ad385d3428c3a741e2277ca97593b8bdc463df722579d5ebdb0"
+    },
+    {
+      "bytes": 13886,
+      "path": "unit_map.csv",
+      "sha256": "8b38ec57e3ccc68f1b8c419f9efa182e61f6f589aa512b29c8d9e8e0289a2f33"
+    },
+    {
+      "bytes": 1249,
+      "path": "unit_map.csv.schema.json",
+      "sha256": "afdfab3ef6107b62ec6d556c393253929c1cc93956e7aef999d87aabde893f92"
+    }
+  ],
+  "generated": "2026-08-21T11:00:56.872828+00:00",
+  "input_set_sha256": "1a70b701cf6dcdb60b379ab9fffe9720506d2a0e408ef0a0da528467b3ad710d",
+  "qa_failures": [],
+  "relation_count": 103,
+  "schema": "o009.backend-manifest.v2",
+  "segment_count": 217,
+  "timestamp_source": {
+    "artifact_id": "artifact.input.site-build-receipt",
+    "field": "built_at_utc",
+    "sha256": "4764287c8a64a1b566074dfe95a2a786532044a35e9318fe266cd1fc4468b0d1"
+  }
+}

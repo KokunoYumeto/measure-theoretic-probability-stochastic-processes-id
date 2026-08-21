@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Geometric Brownian Motion</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, geometric Brownian motion, Brownian motion, lognormal distribution">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\( \newcommand{\P}{\mathbb{P}} \)
+	\( \newcommand{\E}{\mathbb{E}} \) 
+	\( \newcommand{\R}{\mathbb{R}} \) 
+	\( \newcommand{\N}{\mathbb{N}} \)
+	\( \newcommand{\Z}{\mathbb{Z}} \)
+	\( \newcommand{\bs}{\boldsymbol} \)
+	\( \newcommand{\cov}{\text{cov}} \)
+	\( \newcommand{\cor}{\text{cor}} \)
+	\( \newcommand{\var}{\text{var}} \)
+	\( \newcommand{\sd}{\text{sd}} \)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Brownian Motion</a></li>
+		<li class="child"><a href="Standard.html" title="Standard Brownian Motion">1</a></li>
+		<li class="child"><a href="Drift.html" title="Brownian Motion with Drift">2</a></li>
+		<li class="child"><a href="Bridge.html" title="The Brownian Bridge">3</a></li>
+		<li class="current">4</li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>6. Geometric Brownian Motion</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<p>Geometric Brownian motion, and other stochastic processes constructed from it, are often used to model population growth, financial processes (such as the price of a stock over time), subject to random <q>noise</q>.</p>
+
+<h4 id="def">Definition</h4>
+
+<div class="unit" id="def1">
+	<p class="dfn">Suppose that \( \bs{Z} = \{Z_t: t \in [0, \infty)\} \) is <a href="Standard.html">standard Brownian motion</a> and that \( \mu \in \R \) and \( \sigma \in (0, \infty) \). Let
+	\[ X_t = \exp\left[\left(\mu - \frac{\sigma^2}{2}\right) t + \sigma Z_t\right], \quad t \in [0, \infty) \]
+	The stochastic process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is <dfn>geometric Brownian motion</dfn> with <dfn>drift parameter</dfn> \( \mu \) and <dfn>volatility parameter</dfn> \( \sigma \).</p>
+</div>
+
+<p>Note that the stochastic process 
+\[ \left\{\left(\mu - \frac{\sigma^2}{2}\right) t + \sigma Z_t:  t \in [0, \infty) \right\} \] 
+is Brownian motion with <a href="Drift.html">drift parameter</a> \( \mu - \sigma^2 / 2 \) and scale parameter \( \sigma \), so geometric Brownian motion is simply the exponential of this process. In particular, the process is always positive, one of the reasons that geometric Brownian motion is used to model financial and other processes that cannot be negative. Note also that \( X_0 = 1 \), so the process starts at 1, but we can easily change this. For \( x_0 \in (0, \infty) \), the process \(\{x_0 X_t: t \in [0, \infty)\}\) is geometric Brownian motion <dfn>starting at</dfn> \( x_0 \). You may well wonder about the particular combination of parameters \( \mu - \sigma^2 / 2 \) in the definition. The short answer to the question is given in the following theorem:</p>
+
+<div class="unit" id="def2">
+	<p class="math">Geometric Brownian motion \( \bs{X} = \{X_t: t \in [0, \infty)\} \) satisfies the stochastic differential equation
+	\[ d X_t = \mu X_t \, dt + \sigma X_t \, dZ_t \]</p>
+</div>
+
+<p>Note that the deterministic part of this equation is the standard differential equation for exponential growth or decay, with rate parameter \( \mu \). </p>
+
+<div class="unit" id="def3">
+	<p class="app">Run the simulation of <a href="JavaScript:openAncillary('../apps/GeometricBrownianMotion.html')" class="ancillary">geometric Brownian motion</a> several times in single step mode for various values of the parameters. Note the behavior of the process.</p>
+</div>
+
+<h4 id="dst">Distributions</h4>
+
+<div class="unit" id="dst1">
+	<p class="math">For \( t \in (0, \infty) \), \( X_t \) has the <a href="../special/LogNormal.html">lognormal distribution</a> with parameters \( \left(\mu - \frac{\sigma^2}{2}\right)t \) and \( \sigma \sqrt{t} \). The probability density function \( f_t \) is given by
+	\[ f_t(x) = \frac{1}{\sqrt{2 \pi t} \sigma x} \exp \left(-\frac{\left[\ln(x) - \left(\mu - \sigma^2 / 2\right)t \right]^2}{2 \sigma^2 t} \right), \quad x \in (0, \infty) \]</p>
+	<ol class="sub">
+		<li>\( f \) increases and then decreases with mode at \( x = \exp\left[\left(\mu - \frac{3}{2} \sigma^2\right)t\right]\)</li>
+		<li>\( f \) is concave upward, then downward, then upward again with inflection points at \( x = \exp\left[(\mu - \sigma^2) t \pm \frac{1}{2} \sigma \sqrt{\sigma^2 t^2 + 4 t}\right] \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Since the variable \(U_t = \left(\mu - \sigma^2 / 2\right) t + \sigma Z_t\) has the normal distribution with mean \( (\mu - \sigma^2/2)t \) and standard deviation \( \sigma \sqrt{t} \), it follows that \( X_t = \exp(U_t) \) has the lognormal distribution with these parameters.  These result for the PDF then follow directly from the corresponding results for the lognormal PDF.</p>
+	</details>
+</div>
+
+<p>In particular, geometric Brownian motion is not a Gaussian process.</p>
+
+<div class="unit" id="dst2">
+	<p class="app">Open the simulation of <a href="JavaScript:openAncillary('../apps/GeometricBrownianMotion.html')" class="ancillary">geometric Brownian motion</a>. Vary the parameters and note the shape of the probability density function of \( X_t \). For various values of the parameters, run the simulation 1000 times and compare the empirical density function to the true probability density function.</p>
+</div>
+
+<div class="unit" id="dst3">
+	<p class="math">For \( t \in (0, \infty) \), the <a href="../dist/CDF.html">distribution function</a> \( F_t \) of \( X_t \) is given by
+	\[ F_t(x) = \Phi\left[\frac{\ln(x) - (\mu - \sigma^2/2)t}{\sigma \sqrt{t}}\right], \quad x \in (0, \infty) \]
+	where \( \Phi \) is the standard normal distribution function.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, this follows directly from the CDF of the lognormal distribution.</p>
+	</details>
+</div>
+
+<div class="unit" id="dist4">
+	<p class="math">For \( t \in (0, \infty) \), the quantile function \( F_t^{-1} \) of \( X_t \) is given by
+	\[ F_t^{-1}(p) = \exp\left[(\mu - \sigma^2 / 2)t + \sigma \sqrt{t} \Phi^{-1}(p)\right], \quad p \in (0, 1) \]
+	where \( \Phi^{-1} \) is the standard normal quantile function.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows directly from the lognormal quantile function.</p>
+	</details>
+</div>
+
+<h4 id="mom">Moments</h4>
+
+<div class="unit" id="mom1">
+	<p class="math">For \( n \in \N \) and \( t \in [0, \infty) \),
+	\[ \E\left(X_t^n\right) = \exp\left\{\left[n \mu + \frac{\sigma^2}{2}(n^2 - n)\right] t\right\} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows from the formula for the moments of the <a href="../special/LogNormal.html">lognormal distribution</a>.</p>
+	</details>
+</div>
+
+<p>In terms of the order of the moment \( n \), the dominant term inside the exponential is \( \sigma^2 n^2 / 2 \). If \( n \gt 1 - 2 \mu / \sigma^2 \) then \( n \mu + \frac{\sigma^2}{2}(n^2 - n) \gt 0 \) so \( \E(X_t^n) \to \infty \) as \( t \to \infty \). The mean and variance follow easily from the general moment result.</p>
+
+<div class="unit" id="mom2">
+	<p class="math">For \( t \in [0, \infty) \),</p>
+	<ol class="sub">
+		<li>\( \E(X_t) = e^{\mu t} \)</li>
+		<li>\( \var(X_t) = e^{2 \mu t} \left(e^{\sigma^2 t} - 1\right) \)</li>
+	</ol>
+</div>
+
+<p>In particular, note that the mean function \( m(t) = \E(X_t) = e^{\mu t} \) for \( t \in [0, \infty) \) satisfies the deterministic part of the stochastic differential equation in <a href="#def2" class="ref"></a>.</p>
+
+<div class="unit" id="mom3">
+	<p class="math">Asymptotic behavior:</p>
+	<ol class="sub">
+		<li>If \( \mu \gt 0 \) then \( m(t) \to \infty \) as \( t \to \infty \).</li>
+		<li>If \( \mu = 0 \) then \( m(t) = 1 \) for all \( t \in [0, \infty) \).</li>
+		<li>If \( \mu \lt 0 \) then \( m(t) \to 0 \) as \( t \to \infty \).</li>
+	</ol>
+</div>
+
+<div class="unit" id="mom4">
+	<p class="app">Open the simulation of <a href="JavaScript:openAncillary('../apps/GeometricBrownianMotion.html')" class="ancillary">geometric Brownian motion</a>. The graph of the mean function \( m \) is shown as a blue curve in the main graph box. For various values of the parameters, run the simulation 1000 times and note the behavior of the random process in relation to the mean function.</p>
+</div>
+
+<div class="unit" id="mom5">
+	<p class="app">Open the simulation of <a href="JavaScript:openAncillary('../apps/GeometricBrownianMotion.html')" class="ancillary">geometric Brownian motion</a>. Vary the parameters and note the size and location of the mean\( \pm \)standard deviation bar for \( X_t \). For various values of the parameter, run the simulation 1000 times and compare the empirical mean and standard deviation to the true mean and standard deviation.</p>
+</div>
+
+<h4 id="prp">Properties</h4>
+
+<p>The parameter \( \mu - \sigma^2 / 2 \) determines the asymptotic behavior of geometric Brownian motion.</p>
+
+<div class="unit" id="prp1">
+	<p class="math">Asymptotic behavior:</p>
+	<ol class="sub">
+		<li>If \( \mu \gt \sigma^2 / 2 \) then \( X_t \to \infty \) as \( t \to \infty \) with  probability 1.</li>
+		<li>If \( \mu \lt \sigma^2 / 2 \) then \( X_t \to 0 \) as \( t \to \infty \) with  probability 1.</li>
+		<li>If \( \mu = \sigma^2 / 2 \) then \( X_t \) has no limit as \( t \to \infty \) with  probability 1.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These results follow from the <a href="Standard.html#lil">law of the iterative logarithm</a>. Asymptotically, the term \( \left(\mu - \sigma^2 / 2\right) t \) dominates the term \( \sigma Z_t \) as \( t \to \infty \).</p>
+	</details>
+</div>
+
+<p>It's interesting to compare <a href="#prp1" class="ref"></a> with <a href="#mom3" class="ref"></a>, which depends only on the parameter \( \mu \).  When the drift parameter is 0, geometric Brownian motion is a <a href="../martingales/index.html">martingale</a>.</p>
+
+<div class="unit">
+	<p class="math">If \( \mu = 0 \), geometric Brownian motion \( \bs{X} \) is a martingale with respect to the underlying Brownian motion \( \bs{Z} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p><strong>Proof from stochastic integrals:</strong> This is the simplest proof. When \( \mu = 0 \), \( \bs{X} \) satisfies the stochastic differential equation \( d X_t = \sigma X_t \, dZ_t \) and therefore
+		\[ X_t = 1 + \sigma \int_0^t X_s \, dZ_s, \quad t \ge 0 \]
+		The process associated with a stochastic integral is always a martingale, assuming the usual assumptions on the integrand process (which are satisfied here).</p>
+		<p><strong>Direct proof:</strong> Let \( \mathscr{F}_t = \sigma\{Z_s: 0 \le s \le t\} \) for \( t \in [0, \infty) \), so that \( \mathfrak{F} = \{\mathscr{F}_t: t \in [0, \infty)\} \) is the natural filtration associated with \( \bs{Z} \). Let \( s, \, t \in [0, \infty) \) with \( s \le t \). We use our usual trick of writing \( Z_t = Z_s + (Z_t - Z_s) \), to take advantage of the stationary and independent increments properties of Brownian motion. Thus,
+		\[ X_t = \exp\left[-\frac{\sigma^2}{2} t + \sigma Z_s + \sigma (Z_t - Z_s)\right] \]
+		Since \( Z_s \) is measurable with respect to \( \mathscr{F}_s \) and \( Z_t - Z_s \) is independent of \( \mathscr{F}_s \) we have
+		\[ \E\left(X_t \mid \mathscr{F}_s\right) = \exp\left(-\frac{\sigma^2}{2} t + \sigma Z_s\right) \E\left\{\exp\left[\sigma(Z_t - Z_s)\right]\right\} \]
+		But \( Z_t - Z_s \) has the normal distribution with mean 0 and variance \( t - s \), so from the formula for the moment generating function of the normal distribution, we have 
+		\[ \E\left\{\exp\left[\sigma(Z_t - Z_s)\right]\right\} = \exp\left[\frac{\sigma^2}{2}(t - s)\right] \]
+		Substituting gives 
+		\[ \E\left(X_t \mid \mathscr{F}_s\right) = \exp\left(-\frac{\sigma^2}{2} s + \sigma Z_s\right) = X_s \]
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Brownian Motion</a></li>
+		<li class="child"><a href="Standard.html" title="Standard Brownian Motion">1</a></li>
+		<li class="child"><a href="Drift.html" title="Brownian Motion with Drift">2</a></li>
+		<li class="child"><a href="Bridge.html" title="The Brownian Bridge">3</a></li>
+		<li class="current">4</li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

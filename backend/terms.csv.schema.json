@@ -1,0 +1,56 @@
+{
+  "$id": "https://example.invalid/o009/backend/terms.csv.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "en": {
+      "type": "string"
+    },
+    "id_ID": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "scope": {
+      "enum": [
+        "course",
+        "lab"
+      ],
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "admitted",
+        "provisional"
+      ],
+      "type": "string"
+    },
+    "term_id": {
+      "pattern": "^O009-T\\d{4}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "term_id",
+    "en",
+    "id_ID",
+    "status",
+    "scope",
+    "note"
+  ],
+  "title": "Strict row schema for terms.csv",
+  "type": "object",
+  "x-csv": {
+    "encoding": "utf-8",
+    "header": [
+      "term_id",
+      "en",
+      "id_ID",
+      "status",
+      "scope",
+      "note"
+    ],
+    "line_ending": "CRLF"
+  }
+}

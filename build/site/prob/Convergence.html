@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+<head>
+<meta charset="utf-8"/>
+<title>Kekonvergenan</title>
+<meta content="Kyle Siegrist" name="author"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="probabilitas, statistika, kejadian naik, kejadian turun, teorema kekontinuan, lemma Borel-Cantelli, konvergensi dengan probabilitas 1, konvergensi dalam probabilitas" name="keywords"/>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>
+<link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="../Basic.js"></script>
+<script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
+<link href="../reader.css" rel="stylesheet"/></head>
+<body>
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Q}{\mathbb{Q}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\ms}{\mathscr}\)
+</div>
+<header>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="https://www.randomservices.org/random/prob/index.html">1. Ruang Probabilitas</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Experiments.html" title="Eksperimen Acak">1</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Events.html" title="Kejadian dan Peubah Acak">2</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Probability.html" title="Ukuran Probabilitas">3</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Conditional.html" title="Probabilitas Bersyarat">4</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Independence.html" title="Kebebasan">5</a></li>
+<li class="current">6</li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Probability2.html" title="Ruang Probabilitas Ditinjau Kembali">7</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Processes.html" title="Proses Stokastik">8</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Stop.html" title="Filtrasi dan Waktu Henti">9</a></li>
+<li class="details"><button onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
+</ol>
+<h2>6. Kekonvergenan</h2>
+</header><aside class="component-attribution" id="o009-rights-random-convergence">
+<strong>Asal komponen.</strong> Terjemahan halaman <cite>Convergence</cite>
+karya Kyle Siegrist, dari cuplikan situs Random bertanggal 13 Maret 2026.
+Halaman resmi Random saat ini memuat saksi CC BY 2.0 pada beranda dan
+CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
+atribusi. <a href="https://www.randomservices.org/random/prob/Convergence.html">Baca sumber resmi</a>.
+</aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
+<a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a></nav>
+<blockquote>
+<q>Kutu besar memiliki kutu-kutu kecil di punggung yang menggigitnya, <br/>
+	Dan kutu kecil memiliki kutu yang lebih kecil, demikianlah seterusnya tanpa akhir.<br/>
+	Dan kutu-kutu besar itu sendiri, pada gilirannya, memiliki kutu lebih besar yang menumpang;<br/>
+	Sementara kutu-kutu itu memiliki yang lebih besar lagi, semakin besar, dan seterusnya.</q><br/>
+	—<a class="ancillary" href="https://www.randomservices.org/random/biographies/DeMorgan.html">Agustus De Morgan</a>, <cite>A Budget of Paradoxes</cite>
+</blockquote>
+<p>Di bagian ini kita membahas beberapa topik yang berkaitan dengan kekonvergenan kejadian dan peubah acak, suatu pokok yang sangat mendasar dalam teori probabilitas. Secara khusus, hasil-hasil yang kita peroleh akan penting bagi sifat-sifat <a href="https://www.randomservices.org/random/dist/CDF.html">fungsi distribusi</a> serta <a href="https://www.randomservices.org/random/sample/LLN.html">hukum bilangan besar</a> lemah dan kuat. Seperti biasa, titik awal kita adalah sebuah <a href="https://www.randomservices.org/random/prob/Experiments.html">eksperimen acak</a> yang dimodelkan oleh <a href="https://www.randomservices.org/random/prob/Probability.html">ruang probabilitas</a> \( (S, \ms S, \P) \). Sebagai tinjauan, \( S \) adalah himpunan hasil, \( \ms S \) adalah aljabar-\( \sigma \) kejadian, dan \( \P \) adalah ukuran probabilitas pada ruang sampel \( (S, \ms S) \).</p>
+<h3>Teori Dasar</h3>
+<h4 id="seq">Barisan kejadian</h4>
+<p>Pembahasan pertama kita berkenaan dengan barisan kejadian dan berbagai jenis limit barisan tersebut. Limit-limit itu juga merupakan kejadian. Kita mulai dengan dua definisi sederhana.</p>
+<div class="unit" id="seq1">
+<p class="dfn">Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian.</p>
+<ol class="sub">
+<li>Barisan tersebut <dfn>naik</dfn> jika \( A_n \subseteq A_{n+1} \) untuk setiap \( n \in \N_+ \).</li>
+<li>Barisan tersebut <dfn>turun</dfn> jika \( A_{n+1} \subseteq A_n \) untuk setiap \( n \in \N_+ \).</li>
+</ol>
+</div>
+<p>Perhatikan bahwa ini adalah definisi baku untuk <a href="https://www.randomservices.org/random/foundations/Order.html">naik dan turun</a> relatif terhadap urutan total biasa \( \le \) pada himpunan indeks \( \N_+ \) dan urutan parsial himpunan bagian \( \subseteq \) pada koleksi kejadian. Istilah ini juga dijelaskan oleh peubah indikator yang bersesuaian.</p>
+<div class="unit" id="seq2">
+<p class="math">Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian, dan misalkan \(I_n = \bs 1_{A_n}\) menyatakan peubah indikator kejadian \(A_n\) untuk \(n \in \N_+\). </p>
+<ol class="sub">
+<li>Barisan kejadian tersebut naik jika dan hanya jika barisan peubah indikatornya naik dalam pengertian biasa. Artinya, \(I_n \le I_{n+1}\) untuk setiap \(n \in \N_+\).</li>
+<li>Barisan kejadian tersebut turun jika dan hanya jika barisan peubah indikatornya turun dalam pengertian biasa. Artinya, \(I_{n+1} \le I_n\) untuk setiap \(n \in \N_+\).</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<p>Kedua bagian mengikuti fakta bahwa jika \( A \) dan \( B \) adalah kejadian, maka \( A \subseteq B \) jika dan hanya jika \( \bs 1_A \le \bs 1_B \). Untuk melihatnya, perhatikan bahwa \( A \subseteq B \) jika dan hanya jika \( s \in A \) mengakibatkan \( s \in B \) untuk \( s \in S \), jika dan hanya jika \( \bs 1_A(s) = 1 \) mengakibatkan \( \bs 1_B(s) = 1 \) untuk \( s \in S \). Karena fungsi indikator hanya bernilai 0 dan 1, pernyataan terakhir ekuivalen dengan \( \bs 1_A \le \bs 1_B \).</p>
+</details>
+</div>
+<figure>
+<figcaption>Barisan kejadian naik beserta gabungannya</figcaption>
+<img alt="Barisan kejadian naik" src="Increasing1.png"/>
+<figcaption>Barisan kejadian turun beserta irisannya</figcaption>
+<img alt="Barisan kejadian turun" src="Decreasing.png"/>
+</figure>
+<p>Jika suatu barisan kejadian naik atau turun, kita dapat mendefinisikan <dfn>limit</dfn> barisan itu dengan cara yang ternyata cukup alami.</p>
+<div class="unit" id="seq3">
+<p class="dfn">Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian.</p>
+<ol class="sub">
+<li>Jika barisan tersebut naik, kita definisikan \( \lim_{n \to \infty} A_n = \bigcup_{n=1}^\infty A_n \).</li>
+<li>Jika barisan tersebut turun, kita definisikan \( \lim_{n \to \infty} A_n = \bigcap_{n=1}^\infty A_n \).</li>
+</ol>
+</div>
+<p>Sekali lagi, istilah tersebut dijelaskan oleh peubah indikator yang bersesuaian.</p>
+<div class="unit" id="evt1">
+<p class="math">Misalkan lagi bahwa \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian, dan misalkan \(I_n = \bs 1_{A_n}\) menyatakan peubah indikator \(A_n\) untuk \(n \in \N_+\).</p>
+<ol class="sub">
+<li>Jika barisan kejadian tersebut naik, maka \( \lim_{n \to \infty} I_n \) adalah peubah indikator dari \( \bigcup_{n = 1}^\infty A_n \)</li>
+<li>Jika barisan kejadian tersebut turun, maka \( \lim_{n \to \infty} I_n \) adalah peubah indikator dari \( \bigcap_{n = 1}^\infty A_n \)</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<ol class="sub">
+<li>Jika \( s \in \bigcup_{n=1}^\infty A_n\), maka \( s \in A_k \) untuk suatu \( k \in \N_+ \). Karena kejadian-kejadian tersebut naik, \( s \in A_n \) untuk setiap \( n \ge k \). Dalam kasus ini, \( I_n(s) = 1 \) untuk setiap \( n \ge k \), sehingga \( \lim_{n \to \infty} I_n(s) = 1 \). Sebaliknya, jika \( s \notin \bigcup_{n=1}^\infty A_n \), maka \( s \notin A_n \) untuk setiap \( n \in \N_+ \). Dalam kasus ini, \( I_n(s) = 0\) untuk setiap \( n \in \N_+ \), sehingga \( \lim_{n \to \infty} I_n(s) = 0 \).</li>
+<li>Jika \( s \in \bigcap_{n=1}^\infty A_n \), maka \( s \in A_n \) untuk setiap \( n \in \N_+ \). Dalam kasus ini, \( I_n(s) = 1 \) untuk setiap \( n \in \N_+ \), sehingga \( \lim_{n \to \infty} I_n(s) = 1 \). Jika \( s \notin \bigcap_{n=1}^\infty A_n\), maka \( s \notin A_k \) untuk suatu \( k \in \N_+ \). Karena kejadian-kejadian tersebut turun, \( s \notin A_n \) untuk semua \( n \ge k \). Dalam kasus ini, \( I_n(s) = 0 \) untuk \( n \ge k \), sehingga \( \lim_{n \to \infty} I_n(s) = 0 \).</li>
+</ol>
+</details>
+</div>
+<p>Gabungan sebarang kejadian selalu dapat ditulis sebagai gabungan kejadian-kejadian naik, dan irisan sebarang kejadian selalu dapat ditulis sebagai irisan kejadian-kejadian turun:</p>
+<div class="unit" id="evt2">
+<p class="math">Misalkan \((A_1, A_2, \ldots)\) adalah suatu barisan kejadian. Maka</p>
+<ol class="sub">
+<li>\(\bigcup_{i = 1}^ n A_i\) naik terhadap \(n \in \N_+\) dan \(\bigcup_{i = 1}^\infty A_i = \lim_{n \to \infty} \bigcup_{i = 1}^n A_i\).</li>
+<li>\(\bigcap_{i=1}^n A_i\) turun terhadap \(n \in \N_+\) dan \(\bigcap_{i=1}^\infty A_i = \lim_{n \to \infty} \bigcap_{i=1}^n A_i\).</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<ol class="sub">
+<li>Jelas bahwa \( \bigcup_{i=1}^n A_i \subseteq \bigcup_{i=1}^{n+1} A_i \). Pernyataan kedua hanya berarti bahwa \( \bigcup_{n=1}^\infty \bigcup_{i  = 1}^n A_i = \bigcup_{i=1}^\infty A_i\).</li>
+<li>Jelas bahwa \( \bigcap_{i=1}^{n+1} A_i \subseteq \bigcap_{i=1}^n A_i \). Pernyataan kedua hanya berarti bahwa \( \bigcap_{n=1}^\infty \bigcap_{i=1}^n A_i = \bigcap_{i=1}^\infty A_i \).</li>
+</ol>
+</details>
+</div>
+<p>Ada cara yang lebih menarik dan berguna untuk membentuk barisan naik dan turun dari sebarang barisan kejadian, yakni dengan menggunakan segmen <em>ekor</em> barisan alih-alih segmen <em>awal</em>.</p>
+<div class="unit" id="evt3">
+<p class="math">Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian. Maka</p>
+<ol class="sub">
+<li>\(\bigcup_{i=n}^\infty A_i\) turun terhadap \(n \in \N_+\).</li>
+<li>\(\bigcap_{i=n}^\infty A_i\) naik terhadap \(n \in \N_+\).</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<ol class="sub">
+<li>Jelas bahwa \(\bigcup_{i=n+1}^\infty A_i \subseteq \bigcup_{i=n}^\infty A_i\) </li>
+<li>Jelas bahwa \(\bigcap_{i=n}^\infty A_i \subseteq \bigcap_{i=n+1}^\infty A_i\)</li>
+</ol>
+</details>
+</div>
+<p>Karena barisan-barisan baru yang didefinisikan dalam <a class="ref" href="#evt3"></a> masing-masing turun dan naik, kita dapat mengambil limitnya. Limit-limit ini masing-masing adalah <dfn>limit superior</dfn> dan <dfn>limit inferior</dfn> dari barisan asal.</p>
+<div class="unit" id="evt4">
+<p class="dfn">Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian. Definisikan</p>
+<ol class="sub">
+<li>\( \limsup_{n \to \infty} A_n = \lim_{n \to \infty} \bigcup_{i=n}^\infty A_i = \bigcap_{n=1}^\infty \bigcup_{i=n}^\infty A_i \). Ini adalah kejadian yang terjadi jika dan hanya jika \( A_n \) terjadi untuk tak hingga banyak nilai \( n \).</li>
+<li>\( \liminf_{n \to \infty} A_n = \lim_{n \to \infty} \bigcap_{i=n}^\infty A_i = \bigcup_{n=1}^\infty \bigcap_{i=n}^\infty A_i \). Ini adalah kejadian yang terjadi jika dan hanya jika \( A_n \) terjadi untuk semua kecuali berhingga banyak nilai \( n \).</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<ol class="sub">
+<li>Dari definisi tersebut, kejadian \( \limsup_{n \to \infty} A_n \) terjadi jika dan hanya jika untuk setiap \( n \in \N_+ \) terdapat \( i \ge n \) sedemikian sehingga \( A_i \) terjadi.</li>
+<li>Dari definisi tersebut, kejadian \( \liminf_{n \to \infty} A_n \) terjadi jika dan hanya jika terdapat \( n \in \N_+ \) sedemikian sehingga \( A_i \) terjadi untuk setiap \( i \ge n \).</li>
+</ol>
+</details>
+</div>
+<p>Sekali lagi, istilah dan notasi tersebut dijelaskan oleh peubah indikator yang bersesuaian. Anda mungkin perlu meninjau kembali limit inferior dan limit superior untuk barisan bilangan real pada bagian tentang <a href="https://www.randomservices.org/random/foundations/Order.html">urutan parsial</a>.</p>
+<div class="unit">
+<p class="math">Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian, dan misalkan \(I_n = \bs 1_{A_n}\) menyatakan peubah indikator \(A_n\) untuk \(n \in \N_+\). Maka
+	</p><ol class="sub">
+<li>\(\limsup_{n \to \infty} I_n \) adalah peubah indikator dari \(\limsup_{n \to \infty} A_n\).</li>
+<li>\(\liminf_{n \to \infty} I_n \) adalah peubah indikator dari \(\liminf_{n \to \infty} A_n\).</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<ol class="sub">
+<li>Menurut <a class="ref" href="#evt1"></a>, \( \lim_{n \to \infty} \bs 1\left(\bigcup_{i=n}^\infty A_i\right) \) adalah peubah indikator dari \( \limsup_{n \to \infty} A_n \). Namun, \(\bs 1\left(\bigcup_{i=n}^\infty A_i\right) = \max\{I_i: i \ge n\}\), sehingga \( \lim_{n \to \infty} \bs 1\left(\bigcup_{i=n}^\infty A_i\right) = \limsup_{n \to \infty} I_n \).</li>
+<li>Menurut <a class="ref" href="#evt1"></a>, \( \lim_{n \to \infty} \bs 1\left(\bigcap_{i=n}^\infty A_i\right) \) adalah peubah indikator dari \( \liminf_{n \to \infty} A_n \). Namun, \(\bs 1\left(\bigcap_{i=n}^\infty A_i\right) = \min\{I_i: i \ge n\}\), sehingga \( \lim_{n \to \infty} \bs 1\left(\bigcap_{i=n}^\infty A_i\right) = \liminf_{n \to \infty} I_n \).</li>
+</ol>
+</details>
+</div>
+<div class="unit">
+<p class="math">Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian. Maka \(\liminf_{n \to \infty} A_n \subseteq \limsup_{n \to \infty} A_n\).</p>
+<details>
+<summary>Rincian:</summary>
+<p>Jika \( A_n \) terjadi untuk semua kecuali berhingga banyak \( n \in \N_+ \), maka tentu \( A_n \) terjadi untuk tak hingga banyak \( n \in \N_+ \).</p>
+</details>
+</div>
+<div class="unit" id="evt5">
+<p class="math">Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian. Maka</p>
+<ol class="sub">
+<li>\(\left( \limsup_{n \to \infty} A_n \right)^c = \liminf_{n \to \infty} A_n^c\)</li>
+<li>\(\left( \liminf_{n \to \infty} A_n \right)^c = \limsup_{n \to \infty} A_n^c\).</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<p>Hasil-hasil ini mengikuti <a href="https://www.randomservices.org/random/foundations/Sets.html#dem">hukum De Morgan</a>.</p>
+</details>
+</div>
+<h4 id="con">Teorema Kekontinuan</h4>
+<p>Secara umum, suatu fungsi disebut <dfn>kontinu</dfn> jika mempertahankan limit. Oleh karena itu, hasil-hasil berikut merupakan <dfn>teorema kekontinuan probabilitas</dfn>. Bagian (a) adalah teorema kekontinuan untuk kejadian naik dan bagian (b) adalah teorema kekontinuan untuk kejadian turun.</p>
+<div class="unit" id="con1">
+<p class="math">Misalkan \((A_1, A_2, \ldots)\) adalah suatu barisan kejadian.</p>
+<ol class="sub">
+<li>Jika barisan tersebut naik, maka \(\lim_{n \to \infty} \P(A_n) = \P\left( \lim_{n \to \infty} A_n \right) = \P\left(\bigcup_{n=1}^\infty A_n\right)\)</li>
+<li>Jika barisan tersebut turun, maka \(\lim_{n \to \infty} \P(A_n) = \P\left( \lim_{n \to \infty} A_n \right) = \P\left(\bigcap_{n=1}^\infty A_n\right)\)</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<ol class="sub">
+<li>Misalkan \(B_1 = A_1\) dan misalkan \(B_i = A_i \setminus A_{i-1}\) untuk \(i \in \{2, 3, \ldots\}\). Perhatikan bahwa koleksi kejadian \(\{B_1, B_2, \ldots \}\) saling lepas berpasangan dan mempunyai gabungan yang sama dengan \(\{A_1, A_2, \ldots \}\). Dari sifat aditivitas terhitung \(\P\) dan definisi deret tak hingga,
+			\[ \P\left(\bigcup_{i=1}^\infty A_i\right) = \P\left(\bigcup_{i=1}^\infty B_i\right) = \sum_{i = 1}^\infty \P(B_i) = \lim_{n \to \infty} \sum_{i = 1}^n \P(B_i) \]
+			Namun, \( \P(B_1) = \P(A_1) \) dan \( \P(B_i) = \P(A_i) - \P(A_{i-1}) \) untuk \( i \in \{2, 3, \ldots\} \). Oleh karena itu, \( \sum_{i=1}^n \P(B_i) = \P(A_n) \), sehingga kita memperoleh \(  \P\left(\bigcup_{i=1}^\infty A_i\right) = \lim_{n \to \infty} \P(A_n) \).
+			<figure>
+<figcaption>Konstruksi dalam teorema kekontinuan untuk kejadian naik</figcaption>
+<img alt="Konstruksi dalam teorema kekontinuan" src="Increasing2.png"/>
+</figure>
+</li>
+<li>Barisan komplemen \(\left(A_1^c, A_2^c, \ldots\right)\) naik. Jadi, dengan menggunakan bagian (a), hukum De Morgan, dan aturan komplemen, kita memperoleh
+			\[ \P\left(\bigcap_{i=1}^\infty A_i \right) = 1 - \P\left(\bigcup_{i=1}^\infty A_i^c\right) = 1 - \lim_{n \to \infty} \P(A_n^c) = \lim_{n \to \infty} \left[1 - \P\left(A_n^c\right)\right] = \lim_{n \to \infty} \P(A_n) \]
+			</li>
+</ol>
+</details>
+</div>
+<p>Teorema kekontinuan dapat diterapkan pada barisan naik dan turun yang kita konstruksi dalam <a class="ref" href="#evt2"></a> dan <a class="ref" href="#evt4"></a></p>
+<div class="unit" id="con2">
+<p class="math">Misalkan \((A_1, A_2, \ldots)\) adalah suatu barisan kejadian.</p>
+<ol class="sub">
+<li>\(\P\left( \bigcup_{i=1}^\infty A_i \right) = \lim_{n \to \infty} \P\left( \bigcup_{i = 1}^n A_i \right)\)</li>
+<li>\(\P\left( \bigcap_{i=1}^\infty A_i \right) = \lim_{n \to \infty} \P\left( \bigcap_{i = 1}^n A_i \right)\)</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<p>Hasil-hasil ini langsung mengikuti teorema kekontinuan <a class="ref" href="#evt2"></a>.</p>
+</details>
+</div>
+<div class="unit" id="con3">
+<p class="math">Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian. Maka</p>
+<ol class="sub">
+<li>\(\P\left(\limsup_{n \to \infty} A_n\right) = \lim_{n \to \infty} \P\left(\bigcup_{i=n}^\infty A_i\right)\)</li>
+<li>\(\P\left(\liminf_{n \to \infty} A_n\right) = \lim_{n \to \infty} \P\left(\bigcap_{i=n}^\infty A_i\right)\)</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<p>Hasil-hasil ini langsung mengikuti definisi <a class="ref" href="#evt4"></a> dan teorema kekontinuan <a class="ref" href="#evt2"></a>.</p>
+</details>
+</div>
+<p>Teorema <a class="ref" href="#finadd"></a> berikutnya menunjukkan bahwa aksioma aditivitas terhitung untuk suatu ukuran probabilitas ekuivalen dengan <dfn>aditivitas hingga</dfn> dan sifat kekontinuan untuk kejadian naik.</p>
+<div class="unit" id="finadd">
+<p class="math">Untuk sementara, misalkan \( \P \) hanya aditif hingga, tetapi memenuhi sifat kekontinuan untuk kejadian naik <a class="ref" href="#con1"></a> (a). Maka \( \P \) aditif terhitung.</p>
+<details>
+<summary>Rincian:</summary>
+<p>Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian yang saling lepas berpasangan. Karena kita mengasumsikan bahwa \( \P \) aditif hingga, kita memperoleh
+		\[ \P\left(\bigcup_{i=1}^n A_i\right) = \sum_{i=1}^n \P(A_i) \]
+		Jika kita mengambil \( n \to \infty \), ruas kiri konvergen ke \( \P\left(\bigcup_{i = 1}^\infty A_i\right) \) berdasarkan asumsi kekontinuan dan <a class="ref" href="#con2"></a>, sedangkan ruas kanan konvergen ke \( \sum_{i=1}^\infty \P(A_i) \) berdasarkan definisi deret tak hingga.</p>
+</details>
+</div>
+<p>Ada beberapa matematikawan yang menolak aksioma aditivitas terhitung untuk ukuran probabilitas dan lebih memilih aksioma aditivitas hingga yang lebih lemah. Apa pun argumen filosofisnya, segalanya tentu jauh lebih sulit tanpa teorema kekontinuan.</p>
+<h4 id="bcl">Lemma Borel-Cantelli</h4>
+<p><dfn>Lemma Borel-Cantelli</dfn>, yang dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Borel.html">Emil Borel</a> dan <a class="ancillary" href="https://www.randomservices.org/random/biographies/Cantelli.html">Francessco Cantelli</a>, merupakan perangkat yang sangat penting dalam teori probabilitas. Lemma pertama memberikan syarat yang cukup untuk menyimpulkan bahwa tak hingga banyak kejadian terjadi dengan probabilitas 0.</p>
+<div class="unit" id="bcl1">
+<p class="math"><strong>Lemma Borel-Cantelli Pertama</strong>. Misalkan \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian. Jika \(\sum_{n=1}^\infty \P(A_n) \lt \infty\), maka \(\P\left(\limsup_{n \to \infty} A_n\right) = 0\).</p>
+<details>
+<summary>Rincian:</summary>
+<p>Dari <a class="ref" href="#con3"></a>, kita memperoleh \( \P\left(\limsup_{n \to \infty} A_n\right) = \lim_{n \to \infty} \P\left(\bigcup_{i = n}^\infty A_i \right)  \). Namun, dari <a href="https://www.randomservices.org/random/prob/Probability.html#boo">ketaksamaan Boole</a>, \( \P\left(\bigcup_{i = n}^\infty A_i \right) \le \sum_{i = n}^\infty \P(A_i) \). Karena \( \sum_{i = 1}^\infty \P(A_i) \lt \infty \), kita memperoleh \( \sum_{i = n}^\infty \P(A_i) \to 0 \) saat \( n \to \infty \).</p>
+</details>
+</div>
+<p>Lemma kedua memberikan syarat yang cukup untuk menyimpulkan bahwa tak hingga banyak kejadian <a href="https://www.randomservices.org/random/prob/Independence.html">saling bebas</a> terjadi dengan probabilitas 1.</p>
+<div class="unit" id="bcl2">
+<p class="math"><strong>Lemma Borel-Cantelli Kedua</strong>. Misalkan \((A_1, A_2, \ldots)\) adalah suatu barisan kejadian saling bebas. Jika \(\sum_{n=1}^\infty \P(A_n) = \infty\), maka \(\P\left( \limsup_{n \to \infty} A_n \right) = 1\).</p>
+<details>
+<summary>Rincian:</summary>
+<p>Perhatikan terlebih dahulu bahwa \(1 - x \le e^{-x}\) untuk setiap \(x \in \R\), sehingga \( 1 - \P(A_i) \le \exp\left[-\P(A_i)\right] \) untuk setiap \( i \in \N_+ \). Dari <a class="ref" href="#con3"></a> dan <a class="ref" href="#evt5"></a>,
+		\[ \P\left[\left(\limsup_{n \to \infty} A_n\right)^c\right] = \P\left(\liminf_{n \to \infty} A_n^c\right) = \lim_{n \to \infty} \P \left(\bigcap_{i = n}^\infty A_i^c\right) \]
+		Namun, berdasarkan kebebasan dan ketaksamaan di atas,
+		\[ \P\left(\bigcap_{i = n}^\infty A_i^c\right) = \prod_{i = n}^\infty \P\left(A_i^c\right)  = \prod_{i = n}^\infty \left[1 - \P(A_i)\right] \le \prod_{i = n}^\infty \exp\left[-\P(A_i)\right] = \exp\left(-\sum_{i = n}^\infty \P(A_i) \right) = 0  \]</p>
+</details>
+</div>
+<p>Untuk kejadian-kejadian saling bebas, kedua lemma Borel-Cantelli tentu berlaku dan menghasilkan suatu <dfn>hukum nol-satu</dfn>.</p>
+<div class="unit">
+<p class="math">Jika \( (A_1, A_2, \ldots) \) adalah suatu barisan kejadian saling bebas, maka \( \limsup_{n \to \infty} A_n \) mempunyai probabilitas 0 atau 1:</p>
+<ol class="sub">
+<li>Jika \(\sum_{n=1}^\infty \P(A_n) \lt \infty\), maka \(\P\left( \limsup_{n \to \infty} A_n \right) = 0\).</li>
+<li>Jika \(\sum_{n=1}^\infty \P(A_n) = \infty\), maka \(\P\left( \limsup_{n \to \infty} A_n \right) = 1\).</li>
+</ol>
+</div>
+<p>Hasil ini sebenarnya merupakan kasus khusus dari hukum nol-satu yang lebih umum, yang dikenal sebagai <a href="https://www.randomservices.org/random/prob/Probability2.html">hukum nol-satu Kolmogorov</a> dan dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Kolmogorov.html">Andrei Kolmogorov</a>. Selain itu, kita dapat menggunakan hukum nol-satu untuk menurunkan teorema kalkulus yang menghubungkan deret tak hingga dan hasil kali tak hingga. Penurunan ini merupakan contoh <dfn>metode probabilistik</dfn>—penggunaan probabilitas untuk memperoleh hasil-hasil dalam bidang matematika lain yang tampaknya tidak berkaitan dengan probabilitas.</p>
+<div class="unit" id="prd">
+<p class="math">Misalkan \( p_i \in (0, 1) \) untuk setiap \( i \in \N_+ \). Maka
+	\[ \prod_{i=1}^\infty p_i \gt 0 \text{ if and only if } \sum_{i=1}^\infty (1 - p_i) \lt \infty \]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Kita dapat dengan mudah mengonstruksi ruang probabilitas dengan suatu barisan kejadian saling bebas \( (A_1, A_2, \ldots) \) sedemikian sehingga \( \P(A_i) = 1 - p_i \) untuk setiap \( i \in \N_+ \). Hasil tersebut kemudian mengikuti bukti kedua lemma Borel-Cantelli dalam <a class="ref" href="#bcl1"></a> dan <a class="ref" href="#bcl2"></a>.</p>
+</details>
+</div>
+<p>Hasil kita berikutnya merupakan penerapan sederhana lemma Borel-Cantelli kedua <a class="ref" href="#bcl2"></a> pada pengulangan saling bebas dari suatu eksperimen dasar.</p>
+<div class="unit">
+<p class="math">Misalkan \(A\) adalah suatu kejadian dalam eksperimen acak dasar dengan \(\P(A) \gt 0\). Dalam eksperimen majemuk yang terdiri atas pengulangan saling bebas dari eksperimen dasar tersebut, kejadian <q>\(A\) terjadi tak hingga kali</q> mempunyai probabilitas 1.</p>
+<details>
+<summary>Rincian:</summary>
+<p>Misalkan \( p \) menyatakan probabilitas \( A \) dalam eksperimen dasar. Dalam eksperimen majemuk, kita mempunyai suatu barisan kejadian saling bebas \( (A_1, A_2, \ldots) \) dengan \( \P(A_n) = p \) untuk setiap \( n \in \N_+ \) (kejadian-kejadian ini adalah <q>salinan saling bebas</q> dari \( A \)). Namun, \( \sum_{n = 1}^\infty \P(A_n) = \infty \) karena \( p \gt 0 \), sehingga hasil tersebut mengikuti lemma Borel-Cantelli kedua <a class="ref" href="#bcl2"></a>.</p>
+</details>
+</div>
+<h4 id="lim">Kekonvergenan Peubah Acak</h4>
+<p>Pembahasan kita berikutnya menyangkut dua cara suatu barisan peubah acak yang didefinisikan untuk eksperimen kita dapat <q>konvergen</q>. Konsep-konsep ini sangat mendasar karena beberapa hasil terdalam dalam teori probabilitas merupakan teorema limit yang melibatkan peubah acak. Kasus khusus yang paling penting adalah ketika peubah acaknya bernilai real, tetapi bukti-buktinya pada dasarnya sama untuk peubah yang bernilai dalam suatu <a href="https://www.randomservices.org/random/foundations/Metric.html">ruang metrik</a>, sehingga kita akan menggunakan kerangka yang lebih umum.</p>
+<p>Jadi, misalkan \( (S, d) \) adalah suatu ruang metrik dan \(\ms S \) adalah aljabar-\( \sigma \) Borel yang bersesuaian (yakni aljabar-\( \sigma \) yang dibangkitkan oleh topologi tersebut), sehingga ruang terukur kita adalah \( (S, \ms S) \). Berikut adalah kasus khusus yang paling penting:</p>
+<div class="unit">
+<p class="math">Untuk \( n \in \N_+ \), <dfn>ruang Euklides</dfn> berdimensi \( n \) adalah \( (\R^n, d_n) \), dengan
+	\[ d_n(\bs x, \bs y) = \sqrt{\sum_{i=1}^n (y_i - x_i)^2}, \quad \bs x = (x_1, x_2 \ldots, x_n), \, \bs y = (y_1, y_2, \ldots, y_n) \in \R^n \]
+	</p>
+</div>
+<p>Ruang Euklides tentu saja dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Euclid.html">Euklides</a>. Seperti disebutkan di atas, kasus satu dimensi dengan \( d(x, y) = |y - x| \) untuk \( x, \, y \in \R \) sangatlah penting. Kembali ke ruang metrik umum, ingat bahwa jika \( (x_1, x_2, \ldots) \) adalah suatu barisan dalam \( S \) dan \( x \in S \), maka \( x_n \to x\) saat \( n \to \infty \) berarti bahwa \( d(x_n, x) \to 0 \) saat \( n \to \infty \) (dalam pengertian kalkulus biasa). Untuk pembahasan selanjutnya, kita mengasumsikan bahwa \( (X_1, X_2, \ldots) \) adalah suatu barisan peubah acak yang bernilai dalam \( S \) dan \( X \) adalah peubah acak yang bernilai dalam \( S \), semuanya didefinisikan pada ruang probabilitas yang mendasari \( (\Omega, \ms F, \P) \).</p>
+<div class="unit" id="lim1">
+<p class="dfn">Kita mengatakan bahwa \(X_n \to X\) saat \(n \to \infty\) <dfn>dengan probabilitas 1</dfn> jika <em>kejadian</em> bahwa \( X_n \to X \) saat \( n \to \infty \) mempunyai probabilitas 1. Artinya,
+	\[\P\{\omega \in \Omega: X_n(\omega) \to X(\omega) \text{ as } n \to \infty\} = 1\]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Kita perlu memastikan bahwa definisi tersebut bermakna, yakni bahwa pernyataan bahwa \( X_n \) konvergen ke \( X \) saat \( n \to \infty \) mendefinisikan kejadian yang sah. Perhatikan bahwa \(X_n\) <em>tidak</em> konvergen ke \(X\) saat \(n \to \infty\) jika dan hanya jika, untuk suatu \(\epsilon \gt 0\), berlaku \(d(X_n, X) \gt \epsilon\) untuk tak hingga banyak \(n \in \N_+\). Perhatikan bahwa jika syarat ini berlaku untuk suatu \( \epsilon \gt 0 \), maka syarat itu berlaku untuk semua \( \epsilon \gt 0 \) yang lebih kecil. Selain itu, terdapat bilangan rasional \( \epsilon \gt 0 \) yang sekecil apa pun. Jadi, \(X_n\) tidak konvergen ke \(X\) saat \(n \to \infty\) jika dan hanya jika, untuk suatu bilangan rasional \(\epsilon \gt 0\), berlaku \(d(X_n, X) \gt \epsilon\) untuk tak hingga banyak \(n \in \N_+\). Oleh karena itu,
+		\[ \left\{X_n \to X \text{ as } n \to \infty\right\}^c = \bigcup_{\epsilon \in \Q_+} \limsup_{n \to \infty} \left\{d(X_n, X) \gt \epsilon\right\} \]
+		dengan \( \Q_+ \) sebagai himpunan bilangan rasional positif. Hal penting yang perlu diingat adalah bahwa himpunan ini terhitung. Jadi, dengan menyusunnya sedikit demi sedikit, perhatikan bahwa \( \left\{d(X_n, X) \gt \epsilon\right\} \) adalah suatu kejadian untuk setiap \( \epsilon \in \Q_+ \) dan \( n \in \N_+ \) karena \( X_n \) dan \( X \) adalah peubah acak. Selanjutnya, limit superior suatu barisan kejadian adalah suatu kejadian. Terakhir, gabungan terhitung dari kejadian-kejadian adalah suatu kejadian.</p>
+</details>
+</div>
+<p>Sebagai ahli probabilitas yang baik, kita biasanya tidak menyebut ruang sampel yang mendasari \((\Omega, \ms F)\) dan cukup menuliskan definisinya sebagai \( \P(X_n \to X \text{ as } n \to \infty) = 1 \). Pernyataan bahwa suatu kejadian mempunyai probabilitas 1 biasanya merupakan pernyataan afirmatif terkuat yang dapat kita buat dalam teori probabilitas. Jadi, konvergensi dengan probabilitas 1 adalah bentuk konvergensi terkuat. Ungkapan <dfn>hampir pasti</dfn> dan <dfn>hampir di mana-mana</dfn> kadang-kadang digunakan sebagai pengganti ungkapan <em>dengan probabilitas 1</em>.</p>
+<p>Ingat bahwa metrik \( d \) dan \( e \) pada \( S \) disebut <dfn>ekuivalen</dfn> jika keduanya membangkitkan topologi yang sama pada \( S \). Ingat pula bahwa kekonvergenan suatu barisan merupakan <dfn>sifat topologis</dfn>. Artinya, jika \( (x_1, x_2, \ldots) \) adalah suatu barisan dalam \( S \) dan \( x \in S \), serta jika \( d,  \, e \) adalah metrik-metrik ekuivalen pada \( S \), maka \( x_n \to x \) saat \( n \to \infty \) relatif terhadap \( d \) jika dan hanya jika \( x_n \to x \) saat \( n \to \infty \) relatif terhadap \( e \). Jadi, untuk peubah acak kita sebagaimana didefinisikan di atas, diperoleh bahwa \( X_n \to X \) saat \( n \to \infty \) dengan probabilitas 1 relatif terhadap \( d \) jika dan hanya jika \( X_n \to X \) saat \( n \to \infty \) dengan probabilitas 1 relatif terhadap \( e \).</p>
+<div class="unit" id="lim2">
+<p class="math">Pernyataan-pernyataan berikut ekuivalen:</p>
+<ol class="sub">
+<li>\( X_n \to X \) saat \( n \to \infty \) dengan probabilitas 1.</li>
+<li>\(\P\left[d(X_n, X) \gt \epsilon \text{ for infinitely many } n \in \N_+\right] = 0 \) untuk setiap bilangan rasional \(\epsilon \gt 0\).</li>
+<li>\(\P\left[d(X_n, X) \gt \epsilon \text{ for infinitely many } n \in \N_+\right] = 0\) untuk setiap \(\epsilon \gt 0\).</li>
+<li>\(\P\left[d(X_k,  X) \gt \epsilon \text{ for some } k \ge n\right] \to 0\) saat \(n \to \infty\) untuk setiap \(\epsilon \gt 0\).	</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<p>Dari rincian dalam definisi <a class="ref" href="#lim1"></a>, \(  \P(X_n \to X \text{ as } n \to \infty) = 1 \) jika dan hanya jika
+		\[ \P\left(\bigcup_{\epsilon \in \Q_+} \left\{d(X_n, X) \gt \epsilon \text{ for infinitely many } n \in \N_+\right\} \right) = 0 \]
+		dengan \( \Q_+ \) sekali lagi merupakan himpunan bilangan rasional positif. Namun, berdasarkan ketaksamaan Boole, gabungan terhitung dari kejadian-kejadian mempunyai probabilitas 0 jika dan hanya jika setiap kejadian dalam gabungan itu mempunyai probabilitas 0. Jadi, (a) ekuivalen dengan (b). Pernyataan (b) jelas ekuivalen dengan (c) karena terdapat bilangan rasional positif yang sekecil apa pun. Terakhir, (c) ekuivalen dengan (d) berdasarkan teorema kekontinuan <a class="ref" href="#con3"></a>. </p>
+</details>
+</div>
+<p>Hasil kita berikutnya memberikan kriteria mendasar untuk konvergensi dengan probabilitas 1:</p>
+<div class="unit" id="lim3">
+<p class="math">Jika \(\sum_{n=1}^\infty \P\left[d(X_n, X) \gt \epsilon\right] \lt \infty\) untuk setiap \(\epsilon \gt 0\), maka \(X_n \to X\) saat \(n \to \infty\) dengan probabilitas 1.</p>
+<details>
+<summary>Rincian:</summary>
+<p>Berdasarkan lemma Borel-Cantelli pertama <a class="ref" href="#bcl1"></a>, jika  \(\sum_{n = 1}^\infty \P\left[d(X_n, X) \gt \epsilon\right) \lt \infty\), maka \(\P\left[d(X_n, X) \gt \epsilon \text{ for infinitely many } n \in \N_+\right) = 0\). Dengan demikian, hasil tersebut mengikuti <a class="ref" href="#lim2"></a>.</p>
+</details>
+</div>
+<p>Berikut adalah modus konvergensi kita selanjutnya.</p>
+<div class="unit">
+<p class="dfn">Kita mengatakan bahwa \(X_n \to X\) saat \(n \to \infty\) <dfn>dalam probabilitas</dfn> jika
+	\[\P\left[d(X_n, X) \gt \epsilon\right] \to 0 \text{ as } n \to \infty \text{ for each } \epsilon \gt 0\]</p>
+</div>
+<p>Ungkapan <em>dalam probabilitas</em> sepintas terdengar mirip dengan ungkapan <em>dengan probabilitas 1</em>. Namun, seperti yang akan segera kita lihat, konvergensi dalam probabilitas jauh lebih lemah daripada konvergensi dengan probabilitas 1. Memang, konvergensi dengan probabilitas 1 sering disebut <dfn>konvergensi kuat</dfn>, sedangkan konvergensi dalam probabilitas sering disebut <dfn>konvergensi lemah</dfn>. </p>
+<div class="unit">
+<p class="math">Jika \(X_n \to X\) saat \(n \to \infty\) dengan probabilitas 1, maka \(X_n \to X\) saat \(n \to \infty\) dalam probabilitas.</p>
+<details>
+<summary>Rincian:</summary>
+<p>Misalkan \( \epsilon \gt 0 \). Maka \( \P\left[d(X_n, X) \gt \epsilon\right] \le \P\left[d(X_k, X) \gt \epsilon \text{ for some } k \ge n\right]\). Namun, jika \( X_n \to X \) saat \( n \to \infty \) dengan probabilitas 1, maka ekspresi di ruas kanan konvergen ke 0 saat \(  n \to \infty \) berdasarkan bagian (d) dari <a class="ref" href="#lim2"></a>. Jadi, \( X_n \to X \) saat \( n \to \infty \) dalam probabilitas.</p>
+</details>
+</div>
+<p>Pernyataan sebaliknya sama sekali tidak berlaku. Sebuah contoh tandingan sederhana diberikan dalam <a class="ref" href="#cxe"></a>. Namun, terdapat konvers parsial yang sangat berguna.</p>
+<div class="unit" id="sub">
+<p class="math">Jika \(X_n \to X\) saat \(n \to \infty\) dalam probabilitas, maka terdapat suatu subbarisan \((n_1, n_2, n_3 \ldots)\) dari \(\N_+\) sedemikian sehingga \(X_{n_k} \to X\) saat \(k \to \infty\) dengan probabilitas 1.</p>
+<details>
+<summary>Rincian:</summary>
+<p>Misalkan \( X_n \to X \) saat \( n \to \infty \) dalam probabilitas. Maka, untuk setiap \(k \in \N_+\), terdapat \(n_k \in \N_+\) sedemikian sehingga \(\P\left[d\left(X_{n_k}, X \right) \gt 1 / k \right] \lt 1 / k^2\). Kita dapat membuat pilihan tersebut sedemikian sehingga \(n_k \lt n_{k+1}\) untuk setiap \(k\). Akibatnya, \(\sum_{k=1}^\infty \P\left[d\left(X_{n_k}, X\right) \gt \epsilon \right] \lt \infty\) untuk setiap \(\epsilon \gt 0\). Berdasarkan <a class="ref" href="#lim3"></a>, \(X_{n_k} \to X\) saat \(n \to \infty\) dengan probabilitas 1.</p>
+<p>Perhatikan bahwa bukti tersebut bekerja karena \(1 / k \to 0\) saat \(k \to \infty\) dan \(\sum_{k=1}^\infty 1 / k^2 \lt \infty\). Dua barisan mana pun dengan sifat-sifat ini juga akan bekerja dengan baik.</p>
+</details>
+</div>
+<p>Ada dua modus konvergensi lain yang akan kita bahas nanti:</p>
+<ul>
+<li><a href="https://www.randomservices.org/random/dist/Convergence.html">Konvergensi dalam distribusi</a></li>
+<li><a href="https://www.randomservices.org/random/expect/Spaces.html#con">Konvergensi dalam rata-rata</a></li>
+</ul>
+<h3>Contoh dan Penerapan</h3>
+<h4>Koin</h4>
+<div class="unit">
+<p class="math">Misalkan kita mempunyai suatu barisan tak hingga koin yang diberi label \(1, 2, \ldots\) Selain itu, koin \(n\) mempunyai probabilitas muncul sisi gambar sebesar \(1 / n^a\) untuk setiap \(n \in \N_+\), dengan \(a \gt 0\) sebagai parameter. Kita melontarkan setiap koin satu kali secara berurutan. Nyatakan dalam \(a\), tentukan probabilitas kejadian-kejadian berikut: </p>
+<ol class="sub">
+<li>sisi gambar muncul tak hingga kali</li>
+<li>sisi angka muncul tak hingga kali</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<p> Misalkan \(H_n\) adalah kejadian bahwa lontaran ke-\(n\) menghasilkan sisi gambar, dan \(T_n\) adalah kejadian bahwa lontaran ke-\(n\) menghasilkan sisi angka.</p>
+<ol class="sub">
+<li>\(\P\left(\limsup_{n \to \infty} H_n\right) = 1\), \(\P\left(\limsup_{n \to \infty} T_n\right) = 1\) jika \(a \in (0, 1]\)</li>
+<li>\(\P\left(\limsup_{n \to \infty} H_n\right) = 0\), \(\P\left(\limsup_{n \to \infty} T_n\right) = 1\) jika \(a \in (1, \infty)\)</li>
+</ol>
+</details>
+</div>
+<p>Latihan berikut memberikan contoh sederhana suatu barisan peubah acak yang konvergen dalam probabilitas, tetapi tidak dengan probabilitas 1. Tentu saja, kita mengasumsikan metrik baku pada \( \R \).</p>
+<div class="unit" id="cxe">
+<p class="math">Misalkan lagi bahwa kita mempunyai suatu barisan koin yang diberi label \(1, 2, \ldots\), dan bahwa koin \(n\) jatuh dengan sisi gambar di atas dengan probabilitas \(\frac{1}{n}\) untuk setiap \(n \in \N_+\). Kita melontarkan koin-koin tersebut secara berurutan untuk menghasilkan suatu barisan \((X_1, X_2, \ldots)\) peubah acak indikator yang saling bebas dengan
+	\[\P(X_n = 1) = \frac{1}{n}, \; \P(X_n = 0) = 1 - \frac{1}{n}; \quad n \in \N_+\]</p>
+<ol class="sub">
+<li>\(\P(X_n = 0 \text{ for infinitely many } n) = 1\), sehingga sisi angka muncul tak hingga kali dengan probabilitas 1.</li>
+<li>\(\P(X_n = 1 \text{ for infinitely many } n) = 1\), sehingga sisi gambar muncul tak hingga kali dengan probabilitas 1.</li>
+<li>\(\P(X_n \text{ does not converge as } n \to \infty) = 1\).</li>
+<li>\(X_n \to 0\) saat \(n \to \infty\) dalam probabilitas.</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<ol class="sub">
+<li>Ini mengikuti lemma Borel-Cantelli kedua <a class="ref" href="#bcl2"></a>, karena \( \sum_{n = 1}^\infty \P(X_n = 0) = \infty \)</li>
+<li>Ini juga mengikuti lemma Borel-Cantelli kedua <a class="ref" href="#bcl2"></a>, karena \( \sum_{n = 1}^\infty \P(X_n = 1) = \infty \).</li>
+<li>Ini mengikuti bagian (a) dan (b). Ingat bahwa irisan dua kejadian yang masing-masing mempunyai probabilitas 1 tetap mempunyai probabilitas 1.</li>
+<li>Misalkan \( 0 \lt \epsilon \lt 1 \).  Maka \( \P\left(\left|X_n - 0\right| \gt \epsilon\right) = \P(X_n = 1) = \frac{1}{n} \to 0 \) saat \( n \to \infty \).</li>
+</ol>
+</details>
+</div>
+<h4>Ruang Diskret</h4>
+<p>Ingat bahwa suatu ruang terukur \( (S, \ms S) \) disebut <dfn>diskret</dfn> jika \( S \) terhitung dan \( \ms S \) merupakan koleksi semua himpunan bagian \( S \) (himpunan kuasa \( S \)). Selain itu, \( \ms S \) adalah aljabar-\( \sigma \) Borel yang bersesuaian dengan <dfn>metrik diskret</dfn> \( d \) pada \( S \), yang diberikan oleh \( d(x, x) = 0 \) untuk \( x \in S \) dan \( d(x, y) = 1 \) untuk \( x, \, y \in S \) yang berbeda. Bagaimanakah konvergensi dengan probabilitas 1 dan konvergensi dalam probabilitas bekerja untuk metrik diskret? </p>
+<div class="unit">
+<p class="math">Misalkan \( (S, \ms S) \) adalah suatu ruang diskret. Misalkan pula bahwa \( (X_1, X_2, \ldots) \) adalah suatu barisan peubah acak yang bernilai dalam \( S \) dan \( X \) adalah peubah acak yang bernilai dalam \( S \), semuanya didefinisikan pada ruang probabilitas \( (\Omega, \ms F, \P) \). Relatif terhadap metrik diskret \( d \), </p>
+<ol class="sub">
+<li>\( X_n \to X \) saat \( n \to \infty \) dengan probabilitas 1 jika dan hanya jika \( \P(X_n = X \text{ for all but finitely many } n \in \N_+) = 1 \).</li>
+<li>\( X_n \to X \) saat \( n \to \infty \) dalam probabilitas jika dan hanya jika \( \P(X_n \ne X) \to 0 \) saat \( n \to \infty \).</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<ol class="sub">
+<li>Jika \( (x_1, x_2, \ldots) \) adalah suatu barisan titik dalam \( S \) dan \( x \in S \), maka relatif terhadap metrik \( d \), \( x_n \to x \) saat \( n \to \infty \) jika dan hanya jika \( x_n = x \) untuk semua kecuali berhingga banyak \( n \in \N_+ \).</li>
+<li>Jika \( \epsilon \ge 1 \), maka \( \P[d(X_n, X) \gt \epsilon] = 0 \). Jika \( \epsilon \in (0, 1) \), maka \( \P[d(X_n, X) \gt \epsilon] = \P(X_n \ne X) \).</li>
+</ol>
+</details>
+</div>
+<p>Tentu saja, penting untuk disadari bahwa suatu ruang diskret dapat menjadi ruang Borel bagi metrik selain metrik diskret.</p>
+<footer>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="https://www.randomservices.org/random/prob/index.html">1. Ruang Probabilitas</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Experiments.html" title="Eksperimen Acak">1</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Events.html" title="Kejadian dan Peubah Acak">2</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Probability.html" title="Ukuran Probabilitas">3</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Conditional.html" title="Probabilitas Bersyarat">4</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Independence.html" title="Kebebasan">5</a></li>
+<li class="current">6</li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Probability2.html" title="Ruang Probabilitas Ditinjau Kembali">7</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Processes.html" title="Proses Stokastik">8</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/prob/Stop.html" title="Filtrasi dan Waktu Henti">9</a></li>
+<li class="details"><button onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
+</ol>
+<ul class="map">
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/data/index.html">Kumpulan Data</a></li>
+<li class="child"><a class="ancillary" href="https://www.randomservices.org/random/biographies/index.html"> Biografi</a></li>
+</ul>
+</footer>
+<script>getReferences();</script>
+</body>
+</html>

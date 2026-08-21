@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Potentials and Generators</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Markov process, Feller process, transition probability, Markov property, potential operator, infinitesimal operator">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="current">2</li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>2. Potentials and Generators for General Markov Processes</h2>
+</header>
+
+<p>Our goal in this section is to continue the broad sketch of the general theory of Markov processes. As with the <a href="General.html">last section</a>, some of the statements are not completely precise and rigorous, because we want to focus on the main ideas without being overly burdened by technicalities. If you are a new student of probability, or are primarily interested in applications, you may want to skip ahead to the study of <a href="Discrete.html">discrete-time Markov chains</a>.</p>
+
+<h3 id="pre">Preliminaries</h3>
+
+<h4 id="dfn">Basic Definitions</h4>
+
+<p>As usual, our starting point is a <a href="../foundations/Measure.html">probability space</a> \( (\Omega, \mathscr{F}, \P) \), so that \( \Omega \) is the set of outcomes, \( \mathscr{F} \) the \( \sigma \)-algebra of events, and \( \P \) the probability measure on the sample space \( (\Omega, \mathscr{F}) \). The set of times \( T \) is either \( \N \), discrete time with the discrete topology, or \( [0, \infty) \), continuous time with the usual Euclidean topology. The time set \( T \) is given the Borel \( \sigma \)-algebra \( \mathscr{T} \), which is just the power set if \( T = \N \), and then the time space \( (T, \mathscr{T}) \) is given the usual measure, counting measure in the discrete case and Lebesgue measure in the continuous case. The set of states \( S \) has an LCCB topology (locally compact, Hausdorff, with a countable base), and is also given the Borel \( \sigma \)-algebra \( \mathscr{S} \). Recall that to say that the state space is <dfn>discrete</dfn> means that \( S \) is countable with the discrete topology, so that \( \mathscr{S} \) is the power set of \( S \). The topological assumptions mean that the state space \( (S, \mathscr{S}) \) is nice enough for a rich mathematical theory and general enough to encompass the most important applications. There is often a natural Borel measure \( \lambda \) on \( (S, \mathscr{S}) \), counting measure \( \# \) if \( S \) is discrete, and for example, Lebesgue measure if \( S = \R^k \) for some \( k \in \N_+ \).</p>
+
+<p>Recall also that there are several spaces of functions on \( S \) that are important. Let \( \mathscr{B} \) denote the set of bounded, measurable functions \( f: S \to \R \). Let \( \mathscr{C} \) denote the set of bounded, continuous functions \( f: S \to \R \), and let \( \mathscr{C}_0 \) denote the set of continuous functions \( f: S \to \R \) that <dfn>vanish at \( \infty \)</dfn> in the sense that for every \( \epsilon \gt 0 \), there exists a compact set \( K \subseteq S \) such \( \left|f(x)\right| \lt \epsilon \) for \( x \in K^c \). These are all vector spaces under the usual (pointwise) addition and scalar multiplication, and \( \mathscr{C}_0 \subseteq \mathscr{C} \subseteq \mathscr{B} \). The supremum norm, defined by \( \left\| f \right\| = \sup\{\left|f(x)\right|: x \in S\} \) for \( f \in \mathscr{B} \) is the norm that is used on these spaces.</p>
+
+<p>Suppose now that \(\bs{X} = \{X_t: t \in T\}\) is a time-homogeneous <a href="General.html">Markov process</a> with state space \( (S, \mathscr{S}) \) defined on the probability space \( (\Omega, \mathscr{F}, \P) \). As before, we also assume that we have a <dfn>filtration</dfn> \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), that is, an increasing family of sub \( \sigma \)-algebras of \( \mathscr{F} \), indexed by the time space, with the properties that \( X_t \) is measurable with repsect to \( \mathscr{F}_t \) for \( t \in T \). Intuitively, \( \mathscr{F}_t \) is the collection of events up to time \( t \in T \).</p>
+
+<p>As usual, we let \( P_t \) denote the <a href="General.html#trn">transition probability kernel</a> for an increase in time of size \( t \in T \). Thus
+\[ P_t(x, A) = \P(X_t \in A \mid X_0 = x), \quad x \in S, \, A \in \mathscr{S} \]
+Recall that for \( t \in T \), the transition kernel \( P_t \) defines two operators, on the <em>left</em> with measures and on the <em>right</em> with functions. So, if \( \mu \) is a measure on \( (S, \mathscr{S}) \) then \( \mu P_t \) is the measure on \( (S, \mathscr{S}) \) given by
+\[ \mu P_t(A) = \int_S \mu(dx) P_t(x, A), \quad A \in \mathscr{S} \]
+If \( \mu \) is the distribution of \( X_0 \) then \( \mu P_t \) is the distribution of \( X_t \) for \( t \in T \). If \( f \in \mathscr{B} \) then \( P_t f \in \mathscr{B} \) is defined by
+\[ P_t f(x) = \int_S P_t(x, dy) f(y) = \E\left[f(X_t) \mid X_0 = x\right] \]
+Recall that the collection of transition operators \( \bs{P} = \{P_t: t \in T\} \) is a semigroup because \( P_s P_t = P_{s+t} \) for \( s, \, t \in T \). Just about everything in this section is defined in terms of the semigroup  \( \bs{P} \), which is one of the main analytic tools in the study of Markov processes.</p>
+
+<h4 id="fel">Feller Markov Processes</h4>
+
+<p>We make the same assumptions as in the <a href="General.html">Introduction</a>. Here is a brief review:</p>
+
+<div class="unit" id="fel1">
+	<p class="dfn">We assume that the Markov process \( \bs{X} = \{X_t: t \in T\} \) satisfies the following properties (and hence is a <dfn>Feller</dfn> Markov process):</p>
+	<ol class="sub" id="fel2">
+		<li>For \( t \in T \) and \( y \in S \), the distribution of \( X_t \) given \( X_0 = x \) <a href="../dist/Convergence.html">converges</a> to the distribution of \( X_t \) given \( X_0 = y \) as \( x \to y \).</li>
+		<li> Given \(X_0 = x \in S \), \( X_t \) <a href="../prob/Convergence.html">converges in probability</a> to \( x \) as \( t \downarrow 0 \).</li>
+	</ol>
+</div>
+
+<p>Part (a) is an assumption on <em>continuity in space</em>, while part (b) is an assumption on <em>continuity in time</em>. If \( S \) is discrete then (a) automatically holds, and if \( T \) is discrete then (b) automatically holds. As we will see, the Feller assumptions are sufficient for a very nice mathematical theory, and yet are general enough to encompass the most important continuous-time Markov processes.</p>
+
+<div class="unit" id="fel3">
+	<p class="math">The process \( \bs{X} = \{X_t: t \in T\} \) has the following properties:</p>
+	<ol class="sub">
+		<li>There is a version of \( \bs{X} \) such that \( t \mapsto X_t \) is continuous from the right and has left limits.</li>
+		<li>\( \bs{X} \) is a <a href="General.html#smp">strong Markov process</a> relative to the \( \mathfrak{F}^0_+ \), the right-continuous refinement of the natural filtration.</li>
+	</ol>
+</div>
+
+<p>The Feller assumptions on the Markov process have equivalent formulations in terms of the transition semigroup.</p>
+
+<div class="unit" id="fel4">
+	<p class="math">The transition semigroup \( \bs{P} = \{P_t: t \in T\} \) has the following properties:</p>
+	<ol class="sub">
+		<li>If \( f \in \mathscr{C}_0 \) and \( t \in T \) then \( P_t f \in \mathscr{C}_0 \)</li>
+		<li>If \( f \in \mathscr{C}_0 \) and \( x \in S \) then \( P_t f(x) \to f(x) \) as \( t \downarrow 0 \).</li>
+	</ol>
+</div>
+
+<p>As before, part (a) is a condition on <em>continuity in space</em>, while part (b) is a condition on <em>continuity in time</em>. Once again, (a) is trivial if \( S \) is discrete, and (b) trivial if \( T \) is discrete. The first condition means that \( P_t \) is a linear operator on \( \mathscr{C}_0 \) (as well as being a linear operator on \( \mathscr{B} \)). The second condition leads to a stronger continuity result. </p>
+
+<div class="unit" id="fel5">
+	<p class="math">For \( f \in \mathscr{C}_0 \), the mapping \( t \mapsto P_t f  \) is continuous on  \( T \). That is, for \( t \in T \),
+	\[ \|P_s f - P_t f\| = \sup\{\left|P_s f(x) - P_t f(x) \right|: x \in S\} \to 0 \text{ as } s \to t\]</p>
+</div>
+
+<p>Our interest in this section is primarily the continuous time case. However, we start with the discrete time case since the concepts are clearer and simpler, and we can avoid some of the  technicalities that inevitably occur in continuous time.</p>
+
+<h3 id="dis">Discrete Time</h3>
+
+<p>Suppose that \( T = \N \), so that time is discrete. Recall that the transition kernels are just powers of the one-step kernel. That is, we let \( P = P_1 \) and then \( P_n = P^n \) for \( n \in \N \).</p>
+
+<h4 id="dpot">Potential Operators</h4>
+
+<div class="unit" id="dpot1">
+	<p class="dfn">For \( \alpha \in (0, 1] \), the <dfn>\( \alpha \)-potential kernel</dfn> \( R_\alpha \) of \( \bs{X} \) is defined as follows:
+	\[ R_\alpha(x, A) = \sum_{n=0}^\infty \alpha^n P^n(x, A), \quad x \in S, \, A \in \mathscr{S} \]</p>
+	<ol class="sub">
+		<li>The special case \( R = R_1 \) is simply the <dfn>potential kernel</dfn> of \( \bs{X} \).</li>
+		<li>For \( x \in S \) and \( A \in \mathscr{S} \), \( R(x, A) \) is the expected number of visits of \( \bs{X} \) to \( A \), starting at \( x \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The function \( x \mapsto R_\alpha(x, A) \) from \( S \) to \( [0, \infty) \) is measurable for \( A \in \mathscr{S} \) since \( x \mapsto P^n(x, A) \) is measurable for each \( n \in \N \). The mapping \( A \mapsto R_\alpha(x, A) \) is a positive measure on \( \mathscr{S} \) for \( x \in S \) since \( A \mapsto P^n(x, A) \) is a probability measure for each \( n \in \N \). Finally, the interpretation of \( R(x, A) \) for \( x \in S \) and \( A \in \mathscr{S} \) comes from interchanging sum and expected value, which is allowed since the terms are nonnegative:
+		\[ R(x, A) = \sum_{n=0}^\infty P^n(x, A) = \sum_{n=0}^\infty \E[\bs{1}(X_n \in A) \mid X_0 = x] = \E\left( \sum_{n=0}^\infty \bs{1}(X_n \in A) \biggm| X_0 = x\right) = \E[\#\{n \in \N: X_n \in A\} \mid X_0 = x] \]</p>
+	</details>
+</div>
+
+<p>Note that it's quite possible that \( R(x, A) = \infty \) for some \( x \in S \) and \( A \in \mathscr{S} \). In fact, knowing when this is the case is of considerable importance in the study of Markov processes. As with all <a href="../expect/Kernels.html">kernels</a>, the potential kernel \( R_\alpha \) defines two operators, operating on the right on functions, and operating on the left on positive measures. For the right potential operator, if \( f: S \to \R \) is measurable then
+\[R_\alpha f(x) = \sum_{n=0}^\infty \alpha^n P^n f(x) = \sum_{n=0}^\infty \alpha^n \int_S P^n(x, dy) f(y) = \sum_{n=0}^\infty \alpha^n \E[f(X_n) \mid X_0 = x], \quad x \in S \]
+assuming as usual that the expected values and the infinite series make sense. This will be the case, in particular, if \( f \) is nonnegative or if \( p \in (0, 1) \) and \( f \in \mathscr{B} \).</p>
+
+<div class="unit" id="dpot2">
+	<p class="math">If \( \alpha \in (0, 1) \), then \( R_\alpha(x, S) = \frac{1}{1 - \alpha} \) for all \( x \in S \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Using geometric series,
+		\[ R_\alpha(x, S) = \sum_{n=0}^\infty \alpha^n P^n(x, S) = \sum_{n=0}^\infty \alpha^n = \frac{1}{1 - \alpha} \]</p>
+	</details>
+</div>
+
+<p>It follows that for \( \alpha \in (0, 1) \), the right operator \( R_\alpha \) is a bounded, linear operator on \( \mathscr{B} \) with \(\left\|R_\alpha \right\| = \frac{1}{1 - \alpha}\). It also follows that \( (1 - \alpha) R_\alpha \) is a probability kernel. There is a nice interpretation of this kernel.</p>
+
+<div class="unit" id="dpot3">
+	<p class="math">If \( \alpha \in (0, 1) \) then \( (1 - \alpha) R_\alpha(x, \cdot) \) is the conditional distribution of \( X_N \) given \( X_0 = x \in S \), where \( N \) is independent of \( \bs{X} \) and has the <a href="../bernoulli/Geometric.html">geometric distribution</a> on \( \N \) with parameter \( 1 - \alpha \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( x \in S \) and \( A \in \mathscr{S} \). Conditioning on \( N \) gives
+		\[ \P(X_N \in A \mid X_0 = x) = \sum_{n=0}^\infty \P(N = n) \P(X_N \in A \mid N = n, X_0 = x) \]
+		But by the substitution rule and the assumption of independence,
+		\[ \P(X_N \in A \mid N = n, X_0 = x) = \P(X_n \in A \mid N = n, X_0 = x) = \P(X_n \in A \mid X_0 = x) = P^n(x, A) \]
+		Since \( N \) has the geometric distribution on \( N \) with parameter \( 1 - \alpha \) we have \( P(N = n) = (1 - \alpha) \alpha^n \) for \( n \in \N \). Substituting gives
+		\[ \P(X_N \in A \mid X_0 = x) = \sum_{n=0}^\infty (1 - \alpha) \alpha^n P^n(x, A) = (1 - \alpha) R_\alpha(x, A)\]</p>
+	</details>
+</div>
+
+<p>So \( (1 - \alpha)R_\alpha \) is a transition probability kernel, just as \( P_n \) is a transition probability kernel, but corresponding to the <em>random</em> time \( N \) (with \( \alpha \in (0, 1) \) as a parameter), rather than the <em>deterministic</em> time \( n \in \N \). An interpretation of the potential kernel \( R_\alpha \) for \( \alpha \in (0, 1) \) can be also given in economic terms. Suppose that \( A \in \mathscr{S} \) and that we receive one monetary unit each time the process \( \bs{X} \) visits \( A \). Then as above, \( R(x, A) \) is the expected total amount of money we receive, starting at \( x \in S \). However, typically money that we will receive at times distant in the future has less value to us <em>now</em> than money that we will receive soon. Specifically suppose that a monetary unit received at time \( n \in \N \) has a <dfn>present value</dfn> of \( \alpha^n \), where \( \alpha \in (0, 1) \) is an <dfn>inflation factor</dfn> (sometimes also called a <dfn>discount factor</dfn>). Then \( R_\alpha(x, A) \) gives the expected, total, discounted amount we will receive, starting at \( x \in S \). A bit more generally, if \( f \in \mathscr{B} \) is a <dfn>reward function</dfn>, so that \( f(x) \) is the reward (or cost, depending on the sign) that we receive when we visit state \( x \in S \), then for \( \alpha \in (0, 1) \), \( R_\alpha f(x) \) is the expected, total, discounted reward, starting at \( x \in S \).</p>
+
+<p>For the left potential operator, if \( \mu \) is a positive measure on \( \mathscr{S} \) then 
+\[\mu R_\alpha(A)  = \sum_{n=0}^\infty \alpha^n \mu P^n(A) = \sum_{n=0}^\infty \alpha^n \int_S \mu(dx) P^n(x, A), \quad A \in \mathscr{S}\]
+In particular, if \( \mu \) is a probability measure and \( X_0 \) has distribution \( \mu \) then \( \mu P^n \) is the distribution of \( X_n \) for \( n \in \N \), so from the last result, \((1 - \alpha) \mu R_\alpha \) is the distribution of \( X_N \) where again, \( N \) is independent of \( \bs{X} \) and has the geometric distribution on \( \N \) with parameter \( 1 - \alpha \). The family of potential kernels gives the same information as the family of transition kernels.</p>
+
+<div class="unit" id="dpot4">
+	<p class="math">The potential kernels \( \bs{R} = \{R_\alpha: \alpha \in (0, 1)\} \) completely determine the transition kernels \( \bs{P} = \{P_n: n \in \N\}  \). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that for \( x \in S \) and \( A \in \mathscr{S} \), the function \( \alpha \mapsto R_\alpha(x, A) \) is a power series in \( \alpha \) with coefficients \( n \mapsto P^n(x, A) \). In the language of combinatorics, \( \alpha \mapsto R_\alpha(x, A) \) is the <dfn>ordinary generating function</dfn> of the sequence \( n \mapsto P^n(x, A) \). As noted above, this power series has radius of convergence at least 1, so we can extend the domain to \( \alpha \in (-1, 1) \).  Thus, given the potential kernels, we can recover the transition kernels by taking derivatives and evaluating at 0:
+		\[ P^n(x, A) = \frac{1}{n!}\left[\frac{d^n}{d\alpha^n} R_\alpha(x, A) \right]_{\alpha = 0} \]</p>
+	</details>
+</div>
+
+<p>Of course, it's really only necessary to determine \( P \), the one step transition kernel, since the other transition kernels are powers of \( P \). In any event, it follows that the kernels \( \bs{R} = \{R_\alpha: \alpha \in (0, 1)\} \), along with the initial distribution, completely determine the finite dimensional distributions of the Markov process \( \bs{X} \). The potential kernels commute with each other and with the transition kernels.</p>
+
+<div class="unit" id="dpot5">
+	<p class="math">Suppose that \( \alpha, \, \beta \in (0, 1] \) and \( k \in \N \). Then (as kernels)</p>
+	<ol class="sub">
+		<li>\( P^k R_\alpha = R_\alpha P^k = \sum_{n=0}^\infty \alpha^n P^{n+k} \)</li>
+		<li>\( R_\alpha R_\beta = R_\beta R_\alpha = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^{m+n} \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( f \in \mathscr{B} \) is nonnegative. The interchange of the sums with the kernel operation is allowed since the kernels are nonnegative. The other tool used is the semigroup property.</p>
+		<ol class="sub">
+			<li>Directly
+			\[ R_\alpha P^k f = \sum_{n=0}^\infty \alpha^n P^n P^k f = \sum_{n=0}^\infty \alpha^n P^{n+k} f\]
+			The other direction requires an interchange.
+			\[ P^k R_\alpha f = P^k \sum_{n=0}^\infty \alpha^n P^n f = \sum_{n=0}^\infty \alpha^n P^k P^n f = \sum_{n=0}^\infty \alpha^n P^{n+k} f \]
+			</li>
+			<li>First, 
+			\[
+			R_\alpha R_\beta f = \sum_{m=0}^\infty \alpha^m P^m R_\beta f = \sum_{m=0}^\infty \alpha^m P^m \left(\sum_{n=0}^\infty \beta^n P^n f\right) = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^m P^n f = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^{m+n} f\]
+			The other direction is similar.
+			</li>
+		</ol>
+	</details>
+</div>
+
+<p>The same identities hold for the right operators on the entire space \( \mathscr{B} \), with the additional restrictions that \( \alpha \lt 1 \) and \( \beta \lt 1 \). The fundamental equation that relates the potential kernels is given next.</p>
+
+<div class="unit" id="dpot6">
+	<p class="math">If \( \alpha, \, \beta \in (0, 1] \) with \( \alpha \le \beta \) then (as kernels),
+	\[ \beta R_\beta = \alpha R_\alpha + (\beta - \alpha) R_\alpha R_\beta \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>If \( \alpha = \beta \) the equation is trivial, so assume \( \alpha \lt \beta \). Suppose that \( f \in \mathscr{B} \) is nonnegative. From the previous result,
+		\[ R_\alpha R_\beta f = \sum_{j=0}^\infty \sum_{k=0}^\infty \alpha^j \beta^k P^{j+k} f \]
+		Changing variables to sum over \( n = j + k \) and \( j \) gives
+		\[ R_\alpha R_\beta f = \sum_{n=0}^\infty \sum_{j=0}^n \alpha^j \beta^{n-j} P^n f = \sum_{n=0}^\infty  \sum_{j=0}^n \left(\frac{\alpha}{\beta}\right)^j \beta^n P^n f = \sum_{n=0}^\infty \frac{1 - \left(\frac{\alpha}{\beta}\right)^{n+1}}{1 - \frac{\alpha}{\beta}} \beta^n P^n f \]
+		Simplifying gives 
+		\[ R_\alpha R_\beta f =  \frac{1}{\beta - \alpha} (\beta R_\beta f - \alpha R_\alpha f)\]
+		Note that since \( \alpha \lt 1 \), \( R_\alpha f\) is a finite, so we don't have to worry about the dreaded indeterminate form \( \infty - \infty \).</p>
+	</details>
+</div>
+
+<p>The same identity holds holds for the right operators on the entire space \( \mathscr{B} \), with the additional restriction that \( \beta \lt 1 \).</p>
+
+<div class="unit" id="dpot7">
+	<p class="math">If \( \alpha \in (0, 1] \), then (as kernels), \( I + \alpha R_\alpha P = I + \alpha P R_\alpha = R_\alpha \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( f \in \mathscr{B} \) is nonnegative. From the result above,
+		\[ (I + \alpha R_\alpha P) f = (I + \alpha P R_\alpha) f = f + \sum_{n=0}^\infty \alpha^{n+1} P^{n+1} f = \sum_{n = 0}^\infty \alpha^n P^n f = R_\alpha f \]</p>
+	</details>
+</div>
+
+<p>The same identity holds for the right operators on the entire space \( \mathscr{B} \), with the additional restriction that \( \alpha \lt 1 \). This leads to the following important result:</p>
+
+<div class="unit" id="dpot8">
+	<p class="math">If \( \alpha \in (0, 1) \), then as operators on the space \( \mathscr{B} \),
+	<ol class="sub">
+		<li>\( R_\alpha = (I - \alpha P)^{-1} \)</li>
+		<li>\( P = \frac{1}{\alpha}\left(I - R_\alpha^{-1}\right) \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The operators are bounded, so we can subtract. The identity \( I + \alpha R_\alpha P = R_\alpha \) leads to \( R_\alpha(I - \alpha P) = I \) and the identity \( I + \alpha P R_\alpha = R_\alpha \) leads to \( (I - \alpha P) R_\alpha = I \). Hence (a) holds. Part (b) follows from (a).</p>
+	</details>
+</div>
+
+<p>Exercise <a href="#dpot8" class="ref"></a> shows again that the potential operator \( R_\alpha \) determines the transition operator \( P \).</p>
+
+<h4 id="app">Examples and Applications</h4>
+
+<p>Our first example considers the <a href="../bernoulli/Binomial.html">binomial process</a> as a Markov process.</p>
+
+<div class="unit" id="app1">
+	<p class="math">Let \( \bs{I} = \{I_n: n \in \N_+\} \) be a sequence of <a href="../bernoulli/index.html">Bernoulli Trials</a> with success parameter \( p \in (0, 1) \). Define the Markov process \( \bs{X} = \{X_n: n \in \N\} \) by \( X_n = X_0 + \sum_{k=1}^n I_k \) where \( X_0 \) takes values in \( \N \) and is independent of \( \bs{I} \).</p>
+	<ol class="sub">
+		<li>For \( n \in \N \), show that the transition probability matrix \( P^n \) of \( \bs{X} \) is given by
+		\[ P^n(x, y) = \binom{n}{y - x} p^{y - x} (1 - p)^{n - y + x}, \quad x \in \N, \, y \in \{x, x + 1, \ldots, x + n\} \]
+		</li>
+		<li>For \( \alpha \in (0, 1] \), show that the potential matrix \( R_\alpha \) of \( \bs{X} \) is given by
+		\[ R_\alpha(x, y) = \frac{1}{1 - \alpha + \alpha p} \left(\frac{\alpha p}{1 - \alpha + \alpha p}\right)^{y - x}, \quad x \in \N, \, y \in \{x, x + 1, \ldots\} \]
+		</li>
+		<li>For \( \alpha \in (0, 1) \) and \( x \in \N \), identify the probability distribution defined by \( (1 - \alpha) R_\alpha(x, \cdot) \).</li>
+		<li>For \( x, \, y \in \N \) with \( x \le y \), interpret \( R(x, y) \), the expected time in \( y \) starting in \( x \), in the context of the process \( \bs{X} \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that \( \bs{X} \) is a Markov process since it has <a href="General.html#inc">stationary, independent increments</a>.</p>
+		<ol class="sub">
+			<li>Note that for \( n, \, x \in \N \), \( P^n(x, \cdot) \) is the (discrete) PDF of \( x + \sum_{k=1}^n I_k \). The result follows since the sum of the indicator variables has the binomial distribution with parameters \( n \) and \( p \).</li>
+			<li>Let \( \alpha \in (0, 1] \) and let \( x, \, y \in \N \) with \( x \le y \). Then
+			\begin{align*}
+				R_\alpha(x, y) &amp; = \sum_{n=0}^\infty \alpha^n P^n(x, y) = \sum_{n = y - x}^\infty \alpha^n \binom{n}{y - x} p^{y-x} (1 - p)^{n - y + x} \\
+				&amp; = (\alpha p)^{y - x} \sum_{n = y - x}^\infty \binom{n}{y - x}[\alpha (1 - p)]^{n - y + x} = \frac{(\alpha p)^{y - x}}{[1 - \alpha (1 - p)]^{n - x + 1}}
+			\end{align*}
+			Simplifying gives the result.</li>
+			<li>For \( \alpha \in (0, 1) \),
+			\[ (1 - \alpha) R_\alpha(x, y) = \frac{1 - \alpha}{1 - \alpha + \alpha p} \left(\frac{\alpha p}{1 - \alpha + \alpha p}\right)^{y - x} \]
+			As a function of \( y \) for fixed \( x \), this is the PDF of \( x + Y_\alpha \) where \( Y_\alpha \) has the geometric distribution on \( N \) with parameter \( \frac{1 - \alpha}{1 - \alpha + \alpha p} \).
+			</li>
+			<li>Note that \( R(x, y) = 1 / p \) for \( x, \, y \in \N \) with \( x \le y \). Starting in state \( x \), the process eventually reaches \( y \) with probability 1. The process remains in state \( y \) for a geometrically distributed time, with parameter \( p \). The mean of this distribution is \( 1 / p \).</li>
+		</ol>
+	</details>
+</div>
+
+<h3 id="con">Continuous Time</h3>
+
+<p>With the discrete-time setting as motivation, we now turn the more important continuous-time case where \( T = [0, \infty) \).</p>
+
+<h4 id="cpot">Potential Kernels</h4>
+
+<div class="unit" id="cpot1">
+	<p class="dfn">For \( \alpha \in [0, \infty) \), the <dfn>\( \alpha \)-potential kernel</dfn> \( U_\alpha \) of \( \bs{X} \) is defined as follows:
+	\[ U_\alpha(x, A) = \int_0^\infty e^{-\alpha t} P_t(x, A) \, dt, \quad x \in S, \, A \in \mathscr{S} \]</p>
+	<ol class="sub">
+		<li>The special case \( U = U_0 \) is simply the <dfn>potential kerenl</dfn> of \( \bs{X} \).</li>
+		<li> For \( x \in S \) and \( A \in \mathscr{S} \), \( U(x, A) \) is the expected amount of time that \( \bs{X} \) spends in \( A \), starting at \( x \).</li>
+		<li>The family of kernels \( \bs{U} = \{U_\alpha: \alpha \in (0, \infty)\} \) is known as the <dfn>reolvent</dfn> of \( \bs{X} \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( \bs{P} = \{P_t: t \in T\} \) is a Feller semigroup of transition operators, the mapping \((t, x) \mapsto P_t(x, A)\) from \( [0, \infty) \times S \) to \( [0, 1] \) is jointly measurable for \( A \in \mathscr{S} \). Thus, \( U_\alpha(x, A) \) makes sense for \( x \in S \) and \( A \in \mathscr{S} \) and \( x \mapsto U_\alpha(x, A) \) from \( S \) to \( [0, \infty) \) is measurable for \( A \in \mathscr{S} \). That \( A \mapsto U_\alpha(x, A) \) is a measure on \( \mathscr{S} \) follows from the usual interchange of sum and integral, via <a href="../foundations/Properties.html#fub">Fubini's theorem</a>: Suppose that \( \{A_j: j \in J\} \) is a countable collection of disjoint sets in \( \mathscr{S} \), and let \( S = \bigcup_{j \in J} A_j \)
+		\begin{align*}
+			U_\alpha(x, A) &amp; = \int_0^\infty e^{-\alpha t} P_t(x, A) \, dt = \int_0^\infty \left[\sum_{j \in J} e^{-\alpha t} P_t(x, A_j)\right] \, dt\\
+			&amp; = \sum_{j \in J} \int_0^\infty e^{-\alpha t} P_t(x, A_j) \, dt = \sum_{j \in J} U_\alpha(x, A_j)
+		\end{align*}
+		Finally, the interpretation of \( U(x, A) \) for \( x \in S \) and \( A \in \mathscr{S} \) is another interchange of integrals:
+		\[ U(x, A) = \int_0^\infty P_t(x, A) \, dt = \int_0^\infty \E[\bs{1}(X_t \in A) \mid X_0 = x] \, dt = \E\left( \int_0^\infty \bs{1}(X_t \in A) \, dt \biggm| X_0 = x\right) \]
+		The inside integral is the Lebesgue measure of \( \{t \in [0, \infty): X_t \in A\} \).</p>
+	</details>
+</div>
+
+<p>As with discrete time, it's quite possible that \( U(x, A) = \infty \) for some \( x \in S \) and \( A \in \mathscr{S} \), and knowing when this is the case is of considerable interest. As with all kernels, the potential kernel \( U_\alpha \) defines two operators, operating on the right on functions, and operating on the left on positive measures. If \( f: S \to \R \) is measurable then, giving the right potential operator in its many forms, 
+\begin{align*}
+	U_\alpha f(x) &amp; = \int_S U_\alpha(x, dy) f(y) = \int_0^\infty e^{-\alpha t} P_t f(x) \, dt \\ 
+	&amp; = \int_0^\infty e^{-\alpha t} \int_S P_t(x, dy) f(y) = \int_0^\infty e^{-\alpha t} \E[f(X_t) \mid X_0 = x] \, dt, \quad x \in S
+\end{align*}
+assuming that the various integrals make sense. This will be the case in particular if \( f \) is nonnegative, or if \( f \in \mathscr{B} \) and \( \alpha \gt 0 \).</p>
+
+<div class="unit" id="cpot2">
+	<p class="math">If \( \alpha \gt 0 \), then \( U_\alpha(x, S) = \frac{1}{\alpha} \) for all \( x \in S \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( x \in S \),
+		\[ U_\alpha(x, S) = \int_0^\infty e^{-\alpha t} P_t(x, S) \, dt = \int_0^\infty e^{-\alpha t} dt = \frac{1}{\alpha} \]</p>
+</details>
+</div>
+
+<p>It follows that for \( \alpha \in (0, \infty) \), the right potential operator \( U_\alpha \) is a bounded, linear operator on \( \mathscr{B} \) with \( \|U_\alpha\| = \frac{1}{\alpha} \). It also follows that \( \alpha U_\alpha \) is a probability kernel. This kernel has a nice interpretation.</p>
+
+<div class="unit" id="cpot3">
+	<p class="math">If \( \alpha \gt 0 \) then \( \alpha U_\alpha (x, \cdot) \) is the conditional distribution of \( X_\tau \) where \( \tau \) is independent of \( \bs{X} \) and has the <a href="../poisson/Exponential.html">exponential distribution</a> on \( [0, \infty) \) with parameter \( \alpha \). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( x \in S \) and \( A \in \mathscr{S} \). The random time \( \tau \) has PDF \( f(t) = \alpha e^{-\alpha t} \) for \( t \in [0, \infty) \). Hence, conditioning on \( \tau \) gives
+		\[ \P(X_\tau \in A \mid X_0 = x) = \int_0^\infty \alpha e^{-\alpha t} \P(X_\tau \in A \mid \tau = t, X_0 = x) \, dt \]
+		But by the substitution rule and the assumption of independence,
+		\[ \P(X_\tau \in A \mid \tau = t, X_0 = x) = \P(X_t \in A \mid \tau = t, X_0 = x) = \P(X_t \in A \mid X_0 = x) = P_t(x, A) \]
+		Substituting gives
+		\[ \P(X_\tau \in A \mid X_0 = x) = \int_0^\infty \alpha e^{-\alpha t} P_t(x, A) \, dt = \alpha U_\alpha(x, A)\]</p>
+	</details>
+</div>
+
+<p>So \( \alpha U_\alpha \) is a transition probability kernel, just as \( P_t \) is a transition probability kernel, but corresponding to the <em>random</em> time \( \tau \) (with \( \alpha \in (0, \infty) \) as a parameter), rather than the deterministic time \( t \in [0, \infty) \). As in the discrete case, the potential kernel can also be interpreted in economic terms. Suppose that \( A \in \mathscr{S} \) and that we receive money at a rate of one unit per unit time whenever the process \( \bs{X} \) is in \( A \). Then \( U(x, A) \) is the expected total amount of money that we receive, starting in state \( x \in S \). But again, money that we receive later is of less value to us <em>now</em> than money that we will receive sooner. Specifically, suppose that one monetary unit at time \( t \in [0, \infty) \) has a present value of \( e^{-\alpha t} \) where \( \alpha \in (0, \infty) \) is the <dfn>inflation factor</dfn> or <dfn>discount factor</dfn>. The \( U_\alpha(x, A) \) is the total, expected, discounted amount that we receive, starting in \( x \in S \). A bit more generally, suppose that \( f \in \mathscr{B} \) and that \( f(x) \) is the reward (or cost, depending on the sign) per unit time that we receive when the process is in state \( x \in S \). Then \( U_\alpha f(x) \) is the expected, total, discounted reward, starting in state \( x \in S \).</p>
+
+<p>For the left potential operator, if \( \mu \) is a positive measure on \( \mathscr{S} \) then 
+\begin{align*}
+	\mu U_\alpha(A) &amp; = \int_S \mu(dx) U_\alpha(x, A)  = \int_0^\infty e^{-\alpha t} \mu P_t (A) \, dt\\ 
+	&amp; = \int_0^\infty e^{-\alpha t} \left[\int_S \mu(dx) P_t(x, A)\right] dt = \int_0^\infty e^{-\alpha t} \left[\int_S \mu(dx) \P(X_t \in A) \right] dt, \quad A \in \mathscr{S}
+\end{align*}
+In particular, suppose that \( \alpha \gt 0 \) and that \( \mu \) is a probability measure and \( X_0 \) has distribution\( \mu \). Then \( \mu P_t \) is the distribution of \( X_t \) for \( t \in [0, \infty) \), and hence from the last result, \( \alpha \mu U_\alpha \) is the distribution of \( X_\tau \), where again, \( \tau \) is independent of \( \bs{X} \) and has the exponential distribution on \( [0, \infty) \) with parameter \( \alpha \).  The family of potential kernels gives the same information as the family of transition kernels.</p>
+
+<div class="unit" id="cpot4">
+	<p class="math">The resolvent \(\bs{U} = \{U_\alpha: \alpha \in (0, \infty)\} \) completely determines the family of transition kernels \( \bs{P} = \{P_t: t \in (0, \infty)\}  \). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that for \( x \in S \) and \( A \in \mathscr{S} \), the function \( \alpha \mapsto U_\alpha(x, A) \) on \( (0, \infty) \) is the <a href="../renewal/Equations.html#lap">Laplace transform</a> of the function \( t \mapsto P_t(x, A) \) on \( [0, \infty) \). The Laplace transform of a function determines the function completely.</p>
+	</details>
+</div>
+
+<p>It follows that the resolvent \( \{U_\alpha: \alpha \in [0, \infty)\} \), along with the initial distribution, completely determine the finite dimensional distributions of the Markov process \( \bs{X} \). This is much more important here in the continuous-time case than in the discrete-time case, since the transition kernels \( P_t \) cannot be generated from a single transition kernel. The potential kernels commute with each other and with the transition kernels.</p>
+
+<div class="unit" id="cpot5">
+	<p class="math">Suppose that \( \alpha, \, \beta, \, t \in [0, \infty) \). Then (as kernels),</p>
+	<ol class="sub">
+		<li>\( P_t U_\alpha = U_\alpha P_t = \int_0^\infty e^{-\alpha s} P_{s+t} ds\)</li>
+		<li>\( U_\alpha U_\beta = \int_0^\infty \int_0^\infty e^{-\alpha s} e^{-\beta t} P_{s+t} ds \, dt \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( f \in \mathscr{B} \) is nonnegative. The interchanges of operators and integrals below are interchanges of integrals, and are justified since the integrands are nonnegative. The other tool used is the semigroup property of \( \bs{P} = \{P_t: t \in [0, \infty)\} \).</p>
+		<ol class="sub">
+			<li>Directly, 
+			\[ U_\alpha P_t f = \int_0^\infty e^{-\alpha s} P_s P_t f \, ds = \int_0^\infty e^{-\alpha s} P_{s+t} f \, ds \]
+			The other direction involves an interchange.
+			\[ P_t U_\alpha f = P_t \int_0^\infty e^{-\alpha s} P_s f \, ds = \int_0^\infty e^{-\alpha s} P_t P_s f \, ds = \int_0^\infty e^{-\alpha s} P_{s+t} f \, ds\]</li>
+			<li>First 
+			\begin{align*}
+				U_\alpha U_\beta f &amp; = \int_0^\infty e^{-\alpha s} P_s U_\beta f \, ds = \int_0^\infty e^{-\alpha s} P_s \int_0^\infty e^{-\beta t} P_t f \, dt \\
+				&amp; = \int_0^\infty e^{-\alpha s} \int_0^\infty e^{-\beta t} P_s P_t f \, ds \, dt = \int_0^\infty \int_0^\infty e^{-\alpha s} e^{-\beta t} P_{s+t} f \, ds \, dt
+			\end{align*}
+			The other direction is similar.</li>
+		</ol>
+	</details>
+</div>
+
+<p>The same identities hold for the right operators on the entire space \( \mathscr{B} \) under the additional restriction that \( \alpha \gt 0 \) and \( \beta \gt 0 \). The fundamental equation that relates the potential kernels, known as the <dfn>resolvent equation</dfn>, is given in the next theorem:</p>
+
+<div class="unit" id="cpot6">
+	<p class="math">If \( \alpha, \, \beta \in [0, \infty) \) with \( \alpha \le \beta \) then (as kernels) \( U_\alpha = U_\beta + (\beta - \alpha) U_\alpha U_\beta \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>If \( \alpha = \beta \) the equation is trivial, so assume \( \alpha \lt \beta \). Suppose that \( f \in \mathscr{B} \) is nonnegative. From the previous result,
+		\[ U_\alpha U_\beta f = \int_0^\infty \int_0^\infty e^{-\alpha s} e^{-\beta t} P_{s + t} f \, dt \, ds \]
+		The transformation \( u = s + t, \, v = s \) maps \( [0, \infty)^2 \) one-to-one onto \( \{(u, v) \in [0, \infty)^2: u \ge v\} \). The inverse transformation is \( s = v, \, t = u - v \) with Jacobian \( -1 \). Hence we have
+		\begin{align*}
+			U_\alpha U_\beta f &amp; = \int_0^\infty \int_0^u e^{-\alpha v} e^{-\beta(u - v)} P_u f \, dv \, du =   \int_0^\infty \left(\int_0^u e^{(\beta - \alpha) v} dv\right) e^{-\beta u} P_u f \, du \\
+			&amp; = \frac{1}{\beta - \alpha} \int_0^\infty \left[e^{(\beta - \alpha) u} - 1\right] e^{-\beta u} P_u f du\\
+			&amp; = \frac{1}{\beta - \alpha}\left(\int_0^\infty e^{-\alpha u} P_u f \, du - \int_0^\infty e^{-\beta u} P_u f \, du\right) = \frac{1}{\beta - \alpha}\left(U_\alpha f - U_\beta f\right)
+		\end{align*}
+		Simplifying gives the result. Note that \( U_\beta f \) is finite since \( \beta \gt 0 \).</p>
+	</details>
+</div>
+
+<p>The same identity holds for the right potential operators on the entire space \( \mathscr{B} \), under the additional restriction that \( \alpha \gt 0 \). For \( \alpha \in (0, \infty) \), \( U_\alpha \) is also an operator on the space \( \mathscr{C}_0 \).</p>
+
+<div class="unit" id="cpot7">
+	<p class="math">If \( \alpha \in (0, \infty) \) and \( f \in \mathscr{C}_0 \) then \( U_\alpha f \in \mathscr{C}_0 \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( f \in \mathscr{C}_0 \) and that \( (x_1, x_2, \ldots) \) is a sequence in \( S \). Then \( P_t f \in \mathscr{C}_0 \) for \( t \in [0, \infty) \). Hence if \( x_n \to x \in S \) as \( n \to \infty \) then \( e^{-\alpha t} P_t f(x_n) \to e^{-\alpha t} P_t f(x) \) as \( n \to \infty \) for each \( t \in [0, \infty) \). By the dominated convergence theorem,
+		\[ U_\alpha f(x_n) = \int_0^\infty e^{-\alpha t} P_t f(x_n) \, dt \to \int_0^\infty e^{-\alpha t} P_t f(x) \, dt = U_\alpha f(x) \text{ as } n \to \infty \]
+		Hence \( U_\alpha f \) is continuous. Next suppose that \( x_n \to \infty \) as \( n \to \infty \). This means that for every compact \( C \subseteq S\), there exist \( m \in \N_+ \) such that \( x_n \notin C \) for \( n \gt m \). Them \( e^{-\alpha t} P_t f(x_n) \to 0 \) as \( n \to \infty \) for each \( t \in [0, \infty) \). Again by the dominated convergence theorem,
+		\[ U_\alpha f(x_n) = \int_0^\infty e^{-\alpha t} P_t f(x_n) \, dt \to 0 \text{ as } n \to \infty \]
+		So \( U_\alpha f \in \mathscr{C}_0 \).</p>
+	</details>
+</div>
+
+<div class="unit" id="cpot8">
+	<p class="math">If \( f \in \mathscr{C}_0 \) then \( \alpha U_\alpha f \to f \) as \( \alpha \to \infty \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Convergence is with respect to the supremum norm on \( \mathscr{C}_0 \), of course. Suppose that \( f \in \mathscr{C}_0 \). Note first that with a change of variables \( s = \alpha t \),
+		\[ \alpha U_\alpha f = \int_0^\infty \alpha e^{-\alpha t} P_t f \, dt = \int_0^\infty e^{-s} P_{s/\alpha} f \, ds \]
+		and hence
+		\[ \left|\alpha U_\alpha f - f\right| = \left|\int_0^\infty e^{-s} \left(P_{s/\alpha} f - f\right) ds\right| \le \int_0^\infty e^{-s} \left|P_{s/\alpha} f - f\right| \, ds \le \int_0^\infty e^{-s} \left\|P_{s/\alpha} f - f\right\| \, ds \]
+		So it follows that
+		\[ \left\|\alpha U_\alpha f - f\right\| \le \int_0^\infty e^{-s} \left\|P_{s/\alpha} f - f\right\| \, ds\]
+		But \( \left\|P_{s/\alpha} f - f\right\| \to 0 \) as \( \alpha \to \infty \) and hence by the dominated convergence theorem, \( \int_0^\infty e^{-s} \left\|P_{s/\alpha} f - f\right\| \, ds \to 0 \) as \( \alpha \to \infty \).</p>
+	</details>
+</div>
+
+<h4 id="gen">Infinitesimal Generator</h4>
+
+<p>In continuous time, it's not at all clear how we could construct a Markov process with desired properties, say to model a real system of some sort. Stated mathematically, the existential problem is how to construct the family of transition kernels \( \{P_t: t \in [0, \infty)\} \) so that the semigroup property \(P_s P_t = P_{s + t}\) is satisfied for all \( s, \, t \in [0, \infty) \). The answer, as for similar problems in the deterministic world, comes essentially from calculus, from a type of derivative.</p>
+
+<div class="unit" id="gen1">
+	<p class="dfn">The <dfn>infinitesimal generator</dfn> of the Markov process \( \bs{X} \) is the operator \( G: \mathscr{D} \to \mathscr{C}_0 \) defined by 
+	\[ G f = \lim_{t \downarrow 0} \frac{P_t f - f}{t} \]
+	on the domain \( \mathscr{D} \subseteq \mathscr{C}_0 \) for which the limit exists.</p>
+</div>
+
+<p>As usual, the limit is with respect to the supremum norm on \( \mathscr{C}_0 \), so \( f \in \mathscr{D} \) and \( G f = g \) means that \( f, \, g \in \mathscr{C}_0 \) and
+\[ \left\|\frac{P_t f - f}{t} - g \right\| = \sup\left\{\left| \frac{P_t f(x) - f(x)}{t} - g(x) \right|: x \in S \right\} \to 0 \text{ as } t \downarrow 0 \]
+So in particular,
+\[ G f(x) = \lim_{t \downarrow 0} \frac{P_t f(x) - f(x)}{t} = \lim_{t \downarrow 0} \frac{\E[f(X_t) \mid X_0 = x] - f(x)}{t}, \quad x \in S \]</p>
+
+<div class="unit" id="gen2">
+	<p class="math">The domain \( \mathscr{D} \) is a subspace of \( \mathscr{C}_0 \) and the generator \( G \) is a linear operator on \( \mathscr{D} \)</p>
+	<ol class="sub">
+		<li>If \( f \in \mathscr{D} \) and \( c \in \R \) then \( c f \in \mathscr{D} \) and \( G(c f) = c G f \). </li>
+		<li>If \( f, \, g \in \mathscr{D} \) then \( f + g \in \mathscr{D} \) and \( G(f + g) = G f + G g \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These are simple results that depend on the linearity of \( P_t \) for \( t \in [0, \infty) \) and basic results on convergence.</p>
+		<ol class="sub">
+			<li>If \( f \in \mathscr{D} \) then
+			\[ \frac{P_t (c f) - (c f)}{t} = c \frac{P_t f - f}{t} \to c G f \text{ as } t \downarrow 0\]</li>
+			<li>If \( f, \, g \in \mathscr{D} \) then
+			\[ \frac{P_t(f + g) - (f + g)}{t} = \frac{P_t f - f}{t} + \frac{P_t g - g}{t} \to G f + G g \text{ as } t \downarrow 0\]</li>
+		</ol>
+	</details>
+</div>
+
+<p>Note \( G \) is the (right) derivative at 0 of the function \( t \mapsto P_t f \). Because of the semigroup property, this differentiability property at \( 0 \) implies differentiability at arbitrary \( t \in [0, \infty) \). Moreover, the infinitesimal operator and the transition operators commute:</p>
+
+<div class="unit" id="gen3">
+	<p class="math">If \( f \in \mathscr{D} \) and \( t \in [0, \infty) \), then \( P_t f \in \mathscr{D} \) and the following derivative rules hold with respect to the supremum norm.</p>
+	<ol class="sub">
+		<li>\( P^\prime_t f = P_t G f \), the <dfn>Kolmogorov forward equation</dfn></li>
+		<li>\( P^\prime_t f = G P_t f\), the <dfn>Kolmogorov backward equation</dfn></li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( f \in \mathscr{D} \). All limits and statements about derivatives and continuity are with respect to the supremum norm.</p>
+		<ol class="sub">
+			<li>By assumption,
+			\[ \frac{1}{h}(P_h f - f) \to G f \text{ as } h \downarrow 0 \]
+			Since \( P_t \) is a bounded, linear operator on the space \( \mathscr{C}_0 \), it preserves limits, so 
+			\[ \frac{1}{h}(P_t P_h f - P_t f) = \frac{1}{h}(P_{t+h} f - P_t f) \to P_t G f \text{ as } h \downarrow 0 \]
+			This proves the result for the derivative from the right. But since \( t \mapsto P_t f \) is continuous, the the result is also true for the two-sided derivative.</li>
+			<li>From part (a), we now know that
+			\[ \frac{1}{h} (P_h P_t f - P_t f) = \frac{1}{h}(P_{t+h} f - P_t f) \to P_t G f \text { as } h \to 0\]
+			By definition, this means that \( P_t f \in \mathscr{D} \) and \( G P_t f = P_t G f = P_t^\prime f  \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Exercise <a href="#gen3" class="ref"></a> gives a possible solution to the dilema that motivated this discussion in the first place. If we want to construct a Markov process with desired properties, to model a a real system for example, we can start by constructing an appropriate generator \( G \) and then solve the initial value problem 
+\[P^\prime_t = G P_t, \quad P_0 = I \]
+to obtain the transition operators \( \bs{P} = \{P_t: t \in [0, \infty)\} \). The next theorem gives the relationship between the potential operators and the infinitesimal operator, which in some ways is better. This relationship is analogous to the relationship between the potential operators and the one-step operator in <a href="#dpot" class="ref"></a> for discrete time</p>
+
+<div class="unit" id="gen4">
+	<p class="math">Suppose \( \alpha \in (0, \infty) \).</p>
+	<ol class="sub">
+		<li>If \( f \in \mathscr{D} \) the \( G f \in \mathscr{C}_0 \) and \( f +  U_\alpha G f = \alpha U_\alpha f \)</li>
+		<li>If \( f \in \mathscr{C}_0 \) then \( U_\alpha f \in \mathscr{D} \) and \( f + G U_\alpha f = \alpha U_\alpha f \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+
+		<ol class="sub">
+			<li>By definition, if \( f \in \mathscr{D} \) then \( G f \in \mathscr{C}_0 \). Hence using the previous result,
+			\[f + U_\alpha G f = f + \int_0^\infty e^{-\alpha t} G P_t f \, dt  = f + \int_0^\infty e^{-\alpha t} P^\prime_t  f \, dt \]
+			Integrating by parts (with \( u = e^{-\alpha t} \)  and \( dv = P^\prime_t f \, dt \)) gives
+			\[ f + G U_\alpha f = f - e^{-\alpha t} P_t f \biggm|_0^\infty + \alpha \int_0^\infty e^{-\alpha t} P_t  f\, dt \]
+			But \( e^{-\alpha t} P_t f \to 0 \) as \( t \to \infty \) while \( P_0 f = f \). The last term is \( \alpha U_\alpha f \).</li>
+			<li>Suppose that \( f \in \mathscr{C}_0 \). From the result above and the substitution \( u = s + t \),
+			\[ P_t U_\alpha f = \int_0^\infty e^{-\alpha s} P_{s+t} f \, ds = \int_t^\infty e^{-\alpha (u - t)} P_u f \, du = e^{\alpha t} \int_t^\infty e^{-\alpha u} P_u f \, du \]
+			Hence
+			\[ \frac{P_t U_\alpha f - U_\alpha f}{t} = \frac{1}{t} \left[e^{\alpha t} \int_t^\infty e^{-\alpha u} P_u f \, du - U_\alpha f\right] \]
+			Adding and subtracting \( e^{\alpha u} U_\alpha f \) and combining integrals gives
+			\begin{align*}
+				\frac{P_t U_\alpha f - U_\alpha f}{t} &amp; = \frac{1}{t} \left[e^{\alpha t} \int_t^\infty e^{-\alpha u} P_u f \, du - e^{\alpha t} \int_0^\infty e^{-\alpha u} P_u f \, du\right] + \frac{e^{\alpha t} - 1}{t} U_\alpha f \\
+				&amp; = -e^{\alpha t} \frac{1}{t} \int_0^t e^{-\alpha s} P_s f \, ds + \frac{e^{\alpha t} - 1}{t} U_\alpha f
+			\end{align*}
+			Since \( s \mapsto P_s f \) is continuous, the first term converges to \( -f \) as \( t \downarrow 0 \). The second term converges to \(\alpha U_\alpha f\) as \( t \downarrow 0 \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>For \( \alpha \gt 0 \), the operators \( U_\alpha \) and \( G \) have an inverse relationship. </p>
+
+<div class="unit" id="gen5">
+	<p class="math">Suppose again that \( \alpha \in (0, \infty) \).</p>
+	<ol class="sub">
+		<li>\( U_\alpha = (\alpha I - G)^{-1}: \mathscr{C}_0 \to \mathscr{D}\)</li>
+		<li>\( G = \alpha I - U_\alpha^{-1} : \mathscr{D} \to \mathscr{C}_0\)</li>
+	</ol>
+	<details>
+	<summary>Details:</summary>
+		<p>Recall that \( U_\alpha: \mathscr{C}_0 \to \mathscr{D} \) and \( G: \mathscr{D} \to \mathscr{C}_0 \)</p>
+		<ol class="sub">
+			<li>By part(a) the previous result we have \( \alpha U_\alpha - U_\alpha G = I \) so \( U_\alpha(\alpha I - G) = I \). By part (b) we have \(\alpha U_\alpha - G U_\alpha = I\) so \( (\alpha I - G) U_\alpha = I \).</li>
+			<li>This follows from (a).</li>
+		</ol>
+	</details>
+</div>
+
+<p>So, from the generator \( G \) we can determine the potential operators \( \bs{U} = \{U_\alpha: \alpha \in (0, \infty)\} \), which in turn determine the transition operators \( \bs{P} = \{P_t: t \in (0, \infty)\} \). In continuous time, transition operators \( \bs{P} = \{P_t: t \in [0, \infty)\} \) can be obtained from the single, infinitesimal operator \( G \) in a way that is reminiscent of the fact that in discrete time, the transition operators \( \bs{P} = \{P^n: n \in \N\} \) can be obtained from the single, one-step operator \( P \).</p>
+
+<h4 id="exm">Examples and Applications</h4>
+
+<p>Our first example is essentially deterministic.</p>
+
+<div class="unit" id="exm1">
+	<p class="math">Consider the Markov process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) on \( \R \) satisfying the ordinary differential equation
+	\[ \frac{d}{dt} X_t = g(X_t), \quad t \in [0, \infty) \]
+	where \( g: \R \to \R \) is Lipschitz continuous. The infinitesimal operator \( G \) is given by \( G f(x) = f^\prime(x) g(x)\) for \( x \in \R \) on the domain \( \mathscr{D} \) of functions \( f: \R \to \R \) where \( f \in \mathscr{C}_0\) and \(f^\prime \in \mathscr{C}_0 \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that the only source of randomness in this process is the initial sate \( X_0 \). By the continuity assumptions on \( g \), there exists a unique solution \( X_t(x) \) to the differential equation with initial value \( X_0 = x \), defined for all \( t \in [0, \infty) \). The transition operator \( P_t \) for \( t \in [0, \infty) \) is defined on \( \mathscr{B} \) by \( P_t f(x) = f[X_t(x)] \) for \( x \in \R \). By the ordinary chain rule, if \( f \) is differentiable,
+		\[ \frac{P_t f(x) - f(x)}{t} = \frac{f[X_t(x)] - f(x)}{t} \to f^\prime(x) g(x) \text{ as } t \downarrow 0 \]</p>
+	</details>
+</div>
+
+<p>Our next example considers the <a href="../poisson/index.html">Poisson process</a> as a Markov process. Compare this with the binomial process in <a href="#app1" class="ref"></a>.</p>
+
+<div class="unit" id="exm2">
+	<p class="math">Let \( \bs{N} = \{N_t: t \in [0, \infty)\} \) denote the Poisson process on \( \N \) with rate \( \beta \in (0, \infty) \). Define the Markov process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) by \( X_t = X_0 + N_t \) where \( X_0 \) takes values in \( \N \) and is independent of \( \bs{N} \).</p>
+	<ol class="sub">
+		<li>For \( t \in [0, \infty) \), show that the probability transition matrix \( P_t \) of \( \bs{X} \) is given by
+		\[ P_t(x, y) = e^{-\beta t} \frac{(\beta t)^{y - x}}{(y - x)!}, \quad x, \, y \in \N, \, y \ge x \]</li>
+		<li>For \( \alpha \in [0, \infty) \), show that the potential matrix \( U_\alpha \) of \( \bs{X} \) is given by
+		\[ U_\alpha(x, y) = \frac{1}{\alpha + \beta} \left(\frac{\beta}{\alpha + \beta}\right)^{y - x}, \quad x, \, y \in \N, \, y \ge x \]</li>
+		<li>For \( \alpha \gt 0 \) and \( x \in \N \), identify the probability distribution defined by \( \alpha U_\alpha(x, \cdot) \).</li>
+		<li>Show that the infinitesimal matrix \( G \) of \( \bs{X} \) is given by \( G(x, x) = -\beta \), \( G(x, x + 1) = \beta \) for \( x \in \N \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Note that for \( t \in [0, \infty) \) and \( x \in \N \), \( P_t(x, \cdot) \) is the (discrete) PDF of \( x + N_t \) since \( N_t \) has the Poisson distribution with parameter \( \beta t \).</li>
+			<li>Let \( \alpha \in [0, \infty) \) and let \( x, \, y \in \N \) with \( x \le y \). Then
+			\begin{align*}
+				U_\alpha(x, y) &amp; = \int_0^\infty e^{-\alpha t} P_t(x, y) \, dt = \int_0^\infty e^{-\alpha t} e^{-\beta t} \frac{(\beta t)^{y - x}}{(y - x)!} dt \\
+				&amp; = \frac{\beta^{y - x}}{(y - x)!} \int_0^\infty e^{-(\alpha + \beta) t} t^{y - x} \, dt
+			\end{align*}
+			The change of variables \( s = (\alpha + \beta)t \) gives
+			\[ U_\alpha(x, y) = \frac{\beta^{y-x}}{(y - x)! (\alpha + \beta)^{y - x + 1}} \int_0^\infty e^{-s} s^{y-x} \, ds \]
+			But the last integral is \( \Gamma(y - x + 1) = (y - x)! \). Simplifying gives the result.</li>
+			<li>For \( \alpha \gt 0 \),
+			\[ \alpha U_\alpha(x, y) = \frac{\alpha}{\alpha + \beta} \left(\frac{\beta}{\alpha + \beta}\right)^{y - x}, \quad x, \, y \in \N, \, y \ge x \]
+			As a function of \( y \) for fixed \( x \), this is the PDF of \( x + Y_\alpha \) where \( Y_\alpha \) has the geometric distribution with parameter \( \frac{\alpha}{\alpha + \beta} \).</li>
+			<li>Note that for \( x, \, y \in \N \), \( G(x, y) = \frac{d}{dt} P_t(x, y) \bigm|_{t=0} \). By simple calculus, this is \( -\beta\) if \( y = x \), \( \beta \) if \( y = x + 1 \), and 0 otherwise.</li>
+		</ol>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="current">2</li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

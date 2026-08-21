@@ -1,0 +1,25 @@
+# Decision and adverse ledger
+
+| ID | Status | Decision/finding | Consequence |
+|---|---|---|---|
+| O009-D001 | active | Translation and reader production are the lane’s primary work. | Audits must end in production; the first boundary is already being translated. |
+| O009-D002 | active | Random is evaluated as a URL-byte authority, not as a nonexistent upstream repository/edition. | Use URL/final URL/headers/bytes/SHA manifests and a deterministic downstream build. |
+| O009-A001 | open/admitted caveat | Random home says CC BY 2.0 while current Credits says CC BY 1.0. | Preserve both official witnesses; do not collapse the version. Both grants permit adaptation with attribution. |
+| O009-D003 | active | Mixed components retain separate rights/provenance. | Random-derived HTML, Žitković CC0 labs, MathJax Apache-2.0, and original CC BY 4.0 work remain separately identified. |
+| O009-A002 | excluded | Google Analytics is a live-site runtime dependency but irrelevant to the reader. | Do not freeze, build, or ship it. |
+| O009-A003 | excluded/conditional | Random ancillary card art, some datasets, biographies, and separately credited images have incomplete or separate rights. | Exclude/link/replace unless file-level rights are proved. First Convergence page has no such third-party substantive asset. |
+| O009-D004 | active | O006/C140 owns Random chapter 5 sampling, including LLN and CLT. | O009 treats it as a shared prerequisite and must not translate/fork those bytes. The two pages were removed before translation. |
+| O009-A004 | veto | Žitković’s whole book is not public-source build-closed: 166 child sources are absent/home-local and dependencies are unpinned. | Admit only bounded dependency-closed inline lab slices; create a downstream pinned execution harness. |
+| O009-A005 | scope limit | Žitković does not supply formal measure convergence, conditional expectation, martingales, renewal, or a finished Brownian unit. | Random remains theory candidate; use Žitković for additive computation only. |
+| O009-D005 | active | First boundary is distinct advanced Random convergence theory plus the bounded Žitković base-R Monte Carlo exercise and original mastery work. | It does not duplicate O006 source bytes; it explicitly treats O006 sampling/LLN/CLT as prerequisite. |
+| O009-A006 | open | Random Details panels conflate proofs, sketches, heuristics, answers, and solutions. | Preserve every panel but do not claim a solution census; author explicit mastery/hint/answer/solution records. |
+| O009-A007 | open | Random has no upstream deterministic build recipe or source commit. | Admission requires the downstream mirror/build/link/asset/topology checks to pass before publication. |
+| O009-A008 | resolved | No R runtime was installed at the first audit boundary. | Official R 4.6.1 is now lane-local and the first base-R chunk executes deterministically; see `RUNTIME_LOCK.json`. |
+| O009-D006 | rejected comparator | Imperial core versus Random-first adjudication. | Imperial fails contributor-authority, component-rights, reproducibility, mastery, and D30 coverage gates. It remains an unincorporated comparator. Random-first plus separate Žitković labs is admitted subject to offline build closure. |
+| O009-A009 | resolved | The first rendered lab initially exposed its R Markdown fence as prose and malformed structured author metadata as `true`. | The build now converts only the admitted R fence to Pandoc attributes, verifies a copyable stable-ID code block, and uses valid author strings. |
+| O009-A010 | resolved | Random CSS referenced nine uncopied pseudo-icon assets, and MathJax autoloaded an uncopied `boldsymbol` extension. | The exact authority assets are now pinned, copied, CSS-closure checked, and observed loading locally with HTTP 200. |
+| O009-A011 | resolved | The first backend export mislabeled adapted id-ID lab bytes as CC0, used date-sensitive serialization, and underbound unit bodies/artifacts/relations. | Donor and adaptation rights are now separate; hashes bind complete units; timestamps are input-bound; schemas, artifacts, QA, aliases, outcomes, corrections, translations, and required relations validate deterministically. |
+| O009-D007 | active | `Probability2.html` is the next disjoint source-order theory unit. | Its completed verified translation is retained as the next boundary and was intentionally excluded from the already-frozen first reader/backend package. |
+| O009-D008 | active | Completing this Indonesian edition and admitting it to the coordinator's 40-course curriculum are separate decisions. | Continue the bounded edition regardless of the later curricular choice; never cite sunk work as evidence for curriculum selection. |
+
+No upstream contact has occurred. Source defects discovered during translation will receive new `O009-A...` rows; no report will be sent until full-corpus completion and separate authorization.

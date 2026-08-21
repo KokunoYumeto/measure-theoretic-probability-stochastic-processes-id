@@ -1,0 +1,16 @@
+term_id,en,id_ID,status,scope,note
+O009-T0001,convergence,konvergensi,admitted,course,Use for stochastic/measure convergence; qualify the mode.
+O009-T0002,almost sure convergence,konvergensi hampir pasti,admitted,course,Also state dengan probabilitas 1 at first definition.
+O009-T0003,convergence in probability,konvergensi dalam probabilitas,admitted,course,
+O009-T0004,convergence in distribution,konvergensi dalam distribusi,admitted,course,
+O009-T0005,limit superior,limit superior,admitted,course,Retain limsup notation.
+O009-T0006,limit inferior,limit inferior,admitted,course,Retain liminf notation.
+O009-T0007,increasing event sequence,barisan kejadian menaik,admitted,course,
+O009-T0008,decreasing event sequence,barisan kejadian menurun,admitted,course,
+O009-T0009,continuity theorem,teorema kekontinuan,provisional,course,Recheck against established Indonesian measure-theory lane terminology.
+O009-T0010,Borel-Cantelli lemma,lema Borel–Cantelli,admitted,course,
+O009-T0011,Monte Carlo method,metode Monte Carlo,admitted,lab,
+O009-T0012,sample mean,rata-rata sampel,admitted,lab,O006/C140 is the shared prerequisite owner.
+O009-T0013,stochastic process,proses stokastik,admitted,course,
+O009-T0014,conditional expectation,ekspektasi bersyarat,admitted,course,
+O009-T0015,martingale,martingal,provisional,course,Verify coordinator-wide convention before first use.

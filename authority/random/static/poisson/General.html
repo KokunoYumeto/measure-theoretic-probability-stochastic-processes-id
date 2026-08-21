@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>General Poisson Processes</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, Poisson process, measure space, non-homogeneous Poisson process">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<link rel="next" href="../renewal/index.html">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\skw}{\text{skew}}\) 
+	\(\newcommand{\kur}{\text{kurt}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Thinning and Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="current">8</li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>6. Poisson Processes on General Spaces</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<h4 id="pro">The Process</h4>
+
+<p>So far, we have studied the Poisson process as a model for random points in <em>time</em>. However there is also a Poisson model for random points in <em>space</em>. Some specific examples of such <q>random points</q>
+are</p>
+
+<ul>
+	<li>Defects in a sheet of material.</li>
+	<li>Raisins in a cake.</li>
+	<li>Stars in the sky.</li>
+</ul>
+
+<p>The Poisson process for random points in space can be defined in a very general setting.  All that is really needed is a <a href="../foundations/Measure.html">measure space</a> \( (S, \mathscr{S}, \mu) \). So \( S \) is a set (the underlying universal set for our random points), \( \mathscr{S} \) is a \( \sigma \)-algebra of subsets of \( S \) (as always, the allowable sets), and \( \mu \) is a positive measure on \( (S, \mathscr{S}) \) (a measure of the size of sets). The most important special case is when \( S \) is a (Lebesgue) measurable subset of \( \R^d \) for some \( d \in \N_+ \), \( \mathscr{S} \) is the \( \sigma \)-algebra of measurable subsets of \( S \), and \( \mu = \lambda_d \) is \( d \)-dimensional Lebesgue measure. Specializing further, recall the lower dimensional spaces:</p>
+
+<ol>
+	<li>When \( d = 1 \), \( S \subseteq \R \) and \( \lambda_1 \) is length measure.</li>
+	<li>When \( d = 2 \), \( S \subseteq \R^2 \) and \( \lambda_2 \) is area measure.</li>
+	<li>When \( d = 3 \), \( S \subseteq \R^3 \) and \( \lambda_3 \) is volume measure.</li>
+</ol>
+
+<p>Of course, the characterizations of the <a href="Introduction.html">Poisson process</a> on \([0, \infty)\), in term of the <a href="Exponential.html">inter-arrival times</a> and the characterization in terms of the <a href="Gamma.html">arrival times</a> do not generalize because they depend critically on the <em>order relation</em> \(\le\) on \( [0, \infty) \). However the characterization in terms of the <a href="Poisson.html">counting process</a> generalizes perfectly to our new setting. Thus, consider a process that produces random points in \( S \), and as usual, let \( N(A) \) denote the number of random points in \( A \in \mathscr{S} \). Thus \( N \) is a random, counting measure on \( (S, \mathscr{S}) \)</p>
+
+<div class="unit" id="pro1">
+	<p class="math">The random measure \(N\) is a <dfn>Poisson process</dfn> or a <dfn>Poisson random measure</dfn> on \(S\) with <dfn>density parameter</dfn> \(r \gt 0\) if the following axioms are satisfied:</p>
+	<ol class="sub">
+		<li>If \( A \in \mathscr{S} \) then \(N(A)\) has the Poisson distribution with parameter \(r  \mu(A)\).</li>
+		<li>If \( \{A_i: i \in I\} \) is a countable, disjoint collection of sets in \( \mathscr{S} \) then \( \{N(A_i): i \in I\} \) is a set of independent random variables.</li>
+	</ol>
+</div>
+
+<p>To draw parallels with the Poison process on \( [0, \infty) \), note that part (a) is the generalization of stationary, Poisson-distributed increments, and part (b) is the generalization of independent increments. By convention, if \(\mu(A) = 0\) then \(N(A) = 0\) with probability 1, and if \(\mu(A) = \infty\) then \(N(A) = \infty\) with probability 1. (These distributions are considered degenerate members of the Poisson family.) On the other hand, note that if \(0 \lt \mu(A) \lt \infty\) then \(N(A)\) has a proper Poisson distribution on \(\N\)</p>
+
+<div class="unit" id="pro2">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Poisson2D.html')" class="ancillary">two-dimensional Poisson process</a>, vary the width \(w\) and the rate \(r\). Note the location and shape of the probability density function of \(N\). For selected values of the parameters, run the simulation 1000 times and compare the empirical density function to the true probability density function.</p>
+</div>
+
+<div class="unit" id="pro3">
+	<p class="math">For \(A \subseteq D\)</p>
+	<ol class="sub">
+		<li>\(\E\left[N(A)\right] = r \mu(A)\)</li>
+		<li>\(\var\left[N(A)\right] = r \mu(A)\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These result follow form our previous study of the <a href="Poisson.html#mom">Poisson distribution</a>. Recall that the parameter of the Poisson distribution is both the mean and the variance.</p>
+	</details>
+</div>
+
+<p>In particular, \(r\) can be interpreted as the expected <dfn>density</dfn> of the random points (that is, the expected number of points in a region of unit size), justifying the name of the parameter.</p>
+
+<div class="unit" id="pro4">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Poisson2D.html')" class="ancillary">two-dimensional Poisson process</a>, vary the width \(w\) and the density parameter \(r\). Note the size and location of the mean\(\pm\)standard deviation bar of \(N\). For various values of the parameters, run the simulation 1000 times and compare the empirical mean and standard deviation to the true mean and standard deviation.</p>
+</div>
+
+<h4 id="dst">The Distribution of the Random Points</h4>
+
+<p>As before, the Poisson model defines the most random way to distribute points in space, in a certain sense.  Assume that we have a Poisson process \( N \) on \( (S, \mathscr{S}, \mu) \) with density parameter \( r \in (0, \infty) \).</p>
+
+<div class="unit" id="dst1">
+	<p class="math">Given that \(A \in \mathscr{S}\) contains exactly one random point, the position \(X\) of the point is uniformly distributed on \(A\).</p>
+	<details>
+	<summary>Details:</summary>
+		<p>For \(B \in \mathscr{S}\) with \( B \subseteq A \),
+		\[ \P\left[N(B) = 1 \mid N(A) = 1\right] = \frac{\P\left[N(B) = 1, N(A) = 1\right]}{\P\left[N(A) = 1\right]} = \frac{\P\left[N(B) = 1, N(A \setminus B) = 0\right]}{\P\left[N(A) = 1\right]} = \frac{\P\left[N(B) = 1\right] \P\left[N(A \setminus B) = 0\right]}{\P\left[N(A) = 1\right]} \]
+		Using the Poisson distributions we have
+		\[ \P\left[N(B) = 1 \mid N(A) = 1\right] = \frac{\exp\left[-r \mu(B)\right] \left[r \mu(B)\right] \exp\left[-r \mu(A \setminus B)\right]} {\exp\left[-r \mu(A)\right] \left[r \mu(A)\right]} = \frac{\mu(B)}{\mu(A)}\] 
+		As a function of \( B \), this is the uniform distribution on \( A \) (with respect to \( \mu \)).</p>
+	</details>
+</div>
+
+<p>More generally, if \(A\) contains \(n\) points, then the positions of the points are independent and each is uniformly distributed in \(A\).</p>
+
+<div class="unit" id="dst2">
+	<p class="math">Suppose that \(A, \, B \in \mathscr{S}\) and \(B \subseteq A\). For \( n \in \N_+ \), the conditional distribution of \(N(B)\) given \(N(A) = n\) is the <a href="../bernoulli/Binomial.html">binomial distribution</a> with trial parameter \(n\) and success parameter \(p = \mu(B) \big/ \mu(A)\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \(k \in \{0, 1, \ldots, n\}\),
+		\[ \P\left[N(B) = k \mid N(A) = n\right] = \frac{\P\left[N(B) = k, N(A) = n\right]}{\P\left[N(A) = n\right]} = \frac{\P\left[N(B) = k, N(A \setminus B) = n - k\right]}{\P\left[N(A) = n\right]} = \frac{\P\left[N(B) = k\right] \P\left[N(A \setminus B) = n - k\right]}{\P\left[N(A) = n\right]} \]
+		Using the Poisson distribtuions,
+		\[ \P\left[N(B) = k \mid N(A) = n\right] = \frac{\exp\left[-r \mu(B)\right] \left(\left[r \mu(B)\right]^k \big/ k!\right) \exp\left[-r \mu(A \setminus B)\right] \left(\left[r \mu(A \setminus B)\right]^{n-k} \big/ (n - k)!\right)}{\exp\left[-r \mu(A)\right] \left[r \mu(A)\right]^n \big/ n!} \]
+		Canceling factors and letting \(p = \mu(B) \big/ \mu(A)\), we have
+		\[ \P\left[N(B) = k \mid N(A) = n\right] = \frac{n!}{k! (n-k)!} p^k (1 - p)^{n-k} \]</p>
+	</details>
+</div>
+
+<p>So given \( N(A) = n \in \N_+ \), each of the \( n \) random points falls into \( B \), independently, with probability \(p = \mu(B) \big/ \mu(A)\), regardless of the density parameter \( r \).</p>
+
+<div class="unit" id="dst3">
+	<p class="math">More generally, suppose that \(A \in \mathscr{S}\) and that \(A\) is partitioned into \(k\) subsets \((B_1, B_2, \ldots, B_k)\) in \( \mathscr{S} \). Then the conditional distribution of \(\left(N(B_1), N(B_2), \ldots, N(B_k)\right)\) given \(N(A) = n\) is the <a href="../bernoulli/Multinomial.html">multinomial distribution</a> with parameters \(n\) and \((p_1, p_2, \ldots p_k)\), where \(p_i = \mu(B_i) \big/ \mu(A)\) for \(i \in \{1, 2, \ldots, k\}\).</p>
+</div>
+
+<h4 id="thn">Thinning and Combining</h4>
+
+<p>Suppose that \(N\) is a Poisson random process on \((S, \mathscr{S}, \mu)\) with density parameter \(r \in [0, \infty)\). Thinning (or splitting) this process works just like <a href="Splitting.html">thinning</a> the  Poisson process on \( [0, \infty) \). Specifically, suppose that the each random point, independently of the others is either type 1 with probability \(p\) or type 0 with probability \(1 - p\), where \(p \in (0, 1)\) is a new parameter. Let \(N_1\) and \(N_0\) denote the random counting measures associated with the type 1 and type 0 points, respectively. That is, \( N_i(A) \) is the number of type \( i \) random points in \( A \), for \( A \in \mathscr{S} \) and \( i \in \{0, 1\} \).</p>
+
+<div class="unit" id="spl1">
+	<p class="math">\( N_0 \) and \( N_1 \) are independent Poisson processes on \( (S, \mathscr{S}, \mu) \) with density parameters \( p r \) and \( (1 - p) r \), respectively.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is like the one for the Poisson process on \( [0, \infty) \). For \(j, \; k \in \N\),
+		\[ \P\left[N_0(A) = j, N_1(A) = k\right] = \P\left[N_1(A) = k, N(A) = j + k\right] = \P\left[N(A) = j + k\right] \P\left[N_1(A) = k \mid N_0(A) = j + k\right] \]
+		But given \(N(A) = n\), the number of type 1 points \(N_1(A)\) has the binomial distribution with parameters \(n\) and \(p\). Hence letting \(t = \mu(A)\) to simplify the notation, we have
+		\[ \P\left[N_0(A) = j, N_1(A) = k\right] = e^{-r t} \frac{(r t)^{j+k}}{(j + k)!} \frac{(j + k)!}{j! k!} p^k (1 - p)^j = e^{-p r t} \frac{(p r t)^k}{k!} e^{-(1 - p) r t} \frac{\left[(1 - p) r t\right]^j}{j!} \]
+		It follows from the factorization theorem that \( N_0(A) \) has the Poisson distribution with parameter \( p \mu(A) \), \( N_1(A) \) has the Poisson distribution with parameter \( (1 - p) \mu(A) \), and \( N_0(A) \) and \( N_1(A) \) are independent. Next suppose that \( \{A_i: i \in I\} \) is a countable, disjoint collection of sets in \( \mathscr{S} \). Then \( \{N_0(A_i): i \in I\} \) and \( \{N_1(A_i): i \in I\} \) are each independent sets of random variables, and the two sets are independent of each other.</p>
+	</details>
+</div>
+
+<p>This result extends naturally to \(k \in \N_+\) types. As in the standard case, combining independent Poisson processes produces a new Poisson process, and the density parameters add.</p>
+
+<div class="unit" id="spl2">
+	<p class="math">Suppose that \( N_0 \) and \( N_1 \) are independent Poisson processes on \( (S, \mathscr{S}, \mu) \), with density parameters \( r_0 \) and \( r_1 \), respectively. Then the process obtained by combining the random points is also a Poisson process on \( (S, \mathscr{S}, \mu) \) with density parameter \( r_0 + r_1 \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The new random measure, of course, is simply \( N = N_1 + N_2 \). Thus for \( A \in \mathscr{S} \), \( N(A) = N_1(A) + N_2(A) \). But \( N_i(A) \) has the Poisson distribution with parameter \( r_i \mu(A) \) for \( i \in \{1, 2\} \), and the variables are independent, so \( N(A) \) has the Poisson distribution with parameter \( r_0 \mu(A) + r_1 \mu(A) = (r_0 + r_1)\mu(A) \). Next suppose that \( \{A_i: i \in I\} \) is a countable, disjoint collection of sets in \( \mathscr{S} \). Then \( \{N(A_i): i \in I\} = \left\{N_0(A_i) + N_1(A_i): i \in I\right\} \) is a set of independent random variables.</p>
+	</details>
+</div>
+
+<h3>Applications and Special Cases</h3>
+
+<h4>Non-homogeneous Poisson Processes</h4>
+
+<p>A <a href="Nonhomogeneous.html">non-homogeneous Poisson process</a> on \( [0, \infty) \) can be thought of simply as a Poisson process on \( [0, \infty) \) with respect to a measure that is not the standard Lebesgue measure \( \lambda_1 \) on \( [0, \infty) \). Thus suppose that \( r: [0, \infty) \to (0, \infty) \) is piece-wise continuous with \( \int_0^\infty r(t) \, dt = \infty \), and let
+\[ m(t) = \int_0^t r(s) \, ds, \quad t \in [0, \infty) \]
+Consider the non-homogeneous Poisson process with rate function \( r \) (and hence mean function \( m \)). Recall that the  Lebesgue-Stieltjes measure on \( [0, \infty) \) associated with \( m \) (which we also denote by \( m \)) is defined by the condition
+\[ m(a, b] = m(b) - m(a), \quad a, \, b \in [0, \infty), \; a \lt b \]
+Equivalently, \( m \) is the measure that is <a href="../foundations/Density.html">absolutely continuous</a> with respect to \( \lambda_1 \), with density function \( r \). That is, if \( A \) is a measurable subset of \( [0, \infty) \) then
+\[ m(A) = \int_A r(t) \, dt \]</p>
+
+<div class="unit">
+	<p class="math">The non-homogeneous Poisson process on \( [0, \infty) \) with rate function \( r \) is the Poisson process on \( [0, \infty) \) with respect to the measure \( m \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows directly from the definitions. If \( N \) denotes the counting process associated with the non-homogeneous Poisson process, then \( N \) has stationary increments, and for \( s, \, t \in [0, \infty) \) with \( s \lt t \), \( N(s, t] \) has the Poisson distribution with parameter \( m(t) - m(s) = m(s, t] \). </p>
+	</details>
+</div>
+
+<h4 id="nea">Nearest Points in \( \R^d \)</h4>
+
+<p>In this subsection, we consider a rather specialized topic, but one that is fun and interesting. Consider the Poisson process on \(\left(\R^d, \mathscr{R}_d, \lambda_d\right)\) with density parameter \(r \gt 0\), where as usual, \( \mathscr{R}_d \) is the \( \sigma \)-algebra of Lebesgue measurable subsets of \( \R_d \), and \( \lambda_d \) is \( d \)-dimensional Lebesgue measure. We use the usual Euclidean norm on \( \R^d \):
+\[ \|\bs{x}\|_d = \left(x_1^d + x_2^d \cdots + x_d^d\right)^{1/d}, \quad \bs{x} = (x_1, x_2, \ldots, x_d) \in \R^d \]
+For \(t \gt 0\),  let \( B_t = \left\{\bs{x} \in \R^d: \|\bs{x}\|_d \le t\right\} \) denote the ball of radius \( t \) centered at the origin. Recall that \( \lambda_d(B_t) = c_d t^d \) where
+\[ c_d = \frac{\pi^{d/2}}{\Gamma(d/2 + 1)} \]
+is the measure of the unit ball in \( \R^d \), and where \( \Gamma \) is the <a href="../special/Gamma.html">gamma function</a>. Of course, \( c_1 = 2 \), \( c_2 = \pi \), \( c_3 = 4 \pi / 3 \).</p>
+
+<p>For \( t \ge 0 \), let \( M_t = N(B_t) \), the number of random points in the ball \( B_t \), or equivalently, the number of random points within distance \( t \) of the origin. From our formula for the measure of \( B_t \) above, it follows that \(M_t\) has the Poisson distribution with parameter \(r c_d t^d\).</p>
+
+<p>Now let \(Z_0 = 0\) and for \(n \in \N_+\) let \(Z_n\) denote the distance of the \(n\)th closest random point to the origin. Note that \(Z_n\) is analogous to the \(n\)th arrival time for the Poisson process on \([0, \infty)\). Clearly the processes \(\bs{M} = (M_t: t \ge 0)\) and \( \bs{Z} = (Z_0, Z_1, \ldots) \)  are inverses of each other in the sense that \(Z_n \le t\) if and only if \(M_t \ge n\). Both of these events mean that there are at least \( n \) random points within distance \( t \) of the origin.</p>
+
+<div class="unit" id="nea1">
+	<p class="math">Distributions</p>
+	<ol class="sub">
+		<li>\(c_d Z_n^d\) has the gamma distribution with shape parameter \(n\) and rate parameter \(r\).</li>
+		<li>\(Z_n\) has probability density function \( g_n \) given by
+		\[ g_n(z) = \frac{d \left(c_d r\right)^n z^{n d - 1}}{(n-1)!} \exp\left(-r c_d z^d\right), \quad 0 \le z \lt \infty \]</li>
+	</ol>
+	<details>
+	<summary>Details:</summary>
+		<p>Let \( T_n = c_d Z_n^d \).</p>
+		<ol class="sub">
+			<li>From the inverse relationship above, 
+			\[ \P(T_n \le t) = \P\left[Z_n \le \left(t / c_d\right)^{1/d}\right] = \P\left\{M\left[\left(t / c_d\right)^{1/d}\right] \ge n\right\}\]
+			But \( M\left[\left(t / c_d\right)^{1/d}\right] \) has the Poisson distribution with parameter \( r c_d \left[\left(t / c_d\right)^{1/d}\right]^d = r t \) so
+			\[ \P(T_n \le t) = \sum_{k=n}^\infty e^{-r t} \frac{(r t)^k}{k!}  \]
+			which we know is the gamma CDF with parameters \( n \) and \( r \)
+			</li>
+			<li>Let \( f_n \) denote the gamma PDF with parameters \( n \) and \( r \) and let \( t = c_d z^d \). From the standard change of variables formula,
+			\[ g_n(z) = f_n(t) \frac{dt}{dz} \]
+			Substituting and simplifying gives the result.</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="nea2">
+	<p class="math">\(c_d Z_n^d - c_d Z_{n-1}^d\) are independent for \(n \in \N_+\) and each has the exponential distribution with rate parameter \(r\).</p>
+</div>
+
+<h3 id="exe">Computational Exercises</h3>
+
+<div class="unit" id="exe1">
+	<p class="math">Suppose that defects in a sheet of material follow the Poisson model with an average of 1 defect per 2 square meters. Consider a 5 square meter sheet of material. </p>
+	<ol class="sub">
+		<li>Find the probability that there will be at least 3 defects.</li>
+		<li>Find the mean and standard deviation of the number of defects.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>0.4562</li>
+			<li>2.5, 1.581</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe2">
+	<p class="math">Suppose that raisins in a cake follow the Poisson model with an average of 2 raisins per cubic inch. Consider a slab of cake that measures 3 by 4 by 1 inches. </p>
+	<ol class="sub">
+		<li>Find the probability that there will be at no more than 20 raisins.</li>
+		<li>Find the mean and standard deviation of the number of raisins.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>0.2426</li>
+			<li>24, 4.899</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe3">
+	<p class="math">Suppose that the occurrence of trees in a forest of a certain type that exceed a certain critical size follows the Poisson model. In a one-half square mile region of the forest there are 40 trees that exceed the specified size. </p>
+	<ol class="sub">
+		<li>Estimate the density parameter.</li>
+		<li>Using the estimated density parameter, find the probability of finding at least 100 trees that exceed the specified size in a square mile region of the forest</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>\(r = 80\) per square mile</li>
+			<li>0.0171</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe4">
+	<p class="math">Suppose that defects in a type of material follow the Poisson model. It is known that a square sheet with side length 2 meters contains one defect. Find the probability that the defect is in a circular region of the material with radius \(\frac{1}{4}\) meter.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.0491</p>
+	</details>
+</div>
+
+<div class="unit" id="exe5">
+	<p class="math">Suppose that raisins in a cake follow the Poisson model. A 6 cubic inch piece of the cake with 20 raisins  is divided into 3 equal parts. Find the probability that each piece has at least 6 raisins. </p>
+	<details>
+		<summary>Details:</summary>
+		<p>0.2146</p>
+	</details>
+</div>
+
+<div class="unit" id="exe6">
+	<p class="math">Suppose that defects in a sheet of material follow the Poisson model, with an average of 5 defects per square meter. Each defect, independently of the others is <em>mild</em> with probability 0.5, <em>moderate</em> with probability 0.3, or <em>severe</em> with probability 0.2. Consider a circular piece of the material with radius 1 meter.</p>
+	<ol class="sub" id="exe7">
+		<li>Give the mean and standard deviation of the number of defects of each type in the piece.</li>
+		<li>Find the probability that there will be at least 2 defects of each type in the piece.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Mild: 7.854, 2.802; Moderate: 4.712, 2.171; Severe: 3.142, 1.772</li>
+			<li>0.7762</li>
+		</ol>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Thinning aand Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="current">8</li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Convergence</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, stochastic process, martingale, martingale convergence theorem, random walk, Doob's martingale, Kolmogorov zero-one law, branching process, beta-Bernoulli process, Polya's urn process, likelihood ratio test, partial product">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Q}{\mathbb{Q}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Properties.html" title="Properties and Constructions">2</a></li>
+		<li class="child"><a href="Stop.html" title="Stopping Times">3</a></li>
+		<li class="child"><a href="Inequalities.html" title="Inequalities">4</a></li>
+		<li class="current">5</li>
+		<li class="child"><a href="Backwards.html" title="Backwards Martingales">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>5. Convergence</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<h4 id="asm">Basic Assumptions</h4>
+
+<p>As in the <a href="Introduction.html">introduction</a>, we start with a <a href="../prob/Processes.html">stochastic process</a> \( \bs{X} = \{X_t: t \in T\} \) on an underlying probability space \( (\Omega, \mathscr{F}, \P) \), having state space \( \R \), and where the index set \( T \) (representing time) is either \( \N \) (discrete time) or \( [0, \infty) \) (continuous time). Next, we have a <a href="../prob/Stop.html">filtration</a> \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), and we assume that \( \bs{X} \) is <dfn>adapted</dfn> to \( \mathfrak{F} \). So \( \mathfrak{F} \) is an increasing family of sub \( \sigma \)-algebras of \( \mathscr{F} \) and \( X_t \) is measurable with respect to \( \mathscr{F}_t \) for \( t \in T \). We think of \( \mathscr{F}_t \) as the collection of events up to time \( t \in T \). We assume that \( \E\left(\left|X_t\right|\right) \lt \infty \), so that the <a href="../expect/Properties.html">mean</a> of \( X_t \) exists as a real number, for each \( t \in T \). Finally, in continuous time where \( T = [0, \infty) \), we need the additional  assumptions that \( t \mapsto X_t \) is right continuous and has left limits, and that the filtration \( \mathfrak F \) is standard (that is, right continuous and complete). Recall also that \( \mathscr{F}_\infty = \sigma\left(\bigcup_{t \in T} \mathscr{F}_t\right) \), and this is the \( \sigma \)-algebra that encodes our information over all time.</p>
+
+<h4 id="mct">The Martingale Convergence Theorems</h4>
+
+<p>If \( \bs X \) is a sub-martingale relative to \( \mathfrak F \) then \( \bs X \) has an <em>increasing property</em> of sorts: \( E(X_t \mid \mathscr{F}_s) \ge X_s\) for \( s, \, t \in T \) with \( s \le t \). Similarly, if \( \bs X \) is a super-martingale relative to \( \mathfrak F \) then \( \bs X \) has a <em>decreasing property</em> of sorts, since the last inequality is reversed. Thus, there is hope that if this increasing or decreasing property is coupled with an appropriate boundedness property, then the sub-martingale or super-martingale might converge, in some sense, as \( t \to \infty \). This is indeed the case, and is the subject of this section. The martingale convergence theorems, first formulated by <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">Joseph Doob</a>, are among the most important results in the theory of martingales. The <dfn>first martingale convergence theorem</dfn> states that if the expected absolute value is bounded in the time, then the martingale process <a href="../prob/Convergence.html#con">converges with probability 1</a>.</p>
+
+<div class="unit" id="mct1">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in T\} \) is a sub-martingale or a super-martingale with respect to \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) and that \( \E\left(\left|X_t\right|\right) \) is bounded in \( t \in T \). Then there exists a random variable \( X_\infty \) that is measurable with respect to \( \mathscr{F}_\infty \) such that \( \E(\left|X_\infty\right|) \lt \infty \) and \( X_t \to X_\infty \) as \( t \to \infty \) with probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is simple using the <a href="Inequalities.html#upc">up-crossing inequality</a>. Let \( T_t = \{s \in T: s \le t\} \) for \( t \in T \). For \( a, b \in \R \) with \( a \lt b \), let \( U_t(a, b) \) denote the number of up-crossings of the interval \( [a, b] \) by the process \( \bs X \) on \( T_t \), and let \( U_\infty(a, b) \) denote the number of up-crossings of \( [a, b] \) by \( \bs X \) on \( T \). Recall that \( U_t \uparrow U_\infty \) as \( t \to \infty \). Suppose that \( \E(|X_t|) \lt c \) for \( t \in T \), where \( c \in (0, \infty) \). By the up-crossing inequality,
+		\[ \E[U_t(a, b)] \le \frac{1}{b - a}[|a| + \E(|X_t|)]  \le \frac{|a| + c}{b - a}, \quad n \in \N\]
+		By the monotone convergence theorem, it follows that 
+		\[ \E[U_\infty(a, b)] \lt \frac{|a| + c}{b - a} \lt \infty  \]
+		Hence \( \P[U_\infty(a, b) \lt \infty] = 1 \). Therefore with probability 1, \( U_\infty(a, b) \lt \infty \) for every \( a, \, b \in \Q \) with \( a \lt b \). By our <a href="Inequalities.html#upc3">characterization</a> of convergence in terms of up-crossings,  it follows that there exists a random variable \( X_\infty \) with values in \( \R^* = \R \cup \{-\infty, \infty\} \) such that with probability 1, \( X_t \to X_\infty \) as \( t \to \infty \). Note that \( X \) is measurable with respect to \( \mathscr{F}_\infty \). By <a href="../expect/Integral.html#lim1">Fatou's lemma</a>, 
+		\[ \E(|X_\infty|) \le \liminf_{t \to \infty} \E(|X_t|) \lt \infty \]
+		Hence \( \P(X_\infty \in \R) = 1 \).</p>
+	</details>
+</div>
+
+<p>The boundedness condition means that \( \bs X \) is bounded (in norm) as a subset of the <a href="../expect/Spaces.html">vector space</a> \( \mathscr{L}_1 \). Here is a very simple, but useful corollary:</p>
+
+<div class="unit" id="mct2">
+	<p class="math">If \( \bs X = \{X_t: t \in T\} \) is a nonnegative super-martingale with respect to \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \) then there exists a random variable \( X_\infty \), measurable withe respect to \( \mathscr{F}_\infty \), such that \( X_t \to X_\infty \) with probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( \bs X \) is a nonnegative super-martinagle, \( \E(|X_t|) = \E(X_t) \le \E(X_0) \) for \( t \in T \). Hence the martingale convergence theorem <a href="#mct1" class="ref"></a> applies.</p>
+	</details>
+</div>
+
+<p>Of course, the corollary  applies to a nonnegative martingale as a special case. For the second <dfn>martingale convergence theorem</dfn> you will need to review <a href="../expect/Uniform.html">uniformly integrable variables</a>. Recall also that for \( k \in [1, \infty) \), the \( k \)-norm of a random variable \( X \) is 
+\[ \|X\|_k = \left[\E\left(|X|^k\right)\right]^{1/k} \]
+and \( \mathscr{L}_k \) is the normed vector space of all real-valued random variables for which this norm is finite. <dfn>Convergence in mean</dfn> refers to convergence in \( \mathscr{L}_1 \) and more generally, <dfn>convergence in \( k \)th mean</dfn> refers to convergence in \( \mathscr{L}_k \).</p>
+
+<div class="unit" id="mct3">
+	<p class="math">Suppose that \( \bs X \) is a uniformly integrable and is a sub-martingale or super-martingale with respect to \( \mathfrak F \). Then there exists a random variable \( X_\infty \), measurable with respect to \( \mathscr{F}_\infty \) such that \( X_t \to X_\infty \) as \( t \to \infty \) with probability 1 and in mean. Moreover, if \( \bs X \) is a martingale with respect to \( \mathfrak F \) then \( X_t = \E(X_\infty \mid \mathscr{F}_t) \) for \( t \in T \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( \bs X = \{X_t: t \in T\} \) is uniformly integrable, \( \E(|X_t|) \) is bounded in \( t \in T \). Hence the by the  martingale convergence theorem <a href="mct1" class="ref"></a>, there exists \( X_\infty \) that is measurable with respect to \( \mathscr{F}_\infty \) such that \( \E(|X_\infty|) \lt \infty \) and \( X_t \to X_\infty \) as \( t \to \infty \) with probability 1. By the <a href="../expect/Uniform.html#con2">uniform integrability theorem</a>, the convergence is also in mean, so that \( \E(|X_t - X|) \to 0 \) as \( t \to \infty \). Suppose now that \( \bs X \) is a martingale with respect to \( \mathfrak F \) For fixed \( s \in T \) we know that \( \E(X_t \mid \mathscr{F}_s) \to \E(X_\infty \mid \mathscr{F}_s) \) as \( t \to \infty \) (with probability 1). But \( \E(X_t \mid \mathscr{F}_s) = X_s \) for \( t \ge s \) so it follows that \( X_s = \E(X_\infty \mid \mathscr{F}_s) \).</p>
+	</details>
+</div>
+
+<p>As a simple corollary, recall that if \( \|X_t\|_k \) is bounded in \( t \in T \) for some \( k \in (1, \infty) \) then \( \bs X \) is uniformly integrable, and hence the second martingale convergence theorem applies. But we can do better.</p>
+
+<div class="unit" id="mct4">
+	<p class="math">Suppose again that \( \bs X = \{X_t: t \in T\} \) is a sub-martingale or super-martingale with respect to \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \) and that \( \|X_t\|_k \) is bounded in \( t \in T \) for some \( k \in (1, \infty) \). Then there exists a random variable \( X_\infty \in \mathscr{L}_k \) such that \( X_t \to X_\infty \) as \( t \to \infty \) in \( \mathscr{L}_k \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( \|X_t\|_k \le c \) for \( t \in T \) where \( c \in (0, \infty) \). Since \( \|X\|_1 \le \|X\|_k \), we have \( \E(|X_t|) \) bounded in \( t \in T \) so the martingale convergence theorem <a href="#mct1" class="ref"></a> applies. Hence there exists \( X_\infty \), measurable with respect to \( \mathscr{F}_\infty \), such that \( X_t \to X_\infty \) as \( t \to \infty \) with probability 1. Equivalently, with probability 1,
+		\[ |X_t - X_\infty|^k \to 0 \text{ as } t \to \infty \]
+		Next, for \( t \in T \), let \( T_t = \{s \in T: s \le t\} \) define \( W_t = \sup\{|X_s|: s \in T_t\} \). by the norm version of the <a href="Inequalities.html#max6">maximal inequality</a>,
+		\[ \|W_t\|_k \le \frac{k}{k-1}\|X_t\| \le \frac{k c}{k - 1}, \quad t \in T \]
+		If we let \( W_\infty = \sup\{|X_s|: s \in T\} \), then by the <a href="../expect/Integral.html#lim2">montone convergence theorem</a>
+		\[ \|W_\infty\|_k = \lim_{t \to \infty} \|W_t\|_k \le \frac{c k}{k - 1} \]
+		So \( W_\infty \in \mathscr{L}_k \). But \( |X_\infty| \le W_\infty \) so \( X_\infty \in \mathscr{L}_k \) also. Moreover, \( |X_t - X_\infty|^k \le 2^k W^k_\infty \), so applying the <a href="../expect/Integral.html#lim2">dominated convergence theorem</a> to the first displayed equation above, we have \( \E(|X_t - X_\infty|^k) \to 0 \) as \(  t \to \infty \). </p>
+	</details>
+</div>
+
+<h3>Example and Applications</h3>
+
+<p>In this subsection, we consider a number of applications of the martingale convergence theorems. One indication of the importance of martingale theory is the fact that many of the classical theorems of probability have simple and elegant proofs when formulated in terms of martingales.</p>
+
+<h4>Simple Random Walk</h4>
+
+<p>Suppose now that that \( \bs{V} = \{V_n: n \in \N\} \) is a sequence of independent random variables with \( \P(V_i = 1) = p \) and \( \P(V_i = -1) = 1 - p \) for \( i \in \N_+ \), where \( p \in (0, 1) \). Let \( \bs{X}  = \{X_n: n \in \N\} \) be the partial sum process associated with \( \bs{V} \) so that 
+\[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]
+Recall that \( \bs{X} \) is the <a href="Introduction.html#srw">simple random walk</a> with parameter \( p \). From our study of Markov chains, we know that \( p \gt \frac{1}{2} \) then \( X_n \to \infty \) as \( n \to \infty \) and if \( p \lt \frac{1}{2} \) then \( X_n \to -\infty \) as \( n \to \infty \). The chain is transient in these two cases. If \( p = \frac{1}{2} \), the chain is (null) recurrent and so visits every state in \( \N \) infinitely often. In this case \( X_n \) does not converge as \( n \to \infty \). But of course \( \E(X_n) = n (2 p - 1) \) for \( n \in \N \), so the martingale convergence theorems do not apply.</p>
+
+<h4 id="doo">Doob's Martingale</h4>
+
+<p>Recall that if \( X \) is a random variable with \( \E(|X|) \lt \infty \) and we <em>define</em> \( X_t = \E(X \mid \mathscr{F}_t) \) for \( t \in T \), then \( \bs X = \{X_t: t \in T\} \) is a martingale relative to \( \mathfrak F \) and is known as a <a href="Introduction.html#doo">Doob martingale</a>, named for <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">you know whom</a>. So the second martingale convergence theorem states that every uniformly integrable martingale is a Doob martingale. Moreover, we <a href="../expect/Uniform.html#exe2">know</a> that the Doob martingale \( \bs X \) constructed from \( X \) and \( \mathfrak F \) is uniformly integrable, so the second martingale convergence theorem applies. The last remaining question is the relationship between \( X \) and the limiting random variable \( X_\infty \). The answer may come as no surprise.</p>
+
+<div class="unit" id="doo1">
+	<p class="math">Let \( \bs X = \{X_t: t \in T\} \) be the Doob martingale constructed from \( X \) and \( \mathfrak F \). Then \( X_t \to X_\infty \) as \( t \to \infty \) with probability 1 and in mean, where 
+	\[ X_\infty = \E(X \mid \mathscr{F}_\infty) \]</p>
+</div>
+
+<p>Of course if \( \mathscr{F}_\infty = \mathscr{F} \), which is quite possible, then \( X_\infty = X \). At the other extreme, if \( \mathscr{F}_t = \{\emptyset, \Omega\}\), the trivial \( \sigma \)-algebra for all \( t \in T \), then \( X_\infty = \E(X) \), a constant.</p>
+
+<h4 id="kol">Kolmogorov Zero-One Law</h4>
+
+<p>Suppose that \( \bs X = (X_n: n \in \N_+) \) is a sequence of random variables with values in a general state space \( (S, \mathscr{S}) \). Let \( \mathscr{G}_n = \sigma\{X_k: k \ge n\} \) for \( n \in \N_+ \), and let \( \mathscr{G}_\infty = \bigcap_{n=1}^\infty \mathscr{G}_n \). So \( \mathscr{G}_\infty \) is the <dfn>tail \( \sigma \)-algebra</dfn> of \( \bs X \), the collection of events that depend only on the terms of the sequence with arbitrarily large indices. For example, if the sequence is real-valued (or more generally takes values in a <a href="../foundations/Metric.html">metric space</a>), then the event that \( X_n \) has a limit as \( n \to \infty \) is a tail event.  If \( B \in \mathscr{S} \), then the event that \( X_n \in B \) for infinitely many \( n \in \N_+ \) is another tail event. The <dfn>Kolmogorov zero-one law</dfn>, named for <a href="JavaScript:openAncillary('../biographies/Kolmogorov.html')" class="ancillary">Andrei Kolmogorov</a>, states that if \( \bs X \) is an independent sequence, then the tail events are essentially deterministic.</p>
+
+<div class="unit" id="kol1">
+	<p class="math">Suppose that \( \bs X \) is a sequence of independent random variables. If \( A \in \mathscr{G}_\infty \) then \( \P(A) = 0 \) or \( \P(A) = 1 \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( \mathscr{F}_n = \sigma\{X_k: k \le n\} \) for \( n \in \N_+ \) so that \( \mathfrak F = \{\mathscr{F}_n: n \in \N_+\} \) is the natural filtration associated with \( \bs X \). As with our notation above, let \( \mathscr{F}_\infty = \sigma\left(\bigcup_{n \in \N_+} \mathscr{F}_n\right) \). Now let \( A \in \mathscr{G}_\infty \) be a tail event. Then \( \{\E(\bs{1}_A \mid \mathscr{F}_n): n \in \N_+\} \) is the Doob martingale associated with the indicator variable \( \bs{1}_A \) and \( \mathfrak F \). By our results above, \( \E(\bs{1}_A \mid \mathscr{F}_n) \to \E(\bs{1}_A \mid \mathscr{F}_\infty) \) as \( n \to \infty \) with probability 1. But \( A \in \mathscr{F}_\infty \) so \( \E(\bs{1}_A \mid \mathscr{F}_\infty) = \bs{1}_A \). On the other hand, \( A \in \mathscr{G}_{n+1} \) and the \( \sigma \)-algebras \( \mathscr{G}_{n+1} \) and \( \mathscr{F}_n \) are independent. Therefore \( \E(\bs{1}_A \mid \mathscr{F}_n) = \P(A) \) for each \( n \in \N_+ \). Thus \( \P(A) = \bs{1}_A \).</p>
+	</details>
+</div>
+
+<p><a href="../prob/Probability2.html#tai">Tail events</a> and the Kolmogorov zero-one law were studied earlier in the section on <a href="../foundations/Measure.html">measure</a>. A random variable that is measurable with respect to \( \mathscr{G}_\infty \) is a <dfn>tail random variable</dfn>. From the Kolmogorov zero-one law, a real-valued tail random variable for an independent sequence must be a constant (with probability 1).</p>
+
+<h4 id="brn">Branching Processes</h4>
+
+<p>Recall the discussion of the simple <dfn>branching process</dfn> from the <a href="Introduction.html#brn">introduction</a>. The fundamental assumption is that the particles act independently, each with the same offspring distribution on \( \N \). As before, we will let \( f \) denote the (discrete) <a href="../dist/Discrete.html">probability density function</a> of the number of offspring of a particle, \( m \) the <a href="../expect/Properties.html">mean</a> of the distribution, and \( q \) the probability of extinction starting with a single particle. We assume that \( f(0) \gt 0 \) and \( f(0) + f(1) \lt 1 \) so that a particle has a positive probability of dying without children and a positive probability of producing more than 1 child. </p>
+
+<p>The stochastic process of interest is \( \bs{X} = \{X_n: n \in \N\} \) where \( X_n \) is the number of particles in the \( n \)th generation for \( n \in \N \). Recall that \( \bs{X} \) is a <a href="../markov/Branching.html">discrete-time Markov chain</a> on \( \N \). Since 0 is an absorbing state, and all positive states lead to 0, we know that the positive states are transient and so are visited only finitely often with probability 1. It follows that either \( X_n \to 0 \) as \( n \to \infty \) (extinction) or \( X_n \to \infty \) as \( n \to \infty \) (explosion). We have quite a bit of information about which of these events will occur from our study of Markov chains, but the martingale convergence theorems give more information.</p>
+
+<div class="unit" id="brn1">
+	<p class="math">Extinction and explosion</p>
+	<ol class="sub">
+		<li>If \( m \le 1 \) then \( q = 1 \) and extinction is certain.</li>
+		<li>If \( m \gt 1 \) then \( q \in (0, 1) \). Either \( X_n \to 0 \) as \( n \to \infty \) or \( X_n \to \infty \) as \( n \to \infty \) at an exponential rate.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The new information is the rate of divergence to \( \infty \) in (b). The other statements are from our study of discrete-time branching Markov chains. We showed in the <a href="Introduction.html#brn">introduction</a> that \( \{X_n / m^n: n \in \N\} \) is a martingale. Since this martingale is nonnegative, it has a limit as \( n \to \infty \), and the limiting random variable takes values in \( \R \). So if \( m \gt 1 \) and \( X_n \to \infty \) as \( n \to \infty \), then the divergence to \( \infty \) must be at essentially the same rate as \( m^n. \)</p>
+	</details>
+</div>
+
+<h4 id="bet">The Beta-Bernoulli Process</h4>
+
+<p>Recall that the <a href="../bernoulli/BetaBernoulli.html">beta-Bernoulli process</a> is constructed by randomizing the success parameter in a <a href="../bernoulli/Introduction.html">Bernoulli trials process</a> with a <a href="../special/Beta.html">beta distribution</a>. Specifically, we start with a random variable \( P \) having the beta distribution with parameters \( a, \, b \in (0, \infty) \). Next we have a sequence \( \bs X = (X_1, X_2, \ldots) \) of indicator variables with the property that \( \bs X \) is conditionally independent given \( P = p \in (0, 1) \) with \( \P(X_i = 1 \mid P = p) = p \) for \( i \in \N_+ \). Let \( \bs{Y} = \{Y_n: n \in \N\} \) denote the partial sum process associated with \( \bs{X} \), so that once again, \( Y_n = \sum_{i=1}^n X_i\) for \(n \in \N \). Next let \( M_n = Y_n / n \) for \( n \in \N_+ \) so that \( M_n \) is the <dfn>sample mean</dfn> of \( (X_1, X_2, \ldots, X_n) \). Finally let
+\[ Z_n = \frac{a + Y_n}{a + b + n}, \quad n \in \N\]
+We showed in the <a href="Introduction.html#bet">introduction</a> that \( \bs Z = \{Z_n: n \in \N\} \) is a martingale with respect to \( \bs X \).</p>
+
+<div class="unit" id="bet1">
+	<p class="math">\( M_n \to P \) and \( Z_n \to P \) as \( n \to \infty \) with probability 1 and in mean.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>We showed in the section on the <a href="../bernoulli/BetaBernoulli.html#pro2">beta-Bernoulli process</a> that \( Z_n \to P \) as \( n \to \infty \) with probability 1. Note that \( 0 \le Z_n \le 1 \) for \( n \in \N \), so the martingale \( \bs Z \) is uniformly integrable. Hence the martingale convergence theorem  <a href="#mct3" class="ref"></a> applies, and the convergence is in mean also.</p>
+	</details>
+</div>
+
+<p>This is a very nice result and is reminiscent of the fact that for the ordinary Bernoulli trials sequence with success parameter \( p \in (0, 1) \) we have the law of large numbers that \( M_n \to p \) as \( n \to \infty \) with probability 1 and in mean.</p>
+
+<h4 id="urn">P&oacute;lya's Urn Process</h4>
+
+<p>Recall that in the simplest version of <a href="../urn/Polya.html">P&oacute;lya's urn process</a>, we start with an urn containing \( a \) red and \( b \) green balls. At each discrete time step, we select a ball at random from the urn and then replace the ball and add \( c \) new balls of the same color to the urn. For the parameters, we need \( a, \, b \in \N_+ \) and \( c \in \N \). For \( i \in \N_+ \), let \( X_i \) denote the color of the ball selected on the \( i \)th draw, where 1 means red and 0 means green. For \( n \in \N \), let  \( Y_n = \sum_{i=1}^n X_i \), so that \( \bs Y = \{Y_n: n \in \N\} \) is the partial sum process associated with \( \bs X = \{X_i: i \in \N_+\} \). Since \( Y_n \) is the number of red balls in the urn at time \( n \in \N_+ \), the <em>average</em> number of balls at time \( n \) is \( M_n = Y_n / n \). On the other hand, the total number of balls in the urn at time \( n \in \N \) is \( a + b + c n \) so the <em>proportion</em> of red balls in the urn at time \( n \) is
+\[ Z_n = \frac{a + c Y_n}{a + b + c n} \]
+We showed in the <a href="Introduction.html#urn">introduction</a>, that \( \bs Z = \{Z_n: n \in \N\} \) is a martingale. Now we are interested in the limiting behavior of \( M_n \) and \( Z_n \) as \( n \to \infty \). When \( c = 0 \), the answer is easy. In this case, \( Y_n \) has the binomial distribution with trial parameter \( n \) and success parameter \( a / (a + b) \), so by the law of large numbers (<a href="../sample/LLN.html">Section 5.3</a>), \( M_n \to a / (a + b) \) as \( n \to \infty \) with probability 1 and in mean. On the other hand, \( Z_n = a / (a + b) \) when \( c = 0 \). So the interesting case is when \( c \gt 0 \).</p>
+
+<div class="unit" id="urn1">
+	<p class="math">Suppose that \( c \in \N_+ \). Then there exists a random variable \( P \) such that \( M_n \to P \) and \( Z_n \to P \) as \( n \to \infty \) with probability 1 and in mean. Moreover, \( P \) has the beta distribution with left parameter \( a / c \) and right parameter \( b / c \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>In our study of <a href="../urn/Polya.html">P&oacute;yla's urn process</a> we showed that when \( c \in \N_+ \) the process \( \bs X \) is a beta-Bernoulli process with parameters \( a / c \) and \( b / c \). So the result follows from <a href="#bet1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<h4 id="lrt">Likelihood Ratio Tests</h4>
+
+<p>Recall the discussion of likelihood ratio tests in the <a href="Introduction.html#lrt">introduction</a>. To review, suppose that \( (S, \mathscr{S}, \mu) \) is a general measure space, and that \( \bs{X} = \{X_n: n \in \N\} \) is a sequence of independent, identically distributed random variables, taking values in \( S \), and having a common probability density function with respect to \( \mu \). The <a href="../hypothesis/Likelihood.html">likelihood ratio test</a> is a <a href="../hypothesis/index.html">hypothesis test</a>, where the null and alternative hypotheses are</p>
+
+<ul>
+	<li>\( H_0 \): the probability density function is \( g_0 \).</li>
+	<li>\( H_1 \): the probability density function is \( g_1 \).</li>
+</ul>	 
+	  
+<p>We assume that \( g_0 \) and \( g_1 \) are positive on \( S \). Also, it makes no sense for \( g_0 \) and \( g_1 \) to be the same, so we assume that \( g_0 \ne g_1 \) on a set of positive measure. The test is based on the <dfn>likelihood ratio test statistic</dfn>
+\[ L_n = \prod_{i=1}^n \frac{g_0(X_i)}{g_1(X_i)}, \quad n \in \N \]
+We showed that under the alternative hypothesis \( H_1 \), \( \bs{L} = \{L_n: n \in \N\} \) is a martingale with respect to \( \bs{X} \), known as the <dfn>likelihood ratio martingale</dfn>. </p>
+
+<div class="unit" id="lrt1">
+	<p class="math">Under \( H_1 \), \( L_n \to 0 \) as \( n \to \infty \) with probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Assume that \( H_1 \) is true. \( \bs L \) is a nonnegative martingale, so the first martingale convergence theorem applies, and hence there exists a random variable \( L_\infty \) with values in \( [0, \infty) \) such that \( L_n \to L_\infty \) as \( n \to \infty \) with probability 1. Next note that
+		\[ \ln(L_n) = \sum_{i=1}^n \ln\left[\frac{g_0(X_i)}{g_1(X_i)}\right] \]
+		The variables \( \ln[g_0(X_i) / g_1(X_i)] \) for \( i \in \N_+ \) are also independent and identically distributed, so let \( m \) denote the common mean. The natural logarithm is concave and the martingale \( \bs L \) has mean 1, so by <a href="../expect/Properties2.html#jen">Jensen's inequality</a>,
+		\[ m = \E\left(\ln\left[\frac{g_0(X)}{g_1(X)}\right]\right) \lt \ln\left(\E\left[\frac{g_0(X)}{g_1(X)}\right]\right) = \ln(1) = 0  \]
+		Hence \( m \in [-\infty, 0) \). By the <a href="../sample/LLN.html">strong law of large numbers</a>, \( \frac{1}{n} \ln(L_n) \to m \) as \( n \to \infty \) with probability 1. Hence we must have \( \ln(L_n) \to -\infty \) as \( n \to \infty \) with probability 1. But by continuity, \( \ln(L_n) \to \ln(L_\infty) \) as \( n \to \infty \) with probability 1, so \( L_\infty = 0 \) with probability 1.</p>
+	</details>
+</div>
+
+<p>Theorem <a href="#lrt1" class="ref"></a> is good news, statistically speaking. Small values of \( L_n \) are evidence in favor of \( H_1 \), so the decision rule is to reject \( H_0 \) in favor of \( H_1 \) if \( L_n \le l \) for a chosen critical value \( l \in (0, \infty) \). If \( H_1 \) is true and the sample size \( n \) is sufficiently large, we will reject \( H_0 \). In the proof, note that \( \ln(L_n) \) must diverge to \( -\infty \) at least as fast as \( n \) diverges to \( \infty \). Hence \( L_n \to 0 \) as \( n \to \infty \) exponentially fast, at least. It also worth noting that \( \bs L \) is a mean 1 martingale (under \( H_1 \)) so trivially \( \E(L_n) \to 1 \) as \( n \to \infty \) even though \( L_n \to 0 \) as \( n \to \infty \) with probability 1. So the likelihood ratio martingale is a good example of a sequence where the interchange of limit and expected value is not valid.</p>
+
+<h4>Partial Products</h4>
+
+<p>Suppose that \( \bs X = \{X_n: n \in \N_+\} \) is an independent sequence of nonnegative random variables with \( \E(X_n) = 1 \) for \( n \in \N_+ \). Let
+\[Y_n = \prod_{i=1}^n X_i, \quad n \in \N\]
+so that \( \bs Y = \{Y_n: n \in \N\} \) is the partial product process associated with \( \bs X \). From our discussion of this process in the <a href="Introduction.html#prd">introduction</a>, we know that \( \bs Y \) is a martingale with respect to \( \bs X \). Since \( \bs Y \) is nonnegative, the martingale convergence theorem <a href="#mct2" class="ref"></a> applies, so there exists a random variable \( Y_\infty \) such that \( Y_n \to Y_\infty \) as \( n \to \infty \) with probability 1. What more can we say? The following result, known as the <dfn>Kakutani product martingale theorem</dfn>, is due to Shizuo Kakutani.</p>
+
+<div class="unit">
+	<p class="math">Let \( a_n = \E\left(\sqrt{X_n}\right) \) for \( n \in \N_+ \) and let \( A = \prod_{i=1}^\infty a_i \).</p>
+	<ol class="sub">
+		<li>If \( A \gt 0 \) then \( Y_n \to Y_\infty \) as \( n \to \infty \) in mean and \( \E(Y_\infty) = 1 \).</li>
+		<li>If \( A = 0 \) then \( Y_\infty = 0 \) with probability 1.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( a_n \gt 0 \) for \( n \in \N_+ \) since \( X_n \) is nonnegative and \( \P(X_n \gt 0) \gt 0 \). Also, since \( x \mapsto \sqrt{x} \) is concave on \( (0, \infty) \) it follows from <a href="../expect/Properties2.html#jen">Jensen's inequality</a> that
+		\[ a_n = \E\left(\sqrt{X_n}\right) \le \sqrt{\E(X_n)} = 1 \]
+		Let \( A_n = \prod_{i=1}^n a_i \) for \( n \in \N \). Since \( a_n \in (0, 1] \) for \( n \in \N_+ \), it follows that \( A_n \in (0, 1] \) for \( n \in \N \) and that \( A_n \) is decreasing in \( n \in \N \) with limit \( A = \prod_{i=1}^\infty a_i \in [0, 1] \). Next let \(Z_n = \prod_{i=1}^n \sqrt{X_i} / a_i\) for \( n \in \N \), so that \( \bs Z = \{Z_n: n \in \N\} \) is the partial product process associated with \( \{\sqrt{X_n} / a_n: n \in \N\} \). Since \( \E\left(\sqrt{X_n} / a_n\right) = 1 \) for \( n \in \N_+ \), the process \( \bs Z \) is also a nonnegative martingale, so there exists a random variable \( Z_\infty \) such that \( Z_n \to Z_\infty \) as \( n \to \infty \) with probability 1. Note that \( Z_n^2 = Y_n / A_n^2 \), \( Y_n = A_n^2 Z_n^2 \), and \( Y_n \le Z_n^2 \) for \( n \in \N \).</p>
+		<ol class="sub">
+			<li>Suppose that \( A \gt 0 \). Since the martingale \( \bs Y \) has mean 1,
+			\[ \E\left(Z_n^2\right) = \E(Y_n / A_n^2) = 1 / A_n^2 \le 1 / A^2 \lt \infty, \quad n \in \N \]
+			Let \( W_n = \max\{Z_k: k \in \{0, 1, \ldots, n\}\} \) for \( n \in \N \) so that \( \bs W = \{W_n: n \in \N\} \) is the maximal process associated with \( \bs Z \). Also, let \( W_\infty = \sup\{Z_k: k \in \N\} \) and note that \( W_n \uparrow W_\infty \) as \( n \to \infty \). By the \( \mathscr{L}_2 \) <a href="Inequalities.html#max6">maximal inequality</a>,
+			\[ \E(W_n^2) \le 4 \E(Z_n^2) \le 4 / A^2, \quad n \in \N \]
+			By the monotone convergence theorem, \( \E(W_\infty^2) = \lim_{n \to \infty} \E(W_n^2) \le 4 / A^2 \).
+			Since \( x \to x^2 \) is strictly increasing on \( [0, \infty) \), \( W_\infty^2 = \sup\{Z_n^2: n \in \N\} \) and so \( Y_n \le W_\infty^2 \) for \( n \in \N \). Since \( \E(W_\infty^2) \lt \infty \), it follows that the martingale \( \bs Y \) is <a href="../expect/Uniform.html">uniformly integrable</a>. Hence by the martingale convergence theorem <a href="#mct3" class="ref"></a>, \( Y_n \to Y_\infty \) is mean. Since convergence in mean implies that the means converge, \( \E(Y_\infty) = \lim_{n \to \infty} \E(Y_n) = 1 \).
+			</li>
+			<li>Suppose that \( A = 0 \). Then \( Y_n = A_n^2 Z_n^2  \to 0 \cdot Z_\infty^2 = 0\) as \( n \to \infty \) with probability 1. Note that in this case, the convergence is not in mean, and trivially \( \E(Y_\infty) = 0 \).</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="den">Density Functions</h4>
+
+<p>This discussion continues the one on density functions in the <a href="Introduction.html#den">introduction</a>. To review, we start with our probability space \( (\Omega, \mathscr{F}, \P) \) and a filtration \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \) in discrete time. Recall again that \( \mathscr{F}_\infty = \sigma \left(\bigcup_{n=0}^\infty \mathscr{F}_n\right) \). Suppose now that \( \mu \) is a <a href="../foundations/General.html">finite measure</a> on the sample space \( (\Omega, \mathscr{F}) \). For each \( n \in \N \cup \{\infty\} \), the restriction of \( \mu \) to \( \mathscr{F}_n \) is a measure on \( (\Omega, \mathscr{F}_n) \) and similarly the restriction of \( \P \) to \( \mathscr{F}_n \) is a probability measure on \( (\Omega, \mathscr{F}_n) \). To save notation and terminology, we will refer to these as <dfn>\( \mu \) and \( \P \) on \(\mathscr{F}_n\)</dfn>, respectively. Suppose now that \( \mu \) is absolutely continuous with respect to \( \P \) on \(\mathscr{F}_n\) for each \( n \in \N \). By the <a href="../foundations/Density.html#lrn">Radon-Nikodym theorem</a>, \( \mu \) has a density function (or Radon-Nikodym derivative) \( X_n: \Omega \to \R \) with respect to \( \P \) on \( \mathscr{F}_n \) for each \( n \in \N \). The theorem and the derivative are named for <a href="JavaScript:openAncillary('../biographies/Radon.html')" class="ancillary">Johann Radon</a> and <a href="JavaScript:openAncillary('../biographies/Nikodym.html')" class="ancillary">Otto Nikodym</a>. In the Introduction we showed that \( \bs X = \{X_n: n \in \N\} \) is a martingale with respect to \( \mathfrak F\). Here is the convergence result:</p>
+
+<div class="unit" id="den1">
+	<p class="math">There exists a random variable \( X_\infty \) such that \( X_n \to X_\infty \) as \( n \to \infty \) with probability 1.</p>
+	<ol class="sub">
+		<li>If \( \mu \) is absolutely continuous with respect to \( \P \) on \( \mathscr{F}_\infty \) then \( X_\infty \) is a density function of \( \mu\) with respect to \( \P \) on \(\mathscr{F}_\infty\).</li>
+		<li>If \( \mu \) and \( \P \) are mutually singular on \( \mathscr{F}_\infty \) then \( X_\infty = 0 \) with probability 1.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, as shown in the <a href="Introduction.html#den">introduction</a>, \( \bs X \) is a martingale with respect to \( \mathfrak F \). Moreover, \( \E(|X_n|) = \|\mu\| \) (the total variation of \( \mu \)) for each \( n \in \N \). Since \( \mu \) is a finite measure, \( \|\mu\| \lt \infty \) so the martingale convergence theorem <a href="#mct1" class="ref"></a> applies. Hence there exists a random variable \( X_\infty \), measurable with respect to \( \mathscr{F}_\infty \), such that \( X_n \to X_\infty \) as \( n \to \infty \).</p>
+		<ol class="sub">
+			<li>If \( \mu \) is absolutely continuous with respect to \( \P \) on \( \mathscr{F}_\infty \), then \( \mu \) has a density function \( Y_\infty \) with respect to \( \P \) on \( \mathscr{F}_\infty \). Our goal is to show that \( X_\infty = Y_\infty \) with probability 1. By defintion, \( Y_\infty \) is measurable with respect to \( \mathscr{F}_\infty \) and 
+			\[ \int_A Y_\infty d\P = \E(Y_\infty; A) = \mu(A), \quad A \in \mathscr{F}_\infty \]
+			Suppose now that \( n \in \N \) and \( A \in \mathscr{F}_n \). Then again by definition, \( \E(X_n; A) = \mu(A)\). But \( A \in \mathscr{F}_\infty \) also, so \( \E(Y_\infty; A) = \mu(A) \). So to summarize, \( X_n \) is \( \mathscr{F}_n \)-measurable and \( E(X_n: A) = \E(Y_\infty; A) \) for each \( A \in \mathscr{F}_n \). By definition, this means that \( X_n = \E(Y_\infty \mid \mathscr{F}_n) \), so \( \bs X \) is the Doob martingale <a href="#doo" class="ref"></a> associated with \( Y_\infty \). Letting \( n \to \infty \) and using <a href="#doo1" class="ref"></a> gives \( X_\infty = \E(Y_\infty \mid \mathscr{F}_\infty) = Y_\infty \) (with probability 1, of course).</li>
+			<li>Suppose that \( \mu \) and \( \P \) are mutually singular on \( \mathscr{F}_\infty \). Assume first that \( \mu \) is a positive measure, so that \( X_n \) is nonnegative for \( n \in \N \cup \{\infty\}\). By the definition of mutually singularity, there exists \( B \in \mathscr{F}_\infty \) such that \( \mu_\infty(B) = 0 \) and \( \P_\infty(B^c) = 0 \), so that \( \P(B) = 1 \). Our goal is to show that \( \E(X_\infty; A) \le \mu(A) \) for every \( A \in \mathscr{F}_\infty \). Towards that end, let 
+			\[ \mathscr{M} = \left\{A \in \mathscr{F}_\infty: \E(X_\infty ; A) \le \mu(A)\right\} \]
+			Suppose that \( A \in \bigcup_{k=0}^\infty \mathscr{F}_k \), so that \( A \in \mathscr{F}_k \) for some \( k \in \N \). Then \( A \in \mathscr{F}_n \) for all \( n \ge k \) and therefore \( \E(X_n; A) = \mu(A) \) for all \( n \ge k \). By <a href="../expect/Integral.html">Fatou's lemmas</a>,
+			\[ \E(X_\infty; A) \le \liminf_{n \to \infty} \E(X_n; A) \le \mu(A) \]
+			so \( A \in \mathscr{M} \). Next, suppose that \( \{A_n: n \in \N\} \) is an increasing or decreasing sequence in \( \mathscr{M} \), and let \( A_\infty = \lim_{n \to \infty} A_n \) (the union in the first case and the intersection in the second case). Then \( \E(X_\infty; A_n) \le \mu(A_n) \) for each \( n \in \N \). By the continuity theorems, \( \E(X_\infty; A_n) \to \E(X_\infty; A_\infty) \) and \( \mu(A_n) \to \mu(A_\infty) \) as \( n \to \infty \). Therefore \( \E(X_\infty; A_\infty) \le \mu(A_\infty) \) and so \( A_\infty \in \mathscr{M} \). It follows that \( \mathscr{M} \) is a <a href="../foundations/Other.html#mon1">monotone class</a>. Since \( \mathscr{M} \) contains the algebra \( \bigcup_{n=0}^\infty \mathscr{F}_n \), it then follows from the <a href="../foundations/Other.html#mon2">monotone class theorem</a> that \( \mathscr{F}_\infty \subseteq \mathscr{M} \). In particular \( B \in \mathscr{M} \), so \( \E(X_\infty) = \E(X_\infty; B) \le \mu(B) = 0 \) and therefore \( X_\infty = 0 \) with probability 1. If \( \mu \) is a general finite measure, then by the <a href="../foundations/General.html#jor">Jordan decomposition theorem</a>, \( \mu \) can be written uniquely in the form \( \mu = \mu^+ - \mu^- \) where \( \mu^+ \) and \( \mu^- \) are finite positive measures. Moreover, \( X_n^+ \) is the density function of \( \mu^+ \) on \(\mathscr{F}_n\) and \( X_n^- \) is the density function of \( \mu^- \) on \( \mathscr{F}_n \). By the first part of the proof, \( X^+ = 0 \), \( X^- = 0 \), and also \( X = 0 \), all with probability 1.</li>
+		</ol>
+	</details>
+</div>
+
+<p>The martingale approach can be used to give a probabilistic proof of the Radon-Nikodym theorem, at least in certain cases. We start with a sample set \( \Omega \). Suppose that \( \mathscr{A}_n = \{A^n_i: i \in I_n\} \) is a countable partition of \( \Omega \) for each \( n \in \N \). Thus \( I_n \) is countable, \( A^n_i \cap A^n_j = \emptyset \) for distinct \( i, \, j \in I_n \), and \( \bigcup_{i \in I_n} A^n_i = \Omega \). Suppose also that \( \mathscr{A}_{n+1} \) <dfn>refines</dfn> \( \mathscr{A}_n \) for each \( n \in \N \) in the sense that \( A^n_i \) is a union of sets in \( \mathscr{A}_{n+1} \) for each \( i \in I_n \). Let \( \mathscr{F}_n = \sigma(\mathscr{A}_n) \). Thus \( \mathscr{F}_n \) is generated by a countable partition, and so the sets in \( \mathscr{F}_n \) are of the form \( \bigcup_{j \in J} A^n_j \) where \( J \subseteq I_n \). Moreover, by the refinement property \( \mathscr{F}_n \subseteq \mathscr{F}_{n+1} \) for \( n \in \N \), so that \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \) is a filtration. Let \( \mathscr{F} = \mathscr{F}_\infty = \sigma\left(\bigcup_{n=0}^\infty \mathscr{F}_n\right) = \sigma\left(\bigcup_{n=0}^\infty \mathscr{A}_n\right) \), so that our sample space is \( (\Omega, \mathscr{F}) \). Finally, suppose that \( \P \) is a probability measure on \( (\Omega, \mathscr{F}) \) with the property that \( \P(A^n_i) \gt 0 \) for \( n \in \N \) and \( i \in I_n \). We now have a probability space \( (\Omega, \mathscr{F}, \P) \). Interesting probability spaces that occur in applications are of this form, so the setting is not as specialized as you might think.</p>
+
+<p>Suppose now that \( \mu \) a finte measure on \( (\Omega, \mathscr{F}) \). From our assumptions, the only null set for \( \P \) on \(\mathscr{F}_n\) is \( \emptyset \), so \( \mu \) is automatically absolutely continuous with respect to \( \P \) on \( \mathscr{F}_n \). Moreover, for \( n \in \N \), we can give the density function of \( \mu \) with respect to \( \P \) on \(\mathscr{F}_n\) explicitly:</p>
+
+<div class="unit" id="den2">
+	<p class="math">The density function of \( \mu \) with respect to \( \P \) on \( \mathscr F_n \) is the random variable \( X_n \) whose value on \( A^n_i \) is \(\mu(A^n_i)/ \P(A^n_i) \) for each \( i \in I_n \). Equivalently,
+	\[ X_n = \sum_{i \in I_n} \frac{\mu(A^n_i)}{\P(A^n_i)} \bs{1}(A^n_i) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>We need to show that \( \mu(A) = \E(X_n; A) \) for each \( A \in \mathscr F_n \). So suppose \( A = \bigcup_{j \in J} A^n_j \) where \( J \subseteq I_n \). Then
+		\[ \E(X_n; A) = \sum_{j \in J} \E(X_n; A^n_j) = \sum_{j \in J} \frac{\mu(A^n_j)}{\P(A^n_j)} \P(A^n_j) = \sum_{j \in J} \mu(A^n_j) = \mu(A)\]</p>
+	</details>
+</div>
+
+<p>By our theorem above, there exists a random variable \( X \) such that \( X_n \to X \) as \( n \to \infty \) with probability 1. If \( \mu \) is absolutely continuous with respect to \( \P \) on \( \mathscr{F} \), then \( X \) is a density function of \( \mu \) with respect to \( \P \) on \(\mathscr{F}\). The point is that we have given a more or less explicit construction of the density.</p>
+
+<p>For a concrete example, consider \( \Omega = [0, 1) \). For \( n \in \N \), let
+\[ \mathscr{A}_n = \left\{\left[\frac{j}{2^n}, \frac{j + 1}{2^n}\right): j \in \{0, 1, \ldots, 2^n - 1\}\right\} \]
+This is the partition of \( [0, 1) \) into \( 2^n \) subintervals of equal length \( 1/2^n \), based on the <dfn>dyadic rationals</dfn> (or <dfn>binary rationals</dfn>) of rank \( n \) or less. Note that every interval in \( \mathscr{A}_n \) is the union of two adjacent intervals in \( \mathscr{A}_{n+1} \), so the refinement property holds. Let \( \P \) be ordinary Lebesgue measure on \( [0, 1) \) so that \( \P(A^n_i) = 1 / 2^n \) for \( n \in \N \) and \( i \in \{0, 1, \ldots, 2^n - 1\} \). As above, let \( \mathscr{F}_n = \sigma(\mathscr{A}_n) \) and \( \mathscr{F} = \sigma\left(\bigcup_{n=0}^\infty \mathscr{F}_n\right) = \sigma\left(\bigcup_{n=0}^\infty \mathscr{A}_n\right) \). The dyadic rationals are dense in \( [0, 1) \), so \( \mathscr{F} \) is the ordinary Borel \( \sigma \)-algebra on \( [0, 1) \). Thus our probability space \( (\Omega, \mathscr{F}, \P) \) is simply \( [0, 1) \) with the usual Euclidean structures. If \( \mu \) is a finite measure on \( ([0, 1), \mathscr{F}) \) then the density function of \( \mu \) on \( \mathscr{F}_n \) is the random variable \( X_n \) whose value on the interval \( [j / 2^n, (j + 1) / 2^n) \)  is \(2^n \mu[j / 2^n, (j + 1) / 2^n) \). If \( \mu \) is absolutely continuous with respect to \( \P \) on \( \mathscr{F} \) (so absolutely continuous in the usual sense), then a density function of \( \mu \) is \( X = \lim_{n \to \infty} X_n \).</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Properties.html" title="Properties and Constructions">2</a></li>
+		<li class="child"><a href="Stop.html" title="Stopping Times">3</a></li>
+		<li class="child"><a href="Inequalities.html" title="Inequalities">4</a></li>
+		<li class="current">5</li>
+		<li class="child"><a href="Backwards.html" title="Backwards Martingales">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+	<title>Compound Poisson Processes</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, compound Poisson process, point process, compound Poisson distribution, geometric distribution, negative binomial distribution">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<link rel="next" href="../renewal/index.html">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\skw}{\text{skew}}\) 
+	\(\newcommand{\kur}{\text{kurt}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Thinning and Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="current">7</li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>6. Compound Poisson Processes</h2>
+</header>
+
+<p>In a <dfn>compound Poisson process</dfn>, each arrival in an ordinary Poisson process comes with an associated real-valued random variable that represents the <dfn>value</dfn> of the arrival in a sense. These variables are independent and identically distributed, and are independent of the underlying Poisson process. Our interest centers on the sum of the random variables for all the arrivals up to a fixed time \( t \), which thus is a Poisson-distributed random sum of random variables. Distributions of this type are said to be <dfn>compound Poisson distributions</dfn>, and are important in their own right, particularly since some surprising parametric distributions turn out to be compound Poisson. </p>
+
+<h3>Basic Theory</h3>
+
+<h4 id="dfn">Definition</h4>
+
+<div class="unit">
+	<p class="dfn">We start with a <a href="Introduction.html">Poisson process</a> with rate \( r \in (0, \infty) \). Recall</p>
+	<ol class="sub">
+		<li>The <dfn>inter-arrival times</dfn> \( \bs{X} = (X_1, X_2, \ldots) \) are independent and each has the <a href="Exponential.html">exponential distribution</a> with rate \(r\),</li>
+		<li>The sequence of <dfn>>arrival times</dfn> \( \bs{T} = (T_0, T_1, T_2, \ldots) \) is the partial sum process associated with \(\bs X\) and \(T_n\) has the <a href="Gamma.html">gamma distribution</a> with shape parameter \(n\) and rate parameter \(r\) for \(n \in \N_+\).</li>
+		<li>The <dfn>counting process</dfn> is \( \bs{N} = \{N_t: t \in [0, \infty)\} \) where \(N_t\), the number of arrivals in \((0, t]\), has the <a href="Poisson.html">Poisson distribution</a> with parameter \(r t\) for \(t \in [0, \infty)\). The process \( \bs{N} \) is the inverse of \( \bs{T} \) in the sense that \(N_t \ge n\) if and only if \(T_n \le t\) for \(n \in \N\) and \(t \in [0, \infty)\).</li>
+	</ol>
+</div>	
+
+<p>Next we attach a random variable to each arrival that represents its value.</p>
+
+<div class="unit" id="dfn0">
+<p class="dfn">For \( n \in \N_+ \), let \( U_n \) denote the <dfn>value</dfn> of the \( n \)th arrival. We assume that \( \bs{U} = (U_1, U_2, \ldots) \) is a sequence of independent, identically distributed, real-valued random variables, and that \( \bs{U} \) is independent of the underlying Poisson process. Here are some typical examples:</p>
+<ol class="sub">
+	<li>The arrivals are customers at a store. Each customer spends a random amount of money.</li>
+	<li>The arrivals are visits to a website. Each visitor spends a random amount of time at the site.</li>
+	<li>The arrivals are failure times of a complex system. Each failure requires a random repair time.</li>
+	<li>The arrivals are earthquakes at a particular location. Each earthquake has a random severity, a measure of the energy released.</li>
+</ol>
+</div>
+
+<p>The common distribution may be <a href="../dist/Discrete.html">discrete</a> or <a href="../dist/Continuous.html">continuous</a>, but in either case, we let \( f \) denote the common probability density function. We will let \( \mu = \E(U_n) \) denote the common <a href="../expect/Properties.html">mean</a>, \( \sigma^2 = \var(U_n) \) the common <a href="../expect/Variance.html">variance</a>, and \( G \) the common <a href="../expect/Generating.html#mgf">moment generating function</a>, so that \( G(s) = \E\left[\exp(s U_n)\right] \) for \( s \) in some interval \( I \) about 0. Here is our main definition: </p>
+
+<div class="unit" id="dfn1">
+	<p class="math">The <dfn>compound Poisson process</dfn> associated with the given Poisson process \(\bs{N}\) and the sequence \( \bs{U} \) is the stochastic process \( \bs{V} = \{V_t: t \in [0, \infty)\} \) where
+	\[ V_t = \sum_{n=1}^{N_t} U_n\]
+	So \( V_t \) is the total value for all of the arrivals in \( (0, t] \). For the examples in <a href="#dfn0" class="ref"></a></p>
+	<ol class="sub">
+		<li>\( V_t \) is the total income to the store up to time \( t \).</li>
+		<li>\( V_t \) is the total time spent at the site by the customers who arrived up to time \( t \).</li>
+		<li>\( V_t \) is the total repair time for the failures up to time \( t \).</li>
+		<li>\( V_t \) is the total energy released up to time \( t \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that a sum over an empty index set is 0, so \( V_0 = 0 \).</p>
+	</details>
+</div>
+
+<h4 id="prp">Properties</h4>
+
+<p>Note that for fixed \( t \), \( V_t \) is a <a href="../sample/CLT.html">random sum</a> of independent, identically distributed random variables, a topic that we have studied before. In this sense, we have a special case, since the number of terms \( N_t \) has the Poisson distribution with parameter \( r t\). But we also have a new wrinkle, since the process is indexed by the continuous time parameter \( t \), and so we can study its properties as a stochastic process. Our first result is a pair of properties shared by the underlying Poisson process.</p>
+
+<div class="unit" id="prp1">
+	<p class="math">\( \bs{V} \) has stationary, independent increments:</p>
+	<ol class="sub">
+		<li>If \( s, \, t \in [0, \infty) \) with \( s \lt t \), then \( V_t - V_s \) has the same distribution as \( V_{t - s} \).</li>
+		<li>If \( (t_1, t_2, \ldots, t_n)\) is a sequence of points in \( [0, \infty) \) with \(t_1 \lt t_2 \lt \cdots \lt t_n \) then \(\left(V_{t_1}, V_{t_2} - V_{t_1}, \ldots, V_{t_n} - V_{t_{n-1}}\right)\) is a sequence of independent variables.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>For \( 0 \le s \lt t \),
+			\[ V_t - V_s = \sum_{i = 1}^{N_t} U_i - \sum_{i = 1}^{N_s} U_i = \sum_{i = N_s + 1}^{N_t} U_i \]
+			The number of terms in the last sum is \( N_t - N_s \), which has the same distribution as \( N_{t - s} \). Since the variables in the sequence \( \bs{U} \) are identically distributed, it follows that \( V_t - V_s \) has the same distribution as \( V_{t - s} \).</li>
+			<li>Suppose that \( 0 \le t_1 \lt t_2 \lt \cdots \lt t_n \) and let \( t_0 = 0 \). Then for \( i \in \{1, 2, \ldots, n\} \), as in (a)
+			\[ V_{t_i} - V_{t_i  - 1} = \sum_{j = N_{t_i - 1} + 1}^{N_{t_i}} U_j \]
+			The number of terms in this sum is \( N_{t_i} - N_{t_{i-1}} \). Since \( \bs{N} \) has independent increments, and the variables in \( \bs{U} \) are independent, and since the indices between \( N_{t_{i-1} + 1} \) and \( N_{t_i} \) are disjoint over \( i \in \{1, 2, \ldots n\} \), it follows that the random variables \( V_{t_i} - V_{t_i  - 1} \) are independent over \( i \in \{1, 2, \ldots, n\} \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Next we consider various moments of the compound process.</p>
+
+<div class="unit" id="prp2">
+	<p class="math">For \( t \in [0, \infty) \), the mean and variance of \( V_t \) are</p>
+	<ol class="sub">
+		<li>\( \E(V_t) = \mu r t \)</li>
+		<li>\( \var(V_t) = (\mu^2 + \sigma^2) r t \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, these are special cases of general results for random sums of IID variables, but we give separate proofs for completeness. The basic tool is <a href="../expect/Conditional.html">conditional expected value</a> and conditional variance. Recall also that \( \E(N_t) = \var(N_t) = r t \).</p>
+		<ol class="sub">
+			<li>Note that \( \E(V_t) = \E\left[\E(V_t \mid N_t)\right] = \E(\mu N_t) = \mu r t \).</li>
+			<li>Similarly, note that \( \var(V_t \mid N_t) = \sigma^2 N_t \) and hence \( \var(V_t) = \E\left[\var(V_t \mid N_t)\right] + \var\left[\E(V_t \mid N_t)\right] = \E(\sigma^2 N_t) + \var(\mu N_t) = \sigma^2 r t + \mu^2 r t \).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="prp3">
+	<p class="math">For \( t \in [0, \infty) \), the moment generating function of \( V_t \) is given by
+	\[ \E\left[\exp(s V_t)\right] = \exp\left(r t \left[G(s) - 1\right]\right), \quad s \in I \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, this is a special case of the more general result for random sums of IID variables, but we give a another proof for completeness. As with the last theorem, the key is to condition on \( N_t \) and recall that the MGF of a sum of independent variables is the product of the MGFs. Thus
+		\[ \E\left[\exp(s V_t)\right] = \E\left(\E\left[\exp(s V_t \mid N_t)\right]\right) = \E\left[G^{N_t}(s)\right] = P_t\left[G(s)\right] \]
+		where \( P_t \) is the probability generating function of \( N_t \). But we know from our study of the Poisson distribution that \( P_t(x) = \exp\left[r t (x - 1)\right] \) for \( x \in \R \).</p>
+	</details>
+</div>
+
+<p>By exactly the same argument, the same relationship holds for <a href="../expect/Generating.html#chf">characteristic functions</a> and, in the case that the variables in \( \bs{U} \) take values in \( \N \), for <a href="../expect/Generating.html#pgf">probability generating functions.</a>. That is, if the variables in \( \bs{U} \) have generating function \( G \), then the generating function \( H \) of \( V_t \) is given by
+\[ H(s) = \exp(r t [G(s) - 1]) \]
+for \( s \) in the domain of \( G \), where <em>generating function</em> can be any of the three types we have discussed: probability, moment, or characteristic.</p>
+
+<h3>Examples and Special Cases</h3>
+
+<h4 id="dsc">The Discrete Case</h4>
+
+<p>First note that <a href="Splitting.html">thinning</a> a Poisson process can be thought of as a special case of a compound Poisson process. Thus, suppose that \( \bs{U} = (U_1, U_2, \ldots) \) is a <a href="../bernoulli/index.html">Bernoulli Trials</a> sequence with success parameter \( p \in (0, 1) \), and as above, that \( \bs{U} \) is independent of the Poisson process \( \bs{N} \). In the usual language of thinning, the arrivals are of two types (1 and 0), and \( U_i \) is the type of the \( i \)th arrival.  Thus the compound process \( \bs{V} \) constructed above is the thinned process, so that \( V_t \) is the number of type 1 points up to time \( t \). We know that \( \bs{V} \) is also a Poisson process, with rate \( r p \).</p>
+
+<p>The results for thinning generalize to the case where the values of the arrivals have a discrete distribution. Thus, suppose \( U_i \) takes values in a countable set \( S \subseteq \R \), and as before, let \( f \) denote the common probability density function so that \( f(u) = \P(U_i = u) \) for \( u \in S \) and \( i \in \N_+ \). For \( u \in S \), let \( N^u_t \) denote the number of arrivals up to time \( t \) that have the value \( u \), and let \( \bs{N}^u = \left\{N^u_t: t \in [0, \infty)\right\} \) denote the corresponding stochastic process.  Armed with this setup, here is the result:</p>
+
+<div class="unit">
+	<p class="math">The compound Poisson process \( \bs{V} \) associated with \( \bs{N} \) and \( \bs{U} \) can be written in the form
+	\[ V_t = \sum_{u \in S} u N^u_t, \quad t \in [0, \infty) \]
+	The processes \( \{\bs{N}^u: u \in S\} \) are independent Poisson processes, and \( \bs{N}^u \) has rate \( r f(u) \) for \( u \in S \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \( U_i = \sum_{u \in S} u \bs{1}(U_i = u) \) and hence
+		\[ V_t = \sum_{i = 1}^{N_t} U_i = \sum_{i = 1}^{N_t} \sum_{u \in S} u \bs{1}(U_i = u) = \sum_{u \in S} u \sum_{i = 1}^{N_t} \bs{1}(U_i = u) = \sum_{u \in S} u N^u_t \]
+		The fact that \( \{\bs{N}^u: u \in S\} \) are independent Poisson processes, and that \( \bs{N}^u \) has rate \( r f(u) \) for \( u \in S \) follows from our result on <a href="Splitting.html">thinning</a>.</p>
+	</details>
+</div>
+
+<h4 id="cmp">Compound Poisson Distributions</h4>
+
+<p>A compound Poisson random variable can be defined outside of the context of a Poisson process. Here is the formal definition:</p>
+
+<div class="unit" id="cmp1">
+	<p class="dfn">Suppose that \( \bs{U} = (U_1, U_2, \ldots) \) is a sequence of independent, identically distributed random variables, and that \( N \) is independent of \( \bs{U} \) and has the Poisson distribution with parameter \( a \in (0, \infty) \). Then \( V = 
+	\sum_{i=1}^N U_i \) has a <dfn>compound Poisson distribution</dfn>.</p>
+</div>
+
+<p>But in fact, compound Poisson variables usually <em>do</em> arise in the context of an underlying Poisson process. In any event, the results on the mean and variance in <a href="#prp2" class="ref"></a> and the generating function in <a href="#prp3" class="ref"></a> hold with \( r t \) replaced by \( a \). Compound Poisson distributions are <a href="../special/Divisible.html">infinitely divisible</a>. A famous <a href="../special/Divisible.html#poi">theorem</a> of William Feller gives a partial converse: an infinitely divisible distribution on \( \N \) must be compound Poisson.</p>
+
+<p>The <a href="../bernoulli/NegativeBinomial.html">negative binomial distribution</a> on \( \N \) is infinitely divisible, and hence must be compound Poisson. Here is the construction:</p>
+
+<div class="unit" id="cmp3">
+	<p class="math">Let \( p, \, k \in (0, \infty) \). Suppose that \( \bs{U} = (U_1, U_2, \ldots) \) is a sequence of independent variables, each having the <a href="../special/Logarithmic.html">logarithmic series distribution</a> with shape parameter \( 1 - p \). Suppose also that \( N \) is independent of \( \bs{U} \) and has the Poisson distribution with parameter \( - k \ln(p) \). Then \( V = \sum_{i=1}^N U_i \) has the negative binomial distribution on \( \N \) with parameters \( k \) and \( p \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>From <a href="#prp3" class="ref"></a>, the probability generating function of \( V \) is \( P(t) = \exp\left( \lambda [Q(t) - 1]\right) \) where \( \lambda \) is the parameter of the Poisson variable \( N \) and \( Q(t) \) is the common PGF of the the terms in the sum. Using the PGF of the logarithmic series distribution, and the particular values of the parameters, we have
+		\[ P(t) = \exp \left[-k \ln(p) \left(\frac{\ln[1 - (1 - p)t]}{\ln(p)} - 1\right)\right], \quad \left|t\right| \lt \frac{1}{1 - p} \]
+		Using properties of logarithms and simple algebra, this reduces to
+		\[ P(t) = \left(\frac{p}{1 - (1 - p)t}\right)^k, \quad \left|t\right| \lt \frac{1}{1 - p} \]
+		which is the PGF of the negative binomial distribution with parameters \( k \) and \( p \).</p>
+	</details>
+</div>
+
+<p>As a special case (\( k = 1 \)), it follows that the <a href="../bernoulli/Geometric.html">geometric distribution</a> on \( \N \) is also compound Poisson.</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Thinning aand Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="current">7</li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

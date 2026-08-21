@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+	<title>Potential Matrices</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Markov chain, potential matrix, genertor matrix, continuous time, two-state chain">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="current">17</li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>17. Potential Matrices</h2>
+</header>
+
+<h3 id="pre">Prelimnaries</h3>
+
+<p>This is the third of the introductory sections on <dfn>continuous-time Markov chains</dfn>. So our starting point is a time-homogeneous <a href="Continuous.html">Markov chain</a> \( \bs{X} = \{X_t: t \in [0, \infty)\} \) defined on an underlying probability space \( (\Omega, \mathscr{F}, \P) \) and with discrete state space \( (S, \mathscr{S}) \). Thus \( S \) is countable and \( \mathscr{S} \) is the power set of \( S \), so every subset of \( S \) is measurable, as is every function from \( S \) into another measurable space. In addition, \( S \) is given the discret <a href="../foundations/Topology.html">topology</a> so that \( \mathscr{S} \) can also be thought of as the Borel \( \sigma \)-algebra. Every function from \( S \) to another topological space is continuous. Counting measure \( \# \) is the natural measure on \( (S, \mathscr{S}) \), so in the context of the <a href="General.html">general introduction</a>, integrals over \( S \) are simply sums. Also, <a href="../expect/Kernels.html">kernels</a> on \( S \) can be thought of as matrices, with rows and sums indexed by \( S \), so the left and right kernel operations are generalizations of matrix multiplication. As before, let \( \mathscr{B} \) denote the collection of bounded functions \( f: S \to \R \). With the usual pointwise definitions of addition and scalar multiplication, \( \mathscr{B} \) is a vector space. The <dfn>supremum norm</dfn> on \( \mathscr{B} \) is given by
+\[ \|f\| = \sup\{\left|f(x)\right|: x \in S\}, \quad f \in \mathscr{B} \]
+Of course, if \( S \) is finite, \( \mathscr{B} \) is the set of all real-valued functions on \( S \), and \( \|f\| = \max\{\left|f(x)\right|: x \in S\}\) for \(f \in \mathscr{B} \). The time space is \( ([0, \infty), \mathscr{T}) \) where as usual, \( \mathscr{T} \) is the Borel \( \sigma \)-algebra on \( [0, \infty) \) corresponding to the standard Euclidean <a href="../foundations/Topology.html">topology</a>. Lebesgue measure is the natural measure on \( ([0, \infty), \mathscr{T}) \).</p>
+
+<p>In our <a href="Continuous.html">first point of view</a>, we studied \( \bs{X} \) in terms of <em>when</em> and <em>how</em> the state changes. To review briefly, let \( \tau = \inf\{t \in (0, \infty): X_t \ne X_0\} \). Assuming that \( \bs{X} \) is right continuous, the Markov property of \( \bs{X} \) implies the memoryless property of \( \tau \), and hence the distribution of \( \tau \) given \( X_0 = x \) is exponential with parameter \( \lambda(x) \in [0, \infty) \) for each \( x \in S \). The assumption of right continuity rules out the pathological possibility that \( \lambda(x) = \infty \), which would mean that \( x \) is an <dfn>instantaneous state</dfn> so that \( \P(\tau = 0 \mid X_0 = x) = 1 \). On the other hand, if \( \lambda(x) \in (0, \infty) \) then \( x \) is a <dfn>stable state</dfn>, so that \( \tau \) has a proper exponential distribution given \( X_0 = x \) with \( \P(0 \lt \tau \lt \infty \mid X_0 = x) = 1 \). Finally, if \( \lambda(x) = 0 \) then \( x \) is an <dfn>absorbing state</dfn>, so that \( \P(\tau = \infty \mid X_0 = x) = 1 \). Next we define a sequence of stopping times: First \( \tau_0 = 0 \) and \( \tau_1 = \tau\). Recursively, if \( \tau_n \lt \infty \) then \( \tau_n = \inf\left\{t \gt \tau_n: X_t \ne X_{\tau_n}\right\} \), while if \( \tau_n = \infty \) then \( \tau_{n+1} = \infty \). With \( M = \sup\{n \in \N: \tau_n \lt \infty\} \) we define \( Y_n = X_{\tau_n} \) if \( n \in \N \) with \( n \le M \) and \( Y_n = Y_M \) if \( n \in \N \) with \( n \gt M \). The sequence \( \bs{Y} = (Y_0, Y_1, \ldots) \) is a discrete-time Markov chain on \( S \) with one-step transition matrix \( Q \) given by \(Q(x, y) = \P(X_\tau = y \mid X_0 = x)\) if \( x, \, y \in S \) with \( x \) stable, and \( Q(x, x) = 1\) if \( x \in S \) is absorbing. Assuming that \( \bs{X} \) is <dfn>regular</dfn>, which means that \( \tau_n \to \infty \) as \( n \to \infty \) with probability 1 (ruling out the <dfn>explosion</dfn> event of infinitely many transitions in finite time), the structure of \( \bs{X} \) is completely determined by the sequence of stopping times \( \bs{\tau} = (\tau_0, \tau_1, \ldots) \) and the embedded discrete-time <dfn>jump chain</dfn> \( \bs{Y} = (Y_0, Y_1, \ldots) \). Analytically, the distribution \( \bs{X} \) is determined by the exponential parameter function \( \lambda \) and the one-step transition matrix \( Q \) of the jump chain.</p>
+
+<p>In our <a href="Transition.html">second point of view</a>, we studied \( \bs{X} \) in terms of the collection of <dfn>transition matrices</dfn> \( \bs{P} = \{P_t: t \in [0, \infty)\} \), where for \( t \in [0, \infty) \),
+\[ P_t(x, y) = \P(X_t = y \mid X_0 = x), \quad (x, y) \in S^2 \]
+The Markov and time-homogeneous properties imply the <dfn>Chapman-Kolmogorov</dfn> equations \( P_s P_t = P_{s+t} \) for \( s, \, t \in [0, \infty) \), so that \( \bs{P} \) is a <dfn>semigroup</dfn> of transition matrices. The semigroup \( \bs{P} \), along with the initial distribution of \( X_0 \), completely determines the distribution of \( \bs{X} \). For a regular Markov chain \( \bs{X} \), the fundamental integral equation connecting the two points of view is
+\[ P_t(x, y) = I(x, y) e^{-\lambda(x) t} + \int_0^t \lambda(x) e^{-\lambda(x) s} Q P_{t - s} (x, y) \, ds, \quad (x, y) \in S^2 \]
+which is obtained by conditioning on \( \tau \) and \( X_\tau \). It then follows that the matrix function \( t \mapsto P_t \) is differentiable, with the derivative satisfying the <dfn>Kolmogorov backward equation</dfn> \( P_t^\prime = G P_t \)
+where the <dfn>generator matrix</dfn> \( G \) is given by
+\[ G(x, y) = -\lambda(x) I(x, y) + \lambda(x) Q(x, y), \quad (x, y) \in S^2 \]
+If the exponential parameter function \( \lambda \) is bounded, then the transition semigroup \( \bs{P} \) is <dfn>uniform</dfn>, which leads to stronger results. The generator \( G \) is a bounded operator on \( \mathscr{B} \), the backward equation holds as well as a companion forward equation \( P_t^\prime = P_t G \), as operators on \( \mathscr{B} \) (so with respect to the supremum norm rather than just pointwise). Finally, we can represent the transition matrix as an exponential: \( P_t = e^{t G} \) for \( t \in [0, \infty) \).</p>
+
+<p>In this section, we study the Markov chain \( \bs{X} \) in terms of a family of matrices known as <dfn>potential matrices</dfn>. This is the least intuitive of the three points of view, but analytically one of the best approaches. Essentially, the potential matrices are transforms of the transition matrices.</p>
+
+<h3 id="bas">Basic Theory</h3>
+
+<p>We assume again that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a regular Markov chain on \( S \) with transition semigroup \( \bs{P} = \{P_t: t \in [0, \infty)\} \). Our first discussion closely parallels the <a href="Potentials.html">general theory</a>, except for simplifications caused by the discrete state space.</p>
+
+<h4 id="dfn">Definitions and Properties</h4>
+
+<div class="unit" id="dfn1">
+	<p class="dfn">For \( \alpha \in [0, \infty) \), the <dfn>\( \alpha \)-potential matrix</dfn> \( U_\alpha \) of \( \bs{X} \) is defined as follows:
+	\[ U_\alpha(x, y) = \int_0^\infty e^{-\alpha t} P_t(x, y) \, dt, \quad (x, y) \in S^2 \]</p>
+	<ol class="sub">
+		<li>The special case \( U = U_0 \) is simply the <dfn>potential matrix</dfn> of \( \bs{X} \).</li>
+		<li>For \( (x. y) \in S^2 \), \( U(x, y) \) is the expected amount of time that \( \bs{X} \) spends in \( y \), starting at \( x \).</li>
+		<li>The family of matrices \( \bs{U} = \{U_\alpha: \alpha \in (0, \infty)\} \) is known as the <dfn>reolvent</dfn> of \( \bs{X} \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( t \mapsto P_t(x, y) \) is continuous, \( U_\alpha(x, y) \) makes sense for \( (x, y) \in S^2 \). The interpretation of \( U(x, y) \) involves an interchange of integrals:
+		\[ U(x, y) = \int_0^\infty P_t(x, y) \, dt = \int_0^\infty \E[\bs{1}(X_t = y) \mid X_0 = x] \, dt = \E\left( \int_0^\infty \bs{1}(X_t = y) \, dt \biggm| X_0 = x\right) \]
+		The inside integral is the Lebesgue measure of \( \{t \in [0, \infty): X_t = y\} \).</p>
+	</details>
+</div>
+
+<p>It's quite possible that \( U(x, y) = \infty \) for some \( (x, y) \in S^2 \), and knowing when this is the case is of considerable interest. If \( f: S \to \R \) and \( \alpha \ge 0 \), then giving the right operation in its many forms,
+\begin{align*}
+	U_\alpha f(x) &amp; = \sum_{y \in S} U_\alpha(x, y) f(y) = \int_0^\infty e^{-\alpha t} P_t f(x) \, dt \\ 
+	&amp; = \int_0^\infty e^{-\alpha t} \sum_{y \in S} P_t(x, y) f(y) = \int_0^\infty e^{-\alpha t} \E[f(X_t) \mid X_0 = x] \, dt, \quad x \in S
+\end{align*}
+assuming, as always, that the sums and integrals make sense. This will be the case in particular if \( f \) is nonnegative (although \( \infty \) is a possible value), or as we will now see, if \( f \in \mathscr{B} \) and \( \alpha \gt 0 \).</p>
+
+<div class="unit" id="dfn2">
+	<p class="math">If \( \alpha \gt 0 \), then \( U_\alpha(x, S) = \frac{1}{\alpha} \) for all \( x \in S \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( x \in S \),
+		\[ U_\alpha(x, S) = \int_0^\infty e^{-\alpha t} P_t(x, S) \, dt = \int_0^\infty e^{-\alpha t} dt = \frac{1}{\alpha} \]</p>
+	</details>
+</div>
+
+<p>It follows that for \( \alpha \in (0, \infty) \), the right potential operator \( U_\alpha \) is a bounded, linear operator on \( \mathscr{B} \) with \( \|U_\alpha\| = \frac{1}{\alpha} \). It also follows that \( \alpha U_\alpha \) is a probability matrix. This matrix has a nice interpretation.</p>
+
+<div class="unit" id="dfn3">
+	<p class="math">If \( \alpha \gt 0 \) then \( \alpha U_\alpha (x, \cdot) \) is the conditional probability density function of \( X_T \) given \( X_0 = x \), where \( T \) is independent of \( \bs{X} \) and has the <a href="../poisson/Exponential.html">exponential distribution</a> on \( [0, \infty) \) with parameter \( \alpha \). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( (x, y) \in S^2 \). The random time \( T \) has PDF \( f(t) = \alpha e^{-\alpha t} \) for \( t \in [0, \infty) \). Hence, conditioning on \( T \) gives
+		\[ \P(X_T = y \mid X_0 = x) = \int_0^\infty \alpha e^{-\alpha t} \P(X_T = y \mid T = t, X_0 = x) \, dt \]
+		But by the substitution rule and the assumption of independence,
+		\[ \P(X_T = y \mid T = t, X_0 = x) = \P(X_t = y \mid T = t, X_0 = x) = \P(X_t = y \mid X_0 = x) = P_t(x, y) \]
+		Substituting gives
+		\[ \P(X_T = y \mid X_0 = x) = \int_0^\infty \alpha e^{-\alpha t} P_t(x, y) \, dt = \alpha U_\alpha(x, y)\]</p>
+	</details>
+</div>
+
+<p>So \( \alpha U_\alpha \) is a transition probability matrix, just as \( P_t \) is a transition probability matrix, but corresponding to the <em>random</em> time \( T \) (with \( \alpha \in (0, \infty) \) as a parameter), rather than the deterministic time \( t \in [0, \infty) \). The potential matrix can also be interpreted in economic terms. Suppose that we receive money at a rate of one unit per unit time whenever the process \( \bs{X} \) is in a particular state \( y \in S \). Then \( U(x, y) \) is the expected total amount of money that we receive, starting in state \( x \in S \). But money that we receive later is of less value to us <em>now</em> than money that we will receive sooner. Specifically, suppose that one monetary unit at time \( t \in [0, \infty) \) has a present value of \( e^{-\alpha t} \) where \( \alpha \in (0, \infty) \) is the <dfn>inflation factor</dfn> or <dfn>discount factor</dfn>. Then \( U_\alpha(x, y) \) is the total, expected, discounted amount that we receive, starting in \( x \in S \). A bit more generally, suppose that \( f \in \mathscr{B} \) and that \( f(y) \) is the reward (or cost, depending on the sign) per unit time that we receive when the process is in state \( y \in S \). Then \( U_\alpha f(x) \) is the expected, total, discounted reward, starting in state \( x \in S \).</p>
+
+<div class="unit" id="dfn4">
+	<p class="math">\( \alpha U_\alpha \to I \) as \( \alpha \to \infty \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p> Note first that with a change of variables \( s = \alpha t \),
+		\[ \alpha U_\alpha = \int_0^\infty \alpha e^{-\alpha t} P_t \, dt = \int_0^\infty e^{-s} P_{s/\alpha} \, ds \]
+		But for \( s \in [0, \infty) \), \( s / \alpha \to 0 \) and hence \( P_{s/\alpha} \to I \) as \( \alpha \to \infty \). The result then follows from the dominated convergence theorem.</p>
+	</details>
+</div>
+
+<p>If \( f: S \to [0, \infty) \), then giving the left potential operation in its various forms,
+\begin{align*}
+	f U_\alpha(y) &amp; = \sum_{x \in S} f(x) U_\alpha(x, y)  = \int_0^\infty e^{-\alpha t} f P_t (y) \, dt\\ 
+	&amp; = \int_0^\infty e^{-\alpha t} \left[\sum_{x \in S} f(x) P_t(x, y)\right] dt = \int_0^\infty e^{-\alpha t} \left[\sum_{x \in S} f(x) \P(X_t = y) \right] dt, \quad y \in S
+\end{align*}
+In particular, suppose that \( \alpha \gt 0 \) and that \( f \) is the probability density function of \( X_0 \). Then \( f P_t \) is the probability density function of \( X_t \) for \( t \in [0, \infty) \), and hence from the last result, \( \alpha f U_\alpha \) is the probability density function of \( X_T \), where again, \( T \) is independent of \( \bs{X} \) and has the exponential distribution on \( [0, \infty) \) with parameter \( \alpha \).  The family of potential kernels gives the same information as the family of transition kernels.</p>
+
+<div class="unit" id="dfn5">
+	<p class="math">The resolvent \(\bs{U} = \{U_\alpha: \alpha \in (0, \infty)\} \) completely determines the family of transition kernels \( \bs{P} = \{P_t: t \in (0, \infty)\}  \). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that for \( (x, y) \in S^2 \), the function \( \alpha \mapsto U_\alpha(x, y) \) on \( (0, \infty) \) is the <a href="../renewal/Equations.html#lap">Laplace transform</a> of the function \( t \mapsto P_t(x, y) \) on \( [0, \infty) \). The Laplace transform of a continuous function determines the function uniquely.</p>
+	</details>
+</div>
+
+<p>Although not as intuitive from a probability view point, the potential matrices are in some ways nicer than the transition matrices because of additional smoothness. In particular, the resolvent \( \{U_\alpha: \alpha \in [0, \infty)\} \), along with the initial distribution, completely determine the finite dimensional distributions of the Markov chain \( \bs{X} \). The potential matrices commute with the transition matrices and with each other.</p>
+
+<div class="unit" id="dfn6">
+	<p class="math">Suppose that \( \alpha, \, \beta, \, t \in [0, \infty) \). Then</p>
+	<ol class="sub">
+		<li>\( P_t U_\alpha = U_\alpha P_t = \int_0^\infty e^{-\alpha s} P_{s+t} ds\)</li>
+		<li>\( U_\alpha U_\beta = U_\beta U_\alpha = \int_0^\infty \int_0^\infty e^{-\alpha s} e^{-\beta t} P_{s+t} ds \, dt \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The interchanges of matrix multiplication and integrals below are interchanges of sums and integrals, and are justified since the underlying integrands are nonnegative. The other tool used is the semigroup property of \( \bs{P} = \{P_t: t \in [0, \infty)\} \). You may want to write out the proofs explicitly to convince yourself</p>
+		<ol class="sub">
+			<li>First, 
+			\[ U_\alpha P_t  = \left(\int_0^\infty e^{-\alpha s} P_s \, ds\right) P_t = \int_0^\infty e^{-\alpha s} P_s P_t  \, ds = \int_0^\infty e^{-\alpha s} P_{s+t} \, ds \]
+			Similarly
+			\[ P_t U_\alpha  = P_t \int_0^\infty e^{-\alpha s} P_s \, ds = \int_0^\infty e^{-\alpha s} P_t P_s \, ds = \int_0^\infty e^{-\alpha s} P_{s+t} \, ds\]</li>
+			<li>First 
+			\[U_\alpha U_\beta = \left(\int_0^\infty e^{-\alpha s} P_s \, ds \right) \left(\int_0^\infty e^{-\beta t} P_t \, dt \right) = \int_0^\infty \int_0^\infty e^{-\alpha s} e^{-\beta t} P_s P_t \, ds \, dt = \int_0^\infty \int_0^\infty e^{-\alpha s} e^{-\beta t} P_{s+t} \, ds \, dt\]
+			The other direction is similar.</li>
+		</ol>
+	</details>
+</div>
+
+<p>The equations above are matrix equations, and so hold pointwise. The same identities hold for the right operators on the space \( \mathscr{B} \) under the additional restriction that \( \alpha \gt 0 \) and \( \beta \gt 0 \). The fundamental equation that relates the potential kernels, known as the <dfn>resolvent equation</dfn>, is given in the next theorem:</p>
+
+<div class="unit" id="dfn7">
+	<p class="math">If \( \alpha, \, \beta \in [0, \infty) \) with \( \alpha \le \beta \) then \( U_\alpha = U_\beta + (\beta - \alpha) U_\alpha U_\beta \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>If \( \alpha = \beta \) the equation is trivial, so assume \( \alpha \lt \beta \). From the previous result,
+		\[ U_\alpha U_\beta = \int_0^\infty \int_0^\infty e^{-\alpha s} e^{-\beta t} P_{s + t} \, dt \, ds \]
+		The transformation \( u = s + t, \, v = s \) maps \( [0, \infty)^2 \) one-to-one onto \( \{(u, v) \in [0, \infty)^2: u \ge v\} \). The inverse transformation is \( s = v, \, t = u - v \) with Jacobian \( -1 \). Hence we have
+		\begin{align*}
+			U_\alpha U_\beta &amp; = \int_0^\infty \int_0^u e^{-\alpha v} e^{-\beta(u - v)} P_u \, dv \, du =   \int_0^\infty \left(\int_0^u e^{(\beta - \alpha) v} dv\right) e^{-\beta u} P_u  \, du \\
+			&amp; = \frac{1}{\beta - \alpha} \int_0^\infty \left[e^{(\beta - \alpha) u} - 1\right] e^{-\beta u} P_u du\\
+			&amp; = \frac{1}{\beta - \alpha}\left(\int_0^\infty e^{-\alpha u} P_u \, du - \int_0^\infty e^{-\beta u} P_u \, du\right) = \frac{1}{\beta - \alpha}\left(U_\alpha - U_\beta \right)
+		\end{align*}
+		Simplifying gives the result. Note that \( U_\beta  \) is finite since \( \beta \gt 0 \), so we don't have to worry about the dreaded indeterminate form \( \infty - \infty \).</p>
+	</details>
+</div>
+
+<p>The equation above is a matrix equation, and so holds pointwise. The same identity holds for the right potential operators on the  space \( \mathscr{B} \), under the additional restriction that \( \alpha \gt 0 \).</p>
+
+<h4 id="gen">Connections with the Generator</h4>
+
+<p>Once again, assume that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a regular Markov chain on \( S \) with transition semigroup \( \bs{P} = \{P_t: t \in [0, \infty)\} \), infinitesimal generator \( G \), resolvent \( \bs{U} = \{U_\alpha: \alpha \in (0, \infty)\} \), exponential parameter function \( \lambda \), and one-step transition matrix \( Q \) for the jump chain. There are fundamental connections between the potential \( U_\alpha \) and the generator matrix \( G \), and hence between \( U_\alpha \) and the function \( \lambda \) and the matrix \( Q \).</p>
+
+<div class="unit" id="gen1">
+	<p class="math">If \( \alpha \in (0, \infty) \) then \( I + G U_\alpha = \alpha U_\alpha \). In terms of \( \lambda \) and \( Q \),
+	\[ U_\alpha(x, y) = \frac{1}{\alpha + \lambda(x)} I(x, y) + \frac{\lambda(x)}{\alpha + \lambda(x)} Q U_\alpha(x, y), \quad (x, y) \in S^2 \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p><strong>Proof 1:</strong> First, 
+		\[ G U_\alpha = G \int_0^\infty e^{-\alpha t} P_t \, dt = \int_0^\infty e^{-\alpha t} G P_t \, dt = \int_0^\infty e^{-\alpha t} P_t^\prime \, dt \]
+		Passing \( G \) through the integrand is justified since \( G P_t(x, y) \) is a sum with just one negative term for \( (x, y) \in S^2 \). The second identity in the displayed equation follows from the backward equation. Integrating by parts then gives
+		\[ G U_\alpha = e^{-\alpha t} P_t \biggm|_0^\infty + \int_0^\infty \alpha e^{-\alpha t} P_t \, dt = -I + \alpha U_\alpha \]</p>
+		<p><strong>Proof 2:</strong> This proof use the fundamental integral equation relating \( \bs{P} \), \( \lambda \), and \( Q \) as well as the definition of \( U_\alpha \) and interchanges of integrals. The interchange is justified since the integrand is nonnegative. So for \( \alpha \in [0, \infty) \) and \( (x, y) \in S^2 \),
+		\begin{align*}
+		U_\alpha(x, y) &amp; = \int_0^\infty e^{-\alpha t} P_t(x, y) \, dt \\ &amp; = \int_0^\infty e^{-\alpha t} \left[e^{-\lambda(x) t} I(x, y) + \lambda(x) e^{-\lambda(x) t} \int_0^t e^{\lambda(x) r} Q P_r(x, y) \, dr \right] dt \\ &amp; = I(x, y) \int_0^\infty e^{-[\alpha + \lambda(x)]t} dt + \lambda(x) \int_0^\infty \int_0^t e^{-[\alpha + \lambda(x)]t} e^{\lambda(x) r} Q P_r(x, y) \, dr \, dt \\ &amp; = \frac{1}{\alpha + \lambda(x)} I(x, y) + \lambda(x) \int_0^\infty \int_r^\infty e^{-[\alpha + \lambda(x)]t} e^{\lambda(x) r} Q P_r(x, y) \, dt \, dr \\ &amp; = \frac{1}{\alpha + \lambda(x)} I(x, y) + \frac{\lambda(x)}{\alpha + \lambda(x)} \int_0^\infty e^{-[\alpha + \lambda(x)]r} e^{\lambda(x) r} QP_r(x, y) \, dr \\ &amp; = \frac{1}{\alpha + \lambda(x)} I(x, y) + \frac{\lambda(x)}{\alpha + \lambda(x)} \int_0^\infty e^{-\alpha r} Q P_r (x, y) \, dr = \frac{1}{\alpha + \lambda(x)} I(x, y) + \frac{\lambda(x)}{\alpha + \lambda(x)} Q U_\alpha(x, y)
+		\end{align*}</p>
+		<p><strong>Proof 3:</strong> Recall that \( \alpha U_\alpha(x, y) = \P(X_T = y \mid X_0 = x) \) where \( T \) is independent of \( \bs{X} \) and has the exponential distribution with parameter \( \alpha \). This proof works by conditioning on whether \( T \lt \tau_1 \) or \( T \ge \tau_1  \):
+		\[\alpha U_\alpha(x, y) = \P(X_T = y \mid X_0 = x, T \lt \tau_1) \P(T \lt \tau_1 \mid X_0 = x) + \P(X_T = y \mid X_0 = x, T \ge \tau_1) \P(T \ge \tau_1 \mid X_0 = x)\]
+		But \( X_0 = x \) and \( T \lt \tau_1 \) imply \( X_T = x \) so \( \P(X_T = y \mid X_0 = x, T \lt \tau_1) = I(x, y) \). And by a basic property of independent exponential variables that we have seen many times before, 
+		\[ \P(T \lt \tau_1 \mid X_0 = x) = \frac{\alpha}{\alpha + \lambda(x)} \]
+		Next, for the first factor in the second term of the displayed equation, we condition on \( X_{\tau_1} \):
+		\[ \P(X_T = y \mid X_0 = x, T \ge \tau_1) = \sum_{z \in S} \P(X_T = y \mid X_0 = x, X_{\tau_1} = z, T \ge \tau_1) \P(X_{\tau_1} = z \mid X_0 = x, T \ge \tau_1) \]
+		But by the strong Markov property, given \( X_{\tau_1} = z \), we can restart the clock at time \( \tau_1 \) in state \( z \). Moreover, by the memoryless property and independence, the distribution of \( T - \tau_1 \) given \( T \ge \tau_1 \) is the same as the distribution of \( T \), mainly exponential with parameter \( \alpha \). It follows that 
+		\[ \P(X_T = y \mid X_0 = x, X_{\tau_1} = z, T \ge \tau_1) = \P(X_T = y \mid X_0 = z) = \alpha U_\alpha(z, y) \]
+		Also, \( X_{\tau_1} \) is independent of \( \tau_1 \) and \( T \) so
+		\[\P(X_{\tau_1} = z \mid X_0 = x, T \ge \tau_1) = Q(x, z)\]
+		Finally using the basic property of exponential distributions again,
+		\[ \P(T \ge \tau_1 \mid X_0 = x) = \frac{\lambda(x)}{\alpha + \lambda(x)} \]
+		Putting all the pieces together we have
+		\[ \alpha U_\alpha(x, y) = \frac{\alpha}{\alpha + \lambda(x)} I(x, y) = \frac{\lambda(x)}{\alpha + \lambda(x)} \sum_{z \in S} Q(x, z) \alpha U_\alpha(z, y) =  \frac{\alpha}{\alpha + \lambda(x)} I(x, y) + \frac{\lambda(x)}{\alpha + \lambda(x)} Q  \alpha U_\alpha (x, y) \]</p>
+	</details>
+</div>
+
+<p>As before, we can get stronger results if we assume that \( \lambda \) is bounded, or equivalently, the transition semigroup \( \bs{P} \) is uniform.</p>
+
+<div class="unit" id="gen2">
+	<p class="math">Suppose that \( \lambda \) is bounded and \( \alpha \in (0, \infty) \). Then as operators on \( \mathscr{B} \) (and hence also as matrices),</p>
+	<ol class="sub">
+		<li>\( I + G U_\alpha = \alpha U_\alpha \)</li>
+		<li>\( I + U_\alpha G = \alpha U_\alpha \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( \lambda \) is bounded, \( G \) is a bounded operator on \( \mathscr{B} \). The proof of (a) then proceeds as before. For (b) we know from the forward and backward equations that \( G P_t = P_t G \) for \( t \in [0, \infty) \) and hence \( G U_\alpha = U_\alpha G \) for \( \alpha \in (0, \infty) \).</p>
+	</details>
+</div>
+
+<p>As matrices, part (a) of <a href="#gen2" class="ref"></a> holds with more generality than part (b), much as the Kolmogorov backward equation holds with more generality than the forward equation. Note that
+\[ U_\alpha G(x, y) = \sum_{z \in S} U_\alpha(x, z) G(z, y) = -\lambda(y) U_\alpha(x, y) + \sum_{z \in S} U_\alpha(x, z) \lambda(z) Q(z, y), \quad (x, y) \in S^2 \]
+If \( \lambda \) is unbounded, it's not clear that the second sum is finite.</p>
+
+<div class="unit" id="gen3">
+	<p class="math">Suppose that \( \lambda \) is bounded and \( \alpha \in (0, \infty) \). Then as operators on \( \mathscr{B} \) (and hence also as matrices),
+	<ol class="sub">
+		<li>\( U_\alpha = (\alpha I - G)^{-1}\)</li>
+		<li>\( G = \alpha I - U_\alpha^{-1}\)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>This follows immediately from <a href="#gen2" class="ref"></a>, since \( U_\alpha (\alpha I - G) = I \) and \( (\alpha I - G) U_\alpha = I \)</li>
+			<li>This follows from (a): \(\alpha I - G = U_\alpha^{-1} \) so \( G = \alpha I - U_\alpha^{-1} \)</li>
+		</ol>
+	</details>
+</div>
+
+<p>So the potential operator \( U_\alpha \) and the generator \( G \) have a simple, elegant inverse relationship. Of course, these results hold in particular if \( S \) is finite, so that all of the various matrices really are matrices in the elementary sense.</p>
+
+<h3 id="exm">Examples and Exercises</h3>
+
+<h4 id="two">The Two-State Chain</h4>
+
+<p>Let \( \bs{X} = \{X_t: t \in [0, \infty)\} \) be the Markov chain on the set of states \( S = \{0, 1\} \), with transition rate \( a \in [0, \infty) \) from 0 to 1 and transition rate \( b \in [0, \infty) \) from 1 to 0. To avoid the trivial case with both states absorbing, we will assume that \( a + b \gt 0 \). The first two results below are a review from the previous two sections.</p>
+
+<div class="unit" id="two1">
+	<p class="math">The generator matrix \( G \) is
+	\[ G = \left[\begin{matrix} -a &amp; a \\ b &amp; -b\end{matrix}\right] \]</p>
+</div>
+
+<div class="unit">
+	<p class="math">The transition matrix at time \( t \in [0, \infty) \) is 
+	\[ P_t = \frac{1}{a + b} \left[\begin{matrix} b &amp; a \\ b &amp; a \end{matrix} \right] - \frac{1}{a + b} e^{-(a + b)t} \left[\begin{matrix} -a &amp; a \\ b &amp; -b\end{matrix}\right], \quad t \in [0, \infty)  \]</p>
+</div>
+
+<p>Now we can find the potential matrix in two ways.</p>
+
+<div class="unit" id="two2">
+	<p class="math">For \( \alpha \in (0, \infty) \), show that the potential matrix \( U_\alpha \) is
+	\[ U_\alpha = \frac{1}{\alpha (a + b)} \left[\begin{matrix} b &amp; a \\ b &amp; a \end{matrix}\right] - \frac{1}{(\alpha + a + b)(a + b)} \left[\begin{matrix} -a &amp; a \\ b &amp; -b\end{matrix}\right] \]</p>
+	<ol class="sub">
+		<li>From the definition.</li>
+		<li>From the relation \( U_\alpha = (\alpha I - G)^{-1} \).</li>
+	</ol>
+</div>
+
+<h4 id="cmp">Computational Exercises</h4>
+
+<div class="unit" id="cmp1">
+	<p class="math">Consider the Markov chain \( \bs{X} = \{X_t: t \in [0, \infty)\} \) on \( S = \{0, 1, 2\} \) with exponential parameter function \( \lambda = (4, 1, 3) \) and jump transition matrix
+	\[ Q = \left[\begin{matrix} 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\ 1 &amp; 0 &amp; 0 \\ \frac{1}{3} &amp; \frac{2}{3} &amp; 0\end{matrix}\right] \]</p>
+	<ol class="sub">
+		<li>Draw the state graph and classify the states.</li>
+		<li>Find the generator matrix \( G \).</li>
+		<li>Find the potential matrix \( U_\alpha \) for \( \alpha \in (0, \infty) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>The edge set is \( E = \{(0, 1), (0, 2), (1, 0), (2, 0), (2, 1)\} \). All states are stable.</li>
+			<li>The generator matrix is
+			\[ G = \left[\begin{matrix} -4 &amp; 2 &amp; 2 \\ 1 &amp; -1 &amp; 0 \\ 1 &amp; 2 &amp; -3 \end{matrix}\right] \]</li>
+			<li>For \( \alpha \in (0, \infty) \),
+			\[ U_\alpha = (\alpha I - G)^{-1} = \frac{1}{15 \alpha + 8 \alpha^2 + \alpha^3} \left[\begin{matrix}  3 + 4 \alpha + \alpha^2 &amp; 10 + 2 \alpha &amp; 2 + 2 \alpha \\ 3 + \alpha &amp; 10 + 7 \alpha + \alpha^2 &amp; 2 \\ 3 + \alpha &amp; 10 + 2 \alpha &amp; 2 + 5 \alpha + \alpha^2\end{matrix}\right] \]</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="spc">Special Models</h4>
+
+<div class="unit" id="spc1">
+	<p class="math">Potential matrices are discussed for <a href="Poisson.html#pot">chains subordinate to the Poisson process</a>.</p>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous-Time Chains">15</a></li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="current">17</li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

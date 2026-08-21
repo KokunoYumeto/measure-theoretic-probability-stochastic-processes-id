@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Markov Processes</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Markov process, Markov chain, disctete time, continuous time, transience, recurrence, invariant distribution, limiting distribution, periodicity, potential, positive recurrence, time reversal, branching chain, queuing chain, birth-death chain, random walk, Ehrenfest chain, Bernoulli-Laplace chain, reliability chain, Poisson process">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<link rel="previous" href="../renewal/index.html">
+	<link rel="next" href="../brown/index.html">
+	<script src="../Basic.js"></script>
+</head>
+
+<body>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="child"><a href="../foundations/index.html" title="Foundations">0</a></li>
+		<li class="child"><a href="../prob/index.html" title="Probability Spaces">1</a></li>
+		<li class="child"><a href="../dist/index.html" title="Distributions">2</a></li>
+		<li class="child"><a href="../expect/index.html" title="Expected Value">3</a></li>
+		<li class="child"><a href="../special/index.html" title="Special Distributions">4</a></li>
+		<li class="child"><a href="../sample/index.html" title="Random Samples">5</a></li>
+		<li class="child"><a href="../point/index.html" title="Point Estimation">6</a></li>
+		<li class="child"><a href="../interval/index.html" title="Set Estimation">7</a></li>
+		<li class="child"><a href="../hypothesis/index.html" title="Hypothesis Testing">8</a></li>
+		<li class="child"><a href="../buffon/index.html" title="Geometric Models">9</a></li>
+		<li class="child"><a href="../bernoulli/index.html" title="Bernoulli Trials">10</a></li>
+		<li class="child"><a href="../urn/index.html" title="Finite Sampling Models">11</a></li>
+		<li class="child"><a href="../games/index.html" title="Games of Chance">12</a></li>
+		<li class="child"><a href="../poisson/index.html" title="The Poisson Process">13</a></li>
+		<li class="child"><a href="../renewal/index.html" title="Renewal Processes">14</a></li>
+		<li class="current">15</li>
+		<li class="child"><a href="../martingales/index.html" title="Martingales">16</a></li>	
+		<li class="child"><a href="../brown/index.html" title="Brownian Motion">17</a></li>
+	</ol>
+	<h1>15. Markov Processes</h1>
+</header>
+
+<h4 id="sum">Summary</h4>
+
+<p>A Markov process is a random process in which the future is independent of the past, given the present.  Thus, Markov processes are the natural stochastic analogs of the deterministic processes described by differential and difference equations. They form one of the most important classes of random processes.</p>
+
+<h4>General Theory</h4>
+
+<ol>
+	<li><a href="General.html">Introduction</a></li>
+	<li><a href="Potentials.html">Potentials and Generators</a></li>
+</ol>
+
+<h4 id="cha">Discrete-Time Markov Chains</h4>
+
+<ol start="3">
+	<li><a href="Discrete.html">Introduction</a></li>
+	<li><a href="Recurrence.html">Recurrence and Transience</a></li>
+	<li><a href="Periodicity.html">Periodicity</a></li>
+	<li><a href="Limiting.html">Stationary and Limiting Distributions</a></li>
+	<li><a href="TimeReversal.html">Time Reversal</a></li>
+</ol>
+
+<h4 id="spe">Special Discrete-Time Chains</h4>
+
+<ol start="8">
+	<li><a href="Ehrenfest.html">The Ehrenfest Chains</a></li>
+	<li><a href="BernoulliLaplace.html">The Bernoulli-Laplace Chain</a></li>
+	<li><a href="Reliability.html">Reliability Chains</a></li>
+	<li><a href="Branching.html">The Branching Chain</a></li>
+	<li><a href="Queuing.html">Queuing Chains</a></li>
+	<li><a href="BirthDeath.html">Birth Death Chains</a></li>
+	<li><a href="WalkGraph.html">Random Walks on Graphs</a></li>
+</ol>
+
+<h4 id="con">Continuous-Time Markov Chains</h4>
+
+<ol start="15">
+	<li><a href="Continuous.html">Introduction</a></li>
+	<li><a href="Transition.html">Transition Matrices and Generators</a></li>
+	<li><a href="Potentials2.html">Potential Matrices</a></li>
+	<li><a href="Limiting2.html">Stationary and Limiting Distributions</a></li>
+	<li><a href="TimeReversal2.html">Time Reversal</a></li>
+</ol>
+
+<h4 id="spe2">Special Continuous-Time Chains</h4>
+
+<ol start="20">
+	<li><a href="Poisson.html">Chains Subordinate to the Poisson Process</a></li>
+	<li><a href="BirthDeath2.html">Birth-Death Chains</a></li>
+	<li><a href="Queuing2.html">Queuing Chains</a></li>
+	<li><a href="Branching2.html">Branching Chains</a></li>
+</ol>
+
+<h4 id="Apps">Apps</h4>
+
+<ul class="ancillary">
+	<li><a href="JavaScript:openAncillary('../apps/TwoState.html')" class="ancillary">Two-State, Discrete-Time Chain</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/Ehrenfest.html')" class="ancillary">Ehrenfest Chain</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/BernoulliLaplace.html')" class="ancillary">Bernoulli-Laplace Chain</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/SuccessRuns.html')" class="ancillary">Success-Runs Chain</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/RemainingLife.html')" class="ancillary">Remaining-Life Chain</a></li>
+</ul>
+
+<h4 id="External">Sources and Resources</h4>
+
+<ul>
+	<li><a href="http://www.google.com/search?q=Introduction+to+Stochastic+Processes,+Cinlar" target="external" class="external">Introduction to Stochastic Processes</a>. Erhan &Ccedil;inlar</li>
+	<li><a href="http://www.google.com/search?q=Random+Walks+and+Electrical+Networks,+Doyle,+Snell" target="external" class="external">Random Walks and Electrical Networks</a>. Peter Doyle and Laurie Snell</li>
+	<li><a href="http://www.google.com/search?q=Probability+and+Random+Processes,+Grimmet,+Stitzaker" target="external" class="external">Probability and Random Processes</a>. Geoffrey Grimmett and David Stritzaker</li>
+	<li><a href="http://www.google.com/search?q=A+First+Course+in+Stochastic+Processes,+Karlin,+Taylor" target="external" class="external">A First Course in Stochastic Processes</a>. Samuel Karlin and Howard Taylor</li>
+	<li><a href="http://www.google.com/search?q=Adventures+in+Stochastic+Processes,+Resnick" target="external" class="external">Adventures in Stochastic Processes</a>, Sidney I Resnick</li>
+	<li><a href="http://www.google.com/search?q=Introduction+to+Probability+Models,+Ross" target="external" class="external">Introduction to Probability Models</a>. Sheldon Ross</li>
+	<li><a href="http://www.google.com/search?q=Stochastic+Processes,+Ross" target="external" class="external">Stochastic Processes</a>. Sheldon Ross</li>
+	<li><a href="http://www.google.com/search?q=General+Theory+of+Markov+Processes,+Sharpe" target="external" class="external">General Theory of Markov Processes</a>, Michael Sharpe</li>
+</ul>
+
+<h4>Quote</h4>
+
+<ul class="quote">
+	<li><q>When in disgrace with Fortune and men's eyes <br>
+	I all alone beweep my outcast state ...</q>&mdash;Shakespeare, Sonnet 29 </li>
+</ul>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="child"><a href="../foundations/index.html" title="Foundations">0</a></li>
+		<li class="child"><a href="../prob/index.html" title="Probability Spaces">1</a></li>
+		<li class="child"><a href="../dist/index.html" title="Distributions">2</a></li>
+		<li class="child"><a href="../expect/index.html" title="Expected Value">3</a></li>
+		<li class="child"><a href="../special/index.html" title="Special Distributions">4</a></li>
+		<li class="child"><a href="../sample/index.html" title="Random Samples">5</a></li>
+		<li class="child"><a href="../point/index.html" title="Point Estimation">6</a></li>
+		<li class="child"><a href="../interval/index.html" title="Set Estimation">7</a></li>
+		<li class="child"><a href="../hypothesis/index.html" title="Hypothesis Testing">8</a></li>
+		<li class="child"><a href="../buffon/index.html" title="Geometric Models">9</a></li>
+		<li class="child"><a href="../bernoulli/index.html" title="Bernoulli Trials">10</a></li>
+		<li class="child"><a href="../urn/index.html" title="Finite Sampling Models">11</a></li>
+		<li class="child"><a href="../games/index.html" title="Games of Chance">12</a></li>
+		<li class="child"><a href="../poisson/index.html" title="The Poisson Process">13</a></li>
+		<li class="child"><a href="../renewal/index.html" title="Renewal Processes">14</a></li>
+		<li class="current">15</li>
+		<li class="child"><a href="../martingales/index.html" title="Martingales">16</a></li>
+		<li class="child"><a href="../brown/index.html" title="Brownian Motion">17</a></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+</body>
+</html>

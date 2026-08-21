@@ -1,0 +1,176 @@
+---
+title: "Konvergensi Monte Carlo"
+lang: id-ID
+author:
+  - "Gordan Žitković (penulis sumber donor)"
+  - "Codex (penerjemahan, adaptasi, dan tambahan penguasaan atas arahan pengguna)"
+authoring:
+  course_id: "o009"
+  unit_id: "o009-unit-convergence"
+  lab_id: "o009-lab-convergence-mc"
+  matched_theory_id: "o009-theory-random-prob-convergence"
+  target_locale: "id-ID"
+  source_alias: "zitkovic-stochastic-book:source/02-simulation.Rmd#L758-L832"
+  source_commit: "e2b35ad91a3689454ae6455e8ffc510a90760c0d"
+  source_slice_sha256: "e95fec79fc93f1239951864901c570b8aaa44e77c6a02be64d48bda4aa5c265f"
+  donor_license: "CC0-1.0"
+  adaptation_license: "CC-BY-4.0"
+---
+
+::: {#o009-lab-convergence-mc .lab}
+
+> **Asal komponen dan lisensi.** Bagian “Eksperimen Monte Carlo” dan
+> “Makna matematis” menerjemahkan serta mengadaptasi baris 758–832 dari
+> `source/02-simulation.Rmd` karya Gordan Žitković pada komit
+> `e2b35ad91a3689454ae6455e8ffc510a90760c0d`. Donornya dilepas dengan
+> CC0 1.0 Universal; terjemahan dan adaptasi bahasa Indonesia ini dilepas
+> dengan CC BY 4.0. Bagian yang berlabel **Tambahan asli** merupakan materi
+> baru dan juga dilepas dengan CC BY 4.0.
+
+## Eksperimen Monte Carlo {#o009-lab-convergence-mc-experiment}
+
+::: {#o009-exercise-convergence-mc-estimation .exercise}
+Gunakan metode Monte Carlo untuk menaksir nilai harapan peubah acak
+eksponensial berparameter $\lambda=4$ dengan $n=10$, $n=1.000$, dan
+$n=1.000.000$ simulasi. Bandingkan setiap taksiran dengan nilai eksak.
+:::
+
+Untuk peubah acak eksponensial berparameter $\lambda$, nilai harapannya
+adalah $1/\lambda$. Karena itu, nilai eksak dalam eksperimen ini adalah
+$1/4=0{,}25$. Potongan berikut hanya memakai R dasar. Tiga pemanggilan
+`set.seed` mempertahankan benih deterministik sumber donor, sedangkan baris
+terakhir mencetak tabel CSV kanonik ke keluaran standar.
+
+```{r o009_lab_convergence_mc, echo=TRUE}
+set.seed(12341)
+x = rexp(10, rate=4)
+err = 0.25 - mean(x)
+estimate_10 = mean(x)
+error_10 = err
+
+set.seed(12342)
+x = rexp(1000, rate=4)
+err = 0.25 - mean(x)
+estimate_1000 = mean(x)
+error_1000 = err
+
+set.seed(12342)
+x = rexp(1000000, rate=4)
+err = 0.25 - mean(x)
+estimate_1000000 = mean(x)
+error_1000000 = err
+
+estimates = c(estimate_10, estimate_1000, estimate_1000000)
+errors = c(error_10, error_1000, error_1000000)
+results = data.frame(
+  n = c("10", "1000", "1000000"),
+  seed = c(12341L, 12342L, 12342L),
+  estimate = sprintf("%.12f", estimates),
+  exact_value = rep(sprintf("%.12f", 0.25), 3),
+  signed_error = sprintf("%.12f", errors),
+  absolute_error = sprintf("%.12f", abs(errors)),
+  stringsAsFactors = FALSE,
+  check.names = FALSE
+)
+write.csv(results, file="", row.names=FALSE, quote=FALSE)
+```
+
+<!-- O009_EXECUTION_TABLE -->
+
+Perintah `mean` menghitung rata-rata suatu vektor. Dalam percobaan ini,
+`rexp` menghasilkan peubah-peubah acak eksponensial yang disimpan dalam
+vektor `x`, lalu `mean(x)` menghitung rata-rata sampelnya. Kolom
+`signed_error` memakai konvensi sumber, yaitu $0{,}25-\bar X_n$; kolom
+`absolute_error` mengabaikan tandanya.
+
+## Makna matematis {#o009-concept-monte-carlo-lln}
+
+Misalkan $X_1,X_2,\ldots$ adalah peubah acak yang saling bebas dan
+berdistribusi sama, dengan nilai harapan yang ada. Hukum bilangan besar
+menyatakan
+
+$$
+\frac{1}{n}\bigl(X_1+X_2+\cdots+X_n\bigr)
+\longrightarrow \mathbb{E}[X_1]
+\quad\text{ketika }n\to\infty.
+$$
+
+Monte Carlo memakai pernyataan ini dengan arah tujuan yang praktis: nilai
+$\mathbb{E}[X_1]$ hendak dihitung, sedangkan pembangkit bilangan acak
+menyediakan sampel dari distribusi yang sama. Rata-rata sampel di ruas kiri
+kemudian dipakai untuk menaksir limit teoretis di ruas kanan. Dalam hasil
+khusus ini, galat mengecil ketika $n$ bertambah; pola itu merupakan bukti
+empiris, bukan jaminan bahwa galat setiap realisasi harus menurun secara
+monoton. Metode yang sama berguna jauh melampaui contoh ini karena banyak
+kuantitas dapat dinyatakan sebagai nilai harapan suatu peubah acak.
+
+## Tambahan asli: dari simulasi ke konvergensi dalam peluang {#o009-mastery-convergence-mc .original-addition}
+
+::: {#o009-exercise-convergence-mc-mastery .exercise}
+Untuk $\bar X_n=n^{-1}\sum_{i=1}^n X_i$ dan suatu $\varepsilon>0$, kerjakan
+hal-hal berikut.
+
+1. Salin taksiran, galat bertanda, dan galat mutlak untuk
+   $n=10,1.000,1.000.000$ dari tabel hasil menjadi satu tabel ringkas.
+2. Hubungkan kejadian
+   $A_n=\{\lvert\bar X_n-1/4\rvert>\varepsilon\}$ dengan definisi
+   konvergensi dalam peluang.
+3. Jelaskan mengapa tiga hasil simulasi tersebut mendukung intuisi
+   konvergensi, tetapi tidak membuktikannya.
+:::
+
+::: {#o009-hint-convergence-mc-mastery-1 .hint}
+**Petunjuk 1.** Gunakan baris tabel CSV dengan nilai `n` yang sama; jangan
+menghitung ulang dengan benih baru.
+:::
+
+::: {#o009-hint-convergence-mc-mastery-2 .hint}
+**Petunjuk 2.** $\bar X_n\xrightarrow{P}1/4$ berarti
+$\mathbb{P}(A_n)\to0$ untuk setiap $\varepsilon>0$.
+:::
+
+::: {#o009-hint-convergence-mc-mastery-3 .hint}
+**Petunjuk 3.** Untuk $X_i\sim\operatorname{Exp}(4)$,
+$\operatorname{Var}(X_i)=1/16$. Terapkan ketaksamaan Chebyshev pada
+$\bar X_n$ untuk memperoleh argumen yang berlaku bagi semua $n$.
+:::
+
+::: {#o009-answer-convergence-mc-mastery .answer}
+**Jawaban ringkas.** Tabel yang diminta adalah tiga baris hasil eksekusi di
+atas. Hubungan teoretisnya ialah
+$\mathbb{P}(A_n)=\mathbb{P}(|\bar X_n-1/4|>\varepsilon)\to0$ untuk setiap
+$\varepsilon>0$. Tiga realisasi hanya memberi pengamatan atas tiga rata-rata
+sampel; pengamatan itu tidak menetapkan peluang kejadian untuk semua $n$.
+:::
+
+::: {#o009-solution-convergence-mc-mastery .solution}
+**Penyelesaian lengkap.** Pertama, pindahkan tiga baris keluaran CSV ke
+tabel dengan kolom $n$, taksiran, galat bertanda, dan galat mutlak. Karena
+$X_i\sim\operatorname{Exp}(4)$,
+
+$$
+\mathbb{E}[X_i]=\frac14,
+\qquad
+\operatorname{Var}(X_i)=\frac1{16},
+\qquad
+\operatorname{Var}(\bar X_n)=\frac1{16n}.
+$$
+
+Untuk setiap $\varepsilon>0$, ketaksamaan Chebyshev memberikan
+
+$$
+\mathbb{P}(A_n)
+=\mathbb{P}\!\left(\left|\bar X_n-\frac14\right|>\varepsilon\right)
+\leq \frac{1}{16n\varepsilon^2}
+\longrightarrow 0.
+$$
+
+Jadi, $\bar X_n\xrightarrow{P}1/4$. Ketaksamaan ini merupakan pembuktian
+karena membatasi peluang galat untuk setiap $n$ dan setiap
+$\varepsilon>0$. Sebaliknya, tiga baris simulasi hanya berasal dari tiga
+realisasi tertentu. Bahkan jika ketiga galat mutlaknya mengecil, hasil itu
+tetap tidak mengesampingkan realisasi lain yang galatnya lebih besar atau
+urutan galat yang tidak monoton.
+:::
+
+:::

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Introduction</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, Poisson process, renewal property, Bernoulli trials">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Thinning and Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>1. Introduction</h2>
+</header>
+
+<h3 id="poi">The Poisson Model</h3>
+
+<p>We will consider a process in which points occur randomly in continuous time, modeled by the set \([0, \infty)\). The phrase <dfn>points in time</dfn> is generic.</p>
+
+<div class="unit" id="dfn0">
+	<p class="dfn">Examples:</p>
+	<ol class="sub">
+		<li>The times when a sample of radioactive material emits particles</li>
+		<li>The times when customers arrive at a service station</li>
+		<li>The times when file requests arrive at a server computer</li>
+		<li>The times when accidents occur at a particular intersection</li>
+		<li>The times when a device fails and is replaced by a new device</li>
+	</ol>
+</div>
+
+<p>It turns out that under some basic assumptions that deal with independence and uniformity in time, a <em>single</em>, one-parameter probability model governs all such random processes. This is an amazing result, and because of it, the <dfn>Poisson process</dfn> (named after <a href="JavaScript:openAncillary('../biographies/Poisson.html')" class="ancillary">Simeon Poisson</a>) is one of the most important in probability theory.</p>
+
+<div class="unit">
+<p class="app">Run the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a> with the default settings in single step mode. Note the random points in time.</p>
+</div>
+
+<h4 id="var">Random Processes</h4>
+
+<div class="unit">
+	<p class="dfn" id="dfn1">There are three collections of <a href="../prob/Events.html">random variables</a> that can be used to describe the process.</p>
+	<ol class="sub">
+		<li>Let \(X_1\) denote the time of the first arrival, and \(X_i\) the time between the \((i - 1)\)st and \(i\)th arrival for \(i \in \{2, 3, \ldots\}\). Thus, \(\bs{X} = (X_1, X_2, \ldots)\) is the sequence of <dfn>inter-arrival times</dfn>.</li>
+		<li>Let \(T_n\) denote the time of the \(n\)th arrival for \(n \in \N_+\) and let \(T_0 = 0\). Thus \(\bs{T} = (T_0, T_1, \ldots)\) is the sequence of <dfn>arrival times</dfn>.</li>
+		<li>Let \(N_t\) denote the number of arrivals in \((0, t]\) for \(t \in [0, \infty)\). The random process \(\bs{N} = (N_t: t \ge 0)\) is the <dfn>counting process</dfn>.</li>
+	</ol>
+</div>
+
+<p>The definition \(T_0 = 0\) is a helpful convention, although we do not consider this as an arrival time. The three random processes are equuivalent:</p>
+
+<div class="unit" id="dfn2">
+	<p class="math">The sequence \(\bs{T}\) is the partial sum process associated \(\bs{X}\), and so in particular each sequence determines the other:
+	\begin{align}
+		T_n  &amp; = \sum_{i=1}^n X_i, \quad n \in \N \\
+		X_n &amp; = T_n - T_{n-1}, \quad n \in \N_+
+	\end{align}</p>
+</div>
+
+<div class="unit" id="dfn3">
+	<p class="math">The arrival time process \(\bs{T}\) and the counting process \(\bs{N}\) are inverses of one another in the sense that \( N_t \ge n \) if and only if \( T_n \le t \) for \( n \in \N \) and \( t \in [0, \infty) \). In particular each process determines the other:
+	\begin{align}
+		T_n &amp; = \min\{t \ge 0: N_t = n\}, \quad n \in \N \\
+		N_t &amp; = \max\{n \in \N: T_n \le t\}, \quad t \in [0, \infty)
+	\end{align}</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( n \in \N \) and \( t \in [0, \infty) \), note that the event \( N_t \ge n \) and the event \( T_n \le t \) mean that there are at least \(n\) arrivals in the interval \((0, t]\).</p>
+	</details>
+</div>
+
+<p>Sometimes it will be helpful to extend the notation of the counting process. The set \([0, \infty)\) that models continuous time is given the standard <a href="../foundations/Measurable.html">\(\sigma\)-algebra</a> of measuraable sets, as usual.</p>
+
+<div class="unit">
+	<p class="dfn">For measurable \(A \subseteq [0, \infty)\), let \(N(A)\) denote the number of arrivals in \(A\):
+	\[ N(A) = \#\{n \in \N_+: T_n \in A\} = \sum_{n=1}^\infty \bs{1}(T_n \in A) \]</p>
+</div>
+
+<p>Thus, \(A \mapsto N(A)\) is the <a href="../foundations/Counting.html">counting measure</a> associated with the random points \((T_1, T_2, \ldots)\), so in particular it is a <em>random</em> <a href="../foundations/Measure.html">measure</a>.  For our original counting process, note that \(N_t = N(0, t]\) for \(t \ge 0\). Thus, \( t \mapsto N_t \) is a (random) <a href="../foundations/Existence.html#sti">distribution function</a>, and \( A \mapsto N(A) \) is the (random) measure associated with this distribution function.</p>
+
+<h4 id="asm">The Basic Assumption</h4>
+
+<p>The assumption that we will make can be described intuitively (but imprecisely) as follows:</p>
+
+<div class="unit" id="asm0">
+	<p class="dfn">If we fix a time \(t\), whether constant or one of the arrival times, then the process <em>after</em> time \(t\) is independent of the process <em>before</em> time \(t\) and behaves probabilistically just like the original process. Thus, the random process has a <dfn>strong renewal property</dfn>.</p>
+</div>
+
+<p>Making the strong renewal assumption precise will enable use to completely specify the probabilistic behavior of the process, up to a single, positive parameter.</p>
+
+<div class="unit" id="asm1">
+<p class="math">Think about the strong renewal assumption for each of the specific applications in <a href="#dfn0" class="ref"></a>.</p>
+</div>
+
+<div class="unit" id="asm2">
+<p class="app">Run the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a> with the default settings in single step mode. See if you can detect the strong renewal assumption.</p>
+</div>
+
+<p>As a first step, note that part of the renewal assumption, namely that the process <q>restarts</q> at each arrival time, independently of the past, implies the following assumption:</p>
+
+<div class="unit" id="asm3">
+	<p class="math">The sequence of inter-arrival times \(\bs{X}\) is an independent, identically distributed sequence</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Note that \(X_2\) is the first arrival time after \(T_1 = X_1\), so \(X_2\) must be independent of \(X_1\) and have the same distribution. Similarly \(X_3\) is the first arrival time after \(T_2 = X_1 + X_2\), so \(X_2\) must be independent of \(X_1\) and \(X_2\) and have the same distribution as \(X_1\). Continuing this argument, \(\bs{X}\) must be an independent, identically distributed sequence.</p>
+	</details>
+</div>
+
+<p>A model of random points in time in which the inter-arrival times are independent and identically distributed (so that the process <q>restarts</q> at each arrival time) is known as a <dfn>renewal process</dfn>. A separate chapter explores <a href="../renewal/index.html">renewal processes</a> in detail. Thus, the Poisson process is a renewal process, but a very special one, because we also require that the renewal assumption hold at <em>fixed times</em>.</p>
+
+<h3 id="ber">Analogy with Bernoulli Trials</h3>
+
+<p>In some sense, the Poisson process is a continuous time version of the <a href="../bernoulli/index.html">Bernoulli trials process</a>, if we think of each success as a random point in <em>discrete time</em>. Once again, we have three different collections of random variables:</p>
+
+<div class="unit" id="ber0">
+	<p class="dfn">Consider a Bernoulli trials process with success parameter \( p \in (0, 1) \).</p>
+	<ol class="sub">
+		<li>Let \(X_1\) denote the trial number of the first success, and for \(n \in \{2, 3, \ldots\}\) let \(X_n\) the number of additional trials needed to go from the \((n - 1)\)st success to the \(n\)th success.</li>
+		<li>Let \(T_0 = 0\) and for \(n \in \N_+\) let \(T_n\) denote the trial number of the \(n\)th success.</li>
+		<li>For \(t \in \N\) let \(N_t\) denote the number of success in the first \(t\) trials.</li>
+	</ol>
+</div>
+
+<p>As before, the three collections of random variables are equivalent. Exercise <a href="#dfn2" class="ref"></a> holds for the Bernoulli trials process, as does <a href="#dfn3" class="ref"></a> if we restrict \(t\) to \(\N\) rather than \([0, \infty)\).</p>
+
+<p>Like the Poisson process, the Bernoulli trials process has the strong renewal property: at each fixed time and at each arrival time, the process <q>starts over</q> independently of the past. But of course, time is discrete in the Bernoulli trials model and continuous in the Poisson model. The Bernoulli trials process can be characterized in terms of each of the three sets of random variables.</p>
+
+<div class="unit" id="ber1">
+	<p class="math">Each of the following statements characterizes the Bernoulli trials process with success parameter \( p \in (0, 1) \):</p>
+	<ol class="sub">
+		<li>The inter-arrival time sequence \( \bs{X} \) is a sequence of independent variables, and each has the <a href="../bernoulli/Geometric.html">geometric distributions</a> on \( \N_+ \) with success parameter \( p \).</li>
+		<li>The arrival time sequence \( \bs{T} \) has stationary, independent increments, and for \( n \in \N_+ \), \( T_n \) has the <a href="../bernoulli/NegativeBinomial.html">negative binomial distribution</a> with stopping parameter \( n \) and success parameter \( p \)</li>
+		<li>The counting process \( \bs{N} \) has stationary, independent increments, and for \( t \in \N \), \( N_t \) has the <a href="../bernoulli/Binomial.html">binomial distribution</a> with trial parameter \( t \) and  success parameter \( p \).</li>
+	</ol>
+</div>
+
+<div class="unit" id="ber2">
+	<p class="app">Run the <a href="JavaScript:openAncillary('../apps/BinomialTimeline.html')" class="ancillary">binomial experiment</a> with \(n = 50\) and \(p = 0.1\). Note the random points in discrete time.</p>
+</div>
+
+<div class="unit" id="ber3">
+	<p class="app">Run the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a> with \(t = 5\) and \(r = 1\). Note the random points in continuous time and compare with the behavior in <a href="#ber2" ckass="ref"></a>.</p>
+</div>
+
+<p>As we develop the theory of the Poisson process we will frequently refer back to the analogy with Bernoulli trials. In particular, we will show that if we run the Bernoulli trials at a faster and faster rate but with a smaller and smaller success probability, in just the right way, the Bernoulli trials process converges to the Poisson process.</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. The Poisson Process</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Exponential.html" title="The Exponential Distribution">2</a></li>
+		<li class="child"><a href="Gamma.html" title="The Gamma Distribution">3</a></li>
+		<li class="child"><a href="Poisson.html" title="The Poisson Distribution">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Thinning and Superposition">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Non-homogeneous Poisson Processes">6</a></li>
+		<li class="child"><a href="Compound.html" title="Compound Poisson Processes">7</a></li>
+		<li class="child"><a href="General.html" title="Poisson Processes on General Spaces">8</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+{
+  "$id": "https://example.invalid/o009/backend/artifacts.csv.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifact_id": {
+      "pattern": "^artifact\\.[A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "artifact_kind": {
+      "enum": [
+        "exporter",
+        "input",
+        "authority-manifest",
+        "authority-receipt",
+        "authority-source",
+        "authority-archive",
+        "rights-witness",
+        "translation-source",
+        "build-manifest",
+        "build-receipt"
+      ],
+      "type": "string"
+    },
+    "bytes": {
+      "pattern": "^[0-9]+$",
+      "type": "string"
+    },
+    "media_type": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "bound"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "artifact_id",
+    "artifact_kind",
+    "path",
+    "bytes",
+    "sha256",
+    "media_type",
+    "status"
+  ],
+  "title": "Strict row schema for artifacts.csv",
+  "type": "object",
+  "x-csv": {
+    "encoding": "utf-8",
+    "header": [
+      "artifact_id",
+      "artifact_kind",
+      "path",
+      "bytes",
+      "sha256",
+      "media_type",
+      "status"
+    ],
+    "line_ending": "CRLF"
+  }
+}

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Renewal Reward Processes</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, reward renewal process, current life, remaining life, total life, alternating renewal process, age replacement model, thinning">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\cov}{\text{cov}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">14. Renewal Processes</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Equations.html" title="Renewal Equations">2</a></li>
+		<li class="child"><a href="LimitTheorems.html" title="Renewal Limit Theorems">3</a></li>
+		<li class="child"><a href="Delayed.html" title="Delayed Renewal Processes">4</a></li>
+		<li class="child"><a href="Alternating.html" title="Alternating Renewal Processes">5</a></li>
+		<li class="current">6</li>	<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>5. Renewal Reward Processes</h2>
+</header>
+
+<h3 id="bas">Basic Theory</h3>
+
+<h4 id="pre">Preliminaries</h4>
+
+<p>In a <dfn>renewal reward process</dfn>, each interarrival time is associated with a random variable that is generically thought of as the <dfn>reward</dfn> associated with that interarrival time. Our interest is in the process that gives the total reward up to time \( t \). So let's set up the usual notation. Suppose that \( \bs{X} = (X_1, X_2, \ldots) \) are the interarrival times of a <a href="Introduction.html">renewal process</a>, so that \( \bs{X} \) is a sequence of independent, identically distributed, nonnegative variables with common distribution function \( F \) and mean \( \mu \). As usual, we assume that \( F(0) \lt 1 \) so that the interarrival times are not deterministically 0, and in this section we also assume that \( \mu \lt \infty \). Let
+\[ T_n = \sum_{i=1}^n X_i, \quad n \in \N \]
+so that \( T_n \) is the time of the \( n \)th arrival for \( n \in \N_+ \) and \( \bs{T} = (T_0, T_1, \ldots) \) is the arrival time sequence. Finally, Let
+\[ N_t = \sum_{n=1}^\infty \bs{1}(T_n \le t), \quad t \in [0, \infty) \]
+so that \( N_t \) is the number of arrivals in \( [0, t] \) and \(\bs{N} = \{N_t: t \in [0, \infty)\}\) is the counting process. As usual, let \( M(t) = \E\left(N_t\right) \) for \( t \in [0, \infty) \) so that \( M \) is the renewal function.</p>
+
+<p>Suppose now that \( \bs{Y} = (Y_1, Y_2, \ldots) \) is a sequence of real-valued random variables, where \( Y_n \) is thought of as the reward associated with the interarrival time \( X_n \). However, the term <em>reward</em> should be interpreted generically since \( Y_n \) might actually be a <em>cost</em> or some other value associated with the interarrival time, and in any event, may take negative as well as positive values. Our basic assumption is that the interarrival time and reward pairs \( \bs{Z} = \left((X_1, Y_1), (X_2, Y_2), \ldots\right) \) form an independent and identically distributed sequence. Recall that this implies that \( \bs{X} \) is an IID sequence, as required by the definition of the renewal process, and that \( \bs{Y} \) is also an IID sequence. But \( \bs{X} \) and \( \bs{Y} \) might well be dependent, and in fact \( Y_n \) might be a function of \( X_n \) for \( n \in \N_+ \). Let \( \nu = \E(Y) \) denote the mean of a generic reward \( Y \), which we assume exists in \( \R \).</p>
+
+<div class="unit" id="pre1">
+	<p class="dfn">The stochastic process \( \bs{R} = \{R_t: t \in [0, \infty)\} \) defined by
+	\[ R_t = \sum_{i=1}^{N_t} Y_i, \quad t \in [0, \infty) \]
+	is the <dfn>reward renewal process</dfn> associated with \( \bs{Z} \). The function \( r \) given by \( r(t) = \E(R_t) \) for \( t \in [0, \infty) \) is the <dfn>reward function</dfn>.</p>
+</div>
+
+<p>As promised, \( R_t \) is the total reward up to time \( t \in [0, \infty) \). Here are some typical examples:</p>
+
+<ul>
+	<li>The arrivals are customers at a store. Each customer spends a random amount of money.</li>
+	<li>The arrivals are visits to a website. Each visitor spends a random amount of time at the site.</li>
+	<li>The arrivals are failure times of a complex system. Each failure requires a random repair time.</li>
+	<li>The arrivals are earthquakes at a particular location. Each earthquake has a random severity, a measure of the energy released.</li>
+</ul>
+
+<p>So \( R_t \) is a random sum of random variables for each \( t \in [0, \infty) \). In the special case that \( \bs{Y} \) and \( \bs{X} \) independent, the distribution of \( R_t \) is known as a <dfn>compound distribution</dfn>, based on the distribution of \( N_t \) and the distribution of a generic reward \( Y \). Specializing further, if the renewal process is <a href="../poisson/index.html">Poisson</a> and is independent of \( \bs{Y} \), the process \( \bs{R} \) is a <a href="../poisson/Compound.html">compound Poisson process</a>.</p>
+
+<p>Note that a renewal reward process generalizes an ordinary renewal process. Specifically, if \( Y_n = 1 \) for each \( n \in \N_+ \), then \( R_t = N_t \) for \( t \in [0, \infty) \), so that the reward process simply reduces to the counting process, and then \( r \) reduces to the renewal function \( M \).</p>
+
+<h4 id="avg">The Renewal Reward Theorem</h4>
+
+<p>For \( t \in (0, \infty) \), the average reward on the interval \( [0, t] \) is \( R_t / t \), and the expected average reward on that interval is \( r(t) / t \). The fundamental theorem on renewal reward processes gives the asymptotic behavior of these averages.</p>
+
+<div class="unit" id="avg1">
+	<p class="math">The renewal reward theorem</p>
+	<ol class="sub">
+		<li>\( R_t / t \to \nu / \mu\) as \( t \to \infty \) with probability 1.</li>
+		<li>\( r(t) / t \to \nu / \mu \) as \( t \to \infty \)</li>
+	</ol>
+	<details>
+	<summary>Details:</summary>
+	<ol class="sub">
+		<li>Note that
+		\[ \frac{R_t}{t} = \frac{R_t}{N_t} \frac{N_t}{t}\]
+		But by the ordinary <a href="../sample/LLN.html">strong law of large numbers</a> for the IID sequence \( \bs{Y} \),
+		\[ \frac{1}{n} \sum_{i=1}^n Y_i \to \nu \]
+		as \( n \to \infty \) with probability 1. Recall from the <a href="Introduction.html#cnt5">iintroduction</a> that \( N_t \to \infty \) as \( t \to \infty \) with probability 1. Hence it follows that 
+		\[ \frac{R_t}{N_t} = \frac{1}{N_t} \sum_{i=1}^{N_t} Y_i \to \nu \]
+		as \( t \to \infty \) with probability 1. From the <a href="LimitTheorems.html#lln1">law or large numbers for the renewal process</a>, we know that \( N_t \big/ t \to 1 / \mu \) as \( t \to \infty \) with probability 1.</li>
+		<li>Note first that 
+		\[ R_t = \sum_{i=1}^{N_t} Y_i = \sum_{i=1}^{N_t + 1} Y_i - Y_{N(t) + 1} \]
+		Next recall from the <a href="Introduction.html#cnt7">introduction</a> that \( N_t + 1 \) is a stopping time for the sequence of interarrival times \(\bs{X}\) for \( t \in (0, \infty) \), and hence is also a stopping time for the sequence of interarrival time, reward pairs \( \bs{Z} \). (If a random time is a stopping time for a filtration, then it's a stopping time for any larger filtration.) By Wald's equation,
+		\[ \E\left(\sum_{i=1}^{N_t + 1} Y_i\right) = \nu \E\left(N_t + 1\right) = \nu[M(t) + 1] = \nu \, M(t) + \nu \]
+		By the <a href="LimitTheorems.html#ele">elementary renewal theorem</a>, 
+		\[ \frac{\nu \, M(t) + \nu}{t} = \nu \frac{M(t)}{t} + \frac{\nu}{t} \to \frac{\nu}{\mu} \text{ as } t \to \infty\]
+		Thus returning to the first displayed equation above, it remains to show that
+		\[ \frac{\E\left[Y_{N_t + 1}\right]}{t} \to 0 \text{ as } t \to \infty \]
+		Let \( u(t) = \E\left[Y_{N_t + 1}\right] \) for \( t \in [0, \infty) \). Taking cases for the first arrival time \( X_1 \) we have
+		\[ u(t) = \E\left[Y_{N_t + 1} \bs{1}(X_1 \gt t)\right] + \E\left[Y_{N_t + 1} \bs{1}(X_1 \le t)\right]\]
+		But \( X_1 \gt t \) if and only if \( N_t = 0 \) so the first term is \( \E\left[Y_1 \bs{1}(X_1 \gt t)\right] \), which we will note by \( a(t) \). We have assumed that the expected reward \( \nu \) exists in \( \R \). Hence \( \left|a(t)\right| \le \E\left(\left|Y_1\right|\right) \lt \infty \) so that \( a \) is bounded, and \( a(t) \to 0 \) as \( t \to \infty \). For the second term, if the first arrival occurs at time \( s \in [0, t] \), then the renewal process restarts, independently of the past, so
+		\[ \E\left[Y_{N_t + 1} \bs{1}(X_1 \le t)\right] = \int_0^t u(t - s) \, dF(s), \quad t \in [0, \infty) \]
+		It follows that \( u \) satisfies the renewal equation \( u = a + u * F \).
+		By the <a href="Equations.html#ren4">fundamental theorem on renewal equations</a>, the solution is \( u = a + a * M \). Now, fix \( \epsilon \gt 0 \). There exists \( T \in (0, \infty) \) such that \( \left|a(t)\right| \lt \epsilon \) for \( t \gt T \). So for \( t \gt T \),
+		\begin{align*}
+			\left|\frac{u(t)}{t}\right| &amp; \le \frac{1}{t}\left[\left|a(t)\right| + \int_0^{t - T} \left|a(t - s)\right| dM(s) + \int_{t - M}^t \left|a(t - s)\right| dM(s)\right] \\
+			&amp; \le \frac{1}{t} \left[\epsilon + \epsilon \, M(t - T) + \E\left|Y_1\right| [M(t) - M(t - T)]\right]
+		\end{align*}
+		Using the elementary renewal theorem again, the last expression converges to \( \epsilon / \mu \) as \( t \to \infty \). Since \( \epsilon \gt 0 \) is arbitrary, it follows that \( u(t) / t \to 0 \) as \( t \to \infty \).</li>
+	</ol>
+	</details>
+</div>
+
+<p>Part (a) of <a href="#avg1" class="ref"></a> generalizes the <a href="LimitTheorems.html#lln">law of large numbers</a> and part (b) generalizes <a href="LimitTheorems.html#ren">elementary renewal theorem</a>, for a basic renewal process. Once again, if \( Y_n = 1 \) for each \( n \), then (a) becomes \( N_t / t \to 1/\mu \) as \( t \to \infty \) and (b) becomes \( M(t) / t \to 1 /\mu \) as \( t \to \infty \). It's not surprising then that these two theorems play a fundamental role in the proof of the renewal reward theorem.</p>
+
+<h4 id="grp">General Reward Processes</h4>
+
+<p>The renewal reward process \( \bs{R} = \{R_t: t \in [0, \infty)\} \) in <a href="#pre" class="ref"></a> is constant, taking the value \( \sum_{i=1}^n Y_i \), on the renewal interval \( [T_n, T_{n+1}) \) for each \( n \in \N \). Effectively, the rewards are received discretely: \( Y_1 \) at time \( T_1 \), an additional \( Y_2 \) at time \( T_2 \), and so forth. It's possible to modify the construction so the rewards accrue continuously in time or in a mixed discrete/continuous manner. Here is a simple set of conditions for a general reward process. </p>
+
+<div class="unit" id="grp1">
+	<p class="math">Suppose again that \( \bs{Z} = ((X_1, Y_1), (X_2, Y_2), \ldots) \) is the sequence of interarrival times and rewards. A stochastic process \( \bs{V} = \{V_t: t \in [0, \infty)\}\) (on our underlying probability space) is a <dfn>reward process</dfn> associated with \( \bs{Z}\) if the following conditions hold:</p>
+	<ol class="sub">
+		<li>\( V_{T_n} = \sum_{i=1}^n Y_i \) for \( n \in \N \)</li>
+		<li>\( V_t \) is between \( V_{T_n} \) and \( V_{T_{n+1}} \) for \(t \in \left(T_n, T_{n+1}\right) \) and \( n \in \N \)</li>
+	</ol>
+</div>
+
+<p>In the continuous case, with nonnegative rewards (the most important case), the reward process will typically have the following form:</p>
+
+<div class="unit" id="grp2">
+	<p class="math">Suppose that the rewards are nonnegative and that \( \bs{U} = \{U_t: t \in [0, \infty)\} \) is a nonnegative stochastic process (on our underlying probability space) with</p>
+	<ol class="sub">
+		<li>\( t \mapsto U_t \) piecewise continous</li>
+		<li>\( \int_{T_n}^{T_{n+1}} U_t \, dt = Y_{n+1}\) for \( n \in \N \)</li>
+	</ol>
+	<p>Let \( V_t = \int_0^t U_s \, ds  \) for \(t \in [0, \infty) \). Then \( \bs{V} = \{V_t: t \in [0, \infty)\} \) is a reward process associated with \( \bs{Z} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By the additivity of the integral and (b), \( V_{T_n} = \sum_{i=1}^n Y_i \) for \( n \in \N \). Since \( \bs{U} \) is nonnegative, \( \bs{V} \) is increasing, so \( V_{T_n} \le V_t \le V_{T_{n+1}} \) for \( t \in \left(T_n, T_{n+1}\right) \)</p>
+	</details>
+</div>
+
+<p>So in this special case, the rewards are being accrued continuously and \( U_t \) is the <em>rate</em> at which the reward is being accrued at time \( t \). So \( \bs{U} \) plays the role of a reward density process. For a general reward process, the basic renewal reward theorem still holds.</p>
+
+<div class="unit" id="grp3">
+	<p class="math">Suppose that \( \bs{V} = \{V_t: t \in [0, \infty)\} \) is a reward process associated with \( \bs{Z} = ((X_1, Y_1), (X_2, Y_2), \ldots) \), and let \( v(t) = \E\left(V_t\right) \) for \( t \in [0, \infty) \) be the corresponding reward function.</p>
+	<ol class="sub">
+		<li>\( V_t / t \to \nu / \mu \) as \( t \to \infty \) with probability 1.</li>
+		<li>\( v(t) / t \to \nu / \mu \) as \( t \to \infty \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose first that the reward variables \( Y \) are nonnegative. Then
+		\[ \frac{R_t}{t} \le \frac{V_t}{t} \le \frac{R_t}{t} + \frac{Y_{N_t + 1}}{t} \]
+		From the proof of the renewal reward theorem in <a href="#avg1" class="ref"></a>, \( R_t / t \to \nu / \mu \) as \( t \to \infty \) with probability 1, and \( Y_{N_t + 1} \big/ t \to 0\) as \( t \to \infty \) with probability 1. Hence (a) holds. Taking expected values,
+		\[ \frac{r(t)}{t} \le \frac{v(t)}{t} \le \frac{r(t)}{t} + \frac{\E\left(Y_{N_t + 1}\right)}{t} \]
+		But again from the renewal reward theorem above, \( r(t) / t \to \nu / \mu \) as \( t \to \infty \) and \( E\left(Y_{N_t + 1}\right) \big/ t \to 0 \) as \( t \to \infty \). Hence (b) holds. A similar argument works if the reward variables are negative. If the reward variables take positive and negative values, we split the variables into positive and negative parts in the usual way.</p>
+	</details>
+</div>
+
+<p>Here is the corollary for a continuous reward process.</p>
+
+<div class="unit" id="grp4">
+	<p class="math">Suppose that the rewards are positive, and consider the continuous reward process with density process \( \bs{U} = \{U_t: t \in [0, \infty)\} \) as in <a href="#grp2" class="ref"></a>. Let \( u(t) = \E(U_t) \) for \( t \in [0, \infty) \). Then</p>
+	<ol class="sub">
+		<li>\( \frac{1}{t} \int_0^t U_s \, ds \to \frac{\nu}{\mu} \) as \( t \to \infty \) with probability 1</li>
+		<li>\( \frac{1}{t} \int_0^t u(s) \, ds \to \frac{\nu}{\mu} \) as \( t \to \infty \)</li>
+	</ol>
+</div>
+
+<h3>Special Cases and Applications</h3>
+
+<p>With a clever choice of the <q>rewards</q>, many interesting renewal processes can be turned into renewal reward processes, leading in turn to interesting limits via the renewal reward theorem.</p>
+
+<h4 id="alt">Alternating Renewal Processes</h4>
+
+<p>Recall that in an <a href="Alternating.html">alternating renewal process</a>, a system alternates between <em>on</em> and <em>off</em> states (starting in the <em>on</em> state). If we let \( \bs{U} = (U_1, U_2, \ldots) \) be the lengths of the successive time periods in which the system is on, and \( \bs{V} = (V_1, V_2, \ldots) \) the lengths of the successive time periods in which the system is off, then the basic assumptions are that \( ((U_1, V_1), (U_2, V_2), \ldots) \) is an independent, identically distributed sequence, and that the variables \( X_n = U_n + V_n \) for \( n \in \N_+ \) form the interarrival times of a standard <a href="Introduction.html">renewal process</a>. Let \( \mu = \E(U) \) denote the mean of a time period that the device is on, and \( \nu = \E(V) \) the mean of a time period that the device is off. Recall that \( I_t \) denotes the state (1 or 0) of the system at time \( t \in [0, \infty) \), so that \( \bs{I} = \{I_t: t \in [0, \infty)\} \) is the state process. The state probability function \( p \) is given by \( p(t) = \P(I_t = 1) \) for \( t \in [0, \infty) \).</p>
+
+<div class="unit" id="alt1">
+	<p class="math">Limits for the alternating renewal process.</p>
+	<ol class="sub">
+		<li>\(\frac{1}{t} \int_0^t I_s \, ds \to \frac{\mu}{\mu + \nu}\) as \( t \to \infty \) with probability 1</li>
+		<li>\( \frac{1}{t} \int_0^t p(s) \, ds \to \frac{\mu}{\mu + \nu} \) as \( t \to \infty \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Consider the renewal reward process where the reward associated with the interarrival time \( X_n \) is \( U_n \), the <em>on</em> period for that renewal period. The rewards \( U_n \) are nonnegative and clearly \( \int_{T_n}^{T_{n+1}} I_s \, ds = U_{n+1} \). So \( t \mapsto \int_0^t I_s \, ds \) for \( t \in [0, \infty) \) defines a continuous reward process of the form in <a href="#grp2" class="ref"></a>. Parts (a) and (b) follow directly from the reward renewal theorem in <a href="#grp4" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>Thus, the asymptotic average time that the device is on, and the asymptotic mean average time that the device is on, are both simply the ratio of the mean of an on period to the mean of an on-off period. In our previous study of alternating renewal processes, the fundamental result was that in the non-arithmetic case, \( p(t) \to \mu / (\mu + \nu) \) as \( t \to \infty \). This result implies part (b) in the theorem above.</p>
+
+<h4 id="age">Age Processes</h4>
+
+<p>Renewal reward processes can be used to derive some asymptotic results for the <a href="Introduction.html#age">age processes</a> of a standard <a href="Introduction.html">renewal process</a>. So suppose that we have a renewal process with interarrival sequence \( \bs{X} \), arrival sequence \( \bs{T} \), and counting process \( \bs{N} \). As usual, let \( \mu = \E(X)\) denote the mean of an interarrival time, but now we will also need \( \nu = \E(X^2) \), the second moment. We assume that both moments are finite.</p>
+
+<p>For \( t \in [0, \infty) \), recall that the <dfn>current life</dfn>, <dfn>remaining life</dfn> and <dfn>total life</dfn> at time \( t \) are
+\[ A_t = t - T_{N_t}, \quad B_t = T_{N_t + 1} - t, \quad L_t = A_t + B_t = T_{N_t+1} - T_{N_t} = X_{N_t + 1} \]
+respectively. In the usual terminology of reliability, \( A_t \) is the age of the device in service at time \( t \), \( B_t \) is the time remaining until this device fails, and \( L_t \) is total life of the device. (To avoid notational clashes, we are using different notation than in past sections.) Let \( a(t) = \E(A_t) \), \( b(t) = \E(B_t) \), and \( l(t) = \E(L_t) \) for \( t \in [0, \infty) \), the corresponding mean functions. To derive our asymptotic results, we simply use the current life and the remaining life as reward densities (or rates) in a renewal reward process.</p>
+
+<div class="unit" id="age1">
+	<p class="math">Limits for the current life process.</p>
+	<ol class="sub">
+		<li>\( \frac{1}{t} \int_0^t A_s \, ds \to \frac{\nu}{2 \mu} \) as \( t \to \infty \) with probability 1</li>
+		<li>\( \frac{1}{t} \int_0^t a(s) \, ds \to \frac{\nu}{2 \mu} \) as \( t \to \infty \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Consider the renewal reward process where the reward associated with the interarrival time \( X_n \) is \(\frac{1}{2} X_n^2\) for \( n \in \N \). The process \( t \mapsto \int_0^t A_s \, ds \) for \( t \in [0, \infty) \) is a continuous reward process for this sequence of rewards, as defined in <a href="#grp2" class="ref"></a>. To see this, note that for \( t \in \left[T_n, T_{n+1}\right) \), we have \( A_t = t - T_n \), so with a change of variables and noting that \( T_{n+1} = T_n + X_{n+1} \) we have
+		\[ \int_{T_n}^{T_{n+1}} A_t \, dt = \int_0^{X_{n+1}} s \, ds = \frac{1}{2} X_{n+1}^2 \]
+		The results now follow from the renewal reward theorem in <a href="#grp4" class="ref"></a>.</p>
+	</details>
+</div>
+
+<div class="unit" id="age2">
+	<p class="math">Limits for the remaining life process.</p>
+	<ol class="sub">
+		<li>\( \frac{1}{t} \int_0^t B_s \, ds \to \frac{\nu}{2 \mu} \) as \( t \to \infty \) with probability 1</li>
+		<li>\( \frac{1}{t} \int_0^t b(s) \, ds \to \frac{\nu}{2 \mu} \) as \( t \to \infty \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Consider again the renewal reward process where the reward associated with the interarrival time \( X_n \) is \(\frac{1}{2} X_n^2\) for \( n \in \N \). The process \( t \mapsto \int_0^t B_s \, ds \) for \( t \in [0, \infty) \) is a continuous reward process for this sequence of rewards, as defined in <a href="#grp2" class="ref"></a>. To see this, note that for \( t \in \left[T_n, T_{n+1}\right) \), we have \( B_t = T_{n+1} - t \), so once again with a change of variables and noting that \( T_{n+1} = T_n + X_{n+1} \) we have
+		\[ \int_{T_n}^{T_{n+1}} B_t \, dt = \int_0^{X_{n+1}} s \, ds = \frac{1}{2} X_{n+1}^2 \]
+		The results now follow from the renewal reward theorem in <a href="#grp4" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>With a little thought, it's not surprising that the limits for the current life and remaining life processes are the same. After a long period of time, a renewal process looks stochastically the same forward or backward in time. Changing the <q>arrow of time</q> reverses the role of the current and remaining life. Asymptotic results for the total life process now follow trivially from the results for the current and remaining life processes.</p>
+
+<div class="unit" id="age3">
+	<p class="math">Limits for the total life process</p>
+	<ol class="sub">
+		<li>\( \frac{1}{t} \int_0^t L_s \, ds \to \frac{\nu}{\mu} \) as \( t \to \infty \) with probability 1</li>
+		<li>\( \frac{1}{t} \int_0^t l(s) \, ds = \frac{\nu}{\mu} \) as \( t \to \infty \)</li>
+	</ol>
+</div>
+
+<h4 id="rep">Replacement Models</h4>
+
+<p>Consider again a standard renewal process as defined in the <a href="Introduction.html">introduction</a>, with interarrival sequence \( \bs{X} = (X_1, X_2, \ldots) \), arrival sequence \( \bs{T} = (T_0, T_1, \ldots) \), and counting process \( \bs{N} = \{N_t: t \in [0, \infty)\} \). One of the most basic applications is to reliability, where a device operates for a random lifetime, fails, and then is replaced by a new device, and the process continues. In this model, \( X_n \) is the lifetime and \( T_n \) the failure time of the \( n \)th device in service, for \( n \in \N_+ \), while \( N_t \) is the number of failures in \( [0, t] \) for \( t \in [0, \infty) \). As usual, \( F \) denotes the distribution function of a generic lifetime \( X \), and \( F^c = 1 - F \) the corresponding right distribution function (reliability function). Sometimes, the device is actually a <em>system</em> with a number of critical components&mdash;the failure of any of the critical components causes the system to fail.</p>
+
+<p><dfn>Replacement models</dfn> are variations on the basic model in which the device is replaced (or the critical components replaced) at times other than failure. Often the cost \( a \) of a <dfn>planned replacement</dfn> is less than the cost \( b \) of an <dfn>emergency replacement</dfn> (at failure), so replacement models can make economic sense. We will consider the the most common model.</p>
+
+<p>In the <dfn>age replacement model</dfn>, the device is replaced either when it fails or when it reaches a specified age \( s \in (0, \infty) \). This model gives rise to a new renewal process with interarrival sequence \( \bs{U} = (U_1, U_2, \ldots) \) where \( U_n = \min\{X_n, s\} \) for \( n \in \N_+ \). If \( a, \, b \in (0, \infty) \) are the costs of planned and unplanned replacements, respectively, then the cost associated with the renewal period \( U_n \) is 
+\[ Y_n = a \bs{1}(U_n = s) + b \bs{1}(U_n \lt s) = a \bs{1}(X_n \ge s) + b \bs{1}(X_n \lt s) \]
+Clearly \( ((U_1, Y_1), (U_2, Y_2), \ldots) \) satisfies the assumptions of a renewal reward process given in <a href="#pre" class="ref"></a>. The model makes mathematical sense for any \( a, b \in (0, \infty) \) but if \( a \ge b \), so that the planned cost of replacement is at least as large as the unplanned cost of replacement, then \( Y_n \ge b \) for \( n \in \N_+ \), so the model makes no financial sense. Thus we assume that \( a \lt b \).</p>
+
+<div class="unit" id="rep1">
+	<p class="math">In the age replacement model, with planned replacement at age \( s \in (0, \infty) \),</p>
+	<ol class="sub">
+		<li>The expected cost of a renewal period is \( \E(Y) = a F^c(s) + b F(s) \).</li>
+		<li>The expected length of a renewal period is \( \E(U) = \int_0^s F^c(x) \, dx \)</li>
+	</ol>
+	<p>The limiting expected cost per unit time is 
+	\[ C(s) = \frac{a F^c(s) + b F(s)}{\int_0^s F^c(x) \, dx} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Parts (a) and (b) follow from the definition of the reward \( Y \) and the renewal period \( U \), and then the formula for \( C(s) \) follows from the reward renewal theorem in <a href="#avg1" class="ref"></a></p>
+	</details>
+</div>
+
+<p>So naturally, given the costs \( a \) and \( b \), and the lifetime distribution function \( F \), the goal is be to find the value of \( s \) that minimizes \( C(s) \); this value of \( s \) is the <dfn>optimal replacement time</dfn>. Of course, the optimal time may not exist.</p>
+
+<div class="unit" id="rep2">
+	<p class="math">Properties of \( C \)</p>
+	<ol class="sub">
+		<li>\( C(s) \to \infty \) as \( s \downarrow 0 \)</li>
+		<li>\( C(s) \to \mu / b \) as \( s \uparrow \infty \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Recall that \( F^c(0) \gt 0 \) and \( \int_0^s F^c(x) \, dx \to 0 \) as \( s \downarrow 0 \)</li>
+			<li>As \( s \to \infty \) note that \( F^c(s) \to 0 \), \( F(s) \to 1 \) and \( \int_0^s F^c(x) \, dx \to \int_0^\infty F^c(x) \, dx = \mu \)</li>
+		</ol>
+	</details>
+</div>
+
+<p>As \( s \to \infty \), the age replacement model becomes the standard (unplanned) model with limiting expected average cost \( b / \mu \).</p>
+
+<div class="unit" id="rep3">
+	<p class="math">Suppose that the lifetime of the device (in appropriate units) has the <a href="../poisson/Exponential.html">standard exponential distribution</a>. Find \( C(s) \) and solve the optimal age replacement problem.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The exponential reliability function is \( F^c(t) = e^{-t} \) for \( t \in [0, \infty) \). After some algebra, the long term expected average cost per unit time is
+		\[ C(s) = \frac{a}{e^s - 1} + b, \quad s \in [0, \infty) \]
+		But clearly \( C(s) \) is strictly decreasing in \( s \), with limit \( b \), so there is no minimum value.</p>
+	</details>
+</div>
+
+<p>The last result is hardly surprising. A device with an exponentially distributed lifetime does not age&mdash;if it has not failed, it's just as good as new. More generally, age replacement does not make sense for any device with decreasing failure rate. Such devices <em>improve</em> with age.</p>
+
+<div class="unit" id="rep4">
+	<p class="math">Suppose that the lifetime of the device (in appropriate units) has the <a href="../poisson/Gamma.html">gamma distribution</a> with shape parameter \( 2 \) and scale parameter 1. Suppose that the costs (in appropriate units) are \( a = 1 \) and \( b = 5 \).</p>
+	<ol class="sub">
+		<li>Find \( C(s) \).</li>
+		<li>Sketch the graph of \( C(s) \).</li>
+		<li>Solve numerically the optimal age replacement problem.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The gamma reliability function is \( F^c(t) = e^{-t}(1 + t) \) for \( t \in [0, \infty) \)</p>
+		<ol class="sub">
+			<li>\[ C(s) =  \frac{4 + 4 s -5 e^s}{2 + s - 2 e^s}, \quad s \in (0, \infty)\]</li>
+			<li>
+				<figure>
+					<figcaption>The graph of \( C(s) \) on the interval \( (0, 5] \)</figcaption>
+					<img src="Cost1.png" alt="Cost function">
+				</figure>
+			</li>
+			<li>\( C \) is minimized for replacement time \( s \approx 1.3052 \). The optimal cost is about 2.26476.</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="rep5">
+	<p class="math">Suppose again that the lifetime of the device (in appropriate units) has the <a href="../poisson/Gamma.html">gamma distribution</a> with shape parameter \( 2 \) and scale parameter 1. But suppose now that the costs (in appropriate units) are \( a = 1 \) and \( b = 2 \).</p>
+	<ol class="sub">
+		<li>Find \( C(s) \).</li>
+		<li>Sketch the graph of \( C(s) \).</li>
+		<li>Solve the optimal age replacement problem.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The gamma reliability function is \( F^c(t) = e^{-t}(1 + t) \) for \( t \in [0, \infty) \)</p>
+		<ol class="sub">
+			<li>\[ C(s) =  \frac{2 e^s - (1 + s)}{2 e^s - (2 + s)}, \quad s \in (0, \infty)\]</li>
+			<li>
+				<figure>
+					<figcaption>The graph of \( C(s) \) on the interval \( (0, 4] \)</figcaption>
+					<img src="Cost2.png" alt="Cost function">
+				</figure>
+			</li>
+			<li>\( C \) is strictly decreasing on \( [0, \infty) \) with limit 1, so there is no minimum value.</li>
+		</ol>
+	</details>
+</div>
+
+<p>In the last case, the difference between the cost of an emergency replacement and a planned replacement is not great enough for age replacement to make sense.</p>
+
+<div class="unit" id="rep6">
+	<p class="math">Suppose that the lifetime of the device (in appropriately scaled units) is uniformly distributed on the interval \( [0, 1] \). Find \( C(s) \) and solve the optimal replacement problem. Give the results explicitly for the following costs:</p>
+	<ol class="sub">
+		<li>\( a = 4 \), \( b = 6 \)</li>
+		<li>\( a = 2 \), \( b = 5 \)</li>
+		<li>\( a = 1 \), \( b = 10 \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>The reliability function is \( F^c(t) = 1 - t \) for \( t \in [0, 1]  \). After standard computations,
+		\[ C(s) = 2 \frac{a(1 - s) + b s}{s (2 - s)}, \quad s \in (0, 1] \]
+		After more standard calculus, the optimal replacement time is
+		\[ s = \frac{\sqrt{2 a b - a^2} - a}{b - a} \]</p>
+		<ol class="sub">
+			<li>\( s = 2 \left(\sqrt{2} - 1\right) \approx 0.828 \), \( C \approx 11.657 \)</li>
+			<li>\( s = \frac{2}{3} \), \( C = 9 \)</li>
+			<li>\( s = \frac{\sqrt{19} - 1}{9} \approx 0.373\), \( C \approx 14.359 \)</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="thn">Thinning</h4>
+
+<p>We start with a standard <a href="Introduction.html">renewal process</a> with interarrival sequence \( \bs{X} = (X_1, X_2, \ldots) \), arrival sequence \( \bs{T} = (T_0, T_1, \ldots) \) and counting process \( \bs{N} = \{N_t: t \in [0, \infty)\} \).  As usual, let \( \mu = \E(X) \) denote the mean of an interarrival time. For \( n \in \N_+ \), suppose now that arrival \( n \) is either <dfn>accepted</dfn> or <dfn>rejected</dfn>, and define random variable \( Y_n \) to be 1 in the first case and 0 in the second. Let \( Z_n = (X_n, Y_n) \) denote the interarrival time and rejection variable pair for \( n \in \N_+ \), and assume that \( \bs{Z} = (Z_1, Z_2, \ldots) \) is an independent, identically distributed sequence.</p>
+
+<p>Note that we have the structure of a renewal reward process, and so in particular, \( \bs{Y} = (Y_1, Y_2, \ldots) \) is a sequence of <a hef="../bernoulli/index.html">Bernoulli trials</a>. Let \( p \) denote the parameter of this sequence, so that \( p \) is the probability of accepting an arrival. The procedure of accepting or rejecting points in a point process is known as <dfn>thinning</dfn> the point process. We studied <a href="../poisson/Splitting.html">thinning</a> of the <a href="../poisson/index.html">Poisson process</a>. In the notation of this section, note that the reward process \( \bs{R} = \{R_t: t \in [0, \infty)\} \) is the thinned counting process. That is,
+\[ R_t = \sum_{i=1}^{N_t} Y_i \]
+is the number of accepted points in \( [0, t] \) for \( t \in [0, \infty) \). So then \( r(t) = \E(R_t) \) is the expected number of accepted points in \( [0, t] \). The renewal reward theorem  gives the asymptotic behavior.</p>
+
+<div class="unit" id="thn1">
+	<p class="math">Limits for the thinned process.</p>
+	<ol class="sub">
+		<li>\( R_t / t \to p / \mu \) as \( t \to \infty \)</li>
+		<li>\( r(t) / t \to p / \mu \) as \( t \to \infty \)</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows immediately from the renewal reward theorem in <a href="#avg" class="ref"></a>, since \( \nu = p \).</p>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">14. Renewal Processes</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Equations.html" title="Renewal Equations">2</a></li>
+		<li class="child"><a href="LimitTheorems.html" title="Renewal Limit Theorems">3</a></li>
+		<li class="child"><a href="Delayed.html" title="Delayed Renewal Processes">4</a></li>
+		<li class="child"><a href="Alternating.html" title="Alternating Renewal Processes">5</a></li>
+		<li class="current">6</li>	<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

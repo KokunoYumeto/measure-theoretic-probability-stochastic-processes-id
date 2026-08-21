@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Continuous-Time Chains</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Markov chain, continuous time, state graph, transition probability, Markov property, continuous time, holding times, jump chain, regularity, two-state chain">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="current">15</li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>15. Continuous-Time Chains</h2>
+</header>
+
+<p>This section begins our study of Markov processes in continuous time and with discrete state spaces. Recall that a Markov process with a discrete state space is called a <dfn>Markov chain</dfn>, so we are studying <dfn>continuous-time Markov chains</dfn>. It will be helpful if you review the section on <a href="General.html">general Markov processes</a>, at least briefly, to become familiar with the basic notation and concepts. Also, <a href="Discrete.html">discrete-time chains</a> plays a fundamental role, so you will need review this topic also. </p>
+
+<p>We will study continuous-time Markov chains from different points of view. Our point of view in this section, involving holding times and the embedded discrete-time chain, is the most intuitive from a probabilistic point of view, and so is the best place to start. In the next section, we study the <a href="Transition.html">transition probability matrices</a> in continuous time. This point of view is somewhat less intuitive, but is closest to how other types of Markov processes are treated. Finally, in  the third introductory section we study the Markov chain from the view point of <a href="Potentials2.html">potential matrices</a>. This is the least intuitive approach, but analytically one of the best. Naturally, the interconnections between the various approaches are particularly important.</p>
+
+<h3 id="pre">Preliminaries</h3>
+
+<p>As usual, we start with a <a href="../foundations/Measure.html">probability space</a> \( (\Omega, \mathscr{F}, \P) \), so that \( \Omega \) is the set of outcomes, \( \mathscr{F} \) the \( \sigma \)-algebra of events, and \( \P \) the probability measure on the sample space \( (\Omega, \mathscr{F}) \). The time space is \( ([0, \infty), \mathscr{T}) \) where as usual, \( \mathscr{T} \) is the Borel \( \sigma \)-algebra on \( [0, \infty) \) corresponding to the standard Euclidean <a href="../foundations/Topology.html">topology</a>. The state space is \( (S, \mathscr{S}) \) where \( S \) is countable and \( \mathscr{S} \) is the power set of \( S \). So every subset of \( S \) is measurable, as is every function from \( S \) to another measurable space. Recall that \( \mathscr{S} \) is also the Borel \( \sigma \) algebra corresponding to the discrete topology on \( S \). With this topology, every function from \( S \) to another topological space is continuous. Counting measure \( \# \) is the natural measure on \( (S, \mathscr{S}) \), so in the context of the <a href="General.html">general introduction</a>, integrals over \( S \) are simply sums. Also, <a href="../expect/Kernels.html">kernels</a> on \( S \) can be thought of as matrices, with rows and sums indexed by \( S \). The left and right kernel operations are generalizations of matrix multiplication.</p> 
+
+<p>Suppose now that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is <a href="../prob/Processes.html">stochastic process</a> with state space \( (S, \mathscr{S}) \). For \( t \in [0, \infty) \), let \( \mathscr{F}^0_t = \sigma\{X_s: s \in [0, t]\} \), so that \( \mathscr{F}^0_t \) is the \( \sigma \)-algebra of events defined by the process up to time \( t \). The collection of \( \sigma \)-algebras \( \mathfrak{F}^0 = \{\mathscr{F}^0_t: t \in [0, \infty)\} \) is the natural <a href="../prob/Stop.html">filtration</a> associated with \( \bs{X} \). For technical reasons, it's often necessary to have a filtration \( \mathfrak{F} = \{\mathscr{F}_t: t \in [0, \infty)\} \) that is slightly finer than the natural one, so that \( \mathscr{F}^0_t \subseteq \mathscr{F}_t \) for \( t \in [0, \infty) \) (or in equivlaent jargon, \( \bs{X} \) is adapted to \( \mathfrak{F} \)). See the <a href="General.html">general introduction</a> for more details on the common ways that the natural filtration is refined. We will also let \(\mathscr{G}_t = \sigma\{X_s: s \in [t, \infty)\}\),  the \( \sigma \)-algebra of events defined by the process from time \( t \) onward. If \( t \) is thought of as the present time, then \( \mathscr{F}_t \) is the collection of events in the past and \( \mathscr{G}_t \) is the collection of events in the future.</p>
+
+<p>It's often necessary to impose assumptions on the continuity of the process \( \bs{X} \) in time. Recall that \( \bs{X} \) is <dfn>right continuous</dfn> if \( t \mapsto X_t(\omega) \) is right continuous on \( [0, \infty) \) for every \( \omega \in \Omega \), and similarly \( \bs{X} \) has left limits if \( t \mapsto X_t(\omega) \) has left limits on \( (0, \infty) \) for every \( \omega \in \Omega \). Since \( S \) has the discrete topology, note that if \( \bs{X} \) is right continuous, then for every \( t \in [0, \infty) \) and \( \omega \in \Omega \), there exists \( \epsilon \) (depending on \( t \) and \( \omega \)) such that \( X_{t+s}(\omega) = X_t(\omega) \) for \( s \in [0, \epsilon) \). Similarly, if \( \bs{X} \) has left limits, then for every \( t \in (0, \infty) \) and \( \omega \in \Omega \) there exists \( \delta \) (depending on \( t \) and \( \omega \)) such that \( X_{t - s}(\omega) \) is constant for \( s \in (0, \delta) \). </p>
+
+<h4 id="mar">The Markov Property</h4>
+
+<p>There are a number of equivalent ways to state the Markov property. At the most basic level, the property states that the <em>past and future are conditionally independent, given the present</em>.</p>
+
+<div class="unit" id="mar1">
+	<p class="dfn">The process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a <dfn>Markov chain</dfn> on \( S \) if for every \( t \in [0, \infty) \), \( A \in \mathscr{F}_t \), and \( B \in \mathscr{G}_t \),
+	\[ \P(A \cap B \mid X_t) = \P(A \mid X_t) \P(B \mid X_t) \]</p>
+</div>
+
+<p>Another version is that the conditional distribution of a state in the future, given the past, is the same as the conditional distribution just given the present state.</p>
+
+<div class="unit" id="mar2">
+	<p class="dfn">The process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a Markov chain on \( S \) if for every  \( s, \, t \in [0, \infty) \), and \( x \in S \),
+	\[ \P(X_{s + t} = x \mid \mathscr{F}_s) = \P(X_{s + t} = x \mid X_s) \]</p>
+</div>
+
+<p>Technically, in definitions <a href="#mar1" class="ref"></a> and <a href="#mar2" class="ref"></a>, we should say that \( \bs{X} \) is a Markov process <dfn>relative to</dfn> the filtration \( \mathfrak{F} \). But recall that if \( \bs{X} \) satisfies the Markov property relative to a filtration, then it satisfies the Markov property relative to any coarser filtration, and in particular, relative to the natural filtration. For the natural filtration, the Markov property can also be stated without explicit reference to \( \sigma \)-algebras, although at the cost of additional clutter: </p>
+
+<div class="unit" id="mar3">
+	<p class="dfn">The process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a Markov chain on \( S \) if and only if for every \( n \in \N_+ \), time sequence \( (t_1, t_2, \ldots, t_n) \in [0, \infty)^n \) with \( t_1 \lt t_2 \lt \cdots \lt t_n \), and state sequence \( (x_1, x_2, \ldots, x_n) \in S^n \),
+	\[ \P\left(X_{t_n} = x_n \mid X_{t_1} = x_1, X_{t_2} = x_2, \ldots X_{t_{n-1}} = x_{n-1}\right) = \P\left(X_{t_n} = x_n \mid X_{t_{n-1}} = x_{n-1}\right) \]</p>
+</div>
+
+<p>As usual, we also assume that our Markov chain \( \bs{X} \) is <dfn>time homogeneous</dfn>, so that \( \P(X_{s + t} = y \mid X_s = x) = \P(X_t = y \mid X_0 = x) \) for \( s, \, t \in [0, \infty) \) and \( x, \, y \in S \). So, for a homogeneous Markov chain on \( S \), the process \( \{X_{s+t}: t \in [0, \infty)\} \) given \( X_s = x \), is independent of \( \mathscr{F}_s \) and equivalent to the process \( \{X_t: t \in [0, \infty)\} \) given \( X_0 = x \), for every \( s \in [0, \infty) \) and \( x \in S \). That is, if the chain is in state \( x \in S \) at a particular time \( s \in [0, \infty) \), it does not matter how the chain <em>got to</em> \( x \); the chain essentially starts over in state \( x \).</p>
+
+<h4 id="str">The Strong Markov Property</h4>
+
+<p>Random times play an important role in the study of continuous-time Markov chains. It's often necessary to allow random times to take the value \( \infty \), so formally, a random time \( \tau \) is a random variable on the underlying sample space \( (\Omega, \mathscr{F}) \) taking values in \( [0, \infty] \). Recall also that a random time \( \tau \) is a <a href="../prob/Stop.html">stopping time</a> (also called a <dfn>Markov time</dfn> or an <dfn>optional time</dfn>) if \( \{\tau \le t\} \in \mathscr{F}_t \) for every \( t \in [0, \infty) \). If \( \tau \) is a stopping time, the \( \sigma \)-algebra associated with \( \tau \) is
+\[ \mathscr{F}_\tau = \{A \in \mathscr{F}: A \cap \{\tau \le t\} \in \mathscr{F}_t \text{ for all } t \in [0, \infty)\} \]
+So \( \mathscr{F}_\tau \) is the collection of events up to the random time \( \tau \) in the same way that \( \mathscr{F}_t \) is the collection of events up to the deterministic time \( t \in [0, \infty) \). We usually want the Markov property to extend from deterministic times to stopping times.</p>
+
+<div class="unit" id="str1">
+	<p class="dfn">The process \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a <dfn>strong Markov chain</dfn> on \( S \) if for  every stopping time \( \tau \), \(t \in [0, \infty) \), and \( x \in S \),
+	\[ \P(X_{\tau + t} = x \mid \mathscr{F}_\tau) = \P(X_{\tau + t} = x \mid X_\tau) \]</p>
+</div>
+
+<p>So, for a homogeneous strong Markov chain on \( S \), the process \( \{X_{\tau + t}: t \in [0, \infty)\} \) given \( X_\tau = x \), is independent of \( \mathscr{F}_\tau \) and equivalent to the process \( \{X_t: t \in [0, \infty)\} \) given \( X_0 = x \), for every stopping time \( \tau \) and \( x \in S \). That is, if the chain is in state \( x \in S \) at a stopping time \( \tau \), then the chain essentially starts over at \( x \), independently of the past.
+
+<h3 id="emb">Holding Times and the Jump Chain</h3>
+
+<p>For our first point of view, we sill study <em>when</em> and <em>how</em> our Markov chain \( \bs{X} \) changes state. The discussion depends heavily on properties of the <a href="../poisson/Exponential.html">exponential distribution</a>, so we need a quick review.</p>
+
+<h4 id="exp">The Exponential Distribution</h4>
+
+<div class="unit">
+	<p class="dfn">A random variable \( \tau \) has the <dfn>exponential distribution</dfn> with rate parameter \( r \in (0, \infty) \) if \( \tau \) has a continuous distribution on \( [0, \infty) \) with probability density function \( f \) given by \( f(t) = r e^{-r t} \) for \( t \in [0, \infty) \). Equivalently, the right <a href="../dist/CDF.html">distribution function</a> \( F^c \) is given by 
+	\[ F^c(t) = \P(\tau \gt t) = e^{-r t}, \quad t \in [0, \infty) \]
+	The <a href="../expect/Properties.html">mean</a> of the distribution is \( 1 / r \) and the <a href="../expect/Variance.html">variance</a> is \( 1 / r^2 \).</p>
+</div>
+
+<p>The exponential distribution has an amazing number of characterizations. One of the most important is the <dfn>memoryless property</dfn> which states that a random variable \( \tau \) with values in \( [0, \infty) \) has an exponential distribution if and only if the conditional distribution of \( \tau - s \) given \( \tau \gt s \) is the same as the distribution of \( \tau \) itself, for every \( s \in [0, \infty) \). It's easy to see that the memoryless property is equivalent to the <dfn>law of exponents</dfn> for right distribution function \( F^c \), namely \( F^c(s + t) = F^c(s) F^c(t) \) for \( s, \, t \in [0, \infty) \). Since \( F^c \) is right continuous, the only solutions are exponential functions.</p>
+
+<p>For our study of continuous-time Markov chains, it's helpful to extend the exponential distribution to two degenerate cases, \( \tau = 0 \) with probability 1, and \( \tau = \infty \) with probability 1. In terms of the parameter, the first case corresponds to \( r = \infty \) so that \( F(t) = \P(\tau \gt t) = 0 \) for every \( t \in [0, \infty) \), and the second case corresponds to \( r = 0 \) so that \( F(t) = \P(\tau \gt t) = 1 \) for every \( t \in [0, \infty) \). Note that in both cases, the function \( F \) satisfies the law of exponents, and so corresponds to a memoryless distribution in a general sense. In all cases, the mean of the exponential distribution with parameter \( r \in [0, \infty] \) is \( 1 / r \), where we interpret \( 1 / 0 = \infty \) and \( 1 / \infty = 0 \).</p>
+
+<h4 id="hld">Holding Times</h4>
+
+<p>The Markov property implies the memoryless property for the random time when a Markov process first leaves its initial state. It follows that this random time must have  an exponential distribution.</p>
+
+<div class="unit" id="hld1">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a Markov chain on \( S \), and let \( \tau = \inf\{t \in [0, \infty): X_t \ne X_0\} \). For \( x \in S \), the conditional distribution of \( \tau \) given \( X_0 = x \) is exponential with parameter \( \lambda(x) \in [0, \infty] \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( x \in S \) and \( s \in [0, \infty) \). The events \( X_0 = x \) and \( \tau \gt s \) imply \( X_s = x \). By the Markov property, given \( X_s = x \), the chain starts over at time \( s \) in state \( x \), independent of \( \{X_0 = x\} \) and \( \{\tau \gt s\} \), since both events are in \( \mathscr{F}_s \). Hence for \( t \in [0,  \infty) \),
+		\[ \P(\tau \gt t + s \mid X_0 = x, \tau \gt s) = \P(\tau \gt t + s \mid X_0 = x, X_s = x, \tau \gt s) = \P(\tau \gt t \mid X_0 = x)\]
+		It follows that \( \tau \) has the memoryless property, and hence has an exponential distribution with parameter \( \lambda(x) \in [0, \infty] \).</p>
+	</details>
+</div>
+
+<p>So, associated with the Markov chain \( \bs{X} \) on \( S \) is a function \( \lambda: S \to [0, \infty] \) that gives the exponential parameters for the holding times in the states. Considering the ordinary exponential distribution, and the two degenerate versions, we are led to the following classification of states:</p>
+
+<div class="unit" id="hld2">
+	<p class="dfn">Suppose again that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a Markov chain on \( S \) with exponential parameter function \( \lambda \). Let \( x \in S \).</p>
+	<ol class="sub">
+		<li>If \( \lambda(x) = 0 \) then \( \P(\tau = \infty \mid X_0 = x) = 1 \), and \( x \) is an <dfn>absorbing state</dfn>.</li>
+		<li>If \( \lambda(x) \in (0, \infty) \) then \( \P(0 \lt \tau \lt \infty \mid X_0 = x) = 1 \) and \( x \) is a <dfn>stable state</dfn>.</li>
+		<li>If \( \lambda(x) = \infty \) then \( \P(\tau = 0 \mid X_0 = x) = 1 \), and \( x \) is an <dfn>instantaneous state</dfn>.</li>
+	</ol>
+</div>
+
+<p>As you can imagine, an instantaneous state corresponds to weird behavior, since the chain starting in the state leaves the state at times arbitrarily close to 0. While mathematically possible, instantaneous states make no sense in most applications, and so are to be avoided. Also, the details of <a href="#hld1" class="ref"></a> have some technical holes. We did not really show that \( \tau \) is a valid random time, let alone a stopping time. Fortunately, one of our standard assumptions resolves these problems.</p>
+
+<div class="unit" id="hld3">
+	<p class="math">Suppose again that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a Markov chain on \( S \). If the process \( \bs{X} \) and the filtration \( \mathfrak{F} \) are right continuous, then</p>
+	<ol class="sub">
+		<li>\( \tau \) is a stopping time.</li>
+		<li>\( \bs{X} \) has no instantaneous states.</li>
+		<li>\( \P(X_\tau \ne x \mid X_0 = x) = 1 \) if \( x \in S \) is stable.</li>
+		<li>\( \bs{X} \) is a strong Markov process.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Let \( t \in [0, \infty) \). By right continuity,
+			\[ \{\tau \lt t\} = \{X_s \ne X_0 \text{ for some } s \in (0, t)\} = \{X_s \ne X_0 \text{ for some rational } s \in (0, t)\} \]
+			But for \( s \in (0, t) \), \( \{X_s \ne X_0\} \in \mathscr{F}_s \subseteq \mathscr{F}_t  \). The last event in the displayed equation is a countable union, so \( \{\tau \lt t\} \in \mathscr{F}_t \). Since \( \mathfrak{F} \) is right continuous, \( \tau \) is a stopping time.</li>
+			<li>Suppose that \( \omega \in \Omega \) and \( X_0(\omega) = x \). Since \( \bs{X} \) is right continuous, there exists \( \epsilon \gt 0 \) such that \( X_t(\omega) = x \) for \( 0 \le t \lt \epsilon \) and hence \( \tau(\omega) \ge \epsilon \gt 0 \). So \( \P(\tau \gt 0 \mid X_0 = x) = 1 \).</li>
+			<li>Similarly, suppose that \( \omega \in \Omega \) and that \( X_0(\omega) = x \) and \( X_{\tau(\omega)}(\omega) = y \). Since \( \bs{X} \) is right continuous, there exists \( \epsilon \gt 0 \) such that \( X_t(\omega) = y \) for \( \tau(\omega) \le t \lt \tau(\omega) + \epsilon \). But by definition of \( \tau(\omega) \), there exists \( t \in (\tau(\omega), \tau(\omega) + \epsilon) \) with \( X_t(\omega) \ne x \). Hence \( \P(X_\tau \ne x \mid X_0 = x) = 1 \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>There is actually a converse to part (b) of <a href="#hld3" class="ref"></a> that states that if \( \bs{X} \) has no instantaneous states, then there is a <a href="../prob/Processes.html">version</a> of \( \bs{X} \) that is right continuous. From now on, we will assume that our Markov chains are right continuous with probability 1, and hence have no instantaneous states. On the other hand, absorbing states are perfectly reasonable and often do occur in applications. Finally, if the chain enters a stable state, it will stay there for a (proper) exponentially distributed time, and then leave.</p>
+
+<h4 id="dtc">The Jump Chain</h4>
+
+<p>Without instantaneous states, we can now construct a sequence of stopping times. Basically, we let \( \tau_n \) denote the \( n \)th time that the chain changes state for \( n \in \N_+ \), unless the chain has previously been caught in an absorbing state. Here is the formal construction:</p>
+
+<div class="unit" id="dtc1">
+	<p class="dfn">Suppose again that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a Markov chain on \( S \). Let \( \tau_0 = 0 \) and \( \tau_1 = \inf\{t \in [0, \infty): X_t \ne X_0\} \). Recursively, suppose that \( \tau_n \) is defined for \( n \in \N_+ \). If \( \tau_n = \infty \) let \( \tau_{n+1} = \infty \). Otherwise, let
+	\[ \tau_{n+1} = \inf\left\{t \in [\tau_n, \infty): X_t \ne X_{\tau_n}\right\} \]
+	Let \( M = \sup\{n \in \N: \tau_n \lt \infty\} \).</p>
+</div>
+
+<p>In the definition of \( M \), of course, \( \sup(\N) = \infty \), so \( M \) is the number of changes of state. If \( M \lt \infty \), the chain was sucked into an absorbing state at time \( \tau_M \). Since we have ruled out instantaneous states, the sequence of random times in strictly increasing up until the (random) term \( M \). That is, with probability 1, if \( n \in \N \) and \( \tau_n \lt \infty \) then \( \tau_n \lt \tau_{n+1} \). Of course by construction, if \( \tau_n = \infty \) then \( \tau_{n+1} = \infty \). The increments \( \tau_{n+1} - \tau_n \) for \( n \in \N \) with \( n \lt M \) are the times spent in the states visited by \( \bs{X} \). The process at the random times when the state changes forms an embedded <a href="Discrete.html">discrete-time Markov chain</a>.</p>
+
+<div class="unit" id="dtc2">
+	<p class="math">Suppose again that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a Markov chain on \( S \). Let \( \{\tau_n: n \in \N\} \) denote the stopping times and \( M \) the random index, as defined above. For \( n \in \N \), let \( Y_n = X_{\tau_n} \) if \( n \le M \) and \( Y_n = X_{\tau_M} \) if \( n \gt M \). Then \( \bs{Y} = \{Y_n: n \in \N\} \) is a (homogenous) discrete-time Markov chain on \( S \), known as the <dfn>jump chain</dfn> of \( \bs{X} \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( n \in \N \) let \( \mathscr{G}_n = \sigma\{Y_0, Y_1, \ldots, Y_n\} \), the \( \sigma \)-algebra of events for the process \( \bs{Y} \), up to the discrete time \( n \). Let \( x \in S \). If \( x \) is stable, then given \( Y_n = x \), the random times \( \tau_n \) and \( \tau_{n+1} \) are finite with probability 1. (Note that we cannot get to \( x \) from an absorbing state.) So
+		\[ \P(Y_{n+1} = y \mid Y_n = x, \mathscr{G}_n) = \P\left(X_{\tau_{n+1}} = y \mid X_{\tau_n} = x, \mathscr{G}_n\right), \quad y \in S \]
+		But by the strong Markov property, given \( X_{\tau_n} = x \), the chain starts over at time \( \tau_n \) in state \( x \), independent of \( \mathscr{G}_n \subseteq \mathscr{F}_{\tau_n} \). Hence 
+		\[ \P(Y_{n+1} = y \mid Y_n = x, \mathscr{G}_n) = \P(X_\tau = y \mid X_0 = x), \quad y \in S\]
+		On the other hand, if \( x \) is an absorbing state, then by construction,
+		\[ \P(Y_{n+1} = y \mid Y_n = x, \mathscr{G}_n) = I(x, y), \quad y \in S \]
+		where \( I \) is the identity matrix on \( S \).</p>
+	</details>
+</div>
+
+<p>As noted in the details of <a href="#dtc2" class="ref"></a>, the one-step transition probability matrix \( Q \) for the jump chain \( \bs{Y} \) is given for \( (x, y) \in S^2 \) by 
+\[ Q(x, y) = \begin{cases} \P(X_\tau = y \mid X_0 = x), &amp; x \text{ stable} \\ I(x, y), &amp; x \text{ absorbing} \end{cases} \]
+where \( I \) is the identity matrix on \( S \). Of course \( Q \) satisfies the usual properties of a probability matrix on \( S \), namely \( Q(x, y) \ge 0 \) for \( (x, y) \in S^2 \) and \( \sum_{y \in S} Q(x, y) = 1 \) for \( x \in S \). But \( Q \) satisfies another interesting property as well. Since the the state actually <em>changes</em> at time \( \tau \) starting in a stable state, we must have \( Q(x, x) = 0 \) if \( x \) is stable and \( Q(x, x) = 1 \) if \( x \) is absorbing.</p>
+
+<p>Given the initial state, the holding time and the next state are <a href="../prob/Independence.html">independent</a>.</p>
+
+<div class="unit" id="dtc3">
+	<p class="math">If \( x, \, y \in S \)  and \( t \in [0, \infty) \) then \( \P(Y_1 = y, \tau_1 \gt t \mid Y_0 = x) = Q(x, y) e^{-\lambda(x) t} \)</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( x \) is a stable state, so that given \( Y_0 = X_0 = x \), the stopping time \( \tau_1 = \tau\) has a proper exponential distribution with parameter \( \lambda(x) \in (0, \infty) \). Note that
+		\[ \P(Y_1 = y, \tau_1 \gt t \mid Y_0 = x) = \P(X_{\tau} = y, \tau \gt t \mid X_0 = x) = \P(X_\tau = y \mid \tau \gt t, X_0 = x) \P(\tau \gt t \mid X_0 = x) \]
+		Note that if \( X_0 = x \) and \( \tau \gt t \) then \( X_t = x \) also. By the Markov property, given \( X_t = x \), the chain starts over at time \( t \) in state \( x \), independent of \( \{X_0 = x\} \) and \( \{\tau \gt t\} \), both events in \( \mathscr{F}_t \). Hence 
+		\[ \P(X_\tau = y \mid \tau \gt t, X_0 = x) = \P(X_\tau = y \mid X_t = x, \tau \gt t, X_0 = x) = \P(X_\tau = y \mid X_0 = x) = Q(x, y) \]
+		Of course \( \P(\tau \gt t \mid X_0 = x) = e^{-\lambda(x) t} \).</p>
+		<p>If \( x \) is an absorbing state then \( \P(\tau = \infty \mid X_0 = x) = 1 \), \( \P(Y_1 = x \mid Y_0 = x) = 1 \), and \( \lambda(x) = 0 \). Hence
+		\[ \P(Y_1 = y, \tau_1 \gt t \mid Y_0 = x) = I(x, y) = Q(x, y) e^{-\lambda(x) t} \]
+		</p>
+	</details>
+</div>
+
+<p>The following result is a generalization. The changes in state and the holding times are independent, given the initial state.</p>
+
+<div class="unit" id="dtc4">
+	<p class="math">Suppose that \( n \in \N_+ \) and that \( (x_0, x_1, \ldots, x_n) \) is a sequence of stable states and \( (t_1, t_2, \ldots, t_n) \) is a sequence in \( [0, \infty) \). Then
+	\begin{align*} 
+		&amp; \P(Y_1 = x_1, \tau_1 \gt t_1, Y_2 = x_2, \tau_2 - \tau_1 \gt t_2, \ldots, Y_n = x_n, \tau_n - \tau_{n-1} \gt t_n \mid Y_0 = x_0) \\
+		&amp; = Q(x_0, x_1) e^{-\lambda(x_0) t_1} Q(x_1, x_2) e^{-\lambda(x_1) t_2} \cdots Q(x_{n-1}, x_n) e^{-\lambda(x_{n-1}) t_n}  
+	\end{align*}</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The proof is by induction, and the essence is captured in the case \( n = 2 \). So suppose that \( x_0, \, x_1, \, x_2 \) are stable states and \( t_1, \, t_2 \in [0, \infty) \). Then
+		\begin{align*}
+			&amp; \P(Y_1 = x_1, \tau_1 \gt t_1, Y_2 = x_2, \tau_2 - \tau_1 \gt t_2 \mid Y_0 = x_0) \\
+			&amp; = \P(Y_2 = x_2, \tau_2 - \tau_1 \gt t_2 \mid X_0 = x, Y_1 = x_1, \tau_1 \gt t_1) \P(Y_1 = x_1, \tau_1 \gt t_1 \mid Y_0 = x_0)
+		\end{align*}
+		But \( \P(Y_1 = x_1, \tau_1 \gt t_1 \mid Y_0 = x_0) = Q(x_0, x_1) e^{-\lambda(x_0) t_1} \) by the previous theorem. Next, by definition,
+		\[\P(Y_2 = x_2, \tau_2 - \tau_1 \gt t_2 \mid X_0 = x, Y_1 = x_1, \tau_1 \gt t_1) =  \P\left(X_{\tau_2} = x_2, \tau_2 - \tau_1 \gt t_2 \mid X_0 = x_0, X_{\tau_1} = x_1, \tau_1 \gt t_1\right) \]
+		But by the strong Markov property, given \( X_{\tau_1} = x_1 \), the chain starts over at time \( \tau_1 \) in state \( x \), independent of the events \( \{X_0 = x_0\} \) and \( \{\tau_1 \gt t_1\} \) (both events in \( \mathscr{F}_{\tau_1} \)). Hence using the previous theorem again,
+		\[ \P(Y_2 = x_2, \tau_2 - \tau_1 \gt t_2 \mid X_0 = x, Y_1 = x_1, \tau_1 \gt t_1) = \P(X_\tau = x_2, \tau \gt t_2 \mid X_0 = x_1) = Q(x_1, x_2) e^{-\lambda(x_1)t_2} \]</p>
+	</details>
+</div>
+
+<h4 id="reg">Regularity</h4>
+
+<p>We now know quite a bit about the structure of a continuous-time Markov chain \( \bs{X} = \{X_t: t \in [0, \infty)\} \) (without instantaneous states). Once the chain enters a given state \( x \in S \), the holding time in state \( x \) has an exponential distribution with parameter \( \lambda(x) \in [0, \infty) \), after which the next state \( y \in S \) is chosen, independently of the holding time, with probability \( Q(x, y) \). However, we don't know everything about the chain. For the sequence \( \{\tau_n: n \in \N\} \) defined above, let \( \tau_\infty = \lim_{n \to \infty} \tau_n \), which exists in \( (0, \infty] \) of course, since the sequence is increasing. Even though the holding time in a state is positive with probability 1, it's possible that \( \tau_\infty \lt \infty \) with positive probability, in which case we know nothing about \( X_t \) for  \(t \ge \tau_\infty \). The event \( \{\tau_\infty \lt \infty\} \) is known as <dfn>explosion</dfn>, since it means that the \( \bs{X} \) makes infinitely many transitions before the finite time \( \tau_\infty \). While not as pathological as the existence of instantaneous states, explosion is still to be avoided in most applications.</p>
+
+<div class="unit" id="reg1">
+	<p class="dfn">A Markov chain \( \bs{X} = \{X_t: t \in [0, \infty)\} \)  on \( S \) is <dfn>regular</dfn> if each of the following events has probability 1:</p>
+	<ol class="sub">
+		<li>\( \bs{X} \) is right continuous.</li>
+		<li>\( \tau_n \to \infty \) as \( n \to \infty \).</li>
+	</ol>
+</div>
+
+<p>There is a simple condition on the exponential parameters and the embedded chain that is equivalent to condition (b).</p>
+
+<div class="unit" id="reg2">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a right-continuous Markov chain on \( S \) with exponential parameter function \( \lambda \) and embedded chain \( \bs{Y} = (Y_0, Y_1, \ldots) \). Then \( \tau_n \to \infty \) as \( n \to \infty \) with probability 1 if and only if \( \sum_{n=0}^\infty 1 \big/ \lambda(Y_n) = \infty \) with probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Given \( \bs{Y} = (y_0, y_1, \ldots) \), the distribution of \( \tau_\infty = \lim_{n \to \infty} \tau_n \) is the distribution of \( T_\infty = \sum_{n=0}^\infty T_n \) where \( (T_0, T_1, \ldots) \) are independent, and \( T_n \) has the exponential distribution with parameter \( \lambda(y_n) \). Note that \( \E(T_\infty) = \sum_{n=0}^\infty 1 \big/ \lambda(y_n) \). In the section on the <a href="../poisson/Exponential.html#ord11">exponential distribution</a>, it's shown that \( \P(T_\infty = \infty) = 1 \) if and only if \( \E(T_\infty) = \infty \).</p>
+	</details>
+</div>
+
+<p>If \(\lambda \) is bounded, then \( \bs{X} \) is regular.</p>
+ 
+<div class="unit" id="reg3">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a Markov chain on \( S \) with exponential parameter function \( \lambda \). If \(\lambda \) is bounded, then \( \bs{X} \) is regular.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( \lambda(x) \le r \) for \( x \in S \), where \( r \in (0, \infty) \). Then in particular, \( \bs{X} \) has no instantaneous states and so is right continuous. Moreover, \( 1 / \lambda(x) \ge 1 / r \) for \( x \in S \) so \( \sum_{n=0}^\infty 1 \big / \lambda(Y_n) = \infty \) with probability 1, where as ususal, \( \bs{Y} = (Y_0, Y_1, \ldots) \) is the jump chain of \( \bs{X} \).</p>
+	</details>
+</div>
+
+<p>Here is another sufficient condition that is useful when the state space is infinite.</p>
+
+<div class="unit" id="reg4">
+	<p class="math">Suppose that \( \bs X = \{X_t: t \in [0, \infty)\} \) is a Markov chain on \( S \) with exponential parameter function \( \lambda: S \to [0, \infty) \). Let \( S_+ = \{x \in S: \lambda(x) \gt 0\} \). Then \( \bs X \) is regular if 
+	\[ \sum_{x \in S_+} \frac{1}{\lambda(x)} = \infty \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By assumption, \( \lambda(x) \lt \infty \) for \( x \in S \), so there are no instantaneous states and so we can take \( \bs X \) to be right continuous. Next,
+		\[ \sum_{n=0}^\infty \frac{1}{\lambda(Y_n)} = \sum_{n=0}^\infty \sum_{x \in S} \frac{1}{\lambda(x)} \bs{1}(Y_n = x) = \sum_{x \in S} \frac{1}{\lambda(x)} \sum_{n=0}^\infty \bs{1}(Y_n = x) = \sum_{x \in S} \frac{N_x}{\lambda(x)} \]
+		where \( N_x = \sum_{n=0}^\infty \bs{1}(Y_n = x) \) is the number of times that the jump chain \( \bs Y \) is in state \( x \). Suppose that \( \sum_{x \in S_+} 1 / \lambda(x) = \infty \). Note that it must be the case that \( S_+ \), and hence \( S \), is infinite. With probability 1, either \( \bs Y \) enters an absorbing state (a state \( x \in S \) with \( \lambda(x) = 0 \)), or \( N_x = \infty \) for some \( x \in S_+ \), or \( N_x \ge 1 \) for infinitely many \( x \in S_+ \). In any case,
+		\[ \sum_{n=0}^\infty \frac{1}{\lambda(Y_n)} = \sum_{x \in S} \frac{N_x}{\lambda(x)} = \infty\]</p>
+	</details>
+</div>
+
+<p>As a corollary, note that if \( S \) is finite then \( \lambda \) is bounded, so a continuous-time Markov chain on a finite state space is regular. So to review, if the exponential parameter function \( \lambda \) is finite, the chain \( \bs{X} \) has no instantaneous states. Even better, if \( \lambda \) is bounded or if the conditions in the last theorem are satisfied, then \( \bs{X} \) is regular. A continuous-time Markov chain with bounded exponential parameter function \( \lambda \) is called <dfn>uniform</dfn>, for reasons that will become clear in the next section on <a href="Transition.html">transition matrices</a>. As we will see in <a href="Poisson.html#uni">later section</a>, a uniform continuous-time Markov chain can be constructed from a discrete-time chain and an independent <a href="../poisson/index.html">Poisson process</a>. For the next result, recall that to say that \( \bs{X} \) has <dfn>left limits</dfn> with probability 1 means that the random function \( t \mapsto X_t \) has limits from the left on \( (0, \infty) \) with probability 1.</p>
+
+<div class="unit" id="reg5">
+	<p class="math">If \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is regular then \( \bs{X} \) has left limits with probability 1.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose first that there are no absorbing states. Under the assumptions, with probability 1, \( 0 \lt \tau_n \lt \infty \) for each \( n \in \N \) and \( \tau_n \to \infty \) as \( n \to \infty \). Moreover, \( X_t = Y_n \) for \( t \in [\tau_n, \tau_{n+1}) \) and \( n \in \N \). So \( t \mapsto X_t \) has left limits on \( (0, \infty) \) with probability 1. The same basic argument works with absorbing states, except that possibly \( \tau_{n+1} = \infty \).</p>
+	</details>
+</div>
+
+<p>Thus, our standard assumption will be that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a regular Markov chain on \( S \). For such a chain, the behavior of \( \bs{X} \) is completely determined by the exponential parameter function \( \lambda \) that governs the holding times, and the transition probability matrix \( Q \) of the jump chain \( \bs{Y} \). Conversely, when modeling real stochastic systems, we often start with \( \lambda \) and  \( Q \). It's then relatively straightforward to construct the continuous-time Markov chain that has these parameters. For simplicity, we will assume that there are no absorbing states. The inclusion of absorbing states is not difficult, but mucks up the otherwise elegant exposition.</p>
+
+<div class="unit" id="reg6">
+	<p class="math">
+	Suppose that \( \lambda: S \to (0, \infty) \) is bounded and that \( Q \) is a probability matrix on \( S \) with the property that \( Q(x, x) = 0 \) for every \( x \in S \). The regular, continuous-time Markov chain \( \bs X = \{X_t: t \in [0, \infty)\} \) with exponential parameter function \( \lambda \) and jump transition matrix \( Q \) can be constructed as follows:</p>
+	<ol class="sub">
+		<li>First construct the jump chain \( \bs Y = (Y_0, Y_1, \ldots) \) having transition matrix \( Q \).</li>
+		<li>Next, given \( \bs Y = (x_0, x_1, \ldots) \), the transition times \( (\tau_1, \tau_2, \ldots) \) are constructed so that the holding times \( (\tau_1, \tau_2 - \tau_1, \ldots) \) are independent and exponentially distributed with parameters \( (\lambda(x_0), \lambda(x_1), \ldots) \)</li>
+		<li>Again given \( \bs Y = (x_0, x_1, \ldots) \), define \( X_t = x_0 \) for \( 0 \le t \lt \tau_1 \) and for \( n \in \N_+ \), define \( X_t = x_n \) for \( \tau_n \le t \lt \tau_{n+1}) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Using product sets and product measures, it's straightforward to construct a probability space \( (\Omega, \mathscr{F}, \P) \) with the following objects and properties:</p>
+		<ol class="sub">
+			<li>\( \bs{Y} = (Y_0, Y_1, \ldots) \) is a Markov chain on \( S \) with transition matrix \( Q \).</li>
+			<li>\( \bs{T} = \{T_x: x \in S\} \) is a collection of independent random variables with values in \( [0, \infty) \) such that \( T_x \) has the exponential distribution with parameter \( \lambda(x) \) for each \( x \in S \).</li>
+			<li>\( \bs{Y} \) and \( \bs{T} \) are independent. </li>
+		</ol>
+		<p>Define \( \bs{X} = \{X_t: t \in [0, \infty)\} \) as follows: First, \( \tau_1 = T_{Y_0} \) and \( X_t = Y_0 \) for \( 0 \le t \lt \tau_1 \). Recursively, if \( X_t \) is defined on \( [0, \tau_n) \), let \( \tau_{n+1} = \tau_n + T_{Y_n} \) and then let \( X_t = Y_n \) for for \( \tau_n \le t \lt \tau_{n+1} \). Since \( \lambda \) is bounded, \( \tau_n \to \infty \) as \( n \to \infty \), so \( X_t \) is well defined for \( t \in [0, \infty) \). By construction, \( t \mapsto X_t \) is right continuous and has left limits. The Markov property holds by the memoryless property of the exponential distribution and the fact that \( \bs Y \) is a Markov chain. Finally, by construction, \( \bs X \) has exponential parameter function \( \lambda \) and jump chain \( \bs{Y} \).</p>
+	</details>
+</div>
+
+<p>Often, particularly when \( S \) is finite, the essential structure of a standard, continuous-time Markov chain can be succinctly summarized with a graph.</p>
+
+<div class="unit" id="reg7">
+	<p class="dfn">Suppose again that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a regular Markov chain on \( S \), with exponential parameter function \( \lambda \) and  embedded transition matrix \( Q \). The <dfn>state graph</dfn> of \( \bs{X} \) is the graph with vertex set \( S \) and directed edge set \( E = \{(x, y) \in S^2: Q(x, y) \gt 0\} \). The graph is <dfn>labeled</dfn> as follows:</p>
+	<ol class="sub">
+		<li>Each vertex \( x \in S \) is labeled with the exponential parameter \( \lambda(x) \).</li>
+		<li>Each edge \( (x, y) \in E \) is labeled with the transition probability \( Q(x, y) \).</li>
+	</ol>
+</div>
+
+<p>So except for the labels on the vertices, the state graph of \( \bs{X} \) is the same as the state graph of the discrete-time jump chain \( \bs{Y} \). That is, there is a directed edge from state \( x \) to state \( y \) if and only if the chain, when in \( x \), can move to \( y \) after the random holding time in \( x \). Note that the only loops in the state graph correspond to absorbing states, and for such a state there are no outward edges.</p>
+
+<p>Let's return again to the construction in of a continuous-time Markov chain from the jump transition matrix \( Q \) and the exponential parameter function \( \lambda \) in <a href="#reg6" class="ref"></a>. Again for simplicity, assume there are no absorbing states. We assume that \( Q(x, x) = 0 \) for all \( x \in S \), so that the state really does <em>change</em> at the transition times. However, if we drop this assumption, the construction still produces a continuous-time Markov chain, but with an altered jump transition matrix and exponential parameter function.</p>
+
+<div class="unit" id="reg8">
+	<p class="math">Suppose that \( Q \) is a transition matrix on \( S \times S \) with \( Q(x, x) \lt 1 \) for \( x \in S \), and that \( \lambda: S \to (0, \infty) \) is bounded. The stochastic process \( \bs X = \{X_t: t \in [0, \infty)\} \) constructed from \( Q \) and \( \lambda \) in <a href="#reg6" class="ref"></a> is a regular, continuous-time Markov chain with exponential parameter function \( \tilde \lambda \) and jump transition matrix \( \tilde Q \) given by
+	\begin{align*}
+		&amp; \tilde \lambda(x) = \lambda(x)[1 - Q(x, x)], \quad x \in S \\
+		&amp; \tilde Q(x, y) = \frac{Q(x, y)}{1 - Q(x, x)}, \quad (x, y) \in S^2, \, x \ne y 
+	\end{align*}</p>
+	<details>
+		<summary>Details:</summary>
+		<p><strong>Proof 1:</strong> As before, the fact that \( \bs X \) is a continuous-time Markov chain follows from the memoryless property of the exponential distribution and the Markov property of the jump chain \( \bs Y \). By construction, \( t \mapsto X_t \) is right continuous and has left limits. The main point, however, is that \( (\tau_1, \tau_2, \ldots) \) is not necessarily the sequence of transition times, when the state actually changes. So we just need to determine the parameters. Suppose \( X_0 = x \in S \) and let \( \tau = \tau_1 \) have the exponential distribution with parameter \( \lambda(x) \), as in the construction. Let \( T \) denote the time when the state actually does change. For \( t \in [0, \infty) \), the event \( T \gt t \) can happen in two ways: either \( \tau \gt t \) or \( \tau = s \) for some \( s \in [0, t] \), the chain jumps back into state \( x \) at time \( s \), and the process then stays in \( x \) for a period of at least \( t - s \). Thus let \( F_x(t) = \P(T \gt t \mid X_0 = x) \). Taking the two cases, conditioning on \( \tau \), and using the Markov property gives
+		\[ F_x(t) = e^{-\lambda(x) t} + \int_0^t \lambda(x) e^{-\lambda(x) s} Q(x, x) F_x(t - s) ds \]
+		Using the change of variables \( u = t - s \) and simplifying gives
+		\[ F_x(t) =  e^{-\lambda(x) t} \left[1 + \lambda(x) Q(x, x) \int_0^t e^{\lambda(x) u} F_x(u) du\right] \]
+		Differentiating with respect to \( t \) then gives
+		\[ F_x^\prime(t) = -\lambda(x) [1 - Q(x, x)] F_x(t) \]
+		with the initial condition \( F_x(0) = 1 \). The solution of course is \( F_x(t) = \exp\{-\lambda(x)[1 - Q(x, x)]\} \) for \( t \in [0, \infty) \). When the state does change, the new state \( y \ne x \) is chosen with probability
+		\[ \P(Y_1 = y \mid Y_0 = x, Y_1 \ne x) = \frac{Q(x, y)}{1 - Q(x, x)} \]</p>
+		<p><strong>Proof 2:</strong> As in the first proof, we just need to determine the parameters. Given \( X_0 = Y_0 = x \), the discrete time \( N \) when \( \ Y\) first changes state has the <a href="../bernoulli/Geometric.html">geometric distribution</a> on \( \N_+ \) with success parameter \( 1 - Q(x, x) \). Hence the time until \( \bs X \) actually changes state has the distribution of \( T = \sum_{i=1}^N U_i \) where \( \bs U = (U_1, U_2, \ldots) \) is a sequence of independent variables, each exponentially distributed with parameter \( \lambda(x) \) and with \( \bs U \) independent of \( N \). In the section on the <a href="../poisson/Exponential.html#geo3">exponential distribution</a>, it is shown that \( T \) also has the exponential distribution, but with parameter \( \lambda(x)[1 - Q(x, x)] \). (The proof is simple using generating functions.) As in the first proof, when the state does change, the new state \( y \ne x \) is chosen with probability
+		\[ \P(Y_1 = y \mid Y_0 = x, Y_1 \ne x) = \frac{Q(x, y)}{1 - Q(x, x)} \]</p>
+	</details>
+</div>
+
+<p>This construction will be important in our study of <a href="Poisson.html">chains subordinate to the Poisson process</a>.</p>
+
+<h4 id="trt">Transition Times</h4>
+
+<p>The structure of a regular Markov chain on \( S \), as described above, can be explained purely in terms of a family of independent, exponentially distributed random variables. The main tools are some additional special properties of the exponential distribution, that we need to restate in the setting of our Markov chain. Our interest is in how the process evolves among the stable states until it enters an absorbing state (if it does). Once in an absorbing state, the chain stays there forever, so the behavior from that point on is trivial.</p>
+
+<div class="unit" id="trt1">
+	<p class="math">Suppose that \( \bs{X} = \{X_t: t \in [0, \infty)\} \) is a regular Markov chain on \( S \), with exponential parameter function \( \lambda \) and transition probability matrix \( Q \). Define \( \mu(x, y) = \lambda(x) Q(x, y) \) for \( (x, y) \in S^2 \). Then</p>
+	<ol class="sub">
+		<li>\( \lambda(x) = \sum_{y \in S} \mu(x, y) \) for \( x \in S \).</li>
+		<li>\( Q(x, y) = \mu(x, y) \big/ \lambda(x) \) if \( (x, y) \in S^2 \) and \( x \) is stable.</li>
+	</ol>
+</div>
+
+<p>The main point is that the new parameters \( \mu(x, y) \) for \( (x, y) \in S^2 \) determine the exponential parameters \( \lambda(x) \) for \( x \in S \), and the transition probabilities \( Q(x, y) \) when \( x \in S \) is stable and \( y \in S \). Of course we know that if \( \lambda(x) = 0 \), so that \( x \) is absorbing, then \( Q(x, x) = 1 \). So in fact, the new parameters, as specified by the function \( \mu \), completely determine the old parmeters, as specified by the functions \( \lambda \) and \( Q \). But so what?</p>
+
+<div class="unit" id="trt2">
+	<p class="math">Consider the functions \( \mu \), \( \lambda \), and \( Q \) as given in the previous result. Suppose that \( T_{x,y} \) has the exponential distribution with parameter \( \mu(x, y) \) for each \( (x, y) \in S^2 \) and that \( \left\{T_{x,y}: (x, y) \in S^2\right\} \) is a set of independent random variables. Then </p>
+	<ol class="sub">
+		<li>\( T_x = \inf\left\{T_{x,y}: y \in S\right\} \) has the exponential distribution with parameter \( \lambda(x) \) for \( x \in S \).</li>
+		<li>\(\P\left(T_x = T_{x, y}\right) = Q(x, y)\) for \( (x, y) \in S^2 \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>These are basic results proved in the section on the <a href="../poisson/Exponential.html">exponential distribution</a>. </p>
+	</details>
+</div>
+
+<p>So here's how we can think of a regular, continuous-time Markov chain on \( S \): There is a <em>timer</em> associated with each \( (x, y) \in S^2 \), set to the random time \( T_{x,y} \). All of the timers function independently. When the chain enters state \( x \in S \), the timers on \( (x, y) \) for \( y \in S \) are started simultaneously. As soon as the first alarm goes off for a particular \( (x, y) \), the chain immediately moves to state \( y \), and the process repeats. Of course, if \( \mu(x, y) = 0 \) then \( T_{x, y} = \infty \) with probability 1, so only the timers with \( \lambda(x) \gt 0 \) and \( Q(x, y) \gt 0 \) matter (these correspond to the non-loop edges in the state graph). In particular, if \( x \) is absorbing, then the timers on \( (x, y) \) are set to infinity for each \( y \), and no alarm ever sounds.</p>
+
+<p>The new collection of exponential parameters can be used to give an alternate version of the state graph. Again, the vertex set is \( S \) and the edge set is \( E = \{(x, y) \in S^2: Q(x, y) \gt 0\} \). But now each edge \( (x, y) \) is labeled with the exponential rate parameter \( \mu(x, y) \). The exponential rate parameters are closely related to the <a href="Transition.html">generator matrix</a>, a matrix of fundamental importance that we will study in the next section.</p>
+
+<h3 id="exm">Examples and Exercises</h3>
+
+<h4 id="two">The Two-State Chain</h4>
+
+<p>The two-state chain is the simplest non-trivial, continuous-time Markov chain, but yet this chain illustrates many of the important properties of general continuous-time chains. So consider the Markov chain \( \bs{X} = \{X_t: t \in [0, \infty)\} \) on the set of states \( S = \{0, 1\} \), with transition rate \( a \in [0, \infty) \) from 0 to 1 and transition rate \( b \in [0, \infty) \) from 1 to 0.</p>
+
+<div class="unit" id="two1">
+	<p class="math">The transition matrix \( Q \) for the embedded chain is given below. Draw the state graph in each case.</p>
+	<ol class="sub">
+		<li>\( Q = \left[\begin{matrix} 0 &amp; 1 \\ 1 &amp; 0 \end{matrix}\right]  \) if \( a \gt 0 \) and \( b \gt 0 \), so that both states are stable.</li>
+		<li>\( Q = \left[\begin{matrix} 1 &amp; 0 \\ 1 &amp; 0 \end{matrix}\right]  \) if \( a = 0 \) and \( b \gt 0 \), so that \( a \) is absorbing and \( b \) is stable.</li>
+		<li>\( Q = \left[\begin{matrix} 0 &amp; 1 \\ 0 &amp; 1 \end{matrix}\right]  \) if \( a \gt 0 \) and \( b = 0 \), so that \( a \) is stable and \( b \) is absorbing.</li>
+		<li>\( Q = \left[\begin{matrix} 1 &amp; 0 \\ 0 &amp; 1 \end{matrix}\right]  \) if \( a = 0 \) and \( b = 0 \), so that both states are absorbing.</li>
+	</ol>
+</div>
+
+<p>We will return to the two-state chain in subsequent sections.</p>
+
+<h4 id="exe">Computational Exercises</h4>
+
+<div class="unit" id="exe1">
+	<p class="math">Consider the Markov chain \( \bs{X} = \{X_t: t \in [0, \infty)\} \) on \( S = \{0, 1, 2\} \) with exponential parameter function \( \lambda = (4, 1, 3) \) and embedded transition matrix
+	\[ Q = \left[\begin{matrix} 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\ 1 &amp; 0 &amp; 0 \\ \frac{1}{3} &amp; \frac{2}{3} &amp; 0\end{matrix}\right] \]</p>
+	<ol class="sub">
+		<li>Draw the state graph and classify the states.</li>
+		<li>Find the matrix of transition rates.</li>
+		<li>Classify the jump chain in terms of recurrence and period.</li>
+		<li>Find the invariant distribution of the jump chain.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>The edge set is \( E = \{(0, 1), (0, 2), (1, 0), (2, 0), (2, 1)\} \). All states are stable.</li>
+			<li>The matrix of transition rates is 
+			\[ \left[\begin{matrix} 0 &amp; 2 &amp; 2 \\ 1 &amp; 0 &amp; 0 \\ 1 &amp; 2 &amp; 0 \end{matrix}\right] \]
+			</li>
+			<li>The jump chain is irreducible, positive recurrent, and aperiodic.</li>
+			<li>The invariant distribution for the jump chain has PDF
+			\[ f = \left[\begin{matrix} \frac{6}{14} &amp; \frac{5}{14} &amp; \frac{3}{14}\end{matrix}\right] \]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="spc">Special Models</h4>
+
+<div class="unit" id="spc1">
+	<p class="math">Several special models are studied in separate sections:</p>
+	<ol class="sub">
+		<li><a href="Poisson.html#int">chains subordinate to the Poisson process</a></li>
+		<li><a href="BirthDeath2.html#int">continuous-time birth-death chains</a></li>
+		<li><a href="Queuing2.html#int">continuous-time queuing chains</a></li>
+		<li><a href="Branching2.html#int">continuous-time branching chains</a></li>
+	</ol>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Markov Processes</a></li>
+		<li class="child"><a href="General.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potentials and Generators">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete-Time Chains">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transience and Recurrence">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodicity">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Stationary and Limiting Distributions">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Time Reversal in Discrete-Time Chains">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="The Ehrenfest Chain">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="The Bernoulli-Laplace Chain">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Reliability Chains">10</a></li>
+		<li class="child"><a href="Branching.html" title="Discrete-Time Branching Chains">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Discrete-Time Queuing Chains">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Discrete-Time Birth-Death Chains">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Random Walks on Graphs">14</a></li>
+		<li class="current">15</li>
+		<li class="child"><a href="Transition.html" title="Transition Matrices and Generators">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Potential Matrices">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Stationary and Limiting Distributions">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Time Reversal in Continuous-Time Chains">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Chains Subordinate to the Poisson Process">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Continuous-Time Birth-Death Chains">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Continuous-Time Queuing Chains">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Continuous-Time Branching Chains">23</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

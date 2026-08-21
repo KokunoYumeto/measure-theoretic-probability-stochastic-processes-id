@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+	<title>Martingales</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, martingale, stopping time, martingale inequalities, martingale convergence, backward martingale">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<link rel="previous" href="../renewal/index.html">
+	<link rel="next" href="../markov/index.html">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="child"><a href="../foundations/index.html" title="Foundations">0</a></li>
+		<li class="child"><a href="../prob/index.html" title="Probability Spaces">1</a></li>
+		<li class="child"><a href="../dist/index.html" title="Distributions">2</a></li>
+		<li class="child"><a href="../expect/index.html" title="Expected Value">3</a></li>
+		<li class="child"><a href="../special/index.html" title="Special Distributions">4</a></li>
+		<li class="child"><a href="../sample/index.html" title="Random Samples">5</a></li>
+		<li class="child"><a href="../point/index.html" title="Point Estimation">6</a></li>
+		<li class="child"><a href="../interval/index.html" title="Set Estimation">7</a></li>
+		<li class="child"><a href="../hypothesis/index.html" title="Hypothesis Testing">8</a></li>
+		<li class="child"><a href="../buffon/index.html" title="Geometric Models">9</a></li>
+		<li class="child"><a href="../bernoulli/index.html" title="Bernoulli Trials">10</a></li>
+		<li class="child"><a href="../urn/index.html" title="Finite Sampling Models">11</a></li>
+		<li class="child"><a href="../games/index.html" title="Games of Chance">12</a></li>
+		<li class="child"><a href="../poisson/index.html" title="The Poisson Process">13</a></li>
+		<li class="child"><a href="../renewal/index.html" title="Renewal Processes">14</a></li>
+		<li class="child"><a href="../markov/index.html" title="Markov Processes">15</a></li>
+		<li class="current">16</li>
+		<li class="child"><a href="../brown/index.html" title="Brownian Motion">17</a></li>
+	</ol>
+	<h1>16. Martingales</h1>
+</header>
+
+<h4 id="Summary">Summary</h4>
+
+<p><dfn>Martingalges</dfn>, and their cousins <dfn>sub-martingales</dfn> and <dfn>super-martingales</dfn> are real-valued stochastic processes that are abstract generalizations of fair, favorable, and unfair gambling processes. The importance of martingales extends far beyond gambling, and indeed these random processes are among the most important in probability theory, with an incredible number and diversity of applications.</p>
+
+<h4>Topics</h4>
+
+<ol>
+	<li><a href="Introduction.html">Introduction</a></li>
+	<li><a href="Properties.html">Properties and Constructions</a></li>
+	<li><a href="Stop.html">Stopping Times</a></li>
+	<li><a href="Inequalities.html">Inequalities</a></li>
+	<li><a href="Convergence.html">Convergence</a></li>
+	<li><a href="Backwards.html">Backwards Martingales</a></li>
+</ol>
+
+<h4 id="External">Sources and Resources</h4>
+
+<ul>
+	<li><a href="http://www.google.com/search?q=Probability+and+Measure,+Billingsley" target="external" class="external">Probability and Measure</a>. Patrick Billingsley</li>
+	<li><a href="http://www.google.com/search?q=Theory+of+Probability,+de+Finetti" target="external" class="external">Theory of Probability</a>, Bruno de Finetti</li>
+	<li><a href="http://www.google.com/search?q=Stochastic+Processes,+Doob" class="external" target="external">Stochastic Processes</a>, Joseph Doob</li>
+	<li><a href="http://www.google.com/search?q=Classical+Potential+and+its+Probabilistic+Counterpart,+Doob" class="external" target="external">Classical Potential Theory and Its Probabilistic Counterpart</a>, Joseph Doob</li>
+	<li><a href="http://www.google.com/search?q=Probability:+Theory+and+Examples,+Durrett" target="external" class="external">Probability: Theory and Examples</a>. Richard Durrett</li>
+	<li><a href="http://www.google.com/search?q=A+First+Course+in+Stochastic+Processes,+Karlin,+Taylor" target="external" class="external">A First Course in Stochastic Processes</a>. Samuel Karlin and Howard Taylor</li>
+	<li><a href="http://www.google.com/search?q=Stochastic+Processes,+Ross" target="external" class="external">Stochastic Processes</a>. Sheldon Ross</li>
+	<li><a href="http://www.google.com/search?q=Advanced+Probability,+Sousi" class="external" target="external">Advanced Probability</a>, Perla Sousi</li>
+</ul>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="child"><a href="../foundations/index.html" title="Foundations">0</a></li>
+		<li class="child"><a href="../prob/index.html" title="Probability Spaces">1</a></li>
+		<li class="child"><a href="../dist/index.html" title="Distributions">2</a></li>
+		<li class="child"><a href="../expect/index.html" title="Expected Value">3</a></li>
+		<li class="child"><a href="../special/index.html" title="Special Distributions">4</a></li>
+		<li class="child"><a href="../sample/index.html" title="Random Samples">5</a></li>
+		<li class="child"><a href="../point/index.html" title="Point Estimation">6</a></li>
+		<li class="child"><a href="../interval/index.html" title="Set Estimation">7</a></li>
+		<li class="child"><a href="../hypothesis/index.html" title="Hypothesis Testing">8</a></li>
+		<li class="child"><a href="../buffon/index.html" title="Geometric Models">9</a></li>
+		<li class="child"><a href="../bernoulli/index.html" title="Bernoulli Trials">10</a></li>
+		<li class="child"><a href="../urn/index.html" title="Finite Sampling Models">11</a></li>
+		<li class="child"><a href="../games/index.html" title="Games of Chance">12</a></li>
+		<li class="child"><a href="../poisson/index.html" title="The Poisson Process">13</a></li>
+		<li class="child"><a href="../renewal/index.html" title="Renewal Processes">14</a></li>
+		<li class="child"><a href="../markov/index.html" title="Markov Processes">15</a></li>
+		<li class="current">16</li>
+		<li class="child"><a href="../brown/index.html" title="Brownian Motion">17</a></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+</body>
+</html>

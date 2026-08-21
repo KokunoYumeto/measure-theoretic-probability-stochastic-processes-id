@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Convergence in Distribution</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, distribution, convergence in distribution, Skorohod respresentation, hypergeometric distribution, binomial distribution, geometric distribution, matching distribution, extreme value distribution, Pareto distribution, law of large numbers, central limit theorem, Scheffe's theorem">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<link rel="next" href="../expect/index.html">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\R}{\mathbb{R}}\)
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Q}{\mathbb{Q}}\)
+	\( \newcommand{\E}{\mathbb{E}} \)
+	\(\newcommand{\cl}{\text{cl}}\)
+	\(\newcommand{\interior}{\text{int}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\ms}{\mathscr}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">2. Distributions</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete Distributions">2</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous Distributions">3</a></li>
+		<li class="child"><a href="Mixed.html" title="Mixed Distributions">4</a></li>
+		<li class="child"><a href="Joint.html" title="Joint Distributions">5</a></li>
+		<li class="child"><a href="Conditional.html" title="Conditional Distributions">6</a></li>
+		<li class="child"><a href="distribution function.html" title="Distribution and Quantile Functions">7</a></li>
+		<li class="child"><a href="Transformations.html" title="Transformations of Variables">8</a></li>
+		<li class="current">9</li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>9. Convergence in Distribution</h2>
+</header>
+
+<p>This section is concenred with the convergence of probability distributions, a topic of basic importance in probability theory. Since we will be almost exclusively concerned with the convergences of sequences of various kinds, it's helpful to introduce the notation \(\N_+^* = \N_+ \cup \{\infty\} = \{1, 2, \ldots\} \cup \{\infty\}\).</p>
+
+<h3>Distributions on \(\R\)</h3>
+
+<h4>Definition</h4>
+
+<p>We start with the most important and basic setting, the <a href="../foundations/Measurable.html">measurable space</a> \((\R, \ms R)\), where \(\R\) is the set of real numbers of course, and \(\ms R\) is the Borel \(\sigma\)-algebra of subsets of \(\R\). Since this \(\sigma\)-algebra is understood, we will usually not bother to reference it explictly. Recall that if \(P\) is a probability measure on \(\R\), then the function \(F: \R \to [0, 1]\) defined by \(F(x) = P(-\infty, x]\) for \(x \in \R\) is the (cumulative) <a href="distribution function.html">distribution function</a> of \(P\). Recall also that \(F\) completely determines \(P\). Here is the definition for convergence of probability measures in this setting:</p>
+
+<div class="unit" id="dfn1">
+	<p class="dfn">Suppose \(P_n\) is a probability measure on \(\R\) with distribution function \(F_n\) for each \(n \in \N_+^*\). Then \(P_n\) <dfn>converges (weakly)</dfn> to \(P_\infty\) as \(n \to \infty\) if \(F_n(x) \to F_\infty(x)\) as \(n \to \infty\) for every \(x \in \R\) where \(F_\infty\) is continuous. We write \(P_n \Rightarrow P_\infty\) as \(n \to \infty\).</p>
+</div>
+
+<p>Recall that a distribution function \(F\) is continuous at \(x \in \R\) if and only if \(\P(X = x) = 0\), so that \(x\) is not an <dfn>atom</dfn> of the distribution (a point of positive probability). We will see shortly why this condition on \(F_\infty\) is appropriate. Of course, a probability measure on \(\R\) is usually associated with a real-valued <a href="../prob/Evets.html">random variable</a> for some <a href="../prob/Experiments.html">random experiment</a> that is modeled by a <a href="../prob/Probability.html">probability space</a> \((\Omega, \ms F, \P)\). So to review, \(\Omega\) is the set of outcomes, \(\ms F\) is the \(\sigma\)-algebra of events and \(\P\) is the probability measure on the sample space \((\Omega, \ms F)\). If \(X\) is a real-valued random variable defined on the probability space, then the <dfn>probability distribution</dfn> of \(X\) is the probability measure \(P\) on \(\R\) defined by \(P(A) = \P(X \in A)\) for \(A \in \ms R\), and then of course, the distribution function of \(X\) is the function \(F\) defined by \(F(x) = \P(X \le x)\) for \(x \in \R\). Here is the convergence terminology used in this setting:</p>
+
+<div class="unit">
+	<p class="dfn">Suppose that \(X_n\) is a real-valued random variable with distribution \(P_n\) for each \(n \in \N_+^*\). If \(P_n \Rightarrow P_\infty\) as \(n \to \infty\) then we say that \(X_n\) <dfn>converges in distribution</dfn> to \(X_\infty\) as \(n \to \infty\). We write \(X_n \to X_\infty\) as \(n \to \infty\) in distribution.</p>
+</div>
+
+<p>So if \(F_n\) is the distribution function of \(X_n\) for \(n \in \N_+^*\), then \(X_n \to X_\infty\) as \(n \to \infty\) in distribution if \(F_n(x) \to F_\infty(x)\) at every point \(x \in \R\) where \(F_\infty\) is continuous. On the one hand, the terminology and notation are helpful, since again most probability measures are associated with random variables (and every probability measure can be). On the other hand, the terminology and notation can be a bit misleading since the random variables, as functions, do not converge in any sense, and indeed the random variables need not be defined on the same probability spaces. It is only the <em>distributions</em> that converge. However, often the random variables <em>are</em> defined on the same probability space \((\Omega, \ms F, \P)\), in which case we can compare convergence in distribution with the other modes of convergence we have or will study:</p>
+
+<ul>
+	<li><a href="../prob/Convergence.html#lim">Convergence with probability 1</a></li>
+	<li><a href="../prob/Convergence.html#lim">Convergence in probability</a></li>
+	<li><a href="../expect/Spaces.html#con">Convergence in mean</a></li>
+</ul>
+
+<p>We will show, in fact, that convergence in distribution is the weakest of all of these modes of convergence.  However, strength of convergence should not be confused with importance. Convergence in distribution is one of the most important modes of convergence; the  <a href="../sample/CLT.html">central limit theorem</a>, one of the two fundamental theorems of probability, is a theorem about convergence in distribution.</p>
+
+<h4>Preliminary Examples</h4>
+
+<p>The examples below show why the definition is given in terms of distribution functions, rather than probability density functions, and why convergence is only required at the points of continuity of the limiting distribution function. Note that the distributions considered are probability measures on \((\R, \ms R)\), even though the support of the distribution may be a much smaller subset. For the first example, note that if a deterministic sequence converges in the ordinary calculus sense, then naturally we want the sequence (thought of as random variables) to converge in distribution. Expand the proof to understand the example fully.</p>
+
+<div class="unit" id="pre1">
+	<p class="math">Suppose that \(x_n \in \R\) for \(n \in \N_+^*\). Define random variable \(X_n = x_n\) with probability 1 for each \(n \in \N_+^*\). Then \(x_n \to x_\infty\) as \(n \to \infty\) if and only if \(X_n \to X_\infty\) as \(n \to \infty\) in distribution.</p>	<details>
+		<summary>Details:</summary>
+		<p>For \(n \in \N_+^*\), the distribution function \(F_n\) of \(X_n\) is given by \(F_n(x) = 0\) for \(x \lt x_n\) and \(F_n(x) = 1\) for \(x \ge x_n\).</p>
+		<ol class="sub">
+			<li>Suppose that \(x_n \to x_\infty\) as \(n \to \infty\). If \(x \lt x_\infty\) then \(x \lt x_n\), and hence \(F_n(x) = 0\), for all but finitely many \(n \in \N_+\), and so \(F_n(x) \to 0\) as \(n \to \infty\). If \(x \gt x_\infty\) then \(x \gt x_n\) ,and hence \(F_n(x) = 1\), for all but finitely many \(n \in \N_+\), and so \(F_n(x) \to 1\) as \(n \to \infty\). Nothing can be said about the limiting behavior of \(F_n(x_\infty)\) as \(n \to \infty\) without more information. For example, if \(x_n \le x_\infty\) for all but finitely many \(n \in \N_+\) then \(F_n(x_\infty) \to 1\) as \(n \to \infty\). If \(x_n \gt x_\infty\) for all but finitely many \(n \in \N_+\) then \(F_n(x_\infty) \to 0\) as \(n \to \infty\). If \(x_n \lt x_\infty\) for infinitely many \(n \in \N_+\) and \(x_n \gt x_\infty\) for infinitely many \(n \in \N_+\) then \(F_n(x_\infty)\) does not have a limit as \(n \to \infty\). But regardless, we have \(F_n(x) \to F_\infty(x)\) as \(n \to \infty\) for every \(x \in \R\) except perhaps \(x_\infty\), the one point of discontinuity of \(F_\infty\). Hence \(X_n \to X_\infty\) as \(n \to \infty\) in distribution.</li>
+			<li>Conversely, suppose that \(X_n \to X_\infty\) as \(n \to \infty\) in distribution. If \(x \lt x_\infty\) then \(F_n(x) \to 0\) as \(n \to \infty\) and hence \(x \lt x_n\) for all but finitely many \(n \in \N_+\). If \(x \gt x_\infty\) then \(F_n(x) \to 1\) as \(n \to \infty\) and hence \(x \ge x_n\) for all but finitely many \(n \in \N_+\). So, for every \(\epsilon \gt 0\), \(x_n \in (x_\infty - \epsilon, x_\infty + \epsilon)\) for all but finitely many \(n \in \N_+\), and hence \(x_n \to x_\infty\) as \(n \to \infty\).</li>
+		</ol>
+		<p>The proof is finished, but let's look at the probability density functions to see that these are not the proper objects of study. For \(n \in \N_+^*\), the density function \(f_n\) of \(X_n\) (with respect to counting measure) is given by \(f_n(x_n) = 1\) and \(f_n(x) = 0\) for \(x \in \R \setminus \{x_n\}\). Only when \(x_n = x_\infty\) for all but finitely many \(n \in \N_+\) do we have \(f_n(x) \to f(x)\) for \(x \in \R\).</p>
+	</details>
+</div>
+
+<p>For example <a href="#uni" class="ref"></a> below, recall that \( \Q \) denotes the set of rational numbers. Once again, expand the proof to understand the example fully</p>
+
+<div class="unit" id="uni">
+	<p class="math">For \(n \in \N_+\), let \(P_n\) denote the discrete uniform distribution on \(\left\{\frac{1}{n}, \frac{2}{n}, \ldots \frac{n-1}{n}, 1\right\}\) and let \(P_\infty\) denote the continuous uniform distribution on the interval \([0, 1]\). Then</p>
+	<ol class="sub">
+		<li>\(P_n \Rightarrow P_\infty\) as \(n \to \infty\)</li>
+		<li>\(P_n(\Q) = 1\) for each \(n \in \N_+\) but \(P_\infty(\Q) = 0\). </li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>As usual, let \(F_n\) denote the distribution function of \(P_n\) for \(n \in \N_+^*\).</p>
+		<ol class="sub">
+			<li>For \(n \in \N_+\) note that \( F_n \) is given by \( F_n(x) = \lfloor n \, x \rfloor / n \) for \( x \in [0, 1] \). But \( n \, x - 1 \le \lfloor n \, x \rfloor \le n \, x \) so \( \lfloor n \, x \rfloor / n \to x \) as \( n \to \infty \) for \(x \in [0, 1]\). Of course, \(F_n(x) = 0\) for \(x \lt 0\) and \(F_n(x) = 1\) for \(x \gt 1\). So \(F_n(x) \to F_\infty(x)\) as \(n \to \infty\) for all \(x \in \R\).</li>
+			<li>Note that by definition, so \(P_n(\Q) = 1\) for \(n \in \N_+\). On the other hand, \( P_\infty \) is a continuous distribution and \( \Q \) is countable, so \(P_\infty(\Q) = 0\).</li>
+		</ol>
+		<p>The proof is finished, but let's look at the probability density functions. For \(n \in \N_+\), the density function \(f_n\) of \(P_n\) (again with respect to counting measure) is given by \(f_n(x) = \frac{1}{n}\) for \(x \in \left\{\frac{1}{n}, \frac{2}{n}, \ldots \frac{n-1}{n}, 1\right\}\) and \(f_n(x) = 0\) otherwise. Hence \( 0 \le f_n(x) \le \frac{1}{n} \) for \(n \in \N_+\) and \(x \in \R\), so \(f_n(x) \to 0\) as \(n \to \infty\) for every \( x \in \R \).</p>
+	</details>
+</div>
+
+<p>The point of the example is that it's reasonable for the discrete uniform distribution on \(\left\{\frac{1}{n}, \frac{2}{n}, \ldots \frac{n-1}{n}, 1\right\}\) to converge to the continuous uniform distribution on \([0, 1]\), but once again, the probability density functions are evidently not the correct objects of study.</p>
+
+<h4>Probability Density Functions</h4>
+
+<p>As example <a href="#uni" class="ref"></a> shows, it is quite possible to have a sequence of discrete distributions converge to a continuous distribution (or the other way around).  Recall that probability density functions have very different meanings in the discrete and continuous cases: density with respect to counting measure in the first case, and density with respect to Lebesgue measure in the second case. This is another indication that distribution functions, rather than density functions, are the correct objects of study. However, if probability density functions  of a fixed type converge then the distributions converge. Recall again that we are thinnking of our probability distributions as measures on \(\R\) even when supported on a smaller subset of \(\R\).</p>
+
+<div class="unit" id="pdf1">
+	<p class="math">Convergence in distribution in terms of probability density functions.</p>
+	<ol class="sub">
+		<li>Suppose that \(f_n\) is a probability density function for a discrete distribution \(P_n\) on a countable set \(S \subseteq \R\) for each \(n \in \N_+^*\). If \(f_n(x) \to f_\infty(x)\) as \(n \to \infty\) for each \(x \in S\) then \(P_n \Rightarrow P_\infty\) as \(n \to \infty\).</li>
+		<li>Suppose that \(f_n\) is a probability density function for a continuous distribution \(P_n\) on \(\R\) for each \(n \in \N_+^*\) If \(f_n(x) \to f(x)\) as \(n \to \infty\) for all \(x \in \R\) (except perhaps on a set with Lebesgue measure 0) then  \(P_n \Rightarrow P_\infty\) as \(n \to \infty\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Fix \(x \in \R\). Then \(P_n(-\infty, x] = \sum_{y \in S, \, y \le x} f(y)\) for \(n \in \N_+\) and \(P(-\infty, x] = \sum_{y \in S, \, y \le x} f(y)\). It follows from  Scheff&eacute;'s <a href="#sch" class="ref"></a>  with the measure space \((S, \ms P(S), \#)\) that \(P_n(-\infty, x] \to P(-\infty, x]\) as \(n \to \infty\).</li>
+			<li>Fix \(x \in \R\). Then \(P_n(-\infty, x] = \int_{-\infty}^x f(y) \, dy\) for \(n \in \N_+\) and \(P(-\infty, x] = \int_{-\infty}^x f(y) \, dy\). It follows from Scheff&eacute;'s <a href="#sch" class="ref"></a> with the measure space \((\R, \ms R, \lambda)\) that \(P_n(-\infty, x] \to P(-\infty, x]\) as \(n \to \infty\).</li>
+		</ol>
+	</details>
+</div>
+
+<h4>Convergence in Probability</h4>
+
+<p>Naturally, we would like to compare convergence in distribution with other modes of convergence we have studied.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(X_n\) is a real-valued random variable for each \(n \in \N_+^*\), all defined on the same probability space. If \(X_n \to X_\infty\) as \(n \to \infty\) in probability then \(X_n \to X_\infty\) as \(n \to \infty\) in distribution.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \(F_n\) denote the distribution function of \(X_n\) for \(n \in \N_+^*\). Fix \(\epsilon \gt 0\). Note first that \(\P(X_n \le x) = \P(X_n \le x, X_\infty \le x + \epsilon) + \P(X_n \le x, X_\infty \gt x + \epsilon) \). Hence \(F_n(x) \le F_\infty(x + \epsilon) + \P\left(\left|X_n - X_\infty\right| \gt \epsilon\right)\). Next, note that \(\P(X_\infty \le x - \epsilon) = \P(X_\infty \le x - \epsilon, X_n \le x) + \P(X_\infty \le x - \epsilon, X_n \gt x)\). Hence \(F_\infty(x - \epsilon) \le F_n(x) + \P\left(\left|X_n - X_\infty\right|\right) \gt \epsilon\). From the last two results it follows that
+		\[ F_\infty(x - \epsilon) - \P\left(\left|X_n - X_\infty\right| \gt \epsilon\right) \le F_n(x) \le F_\infty(x + \epsilon) + \P\left(\left|X_n - X_\infty\right| \gt \epsilon\right) \]
+		Letting \(n \to \infty\) and using convergence in probability gives
+		\[ F_\infty(x - \epsilon) \le \liminf_{n \to \infty} F_n(x) \le \limsup_{n \to \infty} F_n(x) \le F_\infty(x + \epsilon) \]
+		Finally, letting \(\epsilon \downarrow 0\) we see that if \(F_\infty\) is continuous at \(x\) then \(F_n(x) \to F_\infty(x)\) as \(n \to \infty\).</p>
+	</details>
+</div>
+
+<p>Our next example shows that even when the variables are defined on the same probability space, a sequence can converge in distribution, but not in any other way.</p>
+
+<div class="unit">
+	<p class="math">Let \(X\) be an indicator variable with \(\P(X = 0) = \P(X = 1) = \frac{1}{2}\), so that \(X\) is the result of tossing a fair coin. Let \(X_n = 1 - X \) for \(n \in \N_+\). Then</p>
+	<ol class="sub">
+		<li>\(X_n \to X\) as \(n \to \infty\) in distribution.</li>
+		<li>\(\P(X_n \text{ does not converge to } X \text{ as } n \to \infty) = 1\).</li>
+		<li>\(X_n \) does not converge to \( X \) as \(n \to \infty\) in probability.</li>
+		<li>\(X_n\) does not converge to \(X\) as \(n \to \infty\) in mean.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>This trivially holds since \(1 - X\) has the same distribution as \(X\).</li>
+			<li>This follows since \(\left|X_n - X\right| = 1\) for every \(n \in \N_+\).</li>
+			<li>This follows since \(\P\left(\left|X_n - X\right| \gt \frac{1}{2}\right) = 1\) for each \(n \in \N_+\).</li>
+			<li>This follows since \(\E\left(\left|X_n - X\right|\right) = 1\) for each \(n \in \N_+\).</li>
+		</ol>
+	</details>
+</div>
+
+<p>The critical fact that makes this counterexample work is that \(1 - X\) has the same distribution as \(X\).  Any random variable with this property would work just as well, so if you prefer a counterexample with continuous distributions, let \(X\) have probability density function \(f\) given by \(f(x) = 6 x (1 - x)\) for \(0 \le x \le 1\). The distribution of \(X\) is an example of a <dfn>beta distribution</dfn>.</p>
+
+<p>The following summary gives the implications for the various modes of convergence; no other implications hold in general.</p>
+
+<div class="unit" id="sum">
+	<p class="math">Suppose that \(X_n\) is a real-valued random variable for each \(n \in \N_+^*\), all defined on a common probability space.</p>
+	<ol class="sub">
+		<li>If \(X_n \to X_\infty\) as \(n \to \infty\) with probability 1 then \(X_n \to X_\infty\) as \(n \to \infty\) in probability.</li>
+		<li>If \(X_n \to X_\infty\) as \(n \to \infty\) in mean then \(X_n \to X_\infty\) as \(n \to \infty\) in probability.</li>
+		<li>If \(X_n \to X_\infty\) as \(n \to \infty\) in probability then \(X_n \to X_\infty\) as \(n \to \infty\) in distribtion.</li>
+	</ol>
+</div>
+
+<p>It follows that convergence with probability 1, convergence in probability, and convergence in mean all imply convergence in distribution, so the latter mode of convergence is indeed the weakest. However, our next theorem gives an important converse to part (c) in <a href="#sum" class="re"></a>, when the limiting variable is a constant. Of course, a constant can be viewed as a random variable defined on any probability space.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(X_n\) is a real-valued random variable for each \(n \in \N_+\), defined on the same probability space, and that \(c \in \R\). If \(X_n \to c\) as \(n \to \infty\) in distribution then \(X_n \to c\) as \(n \to \infty\) in probability.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Assume that the probability space is \((\Omega, \ms F, \P)\). Note first that \(\P(X_n \le x) \to  0\) as \(n \to \infty\) if \(x \lt c\) and \(\P(X_n \le x) \to 1\) as \(n \to \infty\) if \(x \gt c\). It follows that \(\P\left(\left|X_n - c\right| \le \epsilon\right) \to 1\) as \(n \to \infty\) for every \(\epsilon \gt 0\).</p>
+	</details>
+</div>
+
+<h4 id="sko">The Skorohod Representation</h4>
+
+<p>As noted in the summary in <a href="#sum" class="ref"></a>, convergence in distribution does not imply convergence with probability 1, even when the random variables are defined on the same probability space. However, the next theorem, known as the <dfn>Skorohod representation theorem</dfn>, gives an important partial result in this direction.</p>
+
+<div class="unit" id="sko1">
+	<p class="math">Suppose that \(P_n\) is a probability measure on \(\R\) for each \(n \in \N_+^*\) and that \(P_n \Rightarrow P_\infty\) as \(n \to \infty\). Then there exist real-valued random variables \(X_n\) for \(n \in \N_+^*\), defined on the same probability space, such that</p>
+	<ol class="sub">
+		<li>\(X_n\) has distribution \(P_n\) for \(n \in \N_+^*\).</li>
+		<li>\(X_n \to X_\infty\) as \(n \to \infty\) with probability 1.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \((\Omega, \ms F, \P)\) be a probability space and \(U\) a random variable defined on this space that is uniformly distributed on the interval \((0, 1)\). For a specific construction, we could take \(\Omega = (0, 1)\), \(\ms F\) the \(\sigma\)-algebra of Borel measurable subsets of \((0, 1)\), and \(\P\) Lebesgue measure on \((\Omega, \ms F)\) (the uniform distribution on \((0, 1)\)). Then let \(U\) be the identity function on \(\Omega\) so that \(U(\omega) = \omega\) for \(\omega \in \Omega\), so that \(U\) has probability distribution \(\P\). We have seen this construction many times before.</p>
+		<ol class="sub">
+			<li>For \(n \in \N_+^*\), let \(F_n\) denote the distribution function of \(P_n\) and define \(X_n = F_n^{-1}(U)\) where \(F_n^{-1}\) is the <a href="distribution function.html#qnt">quantile functions</a> of \(F_n\). Recall from the section on <a href="Transformations.html">Transformations</a> that \(X_n\) has distribution function \(F_n\) and therefore \(X_n\) has distribution \(P_n\) for \(n \in \N_+^*\). Of course, these random variables are also defined on \((\Omega, \ms F, \P)\).</li>
+			<li>Let \(\epsilon \gt 0\) and let \(u \in (0, 1)\). Pick a continuity point \(x\) of \(F_\infty\) such that \(F_\infty^{-1}(u) - \epsilon \lt x \lt F_\infty^{-1}(u)\). Then \(F_\infty(x) \lt u\) and hence \(F_n(x) \lt u\) for all but finitely many \(n \in \N_+\). It follows that \(F_\infty^{-1}(u) - \epsilon \lt x \lt F_n^{-1}(u)\) for all but finitely many \(n \in \N_+\). Let \(n \to \infty\) and \(u \downarrow 0\) to conclude that \(F_\infty^{-1}(u) \le \liminf_{n \to \infty} F_n^{-1}(u)\). Next, let \(v\) satisfy \(0 \lt u \lt v \lt 1\) and let \(\epsilon \gt 0\). Pick a continuity point \(x\) of \(F_\infty\) such that \(F_\infty^{-1}(v) \lt x \lt F_\infty^{-1}(v) + \epsilon\). Then \(u \lt v \lt F_\infty(x)\) and hence \(u \lt F_n(x)\) for all but finitely many \(n \in \N_+\). It follows that \(F_n^{-1}(u) \le x \lt F_\infty^{-1}(v) + \epsilon\) for all but finitely many \(n \in \N_+\). Let \(n \to \infty\) and \(\epsilon \downarrow 0\) to conclude that \(\limsup_{n \to \infty} F_n^{-1}(u) \le F_\infty^{-1}(v)\). Letting \(v \downarrow u\) it follows that \(\limsup_{n \to \infty} F_n^{-1}(u) \le F_\infty^{-1}(u)\) if \(u\) is a point of continuity of \(F_\infty^{-1}\). Therefore \(F_n^{-1}(u) \to F_\infty^{-1}(u)\) as \(n \to \infty\) if \(u\) is a point of continuity of \(F_\infty^{-1}\). Recall from analysis that since \(F_\infty^{-1}(u)\) is increasing, the set \(D \subseteq (0, 1)\) of discontinuities of \(F_\infty^{-1}\) is countable. Since \( U \) has a continuous distribution, \(\P(U \in D) = 0\). Finally, it follows that \(\P(X_n \to X_\infty \text{ as } n \to \infty) = 1\).</li>
+		</ol>
+	</details>
+</div>
+
+<p>The following theorem illustrates the value of the Skorohod representation and the usefulness of random variable notation for convergence in distribution. The theorem is also quite intuitive, since a basic idea is that <em>continuity</em> should preserve <em>convergence</em>.</p>
+
+<div class="unit" id="sko2">
+	<p class="math">Suppose that \(X_n\) is a real-valued random variable for each \(n \in \N_+^*\) (not necessarily defined on the same probability space). Suppose also that \(g: \R \to \R\) is measurable, and let \(D_g\) denote the set of discontinuities of \(g\), and \(P_\infty\) the distribution of \(X_\infty\). If \(X_n \to X_\infty\) as \(n \to \infty\) in distribution and \(P_\infty(D_g) = 0\), then  \(g(X_n) \to g(X_\infty)\) as \(n \to \infty\) in distribution.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By Skorohod's theorem, there exists random variables \(Y_n\) for \(n \in \N_+^*\), defined on the same probability space \((\Omega, \ms F, \P)\), such that \(Y_n\) has the same distribution as \(X_n\) for \(n \in \N_+^*\), and \(Y_n \to Y_\infty\) as \(n \to \infty\) with probability 1. Since \(\P(Y_\infty \in D_g) = P_\infty(D_g) = 0\) it follows that \(g(Y_n) \to g(Y_\infty)\) as \(n \to \infty\) with probability 1. Hence by <a href="#sum" class="ref"></a>, \(g(Y_n) \to g(Y_\infty)\) as \(n \to \infty\) in distribution. But \(g(Y_n)\) has the same distribution as \(g(X_n)\) for each \(n \in \N_+^*\).</p>
+	</details>
+</div>
+
+<p>As a simple corollary, if \(X_n\) converges \(X_\infty\) as \(n \to \infty\) in distribution, and if \(a, \, b \in \R\) then \(a + b X_n\) converges to \(a + b X\) as \(n \to \infty\) in distribution. But we can do a little better:</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(X_n\) is a real-valued random variable and that \(a_n, \, b_n \in \R\) for each \(n \in \N_+^*\). If \(X_n \to X_\infty\) as \(n \to \infty\) in distribution and if \(a_n \to a_\infty\) and \(b_n \to b_\infty\) as \(n \to \infty\), then \(a_n + b_n X_n \to a_\infty + b_\infty X_\infty\) as \(n \to \infty\) in distribution.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Again by Skorohod's <a href="#sko1" class="ref"></a>, there exist random variables \(Y_n\) for \(n \in \N_+^*\), defined on the same probability space \((\Omega, \ms F, \P)\) such that \(Y_n\) has the same distribution as \(X_n\) for \(n \in \N_+^*\) and \(Y_n \to Y_\infty\) as \(n \to \infty\) with probability 1. Hence also \(a_n + b_n Y_n \to a_\infty + b_\infty Y_\infty\) as \(n \to \infty\) with probability 1. By <a href="#sum" class="ref"></a>, \(a_n + b_n Y_n \to a_\infty + b_\infty Y_\infty\) as \(n \to \infty\) in distribution. But \(a_n + b_n Y_n\) has the same distribution as \(a_n + b_n X_n\) for \(n \in \N_+^*\).</p>
+	</details>
+</div>
+
+<p>The definition of convergence in distribution requires that the sequence of probability measures converge on sets of the form \((-\infty, x]\) for \(x \in \R\) when the limiting distrbution has probability 0 at \(x\). It turns out that the probability measures will converge on lots of other sets as well, and this result points the way to extending convergence in distribution to more general spaces. To state the result, recall that if \(A\) is a subset of a <a href="../foundations/Topology.html">topological space</a>, then the <dfn>boundary</dfn> of \(A\) is \(\partial A = \cl(A) \setminus \interior(A)\) where \(\cl(A)\) is the <dfn>closure</dfn> of \(A\) (the smallest closed set that contains \(A\)) and \(\interior(A)\) is the <dfn>interior</dfn> of \(A\) (the largest open set contained in \(A\)).</p>
+
+<div class="unit" id="bdr">
+	<p class="math">Suppose that \(P_n\) is a probability measure on \(\R\) for \(n \in \N_+^*\). Then \(P_n \Rightarrow P_\infty\) as \(n \to \infty\) if and only if \(P_n(A) \to P_\infty(A)\) as \(n \to \infty\) for every \(A \in \ms R\) with \(P(\partial A) = 0\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \(P_n \Rightarrow P_\infty\) as \(n \to \infty\). Let \(X_n\) be a random variable with distribution \(P_n\) for \(n \in \N_+^*\). (We don't care about the underlying probability spaces.) If \(A \in \ms R\) then the set of discontinuities of \(\bs 1_A\), the indicator function of \(A\), is \(\partial A\). So, suppose \(\P_\infty(\partial A) = 0\). By the continuity <a href="#sko2" class="ref"></a>, \(\bs 1_A(X_n) \to \bs 1_A(X_\infty)\) as \(n \to \infty\) in distribution. Let \(G_n\) denote the distribution function of \(\bs 1_A(X_n)\) for \(n \in \N_+^*\). The only possible points of discontinuity of \(G_\infty\) are 0 and 1. Hence \(G_n\left(\frac 1 2\right) \to G_\infty\left(\frac 1 2\right) \) as \(n \to \infty\). But \(G_n\left(\frac 1 2\right) = P_n(A^c)\) for \(n \in \N_+^*\). Hence \(P_n(A^c) \to \P_\infty(A^c)\) and so also \(P_n(A) \to P_\infty(A)\) as \(n \to \infty\).</p>
+		<p>Conversely, suppose that the condition in the theorem holds. If \(x \in \R\), then the boundary of \((-\infty, x]\) is \(\{x\}\), so if \(P_\infty\{x\} = 0\) then \(P_n(-\infty, x] \to P_\infty(-\infty, x]\) as \(n \to \infty\). So by definition, \(P_n \Rightarrow P_\infty\) as \(n \to \infty\).</p>
+	</details>
+</div>
+
+<p>In the context of this result, suppose that \(a, \, b \in \R\) with \(a \lt b\). If \(P\{a\} = P\{b\} = 0\), then as \(n \to \infty\) we have \(P_n(a, b) \to P(a, b)\), \(P_n[a, b) \to P[a, b)\), \(P_n(a, b] \to P(a, b]\), and \(P_n[a, b] \to P[a, b]\). Of course, the limiting values are all the same.</p>
+
+
+<h3>Examples and Applications</h3>
+
+<p>Next we will explore several interesting examples of the convergence of distributions on \((\R, \ms R)\). There are several important cases where a special distribution converges to another special distribution as a parameter approaches a limiting value. Indeed, such convergence results are part of the reason why such distributions are <em>special</em> in the first place.</p>
+
+<h4 id="hyp">The Hypergeometric Distribution</h4>
+
+<p>Recall that the <a href="../urn/Hypergeometric.html">hypergeometric distribution</a> with parameters \(m\), \(r\), and \(n\) is the distribution that governs the number of type 1 objects in a sample of size \(n\), drawn without replacement from a population of \(m\) objects with \(r\) objects of type 1. It has discrete probability density function \(f\) given by
+\[ f(k) = \frac{\binom{r}{k} \binom{m - r}{n - k}}{\binom{m}{n}}, \quad k \in \{0, 1, \ldots, n\} \]
+The pramaters \(m\), \(r\), and \(n\) are positive integers with \(n \le m\) and \(r \le m\).</p>
+
+<p>Recall next that <a href="../bernoulli/index.html">Bernoulli trials</a> are independent trials, each with two possible outcomes, generically called <dfn>success</dfn> and <dfn>failure</dfn>. The probability of success \(p \in [0, 1]\) is the same for each trial. The <a href="../bernoulli/Binomial.html">binomial distribution</a> with parameters \(n \in \N_+\) and \(p\) is the distribution of the number successes in \(n\) Bernoulli trials. This distribution has probability density function \(g\) given by
+\[ g(k) = \binom{n}{k} p^k (1 - p)^{n - k}, \quad k \in \{0, 1, \ldots, n\} \]
+Note that the binomial distribution with parameters \(n\) and  \(p = r / m\) is the distribution that governs the number of type 1 objects in a sample of size \(n\), drawn <em>with</em> replacement from a population of \(m\) objects with \(r\) objects of type 1. This fact is motivation for the following result:</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(r_m \in \{0, 1, \ldots, m\}\) for each \(m \in \N_+\) and that \(r_m / m \to p\) as \(m \to \infty\). For fixed \(n \in \N_+\), the hypergeometric distribution with parameters \(m\), \(r_m\), and \(n\) converges to the binomial distribution with parameters \(n\) and \(p\) as \(m \to \infty\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that for \( a \in \R \) and \( j \in \N \), we let \( a^{(j)} = a \, (a - 1) \cdots [a - (j - 1)] \) denote the falling power of \( a \) of order \( j \). The hypergeometric density function can be written as
+		\[ f_m(k) = \binom{n}{k} \frac{r_m^{(k)} (m - r_m)^{(n - k)}}{m^{(n)}}, \quad k \in \{0, 1, \ldots, n\} \]
+		In the fraction above, the numerator and denominator both have \( n \) fractors. Suppose that we group the \( k \) factors in \( r_m^{(k)} \) with the first \( k \) factors of \( m^{(n)} \) and the \( n - k \) factors of \( (m - r_m)^{(n-k)} \) with the last \( n - k \) factors of \( m^{(n)} \) to form a product of \( n \) fractions. The first \( k \) fractions have the form \( (r_m - j) \big/ (m - j) \) for some \( j \) that does not depend on \( m \). Each of these converges to \( p \) as \( m \to \infty \). The last \( n - k \) fractions have the form \( (m - r_m - j) \big/ (m - k - j) \) for some \( j \) that does not depend on \( m \). Each of these converges to \( 1 - p \) as \( m \to \infty \). Hence
+		\[f_m(k) \to \binom{n}{k} p^k (1 - p)^{n-k} \text{ as } m \to \infty \text{ for each } k \in \{0, 1, \ldots, n\}\]
+		The result now follows from <a href="#pdf1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>From a practical point of view, the last result means that if the population size \(m\) is <q>large</q> compared to sample size \(n\), then the hypergeometric distribution with parameters \(m\), \(r\), and \(n\) (which corresponds to sampling without replacement) is well approximated by the binomial distribution with parameters \(n\) and \(p = r / m\) (which corresponds to sampling with replacement). This is often a useful result, not computationally, but rather because the binomial distribution has fewer parameters than the hypergeometric distribution (and often in real problems, the parameters may only be known approximately).  Specifically, in the limiting binomial distribution, we do not need to know the population size \(m\) and the number of type 1 objects \(r\) <em>individually</em>, but only in the <em>ratio</em> \(r / m\).</p>
+
+<div class="unit" id="hyp2">
+<p class="app">In the <a href="JavaScript:openAncillary('../apps/BallUrn.html')" class="ancillary">ball and urn experiment</a>, set \(m = 100\) and \(r = 30\). For each of the following values of \(n\) (the sample size), switch between <em>sampling without replacement</em> (the hypergeometric distribution) and <em>sampling with replacement</em> (the binomial distribution).  Note the difference in the probability density functions.  Run the simulation 1000 times for each sampling mode and compare the relative frequency function to the probability density function.</p>
+
+<ol class="sub">
+	<li>10</li>
+	<li>20</li>
+	<li>30</li>
+	<li>40</li>
+	<li>50</li>
+</ol>
+</div>
+
+<h4>The Binomial Distribution</h4>
+
+<p>Recall again that the binomial distribution with parameters \(n \in \N_+\) and \(p \in [0, 1]\) is the distribution of the number successes in \(n\) Bernoulli trials, when \(p\) is the probability of success on a trial. This distribution has probability density function \(f\) given by
+\[ f(k) = \binom{n}{k} p^k (1 - p)^{n - k}, \quad k \in \{0, 1, \ldots, n\} \]
+Recall also that the <a href="../poisson/Poisson.html">Poisson distribution</a> with parameter \(r \in (0, \infty)\) has  probability density function \(g\) given by
+\[g(k) = e^{-r} \frac{r^k}{k!}, \quad k \in \N\]
+The distribution is named for <a href="JavaScript:openAncillary('../biographies/Poisson.html')" class="ancillary">Simeon Poisson</a> and governs the number of <q>random points</q> in a region of time or space, under certain ideal conditions.  The parameter \(r\) is proportional to the size of the region of time or space.</p>
+
+<div class="unit" id="bin1">
+	<p class="math">Suppose that \(p_n \in [0, 1]\) for \(n \in \N_+\) and that \(n p_n \to r \in (0, \infty)\) as \(n \to \infty\). Then the  binomial distribution with parameters \(n\) and \(p_n\) converges to the Poisson distribution with parameter \(r\) as \(n \to \infty\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( k, \, n \in \N \) with \( k \le n \), the binomial density function can be written as
+		\[ f_n(k) = \frac{n^{(k)}}{k!} p_n^k (1 - p_n)^{n - k} = \frac{1}{k!} (n p_n) \left[(n - 1) p_n\right] \cdots \left[(n - k + 1) p_n\right] (1 - p_n)^{n - k} \]
+		First, \( (n - j) p_n \to r \) as \(n \to \infty\) for \(j \in \{0, 1, \ldots, n - 1\}\). Next, by a famous limit from calculus, \( (1 - p_n)^n =  (1 - n p_n / n)^n \to e^{-r} \) as \( n \to \infty \). Hence also \((1 - p_n)^{n-k} \to e^{-r}\) as \(n \to \infty\) for fixed \(k \in \N_+\). Therefore \(f_n(k) \to e^{-r} r^k / k!\) as \(n \to \infty\) for each \(k \in \N_+\). The result now follows from <a href="#pdf1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<p>From a practical point of view, the convergence of the binomial distribution to the Poisson means that if the number of trials \(n\) is <q>large</q> and the probability of success \(p\) <q>small</q>, so that \(n p^2\) is small, then the binomial distribution with parameters \(n\) and \(p\) is well approximated by the Poisson distribution with parameter \(r = n p\).  This is often a useful result, again not computationally, but rather because the Poisson distribution has fewer parameters than the binomial distribution (and often in real problems, the parameters may only be known approximately).  Specifically, in the approximating Poisson distribution, we do not need to know the number of trials \(n\) and the probability of success \(p\) <em>individually</em>, but only in the <em>product</em> \(n p\). As we will see in the next chapter, the condition that \(n p^2\) be small means that the <a href="../expect/Variance.html">variance</a> of the binomial distribution, namely \(n p (1 - p) = n p - n p^2\) is approximately \(r = n p\), which is the variance of the approximating Poisson distribution.</p>
+
+<div class="unit">
+<p class="app">In the <a href="JavaScript:openAncillary('../apps/BinomialTimeline.html')" class="ancillary">binomial timeline experiment</a>, set the parameter values as follows, and observe the graph of the probability density function. (Note that \(n p = 5\) in each case.) Run the experiment 1000 times in each case and compare the relative frequency function and the probability density function. Note also the successes represented as <q>random points</q> in discrete time.</p>
+
+<ol class="sub">
+	<li>\(n = 10\), \(p = 0.5\)</li>
+	<li>\(n = 20\), \(p = 0.25\)</li>
+	<li>\(n = 100\), \(p = 0.05\)</li>
+</ol>
+</div>
+
+<div class="unit">
+<p class="app">In the <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">Poisson experiment</a>, set \(r = 5\) and \(t = 1\), to get the Poisson distribution with parameter 5.  Note the shape of the probability density function.  Run the experiment 1000 times and compare the relative frequency function to the probability density function.  Note the similarity between this experiment and the one in the previous exercise.</p>
+</div>
+
+<h4>The Geometric Distribution</h4>
+
+<p>Recall that the <a href="../bernoulli/Geometric.html">geometric distribution</a> on \(\N_+\) with success parameter \(p \in (0, 1]\) has probability density function \(f\) given by
+\[ f(k) = p (1 - p)^{k-1}, \quad k \in \N_+\]
+The geometric distribution governs the trial number of the first success in a sequence of Bernoulli trials.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(U\) has the geometric distribution on \(\N_+\) with success parameter \(p \in (0, 1]\). For \( n \in \N_+ \), the conditional distribution of \( U \) given \( U \le n \) converges to the uniform distribution on \(\{1, 2, \ldots, n\}\) as \(p \downarrow 0\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The distribution function \(F\) of \( U \) is given by \( F(k) = 1 - (1 - p)^k \) for \(k \in \N_+\). Hence for \(n \in \N_+\), the conditional distribution function of \( U \) given \( U \le n \) is
+		\[ F_n(k) = \P(U \le k \mid U \le n) = \frac{\P(U \le k)}{\P(U \le n)}  = \frac{1 - (1 - p)^k}{1 - (1 - p)^n}, \quad k \in \{1, 2, \ldots n\} \]
+		Using L'Hospital's rule, gives \( F_n(k) \to k / n \) as \( p \downarrow 0 \) for \(k \in \{1, 2, \ldots, n\}\). As a function of \(k\) this is the distribution function of the uniform distribution on \( \{1, 2, \ldots, n\} \).</p>
+	</details>
+</div>
+
+<p>Next, recall that the <a href="../poisson/Exponential.html">exponential distribution</a> with rate parameter \(r \in (0, \infty)\) has distribution function \(G\) given by
+\[ G(t) = 1 - e^{-r t}, \quad 0 \le t \lt \infty \]
+The exponential distribution governs the time between <q>arrivals</q> in the <a href="../poisson/index.html">Poisson model</a> of random points in time.</p>
+
+<div class="unit" id="geo">
+	<p class="math">Suppose that \(U_n\) has the geometric distribution on \(\N_+\) with success parameter \(p_n \in (0, 1]\) for \(n \in \N_+\), and that \(n p_n \to r \in (0, \infty)\) as \(n \to \infty\). The distribution of \(U_n / n\) converges to the exponential distribution with parameter \(r\) as \(n \to \infty\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( F_n \) denote the distribution function of \( U_n / n \). Then for \( x \in [0, \infty) \)
+		\[ F_n(x) = \P\left(\frac{U_n}{n} \le x\right) = \P(U_n \le n x) = \P\left(U_n \le \lfloor n x \rfloor\right) = 1 - \left(1 - p_n\right)^{\lfloor n x \rfloor} \]
+		We showed in the proof of <a href="#bin1" class="ref"></a> that \( (1 - p_n)^n \to e^{-r} \) as \( n \to \infty \), and hence \( \left(1 - p_n\right)^{n x} \to e^{-r x} \) as \( n \to \infty \). But by definition, \( \lfloor n x \rfloor \le n x \lt \lfloor n x \rfloor + 1\) or equivalently, \( n x - 1 \lt \lfloor n x \rfloor \le n x \) so it follows from the squeeze theorem that \( \left(1 - p_n \right)^{\lfloor n x \rfloor} \to e^{- r x} \) as \( n \to \infty \). Hence \( F_n(x) \to 1 - e^{-r x} \) as \( n \to \infty \). As a function of \(x \in [0, \infty), this is the distribution function of the exponential distribution with parameter \(r\).</p>
+	</details>
+</div>
+
+<p>Note that the limiting condition on \(n\) and \(p\) in <a href="#geo" class="ref"></a> is precisely the same as the condition in <a href="#bin1" class="ref"></a>. For a deeper interpretation of both of these results, see the section on the <a href="../poisson/Poisson.html">Poisson distribution</a>.</p>
+
+<div class="unit">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/NegativeBinomial.html')" class="ancillary">negative binomial experiment</a>, set \(k = 1\) to get the geometric distribution. Then decrease the value of \(p\) and note the shape of the probability density function.  With \(p = 0.5\) run the experiment 1000 times and compare the relative frequency function to the probability density function.</p>
+</div>
+
+<div class="unit">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Gamma.html')" class="ancillary">gamma experiment</a>, set \(k = 1\) to get the exponential distribution, and set \(r = 5\). Note the shape of the probability density function. Run the experiment 1000 times and compare the empirical density function and the probability density function. Compare this experiment with the one in the previous exercise, and note the similarity, up to a change in scale.</p>
+</div>
+
+<h4>The Matching Distribution</h4>
+
+<p>For \(n \in \N_+\), consider a random <a href="../foundations/Structures.html">permutation</a> \((X_1, X_2, \ldots, X_n)\) of the elements in the set \(\{1, 2, \ldots, n\}\). We say that a <dfn>match</dfn> occurs at position \(i\) if \(X_i = i\).</p>
+
+<div class="unit">
+	<p class="math">\(\P\left(X_i = i\right) = \frac{1}{n}\) for each \(i \in \{1, 2, \ldots, n\}\). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>The number of permutations of \(\{1, 2, \ldots, n\}\) is \(n!\). For \(i \in \{1, 2, \ldots, n\}\), the number of such permutations with \(i\) in position \(i\) is \((n - 1)!\). Hence \(\P(X_i = i) = (n - 1)! / n! = 1 / n\). A more direct argument is that \(i\) is no more or less likely to end up in position \(i\) as any other number.</p>
+	</details>
+</div>
+
+<p>So the matching events all have the same probability, which varies inversely with the number of trials.</p>
+
+<div class="unit">
+	<p class="math">\(\P\left(X_i = i, X_j = j\right) = \frac{1}{n (n - 1)}\) for \(i, \, j \in \{1, 2, \ldots, n\}\) with \(i \ne j\). </p>
+	<details>
+		<summary>Details:</summary>
+		<p>Again, the number of permutations of \(\{1, 2, \ldots, n\}\) is \(n!\). For distinct \(i, \, j \in \{1, 2, \ldots, n\}\), the number of such permutations with \(i\) in position \(i\) and \(j\) in position \(j\) is \((n - 2)!\). Hence \(\P(X_i = i, X_j = j) = (n - 2)! / n! = 1 / n (n - 1)\).</p>
+	</details>
+</div>
+
+<p>So the matching events are dependent, and in fact are positively correlated. In particular, the matching events do not form a sequence of Bernoulli trials. In our detailed disucssion of the <a href="../urn/Matching.html">matching problem</a> we show that the number of matches \(N_n\) has probability density function \(f_n\) given by:
+\[ f_n(k) = \frac{1}{k!} \sum_{j=0}^{n-k} \frac{(-1)^j}{j!}, \quad k \in \{0, 1, \ldots, n\} \]</p>
+
+<div class="unit">
+	<p class="math">The distribution of \(N_n\) converges to the Poisson distribution with parameter 1 as \(n \to \infty\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>For \( k \in \N \),
+		\[ f_n(k) = \frac{1}{k!} \sum_{j=0}^{n-k} \frac{(-1)^j}{j!} \to \frac{1}{k!} \sum_{j=0}^\infty \frac{(-1)^j}{j!} = \frac{1}{k!} e^{-1} \]
+		As a function of \(k \in \N\), this is the density function of the Poisson distribution with parameter 1. So the result follows from the theorem in <a href="#pdf1" class="ref"></a> on density functions.</p>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="app">In the <a href="JavaScript:openAncillary('../apps/Match.html')" class="ancillary">matching experiment</a>, increase \(n\) and note the apparent convergence of the probability density function for the number of matches.  With selected values of \(n\), run the experiment 1000 times and compare the relative frequency function and the probability density function.</p>
+</div>
+
+<h4>The Extreme Value Distribution</h4>
+
+<p>Suppose that \((X_1, X_2, \ldots)\) is a sequence of independent random variables, each with the standard <a href="../poisson/Exponential.html">exponential distribution</a>. So the common distribution function \(G\) is given by
+\[ G(x) = 1 - e^{-x}, \quad 0 \le x \lt \infty \]</p>
+
+<div class="unit">
+	<p class="math">As \(n \to \infty\), the distribution of \(Y_n = \max\{X_1, X_2, \ldots, X_n\} - \ln n  \) converges to the distribution with distribution function \(F\) given by
+	\[ F(x) = e^{-e^{-x}}, \quad x \in \R\]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( X_{(n)} = \max\{X_1, X_2, \ldots, X_n\} \) and recall that \( X_{(n)} \) has distribution function \( G^n \). Let \( F_n \) denote the distribution function of \( Y_n \). For \( x \in \R \)
+		\[ F_n(x) = \P(Y_n \le x) = \P\left(X_{(n)} \le x + \ln n \right) = G^n(x + \ln n) = \left[1 - e^{-(x + \ln n) }\right]^n = \left(1 - \frac{e^{-x}}{n} \right)^n \]
+		By our famous limit from calculus again, \( F_n(x) \to e^{-e^{-x}} \) as \( n \to \infty \).</p>
+	</details>
+</div>
+
+<p>This limiting distribution is the standard <a href="../special/ExtremeValue.html">extreme value distribution</a>, also known as the <dfn>standard Gumbel distribution</dfn> in honor of <a href="JavaScript:openAncillary('../biographies/Gumbel.html')" class="ancillary">Emil Gumbel</a>.</p>
+
+<h4>The Pareto Distribution</h4>
+
+<p>Recall that the <a href="../special/Pareto.html">Pareto distribution</a> with shape parameter \(a \in (0, \infty)\) has distribution function \(F\) given by
+\[F(x) = 1 - \frac{1}{x^a}, \quad 1 \le x \lt \infty\]
+The Pareto distribution, named for <a href="JavaScript:openAncillary('../biographies/Pareto.html')" class="ancillary">Vilfredo Pareto</a>, is a heavy-tailed distribution sometimes used to model financial variables.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(X_n\) has the Pareto distribution with parameter \(n\) for each \(n \in \N_+\). Then</p>
+	<ol class="sub">
+		<li>\(X_n \to 1\) as \(n \to \infty\) in distribution (and hence also in probability).</li>
+		<li>The distribution of \(Y_n = nX_n - n\) converges to the standard exponential distribution as \(n \to \infty\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>The distribution function of \( X_n \) is \( F_n(x) = 1 - 1 / x^n \) for \( x \ge 1 \). Hence \( F_n(x) = 0 \) for \( n \in \N_+ \) and \( x \le 1 \) while \( F_n(x) \to 1 \) as \( n \to \infty \) for \( x \gt 1 \). Thus the limit of \( F_n \) agrees with the distribution function of the constant 1, except at \(x = 1\), the point of discontinuity.</li>
+			<li>Let \( G_n \) denote the distribution function of \( Y_n \). For \( x \ge 0 \),
+			\[ G_n(x) = \P(Y_n \le x) = \P(X_n \le 1 + x / n) = 1 - \frac{1}{(1 + x / n)^n} \]
+			By our famous theorem from calculus again, it follows that \( G_n(x) \to 1 - 1 / e^x = 1 - e^{-x} \) as \( n \to \infty \). As a function of \(x \in [0, \infty\), this is the distribution function of the standard exponential distribution.</li>
+		</ol>
+	</details>
+</div>
+
+<h4>Fundamental Theorems</h4>
+
+<p>The two fundamental theorems of basic probability theory, the <a href="../sample/Mean.html">law of large numbers</a> and the <a href="../sample/CLT.html">central limit theorem</a> are studied in detail in the chapter on <a href="../sample/index.html">random samples</a>. For this reason we will simply state the results in this section. So suppose that \((X_1, X_2, \ldots)\) is a sequence of independent, identically distributed, real-valued random variables (defined on the same probability space) with mean \(\mu \in (-\infty. \infty)\) and standard deviation \(\sigma \in (0, \infty)\). For \(n \in \N_+\), let \( Y_n = \sum_{i=1}^n X_i \) denote the sum of the first \(n\) variables, \( M_n = Y_n \big/n  \) the average of the first \( n \) variables, and \( Z_n = (Y_n - n \mu) \big/ \sqrt{n} \sigma \) the standard score of \( Y_n \). </p>
+
+<div class="unit">
+	<p class="math">The fundamental theorems of probability</p>
+	<ol class="sub">
+		<li>\( M_n \to \mu \) as \( n \to \infty \) with probability 1 (and hence also in probability and in distribution). This is the <dfn>law of large numbers</dfn>.</li>
+		<li>The distribution of \( Z_n \) converges to the standard normal distribution as \( n \to \infty \). This is the <dfn>central limit theorem</dfn>.</li>
+	</ol>
+</div>
+
+<p>In part (a), convergence with probability 1 is the <dfn>strong law of large numbers</dfn> while convergence in probability and in distribution are the <dfn>weak laws of large numbers</dfn>.</p>
+
+<h3>General Spaces</h3>
+
+<p>Our next goal is to define convergence of probability distributions on more general <a href="../foundations/Measurable.html"> measurable spaces</a>.</p>
+
+<h4>Definition and Basic Properties</h4>
+
+<p>First we need to define the type of measurable spaces that we will use in this subsection.</p>
+
+<div class="unit" id="pol">
+	<p class="math">We assume that \((S, d)\) is a complete, separable <a href="../foundations/Metric.html">metric space</a> and let \(\ms S\) denote the Borel \(\sigma\)-algebra of subsets of \(S\), that is, the \(\sigma\)-algebra generated by the topology. The standard spaces that we often use are special cases:</p>
+	<ol class="sub">
+		<li>The space \((S, \ms S)\) is <dfn>discrete</dfn> if \(S\) is countable and is given the discrete metric so \(\ms S\) is the collection of all subsets of \(S\).</li>
+		<li>For \(n \in \N_+\), the space \((\R^n, \ms R^n)\) is the \(n\)-dimensional <dfn>Euclidean space</dfn>, corresponding to  the standard Euclidean metric so \(\ms R^n\) is the usual \(\sigma\)-algebra of Borel measurable subsets of \(\R^n\).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall that the metric space \((S, d)\) is <dfn>complete</dfn> if every Cauchy sequence in \(S\) converges to a point in \(S\). The space is <dfn>separable</dfn> if there exists a coutable subset that is dense. A complete, separable metric space is sometimes called a <dfn>Polish space</dfn> because such spaces were extensively studied by a group of Polish mathematicians in the 1930s, including <a href="JavaScript:openAncillary('../biographies/Kuratowski.html')" class="ancillary">Kazimierz Kuratowski</a>.</p>
+	</details>
+</div>
+
+<p>As suggested by our setup, the definition for convergence in distribution involves both <a href="../foundations/Measure.html">measure theory</a> and <a href="../foundations/Topology.html">topology</a>. The motivation is <a href="#bdr" class="ref"></a> for the one-dimensional Euclidean space \((\R, \ms R)\).</p>
+
+<div class="unit">
+	<p class="math"><strong>Convergence in distribution</strong>:</p>
+	<ol class="sub">
+		<li>Suppose that \(P_n\) is a probability measure on \((S, \ms S)\) for each \(n \in \N_+^*\). Then \(P_n\) <dfn>converges (weakly)</dfn> to \(P_\infty\) as \(n \to \infty\) if \(P_n(A) \to P_\infty(A)\) as \(n \to \infty\) for every \(A \in \ms S\) with \(P_\infty(\partial A) = 0\). We write \(P_n \Rightarrow P_\infty\) as \(n \to \infty\).</li>
+		<li>Suppose that \(X_n\) is a random variable with distribution \(P_n\) on \((S, \ms S)\) for each \(n \in \N_+^*\). Then \(X_n\) <dfn>converges in distribution</dfn> to \(X_\infty\) as \(n \to \infty\) if \(P_n \Rightarrow P_\infty\) as \(n \to \infty\). We write \(X_n \to X_\infty\) as \(n \to \infty\) in distribution.</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>The definition makes sense since \(A \in \ms S\) implies \(\partial A \in \ms S\). Specifically, \(\cl(A) \in \ms S\) because \(\cl(A)\) is closed, and \(\interior(A) \in \ms S\) because \(\interior(A)\) is open.</li>
+			<li>The random variables need not be defined on the same probability space, since only their distributions are involved.</li>
+		</ol>
+	</details>
+</div>
+
+<p>Let's consider our two special cases. In the discrete case, as usual, the measure theory and topology are not really necessary.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(P_n\) is a probability measures on a discrete space \((S, \ms S)\) for each \(n \in \N_+^*\). Then \(P_n \Rightarrow P_\infty\) as \(n \to \infty\) if and only if \(P_n(A) \to P_\infty(A)\) as \(n \to \infty\) for every \(A \subseteq S\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>This follows from the definition. Every subset is both open and closed so \(\partial A = \emptyset\) for every \(A \subseteq S\).</p>
+	</details>
+</div>
+
+<p>In the Euclidean case, it suffices to consider distribution functions, as in the one-dimensional case. If \(P\) is a probability measure on \((\R^n, \ms R^n)\), recall that the <dfn>distribution function</dfn> \(F\) of \(P\) is given by
+\[F(x_1, x_2, \ldots, x_n) = P\left((-\infty, x_1] \times (-\infty, x_2] \times \cdots \times (-\infty, x_n]\right), \quad (x_1, x_2, \ldots, x_n) \in \R^n\]
+</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(P_n\) is a probability measures on \((\R^n, \ms R^n)\) with distribution function \(F_n\) for each \(n \in \N_+^*\). Then \(P_n \Rightarrow P_\infty\) as \(n \to \infty\) if and only if \(F_n(\bs x) \to F_\infty(\bs x)\) as \(n \to \infty\) for every \(\bs x \in \R^n\) where \(F_\infty\) is continuous.</p>
+</div>
+
+<h4>Convergence in Probability</h4>
+
+<p>As in the case of \((\R, \ms R)\), convergence in probability implies convergence in distribution.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(X_n\) is a random variable in \(S\) for each \(n \in \N_+^*\), all defined on the same probability space. If \(X_n \to X_\infty\) as \(n \to \infty\) in probability then \(X_n \to X_\infty\) as \(n \to \infty\) in distribution.</p>
+	<details>
+		<summary>Notes:</summary>
+		<p>Assume that the common probability space is \((\Omega, \ms F, \P)\). Recall that convergence in probability means that \(\P[d(X_n, X_\infty) \gt \epsilon] \to 0\) as \(n \to \infty\) for every \(\epsilon \gt 0\), </p>
+	</details>
+</div>
+
+<p>So as before, convergence with probability 1 implies convergence in probability which in turn implies convergence in distribution.</p>
+
+<h4>Skorohod's Representation Theorem</h4>
+
+<p>As you might guess, Skorohod's <a href="#sko" class="ref"></a> for the one-dimensional Euclidean space \((\R, \ms R)\) can be extended to the more general spaces. However the proof is not nearly as straightforward, because we no longer have the quantile function for constructing random variables on a common probability space.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(P_n\) is a probability measures on \((S, \ms S)\) for each \(n \in \N_+^*\) and that \(P_n \Rightarrow P_\infty\) as \(n \to \infty\). Then there exists a random variable \(X_n\) in \(S\) for each \(n \in \N_+^*\), defined on a common probability space, such that</p>
+	<ol class="sub">
+		<li>\(X_n\) has distribution \(P_n\) for \(n \in \N_+^*\)</li>
+		<li>\(X_n \to X_\infty\) as \(n \to \infty\) with probability 1.</li>
+	</ol>
+</div>
+
+<p>One of the main consequences of Skorohod's representation, the preservation of convergence in distribution under continuous functions, is still true and has essentially the same proof. For the general setup, suppose that \((S, d, \ms S)\) and \((T, e, \ms T)\) are spaces of the type described in <a href="#pol" class="ref"></a>.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \(X_n\) is a random variable in \(S\) for each \(n \in \N_+^*\) (not necessarily defined on the same probability space). Suppose also that \(g: S \to T\) is measurable, and let \(D_g\) denote the set of discontinuities of \(g\), and \(P_\infty\) the distribution of \(X_\infty\). If \(X_n \to X_\infty\) as \(n \to \infty\) in distribution and \(P_\infty(D_g) = 0\), then  \(g(X_n) \to g(X_\infty)\) as \(n \to \infty\) in distribution.</p>
+	<details>
+		<summary>Details:</summary>
+		<p>By Skorohod's theorem, there exists random variables \(Y_n\) in \(S\) for \(n \in \N_+^*\), defined on the same probability space \((\Omega, \ms F, \P)\), such that \(Y_n\) has the same distribution as \(X_n\) for \(n \in \N_+^*\), and \(Y_n \to Y_\infty\) as \(n \to \infty\) with probability 1. Since \(\P(Y_\infty \in D_g) = P_\infty(D_g) = 0\) it follows that \(g(Y_n) \to g(Y_\infty)\) as \(n \to \infty\) with probability 1. Hence \(g(Y_n) \to g(Y_\infty)\) as \(n \to \infty\) in distribution. But \(g(Y_n)\) has the same distribution as \(g(X_n)\) for each \(n \in \N_+^*\).</p>
+	</details>
+</div>
+
+<p>A simple consequence of the continuity theorem is that if a sequence of random vectors in \(\R^n\) converge in distribution, then the sequence of each coordinate also converges in distribution. Let's just consider the two-dimensional case to keep the notation simple.</p>
+
+<div class="unit">
+	<p class="math">Suppose that \((X_n, Y_n)\) is a random variable in \(\R^2\) for \(n \in \N_+^*\) and that \((X_n, Y_n) \to (X_\infty, Y_\infty)\) as \(n \to \infty\) in distribution. Then</p>
+	<ol class="sub">
+		<li>\(X_n \to X_\infty\) as \(n \to \infty\) in distribution.</li>
+		<li>\(Y_n \to Y_\infty\) as \(n \to \infty\) in distribution.</li>
+	</ol>
+</div>
+
+<h4>Scheff&eacute;'s Theorem</h4>
+
+<p>Our next discussion concerns an important result known as <dfn>Scheff&eacute;'s theorem</dfn>, named after <a href="JavaScript:openAncillary('../biographies/Scheffe.html')" class="ancillary">Henry Scheff&eacute;</a>. To state our theorem, suppose that \( (S, \ms S, \mu) \) is a measure space, so that \( S \) is a set, \( \ms S \) is a \( \sigma \)-algebra of subsets of \( S \), and \( \mu \) is a positive measure on \( (S, \ms S) \). Further, suppose that \( P_n \) is a probability measure on \( (S, \ms S) \) that has density function \( f_n \) with respect to \( \mu \) for each \( n \in \N_+^* \).</p>
+
+<div class="unit" id="sch">
+	<p class="math">If \(f_n(x) \to f_\infty(x)\) as \(n \to \infty\) for almost all \( x \in S \) (with respect to \( \mu \)) then \(P_n(A) \to P_\infty(A)\) as \(n \to \infty\) uniformly in \(A \in \ms S\).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>From basic properties of the integral it follows that for \( A \in \ms S \),
+		\[\left|P_\infty(A) - P_n(A)\right| = \left|\int_A f_\infty \, d\mu - \int_A f_n \, d\mu \right| = \left| \int_A (f_\infty - f_n) \, d\mu\right| \le \int_A \left|f_\infty - f_n\right| \, d\mu \le \int_S \left|f_\infty - f_n\right| \, d\mu\]
+		For \(n \in \N_+\) let \(g_n = f_\infty - f_n\), and let \(g_n^+\) denote the positive part of \(g_n\) and \(g_n^-\) the negative part of \(g_n\). Note that \(g_n^+ \le f_\infty\) and \(g_n^+ \to 0\) as \(n \to \infty\) almost everywhere on \( S \). Since \( f_\infty \) is a probability density function, it is trivially integrable, so by the dominated convergence theorem, \(\int_S g_n^+ \, d\mu \to 0\) as \(n \to \infty\). But \(\int_\R g_n \, d\mu = 0\) so \(\int_\R g_n^+ \, d\mu = \int_\R g_n^- \, d\mu\). Therefore \(\int_S \left|g_n\right| \, d\mu = 2 \int_S g_n^+ d\mu \to 0\) as \(n \to \infty\). Hence \(P_n(A) \to P_\infty(A)\) as \(n \to \infty\) uniformly in \(A \in \ms S\).</p>
+	</details>
+</div>
+
+ <p>Of course, the most important special cases of Scheff&eacute;'s theorem are to discrete distributions and to continuous distributions on a subset of \( \R^n \), as in <a href="#pdf1" class="ref"></a> on density functions.</p>
+
+<h4>Expected Value</h4>
+
+<p><a href="../expect/Conditional.html">Generating functions</a> are studied in the chapter on <a href="../expect/index.html">expected value</a>. In part, the importance of generating functions stems from the fact that ordinary (pointwise) convergence of a sequence of generating functions corresponds to the convergence of the distributions in the sense of this section. Often it is easier to show convergence in distribution using generating functions than directly from the definition.</p>
+
+<p>In addition, converence in distribution has elegant characterizations in terms of the convergence of the expected values of certain types of functions of the underlying random variables.</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">2. Distributions</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Discrete.html" title="Discrete Distributions">2</a></li>
+		<li class="child"><a href="Continuous.html" title="Continuous Distributions">3</a></li>
+		<li class="child"><a href="Mixed.html" title="Mixed Distributions">4</a></li>
+		<li class="child"><a href="Joint.html" title="Joint Distributions">5</a></li>
+		<li class="child"><a href="Conditional.html" title="Conditional Distributions">6</a></li>
+		<li class="child"><a href="distribution function.html" title="Distribution and Quantile Functions">7</a></li>
+		<li class="child"><a href="Transformations.html" title="Transformations of Variables">8</a></li>
+		<li class="current">9</li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

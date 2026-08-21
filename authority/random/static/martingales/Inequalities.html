@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Inequalities</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, martingale, maximal inequality, up-crossing inequality, Kolmogorov's inequality, red and black">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\Q}{\mathbb{Q}}\)
+	\(\newcommand{\D}{\mathbb{D}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Properties.html" title="Properties and Constructions">2</a></li>
+		<li class="child"><a href="Stop.html" title="Stopping Times">3</a></li>
+		<li class="current">4</li>
+		<li class="child"><a href="Convergence.html" title="Convergence">5</a></li>
+		<li class="child"><a href="Backwards.html" title="Backwards Martingales">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<h2>4. Inequalities</h2>
+</header>
+
+<h3>Basic Theory</h3>
+
+<p>In this section, we will study a number of interesting inequalities associated with martingales and their sub-martingale and super-martingale cousins. These turn out to be very important for both theoretical reasons and for applications. You many need to review <a href="../foundations/Order.html">infimums and supremums</a>.</p>
+
+<h4 id="asm">Basic Assumptions</h4>
+
+<p>As in the <a href="Introduction.html">introduction</a>, we start with a <a href="../prob/Processes.html">stochastic process</a> \( \bs{X} = \{X_t: t \in T\} \) on an underlying probability space \( (\Omega, \mathscr{F}, \P) \), having state space \( \R \), and where the index set \( T \) (representing time) is either \( \N \) (discrete time) or \( [0, \infty) \) (continuous time). Next, we have a <a href="../prob/Stop.html">filtration</a> \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), and we assume that \( \bs{X} \) is <dfn>adapted</dfn> to \( \mathfrak{F} \). So \( \mathfrak{F} \) is an increasing family of sub \( \sigma \)-algebras of \( \mathscr{F} \) and \( X_t \) is measurable with respect to \( \mathscr{F}_t \) for \( t \in T \). We think of \( \mathscr{F}_t \) as the collection of events up to time \( t \in T \). We assume that \( \E\left(\left|X_t\right|\right) \lt \infty \), so that the <a href="../expect/Properties.html">mean</a> of \( X_t \) exists as a real number, for each \( t \in T \). Finally, in continuous time where \( T = [0, \infty) \), we make the standard  assumptions that \( t \mapsto X_t \) is right continuous and has left limits, and that the filtration \( \mathfrak F \) is right continuous and complete.</p>
+
+<h4 id="max">Maximal Inequalites</h4>
+
+<p>For motivation, let's review a modified version of <a href="../expect/Properties2.html#mar">Markov's inequality</a>, named for <a href="JavaScript:openAncillary('../biographies/Markov.html')" class="ancillary">Andrei Markov</a>. </p>
+
+<div class="unit" id="max1">
+	<p class="math">If \( X \) is a real-valued random variable then
+	\[ \P(X \ge x) \le \frac{1}{x} \E(X ; X \ge x), \quad x \in (0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>The modified version has essentially the same elegant proof as the original. Clearly
+		\[ x \bs{1}(X \ge x) \le X \bs{1}(X \ge x), \quad x \in (0, \infty) \]
+		Taking expected values through the inequality gives \( x \P(X \ge x) \le \E(X; X \ge x) \). Dividing both sides by \( x \) gives the result (and it is at this point that we need \( x \gt 0. \)).</p></details>
+</div>
+
+<p>So Markov's inequality gives an upper bound on the probability that \( X \) exceeds a given positive value \( x \), in terms of a <a href="../expect/Properties.html">monent</a> of \( X \). Now let's return to our stochastic process \( \bs X = \{X_t: t \in T\} \). To simplify the notation, let \( T_t = \{s \in T: s \le t\} \) for \( t \in T \). Here is the main definition:</p>
+
+<div class="unit" id="max2">
+	<p class="dfn">For the process \( \bs X \), define the corresponding <dfn>maximal process</dfn> \( \bs U = \{U_t: t \in T\} \) by
+	\[ U_t = \sup\{X_s: s \in T_t\}, \quad t \in T \]</p>
+</div>
+
+<p>Clearly, the maximal process is increasing, so that if \( s, \, t \in T \) with \( s \le t \) then \( U_s \le U_t \). A trivial application of Markov's inequality above would give 
+\[ \P(U_t \ge x) \le \frac{1}{x} \E(U_t; U_t \ge x), \quad x \gt 0 \]
+But when \( \bs X \) is a sub-martingale, the following theorem gives a much stronger result by replacing the first occurrent of \( U_t \) on the right with \( X_t \). The theorem is known as <dfn>Doob's sub-martingale maximal inequality</dfn> (or more simply as <dfn>Doob's inequaltiy</dfn>), named once again for <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">Joseph Doob</a> who did much of the pioneering work on martingales. A sub-martingale has an <em>increasing property</em> of sorts in the sense that if \( s, \, t \in T \) with \( s \le t \) then \( \E(X_t \mid \mathscr{F}_s) \ge X_s \), so it's perhaps not entirely surprising that such a bound is possible.</p>
+
+<div class="unit" id="max3">
+	<p class="math">Suppose that \( \bs X \) is a sub-martingale. For \( t \in T \), let \( U_t = \sup\{X_s: s \in T_t\} \). Then
+	\[ \P(U_t \ge x) \le \frac{1}{x} \E(X_t; U_t \ge x), \quad x \in (0, \infty) \]
+	</p>
+	<details>
+		<summary>Details:</summary>
+		<p><strong>Proof in the discrete time:</strong> So \( T = \N \) and the maximal process is given by \( U_n = \max\left\{X_k: k \in \N_n\right\} \) for \( n \in \N \). Let \( x \in (0, \infty) \), and define \( \tau_x = \min\{k \in \N: X_k \ge x\} \) where as usual, \( \min(\emptyset) = \infty \). The random time \( \tau_x \) is a <a href="../prob/Stop.html">stopping time</a> relative to \( \mathfrak F \). Moreover, the processes \( \{U_n: n \in \N\} \) and \( \{\tau_x: x \in (0, \infty)\} \) are inverses in the sense that for \( n \in \N \) and \( x \in (0, \infty) \),
+		\[ U_n \ge x \text{ if and only if } \tau_x \le n \]
+		We have seen this type of duality before&mdash;in the <a href="../poisson/index.html">Poisson process</a> and more generally in <a href="../renewal/index.html">renewal processes</a>. Let \( n \in \N \). First note that
+		\[ \E\left(X_{\tau_x \wedge n}\right) = \E\left(X_{\tau_x \wedge n}; \tau_x \le n\right) + \E\left(X_{\tau_x \wedge n}; \tau_x \gt n\right) \]
+		If \( \tau_x \le n \) then \( X_{\tau_x \wedge n} = X_{\tau_x} \ge x \). On the other hand if \( \tau_x \gt n \) then \( X_{\tau_x \wedge n} = X_n \). So we have 
+		\[ \E\left(X_{\tau_x \wedge n}\right) \ge x \P(\tau_x \le n) + \E(X_n; \tau_x \gt n) = x \P(U_t \ge x) + \E(X_n; \tau_x \gt n) \]
+		Similarly,
+		\[ \E(X_n) = \E(X_n; \tau_x \le n) + \E(X_n; \tau_x \gt n) = \E(X_n; U_t \ge x) + \E(X_n; \tau_x \gt n) \]
+		But by the <a href="Stop.html">optional stopping theorem</a>, \( \E\left(X_{\tau_x \wedge n}\right) \le \E(X_n) \). Hence we have
+		\[ x \P(U_t \ge x) + \E(X_n; \tau_x \gt n) \le  \E(X_n; U_t \ge x) + \E(X_n; \tau_x \gt n)\]
+		Subtracting the common term and then dividing both sides by \( x \) gives the result</p>
+		<p><strong>Proof in continuous time:</strong> For \( k \in \N \), let \( \D^+_k = \{j / 2^k: j \in \N\} \) denote the set of nonnegative <a href="../foundations/Sets.html#dyr">dyadic rationals</a> (or <dfn>binary rationals</dfn>) of rank \( k \) or less. For \( t \in [0, \infty) \) let \( T^k_t = (\D^+_k \cap [0, t]) \cup \{t\} \), so that \( T^k_t \) is the finite set of such dyadic rationals that are less than \( t \), with \( t \) added to the set. Note that \( T^k_t \) has an ordered enumeration, so \( \bs{X}^k = \{X_s: s \in T^k_t\} \) is a discrete-time sub-martingale for each \( k \in \N \). Let \( U^k_t = \sup\{X_s: s \in T^k_t\} \) for \( k \in \N \). Note that \( T^j_t \subset T^k_t \subset [0, t] \) for \( t \in [0, \infty) \) and for \( j, \, k \in \N \) with \( j \lt k \) and therefore \( U^j_t \le U^k_t \le U_t \). It follows that for \( x \in (0, \infty) \),
+		\[ \left\{U^j_t \ge x\right\} \subseteq \left\{U^k_t \ge x\right\} \subset \{U_t \ge x\} \]
+		The set \( \D^+ \) of <em>all</em> nonnegative dyadic rationals is dense in \( [0, \infty) \) and so since \( \bs X \) is right continuous and has left limits, it follows that if \( U_t \ge x \) then \( U^k_t \ge x \) for some \( k \in \N \). That is, we have
+		\[ \{U_t \ge x\} = \bigcup_{k=0}^\infty \left\{U^k_t \ge x\right\} \]
+		The maximal inequality applies to the discrete-time sub-martingale \( \bs{X}^k \) and so 
+		\[ P(U^k_t \ge x) \le \frac{1}{x} \E(X_t; U^k_t \ge x) \]
+		for each \( k \in \N \). By the <a href="../expect/Integral.html">monotone convergence theorem</a>, the left side converges to \( \P(U_t \ge x) \) as \( k \to \infty \) and the right side converges to \( \E(X; U_t \ge x) \) as \( k \to \infty \).</p>
+	</details>
+</div>
+
+<p>There are a number of simple corollaries of the maximal inequality. For the first, recall that the <dfn>positive part</dfn> of \( x \in \R \) is \( x^+ = x \vee 0 \), so that \( x^+ = x \) if \( x \gt 0 \) and \( x^+ = 0 \) if \( x \le 0 \).</p>
+
+<div class="unit" id="max4">
+	<p class="math">Suppose that \( \bs X \) is a sub-martingale. For \( t \in T \), let \( V_t = \sup\{X_s^+: s \in T_t\} \). Then
+	\[ \P(V_t \ge x) \le \frac{1}{x} \E(X_t^+; V_t \ge x), \quad x \in (0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p><a href="Properties.html#prp7">Recall</a> that since \( \bs X \) is a sub-martingale and \( x \mapsto x^+ \) is increasing and convex, \( \bs X^+ = \{X_t^+: t \in T\} \) is also a sub-martingale. Hence the result follows from the general maximal inequality for sub-martingales.</p>
+	</details>
+</div>
+
+<p>As a further simple corollary, note that 
+\[ \P(V_t \ge x) \le \frac{1}{x} \E(X_t^+), \quad x \in (0, \infty) \] 
+This is sometimes how the maximal inequality is given in the literature.</p>
+
+<div class="unit" id="max5">
+	<p class="math">Suppose that \( \bs X \) is a martingale. For \( t \in T \), let \( W_t = \sup\{|X_s|: s \in T_t\} \). Then
+	\[ \P(W_t \ge x) \le \frac{1}{x} \E(|X_t|; W_t \ge x), \quad x \in (0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Recall from the basic <a href="Properties.html#prp7">properties</a> that since \( \bs X \) is a martingale, and \( x \mapsto |x| \) is convex, \( |\bs X| = \{|X_t|: t \in T\} \) is a sub-martingale. Hence the result follows from the general maximal inequality for sub-martingales.</p>
+	</details>
+</div>
+
+<p>Once again, a further simple corollary is
+\[ \P(W_t \ge x) \le \frac{1}{x} \E(|X_t|), \quad x \in (0, \infty) \]
+Next recall that for \( k \in (1, \infty) \), the <a href="../expect/Spaces.html">\( k \)-norm</a> of a real-valued random variable \( X \) is \( \|X\|_k = \left[\E(|X|^k)\right]^{1/k} \), and the vector space \( \mathscr{L}_k \) consists of all real-valued random variables for which this norm is finite. The following theorem is the <dfn>norm version</dfn> of the Doob's maximal inequality.</p>
+
+<div class="unit" id="max6">
+	<p class="math">Suppose again that \( \bs X \) is a martingale. For \( t \in T \), let \( W_t = \sup\{|X_s|: s \in T_t\} \). Then for \( k \gt 1 \),
+	\[ \|W_t\|_k \le \frac{k}{k - 1} \|X_t\|_k\]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Fix \( t \in T \). If \( \E(|X_t|^k) = \infty \), the inequality trivial holds, so assume that \( \E(|X_t|^k) \lt \infty \), and thus that \( X_t \in \mathscr{L}_k \). The proof relies fundamentally on <a href="../expect/Spaces.html">H&ouml;lder's inequality</a>, and for that inequality to work, we need to truncate the variable \( W_t \) and consider instead the the bounded random variable \( W_t \wedge c \) where \( c \in (0, \infty) \). First we need to show that
+		\[ \P(W_t \wedge c \ge x) \le \frac{1}{x} \E(|X_t|; W_t \wedge c \ge x), \quad x \in (0, \infty) \]
+		If \( c \lt x \), both sides are 0. If \( c \ge x \), \( \{W_t \wedge c \ge x\} = \{W_t \ge x\} \) 
+		and so from the maximal inequality <a href="#max5" class="ref"></a>,
+		\[ \P(W_t \wedge c \ge x) = \P(W_t \ge x) \le \frac{1}{x} \E(|X_t|; W_t \ge x) = \E(|X_t|; W_t \wedge c \ge x) \]
+		Next recall from the <a href="../expect/Properties2.html#rdf2" class="man">properties</a> that
+		\[ \|W_t \wedge c\|_k^k = \E[(W_t \wedge c)^k] = \int_0^\infty k x^{k-1} \P(W_t \wedge c \ge x) dx \]
+		Applying the inequality gives 
+		\[ \E[(W_t \wedge c)^k] \le \int_0^\infty k x^{k-2} \E[|X_t|; W_t \wedge c \ge x] dx \]
+		By <a href="../foundations/Properties.html#fub">Fubini's theorem</a> we can interchange the expected value and the integral which gives
+		\[ \E[(W_t \wedge c)^k] \le \E\left[\int_0^{W_t \wedge c} k x^{k-2} |X_t| dx\right] = \frac{k}{k - 1} \E[|X_t| (W_t \wedge c)^{k-1}] \]
+		But \( X_t \in \mathscr{L}_k \) and \( (W_t \wedge c)^{k-1} \in \mathscr{L}_j \) where \( j = k / (k - 1) \) is the exponent conjugate to \( k \). So an application of H&ouml;lder's inequality gives
+		\[ \|W_t \wedge c\|_k^k \le \frac{k}{k - 1}\|X_t\|_k \, \|(W_t \wedge c)^{k-1}\|_j = \frac{k}{k - 1}\|X_t\|_k \|W_t \wedge c\|_k^{k-1} \]
+		where we have used the simple fact that \( \|(W_t \wedge c)^{k-1}\|_j = \|W_t \wedge c\|_k^{k-1} \). Dividing by this factor gives
+		\[ \|W_t \wedge c\|_k \le \frac{k}{k - 1} \|X_t\|_k \]
+		Finally, \( \|W_t \wedge c\|_k \uparrow \|W_t\|_k\) as \( c \to \infty \) by the monotone convergence theorem. So letting \( c \to \infty \) in the last displayed equation gives
+		\[ \|W_t\|_k \le \frac{k}{k - 1} \|X_t\|_k \]</p>
+	</details>
+</div>
+
+<p>Once again, \( \bs W = \{W_t: t \in T\} \) is the maximal process associated with \( |\bs X| = \{\left|X_t\right|: t \in T\} \). As noted in the proof, \( j = k / (k - 1) \) is the exponent <dfn>conjugate</dfn> to \( k \), satisfying \( 1 / j + 1 / k = 1 \). So this version of the maximal inequality states that the \( k \) norm of the maximum of the martingale \( \bs X \) on \( T_t \) is bounded by \( j \) times the \( k \) norm of \( X_t \), where \( j \) and \( k \) are conjugate exponents. Stated just in terms of expected value, rather than norms, the \( \mathscr{L}_k \) maximal inequality is 
+\[ \E\left(\left|W_t\right|^k\right) \le \left(\frac{k}{k - 1}\right)^k \E\left(\left|X_t\right|^k\right) \]
+Our final result in this discussion is a variation of the maximal inequality for super-martingales.</p>
+
+<div class="unit" id="max7">
+	<p class="math">Suppose that \( \bs X = \{X_t: t \in T\} \) is a nonnegative super-martingale, and let \( U_\infty = \sup\{X_t: t \in T\} \). Then
+	\[ \P(U_\infty \ge x) \le \frac{1}{x} \E(X_0), \quad x \in (0, \infty) \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Let \( Y_t = -X_t \) for \( t \in T \). Since \( \bs X \) is a super-martingale, \( \bs Y \) is a sub-martinagle. And since \( \bs X \) is nonnegative, \( Y_t^+ = X_t \) for \( t \in T \). Let \( U_t = \sup\{X_s: s \in T_t\} = \sup\{Y_s^+: s \in T_t\} \) for \( t \in T \). By the maximal inequality for sub-martingales, and since \( \bs X \) is a super-martingale we have for \( t \in T \),
+		\[ \P(U_t \ge x) \le \frac{1}{x} \E(Y_t^+) = \frac{1}{x} \E(X_t) \le \frac{1}{x} \E(X_0), \quad x \in (0, \infty) \]
+		Next note that \( U_t \uparrow U_\infty \) as \( t \to \infty \). Let \( x \in (0, \infty) \) and \( \epsilon \in (0, x) \). If \( U_\infty \ge x \) then \( U_t \ge x - \epsilon \) for sufficiently large \( t \in T \). Hence
+		\[ \{U_\infty \ge x\} \subseteq \bigcup_{k=1}^\infty \{U_k \ge x - \epsilon\} \]
+		Using the <a href="../prob/Convergence.html">continuity theorem for increasing events</a>, and our result above we have
+		\[ \P(U_\infty \ge x) \le \lim_{k \to \infty} \P(U_k \ge x - \epsilon) \le \frac{1}{x - \epsilon} \E(X_0) \]
+		Since this holds for all \( \epsilon \in (0, x) \), it follows that \( \P(U_\infty \ge x) \le \frac{1}{x} \E(X_0) \).</p>
+	</details>
+</div>
+
+<h4 id="upc">The Up-Crossing Inequality</h4>
+
+<p>The up-crossing inequality gives a bound on how much a sub-martingale (or super-martingale) can oscillate, and is the main tool in the <a href="Convergence.html">martingale convergence theorems</a> that will be studied in the next section. It should come as no surprise by now that the inequality is due to <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">Joseph Doob</a>. We start with the discrete-time case.</p>
+
+<div class="unit" id="upc1">
+	<p class="dfn"> Suppose that \( \bs x = (x_n: n \in \N) \) is a sequence of real numbers, and that \( a, \, b \in \R \) with \( a \lt b \). Define \( t_0(\bs x) = 0  \) and then recursively define
+	\begin{align*} 
+		s_{k+1}(\bs x) &amp; = \inf\{n \in \N: n \ge t_k(\bs x), x_n \le a\}, \quad k \in \N \\
+		t_{k+1}(\bs x) &amp; = \inf\{n \in \N: n \ge s_{k+1}(\bs x),  x_n \ge b\}, \quad k \in \N
+	\end{align*}</p>
+	<ol class="sub">
+		<li>The <dfn>number of up-crossings</dfn> of the interval \( [a, b] \) by the sequence \( \bs x \) up to time \( n \in \N \) is
+		\[ u_n(a, b, \bs x) = \sup\{k \in \N: t_k(\bs x) \le n\} \]</li>
+		<li>The <dfn>total number of up-crossings</dfn> of the interval \( [a, b] \) by the sequence \( \bs x \) is
+		\[ u_\infty(a, b, \bs x) = \sup\{k \in \N: t_k(\bs x) \lt \infty\} \]</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>As usual, we define \( \inf(\emptyset) = \infty \). Note that if \( t_k(\bs x) \lt \infty \) for \( k \in \N_+ \), then \( (x_n: n = s_k(\bs x), \ldots t_k(\bs x)) \) is the \( k \)th up-crossing of the interval \( [a, b] \) by the sequence \( \bs x \).</p>
+	</details>
+</div>
+
+<p>So informally, as the name suggests, \( u_n(a, b, \bs x) \) is the number of times that the sequence \( (x_0, x_1, \ldots, x_n) \) goes from a value below \( a \) to one above \( b \), and \( u(a, b, \bs x) \) is the number of times the entire sequence \( \bs x \) goes from a value below \( a \) to one above \( b \). Here are a few of simple properties:</p>
+
+<div class="unit" id="upc2">
+	<p class="math">Suppose again that \( \bs x = (x_n: n \in \N) \) is a sequence of real numbers and that \( a, \, b \in \R \) with \( a \lt b \).</p>
+	<ol class="sub">
+		<li>\( u_n(a, b, \bs x) \) is increasing in \( n \in \N \).</li>
+		<li>\( u_n(a, b, \bs x) \to u(a, b, \bs x) \) as \( n \to \infty \).</li>
+		<li>If \( c, \, d \in \R \) with \( a \lt c \lt d \lt b \) then \( u_n(c, d, \bs x) \ge u_n(a, b, \bs x) \) for \( n \in \N \), and \( u(c, d, \bs x) \ge u(a, b, \bs x) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>Note that \(\{k \in \N: t_k(\bs x) \le n\} \subseteq \{k \in \N: t_k(\bs x) \le n + 1\}\).</li>
+			<li>Note that \( \bigcup_{n=0}^\infty \{k \in \N: t_k(\bs x) \le n\} = \{k \in \N: t_k(\bs x) \le \infty\} \).</li>
+			<li>Every up-crossing of \( [a, b] \) is also an up-crossing of \( [c, d] \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>The importance of the definitions is found in the following theorem. Recall that \( \R^* = \R \cup \{-\infty, \infty\} \) is the set of extended real numbers, and \( \Q \) is the set of rational real numbers.</p>
+
+<div class="unit" id="upc3">
+	<p class="math">Suppose again that \( \bs x = (x_n: n \in \N) \) is a sequence of real numbers. Then \( \lim_{n \to \infty} x_n \) exists in \( \R^* \) is and only if \( u_\infty(a,b, \bs x) \lt \infty\) for every \( a, \, b \in \Q \) with \( a \lt b \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>We prove the contrapositive. Note that the following statements are equivalent:</p>
+		<ol class="sub">
+			<li>\( \lim_{n \to \infty} x_n \) does not exist in in \( \R^* \).</li>
+			<li>\( \liminf_{n \to \infty} x_n \lt \limsup_{n \to \infty} x_n \).</li>
+			<li>There exists \( a, \, b \in \Q \) with \( a \lt b \) and with \( x_n \le a \) for infinitely many \( n \in \N \) and \( x_n \ge b \) for infinitely many \( n \in \N \).</li>
+			<li>There exists \( a, \, b \in \Q \) with \( a \lt b \) and \( u_\infty(a, b, \bs x) = \infty \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Clearly <a href="#upc3" class="ref"></a> is true with \( \Q \) replaced with \( \R \), but the countability of \( \Q \) will be important in the martingale convergence theorem. As a simple corollary, if \( \bs x \) is bounded and \( u_\infty(a, b, \bs x) \lt \infty \) for every \( a, \, b \in \Q \) with \( a \lt b \), then \( \bs x \) converges in \( \R \). The up-crossing inequality for a discrete-time martingale \( \bs X \) gives an upper bound on the expected number of up-crossings of \( \bs X \) up to time \( n \in \N \) in terms of a moment of \( X_n \).</p>
+
+<div class="unit" id="upc4">
+	<p class="math">Suppose that \( \bs X = \{X_n: n \in \N\} \) satisfies the basic assumptions with respect to the filtration \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \), and let \( a, \, b \in \R \) with \( a \lt b \). Let \( U_n = u_n(a, b, \bs X) \), the random number of up-crossings of \( [a, b] \) by \( \bs X \) up to time \( n \in \N\).</p>
+	<ol class="sub">
+		<li>If \( \bs X \) is a super-martingale relative to \( \mathfrak F \) then 
+		\[ \E(U_n) \le \frac{1}{b - a} \E[(X_n - a)^-] \le \frac{1}{b - a}\left[\E(X_n^-) + |a|\right] \le \frac{1}{b - a} \left[\E(|X_n|) + |a|\right], \quad n \in \N \]</li>
+		<li>If \( \bs X \) is a sub-martingale relative to \( \mathfrak F \) then 
+		\[ \E(U_n) \le \frac{1}{b - a} \E[(X_n - a)^+] \le \frac{1}{b - a}\left[\E(X_n^+) + |a|\right] \le \frac{1}{b - a}\left[\E(|X_n|) + |a|\right], \quad n \in \N \]</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>In the context definition <a href="#upc1" class="ref"></a>, let \( \sigma_k = s_k(\bs X) \) and \( \tau_k = t_k(\bs X) \). These are the random times that define the up-crossings of \( \bs X \). Let \( Y_k = X_{\tau_k \wedge n} - X_{\sigma_k \wedge n} \) and then define \( Z_n = \sum_{k=1}^n Y_k \). To understand the sum, let's take cases for the \( k \)th term \( Y_k \):</p>
+		<ul>
+			<li>If \( \tau_k \le n \) then \( Y_k = X_{\tau_k} - X_{\sigma_k} \ge b - a \). By definition, the first \( U_n \) terms are of this form. </li>
+			<li>If \( \sigma_k \le n \lt \tau_k \) then \( Y_k = X_n - X_{\sigma_k} \ge X_n - a \). There is at most one such term, with index \( k = U_n + 1 \).</li>
+			<li>If \( \sigma_k \gt n \) then \( Y_k = X_n - X_n = 0 \).</li>
+		</ul>
+		<p>Hence \( Z_n \ge (b - a)U_n + (X_n - a) \bs{1} \left(\sigma_{U_n + 1} \le n\right) \) and so \( (b - a)U_n \le Z_n - (X_n - a) \bs{1} \left(\sigma_{U_n + 1} \le n\right) \)
+		Next note that \( \sigma_k \wedge n \) and \( \tau_k \wedge n \) are bounded stopping times and of course \( \sigma_k \wedge n \le \tau_k \wedge n \).</p>
+		<ol class="sub">
+			<li>If \( \bs X \) is a super-martingale, it follows from the <a href="Stop.html">optional stopping theorem</a> that
+			\[ \E(Y_k) = \E\left(X_{\tau_k \wedge n}\right) - \E\left(X_{\sigma_k \wedge n}\right) \le 0 \]
+			and therefore \( \E(Z_n) \le 0 \). Finally, \(-(X_n - a) \bs{1} \left(\sigma_{U_n + 1} \le n\right) \le (X_n - a)^-\). Taking expected values gives
+			\[(b - a) \E(U_n) \le \E(Z_n) + \E[(X_n - a)^-] \le \E[(X_n - a)^-]\]
+			The remaining parts of the inequality follow since \( (x - a)^- \le x^- + |a| \le |x| + |a| \) for \( x \in \R \).</li>
+		</ol>
+		<p>The process \( \bs Z = \{Z_n: n \in \N\} \) in the proof can be viewed as a <a href="Properties.html#trn">transform</a> of \( \bs X = \{X_n: n \in \N\} \) by a predictable process. Specifically, for \( n \in \N_+ \), let \( I_n = 1 \) if \( \sigma_k \lt n \le \tau_k \) for some \( k \in \N \), and let \( I_n = 0 \) otherwise. Since \( \sigma_k \) and \( \tau_k \) are stopping times, note that  \( \{I_n = 1\} \in \mathscr{F}_{n-1} \) for \( n \in \N_+ \). Hence the process \( \bs I = \{I_n: n \in \N_+\} \) is predictable with respect to \( \mathfrak F \). Moreover, the transform of \( \bs X \) by \( \bs I \) is
+		\[ (\bs I \cdot \bs X)_n = \sum_{j=1}^n I_j (X_j - X_{j-1}) = \sum_{k=1}^n \left(X_{\tau_k \wedge n} - X_{\sigma_k \wedge n}\right) = Z_n, \quad n \in \N \]
+		Since \( \bs I \) is a nonnegative process, if \( \bs X \) is a martingale (sub-martingale, super-martingale), then \( \bs I \cdot \bs X \) is also a martingale (sub-martingale, super-martingale).</p>
+	</details>
+</div>
+
+<p>Of course if \( \bs X \) is a martingale with respect to \( \mathfrak F \) then both inequalities apply. In continuous time, as usual, the concepts are more complicated and technical.</p>
+
+<div class="unit" id="upc5">
+	<p class="math"> Suppose that \( \bs x: [0, \infty) \to \R \) and that that \( a, \, b \in \R \) with \( a \lt b \).</p>
+	<ol class="sub">
+		<li>If \( I \subset [0, \infty) \) is finite, define \( t^I_0(\bs x) = 0  \) and then recursively define
+		\begin{align*} 
+			s^I_{k+1}(\bs x) &amp; = \inf\left\{t \in I: t \ge t^I_k(\bs x), x_t \le a\right\}, \quad k \in \N \\
+			t^I_{k+1}(\bs x) &amp; = \inf\left\{t \in I: t \ge s^I_{k+1}(\bs x),  x_t \ge b\right\}, \quad k \in \N
+		\end{align*}
+		The <dfn>number of up-crossings</dfn> of the interval \( [a, b] \) by the function \( \bs x \) restricted to \( I \) is 
+		\[ u_I(a, b, \bs x) = \sup \left\{k \in \N: t^I_k(\bs x) \lt \infty\right\} \]</li>
+		<li>If \( I \subseteq [0, \infty) \) is infinte, <dfn>the number of up-crossings</dfn> of the interval \( [a, b] \) by \( \bs x \) restricted to \( I \) is
+		\[ u_I(a, b, \bs x) = \sup\{u_J(a, b, \bs x): J \text{ is finite and } J \subset I\} \]</li>
+	</ol>
+</div>
+
+<p>To simplify the notation, we will let \( u_t(a, b, \bs x) = u_{[0, t]}(a, b, \bs x) \), the number of up-crossings of \( [a, b] \) by \( \bs x \) on \( [0, t] \), and \( u_\infty(a, b, \bs x) = u_{[0, \infty)}(a, b, \bs x) \), the total number of up-crossings of \( [a, b] \) by \( \bs x \).  In continuous time, the definition of up-crossings is built out of finte subsets of \( [0, \infty) \) for measurability concerns, which arise when we replace the deterministic function \( \bs x \) with a stochastic process \( \bs X \). Here are the simple properties that are analogous to our previous ones.</p>
+
+<div class="unit" id="upc6">
+	<p class="math">Suppose again that \( \bs x: [0, \infty) \to \R \) and that \( a, \, b \in \R \) with \( a \lt b \). </p>
+	<ol class="sub">
+		<li>If \( I, \, J \subseteq [0, \infty) \) with \( I \subseteq J \), then \( u_I(a, b, \bs x) \le u_J(a, b, \bs x) \).</li>
+		<li>If \( (I_n: n \in \N) \) is an increasing sequence of sets in \( [0, \infty) \) and \( J = \bigcup_{n=0}^\infty I_n \) then \( u_{I_n}(a, b, \bs x) \to u_J(a, b, \bs x) \) as \( n \to \infty \).</li>
+		<li>If \( c, \, d \in \R \) with \( a \lt c \lt d \lt b \) and \( I \subset [0, \infty) \) then \( u_I(c, d, \bs x) \ge u_I(a, b, \bs x) \).</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<ol class="sub">
+			<li>The result follows easily from the definitions if \( I \) is finite (and \( J \) either finite or infinite). If \( I \) is infinite (and hence so is \( J \)), note that
+			\[ \{u_K(a, b, \bs x): K \text{ is finite and } K \subseteq I\} \subseteq \{u_K(a, b, \bs x): K \text{ is finite and } K \subseteq J\} \]</li>
+			<li>Since \( I_n \) is increasing in \( n \in \N \) (in the subset partial order), note that if \( K \subset [0, \infty)\) is finite, then \( K \subseteq J \) if and only if \( K \subseteq I_n \) for some \( n \in \N \).</li>
+			<li>Every up-crossing of \( [a, b] \) is an up-crossing of \( [c, d] \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>The following result is the reason for studying up-crossings in the first place. Note that the definition built from finite set is sufficient.</p>
+
+<div class="unit" id="upc7">
+	<p class="math">Suppose that \( \bs x: [0, \infty) \to \R \). Then \( \lim_{t \to \infty} x_t \) exists in \( \R^* \) if and only if \( u_\infty(a, b, \bs x) \lt \infty \) for every \( a, \, b \in \Q \) with \( a \lt b \).</p>
+	<details>
+		<summary>Details:</summary>
+		<p>As in the discrete-time case, we prove the contrapositive. The proof is almost the same: The following statements are equivalent:</p>
+		<ol class="sub">
+			<li>\( \lim_{t \to \infty} x_t \) does not exist in in \( \R^* \).</li>
+			<li>\( \liminf_{t \to \infty} x_t \lt \limsup_{t \to \infty} x_t \).</li>
+			<li>There exists \( a, \, b \in \Q \) with \( a \lt b \) and there exists \( s_n, \, t_n \in [0, \infty) \) with \( x_{s_n} \le a \) for \( n \in \N \) and \( x_{t_n} \ge b \) for \( n \in \N \).</li>
+			<li>There exists \( a, \, b \in \Q \) with \( a \lt b \) and \( u_\infty(a, b, \bs x) = \infty \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Finally, here is the up-crossing inequality for martingales in continuous time. Once again, the inequality gives a bound on the expected number of up-crossings.</p>
+
+<div class="unit" id="upc8">
+	<p class="math">Suppose that \( \bs X = \{X_t: t \in [0, \infty)\} \) satisfies the basic assumptions with respect to the filtration \( \mathfrak F = \{\mathscr{F}_t: t \in [0, \infty)\} \), and let \( a, \, b \in \R \) with \( a \lt b \). Let \( U_t = u_t(a, b, \bs X) \), the random number of up-crossings of \( [a, b] \) by \( \bs X \) up to time \( t \in [0, \infty) \).</p>
+	<ol class="sub">
+		<li>If \( \bs X \) is a super-martingale relative to \( \mathfrak F \) then 
+		\[ \E(U_t) \le \frac{1}{b - a} \E[(X_t - a)^-] \le \frac{1}{b - a}\left[\E(X_t^-) + |a|\right] \le \frac{1}{b - a}\left[\E(|X_t|) + |a|\right], \quad t \in [0, \infty) \]
+		</li>
+		<li>If \( \bs X \) is a sub-martingale relative to \( \mathfrak F \) then 
+		\[ \E(U_t) \le \frac{1}{b - a} \E[(X_t - a)^+] \le \frac{1}{b - a} \left[\E(X_t^+) + |a|\right] \le \frac{1}{b - a} \left[\E(|X_t|) + |a|\right], \quad t \in [0, \infty) \]
+		</li>
+	</ol>
+	<details>
+		<summary>Details:</summary>
+		<p>Suppose that \( \bs X \) is a sub-martingale; the proof for a super-martingale is analogous. Fix \( t \in [0, \infty) \) and \( a, \, b \in \R \) with \( a \lt b \). For \( I \subseteq [0, \infty) \) let \( U_I = u_I(a, b, \bs X) \), the number of up-crossings of \( [a, b] \) by \( \bs X \) restricted to \( I \). Suppose that \( I \) is finite and that \( t \in I \) is the maximum of \( I \). Since \( \bs X \) restricted to \( I \) is also a sub-martingale, the discrete-time up-crossing theorem applies and so
+		\[ \E(U_I) \le \frac{1}{b - a} \E[(X_t - a)^+] \]
+		Since \( U_t = \sup\{U_I: I \text{ is finite and } I \subset [0, t]\} \), there exists finite \( I_n \) for \( n \in \N \) with \( U_{I_n} \uparrow U_t \) as \( n \to \infty \). In particular, \( U_t \) is measurable. By property (a) in <a href="#upc6" class="ref"></a>, there exists such a sequence with \( I_n \) increasing in \( n \) and \( t \in I_n \) for each \( n \in \N \). By the monotone convergence theorem, \( \E\left(U_{I_n}\right) \to \E(U_t) \) as \( n \to \infty \). So by the displayed equation above,
+		\[ \E(U_t) \le \frac{1}{b - a} \E[(X_t - a)^+] \]</p>
+	</details>
+</div>
+
+<h3>Examples and Applications</h3>
+
+<h4>Kolmogorov's Inequality</h4>
+
+<p>Suppose that \( \bs X = \{X_n: n \in \N_+\} \) is a sequence of independent variables with \( \E(X_n) = 0 \) and \( \var(X_n) = \E(X_n^2) \lt \infty \) for \( n \in \N_+ \). Let \( \bs Y = \{Y_n: n \in \N\} \) be the partial sum process associated with \( \bs X \), so that 
+\[ Y_n = \sum_{i=1}^n X_i, \quad n \in \N \]
+From the <a href="Introduction.html#sum">introduction</a> we know that \( \bs Y \) is a martingale. A simple application of the maximal inequality gives the following result, which is known as <dfn>Kolmogorov's inequality</dfn>, named for <a href="JavaScript:openAncillary('../biographies/Kolmogorov.html')" class="ancillary">Andrei Kolmogorov</a>.</p>
+
+<div class="unit">
+	<p class="math">For \( n \in \N \), let \( U_n = \max\left\{\left|Y_i\right|: i \in \N_n\right\} \). Then
+	\[ \P(U_n \ge x) \le \frac{1}{x^2} \var(Y_n) = \frac{1}{x^2} \sum_{i=1}^n \E(X_i^2), \quad x \in (0, \infty)\]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>As noted above, \( \bs Y \) is a martingale. Since the function \( x \mapsto x^2 \) on \( \R \) is convex, \( \bs{Y}^2 = \{Y_n^2: n \in \N\} \) is a sub-martingale. Let \( V_n = \max\{Y_i^2: i \in \N_n\}  \) for \( n \in \N \), and let \( x \in (0, \infty) \). Applying the maximal inequality for sub-martingales we have
+		\[ \P(U_n \ge x) = \P(V_n \ge x^2) \le \frac{1}{x^2} \E(Y_n^2) = \frac{1}{x^2} \var(Y_n)\]
+		Finally, since \( \bs X \) is an independent sequence, 
+		\[ \var(Y_n) = \sum_{i=1}^n \var(X_i) = \sum_{i=1}^n \E(X_i^2) \]</p>
+	</details>
+</div>
+
+<h4 id="red">Red and Black</h4>
+
+<p>In the game of <a href="../games/RedBlack.html">red and black</a>, a gambler plays a sequence of Bernoulli games with success parameter \( p \in (0, 1) \) at even stakes. The gambler starts with an initial fortune \( x \) and plays until either she is ruined or reaches a specified target fortune \( a \), where \( x, \, a \in (0, \infty) \) with \( x \lt a \). When \( p \le \frac{1}{2} \), so that the games are fair or unfair, an optimal strategy is <dfn>bold play</dfn>: on each game, the gambler bets her entire fortune or just what is needed to reach the target, whichever is smaller. In the section on <a href="../games/Bold.html">bold play</a> we showed that when \( p = \frac{1}{2} \), so that the games are fair, the probability of winning (that is, reaching the target \( a \) starting with \( x \)) is \( x / a \). We can use the maximal inequality for super-martingales to show that indeed, one cannot do better. </p>
+
+<p>To set up the notation and review various concepts, let \( X_0 \) denote the gambler's initial fortune and let \( X_n \) denote the outcome of game \( n \in \N_+ \), where 1 denotes a win and \( -1 \) a loss. So \( \{X_n: n \in \N\} \) is a sequence of independent variables with \( \P(X_n = 1) = p \) and \( \P(X_n = -1) = 1 - p \) for \( n \in \N_+ \). (The initial fortune \( X_0 \) has an unspecified distribution on \( (0, \infty) \).) The gambler is at a casino after all, so of course \( p \le \frac{1}{2} \). Let
+\[ Y_n = \sum_{i=0}^n X_i, \quad n \in \N \]
+so that \( \bs Y = \{Y_n: n \in \N\} \) is the partial sum process associated with \( \bs X = \{X_n: n \in \N\} \). Recall that \( \bs Y \) is also known as the <dfn>simple random walk</dfn> with parameter \( p \), and since \( p \le \frac{1}{2} \), is a super-martingale. The process \( \{X_n: n \in \N_+\} \) is the <dfn>difference sequence</dfn> associated with \( \bs Y \).  Next let \( Z_n \) denote the amount that the gambler bets on game \( n \in \N_+ \). The process \( \bs Z = \{Z_n: n \in \N_+\} \) is <dfn>predictable</dfn> with respect to \( \bs X = \{X_n: n \in \N\} \), so that \( Z_n \) is measurable with respect to \( \sigma\{X_0, X_1, \ldots, X_{n-1}\} \) for \( n \in \N_+ \). So the gambler's fortune after \( n \) games is
+\[ W_n = X_0 + \sum_{i=1}^n Z_i X_i = X_0 + \sum_{i=1}^n Z_i (Y_i - Y_{i-1}) \]
+Recall that \( \bs W = \{W_n: n \in \N\} \) is the <dfn>transform</dfn> of \( \bs Z \) with \( \bs Y \), denoted \( \bs W = \bs Z \cdot \bs Y \). The gambler is not allowed to go into debt and so we must have \( Z_n \le W_{n-1} \) for \( n \in \N_+ \): the gambler's bet on game \( n \) cannot exceed her fortune after game \( n - 1 \). What's the probability that the gambler can ever reach or exceed the target \( a \) starting with fortune \( x \lt a \)?</p>
+
+<div class="unit" id="red1">
+	<p class="math">Let \( U_\infty = \sup\{W_n: n \in \N\} \). Suppose that \( x, \, a \in (0, \infty) \) with \( x \lt a \) and that \( X_0 = x \). Then
+	\[ \P(U_\infty \ge a) \le \frac{x}{a} \]</p>
+	<details>
+		<summary>Details:</summary>
+		<p>Since \( \bs Y \) is a super-martingale and \( \bs Z \) is nonnegative, the <a href="Properties.html#trn">transform</a> \( \bs W = \bs Z \cdot \bs Y \) is also a super-martingale. By <a href="#max5" class="ref"></a>:
+		\[ \P(U_\infty \ge a) \le \frac{1}{a} \E(W_0) = \frac{x}{a} \]</p>
+	</details>
+</div>
+
+<p>Note that the only assumptions made on the gambler's sequence of bets \( \bs Z \) is that the sequence is predictable, so that the gambler cannot see into the future, and that gambler cannot go into debt. Under these basic assumptions, no strategy can do any better than bold play. However, there <em>are</em> strategies that do as well as bold play; these are <a href="../games/Optimal.html">variations on bold play</a>.</p>
+
+<div class="unit">
+	<p class="app">Open the simulation of the <a href="JavaScript:openAncillary('../apps/Bold.html')" class="ancillary">bold play</a> and set \( p = \frac{1}{2} \). Play the game with various values of initial and target fortunes.</p>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingales</a></li>
+		<li class="child"><a href="Introduction.html" title="Introduction">1</a></li>
+		<li class="child"><a href="Properties.html" title="Properties and Constructions">2</a></li>
+		<li class="child"><a href="Stop.html" title="Stopping Times">3</a></li>
+		<li class="current">4</li>
+		<li class="child"><a href="Convergence.html" title="Convergence">5</a></li>
+		<li class="child"><a href="Backwards.html" title="Backwards Martingales">6</a></li>
+		<li class="details"><button type="button" title="Expand Details" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Expand"></button></li>
+		<li class="details"><button type="button" title="Contract Details" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Contract"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Apps</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Data Sets</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biographies</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

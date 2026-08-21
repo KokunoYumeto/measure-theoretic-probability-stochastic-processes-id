@@ -1,0 +1,57 @@
+{
+  "$id": "https://example.invalid/o009/backend/aliases.csv.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "alias": {
+      "type": "string"
+    },
+    "alias_id": {
+      "pattern": "^alias\\.[A-Za-z0-9._:-]+$",
+      "type": "string"
+    },
+    "canonical_id": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "string"
+    },
+    "namespace": {
+      "enum": [
+        "zitkovic-source-locator",
+        "o009-source-id",
+        "backend-derived-id",
+        "r-chunk-label"
+      ],
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "active"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "alias_id",
+    "namespace",
+    "alias",
+    "canonical_id",
+    "evidence",
+    "status"
+  ],
+  "title": "Strict row schema for aliases.csv",
+  "type": "object",
+  "x-csv": {
+    "encoding": "utf-8",
+    "header": [
+      "alias_id",
+      "namespace",
+      "alias",
+      "canonical_id",
+      "evidence",
+      "status"
+    ],
+    "line_ending": "CRLF"
+  }
+}
