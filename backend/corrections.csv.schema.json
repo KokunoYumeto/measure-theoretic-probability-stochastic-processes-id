@@ -6,7 +6,8 @@
     "change_kind": {
       "enum": [
         "deterministic-output",
-        "original-addition"
+        "original-addition",
+        "source-link-repair"
       ],
       "type": "string"
     },

@@ -1,33 +1,51 @@
 {
-  "schema": "o009.cursor.v2",
+  "schema": "o009.cursor.v4",
   "as_of": "2026-08-21",
-  "status": "first_boundary_public_verified_next_boundary_translation",
+  "status": "second_boundary_release_ready_publication_pending",
   "course_id": "O009",
   "role_id": "D30",
-  "verified_boundary": {
-    "theory_target": "source/theory/prob/Convergence.html",
-    "theory_target_bytes": 40997,
-    "theory_target_sha256": "185888375673550452d1d2428cd0b4203fecd31f0f338fc6c703849642a7809a",
+  "public_verified_boundary": {
+    "theory_targets": [
+      "source/theory/prob/Convergence.html"
+    ],
     "lab_target": "source/labs/01-konvergensi-monte-carlo.Rmd",
-    "lab_target_bytes": 6499,
-    "lab_target_sha256": "c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085",
     "site_manifest_sha256": "c7dcaf31439066f3a2191937bcad7dce18dba5d4044bdaa25c7b434dcf369c3d",
     "build_receipt_sha256": "4764287c8a64a1b566074dfe95a2a786532044a35e9318fe266cd1fc4468b0d1",
-    "backend_manifest_sha256": "2bd9008f16aca2f80222e4f19ca7885c57e1cc706136da7133902847039cf638"
+    "backend_manifest_sha256": "2bd9008f16aca2f80222e4f19ca7885c57e1cc706136da7133902847039cf638",
+    "deployed_source_commit": "f07ffbee0fa8309a9e39ae602a6fe1bfda9da2d8"
   },
-  "next_translated_target": {
-    "source": "authority/random/static/prob/Probability2.html",
-    "target": "source/theory/prob/Probability2.html",
-    "target_state": "translated_structurally_verified_not_yet_built",
-    "target_bytes": 51686,
-    "target_sha256": "4cd3a1eb9edca1c3dc81eba39b97c018b339136241d8a668063e3bf62c1a4c32"
+  "release_ready_boundary": {
+    "theory_targets": [
+      {"path": "source/theory/prob/Convergence.html", "bytes": 40997, "sha256": "185888375673550452d1d2428cd0b4203fecd31f0f338fc6c703849642a7809a"},
+      {"path": "source/theory/prob/Probability2.html", "bytes": 51686, "sha256": "4cd3a1eb9edca1c3dc81eba39b97c018b339136241d8a668063e3bf62c1a4c32"},
+      {"path": "source/theory/prob/Processes.html", "bytes": 34337, "sha256": "8f31864d8cd4e4a5e9a5dba1181fb2ceac86817bc2eda49a7bd50a6b96385074"},
+      {"path": "source/theory/prob/Stop.html", "bytes": 62596, "sha256": "0fe72b687b42af41a6756545f25a5582d6d9f4aba4f0c88bbd3f30b79624366e"},
+      {"path": "source/theory/dist/Convergence.html", "bytes": 65986, "sha256": "948e294db3cfe1daefbd5bfd1e50f9d7a8b942dadfc0cefc63ca171be974dccc"},
+      {"path": "source/theory/expect/Conditional2.html", "bytes": 48721, "sha256": "ddd6260bfafc60a7de3e2b78220c0b793349abcf01afa8cf35420cb16f4e55b7"},
+      {"path": "source/theory/expect/Uniform.html", "bytes": 25643, "sha256": "63fc5afefa354f1f5db2530860089d5810284a185fba28713d315c5cd30ac895"}
+    ],
+    "lab_target": "source/labs/01-konvergensi-monte-carlo.Rmd",
+    "site_file_count": 30,
+    "site_total_bytes": 2115983,
+    "site_manifest_sha256": "523ab02b30534d701777cf5f50f27b1830a5aed3a490aced1d759ed3e5d36105",
+    "build_receipt_sha256": "88119231401f33bb2daa84596707f58765b348b053b18545fe3be0f2bedada9c",
+    "backend_entities": 530,
+    "backend_segments": 1356,
+    "backend_records": 1886,
+    "backend_relations": 485,
+    "backend_manifest_sha256": "a6b2081f056456df42a88a87df7b3b4594dafcbdc72bb0f48fb2f7f8145cef82",
+    "qa_failures": 0,
+    "qa_checkpoint": "qa/SECOND_BOUNDARY_CHECKPOINT_20260821.md"
   },
-  "next_source_order_unit": "authority/random/static/prob/Processes.html",
+  "next_translation": {
+    "source": "authority/random/static/expect/Kernels.html",
+    "target": "source/theory/expect/Kernels.html",
+    "state": "translation_in_progress"
+  },
+  "next_action": "commit and push the release-ready boundary; verify Pages deployment and all remote bytes; record receipt; continue source order",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
-  "deployed_source_commit": "f07ffbee0fa8309a9e39ae602a6fe1bfda9da2d8",
-  "next_action": "integrate Probability2 into the reader/backend, then translate Processes",
   "cross_lane_dependencies": [
     {
       "lane": "O006/C140",

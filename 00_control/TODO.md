@@ -27,15 +27,19 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Run structural, math, code, link, asset, accessibility, privacy, and visual QA.
 - [x] Record hashes, cursor, build log, QA checkpoint, and exact next unit.
 - [x] Create the lane GitHub repository, deploy Pages, and anonymously verify every manifested byte.
-- [x] Translate the next disjoint source unit, Random `prob/Probability2.html`.
-- [ ] Integrate and build `Probability2.html`, then translate `prob/Processes.html`.
+- [x] Translate and integrate Random `prob/Probability2.html`.
+- [x] Translate and integrate Random `prob/Processes.html`.
+- [x] Translate and integrate `prob/Stop.html` and `dist/Convergence.html`.
+- [x] Translate and integrate `expect/Conditional2.html` and `expect/Uniform.html`.
+- [x] Run structural/backend/link/asset/privacy/browser QA for the second boundary.
+- [~] Publish and anonymously verify the second boundary.
 
 ## Remaining corpus
 
-- [ ] Probability spaces revisited and stochastic-process construction.
-- [ ] Filtrations and stopping times.
-- [ ] Distributional/Lp/uniform-integrability convergence.
-- [ ] Measure-theoretic conditional expectation and kernels.
+- [x] Probability spaces revisited and stochastic-process construction.
+- [x] Filtrations and stopping times.
+- [x] Distributional/Lp/uniform-integrability convergence.
+- [~] Measure-theoretic conditional expectation and kernels (`Conditional2` done; `Kernels` active).
 - [ ] Link, do not duplicate, the O006 sampling/LLN/CLT prerequisite.
 - [ ] Martingale properties, stopping, inequalities, convergence, and backwards martingales.
 - [ ] Discrete and continuous Markov processes; add dependency-closed computational labs.

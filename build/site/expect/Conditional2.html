@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+<head>
+<meta charset="utf-8"/>
+<title>Nilai Harapan Bersyarat Ditinjau Kembali</title>
+<meta content="Kyle Siegrist" name="author"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="probabilitas, statistika, nilai harapan, nilai harapan bersyarat, varians bersyarat, probabilitas bersyarat, kovarians bersyarat, prediktor terbaik, ruang probabilitas, aljabar-sigma, teorema Bayes" name="keywords"/>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>
+<link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="../Basic.js"></script>
+<script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
+<link href="../reader.css" rel="stylesheet"/></head>
+<body>
+<div class="latex">
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\)
+	\(\newcommand{\cov}{\text{cov}}\)
+	\(\newcommand{\cor}{\text{cor}}\)
+	\(\newcommand{\mse}{\text{MSE}}\)
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\( \newcommand{\bs}{\boldsymbol} \)
+</div>
+<header>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="https://www.randomservices.org/random/expect/index.html">3. Nilai Harapan</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Properties.html" title="Definisi dan Sifat Dasar">1</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Properties2.html" title="Sifat Tambahan">2</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Variance.html" title="Varians">3</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Skew.html" title="Kemencengan dan Kurtosis">4</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Covariance.html" title="Kovarians dan Korelasi">5</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Generating.html" title="Fungsi Pembangkit">6</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Conditional.html" title="Nilai Harapan Bersyarat">7</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Matrices.html" title="Matriks Nilai Harapan dan Kovarians">8</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Integral.html" title="Nilai Harapan sebagai Integral">9</a></li>
+<li class="current">10</li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Spaces.html" title="Ruang Vektor Peubah Acak">11</a></li>
+<li class="child"><a href="Uniform.html" title="Peubah Terintegralkan Seragam">12</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Kernels.html" title="Kernel dan Operator">13</a></li>
+<li class="details"><button onclick="expandDetails(true);" title="Buka Detail" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button onclick="expandDetails(false);" title="Tutup Detail" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+</ol>
+<h2>10. Nilai Harapan Bersyarat Ditinjau Kembali</h2>
+</header><aside class="component-attribution" id="o009-rights-random-conditional-expectation">
+<strong>Asal komponen.</strong> Terjemahan halaman <cite>Conditional Expected Value Revisited</cite>
+karya Kyle Siegrist, dari cuplikan situs Random bertanggal 13 Maret 2026.
+Halaman resmi Random saat ini memuat saksi CC BY 2.0 pada beranda dan
+CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
+atribusi. <a href="https://www.randomservices.org/random/expect/Conditional2.html">Baca sumber resmi</a>.
+</aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="Conditional2.html">Nilai harapan bersyarat</a> · <a href="Uniform.html">Terintegralkan seragam</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a></nav>
+<p>Nilai harapan bersyarat jauh lebih penting daripada yang mungkin disangka pada awalnya. Bahkan, nilai harapan bersyarat merupakan inti teori probabilitas modern karena menyediakan cara dasar untuk memasukkan informasi yang diketahui ke dalam suatu ukuran probabilitas. Bagian ini memperluas pembahasan pertama kita tentang <a href="https://www.randomservices.org/random/expect/Conditional.html">nilai harapan bersyarat</a> dari sudut pandang yang lebih berlandaskan teori ukuran.</p>
+<h3>Teori Dasar</h3>
+<h4>Definisi</h4>
+<p>Seperti biasa, titik awal kita adalah suatu eksperimen acak, sebagaimana diuraikan dalam <a href="https://www.randomservices.org/random/prob/Experiments.html">eksperimen acak</a>, yang dimodelkan oleh sebuah <a href="../prob/Probability2.html">ruang probabilitas</a> \((\Omega, \mathscr F, \P)\). Jadi, \( \Omega \) adalah himpunan hasil, \( \mathscr F \) adalah aljabar-\( \sigma \) kejadian, dan \( \P \) adalah ukuran probabilitas pada ruang sampel \( (\Omega, \mathscr F) \). Sebelumnya kita telah mempelajari <a href="https://www.randomservices.org/random/expect/Conditional.html">nilai harapan bersyarat</a> peubah acak bernilai real \(X\) apabila diketahui suatu peubah acak \(Y\). Pendekatan yang lebih umum ialah mengondisikan pada subaljabar-\(\sigma\) \( \mathscr G \) dari \( \mathscr F \).</p>
+<p>Sebelum sampai ke definisi, kita memerlukan beberapa hal pendahuluan. Pertama, semua peubah acak yang disebutkan diasumsikan bernilai real. Selanjutnya, gagasan tentang <a href="https://www.randomservices.org/random/foundations/Equivalence.html">relasi ekuivalensi</a> memainkan peran mendasar dalam bagian ini. Secara khusus, ingat bahwa peubah acak \( X_1 \) dan \( X_2 \) <a href="../prob/Probability2.html#nul">ekuivalen</a> jika \( \P(X_1 = X_2) = 1 \). Ekuivalensi memang mendefinisikan suatu relasi ekuivalensi pada kumpulan peubah acak yang didefinisikan di ruang sampel. Selain itu, kita sering menganggap peubah acak yang ekuivalen sebagai objek yang pada hakikatnya sama. Lebih tepatnya, dari sudut pandang ini objek kajian kita bukanlah peubah acak individual, melainkan kelas-kelas ekuivalensi peubah acak menurut relasi ekuivalensi tersebut. Terakhir, untuk \( A \in \mathscr F \), ingat notasi bagi <a href="https://www.randomservices.org/random/expect/Properties.html">nilai harapan</a> \( X \) pada kejadian \( A \)
+\[ \E(X; A) = \E(X \bs{1}_A)\]
+dengan asumsi, tentu saja, bahwa nilai harapan tersebut ada. Sepanjang subbagian ini, anggap bahwa \( \mathscr G \) adalah subaljabar-\( \sigma \) dari \( \mathscr F \).</p>
+<div class="unit" id="dfn1">
+<p class="dfn">Misalkan \(X\) adalah peubah acak dengan \( \E(|X|) \lt \infty \). <dfn>Nilai harapan bersyarat</dfn> \(X\) apabila diketahui \(\mathscr G\) adalah peubah acak \(\E(X \mid \mathscr G)\) yang didefinisikan oleh sifat-sifat berikut:</p>
+<ol class="sub">
+<li>\(\E(X \mid \mathscr G)\) terukur terhadap \(\mathscr G\).</li>
+<li>Jika \(A \in \mathscr G\), maka \(\E[\E(X \mid \mathscr G); A] = \E(X; A)\)</li>
+</ol>
+</div>
+<p>Gagasan dasarnya ialah bahwa \( \E(X \mid \mathscr G) \) merupakan nilai harapan \( X \) apabila diketahui informasi dalam aljabar-\( \sigma \) \( \mathscr G \). Semoga gagasan ini akan makin jelas selama pembahasan kita. Syarat-syarat di atas mendefinisikan \( \E(X \mid \mathscr G) \) secara tunggal hingga ekuivalensi. Bukti fakta ini merupakan penerapan sederhana <dfn>teorema Radon–Nikodym</dfn>, yang dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Radon.html">Johann Radon</a> dan <a class="ancillary" href="https://www.randomservices.org/random/biographies/Nikodym.html">Otto Nikodym</a></p>
+<div class="unit">
+<p class="math">Misalkan lagi bahwa \(X\) adalah peubah acak dengan \( \E(|X|) \lt \infty \).</p>
+<ol class="sub">
+<li>Ada peubah acak \( V \) yang memenuhi definisi <a class="ref" href="#dfn1"></a>.</li>
+<li>Jika \( V_1 \) dan \( V_2 \) memenuhi definisi <a class="ref" href="#dfn1"></a>, maka \( \P(V_1 = V_2) = 1 \), sehingga \( V_1 \) dan \( V_2 \) ekuivalen.</li>
+</ol>
+<details>
+<summary>Detail:</summary>
+<ol class="sub">
+<li>Perhatikan bahwa \( \nu(A) = \E(X; A) \) untuk \( A \in \mathscr G \) mendefinisikan suatu ukuran (bertanda) pada \( \mathscr G \). Selain itu, jika \( A \in \mathscr G \) dan \( \P(A) = 0 \), maka \( \nu(A) = 0 \). Jadi, \( \nu \) kontinu mutlak terhadap pembatasan \( \P \) pada \( \mathscr G \). Menurut teorema Radon–Nikodym, ada peubah acak \( V \) yang terukur terhadap \( \mathscr G \) sedemikian sehingga \( \nu(A) = \E(V; A) \) untuk \( A \in \mathscr G \). Dengan kata lain, \( V \) adalah <em>kerapatan</em> atau <em>turunan</em> \( \nu \) terhadap \( \P \) pada \( \mathscr G \).</li>
+<li>Hal ini mengikuti dari ketunggalan turunan Radon–Nikodym, hingga ekuivalensi.</li>
+</ol>
+</details>
+</div>
+<p>Karakterisasi berikut mungkin tampak lebih kuat, tetapi sesungguhnya ekuivalen dengan definisi tersebut.</p>
+<div class="unit" id="dfn2">
+<p class="math">Misalkan lagi bahwa \(X\) adalah peubah acak dengan \( \E(|X|) \lt \infty \). Maka \( \E(X \mid \mathscr G) \) dicirikan oleh sifat-sifat berikut:</p>
+<ol class="sub">
+<li>\( \E(X \mid \mathscr G) \) terukur terhadap \( \mathscr G \)</li>
+<li>Jika \( U \) terukur terhadap \( \mathscr G \) dan \( \E(|U X|) \lt \infty \), maka \( \E[U \E(X \mid \mathscr G)] = \E(U X) \).</li>
+</ol>
+<details>
+<summary>Detail:</summary>
+<p>Kita harus menunjukkan bahwa bagian (b) dalam definisi <a class="ref" href="#dfn1"></a> ekuivalen dengan bagian (b) di sini. Pertama, (b) di sini mengakibatkan (b) dalam definisi karena \( \bs{1}_A \) terukur-\( \mathscr G \) jika \( A \in \mathscr G \). Sebaliknya, misalkan (b) dalam definisi berlaku. Kita akan menunjukkan bahwa (b) di sini berlaku melalui <em>argumen bootstrap</em> klasik. Pertama, \( \E[U \E(X \mid \mathscr G)] = \E(U X) \) jika \( U = \bs{1}_A \) untuk suatu \( A \in \mathscr G \). Selanjutnya, misalkan \( U \) adalah peubah acak sederhana yang terukur-\( \mathscr G \). Artinya, \( U = \sum_{i \in I} a_i \bs{1}_{A_i} \), dengan \( I \) himpunan indeks hingga, \( a_i \ge 0 \) untuk \( i \in I \), dan \( A_i \in \mathscr G \) untuk \( i \in I \). Maka
+		\[ \E[U \E(X \mid \mathscr G)] = \E\left[\sum_{i \in I} a_i \bs{1}_{A_i} \E(X \mid \mathscr G)\right] = \sum_{i \in I} a_i \E[\bs{1}_{A_i} \E(X \mid \mathscr G)] = \sum_{i \in I} a_i \E(\bs{1}_{A_i} X) = \E\left(\sum_{i \in I} a_i \bs{1}_{A_i} X\right) = \E(U X)  \]
+		Selanjutnya, misalkan \( U \) taknegatif dan terukur-\( \mathscr G \). Maka ada barisan peubah acak sederhana terukur-\( \mathscr G \), \( (U_1, U_2, \ldots) \), dengan \( U_n \uparrow U \) ketika \( n \to \infty \). Menurut langkah sebelumnya, \( \E[U_n \E(X \mid \mathscr G)] = \E(U_n X) \) untuk setiap \( n \). Dengan mengambil \( n \to \infty \) dan menggunakan teorema konvergensi monoton, diperoleh \( \E[U \E(X \mid \mathscr G)] = \E(U X) \). Terakhir, misalkan \( U \) adalah peubah acak terukur-\( \mathscr G \) yang umum. Maka \( U = U^+ - U^- \), dengan \( U^+ \) dan \( U^- \) masing-masing bagian positif dan negatif yang lazim dari \( U \). Bagian-bagian ini taknegatif dan terukur-\( \mathscr G \), sehingga menurut langkah sebelumnya, \( \E[U^+ \E(X \mid \mathscr G)] = \E(U^+ X) \) dan \( \E[U^- \E(X \mid \mathscr G)] = \E(U^- X) \). Jadi
+		\[ \E[U \E(X \mid \mathscr G)] = \E[(U^+ - U^-) \E(X \mid \mathscr G)] = \E[U^+ \E(X \mid \mathscr G)] - \E[U^- \E(X \mid \mathscr G)] = \E(U^+ X) - \E(U^- X) = \E(U X) \]</p>
+</details>
+</div>
+<h4>Sifat-sifat</h4>
+<p>Pembahasan kita berikutnya menyangkut beberapa sifat mendasar nilai harapan bersyarat. Semua persamaan dan pertidaksamaan dipahami berlaku <em>modulo ekuivalensi</em>, yakni dengan probabilitas 1. Perhatikan pula bahwa banyak bukti bekerja dengan menunjukkan bahwa ruas kanan memenuhi sifat-sifat dalam definisi <a class="ref" href="#dfn1"></a> bagi nilai harapan bersyarat pada ruas kiri. Sekali lagi kita mengasumsikan bahwa \( \mathscr G \) adalah subaljabar-\( sigma \) dari \( \mathscr F \).</p>
+<p>Sifat pertama kita merupakan konsekuensi langsung definisi: \( X \) dan \( \E(X \mid \mathscr G) \) memiliki rataan yang sama.</p>
+<div class="unit" id="mea">
+<p class="math">Misalkan \(X\) adalah peubah acak dengan \( \E(|X|) \lt \infty \). Maka \( \E[\E(X \mid \mathscr G)] = \E(X) \).</p>
+<details>
+<summary>Detail:</summary>
+<p>Hal ini langsung mengikuti dengan mengambil \( A = \Omega \) dalam definisi <a class="ref" href="#dfn1"></a>.</p>
+</details>
+</div>
+<p>Teorema <a class="ref" href="#mea"></a> sering dapat digunakan untuk menghitung \( \E(X) \) dengan memilih aljabar-\( \sigma \) \( \mathscr G \) secara cerdik. Kita mengatakan bahwa kita menghitung \( \E(X) \) dengan <dfn>mengondisikan</dfn> pada \( \mathscr G \). Sifat-sifat berikutnya bersifat mendasar: setiap versi nilai harapan harus memenuhi sifat <dfn>linearitas</dfn>. Bagian pertama adalah <dfn>sifat aditif</dfn>, sedangkan bagian kedua adalah <dfn>sifat penskalaan</dfn>.</p>
+<div class="unit" id="lin">
+<p class="math">Misalkan \( X \) dan \( Y \) adalah peubah acak dengan \( \E(|X|) \lt \infty \) dan \( \E(|Y|) \lt \infty \), serta \( c \in \R\). Maka</p>
+<ol class="sub">
+<li>\( \E(X + Y \mid \mathscr G) = \E(X \mid \mathscr G) + \E(Y \mid \mathscr G) \)</li>
+<li>\( \E(c X \mid \mathscr G) = c \E(X \mid \mathscr G) \)</li>
+</ol>
+<details>
+<summary>Detail:</summary>
+<ol class="sub">
+<li>Perhatikan bahwa \( \E(|X + Y|) \le \E(|X|) + \E(|Y|) \lt \infty\), sehingga \( \E(X + Y \mid \mathscr G) \) terdefinisi. Kita menunjukkan bahwa \( \E(X \mid \mathscr G) + \E(Y \mid \mathscr G) \) memenuhi syarat-syarat dalam definisi <a class="ref" href="#dfn1"></a> bagi \( \E(X + Y \mid \mathscr G) \). Pertama, perhatikan bahwa \( \E(X \mid \mathscr G) + \E(Y \mid \mathscr G) \) terukur-\( \mathscr G \) karena kedua sukunya demikian. Jika \(A \in \mathscr G \), maka
+			\[ \E\{[\E(X \mid \mathscr G) + \E(Y \mid \mathscr G)]; A\} =  \E[\E(X \mid \mathscr G); A] + \E[\E(Y \mid \mathscr G); A] = \E(X; A) + \E(Y; A) = \E[X + Y; A] \]</li>
+<li>Perhatikan bahwa \( \E(|c X|) = |c| \E(|X|) \lt \infty \), sehingga \( \E(c X \mid \mathscr G) \) terdefinisi. Kita menunjukkan bahwa \( c \E(X \mid \mathscr G) \) memenuhi syarat-syarat dalam definisi <a class="ref" href="#dfn1"></a> bagi \( \E(c X \mid \mathscr G) \). Pertama, perhatikan bahwa \( c \E(X \mid \mathscr G) \) terukur-\( \mathscr G \) karena faktor keduanya demikian. Jika \(A \in \mathscr G \), maka
+			\[ \E[c \E(X \mid \mathscr G); A] = c \E[\E(X \mid \mathscr G); A] = c \E(X; A) = \E(c X; A) \]</li>
+</ol>
+</details>
+</div>
+<p>Rangkaian sifat berikutnya juga mendasar bagi setiap pengertian nilai harapan. Bagian pertama adalah <dfn>sifat positif</dfn>, sedangkan bagian kedua adalah <dfn>sifat monoton</dfn>.</p>
+<div class="unit" id="pos">
+<p class="math">Misalkan lagi bahwa \( X \) dan \( Y \) adalah peubah acak dengan \( \E(|X|) \lt \infty \) dan \( \E(|Y|) \lt \infty \). </p>
+<ol class="sub">
+<li>Jika \( X \ge 0 \), maka \( \E(X \mid \mathscr G) \ge 0 \)</li>
+<li>Jika \( X \le Y \), maka \( \E(X \mid \mathscr G) \le \E(Y \mid \mathscr G) \)</li>
+</ol>
+<details>
+<summary>Detail:</summary>
+<ol class="sub">
+<li>Ambil \( A = \{\E(X \mid \mathscr G) \lt 0\} \). Perhatikan bahwa \(A \in \mathscr G \), sehingga \( \E(X; A) = \E[\E(X \mid \mathscr G); A] \). Karena \( X \ge 0 \) dengan probabilitas 1, kita memperoleh \( E(X; A) \ge 0 \). Di sisi lain, jika \( \P(A) \gt 0 \), maka \( \E[\E(X \mid \mathscr G); A] \lt 0 \), suatu kontradiksi. Jadi, haruslah \( \P(A) = 0 \).</li>
+<li>Perhatikan bahwa jika \( X \le Y \), maka \( Y - X \ge 0 \). Oleh karena itu, menurut (a) dan sifat aditif, \( \E(Y - X \mid \mathscr G) = \E(Y \mid \mathscr G) - \E(X \mid \mathscr G) \ge 0 \), sehingga \( \E(Y \mid \mathscr G) \ge \E(X \mid \mathscr G) \).</li>
+</ol>
+</details>
+</div>
+<p>Beberapa sifat berikut berkaitan dengan gagasan utama bahwa \( \E(X \mid \mathscr G) \) merupakan nilai harapan \( X \) apabila diketahui informasi dalam aljabar-\( \sigma \) \( \mathscr G \).</p>
+<div class="unit" id="fac">
+<p class="math">Misalkan \( X \) dan \( V \) adalah peubah acak dengan \( \E(|X|) \lt \infty \) dan \( \E(|X V|) \lt \infty \), serta \( V \) terukur terhadap \( \mathscr G \). Maka \( \E(V X \mid \mathscr G) = V \E(X \mid \mathscr G) \).</p>
+<details>
+<summary>Detail:</summary>
+<p>Kita menunjukkan bahwa \( V \E(X \mid \mathscr G) \) memenuhi sifat-sifat dalam <a class="ref" href="#dfn2"></a> yang mencirikan \( \E(V X \mid \mathscr G) \). Pertama, \( V \E(X \mid \mathscr G) \) terukur-\( \mathscr G \) karena kedua faktornya demikian. Jika \( U \) terukur-\( \mathscr G \) dengan \( \E(|U V X|) \lt \infty \), maka \( U V \) juga terukur-\( \mathscr G \), sehingga
+		\[ \E[U V \E(X \mid \mathscr G)] = \E(U V X) = \E[U (V X)] \]</p>
+</details>
+</div>
+<p>Bandingkan hasil ini dengan sifat penskalaan <a class="ref" href="#lin"></a>. Jika \( V \) terukur terhadap \( \mathscr G \), maka \( V \) bertindak seperti konstanta dalam nilai harapan bersyarat apabila diketahui \( \mathscr G \). Di sisi lain, perhatikan bahwa hasil ini mengakibatkan sifat penskalaan <a class="ref" href="#lin"></a>, sebab konstanta dapat dipandang sebagai peubah acak dan, dengan demikian, terukur terhadap sembarang aljabar-\( \sigma \). Sebagai akibat hasil ini, perhatikan bahwa jika \( X \) sendiri terukur terhadap \( \mathscr G \), maka \( \E(X \mid \mathscr G) = X \). Hasil berikut memberikan kasus ekstrem lainnya.</p>
+<div class="unit" id="ind">
+<p class="math">Misalkan \( X \) adalah peubah acak dengan \( \E(|X|) \lt \infty \). Jika \( X \) dan \( \mathscr G \) saling bebas, maka \( \E(X \mid \mathscr G) = \E(X) \).</p>
+<details>
+<summary>Detail:</summary>
+<p>Kita menunjukkan bahwa \( \E(X) \) memenuhi sifat-sifat dalam definisi di <a class="ref" href="#dfn1"></a> bagi \( \E(X \mid \mathscr G) \). Pertama, tentu saja \( \E(X) \) terukur-\( \mathscr G \) sebagai peubah acak konstan. Jika \( A \in \mathscr G \), maka \( X \) dan \( \bs{1}_A \) saling bebas, sehingga
+		\[ \E(X; A) = \E(X) \P(A) = \E[\E(X); A] \]</p>
+</details>
+</div>
+<p>Setiap peubah acak \( X \) saling bebas dengan aljabar-\( \sigma \) trivial \( \{\emptyset, \Omega\} \), sehingga \( \E(X \mid \{\emptyset, \Omega\}) = \E(X) \).</p>
+<p>Sifat-sifat berikut merupakan <dfn>syarat konsistensi</dfn>, yang juga dikenal sebagai <dfn>sifat menara</dfn>. Ketika pengondisian dilakukan dua kali terhadap aljabar-\( \sigma \) yang bersarang, aljabar yang lebih kecil (yang mewakili jumlah informasi paling sedikit) selalu berlaku.</p>
+<div class="unit" id="tow">
+<p class="math">Misalkan \( X \) adalah peubah acak dengan \( \E(|X|) \lt \infty \) dan \( \mathscr H \) adalah subaljabar-\( \sigma \) dari \( \mathscr G \). Maka</p>
+<ol class="sub">
+<li>\( \E[\E(X \mid \mathscr H) \mid \mathscr G] = \E(X \mid \mathscr H) \)</li>
+<li>\( \E[\E(X \mid \mathscr G) \mid \mathscr H]  = \E(X \mid \mathscr H) \)</li>
+</ol>
+<details>
+<summary>Detail:</summary>
+<ol class="sub">
+<li>Perhatikan dahulu bahwa \( \E(X \mid \mathscr H) \) terukur-\( \mathscr H \), dan karenanya juga terukur-\( \mathscr G \). Jadi, menurut <a class="ref" href="#fac"></a>, \( \E[\E(X \mid \mathscr H) \mid \mathscr G] = \E(X \mid \mathscr H) \). </li>
+<li>Kita menunjukkan bahwa \( \E(X \mid \mathscr H) \) memenuhi syarat-syarat dalam definisi <a class="ref" href="#dfn1"></a> bagi \( \E[\E(X \mid \mathscr G) \mid \mathscr H]\). Perhatikan lagi bahwa \( \E(X \mid \mathscr H) \) terukur-\( \mathscr H \). Jika \(A \in \mathscr H \), maka \( A \in \mathscr G \), sehingga
+			\[ \E[\E(X \mid \mathscr G); A] = \E(X; A) = \E[\E(X \mid \mathscr H); A] \]
+			</li>
+</ol>
+</details>
+</div>
+<p>Hasil berikut memberikan <dfn>pertidaksamaan Jensen</dfn> untuk nilai harapan bersyarat, yang dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Jensen.html">Johan Jensen</a>.</p>
+<div class="unit" id="jen">
+<p class="math">Misalkan \( X \) mengambil nilai pada interval \( S \subseteq \R \) dan \( g: S \to \R \) konveks. Jika \( \E(|X|) \lt \infty \) dan \( \E(|g(X)| \lt \infty \), maka
+	\[ \E[g(X) \mid \mathscr G] \ge g[\E(X \mid \mathscr G)] \]</p>
+<details>
+<summary>Detail:</summary>
+<p>Seperti halnya <a href="https://www.randomservices.org/random/expect/Properties2.html#jen">pertidaksamaan Jensen</a> untuk nilai harapan biasa, bukti terbaik menggunakan karakterisasi fungsi konveks dalam istilah <dfn>garis pendukung</dfn>: Untuk setiap \( t \in S \), ada bilangan \( a \) dan \( b \) (yang bergantung pada \( t \)) sedemikian sehingga</p>
+<ul>
+<li>\( a + b t = g(t) \)</li>
+<li>\( a + b x \le g(x) \) untuk \( x \in S \)</li>
+</ul>
+<figure>
+<figcaption>Fungsi konveks dan beberapa garis pendukung</figcaption>
+<img alt="Fungsi konveks" src="ConvexFunction.png"/>
+</figure>
+<p>Peubah acak \( X \) dan \( \E(X \mid \mathscr G) \) mengambil nilai pada \( S \). Kita dapat membangun garis pendukung <em>acak</em> di \( \E(X \mid \mathscr G) \). Artinya, ada peubah acak \( A \) dan \( B \), yang terukur terhadap \( \mathscr G \), sedemikian sehingga</p>
+<ol class="sub">
+<li>\( A + B \E(X \mid \mathscr G) = g[\E(X \mid \mathscr G)] \)</li>
+<li>\( A + B X \le g(X) \)</li>
+</ol>
+<p>Kita mengambil nilai harapan bersyarat pada pertidaksamaan dalam (b), lalu menggunakan sifat-sifat nilai harapan bersyarat dan sifat (a):
+		\[ \E[g(X) \mid \mathscr G] \ge \E(A + B X \mid \mathscr G) = A + B \E(X \mid \mathscr G) = g[\E(X \mid \mathscr G] \]
+		Perhatikan bahwa langkah kedua menggunakan fakta bahwa \( A \) dan \( B \) terukur terhadap \( \mathscr G \).</p>
+</details>
+</div>
+<h4 id="prb">Probabilitas Bersyarat</h4>
+<p>Untuk pembahasan berikut, anggap seperti biasa bahwa \( \mathscr G \) adalah subaljabar-\( \sigma \) dari \( \mathscr F \). Probabilitas bersyarat suatu kejadian \(A\) apabila diketahui \( \mathscr G \) dapat didefinisikan sebagai kasus khusus nilai harapan bersyarat. Seperti biasa, misalkan \(\bs{1}_A\) menyatakan peubah acak indikator dari \(A\).</p>
+<div class="unit" id="prb0">
+<p class="dfm">Untuk \( A \in \mathscr F \), kita definisikan
+	\[ \P(A \mid \mathscr G) = \E(\bs 1_A \mid \mathscr G) \]</p>
+</div>
+<p>Dengan demikian, kita memperoleh karakterisasi probabilitas bersyarat berikut, yang merupakan kasus khusus definisi <a class="ref" href="#dfn1"></a> dan versi alternatif dalam <a class="ref" href="#dfn2"></a>:</p>
+<div class="unit" id="dfn3">
+<p class="math">Jika \( A \in \mathscr F \), maka \( \P(A \mid \mathscr G) \) dicirikan (hingga ekuivalensi) oleh sifat-sifat berikut</p>
+<ol class="sub">
+<li>\( \P(A \mid \mathscr G) \) terukur terhadap \( \mathscr G \).</li>
+<li>Jika \( B \in \mathscr G \), maka \( \E[\P(A \mid \mathscr G); B] = \P(A \cap B) \)</li>
+</ol>
+<details>
+<summary>Detail:</summary>
+<p>Untuk bagian (b), perhatikan bahwa
+		\[ \E[\bs{1}_B \P(A \mid \mathscr G)] = \E[\bs{1}_B \E(\bs{1}_A \mid 
+		\mathscr G)] = \E(\bs{1}_A \bs{1}_B) = \E(\bs{1}_{A \cap B}) = \P(A \cap B) \]</p>
+</details>
+</div>
+<div class="unit" id="prb1">
+<p class="math">Jika \( A \in \mathscr F \), maka \( \P(A \mid \mathscr G) \) dicirikan (hingga ekuivalensi) oleh sifat-sifat berikut</p>
+<ol class="sub">
+<li>\( \P(A \mid \mathscr G) \) terukur terhadap \( \mathscr G \).</li>
+<li>Jika \( U \) terukur terhadap \( \mathscr G \) dan \( \E(|U|) \lt \infty \), maka \( \E[U \P(A \mid \mathscr G)] = \E(U; A) \)</li>
+</ol>
+</div>
+<p>Sifat-sifat nilai harapan bersyarat di atas tentu saja mempunyai kasus-kasus khusus bagi probabilitas bersyarat. Secara khusus, kita dapat menghitung probabilitas suatu kejadian dengan <dfn>mengondisikan</dfn> pada aljabar-\( \sigma \):</p>
+<div class="unit" id="prb2">
+<p class="math">Jika \( A \in \mathscr F \), maka \(\P(A) = \E[\P(A \mid \mathscr G)]\).</p>
+<details>
+<summary>Detail:</summary>
+<p>Ini merupakan hasil langsung dari <a class="ref" href="#mea"></a> karena \( \E(\bs{1}_A) = \P(A) \).</p>
+</details>
+</div>
+<p>Sekali lagi, <a class="ref" href="#prb2"></a> sering menjadi cara yang baik untuk menghitung \(\P(A)\) ketika kita mengetahui probabilitas bersyarat \(A\) apabila diketahui \(\mathscr G\). Ini merupakan versi <dfn>hukum probabilitas total</dfn> yang sangat ringkas dan anggun, yang mula-mula diberikan untuk <a href="https://www.randomservices.org/random/prob/Conditional.html#bay">kejadian</a> dan kemudian untuk <a href="https://www.randomservices.org/random/dist/Discrete.html#bay">peubah acak diskret</a>. Teorema berikut memberikan versi bersyarat dari aksioma-aksioma probabilitas.</p>
+<div class="unit" id="prb3">
+<p class="math">Sifat-sifat berikut berlaku (seperti biasa, modulo ekuivalensi):</p>
+<ol class="sub">
+<li>\( \P(A \mid \mathscr G) \ge 0 \) untuk setiap \( A \in \mathscr F \)</li>
+<li>\( \P(\Omega \mid \mathscr G) = 1 \)</li>
+<li>Jika \( \{A_i: i \in I\} \) adalah himpunan bagian terhitung yang saling lepas dari \( \mathscr F \), maka \( \P(\bigcup_{i \in I} A_i \bigm| \mathscr G) = \sum_{i \in I} \P(A_i \mid \mathscr G) \)</li>
+</ol>
+<details>
+<summary>Detail:</summary>
+<ol class="sub">
+<li>Ini merupakan konsekuensi langsung dari <a class="ref" href="#pos"></a>.</li>
+<li>Ini langsung karena \( \bs{1}_\Omega = 1 \).</li>
+<li>Kita menunjukkan bahwa ruas kanan memenuhi syarat-syarat dalam <a class="ref" href="#dfn3"></a> yang mendefinisikan ruas kiri. Perhatikan bahwa \( \sum_{i \in I} \P(A_i \mid \mathscr G) \) terukur-\( \mathscr G \) karena setiap suku dalam jumlah tersebut memiliki sifat ini. Ambil \( B \in \mathscr G \). Maka
+			\[ \E\left[\sum_{i \in I} \P(A_i \mid \mathscr G); B\right] = \sum_{i \in I} \E[\P(A_i \mid \mathscr G); B] = \sum_{i \in I} \P(A_i \cap B) = \P\left(B \cap \bigcup_{i \in I} A_i\right) \]
+			</li>
+</ol>
+</details>
+</div>
+<p>Dari <a class="ref" href="#prb3"></a>, diperoleh bahwa <a href="https://www.randomservices.org/random/prob/Probability.html">aturan probabilitas</a> baku lainnya berlaku bagi probabilitas bersyarat apabila diketahui \( \mathscr G \) (seperti biasa, modulo ekuivalensi). Hasil-hasil ini meliputi</p>
+<ul>
+<li>aturan komplemen</li>
+<li>sifat monoton</li>
+<li>pertidaksamaan Boole</li>
+<li>pertidaksamaan Bonferroni</li>
+<li>hukum inklusi–eksklusi</li>
+</ul>
+<p>Namun, tidak tepat untuk menyatakan bahwa \( A \mapsto \P(A \mid \mathscr G) \) adalah ukuran probabilitas, karena probabilitas bersyarat hanya didefinisikan hingga ekuivalensi, sehingga pemetaan tersebut tidak bermakna. Kita harus menentukan suatu <em>versi</em> tertentu dari \( \E(A \mid \mathscr G) \) untuk setiap \( A \in \mathscr F \) agar pemetaan itu bermakna. Bahkan jika hal ini dilakukan, pemetaan tersebut mungkin tidak mendefinisikan ukuran probabilitas. Dalam bagian (c), ruas kiri dan kanan merupakan peubah acak dan persamaan tersebut adalah kejadian yang berprobabilitas 1. Akan tetapi, kejadian ini bergantung pada kumpulan \( \{A_i: i \in I\} \). Secara umum, akan ada tak terhitung banyaknya kumpulan seperti itu dalam \( \mathscr F \), dan irisan semua kejadian yang bersesuaian mungkin saja berprobabilitas kurang dari 1 (jika irisan itu terukur). Ternyata, jika ruang probabilitas yang mendasari \( (\Omega, \mathscr F, \P) \) cukup <q>baik</q> (dan kebanyakan ruang probabilitas yang muncul dalam penerapan memang baik), maka benar-benar ada <dfn>probabilitas bersyarat reguler</dfn>. Artinya, untuk setiap \( A \in \mathscr F \), ada peubah acak \( \P(A \mid \mathscr G) \) yang memenuhi syarat-syarat dalam <a class="ref" href="#dfn3"></a> sedemikian sehingga, dengan probabilitas 1, \( A \mapsto \P(A \mid \mathscr G) \) merupakan ukuran probabilitas.</p>
+<p>Teorema berikut memberikan suatu versi <dfn>teorema Bayes</dfn>, yang dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Bayes.html">Thomas Bayes</a> yang tiada bandingnya.</p>
+<div class="unit" id="bay">
+<p class="math">Misalkan \( A \in \mathscr G \) dan \( B \in \mathscr F \). Maka
+	\[ \P(A \mid B) = \frac{\E[\P(B \mid \mathscr G); A]}{\E[\P(B \mid \mathscr G)]} \]</p>
+<details>
+<summary>Detail:</summary>
+<p>Buktinya sungguh langsung. Menurut definisi probabilitas bersyarat apabila diketahui \( \mathscr G \), pembilangnya adalah \( \P(A \cap B) \) dan penyebutnya adalah \( P(B) \). Meskipun demikian, teorema Bayes berguna ketika nilai-nilai harapan pada pembilang dan penyebut dapat dihitung secara langsung</p>
+</details>
+</div>
+<h4>Contoh Dasar</h4>
+<p>Tujuan pembahasan ini ialah menghubungkan gagasan umum tentang nilai harapan bersyarat yang sedang kita pelajari dengan konsep-konsep lebih elementer yang telah Anda jumpai. Misalkan \( A \) adalah kejadian (yakni anggota \( \mathscr F \)) dengan \( \P(A) \gt 0 \). Jika \( B \) adalah kejadian lain, maka <a href="https://www.randomservices.org/random/prob/Conditional.html">probabilitas bersyarat</a> \( B \) apabila diketahui \( A \) adalah 
+\[ \P(B \mid A) = \frac{\P(A \cap B)}{\P(A)} \]
+Jika \( X \) adalah peubah acak, maka distribusi bersyarat \( X \) apabila diketahui \( A \) adalah ukuran probabilitas pada \( \R \) yang diberikan oleh
+\[ R \mapsto \P(X \in R \mid A) = \frac{\P(\{X \in R\} \cap A)}{\P(A)} \text{ for measurable } R \subseteq \R \]
+Jika \( \E(|X|) \lt \infty \), maka <dfn>nilai harapan bersyarat</dfn> \( X \) apabila diketahui \( A \), yang dinyatakan dengan \( \E(X \mid A) \), hanyalah rataan distribusi bersyarat ini.</p>
+<p>Sekarang, misalkan \( \mathscr{A} = \{A_i: i \in I\} \) adalah partisi terhitung dari ruang sampel \( \Omega \) menjadi kejadian-kejadian berprobabilitas positif. Untuk mengingat kembali istilahnya, \( \mathscr A \subseteq \mathscr F \); himpunan indeks \( I \) terhitung; \( A_i \cap A_j = \emptyset \) untuk \( i, \, j \in I \) yang berbeda; \( \bigcup_{i \in I} A_i = \Omega \); dan \( \P(A_i) \gt 0 \) untuk \( i \in I \). Misalkan \( \mathscr G = \sigma(\mathscr{A}) \), yakni aljabar-\( \sigma \) yang dibangkitkan oleh \( \mathscr{A} \). Unsur-unsur \( \mathscr G \) berbentuk \( \bigcup_{j \in J} A_j \) untuk \( J \subseteq I \). Selain itu, peubah acak yang terukur terhadap \( \mathscr G \) tepat merupakan peubah yang konstan pada \( A_i \) untuk setiap \( i \in I \). Aljabar-\( \sigma \) \( \mathscr G \) dikatakan <dfn>dibangkitkan secara terhitung</dfn>.</p>
+<div class="unit" id="ex1">
+<p class="math">Jika \( B \in \mathscr F \), maka \( \P(B \mid \mathscr G) \) adalah peubah acak yang nilainya pada \( A_i \) adalah \( \P(B \mid A_i) \) untuk setiap \(i \in I \).</p>
+<details>
+<summary>Detail:</summary>
+<p>Misalkan \( U \) menyatakan peubah acak yang mengambil nilai \( \P(B \mid A_i) \) pada \( A_i \) untuk setiap \( i \in I \). Pertama, \( U \) terukur terhadap \( \scr G \) karena \( U \) konstan pada \( A_i \) untuk setiap \( i \in I \). Jadi, kita hanya perlu menunjukkan bahwa \( E(U ; A) = \P(A \cap B) \) untuk setiap \( A \in \mathscr G \). Karena itu, ambil \( A = \bigcup_{j \in J} A_j \) dengan \( J \subseteq I \). Maka 
+		\[ \E(U; A) = \sum_{j \in J} \E(U ; A_j) = \sum_{j \in J} \P(B \mid A_j) \P(A_j) = \P(A \cap B)\]</p>
+</details>
+</div>
+<p>Dalam keadaan ini, versi teorema Bayes <a class="ref" href="#bay"></a> mereduksi menjadi rumusan elementer yang lazim: Untuk \( i \in I \), \( \E[\P(B \mid \mathscr G); A_i] = \P(A_i) \P(B \mid A_i) \) dan \( \E[\P(B \mid \mathscr G)] = \sum_{j \in I} \P(A_j) \P(B \mid A_j) \). Jadi,
+\[ \P(A_i \mid B) = \frac{\P(A_i) \P(B \mid A_i)}{\sum_{j \in I} \P(A_j) \P(B \mid A_j)} \]
+</p>
+<div class="unit" id="ex2">
+<p class="math">Jika \( X \) adalah peubah acak dengan \( \E(|X|) \lt \infty \), maka \( \E(X \mid \mathscr G) \) adalah peubah acak yang nilainya pada \( A_i \) adalah \( \E(X \mid A_i) \) untuk setiap \( i \in I \).</p>
+<details>
+<summary>Detail:</summary>
+<p>Misalkan \( U \) menyatakan peubah acak yang mengambil nilai \( \E(X \mid A_i) \) pada \( A_i \) untuk setiap \( i \in I \). Pertama, \( U \) terukur terhadap \( \scr G \) karena \( U \) konstan pada \( A_i \) untuk setiap \( i \in I \). Jadi, kita hanya perlu menunjukkan bahwa \( E(U; A) = \E(X; A) \) untuk setiap \( A \in \mathscr G \). Karena itu, ambil \( A = \bigcup_{j \in J} A_j \) dengan \( J \subseteq I \). Maka 
+		\[ \E(U; A) = \sum_{j \in J} \E(U; A_j) = \sum_{j \in J} \E(X \mid A_j) \P(A_j) = E(X; A) \]</p>
+</details>
+</div>
+<p>Contoh <a class="ref" href="#ex1"></a> dan contoh <a class="ref" href="#ex2"></a> berlaku untuk \( \mathscr G = \sigma(Y) \) jika \( Y \) adalah peubah acak diskret dengan nilai dalam suatu himpunan terhitung \( T \). Dalam hal ini, partisinya hanyalah \( \mathscr{A} = \{ \{Y = y\}: y \in T\} \). Di sisi lain, misalkan \( Y \) adalah peubah acak yang mengambil nilai pada suatu himpunan umum \( T \) dengan aljabar-\( \sigma \) \( \mathscr{T} \). Peubah acak bernilai real yang terukur terhadap \( \mathscr G = \sigma(Y) \) adalah (hingga ekuivalensi) fungsi bernilai real dan terukur dari \( Y \).</p>
+<p>Secara lebih khusus, misalkan \( X \) mengambil nilai dalam \( S \subseteq \R \), \( Y \) mengambil nilai dalam \( T \subseteq \R^n \) (dengan \( S \) dan \( T \) terukur Lebesgue), serta \( (X, Y) \) mempunyai distribusi kontinu bersama dengan fungsi kerapatan probabilitas \( f \). Maka \( Y \) mempunyai fungsi kerapatan probabilitas \( h \) yang diberikan oleh 
+\[ h(y) = \int_S f(x, y) \, dx, \quad y \in T \]
+Anggap bahwa \( h(y) \gt 0 \) untuk \( y \in T \). Maka, untuk \( y \in T  \), suatu fungsi kerapatan probabilitas bersyarat dari \( X \) apabila diketahui \( Y = y \) didefinisikan oleh
+\[ g(x \mid y) =\frac{f(x, y)}{h(y)}, \quad x \in S \]
+Inilah tepatnya keadaan dalam pembahasan elementer kita tentang <a href="https://www.randomservices.org/random/expect/Conditional.html">nilai harapan bersyarat</a>. Jika \( \E(|X|) \lt \infty \), kita biasanya menulis \( \E(X \mid Y) \) alih-alih bentuk yang lebih panjang \( \E[X \mid \sigma(Y)] \).</p>
+<div class="unit">
+<p class="math">Dalam keadaan di atas, misalkan \( \E(|X|) \lt \infty \). Maka
+	\[ \E(X \mid Y) = \int_S x g(x \mid Y) \, dx \]</p>
+<details>
+<summary>Detail:</summary>
+<p>Sekali lagi, kita menunjukkan bahwa integral pada ruas kanan memenuhi sifat-sifat dalam definisi di <a class="ref" href="#dfn1"></a> bagi \( \E(X \mid Y) = \E[X \mid \sigma(Y)] \). Pertama, \( y \mapsto \int_S x g(x \mid y) \, dx \) terukur sebagai fungsi dari \( T \) ke \( \R \); oleh karena itu, peubah acak \( \int_x g(x \mid Y) \, dx \) merupakan fungsi terukur dari \( Y \), sehingga terukur terhadap \( \sigma (Y) \). Selanjutnya, misalkan \( B \in \sigma(Y) \). Maka \( B = \{Y \in A\} \) untuk suatu \( A \in \mathscr F \). Jadi,
+		\begin{align*}
+			\E\left[\int_S x g(x \mid Y) \, dx; B\right] &amp; = \E\left[\int_S x g(x \mid Y) \, dx; Y \in A\right] \\
+			&amp; = \E\left[\int_S x \frac{f(x, y)}{h(y)} \, dx; Y \in A\right] = \int_A \int_S x \frac{f(x, y)}{h(y)} h(y) \, dx \, dy \\
+			&amp; = \int_{S \times A} x f(x, y) \, d(x, y) = \E(X; Y \in A) = \E(X; B) 
+		\end{align*}</p>
+</details>
+</div>
+<h4 id="bpr">Prediktor Terbaik</h4>
+<p>Dalam pembahasan elementer tentang <a href="https://www.randomservices.org/random/expect/Conditional.html">nilai harapan bersyarat</a>, kita menunjukkan bahwa nilai harapan bersyarat peubah acak bernilai real \( X \) apabila diketahui peubah acak umum \( Y \) adalah prediktor terbaik bagi \( X \), dalam arti kuadrat terkecil, di antara semua fungsi bernilai real dari \( Y \). Pernyataan yang lebih cermat ialah bahwa \( \E(X \mid Y) \) merupakan prediktor terbaik bagi \( X \) di antara semua peubah acak bernilai real yang <em>terukur</em> terhadap \( \sigma(Y) \). Dengan demikian, tidak mengherankan bahwa jika \( \mathscr G \) adalah subaljabar-\( \sigma \) dari \( \mathscr F \), maka \( \E(X \mid \mathscr G) \) merupakan prediktor terbaik bagi \( X \), dalam arti kuadrat terkecil, di antara semua peubah acak bernilai real yang terukur terhadap \( \mathscr G) \). Kita akan menunjukkan bahwa hal ini memang benar dalam subbagian ini. Bukti-buktinya sangat mirip dengan yang diberikan dalam bagian elementer. Sepanjang pembahasan ini, kita mengasumsikan bahwa \( \mathscr G \) adalah subaljabar-\( \sigma \) dari \( \mathscr F \) dan semua peubah acak yang disebutkan bernilai real.</p>
+<div class="unit" id="cor">
+<p class="math">Misalkan \( X \) dan \( U \) adalah peubah acak dengan \( \E(|X|) \lt \infty \) dan \( \E(|X U|) \lt \infty \), serta \( U \) terukur terhadap \( \mathscr G \). Maka \( X - \E(X \mid \mathscr G) \) dan \( U \) tak berkorelasi.</p>
+<details>
+<summary>Detail:</summary>
+<p>Perhatikan bahwa \( X - \E(X \mid \mathscr G) \) memiliki rataan 0 menurut sifat rataan dalam <a class="ref" href="#mea"></a>. Dengan menggunakan sifat-sifat yang mencirikan \( \E(X \mid \mathscr G) \) dalam <a class="ref" href="#dfn2"></a>, kita memperoleh
+		\[ \cov[X - \E(X \mid \mathscr G), U] = \E(U [X - \E(X \mid \mathscr G)]) = \E(U X) - \E[U \E(X \mid \mathscr G] = \E(U X) - \E(U X) = 0 \]</p>
+</details>
+</div>
+<p>Hasil berikut merupakan hasil utama: \( \E(X \mid \mathscr G) \) lebih dekat ke \( X \) dalam arti kuadrat rata-rata daripada peubah acak lain mana pun yang terukur terhadap \( \mathscr G \). Jadi, jika \( \mathscr G \) mewakili informasi yang kita miliki, maka \( \E(X \mid \mathscr G) \) adalah estimasi terbaik yang dapat kita buat bagi \( X \).</p>
+<div class="unit">
+<p class="math">Misalkan \( X \) dan \( U \) adalah peubah acak dengan \( \E(X^2) \lt \infty \) dan \( \E(U^2) \lt \infty\), serta \( U \) terukur terhadap \( \mathscr G \). Maka</p>
+<ol class="sub">
+<li>\( \E([X - \E(X \mid \mathscr G)]^2) \le \E[(X - U)^2] \).</li>
+<li>Kesamaan berlaku jika dan hanya jika \(\P[U = \E(X \mid \mathscr G)] = 1 \), sehingga \( U \) dan \( \E(X \mid \mathscr G) \) ekuivalen.
+	</li></ol>
+<details>
+<summary>Detail:</summary>
+<ol class="sub">
+<li>Perhatikan bahwa
+			\begin{align} 
+				\E[(X - U)^2] &amp; = \E([X - \E(X \mid \mathscr G) + \E(X \mid \mathscr G) - U]^2) \\ 
+				&amp; = \E([X - \E(X \mid \mathscr G)]^2) + 2 \E([X - \E(X \mid \mathscr G)][\E(X \mid \mathscr G) - U]) + \E([\E(X \mid \mathscr G) - U]^2 ) 
+			\end{align}
+			Menurut <a class="ref" href="#mea"></a>, \( X - \E(X \mid \mathscr G) \) memiliki rataan 0, sehingga suku tengah dalam persamaan yang ditampilkan adalah \( 2 \cov[X - \E(X \mid \mathscr G), \E(X \mid \mathscr G) - U] \). Namun, \( \E(X \mid \mathscr G) - U \) terukur-\( \mathscr G \), sehingga kovarians ini bernilai 0 menurut <a class="ref" href="#cor"></a>. Oleh karena itu,
+			\[ \E[(X - U)^2] = \E([X - \E(X \mid \mathscr G)]^2) + \E([\E(X \mid \mathscr G) - U]^2 ) \ge \E([X - \E(X \mid \mathscr G)]^2) \]</li>
+<li>Kesamaan berlaku jika dan hanya jika \( \E([\E(X \mid \mathscr G) - U]^2 ) = 0 \), jika dan hanya jika \(\P[U = \E(X \mid \mathscr G)] = 1 \)</li>
+</ol>
+</details>
+</div>
+<h4 id="var">Varians Bersyarat</h4>
+<p>Sekali lagi, kita mengasumsikan bahwa \( \mathscr G \) adalah subaljabar-\( \sigma \) dari \( \mathscr F \) dan semua peubah acak yang disebutkan bernilai real, kecuali dinyatakan lain. Wajar untuk mendefinisikan varians bersyarat suatu peubah acak apabila diketahui \( \mathscr G \) dengan cara yang sama seperti <a href="https://www.randomservices.org/random/expect/Variance.html">varians</a> biasa, tetapi dengan semua nilai harapan dikondisikan pada \( \mathscr G \).</p>
+<div class="unit" id="var1">
+<p class="dfn">Misalkan \( X \) adalah peubah acak dengan \( \E(X^2) \lt \infty \). <dfn>Varians bersyarat</dfn> \( X \) apabila diketahui \(\mathscr G\) adalah
+	\[ \var(X \mid \mathscr G) = \E\left([X - \E(X \mid \mathscr G)]^2 \biggm| \mathscr G\right) \]</p>
+</div>
+<p>Seperti semua nilai harapan bersyarat relatif terhadap \( \mathscr G \), \( \var(X \mid \mathscr G) \) adalah peubah acak yang terukur terhadap \( \mathscr G \) dan tunggal hingga ekuivalensi. Sifat pertama serupa dengan rumus komputasi bagi varians biasa.</p>
+<div class="unit" id="var2">
+<p class="math">Misalkan lagi bahwa \( X \) adalah peubah acak dengan \( \E(X^2) \lt \infty \). Maka 
+	\[\var(X \mid \mathscr G) = \E(X^2 \mid \mathscr G) - [\E(X \mid \mathscr G)]^2\]</p>
+<details>
+<summary>Detail:</summary>
+<p>Dengan mengembangkan kuadrat dalam definisi dan menggunakan sifat-sifat dasar nilai harapan bersyarat, kita memperoleh</p>
+		\begin{align}
+			\var(X \mid \mathscr G) &amp; = \E(X^2 - 2 X \E(X \mid \mathscr G) + [\E(X \mid \mathscr G)]^2 \biggm| \mathscr G ) = \E(X^2 \mid \mathscr G) - 2 \E[X \E(X \mid \mathscr G) \mid \mathscr G] + \E([\E(X \mid \mathscr G)]^2 \mid \mathscr G) \\
+			&amp; = \E(X^2 \mid \mathscr G) - 2 \E(X \mid \mathscr G) \E(X \mid \mathscr G) + [\E(X \mid \mathscr G)]^2 = \E(X^2 \mid \mathscr G) - [\E(X \mid \mathscr G)]^2
+		\end{align}
+	</details>
+</div>
+<p>Berikutnya adalah rumus bagi varians biasa dalam nilai varians bersyarat dan nilai harapan.</p>
+<div class="unit" id="var3">
+<p class="math">Misalkan lagi bahwa \( X \) adalah peubah acak dengan \( \E(X^2) \lt \infty \). Maka 
+	\[\var(X) = \E[\var(X \mid \mathscr G)] + \var[\E(X \mid \mathscr G)]\]</p>
+<details>
+<summary>Detail:</summary>
+<p>Dari <a class="ref" href="#var2"></a> dan sifat-sifat nilai harapan bersyarat, diperoleh \( \E[\var(X \mid \mathscr G)] = \E(X^2) - \E([\E(X \mid \mathscr G)]^2) \). Namun, \( \E(X^2) = \var(X) + [\E(X)]^2 \), dan demikian pula \(\E([\E(X \mid \mathscr G)]^2) = \var[\E(X \mid \mathscr G)] + (\E[\E(X \mid \mathscr G)])^2 \). Selain itu, \( \E[\E(X \mid \mathscr G)] = \E(X) \), sehingga dengan menyubstitusikannya kita memperoleh \( \E[\var(X \mid \mathscr G)] = \var(X) - \var[\E(X \mid \mathscr G)] \).</p>
+</details>
+</div>
+<p>Jadi, varians \( X \) adalah nilai harapan varians bersyarat ditambah varians nilai harapan bersyarat. Hasil ini sering menjadi cara yang baik untuk menghitung \(\var(X)\) ketika kita mengetahui distribusi bersyarat \(X\) apabila diketahui \(\mathscr G\). Selanjutnya, sifat ini menghasilkan rumus bagi galat kuadrat rata-rata ketika \( \E(X \mid \mathscr G) \) dipandang sebagai prediktor \( X \).</p>
+<div class="unit" id="var4">
+<p class="math">Misalkan lagi bahwa \( X \) adalah peubah acak dengan \( \E(X^2) \lt \infty \). 
+	\[  \E([X - \E(X \mid \mathscr G)]^2) = \var(X) - \var[\E(X \mid \mathscr G)] \]</p>
+<details>
+<summary>Detail:</summary>
+<p>Dari definisi <a class="ref" href="#var1"></a>, serta dari <a class="ref" href="#mea"></a> dan <a class="ref" href="#var3"></a>,
+		\[  \E([X - \E(X \mid \mathscr G)]^2) = \E[\var(X \mid \mathscr G)] = \var(X) - \var[\E(X \mid \mathscr G)] \]</p>
+</details>
+</div>
+<p>Mari kembali ke kajian tentang prediktor peubah acak bernilai real \(X\), dan membandingkannya dalam hal galat kuadrat rata-rata.</p>
+<div class="unit" id="var5">
+<p class="math">Misalkan lagi bahwa \( X \) adalah peubah acak dengan \( \E(X^2) \lt \infty \).</p>
+<ol class="sub">
+<li>Prediktor konstan terbaik bagi \(X\) adalah \(\E(X)\), dengan galat kuadrat rata-rata \(\var(X)\).</li>
+<li>Jika \(Y\) adalah peubah acak lain dengan \( \E(Y^2) \lt \infty \), maka prediktor terbaik bagi \(X\) di antara fungsi linear dari \(Y\) adalah 
+		\[ L(X \mid Y) = \E(X) + \frac{\cov(X,Y)}{\var(Y)}[Y - \E(Y)] \]
+		dengan galat kuadrat rata-rata \( \var(X)[1 - \cor^2(X,Y)]\).</li>
+<li>Jika \(Y\) adalah peubah acak (umum), maka prediktor terbaik bagi \(X\) di antara semua fungsi bernilai real dari \(Y\) yang bervarians hingga adalah \(\E(X \mid Y)\), dengan galat kuadrat rata-rata \( \var(X) - \var[\E(X \mid Y)]\).</li>
+<li>Jika \(\mathscr G\) adalah subaljabar-\( \sigma \) dari \( \mathscr F \), maka prediktor terbaik bagi \(X\) di antara peubah acak bervarians hingga yang terukur terhadap \(\mathscr G\) adalah \(\E(X \mid \mathscr G)\), dengan galat kuadrat rata-rata \(\var(X) - \var[\E(X \mid \mathscr G)]\).</li>
+</ol>
+</div>
+<p>Tentu saja, (a) adalah kasus khusus (d) dengan \( \mathscr G = \{\emptyset, \Omega\} \), dan (c) adalah kasus khusus (d) dengan \( \mathscr G = \sigma(Y) \). Hanya (b), yakni kasus linear, yang tidak dapat ditafsirkan sebagai pengondisian terhadap suatu aljabar-\( \sigma \).</p>
+<h4 id="cov">Kovarians Bersyarat</h4>
+<p>Misalkan lagi bahwa \( \mathscr G \) adalah subaljabar-\( \sigma \) dari \( \mathscr F \). Kovarians bersyarat dua peubah acak didefinisikan seperti <a href="https://www.randomservices.org/random/expect/Covariance.html">kovarians</a> biasa, tetapi dengan semua nilai harapan dikondisikan pada \( \mathscr G \).</p>
+<div class="unit" id="cov1">
+<p class="dfn">Misalkan \( X \) dan \( Y \) adalah peubah acak dengan \( \E(X^2) \lt \infty \) dan \( \E(Y^2) \lt \infty \). <dfn>Kovarians bersyarat</dfn> \(X\) dan \( Y \) apabila diketahui \(\mathscr G\) didefinisikan sebagai
+	\[ \cov(X, Y \mid \mathscr G) = \E\left([X - \E(X \mid \mathscr G)] [Y - \E(Y \mid \mathscr G)] \biggm| \mathscr G \right) \]</p>
+</div>
+<p>Jadi, \( \cov(X, Y \mid \mathscr G) \) adalah peubah acak yang terukur terhadap \( \mathscr G \) dan tunggal hingga ekuivalensi. Sebagaimana mestinya, kovarians bersyarat menggeneralisasi varians bersyarat.</p>
+<div class="unit" id="cov2">
+<p class="math">Misalkan \( X \) adalah peubah acak dengan \( \E(X^2) \lt \infty \). Maka \( \cov(X, X \mid \mathscr G) = \var(X \mid \mathscr G) \).</p>
+<details>
+<summary>Detail:</summary>
+<p>Hal ini langsung mengikuti dari definisi <a class="ref" href="#var1"></a> dan definisi <a class="ref" href="#cov1"></a></p>
+</details>
+</div>
+<p>Hasil berikutnya adalah rumus komputasi yang serupa dengan rumus bagi kovarians baku—kovarians adalah rataan hasil kali dikurangi hasil kali rataan, tetapi kini semua nilai harapan dikondisikan pada \( \mathscr G \):</p>
+<div class="unit">
+<p class="math">Misalkan lagi bahwa \( X \) dan \( Y \) adalah peubah acak dengan \( \E(X^2) \lt \infty \) dan \( \E(Y^2) \lt \infty \). Maka 
+	\[\cov(X, Y \mid \mathscr G) = \E(X Y \mid \mathscr G) - \E(X \mid \mathscr G) E(Y \mid \mathscr G)\]</p>
+<details>
+<summary>Detail:</summary>
+<p>Dengan mengembangkan hasil kali dalam definisi dan menggunakan sifat-sifat dasar nilai harapan bersyarat, kita memperoleh</p>
+		\begin{align}
+			\cov(X, Y \mid \mathscr G) &amp; = \E\left(X Y - X \E(Y \mid \mathscr G) - Y E(X \mid \mathscr G) + \E(X \mid \mathscr G) E(Y \mid \mathscr G) \biggm| \mathscr G \right) = \E(X Y \mid \mathscr G) - \E\left[X \E(Y \mid \mathscr G) \mid \mathscr G\right] - \E\left[Y \E(X \mid \mathscr G) \mid \mathscr G\right] + \E\left[\E(X \mid \mathscr G) \E(Y \mid \mathscr G) \mid \mathscr G\right] \\
+			&amp; = \E\left(X Y \mid \mathscr G\right) - \E(X \mid \mathscr G) \E(Y \mid \mathscr G) - \E(X \mid \mathscr G) \E(Y \mid \mathscr G) + \E(X \mid \mathscr G) \E(Y \mid \mathscr G) = \E\left(X Y \mid \mathscr G\right) - \E(X \mid \mathscr G) E(Y \mid \mathscr G)
+		\end{align}
+	</details>
+</div>
+<p>Hasil berikut menunjukkan cara menghitung kovarians biasa \( X \) dan \( Y \) dengan <dfn>mengondisikan pada \( X \)</dfn>.</p>
+<div class="unit">
+<p class="math">Misalkan lagi bahwa \( X \) dan \( Y \) adalah peubah acak dengan \( \E(X^2) \lt \infty) \) dan \( \E(Y^2 \lt \infty) \). Maka 
+	\[\cov(X, Y) = \E\left[\cov(X, Y \mid \mathscr G)\right] + \cov\left[\E(X \mid \mathscr G), \E(Y \mid \mathscr G) \right]\]</p>
+<details>
+<summary>Detail:</summary>
+<p>Dari (29) dan sifat-sifat nilai harapan bersyarat, kita memperoleh 
+		\[ \E\left[\cov(X, Y \mid \mathscr G)\right] = \E(X Y) - \E\left[\E(X\mid \mathscr G) \E(Y \mid \mathscr G) \right] \]
+		Namun, \( \E(X Y) = \cov(X, Y) + \E(X) \E(Y)\), dan demikian pula, 
+		\[\E\left[\E(X \mid \mathscr G) \E(Y \mid \mathscr G)\right] = \cov[\E(X \mid \mathscr G), \E(Y \mid \mathscr G) + \E[\E(X\mid \mathscr G)] \E[\E(Y \mid \mathscr G)]\]
+		Selain itu, \( \E\left[\E(X \mid \mathscr G)\right] = \E(X) \) dan \( \E[\E(Y \mid \mathscr G)] = \E(Y) \), sehingga dengan menyubstitusikannya kita memperoleh
+		\[ \E\left[\cov(X, Y \mid \mathscr G)\right] = \cov(X, Y) - \cov\left[\E(X \mid \mathscr G), \E(Y \mid \mathscr G)\right] \]</p>
+</details>
+</div>
+<p>Jadi, kovarians \( X \) dan \( Y \) adalah nilai harapan kovarians bersyarat ditambah kovarians nilai-nilai harapan bersyarat. Hasil ini sering menjadi cara yang baik untuk menghitung \(\cov(X, Y)\) ketika kita mengetahui distribusi bersyarat \((X, Y)\) apabila diketahui \(\mathscr G\).</p>
+<footer>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="https://www.randomservices.org/random/expect/index.html">3. Nilai Harapan</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Properties.html" title="Definisi dan Sifat Dasar">1</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Properties2.html" title="Sifat Tambahan">2</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Variance.html" title="Varians">3</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Skew.html" title="Kemencengan dan Kurtosis">4</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Covariance.html" title="Kovarians dan Korelasi">5</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Generating.html" title="Fungsi Pembangkit">6</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Conditional.html" title="Nilai Harapan Bersyarat">7</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Matrices.html" title="Matriks Nilai Harapan dan Kovarians">8</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Integral.html" title="Nilai Harapan sebagai Integral">9</a></li>
+<li class="current">10</li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Spaces.html" title="Ruang Vektor Peubah Acak">11</a></li>
+<li class="child"><a href="Uniform.html" title="Peubah Terintegralkan Seragam">12</a></li>
+<li class="child"><a href="https://www.randomservices.org/random/expect/Kernels.html" title="Kernel dan Operator">13</a></li>
+<li class="details"><button onclick="expandDetails(true);" title="Buka Detail" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button onclick="expandDetails(false);" title="Tutup Detail" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+</ol>
+<ul class="map">
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/data/index.html">Himpunan Data</a></li>
+<li class="child"><a class="ancillary" href="https://www.randomservices.org/random/biographies/index.html">Biografi</a></li>
+</ul>
+</footer>
+<script>getReferences();</script>
+</body>
+</html>

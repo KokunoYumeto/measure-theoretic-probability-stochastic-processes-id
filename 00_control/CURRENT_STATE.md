@@ -60,19 +60,42 @@ and the reader is
 Pages run `32505068598` deployed source commit `f07ffbee0fa8309a9e39ae602a6fe1bfda9da2d8`;
 all 22 manifested files matched anonymously. See `PUBLICATION_RECEIPT.json`.
 
-### Next translated source unit
+### Second reader boundary (release-ready locally)
 
-`source/theory/prob/Probability2.html` is fully translated but intentionally
-not yet included in the first reader/backend boundary: 51,686 bytes, SHA-256
-`4cd3a1eb9edca1c3dc81eba39b97c018b339136241d8a668063e3bf62c1a4c32`;
-841/841 topology events, 697/697 TeX spans, 16 details panels, and 5 images
-match authority.
+The reader now contains seven structurally verified theory units plus the
+executed Monte Carlo lab:
+
+- `prob/Convergence.html`: 40,997 bytes / SHA-256 `185888375673550452d1d2428cd0b4203fecd31f0f338fc6c703849642a7809a`.
+- `prob/Probability2.html`: 51,686 bytes / SHA-256 `4cd3a1eb9edca1c3dc81eba39b97c018b339136241d8a668063e3bf62c1a4c32`.
+- `prob/Processes.html`: 34,337 bytes / SHA-256 `8f31864d8cd4e4a5e9a5dba1181fb2ceac86817bc2eda49a7bd50a6b96385074`.
+- `prob/Stop.html`: 62,596 bytes / SHA-256 `0fe72b687b42af41a6756545f25a5582d6d9f4aba4f0c88bbd3f30b79624366e`.
+- `dist/Convergence.html`: 65,986 bytes / SHA-256 `948e294db3cfe1daefbd5bfd1e50f9d7a8b942dadfc0cefc63ca171be974dccc`.
+- `expect/Conditional2.html`: 48,721 bytes / SHA-256 `ddd6260bfafc60a7de3e2b78220c0b793349abcf01afa8cf35420cb16f4e55b7`.
+- `expect/Uniform.html`: 25,643 bytes / SHA-256 `63fc5afefa354f1f5db2530860089d5810284a185fba28713d315c5cd30ac895`.
+
+The deterministic site contains 30 manifested files / 2,115,983 bytes;
+manifest SHA-256
+`523ab02b30534d701777cf5f50f27b1830a5aed3a490aced1d759ed3e5d36105`
+and build-receipt SHA-256
+`88119231401f33bb2daa84596707f58765b348b053b18545fe3be0f2bedada9c`.
+The backend contains 530 entities, 1,356 segments, and 485 typed relations
+(1,886 records total), with zero QA failures; manifest SHA-256
+`a6b2081f056456df42a88a87df7b3b4594dafcbdc72bb0f48fb2f7f8145cef82`.
+
+Whole-boundary browser QA at 1280×720 and 390×844 found no horizontal
+overflow, broken images, empty image alternatives, or console warnings/errors.
+All 142 disclosure panels opened and closed through their visible controls;
+4,528 MathJax containers rendered across theory pages. The lab rendered 34
+math containers, one copyable stable-ID R block, and three result rows. See
+`qa/SECOND_BOUNDARY_CHECKPOINT_20260821.md`.
 
 ## Next exact action
 
-1. Integrate `Probability2.html` into the next reader/backend boundary.
-2. Continue with `prob/Processes.html` in source order.
-3. Push the next substantial verified boundary without awaiting confirmation.
+1. Commit and push this exact release-ready boundary.
+2. Wait for the Pages deployment and anonymously read back all 30 manifested
+   files plus the build receipt.
+3. Record the public receipt, then continue with `expect/Kernels.html` and the
+   martingale sequence without treating this checkpoint as full completion.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

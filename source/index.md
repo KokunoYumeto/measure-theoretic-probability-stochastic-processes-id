@@ -15,7 +15,13 @@ gabungan.
 ## Batas pembaca yang tersedia
 
 1. [Konvergensi kejadian dan peubah acak](prob/Convergence.html)
-2. [Laboratorium: konvergensi Monte Carlo](labs/01-konvergensi-monte-carlo.html)
+2. [Probabilitas ditinjau kembali](prob/Probability2.html)
+3. [Proses stokastik](prob/Processes.html)
+4. [Filtrasi dan waktu henti](prob/Stop.html)
+5. [Konvergensi dalam distribusi](dist/Convergence.html)
+6. [Nilai harapan bersyarat ditinjau kembali](expect/Conditional2.html)
+7. [Peubah terintegralkan seragam](expect/Uniform.html)
+8. [Laboratorium: konvergensi Monte Carlo](labs/01-konvergensi-monte-carlo.html)
 
 Modul pengambilan sampel, hukum bilangan besar, dan teorema limit pusat dari
 jalur **O006/C140** merupakan prasyarat bersama dan tidak diduplikasi di sini.

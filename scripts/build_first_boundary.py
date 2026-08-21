@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and verify the first offline O009 theory–lab reader boundary."""
+"""Build and verify the bounded offline O009 theory–lab reader."""
 
 from __future__ import annotations
 
@@ -23,8 +23,6 @@ from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
 AUTH_RANDOM = ROOT / "authority" / "random"
-AUTH_THEORY = AUTH_RANDOM / "static" / "prob" / "Convergence.html"
-TARGET_THEORY = ROOT / "source" / "theory" / "prob" / "Convergence.html"
 LAB_SOURCE = ROOT / "source" / "labs" / "01-konvergensi-monte-carlo.Rmd"
 SOURCE_INDEX = ROOT / "source" / "index.md"
 SOURCE_CSS = ROOT / "source" / "reader.css"
@@ -32,11 +30,145 @@ SITE = ROOT / "build" / "site"
 R_SCRIPT = ROOT / "tools" / "R-4.6.1" / "bin" / "Rscript.exe"
 PANDOC = "pandoc"
 
-AUTH_THEORY_SHA256 = "749de69aba8c7b54e5944ddbe4b342fec8695b32ff46e34409f7b6040241e34f"
 RANDOM_MANIFEST_SHA256 = "2ee154a38b57201457538db8c0e7df592a052eade8dcfda217605810f04f21e4"
 MATHJAX_SHA256 = "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
 MATHJAX_BOLDSYMBOL_SHA256 = "716cf8735d00abfb1627f8adbbf4aeb915ac9b5c55d47aeaf276e73dac6a2aa1"
-BASE_URL = "https://www.randomservices.org/random/prob/Convergence.html"
+RANDOM_BASE_URL = "https://www.randomservices.org/random/"
+THEORY_UNITS = (
+    {
+        "rel": "prob/Convergence.html",
+        "authority_sha256": "749de69aba8c7b54e5944ddbe4b342fec8695b32ff46e34409f7b6040241e34f",
+        "source_title": "Convergence",
+        "nav_label": "Konvergensi",
+        "rights_id": "o009-rights-random-convergence",
+        "fragment_corrections": {},
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Basic Theory",
+            "Sequences of events",
+            "The Continuity Theorems",
+            "Convergence with Probability 1",
+            "Convergence in Probability",
+        ),
+    },
+    {
+        "rel": "prob/Probability2.html",
+        "authority_sha256": "ba442c5fac2cb1608965f974b3f346cec9515e894428accb83521465492b2d10",
+        "source_title": "Probability Revisited",
+        "nav_label": "Probabilitas ditinjau kembali",
+        "rights_id": "o009-rights-random-probability-revisited",
+        # Upstream links #tai1, but its intended limsup/liminf result is #tai12.
+        "fragment_corrections": {"#tai1": "#tai12"},
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Probability Revisited",
+            "Measure Theory",
+            "Probability Theory",
+            "Equivalent Random Variables",
+            "Completion",
+        ),
+    },
+    {
+        "rel": "prob/Processes.html",
+        "authority_sha256": "d4a65b124face6115950e212af2acb5dccf33e1065c77fb3d6aecb727d39e6bc",
+        "source_title": "Stochastic Processes",
+        "nav_label": "Proses stokastik",
+        "rights_id": "o009-rights-random-stochastic-processes",
+        "fragment_corrections": {},
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Stochastic Processes",
+            "Introduction",
+            "Equivalent Processes",
+            "The Kolmogorov Construction",
+            "Applications",
+        ),
+    },
+    {
+        "rel": "prob/Stop.html",
+        "authority_sha256": "9d26e78a8ee2a5a14ade3708838298ef0ba51cf9cd9658602a4f26e73b68524d",
+        "source_title": "Filtrations and Stopping Times",
+        "nav_label": "Filtrasi dan waktu henti",
+        "rights_id": "o009-rights-random-filtrations-stopping-times",
+        "fragment_corrections": {},
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Filtrations and Stopping Times",
+            "Introduction",
+            "Basic Definitions",
+            "Right Continuity",
+            "Stopping Times",
+            "Basic Properties",
+            "Basic Constructions",
+            "The Sigma-Algebra of a Stopping Time",
+        ),
+    },
+    {
+        "rel": "dist/Convergence.html",
+        "authority_sha256": "dc6a536ca3359f3952e1ae487a445377de1c1e73491bb56f3baa8862630dcc3d",
+        "source_title": "Convergence in Distribution",
+        "nav_label": "Konvergensi dalam distribusi",
+        "rights_id": "o009-rights-random-convergence-in-distribution",
+        "fragment_corrections": {},
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Convergence in Distribution",
+            "Distributions on",
+            "Preliminary Examples",
+            "Probability Density Functions",
+            "The Skorohod Representation",
+            "Examples and Applications",
+            "Fundamental Theorems",
+            "General Spaces",
+            "Skorohod's Representation Theorem",
+            "Expected Value",
+        ),
+    },
+    {
+        "rel": "expect/Conditional2.html",
+        "authority_sha256": "98307993d76941808cc87b7d28dfd8b2e24325913471b07c3a350a52a54c87c2",
+        "source_title": "Conditional Expected Value Revisited",
+        "nav_label": "Nilai harapan bersyarat",
+        "rights_id": "o009-rights-random-conditional-expectation",
+        "fragment_corrections": {},
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Conditional Expected Value Revisited",
+            "Basic Theory",
+            "Definition",
+            "Properties",
+            "Conditional Probability",
+            "Basic Examples",
+            "Best Predictor",
+            "Conditional Variance",
+            "Conditional Covariance",
+        ),
+    },
+    {
+        "rel": "expect/Uniform.html",
+        "authority_sha256": "66f610030094a063be69408d3112c74353941849fe36353f4c5365380f03df2d",
+        "source_title": "Uniformly Integrable Variables",
+        "nav_label": "Terintegralkan seragam",
+        "rights_id": "o009-rights-random-uniform-integrability",
+        "fragment_corrections": {},
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Uniformly Integrable Variables",
+            "Basic Theory",
+            "Definition",
+            "Properties",
+            "Convergence",
+            "Examples",
+        ),
+    },
+)
 MATH_RE = re.compile(r"\\\((.*?)\\\)|\\\[(.*?)\\\]", re.DOTALL)
 CSS_URL_RE = re.compile(r"url\(\s*(['\"]?)([^)'\"]+)\1\s*\)", re.I)
 R_CHUNK_RE = re.compile(
@@ -56,11 +188,17 @@ def require_file(path: Path) -> bytes:
     return path.read_bytes()
 
 
-def validate_theory_translation() -> None:
-    source_bytes = require_file(AUTH_THEORY)
-    target_bytes = require_file(TARGET_THEORY)
-    if sha256(source_bytes) != AUTH_THEORY_SHA256:
-        raise RuntimeError("Random Convergence authority hash changed")
+def theory_paths(unit: dict[str, object]) -> tuple[Path, Path]:
+    rel = Path(str(unit["rel"]))
+    return AUTH_RANDOM / "static" / rel, ROOT / "source" / "theory" / rel
+
+
+def validate_theory_unit(unit: dict[str, object]) -> None:
+    authority, target_path = theory_paths(unit)
+    source_bytes = require_file(authority)
+    target_bytes = require_file(target_path)
+    if sha256(source_bytes) != unit["authority_sha256"]:
+        raise RuntimeError(f"Random authority hash changed: {unit['rel']}")
     source_text = source_bytes.decode("utf-8")
     target_text = target_bytes.decode("utf-8")
     source = BeautifulSoup(source_text, "lxml")
@@ -68,9 +206,9 @@ def validate_theory_translation() -> None:
     source_tags = source.find_all(True)
     target_tags = target.find_all(True)
     if [tag.name for tag in source_tags] != [tag.name for tag in target_tags]:
-        raise RuntimeError("translated theory element topology differs from authority")
+        raise RuntimeError(f"translated theory element topology differs: {unit['rel']}")
     if len(source_tags) != len(target_tags):
-        raise RuntimeError("translated theory element count differs from authority")
+        raise RuntimeError(f"translated theory element count differs: {unit['rel']}")
     for index, (left, right) in enumerate(zip(source_tags, target_tags, strict=True)):
         left_attrs = deepcopy(left.attrs)
         right_attrs = deepcopy(right.attrs)
@@ -85,33 +223,30 @@ def validate_theory_translation() -> None:
             right_attrs.pop(permitted, None)
         if left_attrs != right_attrs:
             raise RuntimeError(
-                f"translated theory attribute drift at tag {index}: "
+                f"translated theory attribute drift in {unit['rel']} at tag {index}: "
                 f"{left.name} {left_attrs!r} != {right_attrs!r}"
             )
     if target.html is None or target.html.get("lang") != "id-ID":
-        raise RuntimeError("translated theory must declare lang=id-ID")
+        raise RuntimeError(f"translated theory must declare lang=id-ID: {unit['rel']}")
     source_math = MATH_RE.findall(source_text)
     target_math = MATH_RE.findall(target_text)
     if source_math != target_math:
-        raise RuntimeError("translated theory TeX surface differs from authority")
+        raise RuntimeError(f"translated theory TeX surface differs: {unit['rel']}")
     ids = [str(tag["id"]) for tag in target.select("[id]")]
     if len(ids) != len(set(ids)):
-        raise RuntimeError("duplicate id in translated theory")
+        raise RuntimeError(f"duplicate id in translated theory: {unit['rel']}")
     if any(not str(tag.get("alt", "")).strip() for tag in target.select("img")):
-        raise RuntimeError("empty image alt in translated theory")
+        raise RuntimeError(f"empty image alt in translated theory: {unit['rel']}")
     visible = " ".join(target.stripped_strings)
-    forbidden = (
-        "Expand Details",
-        "Contract Details",
-        "Basic Theory",
-        "Sequences of events",
-        "The Continuity Theorems",
-        "Convergence with Probability 1",
-        "Convergence in Probability",
-    )
+    forbidden = tuple(str(item) for item in unit["forbidden"])
     hits = [item for item in forbidden if item in visible]
     if hits:
-        raise RuntimeError(f"active English theory residue: {hits}")
+        raise RuntimeError(f"active English theory residue in {unit['rel']}: {hits}")
+
+
+def validate_theory_translation() -> None:
+    for unit in THEORY_UNITS:
+        validate_theory_unit(unit)
 
 
 def extract_and_run_lab(work: Path) -> tuple[str, list[dict[str, str]]]:
@@ -189,33 +324,71 @@ def pandoc_lab_text(text: str) -> str:
     return text.replace(opening, replacement, 1)
 
 
-def build_theory(stage: Path) -> None:
-    soup = BeautifulSoup(require_file(TARGET_THEORY).decode("utf-8"), "lxml")
+def build_theory_unit(stage: Path, unit: dict[str, object]) -> None:
+    _, target_path = theory_paths(unit)
+    rel = Path(str(unit["rel"]))
+    base_url = urllib.parse.urljoin(RANDOM_BASE_URL, rel.as_posix())
+    soup = BeautifulSoup(require_file(target_path).decode("utf-8"), "lxml")
     mathjax = soup.find("script", id="MathJax-script")
     if mathjax is None:
         raise RuntimeError("MathJax script marker missing")
     mathjax["src"] = "../MathJax/tex-svg.js"
     extra_css = soup.new_tag("link", rel="stylesheet", href="../reader.css")
     soup.head.append(extra_css)
+    local_pages = {
+        urllib.parse.urljoin(RANDOM_BASE_URL, Path(str(item["rel"])).as_posix()): Path(str(item["rel"]))
+        for item in THEORY_UNITS
+    }
+    for metadata_link in soup.select("link[href]"):
+        rel_values = {str(value).lower() for value in (metadata_link.get("rel") or [])}
+        if rel_values & {"stylesheet", "icon"}:
+            continue
+        href = str(metadata_link.get("href", ""))
+        if href and not urllib.parse.urlparse(href).scheme:
+            metadata_link["href"] = urllib.parse.urljoin(base_url, href)
     for anchor in soup.select("a[href]"):
         href = str(anchor.get("href", ""))
+        corrections = dict(unit["fragment_corrections"])
+        if href in corrections:
+            anchor["href"] = corrections[href]
+            continue
         match = re.fullmatch(r"JavaScript:openAncillary\(['\"]([^'\"]+)['\"]\)", href)
         if match:
-            anchor["href"] = urllib.parse.urljoin(BASE_URL, match.group(1))
+            anchor["href"] = urllib.parse.urljoin(base_url, match.group(1))
             continue
         parsed = urllib.parse.urlparse(href)
         if href.startswith("#") or parsed.scheme or not href:
             continue
-        anchor["href"] = urllib.parse.urljoin(BASE_URL, href)
+        resolved = urllib.parse.urljoin(base_url, href)
+        resolved_page = urllib.parse.urlunparse(urllib.parse.urlparse(resolved)._replace(fragment=""))
+        if resolved_page in local_pages:
+            local_target = local_pages[resolved_page]
+            relative_target = os.path.relpath(local_target, rel.parent).replace(os.sep, "/")
+            anchor["href"] = relative_target + (f"#{parsed.fragment}" if parsed.fragment else "")
+        else:
+            anchor["href"] = resolved
+    official_url = urllib.parse.urljoin(RANDOM_BASE_URL, rel.as_posix())
+    source_title = str(unit["source_title"])
+    rights_id = str(unit["rights_id"])
+    edition_links = []
+    for item in THEORY_UNITS:
+        local_target = Path(str(item["rel"]))
+        relative_target = os.path.relpath(local_target, rel.parent).replace(os.sep, "/")
+        edition_links.append(f'<a href="{relative_target}">{item["nav_label"]}</a>')
+    edition_links.append(
+        f'<a href="{os.path.relpath(Path("labs/01-konvergensi-monte-carlo.html"), rel.parent).replace(os.sep, "/")}">'
+        "Laboratorium Monte Carlo</a>"
+    )
+    index_href = os.path.relpath(Path("index.html"), rel.parent).replace(os.sep, "/")
     attribution = BeautifulSoup(
-        """<aside class="component-attribution" id="o009-rights-random-convergence">
-<strong>Asal komponen.</strong> Terjemahan halaman <cite>Convergence</cite>
+        f"""<aside class="component-attribution" id="{rights_id}">
+<strong>Asal komponen.</strong> Terjemahan halaman <cite>{source_title}</cite>
 karya Kyle Siegrist, dari cuplikan situs Random bertanggal 13 Maret 2026.
 Halaman resmi Random saat ini memuat saksi CC BY 2.0 pada beranda dan
 CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
-atribusi. <a href="https://www.randomservices.org/random/prob/Convergence.html">Baca sumber resmi</a>.
-</aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a></nav>""",
+atribusi. <a href="{official_url}">Baca sumber resmi</a>.
+</aside><nav aria-label="Navigasi edisi"><a href="{index_href}">Beranda edisi</a> ·
+{' · '.join(edition_links)}</nav>""",
         "lxml",
     )
     header = soup.find("header")
@@ -225,9 +398,14 @@ atribusi. <a href="https://www.randomservices.org/random/prob/Convergence.html">
     for node in list(attribution.body.contents):
         insertion_point.insert_after(node)
         insertion_point = node
-    output = stage / "prob" / "Convergence.html"
+    output = stage / rel
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(str(soup), encoding="utf-8", newline="\n")
+
+
+def build_theory(stage: Path) -> None:
+    for unit in THEORY_UNITS:
+        build_theory_unit(stage, unit)
 
 
 def run_pandoc(source: Path, output: Path, css: str, mathjax: str | None = None) -> None:
@@ -247,6 +425,7 @@ def run_pandoc(source: Path, output: Path, css: str, mathjax: str | None = None)
     result = subprocess.run(command, cwd=ROOT, check=False, capture_output=True, text=True)
     if result.returncode != 0:
         raise RuntimeError(f"Pandoc failed: {result.stderr.strip()}")
+    output.write_bytes(output.read_bytes().replace(b"\r\n", b"\n"))
 
 
 def copy_assets(stage: Path) -> None:
@@ -266,6 +445,8 @@ def copy_assets(stage: Path) -> None:
         AUTH_RANDOM / "static" / "prob" / "Increasing1.png": stage / "prob" / "Increasing1.png",
         AUTH_RANDOM / "static" / "prob" / "Increasing2.png": stage / "prob" / "Increasing2.png",
         AUTH_RANDOM / "static" / "prob" / "Decreasing.png": stage / "prob" / "Decreasing.png",
+        AUTH_RANDOM / "static" / "prob" / "InverseImage.png": stage / "prob" / "InverseImage.png",
+        AUTH_RANDOM / "static" / "expect" / "ConvexFunction.png": stage / "expect" / "ConvexFunction.png",
         AUTH_RANDOM / "shared" / "MathJax" / "tex-svg.js": stage / "MathJax" / "tex-svg.js",
         AUTH_RANDOM / "shared" / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js": (
             stage / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js"
@@ -305,15 +486,25 @@ def write_manifest(site: Path, r_rows: list[dict[str, str]]) -> None:
     rows = site_rows(site)
     manifest = site / "PACKAGE_MANIFEST.csv"
     with manifest.open("w", encoding="utf-8", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=["path", "bytes", "sha256"])
+        writer = csv.DictWriter(
+            stream,
+            fieldnames=["path", "bytes", "sha256"],
+            lineterminator="\n",
+        )
         writer.writeheader()
         writer.writerows(rows)
     receipt = {
-        "schema": "o009.first-boundary-build.v1",
+        "schema": "o009.reader-build.v2",
         "built_at_utc": datetime.now(timezone.utc).isoformat(),
         "random_authority_manifest_sha256": RANDOM_MANIFEST_SHA256,
-        "theory_authority_sha256": AUTH_THEORY_SHA256,
-        "theory_target_sha256": sha256(require_file(TARGET_THEORY)),
+        "theory_units": [
+            {
+                "path": str(unit["rel"]),
+                "authority_sha256": str(unit["authority_sha256"]),
+                "target_sha256": sha256(require_file(theory_paths(unit)[1])),
+            }
+            for unit in THEORY_UNITS
+        ],
         "lab_source_sha256": sha256(require_file(LAB_SOURCE)),
         "r_version": "R version 4.6.1 (2026-06-24 ucrt)",
         "r_rng": "Mersenne-Twister / Inversion / Rejection",
@@ -397,7 +588,7 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
         raise RuntimeError("rendered lab R code is not a copyable code block")
     if "```{r" in lab_html.read_text("utf-8") or ">true<" in lab_html.read_text("utf-8"):
         raise RuntimeError("raw R fence or malformed author metadata leaked into rendered lab")
-    theory_text = (site / "prob" / "Convergence.html").read_text("utf-8")
+    theory_text = "\n".join((site / str(unit["rel"])).read_text("utf-8") for unit in THEORY_UNITS)
     boldsymbol_target = site / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js"
     if "\\boldsymbol" in theory_text and not boldsymbol_target.is_file():
         raise RuntimeError("required MathJax boldsymbol autoload extension is missing")

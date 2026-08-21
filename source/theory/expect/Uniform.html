@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+	<meta charset="utf-8">
+	<title>Variabel Terintegralkan Seragam</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probabilitas, statistika, nilai harapan, ruang vektor, terintegralkan seragam, aljabar-sigma">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\)
+	\(\newcommand{\cov}{\text{cov}}\)
+	\(\newcommand{\cor}{\text{cor}}\)
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\ms}{\mathscr}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">3. Nilai Harapan</a></li>
+		<li class="child"><a href="Properties.html" title="Definisi dan Sifat Dasar">1</a></li>
+		<li class="child"><a href="Properties2.html" title="Sifat Tambahan">2</a></li>
+		<li class="child"><a href="Variance.html" title="Varians">3</a></li>
+		<li class="child"><a href="Skew.html" title="Kemencengan dan Kurtosis">4</a></li>
+		<li class="child"><a href="Covariance.html" title="Kovarians dan Korelasi">5</a></li>
+		<li class="child"><a href="Generating.html" title="Fungsi Pembangkit">6</a></li>
+		<li class="child"><a href="Conditional.html" title="Nilai Harapan Bersyarat">7</a></li>
+		<li class="child"><a href="Matrices.html" title="Matriks Nilai Harapan dan Kovarians">8</a></li>
+		<li class="child"><a href="Integral.html" title="Nilai Harapan sebagai Integral">9</a></li>
+		<li class="child"><a href="Conditional2.html" title="Meninjau Kembali Nilai Harapan Bersyarat">10</a></li>
+		<li class="child"><a href="Spaces.html" title="Ruang Vektor Variabel Acak">11</a></li>
+		<li class="current">12</li>
+		<li class="child"><a href="Kernels.html" title="Kernel dan Operator">13</a></li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+
+	<h2>12. Variabel Terintegralkan Seragam</h2>
+</header>
+
+<p>Dua modus konvergensi terpenting dalam teori probabilitas ialah <a href="../prob/Convergence.html">konvergensi dengan probabilitas 1</a> dan <a href="Spaces.html#con">konvergensi dalam rataan</a>. Seperti telah kita catat beberapa kali, tidak satu pun dari kedua modus konvergensi ini mengakibatkan yang lain. Namun, jika kita memberlakukan suatu syarat tambahan pada barisan variabel tersebut, konvergensi dalam probabilitas mengakibatkan konvergensi dalam rataan. Bagian singkat ini bertujuan menyelidiki syarat tambahan yang diperlukan itu. Bagian ini sangat penting bagi teori <a href="../martingales/index.html">martingal</a>.</p>
+
+<h3>Teori Dasar</h3>
+
+<p>Seperti biasa, titik awal kita adalah sebuah <a href="../prob/Experiments.html">percobaan acak</a> yang dimodelkan oleh suatu <a href="../prob/Probability2.html">ruang probabilitas</a> \( (\Omega, \mathscr{F}, \P) \), sehingga \( \Omega \) adalah himpunan hasil, \( \mathscr{F} \) adalah \( \sigma \)-aljabar kejadian, dan \( \P \) adalah ukuran probabilitas pada ruang sampel \( (\Omega, \mathscr F) \). Dalam bagian ini, semua variabel acak yang disebutkan dianggap bernilai real, kecuali dinyatakan lain. Selanjutnya, ingatlah bahwa untuk \( k \in [1, \infty) \), \( \mathscr{L}_k \) adalah <a href="Spaces.html">ruang vektor</a> variabel acak \( X \) dengan \( \E(|X|^k) \lt \infty \), yang dilengkapi norma \( \|X\|_k = \left[\E(X^k)\right]^{1/k} \). Khususnya, \( X \in \mathscr{L}_1 \) hanya berarti bahwa \( \E(|X|) \lt \infty \), sehingga \( \E(X) \) ada sebagai bilangan real. Terakhir, ingatlah notasi berikut bagi <a href="Properties.html">nilai harapan</a> variabel acak \(X\) pada suatu kejadian \(A\), tentu saja dengan anggapan bahwa nilai harapan tersebut bermakna:
+\[ \E(X; A) = \E(X \bs{1}_A) = \int_A X \, d\P \]</p>
+
+<h4>Definisi</h4>
+
+<p>Hasil berikut memotivasi definisi utama dalam bagian ini.</p>
+
+<div class="unit" id="dfn1">
+	<p class="math">Jika \( X \) adalah variabel acak, maka \( \E(|X|) \lt \infty \) jika dan hanya jika \( \E(|X|; |X| \ge x) \to 0 \) ketika \( x \to \infty \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Perhatikan bahwa \( |X| \bs{1}(|X| \le x) \) taknegatif, naik terhadap \( x \in [0, \infty) \), dan \( |X| \bs{1}(|X| \le x) \to |X| \) ketika \( x \to \infty \). Dari teorema konvergensi monoton, \( \E(|X|; |X| \le x) \to \E(|X|) \) ketika \( x \to \infty \). Di sisi lain,
+		\[ \E(|X|) = \E(|X|; |X| \le x) + \E(|X|; |X| \gt x) \]
+		Jika \( \E(|X|) \lt \infty \), pengambilan limit pada persamaan yang ditampilkan menunjukkan bahwa \( \E(|X|: |X| \gt x) \to 0 \) ketika \( x \to \infty \). Di sisi lain, \( \E(|X|; |X| \le x) \le x \). Jadi, jika \( \E(|X|) = \infty \), maka \( \E(|X|; |X| \gt x) = \infty \) untuk setiap \( x \in [0, \infty) \).</p>
+	</details>
+</div>
+
+<p>Sekarang, andaikan \( X_i \) adalah variabel acak untuk setiap \( i \) dalam himpunan indeks takkosong \( I \) (yang tidak harus terhitung). Definisi penting dalam bagian ini mensyaratkan agar konvergensi pada teorema sebelumnya berlaku secara <em>seragam</em> untuk koleksi variabel acak \( \bs X = \{X_i: i \in I\} \).</p>
+
+<div class="unit" id="dfn2">
+	<p class="dfn">Koleksi \( \bs X = \{X_i: i \in I\} \) disebut <dfn>terintegralkan seragam</dfn> jika untuk setiap \( \epsilon \gt 0 \) terdapat \( x \gt 0 \) sedemikian sehingga untuk semua \( i \in I \),
+	\[ \E(|X_i|; |X_i| \gt x) \lt \epsilon \]
+	Secara ekuivalen, \( \E(|X_i|; |X_i| \gt x) \to 0 \) ketika \( x \to \infty \), secara seragam terhadap \( i \in I \).</p>
+</div>
+
+<h4>Sifat</h4>
+
+<p>Pembahasan berikut berpusat pada syarat-syarat yang menjamin bahwa koleksi variabel acak \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam. Berikut adalah karakterisasi yang ekuivalen:</p>
+
+<div class="unit" id="prp1">
+	<p class="math">Koleksi \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam jika dan hanya jika syarat-syarat berikut terpenuhi:</p>
+	<ol class="sub">
+		<li>\( \{\E(|X_i|): i \in I\} \) terbatas.</li>
+		<li>Untuk setiap \( \epsilon \gt 0 \), terdapat \( \delta \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta \), maka \( \E(|X_i|; A) \lt \epsilon \) untuk semua \( i \in I \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Andaikan \( \bs X \) terintegralkan seragam. Dengan \( \epsilon = 1 \), terdapat \( x \gt 0 \) sedemikian sehingga \( \E(|X_i|; |X_i| \gt x) \lt 1 \) untuk semua \( i \in I \). Oleh karena itu,
+		\[ \E(|X_i|) = \E(|X_i|; |X_i| \le x) + \E(|X_i|; |X_i| \gt x) \lt x + 1, \quad i \in I \]
+		sehingga (a) berlaku. Untuk (b), ambil \( \epsilon \gt 0 \). Terdapat \( x \gt 0 \) sedemikian sehingga \( \E(|X_i|; |X_i| \gt x) \lt \epsilon / 2 \) untuk semua \( i \in I \). Ambil \( \delta = \epsilon / 2 x \). Jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta \), maka
+		\[ \E(|X_i|; A) = \E(|X_i|; A \cap \{|X| \le x\}) + \E(|X_i|; A \cap \{|X| \gt x\}) \le x \P(A) + \E(|X_i|; |X| \gt x) \lt \epsilon / 2 + \epsilon / 2 = \epsilon\]
+		Sebaliknya, andaikan (a) dan (b) berlaku. Berdasarkan (a), terdapat \( c \gt 0 \) sedemikian sehingga \( \E(|X_i|) \le c \) untuk semua \( i \in I \). Ambil \( \epsilon \gt 0 \). Berdasarkan (b), terdapat \( \delta \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dengan \( \P(A) \lt \delta \), maka \( \E(|X_i|; A) \lt \epsilon \) untuk semua \( i \in I \). Selanjutnya, berdasarkan <a href="Properties2.html#mar">ketaksamaan Markov</a>,
+		\[ \P(|X_i| \gt x) \le \frac{\E(|X_i|)}{x} \le \frac{c}{x}, \quad i \in I \]
+		Pilih \( x \gt 0 \) sedemikian sehingga \( c / x \lt \delta \), sehingga \(\P(|X_i| \gt x) \lt \delta\) untuk setiap \( i \in I \). Maka, untuk setiap \( j \in I \), \( \E(|X_i|; |X_j| \gt x) \lt \epsilon \) untuk semua \( i \in I \), dan khususnya, \( \E(|X_i|; |X_i| \gt x) \lt \epsilon \) untuk semua \( i \in I \). Jadi, \( \bs X \) terintegralkan seragam.</p>
+	</details>
+</div>
+
+<p>Syarat (a) berarti bahwa \( \bs X \) terbatas (dalam norma) sebagai subhimpunan ruang vektor \( \mathscr{L}_1 \). Secara langsung, koleksi <em>hingga</em> dari variabel acak yang terintegralkan mutlak adalah terintegralkan seragam.</p>
+
+<div class="unit">
+	<p class="math">Andaikan \( I \) hingga dan \( \E(|X_i|) \lt \infty \) untuk setiap \( i \in I \). Maka \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam. </p>
+</div>
+
+<p>Subhimpunan dari suatu himpunan variabel yang terintegralkan seragam juga terintegralkan seragam.</p>
+
+<div class="unit">
+	<p class="math">Jika \( \{X_i: i \in I\} \) terintegralkan seragam dan \( J \) adalah subhimpunan takkosong dari \( I \), maka \( \{X_j: j \in J\} \) terintegralkan seragam.</p>
+</div>
+
+<p>Jika nilai mutlak variabel-variabel dalam koleksi didominasi oleh suatu variabel acak dengan rataan hingga, maka koleksi tersebut terintegralkan seragam.</p>
+
+<div class="unit">
+	<p class="math">Andaikan \( Y \) adalah variabel acak taknegatif dengan \( \E(Y) \lt \infty \) dan \( |X_i| \le Y \) untuk setiap \( i \in I \). Maka \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Jelas bahwa \( \E(|X_i|; |X_i| \gt x) \le E(Y; Y \gt x) \) untuk \( x \in [0, \infty) \) dan untuk semua \( i \in I \). Ruas kanan tidak bergantung pada \( i \in I \), dan berdasarkan <a href="#dfn1" class="ref"></a>, ruas tersebut konvergen ke 0 ketika \( x \to \infty \). Jadi, \( \bs X \) terintegralkan seragam.</p>
+	</details>
+</div>
+
+<p>Hasil berikut lebih umum, tetapi pada dasarnya pembuktian yang sama berlaku.</p>
+
+<div class="unit">
+	<p class="math">Andaikan \( \bs Y = \{Y_j: j \in J\} \) terintegralkan seragam, dan \( \bs X = \{X_i: i \in I\} \) adalah himpunan variabel dengan sifat bahwa untuk setiap \( i \in I \), terdapat \( j \in J \) sedemikian sehingga \( |X_i| \le |Y_j| \). Maka \( \bs X \) terintegralkan seragam.</p>
+</div>
+
+<p>Sebagai akibat sederhana, jika nilai mutlak variabel-variabel tersebut terbatas, maka koleksinya terintegralkan seragam.</p>
+
+<div class="unit">
+	<p class="math">Jika terdapat \( c \gt 0 \) sedemikian sehingga \( |X_i| \le c \) untuk semua \( i \in I \), maka \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam.</p>
+</div>
+
+<p>Terbatasnya \( \E(|X_i|) \) terhadap \( i \in I \) saja (syarat (a) dalam <a href="#prp1" class="ref"></a>) tidak cukup agar \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam; contoh <a href="#exe1" class="ref"></a> di bawah merupakan contoh tandingan. Namun, jika \( \E\left(|X_i|^k\right) \) terbatas terhadap \( i \in I \) untuk suatu \( k \gt 1 \), maka \( \bs X \) <em>terintegralkan</em> seragam. Syarat ini berarti bahwa \( \bs X \) terbatas (dalam norma) sebagai subhimpunan ruang vektor \( \mathscr{L}_k \).</p>
+
+<div class="unit">
+	<p class="math">Jika \( \left\{\E\left(|X_i|^k\right): i \in I\right\} \) terbatas untuk suatu \( k \gt 1 \), maka \( \{X_i: i \in I\} \) terintegralkan seragam.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Andaikan bahwa untuk suatu \( k \gt 1 \) dan \( c \gt 0 \), berlaku \( \E\left(|X_i|^k\right) \le c \) untuk semua \( i \in I \). Maka \( k - 1 \gt 0 \), sehingga \( t \mapsto t^{k-1} \) naik pada \( (0, \infty) \). Jadi, jika \( |X_i| \gt x \) untuk \( x \gt 0 \), maka 
+		\[ |X_i|^k = |X_i| |X_i|^{k-1} \ge |X_i| x^{k-1} \]
+		Oleh karena itu, \( |X_i| \le |X_i|^k / x^{k-1} \) pada kejadian \( |X_i| \gt x \). Dengan demikian,
+		\[ \E(|X_i|; |X_i| \gt x) \le \E\left(\frac{|X_i|^k}{x^{k-1}}; |X_i| \gt x\right) \le \frac{\E(|X_i|^k)}{x^{k-1}} \le \frac{c}{x^{k-1}} \]
+		Ungkapan terakhir tidak bergantung pada \( i \in I \) dan konvergen ke 0 ketika \( x \to \infty \). Jadi, \( \bs X \) terintegralkan seragam.</p>
+	</details>
+</div>
+
+<p>Keterintegralan seragam tertutup terhadap operasi penjumlahan dan perkalian skalar.</p>
+
+<div class="unit" id="add">
+	<p class="math">Andaikan \( \bs X = \{X_i: i \in I\} \) dan \( \bs Y = \{Y_i: i \in I\} \) terintegralkan seragam, dan \( c \in \R \). Maka setiap koleksi berikut juga terintegralkan seragam.</p>
+	<ol class="sub">
+		<li>\( \bs X + \bs Y = \{X_i + Y_i: i \in I\} \)</li>
+		<li>\( c \bs X = \{c X_i: i \in I\} \)</li>
+	</ol>
+
+	<details>
+		<summary>Rincian:</summary>
+		<p>Kita menggunakan karakterisasi dalam <a href="#prp1" class="ref"></a>.</p>
+		<ol class="sub">
+			<li>Terdapat \( a, \, b \in (0, \infty) \) sedemikian sehingga \( \E(|X_i|) \le a \) dan \( \E(|Y_i|) \le b \) untuk semua \( i \in I \). Oleh karena itu, 
+			\[ \E(|X_i + Y_i|) \le \E(|X_i| + |Y_i|) \le \E(|X_i|) + \E(|Y_i|) \le a + b, \quad i \in I  \]
+			Selanjutnya, ambil \( \epsilon \gt 0 \). Terdapat \( \delta_1 \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dengan \( \P(A) \lt \delta_1 \), maka \( \E(|X_i|; A) \lt \epsilon / 2 \) untuk semua \( i \in I \), dan demikian pula, terdapat \( \delta_2 \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dengan \( \P(A) \lt \delta_2 \), maka \( \E(|Y_i|; A) \lt \epsilon / 2 \) untuk semua \( i \in I \). Jadi, jika \( A \in \mathscr{F} \) dengan \( \P(A) \lt \delta_1 \wedge \delta_2 \), maka
+			\[ \E(|X_i + Y_i|; A) \le \E(|X_i| + |Y_i|; A) = \E(|X_i|; A) + \E(|Y_i|; A) \lt \epsilon / 2 + \epsilon / 2 = \epsilon, \quad i \in I \]
+			</li>
+			<li>Terdapat \( a \in (0, \infty) \) sedemikian sehingga \( \E(|X_i|) \le a \) untuk semua \( i \in I \). Oleh karena itu,
+			\[ \E(|c X_i|) = |c| \E(|X_i|) \le c a, \quad i \in I \]
+			Syarat kedua berlaku secara langsung jika \( c = 0 \), jadi andaikan \( c \ne 0 \). Untuk \( \epsilon \gt 0 \), terdapat \( \delta \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta \), maka \( \E(|X_i|; A) \lt \epsilon / |c| \) untuk semua \( i \in I \). Oleh karena itu, \( \E(|c X_i|; A) = |c| \E(|X_i|; A) \lt \epsilon \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Akibat berikut sederhana, tetapi akan kita perlukan dalam pembahasan konvergensi di bawah.</p>
+
+<div class="unit" id="prp2">
+	<p class="math">Andaikan \( \{X_i: i \in I\} \) terintegralkan seragam dan \( X \) adalah variabel acak dengan \( \E(|X|) \lt \infty \). Maka \( \{X_i - X: i \in I\} \) terintegralkan seragam.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Ambil \( Y_i = X \) untuk setiap \( i \in I \). Maka \( \{Y_i: i \in I\} \) terintegralkan seragam, sehingga hasilnya mengikuti dari <a href="#add" class="ref"></a>.</p>
+	</details>
+</div>
+
+<h4 id="con">Konvergensi</h4>
+
+<p>Sekarang kita sampai pada hasil-hasil utama dan alasan mula-mula mendefinisikan keterintegralan seragam. Untuk menyiapkan notasi, andaikan \( X_n \) adalah variabel acak untuk \( n \in \N_+ \), dan \( X \) adalah variabel acak. Kita tahu bahwa jika \( X_n \to X \) ketika \( n \to \infty \) <a href="Spaces.html#con">dalam rataan</a>, maka \( X_n \to X \) ketika \( n \to \infty \) <a href="../prob/Convergence.html#lim">dalam probabilitas</a>. Kebalikannya juga benar jika dan hanya jika barisan tersebut terintegralkan seragam. Berikut adalah separuh yang pertama:</p>
+
+<div class="unit" id="con1">
+	<p class="math">Jika \( X_n \to X \) ketika \( n \to \infty \) dalam rataan, maka \( \{X_n: n \in \N\} \) terintegralkan seragam.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hipotesis tersebut berarti bahwa \( X_n \to X \) ketika \( n \to \infty \) dalam ruang vektor \( \mathscr{L}_1 \). Dengan kata lain, \( \E(|X_n|) \lt \infty \) untuk \( n \in \N_+ \), \( \E(|X|) \lt \infty \), dan \( E(|X_n - X|) \to 0 \) ketika \( n \to \infty \). Dari bagian mengenai <a href="Spaces.html">ruang vektor</a> variabel acak, kita tahu bahwa hal ini mengakibatkan \( \E(|X_n|) \to \E(|X|) \) ketika \( n \to \infty \), sehingga \( \E(|X_n|) \) terbatas terhadap \( n \in \N \). Ambil \( \epsilon \gt 0 \). Maka terdapat \( N \in \N_+ \) sedemikian sehingga jika \( n \gt N \), maka \( \E(|X_n - X|) \lt \epsilon/2 \). Karena semua variabel kita berada dalam \( \mathscr{L}_1 \), untuk setiap \( n \in \N_+ \), terdapat \( \delta_n \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta_n \), maka \( \E(|X_n - X|; A) \lt \epsilon / 2 \). Demikian pula, terdapat \( \delta_0 \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta_0 \), maka \( \E(|X|; A) \lt \epsilon / 2 \). Ambil \( \delta = \min\{\delta_n: n \in \{0, 1, \ldots, N\}\} \), sehingga \( \delta \gt 0 \). Jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta \), maka
+		\[\E(|X_n|; A) = \E(|X_n - X + X|; A) \le \E(|X_n - X|; A) + \E(|X|; A), \quad n \in \N_+\]
+		Jika \( n \le N \), maka \( \E(|X_n - X|; A) \le \epsilon / 2 \), sebab \( \delta \le \delta_n \). Jika \( n \gt N \), maka \( \E(|X_n - X|; A) \le \E(|X_n - X|) \lt \epsilon / 2 \). Untuk semua \( n \), \( E(|X|; A) \lt \epsilon / 2 \), sebab \( \delta \le \delta_0 \). Jadi, untuk semua \( n \in \N_+ \), \( \E(|X_n|: A) \lt \epsilon \), sehingga \( \{X_n: n \in \N_+\} \) terintegralkan seragam.</p>
+	</details>
+</div>
+
+<p>Berikut adalah separuh yang lebih penting, yang dikenal sebagai <dfn>teorema keterintegralan seragam</dfn>:</p>
+
+<div class="unit" id="con2">
+	<p class="math">Jika \( \{X_n: n \in \N_+\} \) terintegralkan seragam dan \( X_n \to X \) ketika \( n \to \infty \) dalam probabilitas, maka \( X_n \to X \) ketika \( n \to \infty \) dalam rataan.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Karena \( X_n \to X \) ketika \( n \to \infty \) <a href="../prob/Convergence.html#sub">dalam probabilitas</a>, kita tahu bahwa terdapat subbarisan \( \left(X_{n_k}: k \in \N_+\right) \) dari \( (X_n: n \in \N_+) \) sedemikian sehingga \( X_{n_k} \to X \) ketika \( k \to \infty \) dengan probabilitas 1. Berdasarkan keterintegralan seragam, \( \E(|X_n|) \) terbatas terhadap \( n \in \N_+ \). Oleh karena itu, berdasarkan <a href="Integral.html#lim1">lema Fatou</a>,
+		\[ \E(|X|) = \E\left(\liminf_{k \to \infty} \left|X_{n_k}\right|\right) \le \liminf_{n \to \infty} \E\left(\left|X_{n_k}\right|\right) \le \limsup_{n \to \infty} \E\left(\left|X_{n_k}\right|\right) \lt \infty \]
+		Ambil \( Y_n = X_n - X \) untuk \( n \in \N_+ \). Dari akibat <a href="#prp2" class="ref"></a>, kita tahu bahwa \( \{Y_n: n \in \N_+\} \) terintegralkan seragam, dan kita juga tahu bahwa \( Y_n \) konvergen ke 0 ketika \( n \to \infty \) dalam probabilitas. Jadi, kita perlu menunjukkan bahwa \( Y_n \to 0 \) ketika \( n \to \infty \) dalam rataan. Ambil \( \epsilon \gt 0 \). Berdasarkan keterintegralan seragam, terdapat \( \delta \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta \), maka \( \E(|Y_n|: A) \lt \epsilon / 2 \) untuk semua \( n \in \N \). Karena \( Y_n \to 0 \) ketika \( n \to \infty \) dalam probabilitas, terdapat \( N \in \N_+ \) sedemikian sehingga jika \( n \gt N \), maka \( \P(|Y_n| \gt \epsilon / 2) \lt \delta \). Oleh karena itu, jika \( n \gt N \), maka
+		\[ \E(|Y_n|) = \E(|Y_n|; |Y_n|  \le \epsilon / 2) + \E(|Y_n|; |Y_n| \gt \epsilon / 2) \lt \epsilon / 2 + \epsilon / 2 = \epsilon \]
+		Jadi, \( Y_n \to 0 \) ketika \( n \to \infty \) dalam rataan.</p>
+	</details>
+</div>
+
+<p>Sebagai akibat, ingatlah bahwa jika \( X_n \to X \) ketika \( n \to \infty \) dengan probabilitas 1, maka \( X_n \to X \) ketika \( n \to \infty \) dalam probabilitas. Oleh karena itu, jika \( \bs X = \{X_n: n \in \N_+\} \) terintegralkan seragam, maka \( X_n \to X \) ketika \( n \to \infty \) dalam rataan. </p>
+
+<h3>Contoh</h3>
+
+<p>Contoh pertama kita menunjukkan bahwa norma \( \mathscr{L}_1 \) yang terbatas tidak cukup untuk keterintegralan seragam.</p>
+
+<div class="unit" id="exe1">
+	<p class="math">Andaikan \( U \) berdistribusi seragam pada interval \( (0, 1) \) (jadi, \( U \) memiliki <dfn>distribusi seragam standar</dfn>). Untuk \( n \in \N_+ \), ambil \( X_n = n \bs{1}(U \le 1 / n) \). Maka</p>
+	<ol class="sub">
+		<li>\( \E(|X_n|) = 1 \) untuk semua \( n \in \N_+ \)</li>
+		<li>\( \E(|X_n|; |X_n| \gt x) = 1 \) untuk \( x \gt 0 \), \( n \in \N_+ \) dengan \( n \gt x \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Pertama, perhatikan bahwa \( |X_n| = X_n \), sebab \( X_n \ge 0 \).</p>
+		<ol class="sub">
+			<li>Berdasarkan definisi, \( \E(X_n) = n \P(U \le 1 / n) = n / n = 1 \) untuk \( n \in \N_+ \).</li>
+			<li>Jika \( n \gt x \gt 0 \), maka \( X_n \gt x \) jika dan hanya jika \( X_n = n \), jika dan hanya jika \( U \le 1/n \). Jadi, \( \E(X_n; X_n \gt x) = n \P(U \le 1/n) = 1 \), seperti sebelumnya.</li>
+		</ol>
+	</details>
+</div>
+
+<p>Berdasarkan bagian (b), \( \E(|X_n|; |X_n| \gt x) \) tidak konvergen ke 0 ketika \( x \to \infty \) secara seragam terhadap \( n \in \N_+ \), sehingga \( \bs X = \{X_n: n \in \N_+\} \) tidak terintegralkan seragam.</p>
+
+<p>Contoh berikut memberikan penerapan penting bagi <a href="Conditional2.html">nilai harapan bersyarat</a>. Ingatlah bahwa jika \( X \) adalah variabel acak dengan \( \E(|X|) \lt \infty \) dan \( \ms{G} \) adalah sub-\( \sigma \)-aljabar dari \( \ms{F} \), maka \( \E(X \mid \mathscr{G}) \) adalah nilai harapan \( X \) dengan informasi dalam \( \mathscr{G} \) diketahui, dan dalam arti tertentu merupakan variabel acak terukur-\( \mathscr{G} \) yang paling dekat dengan \( X \). Bahkan, jika \( X \in \ms{L}_2(\ms{F}) \), maka \( \E(X \mid \ms{G}) \) adalah proyeksi \( X \) pada \( \ms{L}_2(\ms{G}) \).</p>
+
+<div class="unit" id="exe2">
+	<p class="math">Andaikan \(\{X_i: i \in I\}\) adalah koleksi variabel acak terintegralkan seragam yang didefinisikan pada ruang probabilitas \((\Omega, \ms F, \P)\). Maka koleksi berikut juga terintegralkan seragam:
+	\[ \{\E(X_i \mid \ms G): i \in I, \ms G \text{ is a sub } \sigma \text{-algebra of } \ms F\} \]
+	<details>
+		<summary>Rincian:</summary>
+		<p>Pembuktiannya menggunakan proposisi <a href="#prp1" class="ref"></a> sekaligus definisi <a href="#dfn2" class="ref"></a>. Pertama, terdapat \(C \in (0, \infty)\) dengan \(\E(|X_i|) \le C\) untuk semua \(i \in I\). Ambil \(\epsilon > 0\). Maka terdapat \(\delta \gt 0\) sedemikian sehingga jika \(A \in \ms F\) dengan \(\P(A) \lt \delta\), maka \(\E(|X_i|; A) \lt \epsilon\) untuk semua \(i \in I\). Sekarang, ambil \(x = C / \delta\). Jika \(i \in I\) dan \(\ms G\) adalah sub-\(\sigma\)-aljabar dari \(\ms F\), maka berdasarkan ketaksamaan Markov dan sifat dasar nilai harapan bersyarat,
+		\[ \P[|\E(X_i \mid \ms G)| \gt x] \le \E[|\E(X_i \mid \ms G)|] / x \le \E[\E(|X_i| \mid \ms G)] / x \le E(|X_i|) / x \le C / x = \delta\]
+		Oleh karena itu, karena \(\{|\E(X_i \mid \ms G)| \gt x\} \in \ms G\), kita memperoleh
+		\[ \E[|\E(X_i \mid \ms G)|; |\E(X_i \mid \ms G)| \gt x] \le \E[\E(|X_i| \mid \ms G); |\E(X_i \mid \ms G)| \gt x] = \E[|X_i|; |\E(X_i \mid \ms G)| \gt x] \lt \epsilon \]
+		</p>
+	</details>
+</div>
+
+<p>Sebagai akibat yang sederhana tetapi penting, jika \(X\) adalah variabel acak dengan \(\E(|X|) \lt \infty \), maka koleksi nilai harapan bersyarat dari \(X\)
+\[ \{\E(X \mid \ms G): \ms G \text{ is a sub } \sigma \text{-algebra of }\ms F \} \]
+terintegralkan seragam. Nilai-nilai harapan bersyarat tersebut berkisar dari \( \E(X) \), ketika \( \mathscr{G} = \{\Omega, \emptyset\} \), hingga \( X \) sendiri, ketika \( \mathscr{G} = \mathscr{F} \).</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">3. Nilai Harapan</a></li>
+		<li class="child"><a href="Properties.html" title="Definisi dan Sifat Dasar">1</a></li>
+		<li class="child"><a href="Properties2.html" title="Sifat Tambahan">2</a></li>
+		<li class="child"><a href="Variance.html" title="Varians">3</a></li>
+		<li class="child"><a href="Skew.html" title="Kemencengan dan Kurtosis">4</a></li>
+		<li class="child"><a href="Covariance.html" title="Kovarians dan Korelasi">5</a></li>
+		<li class="child"><a href="Generating.html" title="Fungsi Pembangkit">6</a></li>
+		<li class="child"><a href="Conditional.html" title="Nilai Harapan Bersyarat">7</a></li>
+		<li class="child"><a href="Matrices.html" title="Matriks Nilai Harapan dan Kovarians">8</a></li>
+		<li class="child"><a href="Integral.html" title="Nilai Harapan sebagai Integral">9</a></li>
+		<li class="child"><a href="Conditional2.html" title="Meninjau Kembali Nilai Harapan Bersyarat">10</a></li>
+		<li class="child"><a href="Spaces.html" title="Ruang Vektor Variabel Acak">11</a></li>
+		<li class="current">12</li>
+		<li class="child"><a href="Kernels.html" title="Kernel dan Operator">13</a></li>		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Kumpulan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

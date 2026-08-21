@@ -22,8 +22,6 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parents[1]
 BACKEND = ROOT / "backend"
 AUTH_RANDOM = ROOT / "authority" / "random"
-AUTH_HTML = AUTH_RANDOM / "static" / "prob" / "Convergence.html"
-TARGET_HTML = ROOT / "source" / "theory" / "prob" / "Convergence.html"
 LAB = ROOT / "source" / "labs" / "01-konvergensi-monte-carlo.Rmd"
 TERMS = ROOT / "00_control" / "TERMINOLOGY.csv"
 BUILD_SCRIPT = ROOT / "scripts" / "build_first_boundary.py"
@@ -42,6 +40,91 @@ ZIT_ROOT = (
 ZIT_ZIP = ROOT / "authority" / "zitkovic" / "stochastic-book-e2b35ad91a3689454ae6455e8ffc510a90760c0d.zip"
 ZIT_LICENSE = ZIT_ROOT / "LICENSE"
 ZIT_SIMULATION = ZIT_ROOT / "source" / "02-simulation.Rmd"
+
+THEORY_SPECS = (
+    {
+        "rel": "prob/Convergence.html",
+        "slug": "prob.convergence",
+        "order": 1,
+        "concept_ids": [
+            "concept.probability.convergence",
+            "concept.probability.almost-sure-convergence",
+            "concept.probability.convergence-in-probability",
+            "concept.probability.borel-cantelli",
+        ],
+    },
+    {
+        "rel": "prob/Probability2.html",
+        "slug": "prob.probability-revisited",
+        "order": 2,
+        "concept_ids": [
+            "concept.probability.measure-space",
+            "concept.probability.almost-sure-equivalence",
+            "concept.probability.exchangeability",
+            "concept.probability.tail-events",
+            "concept.probability.zero-one-laws",
+        ],
+    },
+    {
+        "rel": "prob/Processes.html",
+        "slug": "prob.processes",
+        "order": 3,
+        "concept_ids": [
+            "concept.stochastic.process",
+            "concept.stochastic.process.measurability",
+            "concept.stochastic.process.equivalence",
+            "concept.stochastic.process.finite-dimensional-distributions",
+            "concept.stochastic.process.kolmogorov-extension",
+        ],
+    },
+    {
+        "rel": "prob/Stop.html",
+        "slug": "prob.stop",
+        "order": 4,
+        "concept_ids": [
+            "concept.stochastic.filtration",
+            "concept.stochastic.stopping-time",
+            "concept.stochastic.stopped-process",
+            "concept.stochastic.stopping-time-sigma-algebra",
+            "concept.stochastic.right-continuity",
+        ],
+    },
+    {
+        "rel": "dist/Convergence.html",
+        "slug": "dist.convergence",
+        "order": 5,
+        "concept_ids": [
+            "concept.probability.convergence",
+            "concept.probability.convergence-in-probability",
+            "concept.probability.convergence-in-distribution",
+            "concept.probability.skorohod-representation",
+            "concept.probability.scheffe",
+        ],
+    },
+    {
+        "rel": "expect/Conditional2.html",
+        "slug": "expect.conditional2",
+        "order": 6,
+        "concept_ids": [
+            "concept.conditional.expectation",
+            "concept.conditional.probability",
+            "concept.conditional.best-predictor",
+            "concept.conditional.variance",
+            "concept.conditional.covariance",
+        ],
+    },
+    {
+        "rel": "expect/Uniform.html",
+        "slug": "expect.uniform",
+        "order": 7,
+        "concept_ids": [
+            "concept.expectation.uniform-integrability",
+            "concept.probability.lp-convergence",
+            "concept.probability.convergence-in-probability",
+            "concept.conditional.expectation",
+        ],
+    },
+)
 
 SCHEMA = "o009.backend.entity.v2"
 MANIFEST_SCHEMA = "o009.backend-manifest.v2"
@@ -233,8 +316,31 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
             translation_state="draft",
             concept_ids=[
                 "concept.probability.convergence",
+                "concept.probability.measure-space",
+                "concept.probability.almost-sure-equivalence",
+                "concept.probability.exchangeability",
+                "concept.probability.tail-events",
+                "concept.probability.zero-one-laws",
+                "concept.probability.convergence-in-distribution",
+                "concept.probability.skorohod-representation",
+                "concept.probability.scheffe",
                 "concept.stochastic.process",
+                "concept.stochastic.process.measurability",
+                "concept.stochastic.process.equivalence",
+                "concept.stochastic.process.finite-dimensional-distributions",
+                "concept.stochastic.process.kolmogorov-extension",
+                "concept.stochastic.filtration",
+                "concept.stochastic.stopping-time",
+                "concept.stochastic.stopped-process",
+                "concept.stochastic.stopping-time-sigma-algebra",
+                "concept.stochastic.right-continuity",
                 "concept.conditional.expectation",
+                "concept.conditional.probability",
+                "concept.conditional.best-predictor",
+                "concept.conditional.variance",
+                "concept.conditional.covariance",
+                "concept.expectation.uniform-integrability",
+                "concept.probability.lp-convergence",
                 "concept.martingale",
                 "concept.markov.process",
                 "concept.poisson.process",
@@ -389,8 +495,31 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
         "concept.probability.almost-sure-convergence": "almost sure convergence",
         "concept.probability.convergence-in-probability": "convergence in probability",
         "concept.probability.borel-cantelli": "Borel–Cantelli lemmas",
+        "concept.probability.measure-space": "probability spaces as measure spaces",
+        "concept.probability.almost-sure-equivalence": "almost-sure equivalence and completion",
+        "concept.probability.exchangeability": "exchangeable events and random variables",
+        "concept.probability.tail-events": "tail sigma-algebras, events, and variables",
+        "concept.probability.zero-one-laws": "zero-one laws",
+        "concept.probability.convergence-in-distribution": "convergence in distribution",
+        "concept.probability.skorohod-representation": "Skorohod representation",
+        "concept.probability.scheffe": "Scheffé's theorem",
         "concept.stochastic.process": "stochastic process",
+        "concept.stochastic.process.measurability": "measurable stochastic processes",
+        "concept.stochastic.process.equivalence": "versions, equivalence in distribution, and indistinguishability",
+        "concept.stochastic.process.finite-dimensional-distributions": "finite-dimensional distributions",
+        "concept.stochastic.process.kolmogorov-extension": "Kolmogorov extension construction",
+        "concept.stochastic.filtration": "filtration",
+        "concept.stochastic.stopping-time": "stopping time",
+        "concept.stochastic.stopped-process": "stopped stochastic process",
+        "concept.stochastic.stopping-time-sigma-algebra": "sigma-algebra at a stopping time",
+        "concept.stochastic.right-continuity": "right-continuous filtration",
         "concept.conditional.expectation": "measure-theoretic conditional expectation",
+        "concept.conditional.probability": "conditional probability given a sigma-algebra",
+        "concept.conditional.best-predictor": "conditional expectation as best predictor",
+        "concept.conditional.variance": "conditional variance",
+        "concept.conditional.covariance": "conditional covariance",
+        "concept.expectation.uniform-integrability": "uniform integrability",
+        "concept.probability.lp-convergence": "convergence in Lp",
         "concept.martingale": "martingale",
         "concept.markov.process": "Markov process",
         "concept.poisson.process": "Poisson process",
@@ -431,8 +560,8 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
                 payload={"label": label, "cognitive_level": level},
             )
         )
-    if build_receipt.get("schema") != "o009.first-boundary-build.v1":
-        raise RuntimeError("unsupported first-boundary build receipt schema")
+    if build_receipt.get("schema") != "o009.reader-build.v2":
+        raise RuntimeError("unsupported reader build receipt schema")
     return entities
 
 
@@ -447,134 +576,147 @@ def load_build_validator() -> Any:
 
 def html_entities() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, str]]]:
     load_build_validator().validate_theory_translation()
-    source_bytes = require_file(AUTH_HTML)
-    target_bytes = require_file(TARGET_HTML)
-    source = BeautifulSoup(source_bytes.decode("utf-8"), "lxml")
-    target = BeautifulSoup(target_bytes.decode("utf-8"), "lxml")
-    left_tags = source.find_all(True)
-    right_tags = target.find_all(True)
-    page_id = "unit.o009.random.prob.convergence"
-    entities = [
-        record(
-            "unit",
-            page_id,
-            parent_id="course.o009.d30",
-            order=1,
-            path="prob/Convergence.html",
-            resource_id="resource.random.kyle-siegrist",
-            edition_id="edition.random.snapshot.2026-03-13",
-            source_local_id="prob/Convergence.html",
-            source_locator="https://www.randomservices.org/random/prob/Convergence.html",
-            source_sha256=sha256(source_bytes),
-            target_sha256=sha256(target_bytes),
-            locale="id-ID",
-            translation_state="structurally_verified",
-            relationship="translates",
-            rights_id="rights.random.dual-witness",
-            concept_ids=[
-                "concept.probability.convergence",
-                "concept.probability.almost-sure-convergence",
-                "concept.probability.convergence-in-probability",
-                "concept.probability.borel-cantelli",
-            ],
-            payload={"unit_kind": "section", "source_language": "en", "body_extent": "complete"},
-        )
-    ]
+    entities: list[dict[str, Any]] = []
     segments: list[dict[str, Any]] = []
     relations: list[dict[str, str]] = []
-    semantic_indexes: defaultdict[str, int] = defaultdict(int)
-    semantic_target_to_id: dict[int, str] = {}
-    semantic_names = {"h2", "h3", "h4", "div", "details", "figure"}
-    for position, (left, right) in enumerate(zip(left_tags, right_tags, strict=True), start=1):
-        qualifies = right.name in semantic_names and (
-            right.name != "div" or "unit" in (right.get("class") or [])
-        )
-        if not qualifies:
-            continue
-        semantic_indexes[right.name] += 1
-        source_local_id = str(right.get("id", "")) or None
-        suffix = source_local_id or f"{right.name}-{semantic_indexes[right.name]:03d}"
-        stable_id = f"unit.o009.random.prob.convergence.{suffix}"
-        parent_id = page_id
-        parent = right.find_parent("div", class_="unit")
-        if parent is not None and id(parent) in semantic_target_to_id:
-            parent_id = semantic_target_to_id[id(parent)]
-        semantic_target_to_id[id(right)] = stable_id
-        classes = right.get("class") or []
-        kind = (
-            "details"
-            if right.name == "details"
-            else "figure"
-            if right.name == "figure"
-            else "heading"
-            if right.name.startswith("h")
-            else "definition"
-            if right.select_one(":scope > p.dfn")
-            else "mathematical_unit"
-        )
+    page_ids: list[str] = []
+    for spec in THEORY_SPECS:
+        rel = str(spec["rel"])
+        slug = str(spec["slug"])
+        authority = AUTH_RANDOM / "static" / Path(rel)
+        target_path = ROOT / "source" / "theory" / Path(rel)
+        source_bytes = require_file(authority)
+        target_bytes = require_file(target_path)
+        source = BeautifulSoup(source_bytes.decode("utf-8"), "lxml")
+        target = BeautifulSoup(target_bytes.decode("utf-8"), "lxml")
+        left_tags = source.find_all(True)
+        right_tags = target.find_all(True)
+        page_id = f"unit.o009.random.{slug}"
+        page_ids.append(page_id)
         entities.append(
             record(
                 "unit",
-                stable_id,
-                parent_id=parent_id,
-                order=position,
-                path="prob/Convergence.html",
+                page_id,
+                parent_id="course.o009.d30",
+                order=int(spec["order"]),
+                path=rel,
                 resource_id="resource.random.kyle-siegrist",
                 edition_id="edition.random.snapshot.2026-03-13",
-                source_local_id=source_local_id,
-                source_locator=f"#{source_local_id}" if source_local_id else f"dom-order:{position}",
-                source_sha256=sha256(str(left).encode("utf-8")),
-                target_sha256=sha256(str(right).encode("utf-8")),
+                source_local_id=rel,
+                source_locator=f"https://www.randomservices.org/random/{rel}",
+                source_sha256=sha256(source_bytes),
+                target_sha256=sha256(target_bytes),
                 locale="id-ID",
                 translation_state="structurally_verified",
                 relationship="translates",
                 rights_id="rights.random.dual-witness",
-                payload={"unit_kind": kind, "classes": list(classes), "body_extent": "complete-dom-node"},
+                concept_ids=list(spec["concept_ids"]),
+                payload={"unit_kind": "section", "source_language": "en", "body_extent": "complete"},
             )
         )
+        semantic_indexes: defaultdict[str, int] = defaultdict(int)
+        semantic_target_to_id: dict[int, str] = {}
+        semantic_names = {"h2", "h3", "h4", "div", "details", "figure"}
+        for position, (left, right) in enumerate(zip(left_tags, right_tags, strict=True), start=1):
+            qualifies = right.name in semantic_names and (
+                right.name != "div" or "unit" in (right.get("class") or [])
+            )
+            if not qualifies:
+                continue
+            semantic_indexes[right.name] += 1
+            source_local_id = str(right.get("id", "")) or None
+            suffix = source_local_id or f"{right.name}-{semantic_indexes[right.name]:03d}"
+            stable_id = f"{page_id}.{suffix}"
+            parent_id = page_id
+            parent = right.find_parent("div", class_="unit")
+            if parent is not None and id(parent) in semantic_target_to_id:
+                parent_id = semantic_target_to_id[id(parent)]
+            semantic_target_to_id[id(right)] = stable_id
+            classes = right.get("class") or []
+            kind = (
+                "details"
+                if right.name == "details"
+                else "figure"
+                if right.name == "figure"
+                else "heading"
+                if right.name.startswith("h")
+                else "definition"
+                if right.select_one(":scope > p.dfn")
+                else "mathematical_unit"
+            )
+            entities.append(
+                record(
+                    "unit",
+                    stable_id,
+                    parent_id=parent_id,
+                    order=position,
+                    path=rel,
+                    resource_id="resource.random.kyle-siegrist",
+                    edition_id="edition.random.snapshot.2026-03-13",
+                    source_local_id=source_local_id,
+                    source_locator=f"#{source_local_id}" if source_local_id else f"dom-order:{position}",
+                    source_sha256=sha256(str(left).encode("utf-8")),
+                    target_sha256=sha256(str(right).encode("utf-8")),
+                    locale="id-ID",
+                    translation_state="structurally_verified",
+                    relationship="translates",
+                    rights_id="rights.random.dual-witness",
+                    payload={"unit_kind": kind, "classes": list(classes), "body_extent": "complete-dom-node"},
+                )
+            )
+            relations.append(
+                relation(
+                    f"rel.contains.{parent_id}.{stable_id}",
+                    "contains",
+                    parent_id,
+                    stable_id,
+                    f"{rel}:dom-order:{position}",
+                )
+            )
+        segment_names = {"h2", "h3", "h4", "p", "li", "figcaption", "summary", "q", "button"}
+        segment_order = 0
+        for position, (left, right) in enumerate(zip(left_tags, right_tags, strict=True), start=1):
+            if right.name not in segment_names:
+                continue
+            source_text = " ".join(left.stripped_strings)
+            target_text = " ".join(right.stripped_strings)
+            if not source_text and not target_text:
+                continue
+            segment_order += 1
+            parent_id = page_id
+            ancestor = right.find_parent(["div", "details", "figure"])
+            while ancestor is not None:
+                if id(ancestor) in semantic_target_to_id:
+                    parent_id = semantic_target_to_id[id(ancestor)]
+                    break
+                ancestor = ancestor.find_parent(["div", "details", "figure"])
+            segments.append(
+                record(
+                    "segment",
+                    f"segment.o009.random.{slug}.{segment_order:04d}",
+                    parent_id=parent_id,
+                    order=segment_order,
+                    path=rel,
+                    resource_id="resource.random.kyle-siegrist",
+                    edition_id="edition.random.snapshot.2026-03-13",
+                    source_locator=f"dom-order:{position}",
+                    source_sha256=sha256(source_text.encode("utf-8")),
+                    target_sha256=sha256(target_text.encode("utf-8")),
+                    locale="id-ID",
+                    translation_state="structurally_verified",
+                    relationship="translates",
+                    rights_id="rights.random.dual-witness",
+                    payload={"source_text": source_text, "target_text": target_text, "tag": right.name},
+                )
+            )
+    for left, right in zip(page_ids, page_ids[1:]):
         relations.append(
             relation(
-                f"rel.contains.{parent_id}.{stable_id}",
-                "contains",
-                parent_id,
-                stable_id,
-                f"prob/Convergence.html:dom-order:{position}",
-            )
-        )
-    segment_names = {"h2", "h3", "h4", "p", "li", "figcaption", "summary", "q", "button"}
-    segment_order = 0
-    for position, (left, right) in enumerate(zip(left_tags, right_tags, strict=True), start=1):
-        if right.name not in segment_names:
-            continue
-        source_text = " ".join(left.stripped_strings)
-        target_text = " ".join(right.stripped_strings)
-        if not source_text and not target_text:
-            continue
-        segment_order += 1
-        parent_id = page_id
-        ancestor = right.find_parent(["div", "details", "figure"])
-        while ancestor is not None:
-            if id(ancestor) in semantic_target_to_id:
-                parent_id = semantic_target_to_id[id(ancestor)]
-                break
-            ancestor = ancestor.find_parent(["div", "details", "figure"])
-        segments.append(
-            record(
-                "segment",
-                f"segment.o009.random.prob.convergence.{segment_order:04d}",
-                parent_id=parent_id,
-                order=segment_order,
-                path="prob/Convergence.html",
-                resource_id="resource.random.kyle-siegrist",
-                edition_id="edition.random.snapshot.2026-03-13",
-                source_locator=f"dom-order:{position}",
-                source_sha256=sha256(source_text.encode("utf-8")),
-                target_sha256=sha256(target_text.encode("utf-8")),
-                locale="id-ID",
-                translation_state="structurally_verified",
-                relationship="translates",
-                rights_id="rights.random.dual-witness",
-                payload={"source_text": source_text, "target_text": target_text, "tag": right.name},
+                f"rel.precedes.{left}.{right}",
+                "precedes",
+                left,
+                right,
+                "reader source order",
             )
         )
     return entities, segments, relations
@@ -1185,6 +1327,8 @@ def asset_entities() -> list[dict[str, Any]]:
         ("asset.random.increasing-1", AUTH_RANDOM / "static" / "prob" / "Increasing1.png", "rights.random.dual-witness"),
         ("asset.random.increasing-2", AUTH_RANDOM / "static" / "prob" / "Increasing2.png", "rights.random.dual-witness"),
         ("asset.random.decreasing", AUTH_RANDOM / "static" / "prob" / "Decreasing.png", "rights.random.dual-witness"),
+        ("asset.random.inverse-image", AUTH_RANDOM / "static" / "prob" / "InverseImage.png", "rights.random.dual-witness"),
+        ("asset.random.convex-function", AUTH_RANDOM / "static" / "expect" / "ConvexFunction.png", "rights.random.dual-witness"),
         ("asset.mathjax.tex-svg", AUTH_RANDOM / "shared" / "MathJax" / "tex-svg.js", "rights.mathjax.apache-2.0"),
         ("asset.o009.reader-css", ROOT / "source" / "reader.css", "rights.o009.original.cc-by-4.0"),
     ]
@@ -1214,8 +1358,6 @@ def artifact_rows() -> list[dict[str, str]]:
         ("artifact.input.terms", "input", TERMS),
         ("artifact.input.random-manifest", "authority-manifest", RANDOM_MANIFEST),
         ("artifact.input.random-receipt", "authority-receipt", RANDOM_RECEIPT),
-        ("artifact.input.random-convergence", "authority-source", AUTH_HTML),
-        ("artifact.input.target-convergence", "translation-source", TARGET_HTML),
         ("artifact.input.zitkovic-zip", "authority-archive", ZIT_ZIP),
         ("artifact.input.zitkovic-license", "rights-witness", ZIT_LICENSE),
         ("artifact.input.zitkovic-simulation", "authority-source", ZIT_SIMULATION),
@@ -1223,6 +1365,15 @@ def artifact_rows() -> list[dict[str, str]]:
         ("artifact.input.site-package-manifest", "build-manifest", BUILD_MANIFEST),
         ("artifact.input.site-build-receipt", "build-receipt", BUILD_RECEIPT),
     ]
+    for spec in THEORY_SPECS:
+        slug = str(spec["slug"]).replace(".", "-")
+        rel = Path(str(spec["rel"]))
+        paths.extend(
+            [
+                (f"artifact.input.random-{slug}", "authority-source", AUTH_RANDOM / "static" / rel),
+                (f"artifact.input.target-{slug}", "translation-source", ROOT / "source" / "theory" / rel),
+            ]
+        )
     rows: list[dict[str, str]] = []
     for artifact_id, kind, path in paths:
         data = require_file(path)
@@ -1253,13 +1404,25 @@ def artifact_rows() -> list[dict[str, str]]:
 def qa_rows(artifacts: list[dict[str, str]], records: list[dict[str, Any]], relations: list[dict[str, str]]) -> list[dict[str, str]]:
     receipt = load_json(BUILD_RECEIPT)
     manifest_hash = sha256(require_file(BUILD_MANIFEST))
+    receipt_units = {
+        str(item.get("path")): item
+        for item in receipt.get("theory_units", [])
+        if isinstance(item, dict)
+    }
+    current_unit_hashes = {
+        str(spec["rel"]): sha256(require_file(ROOT / "source" / "theory" / Path(str(spec["rel"]))))
+        for spec in THEORY_SPECS
+    }
+    theory_inputs_bound = set(receipt_units) == set(current_unit_hashes) and all(
+        receipt_units[path].get("target_sha256") == digest for path, digest in current_unit_hashes.items()
+    )
     checks = [
         (
             "qa.o009.theory-structure",
             "structural-translation",
-            "artifact.input.target-convergence",
+            "artifact.input.first-boundary-builder",
             "pass",
-            "first-boundary validator accepted translated theory topology, TeX, ids, and locale",
+            f"reader validator accepted topology, TeX, ids, and locale for {len(THEORY_SPECS)} theory units",
         ),
         (
             "qa.o009.build-manifest-binding",
@@ -1272,8 +1435,8 @@ def qa_rows(artifacts: list[dict[str, str]], records: list[dict[str, Any]], rela
             "qa.o009.build-theory-input-binding",
             "input-binding",
             "artifact.input.site-build-receipt",
-            "pass" if receipt.get("theory_target_sha256") == sha256(require_file(TARGET_HTML)) else "fail",
-            f"receipt={receipt.get('theory_target_sha256')} current={sha256(require_file(TARGET_HTML))}",
+            "pass" if theory_inputs_bound else "fail",
+            f"receipt_paths={sorted(receipt_units)} current={current_unit_hashes}",
         ),
         (
             "qa.o009.build-lab-input-binding",
@@ -1358,7 +1521,10 @@ CSV_DEFINITIONS: dict[str, dict[str, Any]] = {
     },
     "corrections.csv": {
         "fields": ["correction_id", "change_kind", "source_id", "target_id", "description", "evidence", "status"],
-        "enums": {"change_kind": ["deterministic-output", "original-addition"], "status": ["accepted"]},
+        "enums": {
+            "change_kind": ["deterministic-output", "original-addition", "source-link-repair"],
+            "status": ["accepted"],
+        },
         "patterns": {"correction_id": r"^correction\.[A-Za-z0-9._:-]+$"},
     },
     "translations.csv": {
@@ -1530,7 +1696,7 @@ def write_csv(filename: str, rows: list[dict[str, str]]) -> None:
     validate_csv_rows(filename, rows)
     fields = CSV_DEFINITIONS[filename]["fields"]
     with (BACKEND / filename).open("w", encoding="utf-8", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields)
+        writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -1540,6 +1706,17 @@ def build() -> None:
     entities = fixed_entities(lab_text)
     html, html_segments, html_relations = html_entities()
     lab, lab_segments, lab_relations, aliases, translations, corrections = lab_entities()
+    corrections.append(
+        {
+            "correction_id": "correction.o009.random.probability-revisited.fragment-tai1",
+            "change_kind": "source-link-repair",
+            "source_id": "unit.o009.random.prob.probability-revisited",
+            "target_id": "unit.o009.random.prob.probability-revisited",
+            "description": "Rewrite the upstream broken #tai1 reference to its intended limsup/liminf result #tai12 in the built reader only.",
+            "evidence": "authority/random/static/prob/Probability2.html:486; built prob/Probability2.html",
+            "status": "accepted",
+        }
+    )
     entities.extend(html)
     entities.extend(lab)
     entities.extend(asset_entities())
