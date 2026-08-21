@@ -1,10 +1,10 @@
 # Current state
 
 As of 2026-08-21, this is an active O009/D30 production lane. Its first
-theory–lab reader boundary is verified and ready for its initial GitHub
-publication. The complete Indonesian edition is not yet finished, and no
-upstream contact has occurred. Completion of this edition is independent of
-the coordinator's later curriculum-admission decision.
+theory–lab reader boundary is public and anonymously byte-verified on GitHub
+Pages. The complete Indonesian edition is not yet finished, and no upstream
+contact has occurred. Completion of this edition is independent of the
+coordinator's later curriculum-admission decision.
 
 ## Source disposition
 
@@ -53,6 +53,13 @@ copyable R block, 34 math expressions, and the three-row executed result table.
 All local images load, the `boldsymbol` extension is requested locally with
 HTTP 200, and browser error/warning logs are empty.
 
+The public repository is
+`https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id`
+and the reader is
+`https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/`.
+Pages run `32505068598` deployed source commit `f07ffbee0fa8309a9e39ae602a6fe1bfda9da2d8`;
+all 22 manifested files matched anonymously. See `PUBLICATION_RECEIPT.json`.
+
 ### Next translated source unit
 
 `source/theory/prob/Probability2.html` is fully translated but intentionally
@@ -63,10 +70,9 @@ match authority.
 
 ## Next exact action
 
-1. Create and push the initial verified repository and deploy `build/site`.
-2. Record the remote commit, Pages run/deployment, and anonymous byte checks.
-3. Integrate `Probability2.html` into the next reader/backend boundary.
-4. Continue with `prob/Processes.html` in source order.
+1. Integrate `Probability2.html` into the next reader/backend boundary.
+2. Continue with `prob/Processes.html` in source order.
+3. Push the next substantial verified boundary without awaiting confirmation.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

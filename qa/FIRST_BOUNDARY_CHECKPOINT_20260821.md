@@ -56,3 +56,12 @@ verified (51,686 bytes; SHA-256
 `4cd3a1eb9edca1c3dc81eba39b97c018b339136241d8a668063e3bf62c1a4c32`).
 It is the next reader/backend integration boundary, followed by translation of
 `authority/random/static/prob/Processes.html`.
+
+## Public closure
+
+- Repository: `https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id`
+- Deployed source commit: `f07ffbee0fa8309a9e39ae602a6fe1bfda9da2d8`
+- Successful Pages run: `32505068598`; deployment `6025603605`.
+- Reader: `https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/`
+- Anonymous readback: every one of the 22 manifested files, totaling 1,807,932
+  bytes, is exactly equal to the local verified payload.

@@ -1,7 +1,7 @@
 {
   "schema": "o009.cursor.v2",
   "as_of": "2026-08-21",
-  "status": "first_boundary_verified_ready_to_publish",
+  "status": "first_boundary_public_verified_next_boundary_translation",
   "course_id": "O009",
   "role_id": "D30",
   "verified_boundary": {
@@ -23,7 +23,11 @@
     "target_sha256": "4cd3a1eb9edca1c3dc81eba39b97c018b339136241d8a668063e3bf62c1a4c32"
   },
   "next_source_order_unit": "authority/random/static/prob/Processes.html",
-  "next_action": "publish and anonymously verify first boundary, then integrate Probability2 and translate Processes",
+  "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
+  "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
+  "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+  "deployed_source_commit": "f07ffbee0fa8309a9e39ae602a6fe1bfda9da2d8",
+  "next_action": "integrate Probability2 into the reader/backend, then translate Processes",
   "cross_lane_dependencies": [
     {
       "lane": "O006/C140",

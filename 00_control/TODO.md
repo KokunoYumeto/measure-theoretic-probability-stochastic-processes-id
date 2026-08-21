@@ -26,7 +26,7 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Populate unit/concept/exercise/solution/lab/asset/backend records.
 - [x] Run structural, math, code, link, asset, accessibility, privacy, and visual QA.
 - [x] Record hashes, cursor, build log, QA checkpoint, and exact next unit.
-- [~] Create the lane GitHub repository and push the verified boundary.
+- [x] Create the lane GitHub repository, deploy Pages, and anonymously verify every manifested byte.
 - [x] Translate the next disjoint source unit, Random `prob/Probability2.html`.
 - [ ] Integrate and build `Probability2.html`, then translate `prob/Processes.html`.
 

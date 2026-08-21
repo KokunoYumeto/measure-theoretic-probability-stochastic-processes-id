@@ -1,0 +1,54 @@
+{
+  "anonymous_verification": {
+    "base_url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+    "build_receipt_sha256": "4764287c8a64a1b566074dfe95a2a786532044a35e9318fe266cd1fc4468b0d1",
+    "file_count": 22,
+    "manifest_sha256": "c7dcaf31439066f3a2191937bcad7dce18dba5d4044bdaa25c7b434dcf369c3d",
+    "status": "all_manifested_bytes_exact",
+    "total_bytes": 1807932,
+    "verified_at_utc": "2026-08-21T16:54:44.167708+00:00",
+    "verifier_path": "scripts/verify_remote_pages.py",
+    "verifier_sha256": "dad7315449bf5940003cba7decfd92fbda0e9063b95d4eb4875611ff279e287d"
+  },
+  "deployed_source": {
+    "commit_sha": "f07ffbee0fa8309a9e39ae602a6fe1bfda9da2d8",
+    "commit_tree_sha": "a4efcbeb0289e76388b00a38560f583d77d14d8b",
+    "default_branch": "main",
+    "first_commit": true,
+    "message": "Publish first Indonesian probability theory-lab boundary"
+  },
+  "pages": {
+    "build_type": "workflow",
+    "deployment_id": 6025603605,
+    "deployment_status_id": 17131022306,
+    "deployment_status": "success",
+    "environment": "github-pages",
+    "https_enforced": true,
+    "job_id": 96843286520,
+    "page_url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+    "pages_sha_status": "succeed",
+    "run_conclusion": "success",
+    "run_event": "workflow_dispatch",
+    "run_id": 32505068598,
+    "run_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/actions/runs/32505068598"
+  },
+  "recovery_event": {
+    "conclusion": "failure",
+    "cause": "the initial push-triggered Configure Pages step ran before the new repository's Pages site was enabled",
+    "disposition": "enabled Pages with build_type=workflow and dispatched the same exact source commit",
+    "head_sha": "f07ffbee0fa8309a9e39ae602a6fe1bfda9da2d8",
+    "initial_run_id": 32504947169,
+    "initial_run_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/actions/runs/32504947169"
+  },
+  "repository": {
+    "created_at_utc": "2026-08-21T16:49:24+00:00",
+    "full_name": "KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
+    "has_pages": true,
+    "homepage": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+    "html_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
+    "repository_id": 1342031263,
+    "visibility": "public"
+  },
+  "schema": "o009.github-publication-receipt.v1",
+  "status": "first_boundary_public_and_anonymously_verified"
+}
