@@ -60,7 +60,7 @@ and the reader is
 Pages run `32505068598` deployed source commit `f07ffbee0fa8309a9e39ae602a6fe1bfda9da2d8`;
 all 22 manifested files matched anonymously. See `PUBLICATION_RECEIPT.json`.
 
-### Second reader boundary (release-ready locally)
+### Second reader boundary (public and anonymously verified)
 
 The reader now contains seven structurally verified theory units plus the
 executed Monte Carlo lab:
@@ -89,13 +89,23 @@ All 142 disclosure panels opened and closed through their visible controls;
 math containers, one copyable stable-ID R block, and three result rows. See
 `qa/SECOND_BOUNDARY_CHECKPOINT_20260821.md`.
 
+Commit `421102a5f085cb43a553a9205a41eb5840a742a2` (tree
+`2212b70358a639d25b2d46176a45d27582f341b3`) is public. Pages run
+`32524904841`, job `96904777777`, and deployment `6028956065` all succeeded.
+An anonymous readback matched all 30 manifested files and 2,115,983 bytes
+exactly at 2026-08-21T20:43:20.1513723Z. See `PUBLICATION_RECEIPT.json`.
+
 ## Next exact action
 
-1. Commit and push this exact release-ready boundary.
-2. Wait for the Pages deployment and anonymously read back all 30 manifested
-   files plus the build receipt.
-3. Record the public receipt, then continue with `expect/Kernels.html` and the
-   martingale sequence without treating this checkpoint as full completion.
+1. Reconcile and finish the existing `expect/Kernels.html` draft against its
+   exact frozen authority. The current draft is 54,426 bytes at SHA-256
+   `c9c1275b4226d6d761cedcf3b153d0cfc2574ff2b06fb0aa239a05962ccbf84b`;
+   it is not yet admitted or release-ready.
+2. Run structure/math/language QA, integrate the completed kernels unit into
+   the deterministic reader and backend, and then continue the martingale
+   sequence in source order.
+3. Keep publishing substantial verified boundaries without treating any
+   intermediate checkpoint as full completion.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

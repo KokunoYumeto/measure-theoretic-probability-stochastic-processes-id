@@ -49,6 +49,39 @@
     "repository_id": 1342031263,
     "visibility": "public"
   },
-  "schema": "o009.github-publication-receipt.v1",
-  "status": "first_boundary_public_and_anonymously_verified"
+  "second_boundary": {
+    "anonymous_verification": {
+      "base_url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+      "build_receipt_sha256": "88119231401f33bb2daa84596707f58765b348b053b18545fe3be0f2bedada9c",
+      "file_count": 30,
+      "manifest_sha256": "523ab02b30534d701777cf5f50f27b1830a5aed3a490aced1d759ed3e5d36105",
+      "status": "all_manifested_bytes_exact",
+      "total_bytes": 2115983,
+      "verified_at_utc": "2026-08-21T20:43:20.1513723Z",
+      "verifier_path": "scripts/verify_remote_pages.py",
+      "verifier_sha256": "dad7315449bf5940003cba7decfd92fbda0e9063b95d4eb4875611ff279e287d"
+    },
+    "deployed_source": {
+      "commit_sha": "421102a5f085cb43a553a9205a41eb5840a742a2",
+      "commit_tree_sha": "2212b70358a639d25b2d46176a45d27582f341b3",
+      "default_branch": "main",
+      "message": "Publish second Indonesian probability reader boundary"
+    },
+    "pages": {
+      "build_type": "workflow",
+      "deployment_id": 6028956065,
+      "deployment_status_id": 17139757050,
+      "deployment_status": "success",
+      "environment": "github-pages",
+      "https_enforced": true,
+      "job_id": 96904777777,
+      "page_url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+      "run_conclusion": "success",
+      "run_event": "push",
+      "run_id": 32524904841,
+      "run_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/actions/runs/32524904841"
+    }
+  },
+  "schema": "o009.github-publication-receipt.v2",
+  "status": "second_boundary_public_and_anonymously_verified"
 }

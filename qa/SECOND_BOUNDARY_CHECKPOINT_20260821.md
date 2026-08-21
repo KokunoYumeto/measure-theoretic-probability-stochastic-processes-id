@@ -1,6 +1,6 @@
 # Second reader-boundary checkpoint — 2026-08-21
 
-Status: **release-ready locally; public deployment/readback pending**.
+Status: **public and anonymously byte-verified**.
 
 ## Admitted reader scope
 
@@ -83,9 +83,15 @@ result-table rows without desktop or mobile document overflow. Direct visual
 inspection confirmed a centered, page-filling desktop theory layout and a
 readable single-column mobile lab layout.
 
-## Release gate
+## Release evidence
 
-Commit/push, Pages workflow evidence, deployed commit identity, and anonymous
-30-file byte readback must be appended to `00_control/PUBLICATION_RECEIPT.json`
-after deployment. This checkpoint is substantial but is not the complete
-edition; the durable goal remains active.
+Commit `421102a5f085cb43a553a9205a41eb5840a742a2` (tree
+`2212b70358a639d25b2d46176a45d27582f341b3`) deployed successfully in Pages
+run `32524904841`, job `96904777777`, deployment `6028956065`. At
+2026-08-21T20:43:20.1513723Z, the anonymous verifier matched all 30 manifested
+files and 2,115,983 bytes exactly, including manifest SHA-256
+`523ab02b30534d701777cf5f50f27b1830a5aed3a490aced1d759ed3e5d36105`.
+The complete machine receipt is `00_control/PUBLICATION_RECEIPT.json`.
+
+This checkpoint is substantial but is not the complete edition; the durable
+goal remains active.

@@ -1,20 +1,10 @@
 {
-  "schema": "o009.cursor.v4",
+  "schema": "o009.cursor.v5",
   "as_of": "2026-08-21",
-  "status": "second_boundary_release_ready_publication_pending",
+  "status": "second_boundary_public_and_anonymously_verified",
   "course_id": "O009",
   "role_id": "D30",
   "public_verified_boundary": {
-    "theory_targets": [
-      "source/theory/prob/Convergence.html"
-    ],
-    "lab_target": "source/labs/01-konvergensi-monte-carlo.Rmd",
-    "site_manifest_sha256": "c7dcaf31439066f3a2191937bcad7dce18dba5d4044bdaa25c7b434dcf369c3d",
-    "build_receipt_sha256": "4764287c8a64a1b566074dfe95a2a786532044a35e9318fe266cd1fc4468b0d1",
-    "backend_manifest_sha256": "2bd9008f16aca2f80222e4f19ca7885c57e1cc706136da7133902847039cf638",
-    "deployed_source_commit": "f07ffbee0fa8309a9e39ae602a6fe1bfda9da2d8"
-  },
-  "release_ready_boundary": {
     "theory_targets": [
       {"path": "source/theory/prob/Convergence.html", "bytes": 40997, "sha256": "185888375673550452d1d2428cd0b4203fecd31f0f338fc6c703849642a7809a"},
       {"path": "source/theory/prob/Probability2.html", "bytes": 51686, "sha256": "4cd3a1eb9edca1c3dc81eba39b97c018b339136241d8a668063e3bf62c1a4c32"},
@@ -35,14 +25,22 @@
     "backend_relations": 485,
     "backend_manifest_sha256": "a6b2081f056456df42a88a87df7b3b4594dafcbdc72bb0f48fb2f7f8145cef82",
     "qa_failures": 0,
-    "qa_checkpoint": "qa/SECOND_BOUNDARY_CHECKPOINT_20260821.md"
+    "qa_checkpoint": "qa/SECOND_BOUNDARY_CHECKPOINT_20260821.md",
+    "deployed_source_commit": "421102a5f085cb43a553a9205a41eb5840a742a2",
+    "deployed_source_tree": "2212b70358a639d25b2d46176a45d27582f341b3",
+    "pages_run_id": 32524904841,
+    "verified_at_utc": "2026-08-21T20:43:20.1513723Z"
   },
   "next_translation": {
     "source": "authority/random/static/expect/Kernels.html",
     "target": "source/theory/expect/Kernels.html",
-    "state": "translation_in_progress"
+    "state": "draft_present_unverified",
+    "bytes": 54426,
+    "sha256": "c9c1275b4226d6d761cedcf3b153d0cfc2574ff2b06fb0aa239a05962ccbf84b",
+    "authority_bytes": 53030,
+    "authority_sha256": "9dd2a5474f284fcb11c9e9f9e81099a1c4fe1708094bfcd64b08ccb9f82c5b8d"
   },
-  "next_action": "commit and push the release-ready boundary; verify Pages deployment and all remote bytes; record receipt; continue source order",
+  "next_action": "reconcile and finish the Kernels draft against frozen authority; run structural, mathematical, and language QA; integrate it into the reader/backend; continue the martingale sequence",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
