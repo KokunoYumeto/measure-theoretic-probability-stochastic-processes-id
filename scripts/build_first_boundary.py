@@ -169,7 +169,11 @@ THEORY_UNITS = (
         ),
     },
 )
-MATH_RE = re.compile(r"\\\((.*?)\\\)|\\\[(.*?)\\\]", re.DOTALL)
+MATH_SURFACE_RE = re.compile(
+    r"\\\(.*?\\\)|\\\[.*?\\\]|"
+    r"\\begin\{(?P<environment>[A-Za-z]+\*?)\}.*?\\end\{(?P=environment)\}",
+    re.DOTALL,
+)
 CSS_URL_RE = re.compile(r"url\(\s*(['\"]?)([^)'\"]+)\1\s*\)", re.I)
 R_CHUNK_RE = re.compile(
     r"^```\{r\s+o009_lab_convergence_mc\b[^}]*\}\s*$\n(.*?)^```\s*$",
@@ -228,8 +232,8 @@ def validate_theory_unit(unit: dict[str, object]) -> None:
             )
     if target.html is None or target.html.get("lang") != "id-ID":
         raise RuntimeError(f"translated theory must declare lang=id-ID: {unit['rel']}")
-    source_math = MATH_RE.findall(source_text)
-    target_math = MATH_RE.findall(target_text)
+    source_math = [match.group(0) for match in MATH_SURFACE_RE.finditer(source_text)]
+    target_math = [match.group(0) for match in MATH_SURFACE_RE.finditer(target_text)]
     if source_math != target_math:
         raise RuntimeError(f"translated theory TeX surface differs: {unit['rel']}")
     ids = [str(tag["id"]) for tag in target.select("[id]")]

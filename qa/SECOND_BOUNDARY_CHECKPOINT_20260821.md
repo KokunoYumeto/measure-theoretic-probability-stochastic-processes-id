@@ -95,3 +95,14 @@ The complete machine receipt is `00_control/PUBLICATION_RECEIPT.json`.
 
 This checkpoint is substantial but is not the complete edition; the durable
 goal remains active.
+
+## Post-release validator hardening
+
+An independent byte audit found that the release-time `MATH_RE` automated
+comparison covered 4,523 inline/display-delimited expressions but not five
+standalone TeX environments. The five omitted environments—one in
+`prob/Processes.html` and four in `expect/Conditional2.html`—were independently
+confirmed byte-identical to frozen authority, so the released reader required
+no content correction. The builder now compares inline, display, and standalone
+environment surfaces in document order. A fresh `build_first_boundary.py
+--check` passes over all 4,528 mathematical containers. See `O009-A015`.
