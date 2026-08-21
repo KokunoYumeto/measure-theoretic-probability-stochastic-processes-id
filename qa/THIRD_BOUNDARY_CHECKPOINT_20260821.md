@@ -1,6 +1,6 @@
 # Third reader-boundary checkpoint — 2026-08-21
 
-Status: **release-ready locally; public deployment/readback pending**.
+Status: **public and anonymously byte-verified**.
 
 ## Added unit
 
@@ -84,8 +84,17 @@ the existing reader, use one consistent dark panel (`rgb(24,39,51)`) with
 light text (`rgb(238,244,248)`) in the inspected dark scheme. This directly
 removes the previously confusing filled/unfilled and low-contrast behavior.
 
-## Release gate
+## Publication evidence
 
-Commit/push, Pages workflow evidence, deployed commit identity, and anonymous
-31-file byte readback remain required. This checkpoint is not the complete
-edition; after publication the cursor advances to the martingale sequence.
+- Deployed commit: `347517ed1bd8252bd5735677cbe680145d302802`.
+- Deployed tree: `a109b42cce366b7a81ec25e7fd90daa43c33fb36`.
+- Pages run/job/deployment: `32527548058` / `96912701798` / `6029386935`;
+  workflow conclusion and deployment state both `success`.
+- Anonymous verification at 2026-08-21T21:20:22.3315139Z matched all 31
+  manifested files and 2,173,893 bytes; manifest SHA-256
+  `20b8af90f55fb035de538cb6e542fe7d8ce925db022ddca0a156fd5e45f8cbf4`.
+- Public reader:
+  `https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/`.
+
+This checkpoint is not the complete edition. The cursor has advanced to the
+martingale sequence.

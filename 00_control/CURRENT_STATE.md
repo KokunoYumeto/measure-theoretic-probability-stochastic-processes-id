@@ -1,8 +1,8 @@
 # Current state
 
-As of 2026-08-21, this is an active O009/D30 production lane. Its first two
+As of 2026-08-21, this is an active O009/D30 production lane. Its first three
 theory–lab reader boundaries are public and anonymously byte-verified on
-GitHub Pages; a third boundary is release-ready locally. The complete
+GitHub Pages. The complete
 Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
 curriculum-admission decision.
@@ -96,7 +96,7 @@ Commit `421102a5f085cb43a553a9205a41eb5840a742a2` (tree
 An anonymous readback matched all 30 manifested files and 2,115,983 bytes
 exactly at 2026-08-21T20:43:20.1513723Z. See `PUBLICATION_RECEIPT.json`.
 
-### Third reader boundary (release-ready locally)
+### Third reader boundary (public and anonymously verified)
 
 `expect/Kernels.html` is now complete, structurally verified, integrated, and
 visually inspected:
@@ -127,17 +127,21 @@ warning/error. It exposed and resolved Random's low-contrast light-gray unit
 fill under the reader dark palette. All current theory units now use one
 consistent legible palette. See `qa/THIRD_BOUNDARY_CHECKPOINT_20260821.md`.
 
+Commit `347517ed1bd8252bd5735677cbe680145d302802` (tree
+`a109b42cce366b7a81ec25e7fd90daa43c33fb36`) is public. Pages run
+`32527548058`, job `96912701798`, and deployment `6029386935` succeeded. An
+anonymous readback matched all 31 manifested files and 2,173,893 bytes at
+2026-08-21T21:20:22.3315139Z. See `PUBLICATION_RECEIPT.json`.
+
 ## Next exact action
 
-1. Commit and push the exact 31-file third boundary, wait for Pages, and
-   anonymously verify every manifested byte.
-2. Record the public receipt, then translate
-   `authority/random/static/martingales/Introduction.html` (59,687 bytes,
+1. Translate `authority/random/static/martingales/Introduction.html` (59,687
+   bytes,
    SHA-256
    `ff102fd4f54926d89c47b92885176e587f342378e442f1f38e4a69199a02375a`)
    to `source/theory/martingales/Introduction.html`.
-3. Continue the martingale sequence in source order without treating this
-   checkpoint as full completion.
+2. Integrate and validate it, then continue the martingale sequence in source
+   order without treating this checkpoint as full completion.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.
