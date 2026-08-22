@@ -1,8 +1,7 @@
 # Current state
 
-As of 2026-08-22, this is an active O009/D30 production lane. Its first four
+As of 2026-08-22, this is an active O009/D30 production lane. Its first five
 reader boundaries are public and anonymously byte-verified on GitHub Pages.
-The fifth boundary has passed complete local QA and is ready for publication.
 The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
 curriculum-admission decision.
@@ -171,7 +170,7 @@ Commit `5a77276ea7a6dcaee2d25f5e4518877f820b0db8` (tree
 anonymous readback matched all 33 manifested files and 2,306,486 bytes at
 2026-08-22T00:29:31.5580754Z. See `PUBLICATION_RECEIPT.json`.
 
-### Fifth reader boundary (release-ready locally)
+### Fifth reader boundary (public and anonymously verified)
 
 `martingales/Properties.html` is completely translated, structurally
 verified, integrated, and visually inspected:
@@ -205,11 +204,15 @@ reference, external runtime, or palette mismatch. The new page's controls
 open and close all 16 detail panels at both sizes. See
 `qa/FIFTH_BOUNDARY_CHECKPOINT_20260822.md`.
 
+Commit `ff0931a39df6d0ce59c557c6950851e835e935ab` (tree
+`dafd6524004a57272f0d1771bc0fbd0a396253d6`) is public. Pages run
+`32541961706`, job `96953550545`, and deployment `6031664444` succeeded. An
+anonymous readback matched all 37 manifested files and 2,372,365 bytes at
+2026-08-22T00:58:29.7321943Z. See `PUBLICATION_RECEIPT.json`.
+
 ## Next exact action
 
-1. Commit and publish the verified fifth boundary, wait for Pages, and
-   anonymously match all 37 manifested files and 2,372,365 bytes.
-2. Integrate the completed local translation of
+1. Integrate the completed local translation of
    `authority/random/static/martingales/Stop.html` (43,887
    bytes, SHA-256
    `8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af`),

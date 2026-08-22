@@ -1,6 +1,6 @@
 # Fifth reader-boundary checkpoint — 2026-08-22
 
-Status: **release-ready locally; publication transaction pending**.
+Status: **public and anonymously byte-verified**.
 
 ## Added unit and component closure
 
@@ -88,3 +88,15 @@ This checkpoint is not the complete edition. The next source-order unit is
 `authority/random/static/martingales/Stop.html`, 43,887 bytes, SHA-256
 `8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af`.
 
+## Publication evidence
+
+- Deployed commit: `ff0931a39df6d0ce59c557c6950851e835e935ab`.
+- Deployed tree: `dafd6524004a57272f0d1771bc0fbd0a396253d6`.
+- Pages run/job/deployment: `32541961706` / `96953550545` / `6031664444`;
+  workflow conclusion and deployment state both `success`.
+- Deployment status: `17148175116`.
+- Anonymous verification at 2026-08-22T00:58:29.7321943Z matched all 37
+  manifested files and 2,372,365 bytes; manifest SHA-256
+  `eca262b01a8bdf87ba4a7dfc23db99e06e11ee18d098e2b702636aa6261fbb38`.
+- Public reader:
+  `https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/`.

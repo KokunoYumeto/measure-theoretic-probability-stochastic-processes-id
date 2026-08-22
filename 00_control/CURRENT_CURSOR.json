@@ -1,10 +1,10 @@
 {
-  "schema": "o009.cursor.v10",
+  "schema": "o009.cursor.v11",
   "as_of": "2026-08-22",
-  "status": "fifth_boundary_release_ready_local",
+  "status": "fifth_boundary_public_and_anonymously_verified",
   "course_id": "O009",
   "role_id": "D30",
-  "public_verified_boundary": {
+  "previous_public_verified_boundary": {
     "theory_targets": [
       {"path": "source/theory/prob/Convergence.html", "bytes": 40997, "sha256": "185888375673550452d1d2428cd0b4203fecd31f0f338fc6c703849642a7809a"},
       {"path": "source/theory/prob/Probability2.html", "bytes": 51686, "sha256": "4cd3a1eb9edca1c3dc81eba39b97c018b339136241d8a668063e3bf62c1a4c32"},
@@ -37,7 +37,7 @@
     "pages_deployment_status_id": 17147562272,
     "verified_at_utc": "2026-08-22T00:29:31.5580754Z"
   },
-  "release_ready_boundary": {
+  "public_verified_boundary": {
     "new_unit": {
       "authority_path": "authority/random/static/martingales/Properties.html",
       "authority_bytes": 37473,
@@ -79,7 +79,14 @@
       "detail_panels_each": 202,
       "bad_rows": 0
     },
-    "qa_checkpoint": "qa/FIFTH_BOUNDARY_CHECKPOINT_20260822.md"
+    "qa_checkpoint": "qa/FIFTH_BOUNDARY_CHECKPOINT_20260822.md",
+    "deployed_source_commit": "ff0931a39df6d0ce59c557c6950851e835e935ab",
+    "deployed_source_tree": "dafd6524004a57272f0d1771bc0fbd0a396253d6",
+    "pages_run_id": 32541961706,
+    "pages_job_id": 96953550545,
+    "pages_deployment_id": 6031664444,
+    "pages_deployment_status_id": 17148175116,
+    "verified_at_utc": "2026-08-22T00:58:29.7321943Z"
   },
   "next_translation": {
     "source": "authority/random/static/martingales/Stop.html",
@@ -93,7 +100,7 @@
     "detail_panels": 18,
     "topology_status": "exact"
   },
-  "next_action": "publish and anonymously verify the fifth boundary, then integrate martingales/Stop.html with exact-once downstream repairs without duplicating O006 chapter 5",
+  "next_action": "integrate martingales/Stop.html with exact-once downstream repairs, full build/backend/browser QA, and no duplication of O006 chapter 5",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
