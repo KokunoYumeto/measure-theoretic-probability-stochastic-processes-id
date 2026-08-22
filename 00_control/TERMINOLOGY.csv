@@ -76,3 +76,13 @@ O009-T0074,Chapman-Kolmogorov equation,persamaan Chapman–Kolmogorov,admitted,c
 O009-T0075,stationary independent increments,inkremen stasioner dan independen,admitted,course,Keep additive-state and continuity hypotheses explicit.
 O009-T0076,Lévy process,proses Lévy,admitted,course,Reserve for continuous time with stochastic continuity and the standard initial-state convention.
 O009-T0077,gambler's ruin,kebangkrutan penjudi,admitted,lab,Absorbing-chain example with exact harmonic comparison.
+O009-T0078,discrete-time Markov chain,rantai Markov waktu diskret,admitted,course,Use rantai for the discrete-time process.
+O009-T0079,time-homogeneous Markov chain,rantai Markov homogen terhadap waktu,admitted,course,Do not conflate transition homogeneity with stationarity of the process law.
+O009-T0080,entrance time,waktu masuk,admitted,course,Distinguish entry at time zero from the first positive hitting time.
+O009-T0081,transition matrix,matriks transisi,admitted,course,Use P_n for the n-step matrix and P for one step.
+O009-T0082,invariant distribution,distribusi invarian,admitted,course,Reserve stasioner for process laws unless the source explicitly identifies an invariant initial law.
+O009-T0083,state graph,graf keadaan,admitted,course,Directed edges encode positive one-step transition probability.
+O009-T0084,potential matrix,matriks potensial,admitted,course,Use matriks potensial-alpha for the discounted resolvent R_alpha.
+O009-T0085,sampled chain,rantai tersampel,admitted,course,Keep deterministic-time sampling distinct from random stopping.
+O009-T0086,substochastic restricted matrix,matriks pembatasan substokastik,admitted,course,The row deficit records probability of leaving the restricted set.
+O009-T0087,doubly stochastic matrix,matriks stokastik ganda,admitted,course,Both row and column sums equal one.
