@@ -472,6 +472,14 @@ shared builder now enforces one H1, one main landmark, unskipped heading
 levels, and unique disclosure labels across every reader page. See
 `qa/ELEVENTH_BOUNDARY_CHECKPOINT_20260822.md`.
 
+The boundary is committed locally as
+`993233df46a963e3ed580de48844b5f28042ae56` (tree
+`53ef4c9ece8494959943b047d40a2186a4d7b0f1`). Its single bounded push at
+2026-08-22T15:53:39.9113931Z failed with the same explicit GitHub account-
+suspension 403; anonymous repository and Pages reads both return 404. Do not
+loop or create another account. Continue production and retry once only after
+the external account state changes.
+
 ## QuantEcon authority-admission checkpoint
 
 The immutable source snapshot passes at 34 files / 384,053 bytes / manifest

@@ -346,6 +346,30 @@
       "run_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/actions/runs/32555221669"
     }
   },
-  "schema": "o009.github-publication-receipt.v10",
-  "status": "tenth_boundary_public_and_anonymously_verified"
+  "eleventh_boundary": {
+    "anonymous_state": {
+      "pages_http": 404,
+      "repository_http": 404
+    },
+    "local_source": {
+      "commit_sha": "993233df46a963e3ed580de48844b5f28042ae56",
+      "commit_tree_sha": "53ef4c9ece8494959943b047d40a2186a4d7b0f1",
+      "message": "Add Indonesian discrete Markov reader boundary"
+    },
+    "publication_attempt": {
+      "attempted_at_utc": "2026-08-22T15:53:39.9113931Z",
+      "http": 403,
+      "result": "account_suspended",
+      "retry_policy": "retry_once_only_after_external_account_state_changes"
+    },
+    "verified_local_artifact": {
+      "build_receipt_sha256": "867d2594620907c5e1cc1d4fefc8187bc9dbc45914a2b319c52f776decc5d5a8",
+      "file_count": 44,
+      "manifest_sha256": "f2315be8b9d3a9f9a7a64b65ae67766ca9d467078056ce85e385cde69aad8b45",
+      "status": "local_release_ready",
+      "total_bytes": 2762106
+    }
+  },
+  "schema": "o009.github-publication-receipt.v11",
+  "status": "tenth_boundary_public_eleventh_boundary_local_push_blocked_by_account_suspension"
 }

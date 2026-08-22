@@ -374,8 +374,17 @@
     },
     "qa_checkpoint": "qa/ELEVENTH_BOUNDARY_CHECKPOINT_20260822.md",
     "verified_at_utc": "2026-08-22T15:44:41.0800305Z",
-    "publication_state": "local_release_ready_remote_account_suspended",
-    "local_commit": null
+    "publication_state": "local_committed_push_403_remote_account_suspended",
+    "local_commit": "993233df46a963e3ed580de48844b5f28042ae56",
+    "local_tree": "53ef4c9ece8494959943b047d40a2186a4d7b0f1",
+    "publication_attempt": {
+      "attempted_at_utc": "2026-08-22T15:53:39.9113931Z",
+      "push_http": 403,
+      "push_result": "account_suspended",
+      "anonymous_repository_http": 404,
+      "anonymous_pages_http": 404,
+      "policy": "do not loop or create another account; retry once only after external account state changes"
+    }
   },
   "selection_packet_binding": {
     "path": "00_control/SELECTION_PACKET_BINDING.json",
