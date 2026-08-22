@@ -19,3 +19,12 @@ O009-T0017,probability kernel,kernel probabilitas,admitted,course,Stochastic ker
 O009-T0018,kernel density function,fungsi kepadatan kernel,admitted,course,
 O009-T0019,invariant measure,ukuran invarian,admitted,course,
 O009-T0020,regular conditional distribution,distribusi bersyarat reguler,admitted,course,Existence and almost-everywhere uniqueness require explicit hypotheses.
+O009-T0021,submartingale,submartingal,provisional,course,Keep parallel with the selected martingal form.
+O009-T0022,supermartingale,supermartingal,provisional,course,Keep parallel with the selected martingal form.
+O009-T0023,martingale difference sequence,barisan selisih martingal,admitted,course,
+O009-T0024,random walk,gerak acak,admitted,course,Matches the existing O009 stochastic-process reader terminology.
+O009-T0025,independent increments,inkremen independen,admitted,course,Preferred technical term in Indonesian stochastic-process literature.
+O009-T0026,stationary increments,inkremen stasioner,admitted,course,
+O009-T0027,likelihood ratio test,uji rasio kemungkinan,provisional,course,Retain the English term in parentheses at first use if needed.
+O009-T0028,branching process,proses percabangan,admitted,course,
+O009-T0029,Doob martingale,martingal Doob,provisional,course,

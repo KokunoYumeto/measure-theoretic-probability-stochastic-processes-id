@@ -35,6 +35,8 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Publish and anonymously verify the second boundary.
 - [x] Translate, repair, integrate, and visually verify `expect/Kernels.html`.
 - [x] Publish and anonymously verify the 31-file third boundary.
+- [x] Translate, repair, integrate, and visually verify `martingales/Introduction.html`.
+- [~] Publish and anonymously verify the 33-file fourth boundary.
 
 ## Remaining corpus
 
@@ -43,7 +45,7 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Distributional/Lp/uniform-integrability convergence.
 - [x] Measure-theoretic conditional expectation and kernels (`Conditional2`, `Uniform`, and `Kernels` public and anonymously verified).
 - [ ] Link, do not duplicate, the O006 sampling/LLN/CLT prerequisite.
-- [~] Martingale properties, stopping, inequalities, convergence, and backwards martingales; `martingales/Introduction.html` is the current exact unit.
+- [~] Martingale properties, stopping, inequalities, convergence, and backwards martingales; `martingales/Introduction.html` is release-ready and `martingales/Properties.html` is the next exact unit.
 - [ ] Discrete and continuous Markov processes; add dependency-closed computational labs.
 - [ ] Poisson processes and a new executable event-time lab.
 - [ ] Renewal equations/limits/delays/alternation/rewards and a new simulation lab.

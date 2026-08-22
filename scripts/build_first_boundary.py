@@ -257,6 +257,87 @@ himpunan nol dapat dipilih berbeda. Tambahan asli ini berlisensi CC BY 4.0.
     },
 )
 
+MARTINGALE_INTRO_READER_CORRECTIONS = (
+    {
+        "id": "expectation-macro-second-moment",
+        "old": r"\( E(V_{n+1}^2) - \var(X_{n+1}) = - \var(X_n) \)",
+        "new": r"\( \E(V_{n+1}^2) - \var(X_{n+1}) = - \var(X_n) \)",
+        "description": "Use the page's expectation macro in the second-moment calculation.",
+    },
+    {
+        "id": "expectation-macro-adapted-difference",
+        "old": r"- E(X_k \mid \mathscr{F}_k)",
+        "new": r"- \E(X_k \mid \mathscr{F}_k)",
+        "description": "Use the expectation macro in the martingale-difference calculation.",
+    },
+    {
+        "id": "expectation-macro-zero-mean",
+        "old": r"\( E(V_n) = 0 \)",
+        "new": r"\( \E(V_n) = 0 \)",
+        "description": "Use the expectation macro in the zero-mean qualification.",
+    },
+    {
+        "id": "expectation-macro-partial-product",
+        "old": r"X_n E(V_{n+1} \mid \mathscr{F}_n)",
+        "new": r"X_n \E(V_{n+1} \mid \mathscr{F}_n)",
+        "description": "Use the expectation macro in the partial-product calculation.",
+    },
+    {
+        "id": "expectation-macro-independent-increments",
+        "old": r"\[ E\left(X_t \mid \mathscr{F}_s\right)",
+        "new": r"\[ \E\left(X_t \mid \mathscr{F}_s\right)",
+        "description": "Use the expectation macro in the independent-increment calculation.",
+    },
+    {
+        "id": "expectation-macro-zero-increment",
+        "old": r"\( E(X_t - X_s) = 0 \)",
+        "new": r"\( \E(X_t - X_s) = 0 \)",
+        "description": "Use the expectation macro for the zero-mean increment.",
+    },
+    {
+        "id": "second-moment-variance-identity",
+        "old": r"\[ \var(X_t) = \var[(X_t - X_s) + X_s] = \var(X_s) + \var(X_t - X_s)^2 = \var(X_s) + \E[(X_t - X_s)^2 \]",
+        "new": r"\[ \var(X_t) = \var[(X_t - X_s) + X_s] = \var(X_s) + \var(X_t - X_s) = \var(X_s) + \E[(X_t - X_s)^2] \]",
+        "description": "Remove the spurious square on the increment variance and close the expected-square bracket.",
+    },
+    {
+        "id": "stationary-increment-variance-rate",
+        "old": r"\( b^2 = \E(X_1^2) \lt \infty \)",
+        "new": r"\( b^2 = \E[(X_1 - X_0)^2] \lt \infty \)",
+        "description": "Define the stationary-increment variance rate from the unit increment rather than the level at time one.",
+    },
+    {
+        "id": "branching-sum-lower-index",
+        "old": r"\sum_{i=0}^{X_n} U_i",
+        "new": r"\sum_{i=1}^{X_n} U_i",
+        "description": "Use the same offspring-sum lower index in the proof as in the branching-process definition.",
+    },
+    {
+        "id": "partial-product-input-sequence",
+        "old": r"<dfn>proses hasil kali parsial</dfn> yang terkait dengan \( \bs X \)",
+        "new": r"<dfn>proses hasil kali parsial</dfn> yang terkait dengan \( \bs V \)",
+        "description": "Associate the partial-product process with its input sequence V rather than with itself.",
+    },
+    {
+        "id": "branching-offspring-mean-symbol",
+        "old": r"rata-rata \( \mu \) serta fungsi pembangkit probabilitas",
+        "new": r"rata-rata \( m \) serta fungsi pembangkit probabilitas",
+        "description": "Use the previously defined offspring-mean symbol m in the branching-process proof.",
+    },
+    {
+        "id": "density-index-domain",
+        "old": r"pada \(\mathscr{F}_n\) untuk setiap \( n \in \N_+ \). Fungsi kepadatan suatu ukuran",
+        "new": r"pada \(\mathscr{F}_n\) untuk setiap \( n \in \N \). Fungsi kepadatan suatu ukuran",
+        "description": "Include n=0 in the density construction, consistently with the process and proof.",
+    },
+    {
+        "id": "stationary-increment-time-order",
+        "old": r"<dfn>Inkremen stasioner</dfn> jika \( X_t - X_s \) memiliki distribusi yang sama dengan \( X_{t-s} - X_0 \) untuk semua \( s, \, t \in T \).",
+        "new": r"<dfn>Inkremen stasioner</dfn> jika \( X_t - X_s \) memiliki distribusi yang sama dengan \( X_{t-s} - X_0 \) untuk semua \( s, \, t \in T \) dengan \( s \le t \).",
+        "description": "Restrict stationary-increment comparisons to ordered times so that t-s is in the time domain.",
+    },
+)
+
 THEORY_UNITS = (
     {
         "rel": "prob/Convergence.html",
@@ -412,6 +493,38 @@ THEORY_UNITS = (
             "Discrete Spaces",
             "Conditional Probability",
             "Parametric Distributions",
+        ),
+    },
+    {
+        "rel": "martingales/Introduction.html",
+        "authority_sha256": "ff102fd4f54926d89c47b92885176e587f342378e442f1f38e4a69199a02375a",
+        "source_title": "Introduction",
+        "nav_label": "Pendahuluan martingal",
+        "rights_id": "o009-rights-random-martingale-introduction",
+        "fragment_corrections": {},
+        "reader_corrections": MARTINGALE_INTRO_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Introduction",
+            "Basic Theory",
+            "Basic Assumptions",
+            "Definitions",
+            "Examples",
+            "Constant Sequence",
+            "Partial Sums",
+            "Martingale Difference Sequences",
+            "Discrete-Time Random Walks",
+            "Partial Products",
+            "The Simple Random Walk",
+            "The Beta-Bernoulli Process",
+            "Urn Process",
+            "Processes with Independent Increments",
+            "Likelihood Ratio Tests",
+            "Branching Processes",
+            "Doob's Martingale",
+            "Density Functions",
+            "Details:",
         ),
     },
 )
@@ -725,6 +838,9 @@ def copy_assets(stage: Path) -> None:
         AUTH_RANDOM / "static" / "prob" / "Decreasing.png": stage / "prob" / "Decreasing.png",
         AUTH_RANDOM / "static" / "prob" / "InverseImage.png": stage / "prob" / "InverseImage.png",
         AUTH_RANDOM / "static" / "expect" / "ConvexFunction.png": stage / "expect" / "ConvexFunction.png",
+        AUTH_RANDOM / "static" / "martingales" / "Martingale.png": (
+            stage / "martingales" / "Martingale.png"
+        ),
         AUTH_RANDOM / "shared" / "MathJax" / "tex-svg.js": stage / "MathJax" / "tex-svg.js",
         AUTH_RANDOM / "shared" / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js": (
             stage / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js"
@@ -843,6 +959,15 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
                 target_soup = BeautifulSoup(target.read_text("utf-8"), "lxml")
                 if target_soup.find(id=parsed.fragment) is None:
                     raise RuntimeError(f"missing local fragment: {path} -> {ref}")
+    index_soup = BeautifulSoup((site / "index.html").read_text("utf-8"), "lxml")
+    index_hrefs = [str(anchor.get("href", "")) for anchor in index_soup.select("a[href]")]
+    required_index_links = [str(unit["rel"]) for unit in THEORY_UNITS]
+    required_index_links.append("labs/01-konvergensi-monte-carlo.html")
+    missing_index_links = [href for href in required_index_links if index_hrefs.count(href) != 1]
+    if missing_index_links:
+        raise RuntimeError(
+            f"reader index must link every admitted unit exactly once: {missing_index_links}"
+        )
     for css_path in sorted(site.rglob("*.css"), key=lambda path: path.as_posix().casefold()):
         css_text = css_path.read_text("utf-8")
         for _, ref in CSS_URL_RE.findall(css_text):

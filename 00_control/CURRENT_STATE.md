@@ -1,9 +1,9 @@
 # Current state
 
-As of 2026-08-21, this is an active O009/D30 production lane. Its first three
+As of 2026-08-22, this is an active O009/D30 production lane. Its first three
 theory–lab reader boundaries are public and anonymously byte-verified on
-GitHub Pages. The complete
-Indonesian edition is not yet finished, and no upstream contact has occurred.
+GitHub Pages; its fourth boundary is release-ready after complete local QA.
+The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
 curriculum-admission decision.
 
@@ -133,15 +133,48 @@ Commit `347517ed1bd8252bd5735677cbe680145d302802` (tree
 anonymous readback matched all 31 manifested files and 2,173,893 bytes at
 2026-08-21T21:20:22.3315139Z. See `PUBLICATION_RECEIPT.json`.
 
+### Fourth reader boundary (release-ready)
+
+`martingales/Introduction.html` is completely translated, structurally
+verified, integrated, and visually inspected:
+
+- frozen authority: 59,687 bytes / SHA-256
+  `ff102fd4f54926d89c47b92885176e587f342378e442f1f38e4a69199a02375a`;
+- Indonesian source: 61,528 bytes / SHA-256
+  `38702482ef4563bd29c050d1dfaec7d280ea1bee0bf6b55ff272d0ee5d2346e7`;
+- built reader page: 64,294 bytes / SHA-256
+  `4318a2f8cfde41d3f3d633ef1abd7181bd7800f72675128ba3b4630401b51fc9`;
+- separately credited CC BY 3.0 figure: 67,648 bytes / SHA-256
+  `c7b5939b84f2a18776fc684f9b413a26fec315a684e35c7986c73a0efbb6cf4b`.
+
+All 449 tag events, 49 IDs, 90 links, 7 source references, 22 detail panels,
+and 741 authority/translation TeX surfaces are preserved. The built reader
+applies 13 exact-once source-content repairs and records each in the backend.
+The deterministic site contains 33 files / 2,306,486 bytes, manifest SHA-256
+`9cc2ed7d7867a63082285338cf9727b1aeb90d8ae884bc55cb2f6934566b7284`,
+and build-receipt SHA-256
+`fc5faf5656514f6c09ecee3b08260dad129a7524893109f397a38311822e85a0`.
+The backend contains 688 entities, 1,835 segments, and 629 relations (2,523
+records total), with zero QA failures; manifest SHA-256
+`db70ebe0880e31a607c57bc7282476f2d2f2fd386a1ed937946bf35e1e7eefe7`.
+
+Browser QA covered all nine theory pages and the lab at 1280×720 and 390×844.
+No page has document-level overflow, a broken image, an empty image
+alternative, an external runtime, or a console warning/error. The new page
+renders 742 MathJax containers and its visible controls open and close all 22
+detail panels at both sizes. One long display scrolls only within its own
+bounded container. See `qa/FOURTH_BOUNDARY_CHECKPOINT_20260822.md`.
+
 ## Next exact action
 
-1. Translate `authority/random/static/martingales/Introduction.html` (59,687
+1. Publish the verified 33-file fourth boundary and anonymously compare every
+   public byte against `build/site/PACKAGE_MANIFEST.csv`.
+2. Continue with `authority/random/static/martingales/Properties.html` (37,473
    bytes,
    SHA-256
-   `ff102fd4f54926d89c47b92885176e587f342378e442f1f38e4a69199a02375a`)
-   to `source/theory/martingales/Introduction.html`.
-2. Integrate and validate it, then continue the martingale sequence in source
-   order without treating this checkpoint as full completion.
+   `0f8bc07eb5eda38e8d4f78e94ba71a7dae8e9b788278f9b6ed250b0f66dc3850`),
+   preserving its exact topology and TeX while resolving only downstream
+   reader/build defects through recorded corrections.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

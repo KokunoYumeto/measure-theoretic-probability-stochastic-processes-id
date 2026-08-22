@@ -138,6 +138,21 @@ THEORY_SPECS = (
             "concept.conditional.regular-distribution",
         ],
     },
+    {
+        "rel": "martingales/Introduction.html",
+        "slug": "martingales.introduction",
+        "order": 9,
+        "concept_ids": [
+            "concept.martingale",
+            "concept.martingale.submartingale",
+            "concept.martingale.supermartingale",
+            "concept.martingale.difference-sequence",
+            "concept.stochastic.random-walk",
+            "concept.martingale.likelihood-ratio",
+            "concept.stochastic.branching-process",
+            "concept.martingale.doob",
+        ],
+    },
 )
 
 SCHEMA = "o009.backend.entity.v2"
@@ -363,6 +378,13 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
                 "concept.kernel.invariant",
                 "concept.conditional.regular-distribution",
                 "concept.martingale",
+                "concept.martingale.submartingale",
+                "concept.martingale.supermartingale",
+                "concept.martingale.difference-sequence",
+                "concept.stochastic.random-walk",
+                "concept.martingale.likelihood-ratio",
+                "concept.stochastic.branching-process",
+                "concept.martingale.doob",
                 "concept.markov.process",
                 "concept.poisson.process",
                 "concept.renewal.process",
@@ -462,6 +484,23 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
         ),
         record(
             "rights",
+            "rights.random.martingale-image.cc-by-3.0",
+            resource_id="resource.random.kyle-siegrist",
+            source_locator="authority/random/static/martingales/Martingale.png",
+            source_sha256=sha256(
+                require_file(AUTH_RANDOM / "static" / "martingales" / "Martingale.png")
+            ),
+            payload={
+                "license": "CC-BY-3.0",
+                "license_url": "http://creativecommons.org/licenses/by/3.0",
+                "creator": "Danielle M.",
+                "source_url": "https://commons.wikimedia.org/w/index.php?curid=13264705",
+                "scope": "martingales/Martingale.png only",
+                "attribution_preserved_in": "martingales/Introduction.html#fig1",
+            },
+        ),
+        record(
+            "rights",
             "rights.zitkovic.donor.cc0-1.0",
             resource_id="resource.zitkovic.stochastic-book",
             source_locator=relative(ZIT_LICENSE),
@@ -549,6 +588,13 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
         "concept.conditional.regular-distribution": "regular conditional distribution",
         "concept.probability.lp-convergence": "convergence in Lp",
         "concept.martingale": "martingale",
+        "concept.martingale.submartingale": "submartingale",
+        "concept.martingale.supermartingale": "supermartingale",
+        "concept.martingale.difference-sequence": "martingale difference sequence",
+        "concept.stochastic.random-walk": "random walk",
+        "concept.martingale.likelihood-ratio": "likelihood-ratio martingale",
+        "concept.stochastic.branching-process": "branching process",
+        "concept.martingale.doob": "Doob martingale",
         "concept.markov.process": "Markov process",
         "concept.poisson.process": "Poisson process",
         "concept.renewal.process": "renewal process",
@@ -604,6 +650,17 @@ def load_build_validator() -> Any:
 
 def html_entities() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, str]]]:
     build_module = load_build_validator()
+    builder_rels = [str(item["rel"]) for item in build_module.THEORY_UNITS]
+    backend_rels = [str(item["rel"]) for item in THEORY_SPECS]
+    if builder_rels != backend_rels:
+        raise RuntimeError(
+            f"builder/backend theory sequence differs: builder={builder_rels} backend={backend_rels}"
+        )
+    backend_orders = [int(item["order"]) for item in THEORY_SPECS]
+    if backend_orders != list(range(1, len(THEORY_SPECS) + 1)):
+        raise RuntimeError(f"backend theory order must be contiguous tuple order: {backend_orders}")
+    if len({str(item["slug"]) for item in THEORY_SPECS}) != len(THEORY_SPECS):
+        raise RuntimeError("backend theory slugs must be unique")
     build_module.validate_theory_translation()
     entities: list[dict[str, Any]] = []
     segments: list[dict[str, Any]] = []
@@ -779,6 +836,15 @@ def html_entities() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
             kernels_page_id,
             note_record_id,
             f"build/site/expect/Kernels.html#{note_id}",
+        )
+    )
+    relations.append(
+        relation(
+            "rel.depends-on.unit.o009.random.martingales.introduction.fig1.asset.random.martingale-harness",
+            "depends-on",
+            "unit.o009.random.martingales.introduction.fig1",
+            "asset.random.martingale-harness",
+            "martingales/Introduction.html#fig1",
         )
     )
     for left, right in zip(page_ids, page_ids[1:]):
@@ -1401,6 +1467,11 @@ def asset_entities() -> list[dict[str, Any]]:
         ("asset.random.decreasing", AUTH_RANDOM / "static" / "prob" / "Decreasing.png", "rights.random.dual-witness"),
         ("asset.random.inverse-image", AUTH_RANDOM / "static" / "prob" / "InverseImage.png", "rights.random.dual-witness"),
         ("asset.random.convex-function", AUTH_RANDOM / "static" / "expect" / "ConvexFunction.png", "rights.random.dual-witness"),
+        (
+            "asset.random.martingale-harness",
+            AUTH_RANDOM / "static" / "martingales" / "Martingale.png",
+            "rights.random.martingale-image.cc-by-3.0",
+        ),
         ("asset.mathjax.tex-svg", AUTH_RANDOM / "shared" / "MathJax" / "tex-svg.js", "rights.mathjax.apache-2.0"),
         ("asset.o009.reader-css", ROOT / "source" / "reader.css", "rights.o009.original.cc-by-4.0"),
     ]
@@ -1434,6 +1505,11 @@ def artifact_rows() -> list[dict[str, str]]:
         ("artifact.input.zitkovic-license", "rights-witness", ZIT_LICENSE),
         ("artifact.input.zitkovic-simulation", "authority-source", ZIT_SIMULATION),
         ("artifact.input.target-lab", "translation-source", LAB),
+        (
+            "artifact.input.random-martingale-harness",
+            "authority-asset",
+            AUTH_RANDOM / "static" / "martingales" / "Martingale.png",
+        ),
         ("artifact.input.site-package-manifest", "build-manifest", BUILD_MANIFEST),
         ("artifact.input.site-build-receipt", "build-receipt", BUILD_RECEIPT),
     ]
@@ -1463,6 +1539,8 @@ def artifact_rows() -> list[dict[str, str]]:
                     if path.suffix == ".csv"
                     else "application/zip"
                     if path.suffix == ".zip"
+                    else "image/png"
+                    if path.suffix.lower() == ".png"
                     else "text/html"
                     if path.suffix == ".html"
                     else "text/plain"
@@ -1577,7 +1655,7 @@ CSV_DEFINITIONS: dict[str, dict[str, Any]] = {
     "artifacts.csv": {
         "fields": ["artifact_id", "artifact_kind", "path", "bytes", "sha256", "media_type", "status"],
         "enums": {
-            "artifact_kind": ["exporter", "input", "authority-manifest", "authority-receipt", "authority-source", "authority-archive", "rights-witness", "translation-source", "build-manifest", "build-receipt"],
+            "artifact_kind": ["exporter", "input", "authority-manifest", "authority-receipt", "authority-source", "authority-asset", "authority-archive", "rights-witness", "translation-source", "build-manifest", "build-receipt"],
             "status": ["bound"],
         },
         "patterns": {"artifact_id": r"^artifact\.[A-Za-z0-9._:-]+$", "bytes": r"^[0-9]+$", "sha256": r"^[0-9a-f]{64}$"},
@@ -1795,21 +1873,30 @@ def build() -> None:
         }
     )
     build_module = load_build_validator()
-    kernels_unit = next(
-        unit for unit in build_module.THEORY_UNITS if unit["rel"] == "expect/Kernels.html"
-    )
-    for correction in tuple(kernels_unit.get("reader_corrections", ())):
-        corrections.append(
-            {
-                "correction_id": f"correction.o009.random.expect.kernels.{correction['id']}",
-                "change_kind": "source-content-repair",
-                "source_id": "unit.o009.random.expect.kernels",
-                "target_id": "unit.o009.random.expect.kernels",
-                "description": str(correction["description"]),
-                "evidence": "authority/random/static/expect/Kernels.html; build/site/expect/Kernels.html; 00_control/UPSTREAM_FINDINGS.md",
-                "status": "accepted",
-            }
-        )
+    build_units_by_rel = {
+        str(unit["rel"]): unit for unit in build_module.THEORY_UNITS
+    }
+    for spec in THEORY_SPECS:
+        rel = str(spec["rel"])
+        slug = str(spec["slug"])
+        page_id = f"unit.o009.random.{slug}"
+        build_unit = build_units_by_rel[rel]
+        for correction in tuple(build_unit.get("reader_corrections", ())):
+            corrections.append(
+                {
+                    "correction_id": f"correction.o009.random.{slug}.{correction['id']}",
+                    "change_kind": "source-content-repair",
+                    "source_id": page_id,
+                    "target_id": page_id,
+                    "description": str(correction["description"]),
+                    "evidence": (
+                        f"authority/random/static/{rel}; build/site/{rel}; "
+                        "00_control/UPSTREAM_FINDINGS.md"
+                    ),
+                    "status": "accepted",
+                }
+            )
+    kernels_unit = build_units_by_rel["expect/Kernels.html"]
     for note in tuple(kernels_unit.get("reader_notes", ())):
         corrections.append(
             {
@@ -1878,6 +1965,9 @@ def build() -> None:
     artifacts = sorted(artifact_rows(), key=lambda item: item["artifact_id"])
     write_csv("artifacts.csv", artifacts)
     qa = sorted(qa_rows(artifacts, all_records, relations), key=lambda item: item["event_id"])
+    qa_failures = [item["event_id"] for item in qa if item["result"] == "fail"]
+    if qa_failures:
+        raise RuntimeError(f"backend QA failures: {qa_failures}")
     write_csv("qa_events.csv", qa)
     write_csv("corrections.csv", sorted(corrections, key=lambda item: item["correction_id"]))
     write_csv("translations.csv", sorted(translations, key=lambda item: item["translation_id"]))
@@ -1931,7 +2021,7 @@ def build() -> None:
         "entity_count": len(entities),
         "segment_count": len(segments),
         "relation_count": len(relations),
-        "qa_failures": [item["event_id"] for item in qa if item["result"] == "fail"],
+        "qa_failures": qa_failures,
         "files": [
             {"path": path.name, "bytes": path.stat().st_size, "sha256": sha256(path.read_bytes())}
             for path in files
@@ -2002,6 +2092,13 @@ def validate_backend() -> None:
     if load_json(BACKEND / "entity.schema.json") != entity_schema():
         raise RuntimeError("generated entity schema differs")
     artifacts = {row["artifact_id"]: row for row in read_csv("artifacts.csv")}
+    current_qa_failures = sorted(
+        row["event_id"] for row in read_csv("qa_events.csv") if row["result"] == "fail"
+    )
+    if manifest.get("qa_failures") != current_qa_failures:
+        raise RuntimeError("backend manifest QA-failure list differs from qa_events.csv")
+    if current_qa_failures:
+        raise RuntimeError(f"backend contains QA failures: {current_qa_failures}")
     if manifest.get("exporter_sha256") != artifacts["artifact.exporter.backend"]["sha256"]:
         raise RuntimeError("backend manifest does not bind exporter")
     if manifest.get("build_manifest_sha256") != artifacts["artifact.input.site-package-manifest"]["sha256"]:
@@ -2050,6 +2147,9 @@ def validate_backend() -> None:
         "rights.random.cc-by-2.0.witness": sha256(require_file(AUTH_RANDOM / "static" / "index.html")),
         "rights.random.cc-by-1.0.witness": sha256(require_file(AUTH_RANDOM / "static" / "Credits.html")),
         "rights.random.dual-witness": sha256(require_file(RANDOM_RECEIPT)),
+        "rights.random.martingale-image.cc-by-3.0": sha256(
+            require_file(AUTH_RANDOM / "static" / "martingales" / "Martingale.png")
+        ),
         "rights.zitkovic.donor.cc0-1.0": sha256(require_file(ZIT_LICENSE)),
         "rights.mathjax.apache-2.0": sha256(require_file(AUTH_RANDOM / "shared" / "MathJax" / "LICENSE")),
     }

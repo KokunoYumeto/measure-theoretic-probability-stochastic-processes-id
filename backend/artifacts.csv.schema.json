@@ -14,6 +14,7 @@
         "authority-manifest",
         "authority-receipt",
         "authority-source",
+        "authority-asset",
         "authority-archive",
         "rights-witness",
         "translation-source",

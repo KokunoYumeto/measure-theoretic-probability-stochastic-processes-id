@@ -46,6 +46,21 @@ downstream source repairs remain identified as repairs rather than relicensed
 source. The original regular-conditional-distribution qualification and reader
 palette changes remain separately identified as CC BY 4.0 edition additions.
 
+### Current martingale-introduction component closure
+
+`martingales/Introduction.html` is admitted from the same frozen Random
+selection at 59,687 bytes / SHA-256
+`ff102fd4f54926d89c47b92885176e587f342378e442f1f38e4a69199a02375a`.
+Its page-specific image `martingales/Martingale.png` is also frozen at 67,648
+bytes / SHA-256
+`c7b5939b84f2a18776fc684f9b413a26fec315a684e35c7986c73a0efbb6cf4b`.
+The source figure explicitly credits Danielle M., links the Wikimedia Commons
+source record (`curid=13264705`), and identifies the image as CC BY 3.0. The
+reader must preserve that visible credit and license link, copy the exact
+frozen image, and bind it to a separate component-rights record rather than
+placing it under Random's dual page-level witnesses. Other runtime references
+are the already frozen shared favicon, controls, CSS, JavaScript, and MathJax.
+
 ## Žitković laboratory donor
 
 - Official author route: Gordan Žitković’s UT Austin lecture-notes page linking the hosted book and public repository.

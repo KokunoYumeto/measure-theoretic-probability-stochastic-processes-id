@@ -134,3 +134,40 @@ machine-recorded repairs; every replacement is asserted to match exactly once.
 Minor source prose/markup candidates include the misspelling `kerneal`, the
 duplicated “If If,” and the omitted list close noted above. Natural Indonesian
 calques were repaired in translation prose without changing source formulas.
+
+## `martingales/Introduction.html`
+
+The frozen page is 59,687 bytes at SHA-256
+`ff102fd4f54926d89c47b92885176e587f342378e442f1f38e4a69199a02375a`.
+Its translation source preserves all 741 ordered TeX surfaces. The built reader
+repairs only exact, separately recorded defects; it does not alter the frozen
+authority.
+
+- Lines 177, 206, 222, 277, 412, and 433 use bare `E` where the page's defined
+  expectation macro is `\E`.
+- Line 436 incorrectly squares `\var(X_t-X_s)` and omits the closing bracket
+  in `\E[(X_t-X_s)^2]`.
+- Line 460 defines `b^2` from the level `X_1`; the claimed stationary-increment
+  variance formula requires the unit increment `X_1-X_0`.
+- Lines 535 and 539 disagree on whether the offspring sum starts at 1 or 0;
+  starting at 0 introduces an extra term. Line 536 calls the already defined
+  offspring mean `\mu` instead of `m`.
+- Line 263 says the partial-product process is associated with `\bs X` rather
+  than its input sequence `\bs V`.
+- Line 396 defines stationary increments for every pair `s,t` without the
+  required order `s\le t`, so `X_{t-s}` need not be defined on the stated time
+  domains.
+- Line 567 restricts the density construction to `n\in\mathbb N_+` even though
+  the process, hypotheses, and proof all include `X_0` and `n\in\mathbb N`.
+- Lines 140–141 leave substantive prose outside a paragraph; lines 473–477
+  omit a paragraph close before an ordered list. The downstream HTML parser
+  closes the latter implicitly, but both remain source-markup findings.
+- Line 306 truncates the visible phrase “simple symmetric random walk” before
+  “walk.”
+
+Mechanical prose candidates include `process\(`, `attachement`, `Them`, a
+missing possessive in “gamblers net fortune,” duplicated `that that` and `and
+and`, `number of success`, `number of red ball selected`, `martinagle`, a
+missing sentence break before “So,” and missing “of” in “the children a
+particle.” These are translated naturally rather than imitated as Indonesian
+typos. No upstream contact occurs during production.

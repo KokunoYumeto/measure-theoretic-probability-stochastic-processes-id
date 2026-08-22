@@ -1,8 +1,8 @@
 {
-  "built_at_utc": "2026-08-21T21:08:33.693598+00:00",
-  "file_count": 31,
+  "built_at_utc": "2026-08-21T21:39:54.032622+00:00",
+  "file_count": 33,
   "lab_source_sha256": "c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085",
-  "manifest_sha256": "20b8af90f55fb035de538cb6e542fe7d8ce925db022ddca0a156fd5e45f8cbf4",
+  "manifest_sha256": "9cc2ed7d7867a63082285338cf9727b1aeb90d8ae884bc55cb2f6934566b7284",
   "r_result_rows": [
     {
       "absolute_error": "0.072023194662",
@@ -73,7 +73,12 @@
       "authority_sha256": "9dd2a5474f284fcb11c9e9f9e81099a1c4fe1708094bfcd64b08ccb9f82c5b8d",
       "path": "expect/Kernels.html",
       "target_sha256": "5eb002c6749c46f90468ca78f62b57d88f068c5ec4b9dcd465aa90814f274b8b"
+    },
+    {
+      "authority_sha256": "ff102fd4f54926d89c47b92885176e587f342378e442f1f38e4a69199a02375a",
+      "path": "martingales/Introduction.html",
+      "target_sha256": "38702482ef4563bd29c050d1dfaec7d280ea1bee0bf6b55ff272d0ee5d2346e7"
     }
   ],
-  "total_bytes": 2173893
+  "total_bytes": 2306486
 }
