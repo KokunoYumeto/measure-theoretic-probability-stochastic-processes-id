@@ -1,7 +1,7 @@
 {
   "schema": "o009.cursor.v12",
   "as_of": "2026-08-22",
-  "status": "sixth_boundary_locally_verified_publication_next",
+  "status": "sixth_boundary_public_and_anonymously_verified",
   "course_id": "O009",
   "role_id": "D30",
   "previous_public_verified_boundary": {
@@ -88,7 +88,7 @@
     "pages_deployment_status_id": 17148175116,
     "verified_at_utc": "2026-08-22T00:58:29.7321943Z"
   },
-  "local_verified_boundary": {
+  "latest_public_verified_boundary": {
     "new_unit": {
       "authority_path": "authority/random/static/martingales/Stop.html",
       "authority_bytes": 43887,
@@ -123,7 +123,14 @@
       "detail_panels_each": 220,
       "bad_rows": 0
     },
-    "qa_checkpoint": "qa/SIXTH_BOUNDARY_CHECKPOINT_20260822.md"
+    "qa_checkpoint": "qa/SIXTH_BOUNDARY_CHECKPOINT_20260822.md",
+    "deployed_source_commit": "e53b2c4fcd8251f520c39a0a9eac9d477e764527",
+    "deployed_source_tree": "1493889d4475df6dcea4dfbdb6fdb4bce047dbe4",
+    "pages_run_id": 32543990253,
+    "pages_job_id": 96959134483,
+    "pages_deployment_id": 6031962276,
+    "pages_deployment_status_id": 17148971521,
+    "verified_at_utc": "2026-08-22T01:39:44.8137221Z"
   },
   "next_translation": {
     "source": "authority/random/static/martingales/Inequalities.html",
@@ -132,7 +139,7 @@
     "authority_bytes": 38731,
     "authority_sha256": "9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3"
   },
-  "next_action": "publish and anonymously verify the sixth boundary, then translate martingales/Inequalities.html without duplicating O006 chapter 5",
+  "next_action": "translate martingales/Inequalities.html contiguously, preserve exact topology and mathematics, then build, QA, and publish the next verified boundary without duplicating O006 chapter 5",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",

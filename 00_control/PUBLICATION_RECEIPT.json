@@ -181,6 +181,39 @@
       "run_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/actions/runs/32541961706"
     }
   },
-  "schema": "o009.github-publication-receipt.v5",
-  "status": "fifth_boundary_public_and_anonymously_verified"
+  "sixth_boundary": {
+    "anonymous_verification": {
+      "base_url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+      "build_receipt_sha256": "76d312d58eff8add50e88a5647e12f6cbb3cbb929c1eadc6abad52cb36071359",
+      "file_count": 38,
+      "manifest_sha256": "210398e53aba6ea35748cf8d09d21a9a89e0820c3fff899d0b786e0b926de7a6",
+      "status": "all_manifested_bytes_exact",
+      "total_bytes": 2420936,
+      "verified_at_utc": "2026-08-22T01:39:44.8137221Z",
+      "verifier_path": "scripts/verify_remote_pages.py",
+      "verifier_sha256": "dad7315449bf5940003cba7decfd92fbda0e9063b95d4eb4875611ff279e287d"
+    },
+    "deployed_source": {
+      "commit_sha": "e53b2c4fcd8251f520c39a0a9eac9d477e764527",
+      "commit_tree_sha": "1493889d4475df6dcea4dfbdb6fdb4bce047dbe4",
+      "default_branch": "main",
+      "message": "Publish sixth martingale stopping boundary"
+    },
+    "pages": {
+      "build_type": "workflow",
+      "deployment_id": 6031962276,
+      "deployment_status_id": 17148971521,
+      "deployment_status": "success",
+      "environment": "github-pages",
+      "https_enforced": true,
+      "job_id": 96959134483,
+      "page_url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+      "run_conclusion": "success",
+      "run_event": "push",
+      "run_id": 32543990253,
+      "run_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/actions/runs/32543990253"
+    }
+  },
+  "schema": "o009.github-publication-receipt.v6",
+  "status": "sixth_boundary_public_and_anonymously_verified"
 }

@@ -1,8 +1,7 @@
 # Current state
 
-As of 2026-08-22, this is an active O009/D30 production lane. Its first five
-reader boundaries are public and anonymously byte-verified on GitHub Pages;
-the sixth boundary is locally verified and queued for immediate publication.
+As of 2026-08-22, this is an active O009/D30 production lane. Its first six
+reader boundaries are public and anonymously byte-verified on GitHub Pages.
 The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
 curriculum-admission decision.
@@ -211,7 +210,7 @@ Commit `ff0931a39df6d0ce59c557c6950851e835e935ab` (tree
 anonymous readback matched all 37 manifested files and 2,372,365 bytes at
 2026-08-22T00:58:29.7321943Z. See `PUBLICATION_RECEIPT.json`.
 
-### Sixth reader boundary (locally verified; publication next)
+### Sixth reader boundary (public and anonymously verified)
 
 `martingales/Stop.html` is fully translated, repaired downstream, integrated,
 and visually inspected:
@@ -239,12 +238,15 @@ page's visible controls open and close all 18 panels at both sizes, and its
 corrected Wald proof is reflowed into readable mobile lines. See
 `qa/SIXTH_BOUNDARY_CHECKPOINT_20260822.md`.
 
+Commit `e53b2c4fcd8251f520c39a0a9eac9d477e764527` (tree
+`1493889d4475df6dcea4dfbdb6fdb4bce047dbe4`) is public. Pages run
+`32543990253`, job `96959134483`, and deployment `6031962276` succeeded. An
+anonymous readback matched all 38 manifested files and 2,420,936 bytes at
+2026-08-22T01:39:44.8137221Z. See `PUBLICATION_RECEIPT.json`.
+
 ## Next exact action
 
-1. Commit and push the locally verified sixth boundary, wait for GitHub Pages,
-   anonymously verify all 38 manifested files, and persist the sanitized
-   receipt.
-2. Continue in source order with
+1. Continue in source order with
    `authority/random/static/martingales/Inequalities.html` (38,731 bytes,
    SHA-256
    `9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3`).
