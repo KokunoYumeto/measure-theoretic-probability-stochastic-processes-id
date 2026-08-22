@@ -1,7 +1,7 @@
 {
-  "schema": "o009.cursor.v17",
+  "schema": "o009.cursor.v18",
   "as_of": "2026-08-22",
-  "status": "tenth_boundary_local_verified_publication_next",
+  "status": "tenth_boundary_public_verified_selection_packet_next",
   "course_id": "O009",
   "role_id": "D30",
   "fourth_public_verified_boundary": {
@@ -268,7 +268,7 @@
     "pages_deployment_status_id": 17152082713,
     "verified_at_utc": "2026-08-22T04:20:31.6178906Z"
   },
-  "tenth_boundary_local_verified": {
+  "tenth_public_verified_boundary": {
     "new_unit": {
       "authority_path": "authority/random/static/markov/General.html",
       "authority_bytes": 74595,
@@ -315,9 +315,16 @@
       "bad_rows": 0
     },
     "qa_checkpoint": "qa/TENTH_BOUNDARY_CHECKPOINT_20260822.md",
-    "publication_state": "authorized_not_yet_pushed"
+    "deployed_source_commit": "2ef87fed687a7b2c8bc909d8e8993c6a4f136f4f",
+    "deployed_source_tree": "6aae30c4cec3340bc2f0e6ee580c3c8143119538",
+    "pages_run_id": 32555221669,
+    "pages_job_id": 96988207571,
+    "pages_deployment_id": 6033729818,
+    "pages_deployment_status_id": 17153722812,
+    "verified_at_utc": "2026-08-22T05:47:39.9902666Z",
+    "publication_state": "public_and_all_manifested_bytes_exact"
   },
-  "next_action": "commit and push the exact tenth boundary, verify Pages and every manifested byte anonymously, then adopt the material-root O009 selection packet before setting the next translation cursor",
+  "next_action": "read and hash the complete material-root O009 selection packet, its strict JSON twin, and the exact user-instruction witness; adopt their finite scope before setting the next production cursor",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",

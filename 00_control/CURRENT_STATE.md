@@ -364,7 +364,7 @@ Commit `e8f7bedbd45ee8ad8a8463cbc76432c349bab973` (tree
 anonymous readback matched all 41 manifested files and 2,551,660 bytes at
 2026-08-22T04:20:31.6178906Z. See `PUBLICATION_RECEIPT.json`.
 
-### Tenth reader boundary (locally complete; publication transaction next)
+### Tenth reader boundary (public and anonymously verified)
 
 `markov/General.html` and the matched absorbing-chain diagnostic lab are
 complete, integrated, independently audited, and visually verified:
@@ -405,14 +405,20 @@ controls open 23/23 and return to 0/23; a native summary opens/closes on mobile.
 Wide tables and code remain in bounded scrollers. See
 `qa/TENTH_BOUNDARY_CHECKPOINT_20260822.md`.
 
+Commit `2ef87fed687a7b2c8bc909d8e8993c6a4f136f4f` (tree
+`6aae30c4cec3340bc2f0e6ee580c3c8143119538`) is public. Pages run
+`32555221669`, job `96988207571`, deployment `6033729818`, and deployment
+status `17153722812` succeeded. An anonymous readback matched all 43
+manifested files and 2,661,986 bytes at 2026-08-22T05:47:39.9902666Z. See
+`00_control/PUBLICATION_RECEIPT.json`.
+
 ## Next exact action
 
-1. Commit and push the exact tenth boundary to the existing public repository,
-   wait for the Pages workflow, then anonymously compare every manifested
-   public byte and record the sanitized receipt.
-2. Only after public verification, read the material-root O009 selection packet
-   and exact user-instruction witness named by the coordinator in full. Do not
-   infer `markov/Potentials.html` as the next cursor before that adoption step.
+1. Read and hash the complete material-root O009 selection packet, its strict
+   JSON twin, and the exact user-instruction witness named by the coordinator.
+2. Adopt that finite selection and record its corrected next cursor. Do not
+   infer `markov/Potentials.html` as the successor before the adoption is
+   complete.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

@@ -313,6 +313,39 @@
       "run_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/actions/runs/32551382020"
     }
   },
-  "schema": "o009.github-publication-receipt.v9",
-  "status": "ninth_boundary_public_and_anonymously_verified"
+  "tenth_boundary": {
+    "anonymous_verification": {
+      "base_url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+      "build_receipt_sha256": "682a76f74952286f39bf1aafa1ff2939a8b0c0ea8602ee559efdb396d4175ac8",
+      "file_count": 43,
+      "manifest_sha256": "c82e526a39a952f439ed11034ce8bbdcccb5deb853fef931a4336453780bf527",
+      "status": "all_manifested_bytes_exact",
+      "total_bytes": 2661986,
+      "verified_at_utc": "2026-08-22T05:47:39.9902666Z",
+      "verifier_path": "scripts/verify_remote_pages.py",
+      "verifier_sha256": "dad7315449bf5940003cba7decfd92fbda0e9063b95d4eb4875611ff279e287d"
+    },
+    "deployed_source": {
+      "commit_sha": "2ef87fed687a7b2c8bc909d8e8993c6a4f136f4f",
+      "commit_tree_sha": "6aae30c4cec3340bc2f0e6ee580c3c8143119538",
+      "default_branch": "main",
+      "message": "Add Indonesian general Markov theory and diagnostic lab"
+    },
+    "pages": {
+      "build_type": "workflow",
+      "deployment_id": 6033729818,
+      "deployment_status_id": 17153722812,
+      "deployment_status": "success",
+      "environment": "github-pages",
+      "https_enforced": true,
+      "job_id": 96988207571,
+      "page_url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+      "run_conclusion": "success",
+      "run_event": "push",
+      "run_id": 32555221669,
+      "run_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/actions/runs/32555221669"
+    }
+  },
+  "schema": "o009.github-publication-receipt.v10",
+  "status": "tenth_boundary_public_and_anonymously_verified"
 }

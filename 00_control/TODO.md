@@ -54,7 +54,7 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Publish and anonymously verify the 41-file ninth boundary.
 - [x] Translate `markov/General.html` with exact topology and all 925 ordered TeX surfaces preserved.
 - [x] Integrate 53 exact-once reader repairs, the dependency-closed Žitković absorbing-chain lab, deterministic golden execution, original mastery closure, stable-ID backend, and full two-viewport reader QA.
-- [~] Publish and anonymously verify the 43-file tenth boundary.
+- [x] Publish and anonymously verify the 43-file tenth boundary.
 
 ## Remaining corpus
 

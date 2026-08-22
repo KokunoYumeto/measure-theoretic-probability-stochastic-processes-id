@@ -1,6 +1,6 @@
 # Tenth reader-boundary checkpoint — 2026-08-22
 
-Status: **locally complete, release gates passed, publication authorized**.
+Status: **public and anonymously byte-verified**.
 
 ## Added theory and laboratory closure
 
@@ -95,10 +95,15 @@ before this checkpoint; the final full-reader sweeps show zero overflow.
 
 ## Publication and next-cursor gate
 
-This boundary is complete and authorized for immediate publication to the
-existing repository/Pages lineage. Publication is not yet claimed here; append
-the exact commit/tree, Pages run/job/deployment, and anonymous manifested-byte
-readback after the transaction. Only after that public verification should the
-new material-root selection packet be adopted and the next source cursor be
-changed. Do not infer `markov/Potentials.html` as the successor before reading
-that controlling packet in full.
+Commit `2ef87fed687a7b2c8bc909d8e8993c6a4f136f4f` (tree
+`6aae30c4cec3340bc2f0e6ee580c3c8143119538`) is public. Pages run
+`32555221669`, job `96988207571`, deployment `6033729818`, and deployment
+status `17153722812` all succeeded. At
+2026-08-22T05:47:39.9902666Z, an anonymous readback matched all 43 manifested
+files, all 2,661,986 bytes, manifest SHA-256
+`c82e526a39a952f439ed11034ce8bbdcccb5deb853fef931a4336453780bf527`,
+and build-receipt SHA-256
+`682a76f74952286f39bf1aafa1ff2939a8b0c0ea8602ee559efdb396d4175ac8`.
+The next action is to read and adopt the controlling material-root selection
+packet before setting another translation cursor; `markov/Potentials.html` is
+not inferred as the successor.
