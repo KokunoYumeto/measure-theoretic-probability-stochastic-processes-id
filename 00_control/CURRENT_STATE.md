@@ -244,12 +244,48 @@ Commit `e53b2c4fcd8251f520c39a0a9eac9d477e764527` (tree
 anonymous readback matched all 38 manifested files and 2,420,936 bytes at
 2026-08-22T01:39:44.8137221Z. See `PUBLICATION_RECEIPT.json`.
 
+### Seventh reader boundary (locally complete and verified)
+
+`martingales/Inequalities.html` is fully translated, repaired downstream,
+integrated, and visually inspected:
+
+- frozen authority: 38,731 bytes / SHA-256
+  `9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3`;
+- Indonesian source: 40,512 bytes / SHA-256
+  `f7327659431ab0f8a7b6f696474e4b0e57e7dd138ba0374c5f722a31781161b6`;
+- built reader: 43,713 bytes / SHA-256
+  `1469c38f26ff99f74dbb4e3633f1bef0927846d022d4db8e39d91a8f8862e144`.
+
+All 550 translation-source TeX surfaces and exact source topology are
+preserved. Twenty-two exact-once source-content repairs correct the maximal,
+upcrossing, and red-and-black arguments; four deterministic display reflows
+make the long upcrossing chains readable on phones. All 26 actions are
+exported in the backend. The Kolmogorov application records O006/C140 as an
+external sampling prerequisite and duplicates none of its chapter-5 bytes.
+
+The deterministic site contains 39 files / 2,465,207 bytes at manifest
+SHA-256
+`10fcbf5114f7a914a8d924c254c33e77a27456b3a89fca7eb76845a26ba67d95`;
+build-receipt SHA-256
+`b57a48023545e448749293d2ab1b9a468cb39c5215dbf485ba47c0299b971778`.
+The backend contains 861 entities, 2,298 segments, and 793 relations (3,159
+records), with zero QA failures; manifest SHA-256
+`bd260d9ad30832a48ded45160a4efb620db50a0048079a61bfbba4e263ee348b`.
+
+Browser QA covered all 14 reader pages at 1280×720 and 390×844. Each sweep
+rendered 7,853 math containers and 235 details with zero bad rows, browser
+warnings/errors, broken assets, empty visible references, external runtime, or
+document overflow. The new page's controls open and close all 15 panels at
+both sizes. See `qa/SEVENTH_BOUNDARY_CHECKPOINT_20260822.md`.
+
 ## Next exact action
 
-1. Continue in source order with
-   `authority/random/static/martingales/Inequalities.html` (38,731 bytes,
+1. Publish the verified seventh boundary to the existing GitHub Pages lineage
+   and anonymously verify every manifested byte.
+2. Continue in source order with
+   `authority/random/static/martingales/Convergence.html` (44,951 bytes,
    SHA-256
-   `9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3`).
+   `c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f`).
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

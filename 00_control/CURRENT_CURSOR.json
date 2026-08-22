@@ -1,7 +1,7 @@
 {
-  "schema": "o009.cursor.v12",
+  "schema": "o009.cursor.v13",
   "as_of": "2026-08-22",
-  "status": "sixth_boundary_public_and_anonymously_verified",
+  "status": "seventh_boundary_locally_verified_awaiting_publication",
   "course_id": "O009",
   "role_id": "D30",
   "previous_public_verified_boundary": {
@@ -132,14 +132,52 @@
     "pages_deployment_status_id": 17148971521,
     "verified_at_utc": "2026-08-22T01:39:44.8137221Z"
   },
-  "next_translation": {
-    "source": "authority/random/static/martingales/Inequalities.html",
-    "target": "source/theory/martingales/Inequalities.html",
-    "state": "authority_frozen_translation_not_started",
-    "authority_bytes": 38731,
-    "authority_sha256": "9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3"
+  "verified_local_boundary": {
+    "new_unit": {
+      "authority_path": "authority/random/static/martingales/Inequalities.html",
+      "authority_bytes": 38731,
+      "authority_sha256": "9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3",
+      "target_path": "source/theory/martingales/Inequalities.html",
+      "target_bytes": 40512,
+      "target_sha256": "f7327659431ab0f8a7b6f696474e4b0e57e7dd138ba0374c5f722a31781161b6",
+      "built_path": "build/site/martingales/Inequalities.html",
+      "built_bytes": 43713,
+      "built_sha256": "1469c38f26ff99f74dbb4e3633f1bef0927846d022d4db8e39d91a8f8862e144",
+      "translation_tex_surfaces": 550,
+      "built_math_containers": 553,
+      "detail_panels": 15,
+      "reader_corrections": 26
+    },
+    "theory_unit_count": 12,
+    "site_file_count": 39,
+    "site_total_bytes": 2465207,
+    "site_manifest_sha256": "10fcbf5114f7a914a8d924c254c33e77a27456b3a89fca7eb76845a26ba67d95",
+    "build_receipt_sha256": "b57a48023545e448749293d2ab1b9a468cb39c5215dbf485ba47c0299b971778",
+    "backend_entities": 861,
+    "backend_segments": 2298,
+    "backend_records": 3159,
+    "backend_relations": 793,
+    "backend_manifest_sha256": "bd260d9ad30832a48ded45160a4efb620db50a0048079a61bfbba4e263ee348b",
+    "backend_input_set_sha256": "a9dfd380084a2929887d1c016918ed7b124caca128395e26969e92e84a995ae4",
+    "qa_failures": 0,
+    "browser_qa": {
+      "viewports": ["1280x720", "390x844"],
+      "pages_each": 14,
+      "math_containers_each": 7853,
+      "detail_panels_each": 235,
+      "bad_rows": 0
+    },
+    "qa_checkpoint": "qa/SEVENTH_BOUNDARY_CHECKPOINT_20260822.md",
+    "publication_state": "pending"
   },
-  "next_action": "translate martingales/Inequalities.html contiguously, preserve exact topology and mathematics, then build, QA, and publish the next verified boundary without duplicating O006 chapter 5",
+  "next_translation": {
+    "source": "authority/random/static/martingales/Convergence.html",
+    "target": "source/theory/martingales/Convergence.html",
+    "state": "authority_frozen_translation_not_started",
+    "authority_bytes": 44951,
+    "authority_sha256": "c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f"
+  },
+  "next_action": "publish and anonymously verify the seventh boundary, then translate martingales/Convergence.html contiguously without duplicating O006 chapter 5",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",

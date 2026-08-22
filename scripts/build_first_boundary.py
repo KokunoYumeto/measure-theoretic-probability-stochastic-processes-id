@@ -662,6 +662,243 @@ sehingga <a class="ref" href="#dis2"></a> berlaku dan \( \E(X_N)=0 \). Karena \(
     },
 )
 
+MARTINGALE_INEQUALITIES_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "discrete-maximal-index-first",
+        "old": r"= x \P(U_t \ge x) + \E(X_n; \tau_x \gt n)",
+        "new": r"= x \P(U_n \ge x) + \E(X_n; \tau_x \gt n)",
+        "description": "Use the fixed discrete index n in the first-passage identity.",
+    },
+    {
+        "id": "discrete-maximal-index-second",
+        "old": r"= \E(X_n; U_t \ge x) + \E(X_n; \tau_x \gt n)",
+        "new": r"= \E(X_n; U_n \ge x) + \E(X_n; \tau_x \gt n)",
+        "description": "Use the fixed discrete index n in the expectation decomposition.",
+    },
+    {
+        "id": "discrete-maximal-index-conclusion",
+        "old": r"\[ x \P(U_t \ge x) + \E(X_n; \tau_x \gt n) \le  \E(X_n; U_t \ge x) + \E(X_n; \tau_x \gt n)\]",
+        "new": r"\[ x \P(U_n \ge x) + \E(X_n; \tau_x \gt n) \le  \E(X_n; U_n \ge x) + \E(X_n; \tau_x \gt n)\]",
+        "description": "Use U_n throughout the discrete maximal-inequality conclusion.",
+    },
+    {
+        "id": "continuous-maximal-threshold-proof",
+        "old": r"""Himpunan \( \D^+ \) dari <em>semua</em> bilangan rasional diadik nonnegatif rapat dalam \( [0, \infty) \), dan karena \( \bs X \) kontinu kanan serta memiliki limit kiri, jika \( U_t \ge x \), maka \( U^k_t \ge x \) untuk suatu \( k \in \N \). Dengan kata lain,
+		\[ \{U_t \ge x\} = \bigcup_{k=0}^\infty \left\{U^k_t \ge x\right\} \]
+		Pertidaksamaan maksimal berlaku untuk submartingal waktu diskret \( \bs{X}^k \), sehingga
+		\[ P(U^k_t \ge x) \le \frac{1}{x} \E(X_t; U^k_t \ge x) \]
+		untuk setiap \( k \in \N \). Berdasarkan <a href="https://www.randomservices.org/random/expect/Integral.html">teorema konvergensi monoton</a>, ruas kiri konvergen ke \( \P(U_t \ge x) \) ketika \( k \to \infty \), dan ruas kanan konvergen ke \( \E(X; U_t \ge x) \) ketika \( k \to \infty \).""",
+        "new": r"""Kerapatan \( \D^+ \), kekontinuan kanan, dan penyertaan \(t\) memberikan \(U_t^k \uparrow U_t\), tetapi kejadian ambang tertutupnya tidak harus sama pada suatu kisi berhingga. Ambil \(y \in (0,x)\), dan tetapkan
+		\[ A_y = \bigcup_{k=0}^{\infty}\{U_t^k \ge y\}. \]
+		Untuk setiap \(k\in\N\), pertidaksamaan waktu diskret memberikan
+		\[ \P(U_t^k \ge y) \le \frac{1}{y}\E(X_t;U_t^k\ge y). \]
+		Kejadian-kejadian tersebut menaik menuju \(A_y\). Karena \(X_t\) terintegralkan, kekontinuan probabilitas dari bawah dan teorema konvergensi terdominasi memberikan
+		\[ \P(A_y) \le \frac{1}{y}\E(X_t;A_y). \]
+		Jika \(y_m\uparrow x\), maka \(A_{y_m}\downarrow\{U_t\ge x\}\). Kekontinuan probabilitas dari atas dan konvergensi terdominasi kemudian memberikan
+		\[ \P(U_t\ge x) \le \frac{1}{x}\E(X_t;U_t\ge x). \]""",
+        "description": "Replace the false closed-threshold grid identity and signed monotone-convergence step with a relaxed threshold and dominated convergence.",
+    },
+    {
+        "id": "lp-maximal-missing-factor",
+        "old": r"\frac{1}{x} \E(|X_t|; W_t \ge x) = \E(|X_t|; W_t \wedge c \ge x)",
+        "new": r"\frac{1}{x} \E(|X_t|; W_t \ge x) = \frac{1}{x}\E(|X_t|; W_t \wedge c \ge x)",
+        "description": "Retain the factor 1/x when replacing the event by its truncated equivalent.",
+    },
+    {
+        "id": "nonnegative-supermartingale-maximal-proof",
+        "old": r"""<p>Tetapkan \( Y_t = -X_t \) untuk \( t \in T \). Karena \( \bs X \) merupakan supermartingal, \( \bs Y \) merupakan submartingal. Dan karena \( \bs X \) nonnegatif, \( Y_t^+ = X_t \) untuk \( t \in T \). Tetapkan \( U_t = \sup\{X_s: s \in T_t\} = \sup\{Y_s^+: s \in T_t\} \) untuk \( t \in T \). Berdasarkan pertidaksamaan maksimal untuk submartingal, dan karena \( \bs X \) merupakan supermartingal, untuk \( t \in T \) kita memperoleh
+		\[ \P(U_t \ge x) \le \frac{1}{x} \E(Y_t^+) = \frac{1}{x} \E(X_t) \le \frac{1}{x} \E(X_0), \quad x \in (0, \infty) \]
+		Selanjutnya,""",
+        "new": r"""<p>Untuk \(t\in T\), tetapkan \(U_t=\sup\{X_s:s\in T_t\}\), lalu ambil \(x\in(0,\infty)\). Dalam waktu diskret, tetapkan \(\tau_x=\inf\{s\in T_t:X_s\ge x\}\), dengan \(\inf(\emptyset)=\infty\). Kenonnegatifan dan teorema penghentian opsional memberikan
+		\[ x\P(U_t\ge x) \le \E(X_{\tau_x\wedge t}) \le \E(X_0). \]
+		Dalam waktu kontinu, gunakan kisi diadik berhingga \(T_t^k\) di atas. Untuk \(0\lt y\lt x\),
+		\[ \{U_t\ge x\}\subseteq\bigcup_{k=0}^{\infty}\left\{\sup_{s\in T_t^k}X_s\ge y\right\}. \]
+		Argumen waktu diskret pada setiap kisi membatasi probabilitas di ruas kanan dengan \(\E(X_0)/y\). Kekontinuan probabilitas dari bawah, diikuti limit \(y\uparrow x\), menghasilkan
+		\[ \P(U_t\ge x)\le\frac{1}{x}\E(X_0). \]
+		Selanjutnya,""",
+        "description": "Replace the sign-reversed Y=-X argument with valid stopped-process and dyadic-grid proofs.",
+    },
+    {
+        "id": "total-upcrossing-prose-notation",
+        "old": r"\( u(a, b, \bs x) \) menyatakan berapa kali seluruh barisan",
+        "new": r"\( u_\infty(a, b, \bs x) \) menyatakan berapa kali seluruh barisan",
+        "description": "Use the defined u_infinity notation for the total number of upcrossings.",
+    },
+    {
+        "id": "total-upcrossing-limit-notation",
+        "old": r"\( u_n(a, b, \bs x) \to u(a, b, \bs x) \)",
+        "new": r"\( u_n(a, b, \bs x) \to u_\infty(a, b, \bs x) \)",
+        "description": "Use the defined total-upcrossing notation in the convergence statement.",
+    },
+    {
+        "id": "total-upcrossing-monotonicity-notation",
+        "old": r"\( u(c, d, \bs x) \ge u(a, b, \bs x) \)",
+        "new": r"\( u_\infty(c, d, \bs x) \ge u_\infty(a, b, \bs x) \)",
+        "description": "Use the defined total-upcrossing notation in the interval comparison.",
+    },
+    {
+        "id": "finite-upcrossing-index-set",
+        "old": r"\{k \in \N: t_k(\bs x) \le \infty\}",
+        "new": r"\{k \in \N: t_k(\bs x) \lt \infty\}",
+        "description": "Exclude failed crossings whose terminal time is infinity.",
+    },
+    {
+        "id": "discrete-supermartingale-upcrossing-reflow",
+        "old": r"""\[ \E(U_n) \le \frac{1}{b - a} \E[(X_n - a)^-] \le \frac{1}{b - a}\left[\E(X_n^-) + |a|\right] \le \frac{1}{b - a} \left[\E(|X_n|) + |a|\right], \quad n \in \N \]""",
+        "new": r"""\[ \begin{aligned}
+\E(U_n)&amp;\le \frac{1}{b-a}\E[(X_n-a)^-]\\
+&amp;\le \frac{\E(X_n^-)+|a|}{b-a}\\
+&amp;\le \frac{\E(|X_n|)+|a|}{b-a},\qquad n\in\N.
+\end{aligned} \]""",
+        "description": "Reflow the discrete supermartingale bound into readable mobile lines without changing its mathematics.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "discrete-submartingale-upcrossing-reflow",
+        "old": r"""\[ \E(U_n) \le \frac{1}{b - a} \E[(X_n - a)^+] \le \frac{1}{b - a}\left[\E(X_n^+) + |a|\right] \le \frac{1}{b - a}\left[\E(|X_n|) + |a|\right], \quad n \in \N \]""",
+        "new": r"""\[ \begin{aligned}
+\E(U_n)&amp;\le \frac{1}{b-a}\E[(X_n-a)^+]\\
+&amp;\le \frac{\E(X_n^+)+|a|}{b-a}\\
+&amp;\le \frac{\E(|X_n|)+|a|}{b-a},\qquad n\in\N.
+\end{aligned} \]""",
+        "description": "Reflow the discrete submartingale bound into readable mobile lines without changing its mathematics.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "continuous-supermartingale-upcrossing-reflow",
+        "old": r"""\[ \E(U_t) \le \frac{1}{b - a} \E[(X_t - a)^-] \le \frac{1}{b - a}\left[\E(X_t^-) + |a|\right] \le \frac{1}{b - a}\left[\E(|X_t|) + |a|\right], \quad t \in [0, \infty) \]""",
+        "new": r"""\[ \begin{aligned}
+\E(U_t)&amp;\le \frac{1}{b-a}\E[(X_t-a)^-]\\
+&amp;\le \frac{\E(X_t^-)+|a|}{b-a}\\
+&amp;\le \frac{\E(|X_t|)+|a|}{b-a},\qquad t\in[0,\infty).
+\end{aligned} \]""",
+        "description": "Reflow the continuous supermartingale bound into readable mobile lines without changing its mathematics.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "continuous-submartingale-upcrossing-reflow",
+        "old": r"""\[ \E(U_t) \le \frac{1}{b - a} \E[(X_t - a)^+] \le \frac{1}{b - a} \left[\E(X_t^+) + |a|\right] \le \frac{1}{b - a} \left[\E(|X_t|) + |a|\right], \quad t \in [0, \infty) \]""",
+        "new": r"""\[ \begin{aligned}
+\E(U_t)&amp;\le \frac{1}{b-a}\E[(X_t-a)^+]\\
+&amp;\le \frac{\E(X_t^+)+|a|}{b-a}\\
+&amp;\le \frac{\E(|X_t|)+|a|}{b-a},\qquad t\in[0,\infty).
+\end{aligned} \]""",
+        "description": "Reflow the continuous submartingale bound into readable mobile lines without changing its mathematics.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "submartingale-upcrossing-proof",
+        "old": r"""Rantai pertidaksamaan selebihnya mengikuti karena \( (x - a)^- \le x^- + |a| \le |x| + |a| \) untuk \( x \in \R \).</li>
+</ol>
+<p>Proses""",
+        "new": r"""Rantai pertidaksamaan selebihnya mengikuti karena \( (x - a)^- \le x^- + |a| \le |x| + |a| \) untuk \( x \in \R \).</li>
+<li>Jika \(\bs X\) merupakan submartingal, tetapkan \(V_j=a+(X_j-a)^+\). Karena fungsi \(x\mapsto a+(x-a)^+\) menaik dan cembung, \(\bs V\) juga merupakan submartingal. Definisikan proses terprediksi
+\[ H_j=\bs{1}\{\sigma_k\lt j\le\tau_k\text{ untuk suatu }k\in\N_+\},\qquad J_j=1-H_j,\quad j\in\N_+, \]
+dan keuntungan masing-masing strategi
+\[ G_n^H=\sum_{j=1}^nH_j(V_j-V_{j-1}),\qquad G_n^J=\sum_{j=1}^nJ_j(V_j-V_{j-1}). \]
+Setiap lintas-naik lengkap menyumbang sekurang-kurangnya \(b-a\) pada \(G_n^H\), sedangkan sumbangan lintas-naik yang belum lengkap tidak negatif. Jadi \(G_n^H\ge(b-a)U_n\). Karena \(\bs J\) nonnegatif dan terprediksi, transformasi \(V_0+G_n^J\) merupakan submartingal, sehingga \(\E(G_n^J)\ge0\). Selain itu, \(V_n-V_0=G_n^H+G_n^J\). Oleh karena itu,
+\[ \begin{aligned}
+(b-a)\E(U_n)&amp;\le\E(G_n^H)\\
+&amp;=\E(V_n-V_0)-\E(G_n^J)\\
+&amp;\le\E[(X_n-a)^+]-\E[(X_0-a)^+]\\
+&amp;\le\E[(X_n-a)^+].
+\end{aligned} \]
+Ini membuktikan pernyataan kedua.</li>
+</ol>
+<p>Proses""",
+        "description": "Supply the omitted submartingale half using the truncated process and complementary predictable transforms.",
+    },
+    {
+        "id": "upcrossing-transform-convention",
+        "old": r"""<p>Proses \( \bs Z = \{Z_n: n \in \N\} \) dalam bukti dapat dipandang sebagai <a href="Properties.html#trn">transformasi</a> \( \bs X = \{X_n: n \in \N\} \) oleh suatu proses terprediksi. Secara khusus, untuk \( n \in \N_+ \), tetapkan \( I_n = 1 \) jika \( \sigma_k \lt n \le \tau_k \) untuk suatu \( k \in \N \), dan tetapkan \( I_n = 0 \) jika tidak. Karena \( \sigma_k \) dan \( \tau_k \) merupakan waktu henti, perhatikan bahwa \( \{I_n = 1\} \in \mathscr{F}_{n-1} \) untuk \( n \in \N_+ \). Dengan demikian, proses \( \bs I = \{I_n: n \in \N_+\} \) terprediksi terhadap \( \mathfrak F \). Selain itu, transformasi \( \bs X \) oleh \( \bs I \) adalah
+		\[ (\bs I \cdot \bs X)_n = \sum_{j=1}^n I_j (X_j - X_{j-1}) = \sum_{k=1}^n \left(X_{\tau_k \wedge n} - X_{\sigma_k \wedge n}\right) = Z_n, \quad n \in \N \]
+		Karena \( \bs I \) merupakan proses nonnegatif, jika \( \bs X \) merupakan martingal (submartingal, supermartingal), maka \( \bs I \cdot \bs X \) juga merupakan martingal (submartingal, supermartingal).</p>""",
+        "new": r"""<p>Proses keuntungan \( \bs Z = \{Z_n: n \in \N\} \) dalam bukti dapat dipandang sebagai keuntungan dari <a href="Properties.html#trn">transformasi</a> \( \bs X = \{X_n: n \in \N\} \) oleh suatu proses terprediksi. Secara khusus, untuk \( n \in \N_+ \), tetapkan \( I_n = 1 \) jika \( \sigma_k \lt n \le \tau_k \) untuk suatu \( k \in \N_+ \), dan tetapkan \( I_n = 0 \) jika tidak. Karena \( \sigma_k \) dan \( \tau_k \) merupakan waktu henti, \( \{I_n = 1\} \in \mathscr{F}_{n-1} \), sehingga \( \bs I = \{I_n: n \in \N_+\} \) terprediksi terhadap \( \mathfrak F \). Dengan konvensi transformasi edisi ini,
+		\[ (\bs I \cdot \bs X)_n-X_0 = \sum_{j=1}^n I_j (X_j - X_{j-1}) = \sum_{k=1}^n \left(X_{\tau_k \wedge n} - X_{\sigma_k \wedge n}\right) = Z_n, \quad n \in \N. \]
+		Karena \( \bs I \) nonnegatif, jika \( \bs X \) merupakan martingal (submartingal, supermartingal), maka \( \bs I \cdot \bs X \) juga merupakan martingal (submartingal, supermartingal); secara ekuivalen, keuntungan \(\bs Z\) bermula dari 0 dan memiliki arah nilai harapan yang sama.</p>""",
+        "description": "Respect the edition's transform convention, which includes X_0, and exclude the undefined crossing index zero.",
+    },
+    {
+        "id": "translate-iff-in-math",
+        "old": r"\text{ if and only if }",
+        "new": r"\text{ jika dan hanya jika }",
+        "description": "Translate the remaining prose connector inside the discrete duality display.",
+    },
+    {
+        "id": "translate-finite-subset-definition",
+        "old": r"\sup\{u_J(a, b, \bs x): J \text{ is finite and } J \subset I\}",
+        "new": r"\sup\{u_J(a, b, \bs x): J \text{ berhingga dan } J \subset I\}",
+        "description": "Translate the finite-subset condition inside the continuous upcrossing definition.",
+    },
+    {
+        "id": "translate-finite-subset-comparison",
+        "old": r"""\{u_K(a, b, \bs x): K \text{ is finite and } K \subseteq I\} \subseteq \{u_K(a, b, \bs x): K \text{ is finite and } K \subseteq J\}""",
+        "new": r"""\{u_K(a, b, \bs x): K \text{ berhingga dan } K \subseteq I\} \subseteq \{u_K(a, b, \bs x): K \text{ berhingga dan } K \subseteq J\}""",
+        "description": "Translate both finite-subset conditions in the monotonicity proof.",
+    },
+    {
+        "id": "continuous-upcrossing-alternation",
+        "old": r"""<li>Terdapat \( a, \, b \in \Q \) dengan \( a \lt b \), serta terdapat \( s_n, \, t_n \in [0, \infty) \) dengan \( x_{s_n} \le a \) untuk \( n \in \N \) dan \( x_{t_n} \ge b \) untuk \( n \in \N \).</li>""",
+        "new": r"""<li>Terdapat \(a,\,b\in\Q\) dengan \(a\lt b\), serta barisan \((s_n:n\in\N)\) dan \((t_n:n\in\N)\) dalam \([0,\infty)\) sedemikian sehingga
+\[ s_n\lt t_n\lt s_{n+1},\qquad x_{s_n}\le a,\qquad x_{t_n}\ge b,\quad n\in\N. \]</li>""",
+        "description": "Require alternating times tending to infinity rather than permitting two fixed repeated times.",
+    },
+    {
+        "id": "continuous-upcrossing-measurability-proof",
+        "old": r"""<p>Misalkan \( \bs X \) merupakan submartingal; bukti untuk supermartingal serupa. Tetapkan \( t \in [0, \infty) \) dan \( a, \, b \in \R \) dengan \( a \lt b \). Untuk \( I \subseteq [0, \infty) \), tetapkan \( U_I = u_I(a, b, \bs X) \), yaitu jumlah lintas-naik \( [a, b] \) oleh restriksi \( \bs X \) pada \( I \). Andaikan bahwa \( I \) berhingga dan bahwa \( t \in I \) merupakan maksimum dari \( I \). Karena restriksi \( \bs X \) pada \( I \) juga merupakan submartingal, teorema lintas-naik waktu diskret berlaku, sehingga
+		\[ \E(U_I) \le \frac{1}{b - a} \E[(X_t - a)^+] \]
+		Karena \( U_t = \sup\{U_I: I \text{ is finite and } I \subset [0, t]\} \), terdapat himpunan berhingga \( I_n \) untuk \( n \in \N \) dengan \( U_{I_n} \uparrow U_t \) ketika \( n \to \infty \). Secara khusus, \( U_t \) terukur. Berdasarkan sifat (a) dalam <a class="ref" href="#upc6"></a>, terdapat barisan semacam itu dengan \( I_n \) menaik dalam \( n \) dan \( t \in I_n \) untuk setiap \( n \in \N \). Berdasarkan teorema konvergensi monoton, \( \E\left(U_{I_n}\right) \to \E(U_t) \) ketika \( n \to \infty \). Jadi, berdasarkan persamaan yang ditampilkan di atas,
+		\[ \E(U_t) \le \frac{1}{b - a} \E[(X_t - a)^+] \]</p>""",
+        "new": r"""<p>Definisikan secara rekursif waktu masuk \(\sigma_k\) ke \(( -\infty,a]\) dan \(\tau_k\) ke \([b,\infty)\), seperti dalam kasus diskret. Untuk proses teradaptasi càdlàg di bawah asumsi biasa, waktu-waktu tersebut merupakan waktu henti. Karena itu,
+\[ U_t=\sup\{k\in\N:\tau_k\le t\} \]
+terukur. Ambil \(0\lt\epsilon\lt(b-a)/2\), dan tetapkan
+\[ D_m=(\D_m^+\cap[0,t])\cup\{t\}. \]
+Kekontinuan kanan memberikan batas lintasan
+\[ U_t\le\lim_{m\to\infty}u_{D_m}(a+\epsilon,b-\epsilon,\bs X). \]
+Jika \(\bs X\) merupakan submartingal, pertidaksamaan waktu diskret pada \(D_m\), diikuti teorema konvergensi monoton, memberikan
+\[ \E(U_t)\le\frac{\E[(X_t-a-\epsilon)^+]}{b-a-2\epsilon}. \]
+Dengan membiarkan \(\epsilon\downarrow0\), diperoleh
+\[ \E(U_t)\le\frac{1}{b-a}\E[(X_t-a)^+]. \]
+Untuk supermartingal, argumen yang sama menggunakan bagian negatif dan menghasilkan
+\[ \E(U_t)\le\frac{1}{b-a}\E[(X_t-a)^-]. \]</p>""",
+        "description": "Use measurable entrance times and deterministic relaxed dyadic grids instead of an unjustified path-dependent cofinal family.",
+    },
+    {
+        "id": "red-black-fair-case-introduction",
+        "old": "Kita dapat menggunakan pertidaksamaan maksimal untuk supermartingal guna menunjukkan bahwa memang tidak ada strategi yang dapat memberikan hasil lebih baik.",
+        "new": "Dalam kasus adil ini, pertidaksamaan maksimal untuk supermartingal menunjukkan bahwa tidak ada strategi yang dapat memberikan hasil lebih baik.",
+        "description": "Scope the displayed x/a optimality argument to the fair case it actually proves.",
+    },
+    {
+        "id": "red-black-nonnegative-bets",
+        "old": r"kita harus memiliki \( Z_n \le W_{n-1} \)",
+        "new": r"kita harus memiliki \( 0 \le Z_n \le W_{n-1} \)",
+        "description": "State the nonnegative-stake condition needed to preserve the supermartingale direction and prevent debt.",
+    },
+    {
+        "id": "red-black-valid-supermartingale-proof",
+        "old": r"""<p>Karena \( \bs Y \) merupakan supermartingal dan \( \bs Z \) nonnegatif, <a href="Properties.html#trn">transformasi</a> \( \bs W = \bs Z \cdot \bs Y \) juga merupakan supermartingal. Berdasarkan <a class="ref" href="#max5"></a>:
+		\[ \P(U_\infty \ge a) \le \frac{1}{a} \E(W_0) = \frac{x}{a} \]</p>""",
+        "new": r"""<p>Kendala \(0\le Z_n\le W_{n-1}\) memastikan \(W_n\ge0\). Karena \(Z_n\) terukur terhadap informasi sebelum permainan ke-\(n\),
+\[ \E(W_n\mid\mathscr F_{n-1})=W_{n-1}+Z_n(2p-1)\le W_{n-1}. \]
+Jadi \(\bs W\) merupakan supermartingal nonnegatif. Berdasarkan <a class="ref" href="#max7"></a>,
+		\[ \P(U_\infty \ge a) \le \frac{1}{a} \E(W_0) = \frac{x}{a}. \]</p>""",
+        "description": "Prove the fortune process is a nonnegative supermartingale directly and invoke the correct all-time maximal inequality.",
+    },
+    {
+        "id": "red-black-optimality-scope",
+        "old": r"""Berdasarkan asumsi-asumsi dasar ini, tidak ada strategi yang dapat memberikan hasil lebih baik daripada permainan berani. Namun, <em>ada</em> strategi yang sama baiknya dengan permainan berani; strategi-strategi tersebut merupakan <a href="https://www.randomservices.org/random/games/Optimal.html">variasi permainan berani</a>.""",
+        "new": r"""Ketika \(p=\frac12\), tidak ada strategi yang dapat memberikan hasil lebih baik daripada permainan berani karena strategi itu mencapai batas \(x/a\). Untuk \(p\lt\frac12\), batas \(x/a\) di atas saja tidak membuktikan optimalitas; hasil terpisah tentang <a href="https://www.randomservices.org/random/games/Optimal.html">variasi permainan berani</a> menangani kasus tersebut.""",
+        "description": "Distinguish the fair-case proof from the separate subfair bold-play optimality theorem.",
+    },
+)
+
 THEORY_UNITS = (
     {
         "rel": "prob/Convergence.html",
@@ -899,6 +1136,28 @@ THEORY_UNITS = (
             "Wald's Equation",
             "Patterns in Multinomial Trials",
             "Secretary Problem",
+            "Details:",
+        ),
+    },
+    {
+        "rel": "martingales/Inequalities.html",
+        "authority_sha256": "9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3",
+        "source_title": "Inequalities",
+        "nav_label": "Pertidaksamaan martingal",
+        "rights_id": "o009-rights-random-martingale-inequalities",
+        "fragment_corrections": {},
+        "reader_corrections": MARTINGALE_INEQUALITIES_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Inequalities",
+            "Basic Theory",
+            "Basic Assumptions",
+            "Maximal Inequalities",
+            "The Up-Crossing Inequality",
+            "Examples and Applications",
+            "Kolmogorov's Inequality",
+            "Red and Black",
             "Details:",
         ),
     },

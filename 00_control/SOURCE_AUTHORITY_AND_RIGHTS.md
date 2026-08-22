@@ -98,6 +98,31 @@ relicensing the source. The local translation is 45,979 bytes at SHA-256
 `7b2d717eb0c5e04a0fe1d46cd9cadb2e5d295fd4a43cab863cf6d3835bef23b2`
 and preserves all 580 ordered TeX surfaces.
 
+### Current martingale-inequalities component closure
+
+`martingales/Inequalities.html` is admitted from the same frozen Random
+selection at 38,731 bytes / SHA-256
+`9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3`.
+It introduces no page-specific content image, audio, dataset, or executable
+asset. Its direct runtime references are the already frozen favicon,
+`Screen.css`, `Basic.js`, Plus/Minus controls, and local MathJax closure. The
+MathJax `boldsymbol.js` extension is now also represented explicitly as an
+Apache-2.0 backend asset; this closes an inventory gap without adding new
+bytes. Eight ancillary calls, including the bold-play simulation, remain
+external official links and are not represented as offline functionality.
+
+The Random-derived page and translation remain bound to
+`rights.random.dual-witness`. The Indonesian translation is 40,512 bytes at
+SHA-256
+`f7327659431ab0f8a7b6f696474e4b0e57e7dd138ba0374c5f722a31781161b6`
+and preserves the exact tag-event topology, 21 identifiers, 63 ordered
+`href`/`src` occurrences, 15 disclosure panels, 18 units, four `onclick`
+values, and all 550 ordered source TeX surfaces. Twenty-two source-content
+repairs and four deterministic display reflows occur only in the built reader
+and remain separately recorded; the frozen authority and translation source
+are unchanged. The Kolmogorov application depends on the O006/C140 sampling
+module and does not import or relicense its chapter-5 bytes.
+
 ## Žitković laboratory donor
 
 - Official author route: Gordan Žitković’s UT Austin lecture-notes page linking the hosted book and public repository.

@@ -1,8 +1,8 @@
 {
-  "built_at_utc": "2026-08-22T01:31:18.947674+00:00",
-  "file_count": 38,
+  "built_at_utc": "2026-08-22T02:25:00.885217+00:00",
+  "file_count": 39,
   "lab_source_sha256": "c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085",
-  "manifest_sha256": "210398e53aba6ea35748cf8d09d21a9a89e0820c3fff899d0b786e0b926de7a6",
+  "manifest_sha256": "10fcbf5114f7a914a8d924c254c33e77a27456b3a89fca7eb76845a26ba67d95",
   "r_result_rows": [
     {
       "absolute_error": "0.072023194662",
@@ -88,7 +88,12 @@
       "authority_sha256": "8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af",
       "path": "martingales/Stop.html",
       "target_sha256": "7b2d717eb0c5e04a0fe1d46cd9cadb2e5d295fd4a43cab863cf6d3835bef23b2"
+    },
+    {
+      "authority_sha256": "9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3",
+      "path": "martingales/Inequalities.html",
+      "target_sha256": "f7327659431ab0f8a7b6f696474e4b0e57e7dd138ba0374c5f722a31781161b6"
     }
   ],
-  "total_bytes": 2420936
+  "total_bytes": 2465207
 }

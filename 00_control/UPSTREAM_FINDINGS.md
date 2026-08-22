@@ -257,3 +257,46 @@ TeX surfaces. The built reader makes only exact-once, backend-recorded repairs.
 The reader also completes two Indonesian phrases embedded in source TeX and
 normalizes one Indonesian optional-stopping term. Those localization actions
 are not upstream findings. No upstream contact occurs during production.
+
+## `martingales/Inequalities.html`
+
+The frozen page is 38,731 bytes at SHA-256
+`9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3`.
+The Indonesian source is 40,512 bytes at SHA-256
+`f7327659431ab0f8a7b6f696474e4b0e57e7dd138ba0374c5f722a31781161b6`
+and preserves all 550 ordered TeX surfaces. The built reader applies 22
+exact-once source-content repairs and four deterministic mobile reflows:
+
+- the discrete maximal proof uses the unbound `U_t` three times where its
+  fixed horizon requires `U_n`;
+- the continuous maximal proof asserts a false closed-threshold identity on
+  finite dyadic grids, invokes monotone convergence on a signed integrand, and
+  contains `P`/`X` notation slips; the reader uses relaxed thresholds,
+  continuity of probability, and dominated convergence;
+- the integral maximal inequality drops a factor `1/x`;
+- the nonnegative-supermartingale proof sets `Y=-X` but falsely claims
+  `Y^+=X`; the reader uses stopped processes and finite dyadic grids;
+- three occurrences use an undefined total-upcrossing symbol, while a fourth
+  counts failed stopping indices by writing `t_k <= infinity`;
+- the discrete upcrossing theorem states both supermartingale and
+  submartingale bounds but proves only the first; the reader supplies the
+  complementary predictable-transform proof and corrects the transform's
+  initial-value/index convention;
+- the continuous upcrossing criterion permits two fixed repeated times, and
+  its proof chooses an unjustified path-dependent cofinal family; the reader
+  requires alternating times and uses measurable entrance times with
+  deterministic inward-relaxed dyadic grids;
+- the red-and-black application omits nonnegative-stake admissibility, uses an
+  inconsistent transform convention, cites `#max5` instead of `#max7`, and
+  overstates what the displayed estimate proves for `p<1/2`; the reader proves
+  the fortune supermartingale directly and confines the displayed optimality
+  conclusion to the fair case while retaining the separate subfair theorem
+  link;
+- the favicon media type and three short TeX prose remnants are normalized in
+  the built reader; and
+- four long upcrossing displays are split into aligned lines without changing
+  their mathematics so they remain readable at phone width.
+
+No exercise or solution block occurs on this page. No upstream contact has
+occurred; retain only deduplicated high-confidence items for the one possible
+post-corpus report, if separately authorized.

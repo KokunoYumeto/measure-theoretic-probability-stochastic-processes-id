@@ -43,3 +43,9 @@ O009-T0041,hitting time,waktu pencapaian,admitted,course,Use for first entrance 
 O009-T0042,simple word,kata sederhana,admitted,course,No proper prefix is also a suffix.
 O009-T0043,compound word,kata majemuk,admitted,course,Has a proper prefix that is also a suffix.
 O009-T0044,optimal stopping,penghentian optimal,admitted,course,Umbrella concept for the secretary application.
+O009-T0045,maximal process,proses maksimal,admitted,course,For the running supremum of a stochastic process.
+O009-T0046,maximal inequality,pertidaksamaan maksimal,admitted,course,Use with the relevant attribution or norm when needed.
+O009-T0047,Doob Lp maximal inequality,pertidaksamaan maksimal Lp Doob,provisional,course,Keep the exponent in mathematical notation in reader prose.
+O009-T0048,upcrossing,lintas-naik,admitted,course,Use consistently for alternating crossings from at most a to at least b.
+O009-T0049,upcrossing inequality,pertidaksamaan lintas-naik,admitted,course,Doob's oscillation bound for submartingales or supermartingales.
+O009-T0050,bold play,permainan berani,provisional,course,Retain the English term in parentheses on first occurrence in the gambling application.

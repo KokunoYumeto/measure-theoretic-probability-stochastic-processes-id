@@ -183,6 +183,20 @@ THEORY_SPECS = (
             "concept.stochastic.optimal-stopping",
         ],
     },
+    {
+        "rel": "martingales/Inequalities.html",
+        "slug": "martingales.inequalities",
+        "order": 12,
+        "concept_ids": [
+            "concept.martingale.maximal-process",
+            "concept.martingale.doob-maximal-inequality",
+            "concept.martingale.lp-maximal-inequality",
+            "concept.martingale.upcrossing",
+            "concept.probability.kolmogorov-inequality",
+            "concept.stochastic.random-walk",
+            "concept.stochastic.bold-play",
+        ],
+    },
 )
 
 SCHEMA = "o009.backend.entity.v2"
@@ -426,6 +440,12 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
                 "concept.probability.wald-equation",
                 "concept.probability.pattern-waiting-time",
                 "concept.stochastic.optimal-stopping",
+                "concept.martingale.maximal-process",
+                "concept.martingale.doob-maximal-inequality",
+                "concept.martingale.lp-maximal-inequality",
+                "concept.martingale.upcrossing",
+                "concept.probability.kolmogorov-inequality",
+                "concept.stochastic.bold-play",
                 "concept.markov.process",
                 "concept.poisson.process",
                 "concept.renewal.process",
@@ -647,6 +667,12 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
         "concept.probability.wald-equation": "Wald's equation",
         "concept.probability.pattern-waiting-time": "waiting time for a finite pattern",
         "concept.stochastic.optimal-stopping": "optimal stopping",
+        "concept.martingale.maximal-process": "maximal process",
+        "concept.martingale.doob-maximal-inequality": "Doob maximal inequality",
+        "concept.martingale.lp-maximal-inequality": "Doob Lp maximal inequality",
+        "concept.martingale.upcrossing": "upcrossings and Doob upcrossing inequality",
+        "concept.probability.kolmogorov-inequality": "Kolmogorov maximal inequality",
+        "concept.stochastic.bold-play": "bold-play gambling strategy",
         "concept.markov.process": "Markov process",
         "concept.poisson.process": "Poisson process",
         "concept.renewal.process": "renewal process",
@@ -700,6 +726,28 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
             "Menganalisis aturan ambang penghentian optimal pada masalah sekretaris.",
             "analyze",
             ["concept.stochastic.optimal-stopping"],
+        ),
+        "outcome.o009.apply-martingale-maximal-inequalities": (
+            "Menerapkan pertidaksamaan maksimal Doob dan Kolmogorov untuk membatasi probabilitas maksimum lintasan.",
+            "apply",
+            [
+                "concept.martingale.maximal-process",
+                "concept.martingale.doob-maximal-inequality",
+                "concept.probability.kolmogorov-inequality",
+            ],
+        ),
+        "outcome.o009.use-upcrossings-for-convergence": (
+            "Menggunakan pertidaksamaan lintasan-naik untuk mengendalikan osilasi martingal dan menyiapkan teorema konvergensi.",
+            "analyze",
+            ["concept.martingale.upcrossing"],
+        ),
+        "outcome.o009.audit-gambling-maximal-bound": (
+            "Memeriksa syarat keterprediksian, kenegatifan, dan keterbatasan utang saat menerapkan batas maksimal pada strategi perjudian.",
+            "analyze",
+            [
+                "concept.martingale.supermartingale",
+                "concept.stochastic.bold-play",
+            ],
         ),
     }
     for stable_id, (label, level, concept_ids) in outcomes.items():
@@ -1021,6 +1069,62 @@ def html_entities() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
                 "unit.o009.random.martingales.stop.sec2",
                 "outcome.o009.analyze-optimal-stopping",
                 "martingales/Stop.html#sec2",
+            ),
+            relation(
+                "rel.depends-on.martingales-inequalities.martingales-properties",
+                "depends-on",
+                "unit.o009.random.martingales.inequalities",
+                "unit.o009.random.martingales.properties",
+                "martingales/Inequalities.html uses convex transforms and predictable martingale transforms",
+            ),
+            relation(
+                "rel.depends-on.martingales-inequalities.martingales-stop",
+                "depends-on",
+                "unit.o009.random.martingales.inequalities",
+                "unit.o009.random.martingales.stop",
+                "martingales/Inequalities.html uses stopping times and optional stopping",
+            ),
+            relation(
+                "rel.depends-on.martingales-inequalities.prob-convergence",
+                "depends-on",
+                "unit.o009.random.martingales.inequalities",
+                "unit.o009.random.prob.convergence",
+                "martingales/Inequalities.html uses continuity of probability and prepares pathwise convergence",
+            ),
+            relation(
+                "rel.teaches.martingales-inequalities.doob-maximal",
+                "teaches",
+                "unit.o009.random.martingales.inequalities.max3",
+                "outcome.o009.apply-martingale-maximal-inequalities",
+                "martingales/Inequalities.html#max3; #max5; #max6; #max7",
+            ),
+            relation(
+                "rel.teaches.martingales-inequalities.upcrossing",
+                "teaches",
+                "unit.o009.random.martingales.inequalities.upc4",
+                "outcome.o009.use-upcrossings-for-convergence",
+                "martingales/Inequalities.html#upc1 through #upc8",
+            ),
+            relation(
+                "rel.teaches.martingales-inequalities.kolmogorov",
+                "teaches",
+                "unit.o009.random.martingales.inequalities",
+                "outcome.o009.apply-martingale-maximal-inequalities",
+                "martingales/Inequalities.html Kolmogorov inequality application",
+            ),
+            relation(
+                "rel.depends-on.martingales-inequalities.kolmogorov.o006-sampling",
+                "depends-on",
+                "unit.o009.random.martingales.inequalities.div-016",
+                "resource.o006.c140.shared",
+                "Kolmogorov's inequality is used here as an application; O006 owns the sampling and independent-sum prerequisite surface",
+            ),
+            relation(
+                "rel.teaches.martingales-inequalities.red-black",
+                "teaches",
+                "unit.o009.random.martingales.inequalities.red1",
+                "outcome.o009.audit-gambling-maximal-bound",
+                "martingales/Inequalities.html#red1",
             ),
         ]
     )
@@ -1655,6 +1759,11 @@ def asset_entities() -> list[dict[str, Any]]:
             "rights.random.dual-witness",
         ),
         ("asset.mathjax.tex-svg", AUTH_RANDOM / "shared" / "MathJax" / "tex-svg.js", "rights.mathjax.apache-2.0"),
+        (
+            "asset.mathjax.boldsymbol",
+            AUTH_RANDOM / "shared" / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js",
+            "rights.mathjax.apache-2.0",
+        ),
         ("asset.o009.reader-css", ROOT / "source" / "reader.css", "rights.o009.original.cc-by-4.0"),
     ]
     entities: list[dict[str, Any]] = []
