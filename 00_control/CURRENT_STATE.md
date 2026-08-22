@@ -472,13 +472,16 @@ shared builder now enforces one H1, one main landmark, unskipped heading
 levels, and unique disclosure labels across every reader page. See
 `qa/ELEVENTH_BOUNDARY_CHECKPOINT_20260822.md`.
 
-The boundary is committed locally as
-`993233df46a963e3ed580de48844b5f28042ae56` (tree
-`53ef4c9ece8494959943b047d40a2186a4d7b0f1`). Its single bounded push at
-2026-08-22T15:53:39.9113931Z failed with the same explicit GitHub account-
-suspension 403; anonymous repository and Pages reads both return 404. Do not
-loop or create another account. Continue production and retry once only after
-the external account state changes.
+The complete boundary, including its terminology controls, is committed
+locally as `31fd97d5a7f29ea8937a7f3dc69912ce5fa840a6` (tree
+`6673c3fd8e4bebd6bc4f468eb545784c18c96079`). The single bounded push
+attempted substantive head `993233df46a963e3ed580de48844b5f28042ae56` at
+2026-08-22T15:53:39.9113931Z and failed with the same explicit GitHub account-
+suspension 403; anonymous repository and Pages reads both return 404. The
+subsequent local commits add only the sanitized receipt and already-validated
+terminology and were not pushed again. Do not loop or create another account.
+Continue production and retry once only after the external account state
+changes.
 
 ## QuantEcon authority-admission checkpoint
 

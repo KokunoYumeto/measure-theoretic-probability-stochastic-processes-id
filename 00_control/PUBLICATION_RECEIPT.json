@@ -352,12 +352,13 @@
       "repository_http": 404
     },
     "local_source": {
-      "commit_sha": "993233df46a963e3ed580de48844b5f28042ae56",
-      "commit_tree_sha": "53ef4c9ece8494959943b047d40a2186a4d7b0f1",
-      "message": "Add Indonesian discrete Markov reader boundary"
+      "commit_sha": "31fd97d5a7f29ea8937a7f3dc69912ce5fa840a6",
+      "commit_tree_sha": "6673c3fd8e4bebd6bc4f468eb545784c18c96079",
+      "message": "complete local boundary head including receipt and terminology controls"
     },
     "publication_attempt": {
       "attempted_at_utc": "2026-08-22T15:53:39.9113931Z",
+      "attempted_commit": "993233df46a963e3ed580de48844b5f28042ae56",
       "http": 403,
       "result": "account_suspended",
       "retry_policy": "retry_once_only_after_external_account_state_changes"

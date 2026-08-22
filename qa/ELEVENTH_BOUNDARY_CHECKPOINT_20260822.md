@@ -106,11 +106,15 @@ replaced by QuantEcon or to renewal.
 
 ## Publication attempt
 
-The verified boundary is committed locally as
-`993233df46a963e3ed580de48844b5f28042ae56` (tree
-`53ef4c9ece8494959943b047d40a2186a4d7b0f1`). The single bounded push at
-2026-08-22T15:53:39.9113931Z failed with GitHub HTTP 403 and the explicit
-message that the account is suspended. Anonymous reads of the exact repository
-and Pages URLs both returned 404. No credential value was printed, persisted,
-or placed in a URL. Do not loop or create a substitute account; the commit is
-queued for one retry only after the external account state changes.
+The complete verified boundary, including its terminology controls, is
+committed locally as `31fd97d5a7f29ea8937a7f3dc69912ce5fa840a6`
+(tree `6673c3fd8e4bebd6bc4f468eb545784c18c96079`). The single bounded push
+attempted the substantive boundary head
+`993233df46a963e3ed580de48844b5f28042ae56` at
+2026-08-22T15:53:39.9113931Z and failed with GitHub HTTP 403 and the explicit
+message that the account is suspended. The subsequent commits only add this
+sanitized receipt and the already-validated terminology entries; they were not
+pushed again. Anonymous reads of the exact repository and Pages URLs both
+returned 404. No credential value was printed, persisted, or placed in a URL.
+Do not loop or create a substitute account; the complete local head is queued
+for one retry only after the external account state changes.
