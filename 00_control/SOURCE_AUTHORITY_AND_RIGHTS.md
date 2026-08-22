@@ -250,6 +250,37 @@ CC BY 4.0 original deterministic comparator, mastery exercise, three hints,
 answer, and worked solution. It imports no missing book child, external
 package, third-party asset, or O006-owned chapter-5 byte.
 
+### Current discrete-time Markov component closure
+
+`markov/Discrete.html` is admitted from the selected Random subset at 55,099
+bytes / SHA-256
+`808118b103e17cd5e31115b953663b0d8ff94da21f432e6fe7c104e9300380f0`.
+It introduces no new local content asset, audio, dataset, package, or
+executable runtime. Its offline reader closure uses only the already frozen
+favicon, `Screen.css`, `Basic.js`, Plus/Minus controls, local MathJax and
+`boldsymbol`, and the three already admitted die icons. Ancillary biographies
+and unselected Random pages remain official external references.
+
+The Random-derived translation remains bound to
+`rights.random.dual-witness`. It is 57,545 bytes / SHA-256
+`176d4f9284ee16353142d6c2612b46a32a93c416471621997c89e72308b785ea`
+and preserves all 530 parsed elements, 649 ordered TeX surfaces, 56 unique
+identifiers, 30 disclosures, source attributes, and four nonempty translated
+image alternatives. The built reader is 65,408 bytes / SHA-256
+`9b21e65c3da1c7989c99adee09da517634ca186d31c2a3886f51d65c9686a2b8`
+and applies 44 separately exported exact-once actions. Those downstream
+mathematical, link, media-type, and reflow actions neither alter nor relicense
+the frozen authority or faithful translation source.
+
+The page contains seven explicit exercise units with seven worked
+disclosures. Its `TwoState.html` simulation is retained as an explicitly
+external Random ancillary because no local authoring/runtime closure was
+selected; the local gambler's-ruin lab is not claimed as an equivalent
+replacement. The independent-variable/random-walk subsection depends on the
+O006/C140 shared sampling resource but imports none of its Random chapter-5
+bytes. No Random potential/continuous-time/ordinary-Poisson/renewal page is
+admitted by this boundary.
+
 ## Žitković laboratory donor
 
 - Official author route: Gordan Žitković’s UT Austin lecture-notes page linking the hosted book and public repository.

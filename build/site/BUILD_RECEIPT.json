@@ -1,6 +1,6 @@
 {
-  "built_at_utc": "2026-08-22T05:32:39.636697+00:00",
-  "file_count": 43,
+  "built_at_utc": "2026-08-22T15:40:02.732119+00:00",
+  "file_count": 44,
   "lab_source_sha256": "c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085",
   "lab_sources": [
     {
@@ -57,7 +57,7 @@
       "source_sha256": "28e9b1c731082f9e590d74cf0b44922f5d45759851a7739bf1af1ad50bf09727"
     }
   ],
-  "manifest_sha256": "c82e526a39a952f439ed11034ce8bbdcccb5deb853fef931a4336453780bf527",
+  "manifest_sha256": "f2315be8b9d3a9f9a7a64b65ae67766ca9d467078056ce85e385cde69aad8b45",
   "r_result_rows": [
     {
       "absolute_error": "0.072023194662",
@@ -176,7 +176,12 @@
       "authority_sha256": "69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c",
       "path": "markov/General.html",
       "target_sha256": "fb3026464841179c1480001ecda1e2ab28448a26ba6840f2f9571d6645831194"
+    },
+    {
+      "authority_sha256": "808118b103e17cd5e31115b953663b0d8ff94da21f432e6fe7c104e9300380f0",
+      "path": "markov/Discrete.html",
+      "target_sha256": "176d4f9284ee16353142d6c2612b46a32a93c416471621997c89e72308b785ea"
     }
   ],
-  "total_bytes": 2661986
+  "total_bytes": 2762106
 }

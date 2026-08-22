@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+<meta charset="utf-8">
+	<title>Rantai Markov Waktu Diskret</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probabilitas, proses stokastik, rantai Markov, waktu diskret, graf keadaan, waktu henti, matriks transisi, sifat Markov, matriks potensial, rantai dua keadaan, matriks stokastik ganda">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Proses Markov</a></li>
+		<li class="child"><a href="General.html" title="Pendahuluan">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potensial dan Generator">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Recurrence.html" title="Transiens dan Rekurensi">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodisitas">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Distribusi Invarian dan Limit">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Pembalikan Waktu pada Rantai Waktu Diskret">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="Rantai Ehrenfest">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="Rantai Bernoulli–Laplace">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Rantai Reliabilitas">10</a></li>
+		<li class="child"><a href="Branching.html" title="Rantai Percabangan Waktu Diskret">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Rantai Antrean Waktu Diskret">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Rantai Kelahiran–Kematian Waktu Diskret">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Gerak Acak pada Graf">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Rantai Waktu Kontinu">15</a></li>
+		<li class="child"><a href="Transition.html" title="Matriks Transisi dan Generator">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Matriks Potensial">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Distribusi Invarian dan Limit">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Pembalikan Waktu pada Rantai Waktu Kontinu">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Rantai yang Disubordinasikan pada Proses Poisson">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Rantai Kelahiran–Kematian Waktu Kontinu">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Rantai Antrean Waktu Kontinu">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Rantai Percabangan Waktu Kontinu">23</a></li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<h2>3. Rantai Markov Waktu Diskret</h2>
+</header>
+
+<p>Dalam bagian ini dan beberapa bagian berikutnya, kita membahas <a href="General.html">proses Markov</a> dengan ruang waktu diskret \( \N \) dan ruang keadaan diskret (terhitung). Ingat bahwa proses Markov dengan ruang keadaan diskret disebut <dfn>rantai Markov</dfn>, sehingga yang kita pelajari adalah <dfn>rantai Markov waktu diskret</dfn>.</p>
+
+<h3 id="rev">Tinjauan</h3>
+
+<p>Kita akan meninjau definisi dan konsep dasar dalam <a href="General.html">pendahuluan umum</a>. Ketika waktu dan ruang sama-sama diskret, banyak definisi dan konsep tersebut menjadi jauh lebih sederhana. Seperti biasa, titik awal kita adalah <a href="../foundations/Measure.html">ruang probabilitas</a> \( (\Omega, \mathscr{F}, \P) \), dengan \( \Omega \) sebagai ruang sampel, \( \mathscr{F} \) sebagai \( \sigma \)-aljabar kejadian, dan \( \P \) sebagai ukuran probabilitas pada \( (\Omega, \mathscr{F}) \). Misalkan \( \bs{X} = (X_0, X_1, X_2, \ldots)\) adalah <a href="../prob/Processes.html">proses stokastik</a> yang didefinisikan pada ruang probabilitas tersebut, dengan ruang waktu \( \N \) dan ruang keadaan terhitung \( S \). Dalam konteks <a href="General.html">pendahuluan umum</a>, \( S \) dilengkapi dengan himpunan kuasa \( \mathscr{P}(S) \) sebagai \( \sigma \)-aljabarnya, sehingga semua himpunan bagian \( S \) terukur, demikian pula semua fungsi dari \( S \) ke ruang terukur lain. Ukuran pencacahan \( \# \) adalah ukuran alami pada \( S \), sehingga integral atas \( S \) hanyalah penjumlahan. Hal yang sama berlaku untuk ruang waktu \( \N \): semua himpunan bagian \( \N \) terukur dan ukuran pencacahan \( \# \) adalah ukuran alami pada \( \N \).</p>
+
+<p>Ruang vektor \( \mathscr{B} \) yang terdiri atas fungsi-fungsi terbatas \( f: S \to \R \) akan memainkan peran penting. Norma yang kita gunakan adalah <dfn>norma supremum</dfn> yang didefinisikan oleh
+\[ \|f\| = \sup\{\left|f(x)\right|: x \in S\}, \quad f \in \mathscr{B} \]
+</p>
+
+<p>Untuk \( n \in \N \), misalkan \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \), yaitu \( \sigma \)-aljabar yang dibangkitkan oleh proses hingga waktu \( n \). Dengan demikian, \( \mathfrak{F} = \{\mathscr{F}_0, \mathscr{F}_1, \mathscr{F}_2, \ldots\} \) adalah <a href="../prob/Stop.html">filtrasi</a> alami yang berkaitan dengan \( \bs{X} \). Kita juga menetapkan \( \mathscr{G}_n = \sigma\{X_n, X_{n+1}, \ldots\} \), yaitu \( \sigma \)-aljabar yang dibangkitkan oleh proses sejak waktu \( n \) dan seterusnya. Jadi, jika \( n \in \N \) menyatakan waktu sekarang, \( \mathscr{F}_n \) memuat kejadian-kejadian di masa lalu dan \( \mathscr{G}_n \) memuat kejadian-kejadian di masa depan.</p>
+
+<h4 id="dfn">Definisi</h4>
+
+<p>Kita mulai dengan definisi dasar sifat Markov: masa lalu dan masa depan independen secara bersyarat jika keadaan sekarang diketahui.</p>
+
+<div class="unit" id="dfn1">
+	<p class="dfn">\( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov jika \( \P(A \cap B \mid X_n) = \P(A \mid X_n) \P(B \mid X_n) \) untuk setiap \( n \in \N \), \( A \in \mathscr{F}_n \), dan \( B \in \mathscr{G}_n \).</p>
+</div>
+
+<p>Terdapat sejumlah perumusan yang ekuivalen untuk sifat Markov pada rantai Markov waktu diskret. Berikut beberapa di antaranya.</p>
+
+<div class="unit" id="dfn2">
+	<p class="math">\( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov jika salah satu dari syarat-syarat ekuivalen berikut dipenuhi:</p>
+	<ol class="sub">
+		<li>\( \P(X_{n+1} = x \mid \mathscr{F}_n) = \P(X_{n+1} = x \mid X_n) \) untuk setiap \( n \in \N \) dan \( x \in S \).</li>
+		<li>\( \E[f(X_{n+1}) \mid \mathscr{F}_n] = \E[f(X_{n+1}) \mid X_n] \) untuk setiap \(n \in \N \) dan \( f \in \mathscr{B} \).</li>
+	</ol>
+</div>
+
+<p>Bagian (a) menyatakan bahwa, untuk \( n \in \N \), fungsi kepadatan probabilitas bersyarat dari \( X_{n+1} \) jika \( \mathscr{F}_n \) diketahui sama dengan fungsi kepadatan probabilitas bersyarat dari \( X_{n+1} \) jika \( X_n \) diketahui. Dalam bentuk nilai harapan, bagian (b) juga menyatakan bahwa distribusi bersyarat dari \( X_{n+1} \) jika \( \mathscr{F}_n \) diketahui sama dengan distribusi bersyarat dari \( X_{n+1} \) jika \( X_n \) diketahui. Kedua bagian tersebut menyatakan sifat Markov untuk satu langkah ke depan. Dalam waktu diskret, sifat satu-langkah ini ekuivalen dengan sifat Markov untuk seluruh masa depan.</p>
+
+<div class="unit" id="dfn3">
+	<p class="math">\( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov jika salah satu dari syarat-syarat ekuivalen berikut dipenuhi:</p>
+	<ol class="sub">
+		<li>\( \P(X_{n+k} = x \mid \mathscr{F}_n) = \P(X_{n+k} = x \mid X_n) \) untuk setiap \( n, \, k \in \N \) dan \( x \in S \).</li>
+		<li>\( \E[f(X_{n+k}) \mid \mathscr{F}_n] = \E[f(X_{n+k}) \mid X_n] \) untuk setiap \(n, \, k \in \N \) dan \( f \in \mathscr{B} \).</li>
+	</ol>
+</div>
+
+<p>Bagian (a) menyatakan bahwa, untuk \( n, \, k \in \N \), fungsi kepadatan probabilitas bersyarat dari \( X_{n+k} \) jika \( \mathscr{F}_n \) diketahui sama dengan fungsi kepadatan probabilitas bersyarat dari \( X_{n+k} \) jika \( X_n \) diketahui. Dalam bentuk nilai harapan, bagian (b) juga menyatakan bahwa distribusi bersyarat dari \( X_{n+k} \) jika \( \mathscr{F}_n \) diketahui sama dengan distribusi bersyarat dari \( X_{n+k} \) jika \( X_n \) diketahui. Dalam waktu dan ruang diskret, sifat Markov juga dapat dinyatakan tanpa merujuk secara eksplisit pada \( \sigma \)-aljabar. Jika Anda belum mengenal teori ukuran, Anda dapat menggunakan pernyataan berikut sebagai definisi awal.</p>
+
+<div class="unit" id="dfn4">
+	<p class="math">\( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov jika untuk setiap \( n \in \N \) dan setiap barisan keadaan \( (x_0, x_1, \ldots, x_{n-1}, x,  y) \),
+	\[ \P(X_{n+1} = y \mid X_0 = x_0, X_1 = x_1, \ldots, X_{n-1} = x_{n-1}, X_n = x) = \P(X_{n+1} = y \mid X_n = x) \]</p>
+</div>
+
+<p>Teori rantai Markov waktu diskret menjadi jauh lebih sederhana jika kita menambahkan satu asumsi lagi.</p>
+
+<div class="unit" id="dfn5">
+	<p class="math">Rantai Markov \( \bs{X} = (X_0, X_1, X_2, \ldots) \) <dfn>homogen terhadap waktu</dfn> jika
+	\[ \P(X_{n+k} = y \mid X_k = x) = \P(X_n = y \mid X_0 = x) \]
+	untuk setiap \( k, \, n \in \N \) dan setiap \( x, \, y \in S \).</p>
+</div>
+
+<p>Artinya, distribusi bersyarat dari \( X_{n+k} \) jika \( X_k = x \) diketahui hanya bergantung pada \( n \). Jadi, jika \( \bs{X} \) homogen (biasanya kata sifat <em>terhadap waktu</em> tidak kita sebutkan), rantai \( \{X_{k+n}: n \in \N\} \) dengan syarat \( X_k = x \) ekuivalen (dalam distribusi) dengan rantai \( \{X_n: n \in \N\} \) dengan syarat \( X_0 = x \). Karena itu, distribusi awal sering tidak ditentukan dalam kajian rantai Markov&mdash;jika rantai berada pada keadaan \( x \in S \) pada suatu waktu tertentu \( k \in \N \), cara rantai tersebut mencapai keadaan \( x \) sebenarnya tidak penting; proses pada hakikatnya <q>dimulai kembali</q>, secara independen dari masa lalu. Istilah <dfn>stasioner</dfn> kadang-kadang digunakan sebagai pengganti homogen.</p>
+
+<p>Mulai sekarang, biasanya kita akan mengasumsikan bahwa rantai Markov yang dibahas bersifat homogen. Hilangnya keumuman akibat asumsi ini tidak sebesar yang mungkin Anda bayangkan. Rantai Markov tak homogen dapat diubah menjadi proses Markov homogen dengan memperbesar ruang keadaan, seperti ditunjukkan dalam <a href="General.html#enl1">pendahuluan tentang proses Markov umum</a>, tetapi dengan konsekuensi terciptanya ruang keadaan yang tak terhitung. Untuk rantai Markov homogen, jika \( k, \, n \in \N \), \( x \in S \), dan \( f \in \mathscr{B}\), maka
+\[ \E[f(X_{k+n}) \mid X_k = x] = \E[f(X_n) \mid X_0 = x] \]
+</p>
+
+<h4 id="str">Waktu Henti dan Sifat Markov Kuat</h4>
+
+<p>Pertimbangkan kembali proses stokastik \( \bs{X} = (X_0, X_1, X_2, \ldots) \) dengan ruang keadaan terhitung \( S \) dan filtrasi alami \( \mathfrak{F} = (\mathscr{F}_0, \mathscr{F}_1, \mathscr{F}_2, \ldots) \) sebagaimana diberikan di atas. Ingat bahwa variabel acak \( \tau \) yang mengambil nilai dalam \( \N \cup \{\infty\} \) adalah <dfn>waktu henti</dfn> atau <dfn>waktu Markov</dfn> bagi \( \bs{X} \) jika \( \{\tau = n\} \in \mathscr{F}_n \) untuk setiap \( n \in \N \). Secara intuitif, kita dapat menentukan apakah \( \tau = n \) dengan mengamati rantai hingga waktu \( n \). Dalam suatu pengertian, waktu henti adalah waktu acak yang tidak mengharuskan kita melihat ke masa depan. Hasil berikut memberikan contoh paling khas dari waktu henti.</p>
+
+<div class="unit" id="str1">
+	<p class="math">Misalkan kembali bahwa \( \bs{X} = \{X_n: n \in \N\} \) adalah rantai Markov waktu diskret dengan ruang keadaan \( S \) sebagaimana didefinisikan di atas. Untuk \( A \subseteq S \), waktu-waktu acak berikut adalah waktu henti:</p>
+	<ol class="sub">
+		<li>\( \rho_A = \inf\{n \in \N: X_n \in A\} \), yaitu <dfn>waktu masuk</dfn> ke \( A \).</li>
+		<li>\( \tau_A = \inf\{n \in \N_+: X_n \in A\} \), yaitu <dfn>waktu pencapaian</dfn> ke \( A \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Untuk \( n \in \N \)</p>
+		<ol class="sub">
+			<li>\(\{\rho_A = n\} = \{X_0 \notin A, X_1 \notin A, \ldots, X_{n-1} \notin A, X_n \in A\} \in \mathscr{F}_n\)</li>
+			<li>\(\{\tau_A = n\} = \{X_1 \notin A, X_2 \notin A, \ldots, X_{n-1} \notin A, X_n \in A\} \in \mathscr{F}_n\)</li>
+		</ol>
+	</details>
+</div>
+
+<p>Contoh waktu acak yang secara umum <em>bukan</em> waktu henti adalah waktu <em>terakhir</em> proses berada di \( A \):
+\[ \zeta_A = \max\{n \in \N_+: X_n \in A\} \]
+Kita tidak dapat menentukan apakah \( \zeta_A = n \) tanpa melihat ke masa depan: \( \{ \zeta_A = n\} = \{X_n \in A, X_{n+1} \notin A, X_{n+2} \notin A, \ldots\} \) untuk \( n \in \N \).</p>
+
+<p>Jika \( \tau \) adalah waktu henti bagi \( \bs{X} \), \( \sigma \)-aljabar yang berkaitan dengan \( \tau \) adalah 
+\[ \mathscr{F}_\tau = \{A \in \mathscr{F}: A \cap \{\tau = n\} \in \mathscr{F}_n \text{ for all } n \in \N\} \]
+Secara intuitif, \( \mathscr{F}_\tau \) memuat kejadian-kejadian yang dapat dideskripsikan oleh proses hingga waktu acak \( \tau \), sebagaimana \( \mathscr{F}_n \) memuat kejadian-kejadian yang dapat dideskripsikan oleh proses hingga waktu deterministik \( n \in \N \). Untuk keterangan lebih lanjut, lihat bagian mengenai <a href="../prob/Stop.html">filtrasi dan waktu henti</a>.</p>
+
+<p><dfn>Sifat Markov kuat</dfn> menyatakan bahwa masa depan independen dari masa lalu jika keadaan sekarang diketahui, ketika waktu sekarang merupakan waktu henti. Untuk rantai Markov waktu diskret, sifat Markov biasa menyiratkan sifat Markov kuat.</p>
+
+<div class="unit" id="str2">
+	<p class="math">Jika \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov waktu diskret, maka \( \bs{X} \) memiliki sifat Markov kuat. Artinya, jika \( \tau \) adalah waktu henti berhingga bagi \( \bs{X} \), maka</p>
+	<ol class="sub">
+		<li>\( \P(X_{\tau+k} = x \mid \mathscr{F}_\tau) = \P(X_{\tau+k} = x \mid X_\tau) \) untuk setiap \(  k \in \N \) dan \( x \in S \).</li>
+		<li>\( \E[f(X_{\tau+k}) \mid \mathscr{F}_\tau] = \E[f(X_{\tau+k}) \mid X_\tau] \) untuk setiap \( k \in \N \) dan \( f \in \mathscr{B} \).</li>
+	</ol>
+</div>
+
+<p>Bagian (a) menyatakan bahwa fungsi kepadatan probabilitas bersyarat dari \( X_{\tau + k} \) jika \( \mathscr{F}_\tau \) diketahui sama dengan fungsi kepadatan probabilitas bersyarat dari \( X_{\tau + k} \) jika hanya \( X_\tau \) yang diketahui. Dalam bentuk nilai harapan, bagian (b) juga menyatakan bahwa distribusi bersyarat dari \( X_{\tau + k} \) jika \( \mathscr{F}_\tau \) diketahui sama dengan distribusi bersyarat dari \( X_{\tau + k} \) jika hanya \( X_\tau \) yang diketahui. Dengan mengasumsikan homogenitas seperti biasa, rantai Markov \( \{X_{\tau + n}: n \in \N\} \) dengan syarat \( X_\tau = x \) ekuivalen dalam distribusi dengan rantai \( \{X_n: n \in \N\} \) dengan syarat \( X_0 = x \). </p>
+
+<h4 id="trn">Matriks Transisi</h4>
+
+<p>Misalkan kembali bahwa \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov waktu diskret homogen dengan ruang keadaan \( S \). Pada ruang keadaan diskret, <a href="General.html#trn">kernel transisi</a> yang dipelajari dalam pendahuluan umum menjadi <em>matriks</em> transisi, dengan baris dan kolom yang diindeks oleh \( S \) (sehingga ukurannya mungkin tak hingga). Operasi kernel menjadi operasi matriks yang sudah dikenal. Hasil-hasil pada bagian ini merupakan kasus khusus dari hasil-hasil umum, tetapi kadang-kadang kita memberikan bukti mandiri demi kelengkapan dan karena buktinya lebih sederhana. Anda mungkin perlu meninjau bagian mengenai <a href="../expect/Kernels.html">kernel</a> dalam bab mengenai <a href="../expect/index.html">nilai harapan</a>.</p>
+
+<div class="unit" id="trn1">
+	<p class="math">Untuk \( n \in \N \), misalkan
+	\[ P_n(x, y) = \P(X_n = y \mid X_0 = x), \quad (x, y) \in S \times S \]
+	Matriks \( P_n \) adalah <dfn>matriks probabilitas transisi</dfn> \( n \) langkah bagi \( \bs{X} \). </p>
+</div>
+
+<p>Dengan demikian, \( y \mapsto P_n(x, y) \) adalah fungsi kepadatan probabilitas dari \( X_n \) jika \( X_0 = x \) diketahui. Secara khusus, \( P_n \) adalah <dfn>matriks probabilitas</dfn> (atau <dfn>matriks stokastik</dfn>) karena \( P_n(x, y) \ge 0 \) untuk \( (x, y) \in S^2 \) dan \( \sum_{y \in S} P(x, y) = 1 \) untuk \( x \in S \). Seperti setiap matriks nonnegatif pada \( S \), \( P_n \) mendefinisikan kernel pada \( S \) untuk \( n \in \N \):
+\[ P_n(x, A) = \sum_{y \in A} P_n(x, y) = \P(X_n \in A \mid X_0 = x), \quad x \in S, \, A \subseteq S \]
+Jadi, \( A \mapsto P_n(x, A) \) adalah distribusi probabilitas dari \( X_n \) jika \( X_0 = x \) diketahui. Hasil berikut adalah persamaan <dfn>Chapman–Kolmogorov</dfn>, yang dinamai menurut <a href="JavaScript:openAncillary('../biographies/Chapman.html')" class="ancillary">Sydney Chapman</a> dan <a href="JavaScript:openAncillary('../biographies/Kolmogorov.html')" class="ancillary">Andrei Kolmogorov</a>. Persamaan ini memberikan hubungan dasar antara matriks-matriks transisi.</p>
+
+<div class="unit" id="trn2">
+	<p class="math">Jika \( m, \, n \in \N \), maka \( P_m P_n = P_{m+n} \) </p>
+	<details>
+	<summary>Rincian:</summary>
+		<p>Hal ini mengikuti dari sifat Markov dan sifat homogen terhadap waktu serta argumen pengondisian dasar. Jika \( x, \, z \in S \), maka
+		\[ P_{m+n}(x, z) = \P(X_{m+n} = z \mid X_0 = x) = \sum_{y \in S} \P(X_{m+n} = z \mid X_0 = x, X_m = y) \P(X_m = y \mid X_0 = x) \]
+		Namun, berdasarkan sifat Markov dan sifat homogen terhadap waktu,
+		\[ \P(X_{m+n} = z \mid X_0 = x, X_m = y) = \P(X_n = z \mid X_0 = y) = P_n(y, z) \]
+		Tentu saja, \( \P(X_m = y \mid X_0 = x) = P_m(x, y) \) juga berlaku.
+		Karena itu,
+		\[ P_{m+n}(x, z) = \sum_{y \in S} P_m(x, y) P_n(y, z) \]
+		Ruas kanan, berdasarkan definisi, adalah \( P_m P_n(x, z) \).</p>
+	</details>
+</div>
+
+<p>Segera diperoleh bahwa matriks-matriks transisi hanyalah pangkat matriks dari matriks transisi satu langkah. Artinya, dengan menetapkan \( P = P_1 \), kita memperoleh \( P_n = P^n \) untuk semua \( n \in \N \). Perhatikan bahwa \( P^0 = I \), yaitu matriks identitas pada \( S \) yang diberikan oleh \( I(x, y) = 1 \) jika \( x = y \), dan 0 jika tidak. Operator kanan yang berkaitan dengan \( P^n \) menghasilkan suatu nilai harapan.</p>
+
+<div class="unit" id="trn3">
+	<p class="math">Misalkan \( n \in \N \) dan \( f: S \to \R \). Maka, dengan mengasumsikan bahwa nilai harapannya ada,
+	\[ P^n f(x) = \sum_{y \in S} P^n(x, y) f(y) = \E[f(X_n) \mid X_0 = x], \quad x \in S \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini langsung mengikuti dari definisi:
+		\[ P^nf(x) = \sum_{y \in S} P^n(x, y) f(y) = \sum_{y \in S} \P(X_n = y \mid X_0 = x) f(y) = \E[f(X_n) \mid X_0 = x], \quad x \in S\]</p>
+	</details>
+</div>
+
+<p>Keberadaan nilai harapan hanya menjadi persoalan jika \( S \) tak hingga. Secara khusus, hasil tersebut berlaku jika \( f \) nonnegatif atau jika \( f \in \mathscr{B} \) (yang selalu terpenuhi apabila \( S \) berhingga). Bahkan, \( P^n \) adalah <dfn>operator kontraksi</dfn> linear pada ruang \( \mathscr{B} \) untuk \( n \in \N \). Artinya, jika \( f \in \mathscr{B} \), maka \( P^n f \in \mathscr{B} \) dan \( \|P^n f\| \le \|f\| \). Operator kiri yang berkaitan dengan \( P^n \) didefinisikan dengan cara serupa. Untuk \( f: S \to \R \),
+\[ f P^n(y) = \sum_{x \in S} f(x) P^n(x, y), \quad y \in S \]
+dengan kembali mengasumsikan bahwa penjumlahannya bermakna (seperti sebelumnya, hal ini hanya menjadi persoalan ketika \( S \) tak hingga). Operator kiri sering dibatasi pada fungsi nonnegatif, dan fungsi semacam itu sering kita pandang sebagai fungsi kepadatan (terhadap \( \# \)) dari suatu ukuran positif pada \( S \). Dalam pengertian ini, operator kiri memetakan suatu fungsi kepadatan ke fungsi kepadatan lainnya.
+
+<div class="unit" id="trn4">
+	<p class="dfn">Fungsi \( f: S \to \R \) bersifat <dfn>invarian</dfn> terhadap \( P \) (atau terhadap rantai \( \bs{X} \)) jika \( f P = f \).</p>
+</div>
+
+<p>Jelas bahwa jika \( f \) invarian, sehingga \( f P = f \), maka \( f P^n = f \) untuk semua \( n \in \N \). Jika \( f \) adalah fungsi kepadatan probabilitas, maka \( f P \) juga merupakan fungsi kepadatan probabilitas.</p>
+
+<div class="unit" id="trn5">
+	<p class="math">Jika \( X_0 \) memiliki fungsi kepadatan probabilitas \( f \), maka \( X_n \) memiliki fungsi kepadatan probabilitas \( f P^n \) untuk \( n \in \N \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Sekali lagi, hal ini langsung mengikuti dari definisi <a href="#trn4" class="ref"></a> dan argumen pengondisian.
+		\[ \P(X_n = y) = \sum_{x \in S} \P(X_0 = x) \P(X_n = y \mid X_0 = x) = \sum_{x \in S} f(x) P^n(x, y) = f P^n(y), \quad y \in S \]</p>
+	</details>
+</div>
+
+<p>Secara khusus, jika \( X_0 \) memiliki fungsi kepadatan probabilitas \( f \), dan \( f \) invarian terhadap \( \bs{X} \), maka \( X_n \) memiliki fungsi kepadatan probabilitas \( f \) untuk semua \( n \in \N \), sehingga barisan variabel \( \bs{X} = (X_0, X_1, X_2, \ldots) \) berdistribusi identik. Dengan menggabungkan dua hasil di atas, misalkan \( X_0 \) memiliki fungsi kepadatan probabilitas \( f \) dan \( g: S \to \R \). Dengan mengasumsikan nilai harapannya ada, \( \E[g(X_n)] = f P^n g \). Secara eksplisit,
+\[ \E[g(X_n)] = \sum_{x \in S} \sum_{y \in S} f(x) P^n(x, y) g(y) \]
+Selain itu, dari latihan <a href="trn5" class="ref"></a> diperoleh bahwa distribusi \( X_0 \) (<dfn>distribusi awal</dfn>) dan matriks transisi satu langkah menentukan distribusi \( X_n \) untuk setiap \( n \in \N \). Bahkan, besaran-besaran dasar ini menentukan <em>distribusi berdimensi hingga</em> dari proses, suatu hasil yang lebih kuat.</p>
+
+<div class="unit" id="trn6">
+	<p class="math">Misalkan \( X_0 \) memiliki fungsi kepadatan probabilitas \( f_0 \). Untuk setiap barisan keadaan \( (x_0, x_1, \ldots, x_n) \in S^n, \),
+	\[ \P(X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n) = f_0(x_0) P(x_0, x_1) P(x_1, x_2) \cdots P(x_{n-1},x_n) \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini langsung mengikuti dari sifat Markov dan <a href="../prob/Conditional.html">aturan perkalian</a> probabilitas bersyarat:
+		\[ \P(X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n) = \P(X_0 = x_0) \P(X_1 = x_1 \mid X_0 = x_0) \P(X_2 = x_2 \mid X_0 = x_0, X_1 = x_1) \cdots \P(X_n = x_n \mid X_0 = x_0, \ldots, X_{n-1} = x_{n-1}) \]
+		Namun, berdasarkan sifat Markov, pernyataan ini menyederhana menjadi
+		\begin{align*}
+			\P(X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n) &amp; = \P(X_0 = x_0) \P(X_1 = x_1 \mid X_0 = x_0) \P(X_2 = x_2 \mid X_1 = x_1) \cdots \P(X_n = x_n \mid X_{n-1} = x_{n-1}) \\
+			&amp; = f_0(x_0) P(x_0, x_1) P(x_1, x_2) \cdots P(x_{n-1}, x_n) 
+		\end{align*}</p>
+	</details>
+</div>
+
+<p>Perhitungan semacam ini merupakan alasan digunakannya istilah <em>rantai</em> dalam nama <em>rantai Markov</em>. Dari hasil ini diperoleh bahwa, jika diberikan matriks probabilitas \( P \) pada \( S \) dan fungsi kepadatan probabilitas \( f \) pada \( S \), kita dapat mengonstruksi rantai Markov \( \bs{X} = (X_0, X_1, X_2, \ldots) \) sedemikian sehingga \( X_0 \) memiliki fungsi kepadatan probabilitas \( f \) dan rantai tersebut memiliki matriks transisi satu langkah \( P \). Dalam masalah terapan, matriks transisi satu langkah \( P \) sering diketahui berdasarkan pertimbangan pemodelan, dan sekali lagi distribusi awal sering tidak ditentukan.</p>
+
+<p>Terdapat graf alami (dalam pengertian kombinatorika) yang berkaitan dengan rantai Markov waktu diskret homogen.</p>
+
+<div class="unit" id="trn7">
+	<p class="dfn">Misalkan kembali bahwa \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov dengan ruang keadaan \( S \) dan matriks probabilitas transisi \( P \). <dfn>Graf keadaan</dfn> dari \( \bs{X} \) adalah graf berarah dengan himpunan simpul \( S \) dan himpunan sisi \( E = \{(x, y) \in S^2: P(x, y) \gt 0\} \).</p>
+</div>
+
+<p>Artinya, terdapat sisi berarah dari \( x \) ke \( y \) jika dan hanya jika keadaan \( x \) menuju keadaan \( y \) dalam satu langkah. Perhatikan bahwa graf tersebut mungkin saja memiliki gelang, karena suatu keadaan tentu dapat kembali ke dirinya sendiri dalam satu langkah. Secara lebih umum, kita memiliki hasil berikut:</p>
+
+<div class="unit" id="trn8">
+	<p class="math">Misalkan kembali bahwa \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov dengan ruang keadaan \( S \) dan matriks probabilitas transisi \( P \). Untuk \( x, \, y \in S \) dan \( n \in \N_+ \), terdapat lintasan berarah sepanjang \( n \) dalam graf keadaan dari \( x \) ke \( y \) jika dan hanya jika \( P^n(x, y) \gt 0 \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini mengikuti karena \( P^n(x, y) \gt 0 \) jika dan hanya jika terdapat barisan keadaan \( (x_1, x_2, \ldots, x_{n-1})  \) dengan \( P(x, x_1) \gt 0, P(x_1, x_2) \gt 0, \ldots, P(x_{n-1}, y) \gt 0\). Ini juga tepat merupakan syarat bagi keberadaan lintasan berarah \( (x, x_1, \ldots, x_{n-1}, y) \) sepanjang \( n \) dari \( x \) ke \( y \) dalam graf keadaan.</p>
+	</details>
+</div>
+
+<h4 id="pot">Matriks Potensial</h4>
+
+<div class="unit" id="pot1">
+	<p class="dfn">Untuk \( \alpha \in (0, 1] \), <dfn>matriks potensial-\( \alpha \)</dfn> \( R_\alpha \) dari \( \bs{X} \) adalah
+	\[ R_\alpha = \sum_{n=0}^\infty \alpha^n P^n, \quad (x, y) \in S^2 \]</p>
+	<ol class="sub">
+		<li>\( R = R_1 \) adalah <dfn>matriks potensial</dfn> dari \( \bs{X} \).</li>
+		<li>\( R(x, y) \) adalah nilai harapan banyaknya kunjungan \( \bs{X} \) ke \( y \in S \), dimulai dari \( x \in S \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Pertama, definisi \( R_\alpha \) sebagai deret matriks tak hingga bermakna karena \( P^n \) merupakan matriks nonnegatif untuk setiap \( n \). Penafsiran \( R(x, y) \) untuk \( (x, y) \in S^2 \) diperoleh dengan menukar urutan penjumlahan dan nilai harapan, yang sekali lagi dapat dibenarkan karena suku-sukunya nonnegatif.
+		\[ R(x, y) = \sum_{n=0}^\infty P^n(x, y) = \sum_{n=0}^\infty \E[\bs{1}(X_n = y) \mid X_0 = x] = \E\left( \sum_{n=0}^\infty \bs{1}(X_n = y) \biggm| X_0 = x\right) = \E[\#\{n \in \N: X_n = y\} \mid X_0 = x] \]</p>
+	</details>
+</div>
+
+<p>Perhatikan bahwa sangat mungkin \( R(x, y) = \infty \) untuk suatu \( (x, y) \in S^2 \). Bahkan, mengetahui kapan hal ini terjadi sangat penting dalam kajian <a href="Recurrence.html">rekurensi dan transiens</a>, yang akan kita pelajari pada bagian berikutnya. Seperti setiap matriks nonnegatif, matriks potensial-\( \alpha \) mendefinisikan suatu kernel serta operator kiri dan kanan. Untuk kernelnya,
+\[ R_\alpha(x, A) = \sum_{y \in A} R_\alpha(x, y) = \sum_{n=0}^\infty \alpha^n P^n(x, A), \quad x \in S, A \subseteq S \]
+Secara khusus, \( R(x, A) \) adalah nilai harapan banyaknya kunjungan rantai ke \( A \) ketika dimulai dari \( x \):
+\[ R(x, A) = \sum_{y \in A} R(x, y) = \sum_{n=0}^\infty P^n(x, A) = \E\left[\sum_{n=0}^\infty \bs{1}(X_n \in A)\right], \quad x \in S, \, A \subseteq S \]</p>
+
+<div class="unit" id="pot2">
+	<p class="math">Jika \( \alpha \in (0, 1) \), maka \( R_\alpha(x, S) = \frac{1}{1 - \alpha} \) untuk semua \( x \in S \). </p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Dengan menggunakan deret geometri,
+		\[ R_\alpha(x, S) = \sum_{n=0}^\infty \alpha^n P^n(x, S) = \sum_{n=0}^\infty \alpha^n = \frac{1}{1 - \alpha} \]</p>
+	</details>
+</div>
+
+<p>Karena itu, \( R_\alpha \) adalah matriks terbatas untuk \( \alpha \in (0, 1) \), dan \( (1 - \alpha) R_\alpha \) adalah matriks probabilitas. Matriks ini memiliki penafsiran sederhana.</p>
+
+<div class="unit" id="pot3">
+	<p class="math">Jika \( \alpha \in (0, 1) \), maka \( (1 - \alpha) R_\alpha(x, y) = \P(X_N = y \mid X_0 = x) \) untuk \( (x, y) \in S^2 \), dengan \( N \) independen dari \( \bs{X} \) dan memiliki distribusi geometrik pada \( \N \) dengan parameter \( 1 - \alpha \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan \( (x, y) \in S^2 \). Pengondisian terhadap \( N \) memberikan
+		\[ \P(X_N = y \mid X_0 = x) = \sum_{n=0}^\infty \P(N = n) \P(X_N = y \mid X_0 = x, N = n) \]
+		Namun, berdasarkan aturan substitusi dan asumsi independensi,
+		\[ \P(X_N = y \mid N = n, X_0 = x) = \E(X_n = y \mid N = n, X_0 = x) = \P(X_n = y \mid X_0 = x) = P^n (x, y) \]
+		Karena \( N \) memiliki distribusi geometrik pada \( N \) dengan parameter \( 1 - \alpha \), kita memperoleh \( \P(N = n) = (1 - \alpha) \alpha^n \). Karena itu,
+		\[ \P(X_N = y \mid X_0 = x) = \sum_{n=0}^\infty (1 - \alpha) \alpha^n P^n(x, y) = (1 - \alpha) R_\alpha(x, y) \]</p>
+	</details>
+</div>
+
+<p>Jadi, \( (1 - \alpha) R_\alpha \) dapat dipandang sebagai <em>matriks transisi</em>, sama seperti \( P^n \), tetapi berkaitan dengan <em>waktu acak</em> \( N \) (dengan \( \alpha \) sebagai parameter), bukan <em>waktu deterministik</em> \( n \). Matriks potensial \( R_\alpha \) untuk \( \alpha \in (0, 1) \) juga dapat ditafsirkan secara ekonomi. Misalkan kita menerima satu unit uang setiap kali rantai mengunjungi keadaan tetap \( y \in S\). Maka \( R(x, y) \) adalah nilai harapan imbalan total ketika dimulai dari keadaan \( x \in S \). Namun, uang yang akan kita terima jauh di masa depan biasanya kurang bernilai bagi kita <em>sekarang</em> daripada uang yang akan segera kita terima. Secara khusus, misalkan satu unit uang pada waktu \( n \in \N \) memiliki <dfn>nilai kini</dfn> sebesar \( \alpha^n \), sehingga \( \alpha \) adalah <dfn>faktor inflasi</dfn> (kadang-kadang juga disebut <dfn>faktor diskonto</dfn>). Maka \( R_\alpha (x, y) \) memberikan nilai harapan imbalan total terdiskonto ketika dimulai dari \( x \in S \).</p>
+
+
+<div class="unit" id="pot4">
+	<p class="math">Kernel-kernel potensial \( \bs{R} = \{R_\alpha: \alpha \in (0, 1)\} \) sepenuhnya menentukan kernel-kernel transisi \( \bs{P} = \{P_n: n \in \N\}  \). </p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Perhatikan bahwa untuk \( (x, y) \in S^2 \), fungsi \( \alpha \mapsto R_\alpha(x, y) \) adalah deret pangkat dalam \( \alpha \) dengan koefisien \(n \mapsto P^n(x, y) \). Dalam bahasa kombinatorika, \( \alpha \mapsto R_\alpha(x, y) \) adalah <dfn>fungsi pembangkit biasa</dfn> dari barisan \( n \mapsto P^n(x, y) \). Seperti dicatat di atas, deret pangkat ini memiliki jari-jari konvergensi setidaknya 1, sehingga kita dapat memperluas domainnya ke \( \alpha \in (-1, 1) \). Dengan demikian, jika matriks-matriks potensial diketahui, kita dapat memperoleh kembali matriks-matriks transisi dengan menurunkan dan mengevaluasinya di 0:
+		\[ P^n(x, y) = \frac{1}{n!}\left[\frac{d^n}{d\alpha^n} R_\alpha(x, y) \right]_{\alpha = 0} \]</p>
+	</details>
+</div>
+
+<p>Tentu saja, sebenarnya kita hanya perlu menentukan \( P \), yaitu kernel transisi satu langkah, karena kernel-kernel transisi lainnya merupakan pangkat dari \( P \). Bagaimanapun, dapat disimpulkan bahwa matriks-matriks \( \bs{R} = \{R_\alpha: \alpha \in (0, 1)\} \), bersama distribusi awal, sepenuhnya menentukan distribusi berdimensi hingga dari rantai Markov \( \bs{X} \). Matriks-matriks potensial komutatif satu sama lain dan dengan matriks-matriks transisi.</p>
+
+<div class="unit" id="pot5">
+	<p class="math">Jika \( \alpha, \, \beta \in (0, 1] \) dan \( k \in \N \), maka</p>
+	<ol class="sub">
+		<li>\( P^k R_\alpha = R_\alpha P^k = \sum_{n=0}^\infty \alpha^n P^{n+k} \)</li>
+		<li>\( R_\alpha R_\beta = R_\beta R_\alpha = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^{m+n} \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Perkalian matriks bersifat distributif terhadap penjumlahan matriks; karena semua matriks ini nonnegatif, pendistribusian melalui deret tak hingga tersebut sah.</p>
+		<ol class="sub">
+			<li>Secara langsung,
+			\[ R_\alpha P^k = \sum_{n=0}^\infty \alpha^n P^n P^k = \sum_{n=0}^\infty \alpha^n P^{n+k}\]
+			Arah sebaliknya memerlukan pertukaran urutan.
+			\[ P^k R_\alpha = P^k \sum_{n=0}^\infty \alpha^n P^n = \sum_{n=0}^\infty \alpha^n P^k P^n = \sum_{n=0}^\infty \alpha^n P^{n+k}\]</li>
+			<li>Pertama, 
+			\[R_\alpha R_\beta = \sum_{m=0}^\infty \alpha^m P^m R_\beta = \sum_{m=0}^\infty \alpha^m P^m \left(\sum_{n=0}^\infty \beta^n P^n\right) = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^m P^n = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^{m+n}\]
+			Arah sebaliknya serupa.</li>
+		</ol>
+	</details>
+</div>
+
+<p>Persamaan mendasar yang menghubungkan matriks-matriks potensial diberikan berikut ini.</p>
+
+<div class="unit" id="pot6">
+	<p class="math">Jika \( \alpha, \, \beta \in (0, 1] \) dengan \( \alpha \ge \beta \), maka
+	\[ \alpha R_\alpha = \beta R_\beta + (\alpha - \beta) R_\alpha R_\beta \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Jika \( \alpha = \beta \), persamaan tersebut trivial, jadi anggap \( \alpha \gt \beta \). Dari hasil sebelumnya,
+		\[ R_\alpha R_\beta  = \sum_{j=0}^\infty \sum_{k=0}^\infty \alpha^j q^k P^{j+k} \]
+		Dengan mengganti variabel agar penjumlahan dilakukan atas \( n = j + k \) dan \( k \), diperoleh
+		\[ R_\alpha R_\beta = \sum_{n=0}^\infty \sum_{k=0}^n \alpha^{n-k} \beta^k P^n = \sum_{n=0}^\infty  \sum_{k=0}^n \left(\frac{\beta}{\alpha}\right)^k \alpha^n P^n = \sum_{n=0}^\infty \frac{1 - \left(\frac{\beta}{\alpha}\right)^{n+1}}{1 - \frac{\beta}{\alpha}} \alpha^n P^n \]
+		Dengan menyederhanakan, diperoleh 
+		\[ R_\alpha R_\beta =  \frac{1}{\alpha - \beta} \left[\alpha R_\alpha - \beta R_\beta  \right]\]
+		Perhatikan bahwa karena \( \beta \lt 1 \), matriks \( R_\beta \) memiliki nilai-nilai berhingga, sehingga bentuk tak tentu \( \infty - \infty \) tidak muncul.</p>
+	</details>
+</div>
+
+<div class="unit" id="pot7">
+	<p class="math">Jika \( \alpha \in (0, 1] \), maka \( I + \alpha R_\alpha P = I + \alpha P R_\alpha = R_\alpha \).</p>
+	<details>
+	<summary>Rincian:</summary>
+		<p>Dari <a href="#pot6" class="ref"></a>,
+		\[ I + \alpha R_\alpha P = I + \alpha P R_\alpha = I + \sum_{n=0}^\infty \alpha^{n+1} P^{n+1} = \sum_{n = 0}^\infty \alpha^n P^n  = R_\alpha  \]</p>
+	</details>
+</div>
+
+<p>Hal ini mengarah pada hasil penting: jika \( \alpha \in (0, 1) \), terdapat hubungan invers antara \( P \) dan \( R_\alpha \).</p>
+
+<div class="unit" id="pot8">
+	<p class="math">Jika \( \alpha \in (0, 1) \), maka 
+	<ol class="sub">
+		<li>\( R_\alpha = (I - \alpha P)^{-1} \)</li>
+		<li>\( P = \frac{1}{\alpha}\left(I - R_\alpha^{-1}\right) \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Matriks-matriks tersebut memiliki nilai berhingga, sehingga kita dapat melakukan pengurangan. Identitas \( I + \alpha R_\alpha P = R_\alpha \) menghasilkan \( R_\alpha(I - \alpha P) = I \), dan identitas \( I + \alpha P R_\alpha = R_\alpha \) menghasilkan \( (I - \alpha P) R_\alpha = I \). Karena itu, (a) berlaku. Bagian (b) mengikuti dari (a).</p>
+	</details>
+</div>
+
+<p>Latihan <a href="#pot8" class="ref"></a> sekali lagi menunjukkan bahwa matriks potensial \( R_\alpha \) menentukan operator transisi \( P \).</p>
+
+<h4 id="smp">Pengambilan Sampel dalam Waktu</h4>
+
+<p>Jika kita mengambil sampel suatu rantai Markov pada kelipatan waktu tetap \( k \), kita memperoleh rantai lain yang juga homogen.</p>
+
+<div class="unit" id="smp1">
+	<p class="math">Misalkan \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov dengan ruang keadaan \( S \) dan matriks probabilitas transisi \( P \). Untuk \( k \in \N_+ \) yang tetap, barisan \(\bs{X}_k = (X_0, X_k, X_{2 k}, \ldots) \) adalah rantai Markov pada \( S \) dengan matriks probabilitas transisi \( P^k \).</p>
+</div>
+
+<p>Jika kita mengambil sampel suatu rantai Markov pada barisan umum titik waktu yang menaik \( 0 \lt n_1 \lt n_2 \lt \cdots \) dalam \( \N \), proses stokastik yang dihasilkan \( \bs{Y} = (Y_0, Y_1, Y_2, \ldots)\), dengan \( Y_k = X_{n_k} \) untuk \( k \in \N \), tetap merupakan rantai Markov, tetapi secara umum tidak homogen terhadap waktu. </p>
+
+<p>Ingat bahwa jika \( A \) adalah himpunan bagian tak kosong dari \( S \), maka \( P_A \) adalah matriks \( P \) yang dibatasi pada \( A \times A \). Jadi, \( P_A \) adalah matriks pembatasan <em>sub</em>stokastik karena jumlah barisnya mungkin kurang dari 1. Ingat pula bahwa \( P_A^n \) berarti \( (P_A)^n \), bukan \( (P^n)_A \); secara umum, kedua matriks ini berbeda.</p>
+
+<div class="unit" id="smp2">
+	<p class="math">Jika \( A \) adalah himpunan bagian tak kosong dari \( S \), maka untuk \( n \in \N \),
+	\[ P_A^n(x, y) = \P(X_1 \in A, X_2 \in A, \ldots, X_{n-1} \in A, X_n = y \mid X_0 = x), \quad (x, y) \in A \times A \]</p>
+</div>
+
+<p>Artinya, \( P_A^n(x, y) \) adalah probabilitas berpindah dari keadaan \( x \) ke \( y \) dalam \( n \) langkah sambil tetap berada di \( A \) sepanjang waktu. Dalam graf keadaan dari \( \bs{X} \), ini adalah jumlah hasil kali probabilitas di sepanjang lintasan-lintasan sepanjang \( n \) dari \( x \) ke \( y \) yang tetap berada di dalam \( A \). </p>
+
+<h3 id="exa">Contoh dan Penerapan</h3>
+
+<h4 id="com">Latihan Komputasi</h4>
+
+<p>Misalkan \( \bs{X} = (X_0, X_1, \ldots) \) adalah rantai Markov pada \( S = \{a, b, c\} \) dengan matriks transisi
+\[ P = \left[\begin{matrix} \frac{1}{2} &amp; \frac{1}{2} &amp; 0 \\ \frac{1}{4} &amp; 0 &amp;  \frac{3}{4} \\ 1 &amp; 0 &amp; 0 \end{matrix} \right] \]</p>
+
+<div class="unit" id="com1">
+	<p class="math">Untuk rantai Markov \( \bs{X} \),</p>
+	<ol class="sub">
+		<li>Gambarkan graf keadaan.</li>
+		<li>Tentukan \( \P(X_1 = a, X_2 = b, X_3 = c \mid X_0 = a) \)</li>
+		<li>Tentukan \( P^2 \)</li>
+		<li>Misalkan \( g: S \to \R \) diberikan oleh \( g(a) = 1 \), \( g(b) = 2 \), dan \( g(c) = 3 \). Tentukan \( \E[g(X_2) \mid X_0 = x] \) untuk \( x \in S \).</li>
+		<li>Misalkan \( X_0 \) memiliki distribusi seragam pada \( S \). Tentukan fungsi kepadatan probabilitas dari \( X_2 \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Himpunan sisinya adalah \(E = \{(a, a), (a, b), (b, a), (b, c), (c, a)\} \)</li>
+			<li>\( P(a, a) P(a, b) P(b, c) = \frac{3}{16} \)</li>
+			<li>Dengan perkalian matriks biasa,
+			\[ P^2 = \left[\begin{matrix} \frac{3}{8} &amp; \frac{1}{4} &amp; \frac{3}{8} \\ \frac{7}{8} &amp; \frac{1}{8} &amp; 0 \\ \frac{1}{2} &amp; \frac{1}{2} &amp; 0 \end{matrix} \right] \]</li>
+			<li>Dalam bentuk matriks,
+			\[ g = \left[\begin{matrix} 1 \\ 2 \\ 3 \end{matrix}\right], \quad P^2 g = \left[\begin{matrix} 2 \\ \frac{9}{8} \\ \frac{3}{2} \end{matrix} \right]  \]</li>
+			<li>Dalam bentuk matriks, \( X_0 \) memiliki fungsi kepadatan probabilitas \( f = \left[\begin{matrix} \frac{1}{3} &amp; \frac{1}{3} &amp; \frac{1}{3} \end{matrix} \right] \), dan \( X_2 \) memiliki fungsi kepadatan probabilitas \( f P^2 = \left[\begin{matrix} \frac{7}{12} &amp; \frac{7}{24} &amp; \frac{1}{8} \end{matrix} \right] \).</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="com2">
+	<p class="math">Misalkan \( A = \{a, b\} \). Tentukan masing-masing berikut ini:</p>
+	<ol class="sub">
+		<li>\( P_A \)</li>
+		<li>\( P_A^2 \)</li>
+		<li>\( (P^2)_A \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>\( P_A = \left[\begin{matrix} \frac{1}{2} &amp; \frac{1}{2} \\ \frac{1}{4} &amp; 0 \end{matrix}\right] \)</li>
+			<li>\( P_A^2 =  \left[\begin{matrix} \frac{3}{8} &amp; \frac{1}{4} \\ \frac{1}{8} &amp; \frac{1}{8} \end{matrix}\right]\)</li>
+			<li>\( (P^2)_A =  \left[\begin{matrix} \frac{3}{8} &amp; \frac{1}{4} \\ \frac{7}{8} &amp; \frac{1}{8} \end{matrix}\right]\)</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="com3">
+	<p class="math">Tentukan fungsi kepadatan probabilitas invarian dari \( \bs{X} \). </p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Menyelesaikan \( f P = f \) dengan syarat bahwa \( f \) adalah fungsi kepadatan probabilitas memberikan \( f = \left[\begin{matrix} \frac{8}{15} &amp; \frac{4}{15} &amp; \frac{3}{15} \end{matrix}\right] \)</p>
+	</details>
+</div>
+
+<div class="unit" id="com4">
+	<p class="math">Hitung matriks potensial-\( \alpha \), \( R_\alpha \), untuk \( \alpha \in (0, 1) \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Perhitungan \( R_\alpha = (I - \alpha P)^{-1} \) memberikan
+		\[ R_\alpha = \frac{1}{(1 - \alpha)(8 + 4 \alpha + 3 \alpha^2)}\left[\begin{matrix} 8 &amp; 4 \alpha &amp; 3 \alpha^2 \\ 2 \alpha + 6 \alpha^2 &amp; 8 - 4 \alpha &amp; 6 \alpha - 3 \alpha^2 \\ 8 \alpha &amp; 4 \alpha^2 &amp; 8 - 4 \alpha - \alpha^2 \end{matrix}\right] \]
+		Sebagai pemeriksaan atas perhitungan kita, perhatikan bahwa jumlah setiap baris adalah \( \frac{1}{1 - \alpha} \).</p>
+	</details>
+</div>
+
+<h4 id="two">Rantai Dua Keadaan</h4>
+
+<p>Mungkin rantai Markov tak trivial yang paling sederhana memiliki dua keadaan, misalkan \( S = \{0, 1\} \), dan matriks probabilitas transisi yang diberikan di bawah ini, dengan \( p \in (0, 1) \) dan \( q \in (0, 1) \) sebagai parameter.
+\[ P = \left[ \begin{matrix} 1 - p &amp; p \\ q &amp; 1 - q \end{matrix} \right] \]</p>
+
+<div class="unit" id="two1">
+	<p class="math">Untuk \( n \in \N \),
+	\[ P^n = \frac{1}{p + q} \left[ \begin{matrix} q + p(1 - p - q)^n &amp; p - p(1 - p - q)^n \\ q - q(1 - p - q)^n &amp; p + q(1 - p - q)^n \end{matrix} \right]  \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Nilai eigen dari \( P \) adalah 1 dan \( 1 - p - q \). Selanjutnya, \( B^{-1} P B = D \), dengan
+		\[ B = \left[ \begin{matrix} 1 &amp; - p \\ 1 &amp; q \end{matrix} \right], \quad D = \left[ \begin{matrix} 1 &amp; 0 \\ 0 &amp; 1 - p - q \end{matrix} \right] \]
+		Karena itu, \( P^n = B D^n B^{-1} \), yang memberikan pernyataan di atas.</p>
+	</details>
+</div>
+
+<div class="unit" id="two2">
+	<p class="math">Ketika \( n \to \infty \),
+	\[ P^n \to \frac{1}{p + q} \left[ \begin{matrix} q &amp; p \\ q &amp; p \end{matrix} \right] \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Perhatikan bahwa \( 0 \lt p + q \lt 2 \), sehingga \(-1 \lt 1 - (p + q) \lt 1\). Karena itu, \( (1 - p - q)^n \to 0 \) ketika \( n \to \infty \).</p>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="app">Buka simulasi <a href="JavaScript:openAncillary('../apps/TwoState.html')" class="ancillary">rantai Markov waktu diskret dua keadaan</a>. Untuk berbagai nilai \( p \) dan \( q \), serta keadaan awal yang berbeda-beda, jalankan simulasi sebanyak 1000 kali. Bandingkan distribusi frekuensi relatif dengan distribusi limit, dan khususnya perhatikan laju konvergensinya. Pastikan Anda mencoba kasus \( p = q = 0.01 \)</p>
+</div>
+
+<div class="unit" id="two3">
+	<p class="math">Satu-satunya fungsi kepadatan probabilitas invarian bagi rantai tersebut adalah
+	\[ f = \left[\begin{matrix} \frac{q}{p + q} &amp; \frac{p}{p + q} \end{matrix} \right] \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan \( f = \left[\begin{matrix} a &amp; b \end{matrix}\right] \). Persamaan matriks \( f P = f \) menghasilkan \( -p a + q b = 0 \), sehingga \( b = a \frac{p}{q} \). Syarat \( a + b = 1 \) agar \( f \) menjadi fungsi kepadatan probabilitas kemudian memberikan \( a = \frac{q}{p + q} \), \( b = \frac{p}{p + q} \)</p>
+	</details>
+</div>
+
+<div class="unit" id="two4">
+	<p class="math">Untuk \( \alpha \in (0, 1) \), matriks potensial-\( \alpha \) adalah
+	\[ R_\alpha = \frac{1}{(p + q)(1 - \alpha)} \left[\begin{matrix} q &amp; p \\ q &amp; p \\ \end{matrix}\right] + \frac{1}{(p + q)^2 (1 - \alpha)} \left[\begin{matrix} p &amp; -p \\ -q &amp; q \end{matrix}\right] \]
+	</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Dalam kasus ini, \( R_\alpha \) dapat dihitung langsung sebagai \( \sum_{n=0}^\infty \alpha^n P^n \) dengan menggunakan deret geometri.</p>
+	</details>
+</div>
+
+<p>Meskipun sederhana, rantai dua keadaan menggambarkan beberapa <a href="limiting.html">perilaku limit</a> dasar dan kaitannya dengan distribusi invarian yang akan kita pelajari secara umum pada bagian selanjutnya.</p>
+
+<h4 id="ind">Variabel Independen dan Gerak Acak</h4>
+
+<p>Misalkan \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah barisan variabel acak independen yang mengambil nilai dalam himpunan terhitung \( S \), dan \( (X_1, X_2, \ldots) \) berdistribusi identik dengan fungsi kepadatan probabilitas (diskret) \( f \).</p>
+
+<div class="unit" id="ind1">
+	<p class="math">\( \bs{X} \) adalah rantai Markov pada \( S \) dengan matriks probabilitas transisi \( P \) yang diberikan oleh \( P(x, y) = f(y) \) untuk \( (x, y) \in S \times S \). Selain itu, \( f \) invarian terhadap \( P \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Seperti biasa, misalkan \( \mathscr{F}_n = \sigma\{X_0, X_1 \ldots, X_n\} \) untuk \( n \in \N \). Karena barisan \( \bs{X} \) independen,
+		\[ \P(X_{n+1} = y \mid \mathscr{F}_n) = \P(X_{n+1} = y) = f(y), \quad y \in S \]
+		Selain itu,
+		\[ f P(y) = \sum_{x \in S} f(x) P(x, y) = \sum_{x \in S} f(x) f(y) = f(y), \quad y \in S \]</p>
+	</details>
+</div>
+
+<p>Sebagai rantai Markov, proses \( \bs{X} \) tidak terlalu menarik, meskipun tentu saja proses ini sangat menarik dalam berbagai hal lain. Sekarang, misalkan \( S = \Z \), yaitu himpunan bilangan bulat, dan pertimbangkan <dfn>proses jumlah parsial</dfn> (atau <dfn>gerak acak</dfn>) \( \bs{Y} \) yang berkaitan dengan \( \bs{X} \):
+\[ Y_n = \sum_{i=0}^n X_i, \quad n \in \N \]</p>
+
+<div class="unit" id="ind2">
+	<p class="math">\( \bs{Y} \) adalah rantai Markov pada \( \Z \) dengan matriks probabilitas transisi \( Q \) yang diberikan oleh \( Q(x, y) = f(y - x) \) untuk \( (x, y) \in \Z \times \Z \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Sekali lagi, misalkan \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \) untuk \( n \in \N \). Maka \( \mathscr{F}_n = \sigma\{Y_0, Y_1, \ldots, Y_n\} \) juga berlaku untuk \( n \in \N \). Karena itu,
+		\[ \P(Y_{n+1} = y \mid \mathscr{F}_n) = \P(Y_n + X_{n+1} = y \mid \mathscr{F}_n) = \P(Y_n + X_{n+1} = y \mid Y_n), \quad y \in \Z \]
+		karena barisan \( \bs{X} \) independen. Secara khusus,
+		\[ \P(Y_{n+1} = y \mid Y_n = x) = \P(x + X_{n+1} = y \mid Y_n = x) = \P(X_{n+1} = y - x) = f(y - x), \quad (x, y) \in \Z^2 \]</p>
+	</details>
+</div>
+
+<p>Dengan demikian, fungsi kepadatan probabilitas \( f \) menentukan distribusi setiap langkah pejalan acak pada \( \Z \).</p>
+
+<div class="unit" id="ind3">
+	<p class="math">Pertimbangkan kasus khusus gerak acak pada \( \Z \) dengan \( f(1) = p \) dan \( f(-1) = 1 - p \), dengan \( p \in (0, 1) \).</p>
+	<ol class="sub">
+		<li>Nyatakan matriks transisi \( Q \) secara eksplisit.</li>
+		<li>Nyatakan \( Q^n \) secara eksplisit untuk \( n \in \N \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>\( Q(x, x - 1) = 1 - p \), \( Q(x, x + 1) = p \) untuk \( x \in Z \).</li>
+			<li>Untuk \( k \in \{0, 1, \ldots, n\} \),
+			\[ Q^n(x, x + 2 k - n) = \binom{n}{k} p^k (1 - p)^{n-k} \]
+			Ini berkaitan dengan \( k \) langkah ke kanan dan \( n - k \) langkah ke kiri.</li>
+		</ol>
+	</details>
+</div>
+
+<p>Kasus khusus ini adalah <dfn>gerak acak sederhana</dfn> pada \( \Z \). Ketika \( p = \frac{1}{2} \), kita memperoleh <dfn>gerak acak sederhana simetris</dfn>. <a href="WalkGraph.html">Gerak acak sederhana</a> pada \( \Z \) dipelajari lebih terperinci pada bagian selanjutnya dalam bab ini. <a href="../bernoulli/Walk.html">Gerak acak sederhana simetris</a> dipelajari lebih terperinci dalam bab mengenai <a href="../bernoulli/index.html">percobaan Bernoulli</a>.</p>
+
+<h4 id="dbl">Matriks Stokastik Ganda</h4>
+
+<div class="unit" id="dbl1">
+	<p class="dfn">Matriks \( P \) pada \( S \) disebut <dfn>stokastik ganda</dfn> jika matriks tersebut nonnegatif dan jumlah baris <em>serta</em> jumlah kolomnya sama dengan 1:
+	\[ \sum_{u \in S} P(x, u) = 1, \; \sum_{u \in s} P(u, y) = 1, \quad (x, y) \in S \times S \]</p>
+</div>
+
+<div class="unit" id="dbl2">
+	<p class="math">Misalkan \( \bs{X} \) adalah rantai Markov pada ruang keadaan berhingga \( S \) dengan matriks transisi stokastik ganda \( P \). Maka distribusi seragam pada \( S \) bersifat invarian.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Fungsi konstan bersifat invarian kiri. Misalkan \( f(x) = c \) untuk \( x \in S \). Maka
+		\[ f P(y) = \sum_{x \in S} f(x) P(x, y) = c \sum_{x \in S} P(x, y) = c, \quad y \in S \]
+		Karena itu, jika \( S \) berhingga, fungsi kepadatan probabilitas seragam \( f \) yang diberikan oleh \( f(x) = 1 \big/ \#(S) \) untuk \( x \in S \) bersifat invarian.</p>
+	</details>
+</div>
+
+<div class="unit" id="dbl3">
+	<p class="math">Jika \( P \) dan \( Q \) adalah matriks stokastik ganda pada \( S \), maka \( P Q \) juga demikian.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Untuk \( y \in S \),
+		\[ \sum_{x \in S} P Q(x, y) = \sum_{x \in S} \sum_{z \in S} P(x, z) Q(z, y) = \sum_{z \in S} Q(z, y) \sum_{x \in S} P(x, z) = \sum_{z \in S} Q(z, y) = 1  \]
+		Pertukaran urutan penjumlahan sah karena suku-sukunya nonnegatif.</p>
+	</details>
+</div>
+
+<p>Diperoleh bahwa jika \( P \) stokastik ganda, maka \( P^n \) juga stokastik ganda untuk \( n \in \N \).</p>
+
+<div class="unit" id="dbl4">
+	<p class="math">Misalkan \( \bs{X} = (X_0, X_1, \ldots)\) adalah rantai Markov dengan ruang keadaan \( S = \{-1, 0, 1\} \) dan matriks transisi
+	\[ P = \left[\begin{matrix} \frac{1}{2} &amp; \frac{1}{2} &amp; 0 \\ 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\ \frac{1}{2} &amp; 0 &amp; \frac{1}{2} \end{matrix} \right] \]</p>
+	<ol class="sub">
+		<li>Gambarkan graf keadaan.</li>
+		<li>Tunjukkan bahwa \( P \) stokastik ganda.</li>
+		<li>Tentukan \( P^2 \).</li>
+		<li>Tunjukkan bahwa distribusi seragam pada \( S \) adalah satu-satunya distribusi invarian bagi \( \bs{X} \).</li>
+		<li>Misalkan \( X_0 \) memiliki distribusi seragam pada \( S \). Untuk \( n \in \N \), tentukan \( \E(X_n) \) dan \( \var(X_n) \).</li>
+		<li>Tentukan matriks potensial-\( \alpha \), \( R_\alpha \), untuk \( \alpha \in (0, 1) \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Himpunan sisinya adalah \( E = \{(-1, -1), (-1, 0), (0, 0), (0, 1), (1, -1), (1, 1)\} \)</li>
+			<li>Cukup perhatikan bahwa jumlah baris dan jumlah kolom sama dengan 1.</li>
+			<li>Dengan perkalian matriks,
+			\[ P^2 = \left[\begin{matrix} \frac{1}{4} &amp; \frac{1}{2} &amp; \frac{1}{4} \\ \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{2} \\ \frac{1}{2} &amp; \frac{1}{4} &amp; \frac{1}{4} \end{matrix} \right]\]</li>
+			<li>Misalkan \( f = \left[\begin{matrix} p &amp; q &amp; r\end{matrix}\right] \). Menyelesaikan persamaan \( f P = f \) memberikan \( p = q = r \). Syarat bahwa \( f \) harus menjadi fungsi kepadatan probabilitas kemudian memaksa nilai bersama tersebut sama dengan \( \frac{1}{3} \).</li>
+			<li>Jika \( X_0 \) memiliki distribusi seragam pada \( S \), maka demikian pula \( X_n \) untuk setiap \( n \in \N \), sehingga \( \E(X_n) = 0 \) dan \( \var(X_n) = \E\left(X_0^2\right) = \frac{2}{3} \).</li>
+			<li>\[ R_\alpha = (I - \alpha P)^{-1} = \frac{1}{(1 - \alpha)(4 - 2 \alpha + \alpha^2)}\left[\begin{matrix} 4 - 4 a + a^2 &amp; 2 a - a^2 &amp; a^2 \\ a^2 &amp; 4 - 4 a + a^2 &amp; 2 a - a^2 \\ 2 a - a^2 &amp; a^2 &amp; 4 - 4 a + a^2 \end{matrix}\right] \]</li>
+		</ol>
+	</details>
+</div>
+
+<p>Ingat bahwa matriks \( M \) yang diindeks oleh himpunan terhitung \( S \) disebut <dfn>simetris</dfn> jika \( M(x, y) = M(y, x) \) untuk semua \( x, \, y \in S \).</p>
+
+<div class="unit" id="dbl5">
+	<p class="math">Jika \( P \) adalah matriks stokastik simetris, maka \( P \) stokastik ganda.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini trivial karena
+		\[ \sum_{x \in S} P(x, y) = \sum_{x \in S} P(y, x) = 1, \quad y \in S \]</p>
+	</details>
+</div>
+
+<p>Kebalikannya tidak benar. Matriks stokastik ganda dalam <a href="#dbl4" class="ref"></a> tidak simetris. Namun, karena matriks stokastik simetris pada ruang keadaan berhingga bersifat stokastik ganda, distribusi seragam bersifat invarian.</p>
+
+<div class="unit" id="dbl6">
+	<p class="math">Misalkan \( \bs{X} = (X_0, X_1, \ldots)\) adalah rantai Markov dengan ruang keadaan \( S = \{-1, 0, 1\} \) dan matriks transisi
+	\[ P = \left[\begin{matrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; \frac{1}{4} &amp; \frac{3}{4} \\ 0 &amp; \frac{3}{4} &amp; \frac{1}{4} \end{matrix} \right] \]</p>
+	<ol class="sub">
+		<li>Gambarkan graf keadaan.</li>
+		<li>Tunjukkan bahwa \( P \) simetris.</li>
+		<li>Tentukan \( P^2 \).</li>
+		<li>Tentukan semua fungsi kepadatan probabilitas invarian bagi \( \bs{X} \).</li>
+		<li>Tentukan matriks potensial-\( \alpha \), \( R_\alpha \), untuk \( \alpha \in (0, 1) \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Himpunan sisinya adalah \( E = \{(-1, -1), (0, 0), (0, 1), (1, 0), (1, 1)\} \)</li>
+			<li>Cukup perhatikan bahwa \( P \) simetris terhadap diagonal utama.</li>
+			<li>Dengan perkalian matriks,
+			\[ P^2 = \left[\begin{matrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; \frac{5}{8} &amp; \frac{3}{8} \\ 0 &amp; \frac{3}{8} &amp; \frac{5}{8} \end{matrix} \right]\]</li>
+			<li>Misalkan \( f = \left[\begin{matrix} p &amp; q &amp; r\end{matrix}\right] \). Menyelesaikan persamaan \( f P = f \) hanya memberikan \( r = q \). Syarat bahwa \( f \) harus menjadi fungsi kepadatan probabilitas memaksa \( p = 1 - 2 q \). Jadi, fungsi-fungsi kepadatan probabilitas invarian adalah \( f = \left[\begin{matrix} 1 - 2 q &amp; q &amp; q \end{matrix}\right]  \), dengan \( q \in \left[0, \frac{1}{2}\right] \). Kasus khusus \( q = \frac{1}{3} \) memberikan distribusi seragam pada \( S \).</li>
+			<li>\[ R_\alpha = (I - \alpha P)^{-1} = \frac{1}{2 (1 - \alpha)^2 (2 + \alpha)}\left[\begin{matrix} 4 - 2 \alpha - 2 \alpha^2 &amp; 0 &amp; 0 \\ 0 &amp; 4 - 5 \alpha + \alpha^2 &amp; 3 \alpha - 3 \alpha^2 \\ 0 &amp; 3 \alpha - 3 \alpha^2 &amp; 4 - 5 \alpha + \alpha^2 \end{matrix}\right] \]</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="mod">Model Khusus</h4>
+
+<div class="unit" id="mod1">
+	<p class="math">Rantai-rantai Markov berikut memodelkan proses menarik yang dipelajari dalam bagian-bagian tersendiri.</p>
+	<ol class="sub">
+		<li><a href="Ehrenfest.html">Rantai Ehrenfest</a></li>
+		<li><a href="BernoulliLaplace.html">Rantai Bernoulli–Laplace</a>.</li>
+		<li><a href="Reliability.html">Rantai reliabilitas</a>.</li>
+		<li><a href="Branching.html">Rantai percabangan</a>.</li>
+		<li><a href="Queuing.html">Rantai antrean</a>.</li>
+		<li><a href="WalkGraph.html">Gerak acak pada graf</a>.</li>
+		<li><a href="BirthDeath.html">Rantai kelahiran–kematian</a>.</li>
+	</ol>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Proses Markov</a></li>
+		<li class="child"><a href="General.html" title="Pendahuluan">1</a></li>
+		<li class="child"><a href="Potentials.html" title="Potensial dan Generator">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Recurrence.html" title="Transiens dan Rekurensi">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodisitas">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Distribusi Invarian dan Limit">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Pembalikan Waktu pada Rantai Waktu Diskret">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="Rantai Ehrenfest">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="Rantai Bernoulli–Laplace">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Rantai Reliabilitas">10</a></li>
+		<li class="child"><a href="Branching.html" title="Rantai Percabangan Waktu Diskret">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Rantai Antrean Waktu Diskret">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Rantai Kelahiran–Kematian Waktu Diskret">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Gerak Acak pada Graf">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Rantai Waktu Kontinu">15</a></li>
+		<li class="child"><a href="Transition.html" title="Matriks Transisi dan Generator">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Matriks Potensial">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Distribusi Invarian dan Limit">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Pembalikan Waktu pada Rantai Waktu Kontinu">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Rantai yang Disubordinasikan pada Proses Poisson">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Rantai Kelahiran–Kematian Waktu Kontinu">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Rantai Antrean Waktu Kontinu">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Rantai Percabangan Waktu Kontinu">23</a></li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Kumpulan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

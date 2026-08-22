@@ -3,8 +3,6 @@ title: "Probabilitas Teoretis-Ukuran dan Proses Stokastik"
 lang: id-ID
 ---
 
-# Probabilitas Teoretis-Ukuran dan Proses Stokastik
-
 Ini adalah edisi bahasa Indonesia untuk peran kurikulum **O009/D30**. Edisi
 ini menggabungkan teori yang dilacak ke *Random* karya Kyle Siegrist,
 laboratorium komputasi terpilih yang dilacak ke catatan Gordan Žitković, dan
@@ -29,8 +27,9 @@ gabungan.
 13. [Konvergensi martingal](martingales/Convergence.html)
 14. [Martingal mundur](martingales/Backwards.html)
 15. [Proses Markov umum](markov/General.html)
-16. [Laboratorium: simulasi rantai Markov](labs/02-simulasi-rantai-markov.html)
-17. [Laboratorium: konvergensi Monte Carlo](labs/01-konvergensi-monte-carlo.html)
+16. [Rantai Markov waktu diskret](markov/Discrete.html)
+17. [Laboratorium: simulasi rantai Markov](labs/02-simulasi-rantai-markov.html)
+18. [Laboratorium: konvergensi Monte Carlo](labs/01-konvergensi-monte-carlo.html)
 
 Modul pengambilan sampel, hukum bilangan besar, dan teorema limit pusat dari
 jalur **O006/C140** merupakan prasyarat bersama dan tidak diduplikasi di sini.

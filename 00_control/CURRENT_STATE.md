@@ -1,7 +1,9 @@
 # Current state
 
 As of 2026-08-22, this is an active O009/D30 production lane. Its first ten
-reader boundaries are public and anonymously byte-verified on GitHub Pages.
+reader boundaries are public and anonymously byte-verified on GitHub Pages;
+the eleventh boundary is complete and locally verified but queued behind the
+external GitHub account suspension.
 The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
 curriculum-admission decision.
@@ -40,8 +42,8 @@ The frozen Random superset remains 94 files / 1,997,915 bytes with manifest SHA-
 The selected subset is exactly 27 pages / 1,032,759 bytes; its 2,511-byte
 sorted path/size/hash manifest has SHA-256
 `52fe0905238a12d2e757a5fefc44fb0c8418ccd78bf7234bd4b842ca5380496e`.
-Fifteen selected substantive pages are translated. Twelve selected paths
-remain: three substantive source index/landing pages and nine content pages.
+Sixteen selected substantive pages are translated. Eleven selected paths
+remain: three substantive source index/landing pages and eight content pages.
 The three source indexes will be translated as landing pages; the generated
 course index is not treated as their silent replacement.
 The authority receipt is schema v3 and binds the 4,709-byte `boldsymbol.js`
@@ -434,6 +436,42 @@ status `17153722812` succeeded. An anonymous readback matched all 43
 manifested files and 2,661,986 bytes at 2026-08-22T05:47:39.9902666Z. See
 `00_control/PUBLICATION_RECEIPT.json`.
 
+### Eleventh reader boundary (locally verified; publication queued)
+
+`markov/Discrete.html` is completely translated, repaired downstream,
+integrated, independently audited, and visually verified:
+
+- frozen authority: 55,099 bytes / SHA-256
+  `808118b103e17cd5e31115b953663b0d8ff94da21f432e6fe7c104e9300380f0`;
+- Indonesian source: 57,545 bytes / SHA-256
+  `176d4f9284ee16353142d6c2612b46a32a93c416471621997c89e72308b785ea`;
+- built reader: 65,408 bytes / SHA-256
+  `9b21e65c3da1c7989c99adee09da517634ca186d31c2a3886f51d65c9686a2b8`.
+
+The authority/source pair preserves 530 elements, 56 IDs, 44 units, 30
+disclosures, and all 649 ordered TeX surfaces. The built reader applies 44
+exact-once actions: 34 source-content repairs, six source-link repairs, and
+four deterministic reflows. Seven exercises and seven worked solutions have
+complete one-to-one `assesses` and `solves` edges. Independent language,
+mathematical, and static/backend audits report no remaining substantive veto.
+
+The deterministic site contains 44 files / 2,762,106 bytes at manifest
+SHA-256
+`f2315be8b9d3a9f9a7a64b65ae67766ca9d467078056ce85e385cde69aad8b45`;
+build-receipt SHA-256
+`867d2594620907c5e1cc1d4fefc8187bc9dbc45914a2b319c52f776decc5d5a8`.
+The backend contains 1,160 entities, 3,016 segments, and 1,100 relations
+(4,176 semantic records), with zero QA failures; manifest SHA-256
+`d999141322b17356ad924d5d1dcb02d06d2b675d7708be8a66252bcb905713ca`.
+
+Whole-reader browser QA covered all 19 pages at 1280×720 and 390×844. Each
+sweep rendered 10,656 MathJax containers, 309 disclosures, and 73 images, with
+zero document overflow, broken asset, external runtime, empty visible
+reference, hierarchy/landmark/label defect, or browser warning/error. The
+shared builder now enforces one H1, one main landmark, unskipped heading
+levels, and unique disclosure labels across every reader page. See
+`qa/ELEVENTH_BOUNDARY_CHECKPOINT_20260822.md`.
+
 ## QuantEcon authority-admission checkpoint
 
 The immutable source snapshot passes at 34 files / 384,053 bytes / manifest
@@ -472,11 +510,13 @@ the external account state changes.
 
 ## Next exact action
 
-Translate the complete selected Random `markov/Discrete.html` unit into
-natural id-ID, preserve exact topology and mathematics, apply only auditable
-downstream corrections, integrate stable IDs/backend/navigation, and verify
-the next reader boundary. Do not translate replaced Random CTMC/ordinary-
-Poisson pages or renewal.
+Translate the complete selected Random `markov/Recurrence.html` unit from the
+51,381-byte authority at SHA-256
+`24edb8bd0237b0e3abd7beeae48596f35421c9aa35653c6845cfaebb223c5535`
+into natural id-ID. Preserve exact topology and mathematics, apply only
+auditable downstream corrections, integrate stable IDs/backend/navigation,
+and verify the next reader boundary. Do not translate replaced Random
+CTMC/ordinary-Poisson pages or renewal.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

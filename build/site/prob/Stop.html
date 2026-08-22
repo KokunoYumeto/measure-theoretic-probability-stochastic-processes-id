@@ -31,19 +31,19 @@
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Acak</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/prob/index.html">1. Ruang Probabilitas</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Experiments.html" title="Eksperimen Acak">1</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Events.html" title="Kejadian dan Peubah Acak">2</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Probability.html" title="Ukuran Probabilitas">3</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Conditional.html" title="Probabilitas Bersyarat">4</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Independence.html" title="Kebebasan">5</a></li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">6</a></li>
-<li class="child"><a href="Probability2.html" title="Ruang Probabilitas Ditinjau Kembali">7</a></li>
-<li class="child"><a href="Processes.html" title="Proses Stokastik">8</a></li>
-<li class="current">9</li>
-<li class="details"><button onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
+<li class="child"><a aria-label="Bagian 1: Eksperimen Acak" href="https://www.randomservices.org/random/prob/Experiments.html" title="Eksperimen Acak">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Kejadian dan Peubah Acak" href="https://www.randomservices.org/random/prob/Events.html" title="Kejadian dan Peubah Acak">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Ukuran Probabilitas" href="https://www.randomservices.org/random/prob/Probability.html" title="Ukuran Probabilitas">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Probabilitas Bersyarat" href="https://www.randomservices.org/random/prob/Conditional.html" title="Probabilitas Bersyarat">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Kebebasan" href="https://www.randomservices.org/random/prob/Independence.html" title="Kebebasan">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">6</a></li>
+<li class="child"><a aria-label="Bagian 7: Ruang Probabilitas Ditinjau Kembali" href="Probability2.html" title="Ruang Probabilitas Ditinjau Kembali">7</a></li>
+<li class="child"><a aria-label="Bagian 8: Proses Stokastik" href="Processes.html" title="Proses Stokastik">8</a></li>
+<li aria-current="page" aria-label="Bagian 9: Filtrasi dan Waktu Henti (halaman saat ini)" class="current">9</li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
 </ol>
-<h2>9. Filtrasi dan Waktu Henti</h2>
+<h1>9. Filtrasi dan Waktu Henti</h1>
 </header><aside class="component-attribution" id="o009-rights-random-filtrations-stopping-times">
 <strong>Asal komponen.</strong> Terjemahan halaman <cite>Filtrations and Stopping Times</cite>
 karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
@@ -51,12 +51,12 @@ Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
 beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="https://www.randomservices.org/random/prob/Stop.html">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="Convergence.html">Konvergensi</a> · <a href="Probability2.html">Probabilitas ditinjau kembali</a> · <a href="Processes.html">Proses stokastik</a> · <a href="Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav>
-<h3 id="int">Pendahuluan</h3>
+<a href="Convergence.html">Konvergensi</a> · <a href="Probability2.html">Probabilitas ditinjau kembali</a> · <a href="Processes.html">Proses stokastik</a> · <a href="Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Ekspektasi bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav><main>
+<h2 class="reader-level-2" id="int">Pendahuluan</h2>
 <p>Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah <a href="Processes.html">proses stokastik</a> dengan ruang keadaan \( (S, \ms S) \), yang didefinisikan pada <a href="Probability2.html">ruang probabilitas</a> yang mendasarinya, yaitu \( (\Omega, \ms F, \P) \). Sebagai ulasan, \( \Omega \) adalah himpunan hasil, \( \ms F \) adalah \( \sigma \)-aljabar kejadian, dan \( \P \) adalah ukuran probabilitas pada \( (S, \ms S) \). Selain itu, \( S \) adalah himpunan keadaan dan \( \ms S \) adalah \( \sigma \)-aljabar himpunan bagian \( S \) yang diperbolehkan. Biasanya, \( S \) memiliki <a href="https://www.randomservices.org/random/foundations/Topology.html">topologi</a>, dan \( \ms S \) adalah \( \sigma \)-aljabar Borel yang dibangkitkan oleh himpunan bagian terbuka dari \( S \). Asumsi standar yang digunakan adalah bahwa topologi tersebut kompak lokal, Hausdorff, dan memiliki basis terhitung; selanjutnya kondisi ini disingkat <dfn>LCCB</dfn>. Untuk himpunan indeks, kita asumsikan bahwa \( T = \N \) atau \( T = [0, \infty) \). Seperti biasa, unsur-unsur \( T \) ditafsirkan sebagai titik waktu. Himpunan \( T \) juga dilengkapi dengan topologi—topologi diskrit dalam kasus pertama dan topologi Euklides standar dalam kasus kedua—beserta \( \sigma \)-aljabar Borel \( \ms T \). Jadi, dalam waktu diskrit dengan \( T = \N \), berlaku \( \ms T = \ms P(T) \), yaitu himpunan kuasa \( T \). Karena itu, setiap himpunan bagian \( T \) terukur, demikian pula setiap fungsi dari \( T \) ke ruang terukur lain. Terakhir, \( X_t \) adalah variabel acak dan, menurut definisi, terukur terhadap \( \ms F \) dan \( \ms S \) untuk setiap \( t \in T \). Kita menafsirkan \( X_t \) sebagai keadaan suatu sistem acak pada waktu \( t \in T \). Banyak konsep penting yang melibatkan \( \bs X \) didasarkan pada bagaimana perilaku <em>masa depan</em> proses bergantung pada perilaku <em>masa lalu</em>, relatif terhadap waktu <em>sekarang</em> tertentu. </p>
 <p>Untuk \( t \in T \), tetapkan \( \ms F_t = \sigma\left\{X_s: s \in T, \; s \le t\right\} \), yaitu \( \sigma \)-aljabar kejadian yang dapat didefinisikan berdasarkan proses hingga waktu \( t \). Secara kasar, untuk \( A \in \ms F_t \), kita dapat menentukan apakah \( A \) telah terjadi dengan mengamati proses hingga waktu \( t \). Keluarga \( \sigma \)-aljabar \( \mf F = \{\ms F_t: t \in T\} \) memiliki dua sifat penting: keluarga ini meningkat terhadap \( t \in  T\) menurut urutan parsial inklusi himpunan, dan semua \( \sigma \)-aljabar tersebut merupakan sub-\( \sigma \)-aljabar dari \( \ms F \). Dengan kata lain, untuk \( s, \, t \in T \) dengan \( s \le t \), berlaku \( \ms F_s \subseteq \ms F_t \subseteq \ms F \).</p>
-<h3 id="fil">Filtrasi</h3>
-<h4 id="dfn">Definisi Dasar</h4>
+<h2 class="reader-level-2" id="fil">Filtrasi</h2>
+<h3 class="reader-level-3" id="dfn">Definisi Dasar</h3>
 <p>Terkadang kita memerlukan \( \sigma \)-aljabar yang sedikit lebih besar daripada yang dibahas dalam paragraf sebelumnya. Misalnya, seiring waktu mungkin ada variabel acak lain yang dapat kita amati selain variabel dalam \( \bs X \). Terkadang, khususnya dalam waktu kontinu, alasan teknis mengharuskan penggunaan \( \sigma \)-aljabar yang agak berbeda. Kita juga mungkin ingin menjelaskan bagaimana informasi bertambah sebagai suatu keluarga \( \sigma \)-aljabar tanpa mengacu pada proses stokastik.  Untuk bagian selanjutnya, tetapkan <a href="https://www.randomservices.org/random/foundations/Measurable.html">ruang terukur</a> \( (\Omega, \ms F) \), yang sekali lagi kita anggap sebagai ruang sampel, serta ruang waktu \( (T, \ms T) \) seperti yang dijelaskan di atas.</p>
 <div class="unit" id="dfn1">
 <p class="dfn">Sebuah keluarga \( \sigma \)-aljabar \(\mf F = \{\ms F_t: t \in T\} \) adalah <dfn>filtrasi</dfn> pada \( (\Omega, \ms F) \) jika \(s, \, t \in T\) dan \(s \le t\) menyiratkan \(\ms F_s \subseteq \ms F_t \subseteq \ms F\).</p>
@@ -74,7 +74,7 @@ atribusi. <a href="https://www.randomservices.org/random/prob/Stop.html">Baca su
 <li>Jika \( \mf F \preceq \mf G \) dan \( \mf G \preceq \mf H \), maka \( \mf F \preceq \mf H \), yaitu <dfn>sifat transitif</dfn>.</li>
 </ol>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Definisi Dasar, butir 1">Detail:</summary>
 <p>Bukti ini merupakan konsekuensi langsung dari fakta bahwa relasi inklusi himpunan mendefinisikan urutan parsial.</p>
 <ol class="sub">
 <li>\( \ms F_t \subseteq \ms F_t \) untuk setiap \( t \in T \), sehingga \( \mf F \preceq \mf F \).</li>
@@ -92,7 +92,7 @@ atribusi. <a href="https://www.randomservices.org/random/prob/Stop.html">Baca su
 <li>\( \ms F_t \subseteq \ms F_\infty \) untuk \( t \in T \).
 	</li></ol>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Definisi Dasar, butir 2">Detail:</summary>
 <p>Hasil ini mengikuti karena \(\sigma\)-aljabar dalam filtrasi meningkat seiring berjalannya waktu.</p>
 </details>
 </div>
@@ -100,7 +100,7 @@ atribusi. <a href="https://www.randomservices.org/random/prob/Stop.html">Baca su
 <div class="unit" id="dfn4">
 <p class="dfn">Misalkan \( \mf F_i = \left\{\ms F^i_t: t \in T\right\} \) adalah filtrasi pada \( (\Omega, \ms F) \) untuk setiap \( i \) dalam himpunan indeks tak kosong \( I \). Maka \( \mf F = \{\ms F_t: t \in T\} \) juga merupakan filtrasi pada \( (\Omega, \ms F) \), dengan \( \ms F_t = \bigcap_{i \in I} \ms F^i_t \) untuk \( t \in T \). Filtrasi ini terkadang dilambangkan dengan \( \mf F = \bigwedge_{i \in I} \mf F_i \), dan merupakan filtrasi paling halus yang lebih kasar daripada \( \mf F_i \) untuk setiap \( i \in I \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Definisi Dasar, butir 3">Detail:</summary>
 <p>Misalkan \( s, \, t \in T \) dengan \( s \le t \). Maka \(\ms F^i_s \subseteq \ms F^i_t \subseteq \ms F\) untuk setiap \( i \in I \) sehingga \( \bigcap_{i \in I} \ms F^i_s \subseteq \bigcap_{i \in I} \ms F^i_t \subseteq \ms F \).</p>
 </details>
 </div>
@@ -108,11 +108,11 @@ atribusi. <a href="https://www.randomservices.org/random/prob/Stop.html">Baca su
 <div class="unit" id="dfn5">
 <p class="dfn">Misalkan lagi \( \mf F_i = \left\{\ms F^i_t: t \in T\right\} \) adalah filtrasi pada \( (\Omega, \ms F) \) untuk setiap \( i \) dalam himpunan indeks tak kosong \( I \). Maka \( \mf F = \{\ms F_t: t \in T\} \) juga merupakan filtrasi pada \( (\Omega, \ms F) \), dengan \( \ms F_t = \sigma\left(\bigcup_{i \in I} \ms F^i_t\right) \) untuk \( t \in T \). Filtrasi ini terkadang dilambangkan dengan \( \mf F = \bigvee_{i \in I} \mf F_i \), dan merupakan filtrasi paling kasar yang lebih halus daripada \( \mf F_i \) untuk setiap \( i \in I \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Definisi Dasar, butir 4">Detail:</summary>
 <p>Misalkan \( s, \, t \in T \) dengan \( s \le t \). Maka \(\ms F^i_s \subseteq \ms F^i_t \subseteq \ms F\) untuk setiap \( i \in I \) sehingga \( \bigcup_{i \in I} \ms F^i_s \subseteq \bigcup_{i \in I} \ms F^i_t \subseteq \ms F \), dan karenanya \( \sigma\left(\bigcup_{i \in I} \ms F^i_s\right) \subseteq \sigma\left(\bigcup_{i \in I} \ms F^i_t\right) \subseteq \ms F \).</p>
 </details>
 </div>
-<h4 id="stc">Proses Stokastik</h4>
+<h3 class="reader-level-3" id="stc">Proses Stokastik</h3>
 <p>Perhatikan lagi bahwa suatu filtrasi dapat didefinisikan tanpa proses stokastik yang mendasarinya. Namun, biasanya kita <em>memang</em> memiliki proses stokastik \( \bs X = \{X_t: t \in T\} \). Dalam hal ini, filtrasi \( \mf F^0 = \{\ms F^0_t: t \in T\} \), dengan \( \ms F^0_t = \sigma\{X_s: s \in T, \, s \le t\} \), disebut <dfn>filtrasi alami</dfn> yang terkait dengan \( \bs X \). Secara lebih umum, definisi berikut sesuai.</p>
 <div class="unit" id="stc1">
 <p class="dfn">Proses stokastik \(\bs X = \{X_t: t \in T\}\) pada \( (\Omega, \ms F) \) disebut <dfn>teradaptasi</dfn> terhadap filtrasi \( \mf F = \{\ms F_t: t \in T\}\) pada \( (\Omega, \ms F) \) jika \(X_t\) terukur terhadap \(\ms F_t\) untuk setiap \(t \in T\).</p>
@@ -138,7 +138,7 @@ atribusi. <a href="https://www.randomservices.org/random/prob/Stop.html">Baca su
 <li>\( \bs X \) teradaptasi dengan \( \mf F \).</li>
 </ol>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Proses Stokastik, butir 1">Detail:</summary>
 <p>Misalkan \( \bs X \) terukur progresif relatif terhadap \( \mf F \).</p>
 <ol class="sub">
 <li>Jika \( A \in \ms S \), maka
@@ -160,14 +160,14 @@ atribusi. <a href="https://www.randomservices.org/random/prob/Stop.html">Baca su
 <li>\( \bs X \) tidak teradaptasi dengan filtrasi alami \( \bs Y \).</li>
 </ol>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Proses Stokastik, butir 2">Detail:</summary>
 <ol class="sub">
 <li>Hal ini ditunjukkan pada bagian <a href="Processes.html">proses stokastik</a>, tapi ini dia lagi: Untuk \( t \in T \), \( \P(X_t \ne Y_t) = \P(\{t\}) = 0 \).</li>
 <li>Sepele, \( \sigma(Y_t) = \{\emptyset, \Omega\} \) untuk setiap \( t \in T \), Jadi \( \sigma\{Y_s: 0 \le s \le t\} = \{\emptyset, \Omega\} \). Tetapi \( \sigma(X_t) = \{\emptyset, \{t\}, \Omega \setminus \{t\}, \Omega\} \).</li>
 </ol>
 </details>
 </div>
-<h4 id="cmp">Kelengkapan</h4>
+<h3 class="reader-level-3" id="cmp">Kelengkapan</h3>
 <p>Misalkan sekarang \( P \) adalah ukuran probabilitas pada \( (\Omega, \ms F) \). Ingat bahwa \(\ms F\) adalah <a href="Probability2.html">lengkap</a> terhadap \( P \) jika \(A \in \ms F\), \( B \subseteq A \), dan \(P(A) = 0\) menyiratkan \(B \in \ms F\) (dan karenanya \( P(B) = 0 \)). Artinya, jika \( A \) adalah kejadian dengan probabilitas 0 dan \( B \subseteq A \), Maka \( B \) juga merupakan suatu kejadian (dan juga memiliki probabilitas 0). Untuk filtrasi, definisi berikut ini tepat.</p>
 <div class="unit" id="cmp1">
 <p class="dfn">Filtrasi \(\{\ms F_t: t \in T\}\) adalah <dfn>lengkap</dfn> terhadap ukuran probabilitas \( P \) pada \( (\Omega, \ms F) \) jika</p>
@@ -179,7 +179,7 @@ atribusi. <a href="https://www.randomservices.org/random/prob/Stop.html">Baca su
 <div class="unit" id="cmp2">
 <p class="math">Misalkan \( P \) adalah ukuran probabilitas pada \( (\Omega, \ms F) \) dan filtrasi \(\{\ms F_t: t \in T\}\) lengkap terhadap \( P \). Jika \(A \in \ms F\) adalah kejadian nol (\(P(A) = 0\)) atau kejadian yang hampir pasti (\(\P(A) = 1\)) Maka \(A \in \ms F_t\) untuk setiap \(t \in T\).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Kelengkapan, butir 1">Detail:</summary>
 <p>Hal ini terjadi karena kejadian yang hampir pasti merupakan pelengkap dari kejadian nol dan karena \(\sigma\)-aljabar meningkat \(t \in T\).</p>
 </details>
 </div>
@@ -189,7 +189,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="cmp3">
 <p class="math">Misalkan \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \) dan \( P \) adalah ukuran probabilitas pada \( (\Omega, \ms F) \). Seperti di atas, misalkan \( \ms{N} \) menyatakan kumpulan himpunan bagian nol dari \( \Omega \), dan untuk \( t \in T \), tetapkan \( \ms F^P_t = \sigma(\ms F_t \cup \ms{N}) \). Maka \( \mf F^P = \{\ms F^P_t: t \in T\} \) adalah filtrasi pada \( \left(\Omega, \ms F^P\right) \) yang lebih halus daripada \( \mf F \) dan relatif lengkap terhadap \( P \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Kelengkapan, butir 2">Detail:</summary>
 <p>Jika \( s, \, t \in T \) dengan \( s \le t \), maka \( \ms F_s \subseteq \ms F_t \subseteq \ms F \) dan karenanya
 		\[ \sigma(\ms F_s \cup \ms{N}) \subseteq \sigma(\ms F_t \cup \ms{N}) \subseteq \sigma(\ms F \cup \ms{N})\]
 		sehingga \( \ms F^P_s \subseteq \ms F^P_t \subseteq \ms F^P \). Ukuran probabilitas \( P \) dapat diperluas ke \( \ms F^P \) seperti dijelaskan di atas, dan karenanya didefinisikan pada \( \ms F^P_t \) untuk setiap \( t \in T \). Berdasarkan konstruksi, jika \( A \in \ms F^P \) dan \( P(A) = 0 \), maka \( A \in \ms F^P_0 \), sehingga \( \mf F^P \) lengkap terhadap \( P \).</p>
@@ -199,17 +199,17 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="cmp4">
 <p class="math">Tetapkan \( \ms P \) menunjukkan kumpulan ukuran probabilitas pada \( (\Omega, \ms F) \), dan misalkan \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \). Tetapkan \( \ms F^* = \bigcap \{\ms F^P: P \in \ms P\} \), dan biarkan \( \mf F^* = \bigwedge \{\mf F^P: P \in \ms P\} \). Maka \( \mf F^* \) adalah filtrasi pada \( (\Omega, \ms F^*) \), dikenal sebagai <dfn>kelengkapan universal</dfn> dari \( \mf F \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Kelengkapan, butir 3">Detail:</summary>
 <p>Perhatikan bahwa \( \mf F^P \) adalah filtrasi pada \( (\Omega, \ms F^P) \) untuk setiap \( P \in \ms P \), Jadi \( \mf F^* \) adalah filtrasi pada \( (\Omega, \ms F^*) \).</p>
 </details>
 </div>
 <p>Definisi terakhir mungkin tampak sangat tidak jelas, tetapi definisi tersebut memang ada tempatnya. Dalam teori <a href="https://www.randomservices.org/random/Markov/index.html">Proses Markov</a> kita biasanya mengizinkan distribusi awal yang berubah-ubah, yang pada gilirannya menghasilkan koleksi distribusi yang besar pada ruang sampel.</p>
-<h4 id="rgh">Kontinuitas Kanan</h4>
+<h3 class="reader-level-3" id="rgh">Kontinuitas Kanan</h3>
 <p>Dalam waktu kontinu, terkadang kita perlu menyempurnakan filtrasi tertentu.</p>
 <div class="unit" id="rgh1">
 <p class="math">Misalkan \( \mf F = \{\ms F_t: t \in [0, \infty)\} \) adalah filtrasi pada \( (\Omega, \ms F) \). Untuk \( t \in [0, \infty) \), definisikan \( \ms F_{t+} = \bigcap \{\ms F_s: s \in (t, \infty)\} \). Maka \( \mf F_+ = \{\ms F_{t+}: t \in T\} \) juga merupakan filtrasi \( (\Omega, \ms F) \) dan lebih halus daripada \( \mf F \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Kontinuitas Kanan, butir 1">Detail:</summary>
 <p>Untuk \( t \in [0, \infty) \) perhatikan bahwa \( \ms F_{t+} \) adalah \( \sigma \)-aljabar karena merupakan perpotongan \( \sigma \)-aljabar, dan jelas \( \ms F_{t+} \subseteq \ms F \). Selanjutnya, jika \( s, \, t \in [0, \infty) \) dengan \( s \le t \), Maka \( \{\ms F_r: r \in (t, \infty)\} \subseteq \{\ms F_r: r \in (s, \infty)\} \), sehingga 
 		\[ \ms F_{s+} = \bigcap\{\ms F_r: r \in (s, \infty)\} \subseteq \bigcap\{\ms F_r: r \in (t, \infty)\} = \ms F_{t+} \]
 		Akhirnya, untuk \( t \in [0, \infty) \), \( \ms F_t \subseteq \ms F_s \) untuk setiap \( s \in (t, \infty) \), sehingga \( \ms F_t \subseteq \bigcap\{\ms F_s: s \in (t, \infty)\} = \ms F_{t+} \).</p>
@@ -223,14 +223,14 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="rgh3">
 <p class="math">Misalkan lagi \( \mf F = \{\ms F_t: t \in [0, \infty)\} \) adalah filtrasi. Maka \( \mf F_+ \) adalah filtrasi kontinu kanan.</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Kontinuitas Kanan, butir 2">Detail:</summary>
 <p>Untuk \( t \in T \)
 		\[ \ms F_{t++} = \bigcap\{\ms F_{s+}: s \in (t, \infty)\} = \bigcap\left\{\bigcap\{\ms F_r: r \in (s, \infty)\}: s \in (t, \infty)\right\} = \bigcap\{\ms F_u: u \in (t, \infty)\} = \ms F_{t+} \]</p>
 </details>
 </div>
 <p>Untuk proses stokastik \( \bs X = \{X_t: t \in [0, \infty)\} \) dalam waktu kontinu, filtrasi \( \mf F \) yang paling berguna sering kali adalah perhalusan kontinu kanan dari filtrasi alami. Artinya, \( \mf F = \mf F^0_+ \), sehingga \( \ms F_t = \sigma\{X_s: s \in [0, t]\}_+ \) untuk \( t \in [0, \infty) \).</p>
-<h3 id="stp">Waktu Henti</h3>
-<h4 id="prp">Sifat Dasar</h4>
+<h2 class="reader-level-2" id="stp">Waktu Henti</h2>
+<h3 class="reader-level-3" id="prp">Sifat Dasar</h3>
 <p>Misalkan ruang sampel \( (\Omega, \ms F) \) telah ditetapkan. Variabel acak yang bernilai dalam himpunan waktu \( T \) memang penting, tetapi sering kali, seperti yang akan kita lihat, variabel tersebut juga perlu dapat bernilai \( \infty \), selain waktu berhingga. Jadi, tetapkan \( T_\infty = T \cup \{\infty\} \). Kita memperluas urutan ke \( T_\infty \) dengan aturan alami bahwa \( t \lt \infty \) untuk setiap \( t \in T \). Topologi pada \( T \) juga diperluas ke \( T_\infty \) dengan menetapkan bahwa, untuk setiap \( s \in T \), himpunan \( \{t \in T_\infty: t \gt s\} \) merupakan lingkungan terbuka dari \( \infty\). Jadi, \( T_\infty \) adalah <dfn>kompaktifikasi satu titik</dfn> dari \( T \). Tujuannya adalah mempertahankan makna <em>waktu yang konvergen menuju tak hingga</em>. Artinya, jika \( (t_1, t_2, \ldots) \) adalah barisan dalam \( T_\infty \), maka \( t_n \to \infty \) saat \( n \to \infty \) jika dan hanya jika, untuk setiap \( t \in T \), terdapat \( m \in \N_+ \) sedemikian sehingga \( t_n \gt t \) untuk  \( n \gt m \). Selanjutnya, \( T_\infty \) dilengkapi dengan \( \sigma \)-aljabar Borel \( \ms T_\infty \) seperti sebelumnya. Dalam waktu diskrit, ini kembali merupakan \( \sigma \)-aljabar diskrit, sehingga semua himpunan bagiannya terukur. Dalam kedua kasus, kita sekarang memiliki ruang waktu yang diperluas \( (T_\infty, \ms T_\infty) \). Variabel acak \( \tau \) yang bernilai dalam \( T_\infty \) disebut <dfn>waktu acak</dfn>.</p>
 <div class="unit" id="prp1">
 <p class="dfn">Misalkan \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \). Waktu acak \( \tau \) adalah <dfn>waktu henti</dfn> relatif terhadap \( \mf F \) jika \( \{\tau \le t\} \in \ms F_t \) untuk setiap \( t \in T \).</p>
@@ -239,7 +239,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="prp2">
 <p class="math">Misalkan \( \mf F = \{\ms F_t: t \in T\} \) dan \( \mf G = \{\ms G_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \), dan \(\mf G\) lebih halus daripada \( \mf F \). Jika waktu acak \( \tau \) adalah waktu henti relatif terhadap \( \mf F \), maka \( \tau \) adalah waktu henti relatif terhadap \( \mf G \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 1">Detail:</summary>
 <p>Ini sangat sederhana. Jika \( t \in T \), maka \( \{\tau \le t\} \in \ms F_t \) dan karenanya \( \{\tau \le t\} \in \ms G_t \) karena \( \ms F_t \subseteq \ms G_t \).</p>
 </details>
 </div>
@@ -247,7 +247,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="prp3">
 <p class="math">Misalkan lagi \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \). Waktu acak \( \tau \) adalah waktu henti relatif terhadap \( \mf F \) jika dan hanya jika \( \{\tau \gt t\} \in \ms F_t \) untuk setiap \( t \in T \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 2">Detail:</summary>
 <p>Hasil ini sepele karena \( \{\tau \gt t\} = \{\tau \le t\}^c \) untuk \( t \in T \).</p>
 </details>
 </div>
@@ -259,7 +259,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <li>\( \{\tau = t\}\)</li>
 </ol>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 3">Detail:</summary>
 <ol class="sub">
 <li>Misalkan terlebih dahulu \( T = \N \). Maka \( \{\tau \lt t\} = \{\tau \le t - 1\} \in \ms F_{t-1} \subseteq \ms F_t \) untuk \( t \in \N \). Selanjutnya misalkan \( T = [0, \infty) \). Tetapkan \(t \in (0, \infty)\) dan biarkan \((s_1, s_2, \ldots)\) menjadi urutan yang meningkat secara ketat \([0, \infty)\) dengan \(s_n \uparrow t\) sebagai \(n \to \infty\). Maka \( \{\tau \lt t\} = \bigcup_{n=1}^\infty \{\tau \le s_n\} \). Tetapi \( \{\tau \le s_n\} \in \ms F_{s_n} \subseteq \ms F_t \) untuk setiap \( n \), Jadi \( \{\tau \lt t\} \in \ms F_t \).</li>
 <li>Ini mengikuti dari (a) karena \( \{\tau \ge t\} = \{\tau \lt t\}^c \) untuk \( t \in T \).</li>
@@ -271,7 +271,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="prp5">
 <p class="math">Misalkan \( T = [0, \infty) \) dan \( \mf F = \{\ms F_t: t \in [0, \infty)\} \) adalah filtrasi pada \( (\Omega, \ms F) \). Waktu acak \( \tau \) adalah waktu henti relatif terhadap \( \mf F_+ \) jika dan hanya jika \( \{\tau \lt t\} \in \ms F_t \) untuk setiap \(t \in [0, \infty)\).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 4">Detail:</summary>
 <p>Jadi dinyatakan kembali, kita perlu menunjukkan bahwa \( \{\tau \le t\} \in \ms F_{t+} \) untuk setiap \( t \in [0, \infty) \) jika dan hanya jika \( \{\tau \lt t\} \in \ms F_t \) untuk setiap \( t \in [0, \infty) \). (Omong-omong, perlu diperhatikan bahwa ini tidak sama dengan pernyataan bahwa untuk setiap \( t \in T \), \( \{\tau \lt t\} \in \ms F_{t+} \) jika dan hanya jika \( \{\tau \le t\} \in \ms F_t \), itu tidak benar.) Misalkan saja dulu \( \tau \) adalah waktu henti relatif terhadap \( \mf F \). Tetapkan \(t \in [0, \infty)\) dan biarkan \((t_1, t_2, \ldots)\) menjadi urutan yang menurun secara ketat \([0, \infty)\) dengan \(t_n \downarrow t\) sebagai \(n \to \infty\). Lalu untuk setiap \(k \in \N_+\), \( \{\tau \le t\} = \bigcap_{n=k}^\infty \{\tau \lt t_n\} \). Jika \( s \gt t \) lalu ada \( k \in \N_+ \) sedemikian sehingga \( t_n \lt s \) untuk setiap \( n \ge k \). Karena itu \( \{\tau \lt t_n\} \in \ms F_{t_n} \subseteq \ms F_s \) untuk \( n \ge k \), sehingga \( \{\tau \le t\} \in \ms F_s \). Karena ini berlaku untuk setiap \( s \gt t \) berikut ini \(\{\tau \le t\} \in \ms F_{t+}\). Sebaliknya, misalkan \( \{\tau \le t\} \in \ms F_{t+} \) untuk setiap \( t \in [0, \infty) \). Tetapkan \( t \in (0, \infty) \) dan biarkan \( (t_1, t_2, \ldots) \) menjadi urutan yang meningkat secara ketat \( (0, \infty) \) dengan \( t_n \uparrow t \) sebagai \( n \to \infty \). Maka \( \bigcup_{i=1}^\infty \{\tau \le t_n\} = \{\tau \lt t\} \). Tapi untuk setiap \( n \in \N_+ \)
 		\[ \{\tau \le t_n\} \in \ms F_{t_n+} = \bigcap\left\{\ms F_s: s \in (t_n, t)\right\} \subseteq \ms F_t \]
 		Karena itu \( \{\tau \lt t \} \in \ms F_t\).</p>
@@ -285,16 +285,16 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="prp7">
 <p class="math">Misalkan \( T = \N \) dan \( \mf F = \{\ms F_n: n \in \N\} \) adalah filtrasi pada \( (\Omega, \ms F) \). Waktu acak \( \tau \) adalah waktu henti untuk \( \mf F \) jika dan hanya jika \( \{\tau = n\} \in \ms F_n \) untuk setiap \( n \in \N \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 5">Detail:</summary>
 <p>Jika \(\tau\) adalah waktu henti, maka seperti yang ditunjukkan pada <a class="ref" href="#prp4"></a>, \(\{\tau = n\} \in \ms F_n\) untuk setiap \( n \in \N \). Sebaliknya, misalkan kondisi ini berlaku. Untuk \(n \in \N\), \(\{\tau \le n\} = \bigcup_{k=0}^n \{\tau = k\}\). Tetapi \(\{\tau = k\} \in \ms F_k \subseteq \ms F_n\) untuk \(k \in \{0, 1, \ldots, n\}\), sehingga \(\{\tau \le n\} \in \ms F_n\).</p>
 </details>
 </div>
-<h4 id="cns">Konstruksi Dasar</h4>
+<h3 class="reader-level-3" id="cns">Konstruksi Dasar</h3>
 <p>Seperti disebutkan di atas, elemen konstan dari \(T_\infty\) adalah waktu henti, tapi tidak terlalu menarik.</p>
 <div class="unit" id="cns1">
 <p class="math">Misalkan \(s \in T_\infty\) dan \(\tau(\omega) = s\) untuk semua \(\omega \in \Omega\). \(\tau\) adalah waktu henti relatif terhadap filtrasi apa pun \( (\Omega, \ms F) \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Konstruksi Dasar, butir 1">Detail:</summary>
 <p>Untuk \( t \in T \) perhatikan bahwa \(\{\tau \le t\} = \Omega\) jika \(s \le t\) dan \(\{\tau \le t\} = \emptyset\) jika \(s \gt t\).</p>
 </details>
 </div>
@@ -307,7 +307,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <li>\(\tau_1 + \tau_2\)</li>
 </ol>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Konstruksi Dasar, butir 2">Detail:</summary>
 <ol class="sub">
 <li>Perhatikan bahwa \(\{\tau_1 \vee \tau_2 \le t\} = \{\tau_1 \le t\} \cap \{\tau_2 \le t\} \in \ms F_t\) untuk \(t \in T\), jadi hasilnya mengikuti definisi <a class="ref" href="#prp1"></a>.</li>
 <li>Perhatikan bahwa \(\{\tau_1 \wedge \tau_2 \gt t\} = \{\tau_1 \gt t\} \cap \{\tau_2 \gt t\} \in \ms F_t\) untuk \(t \in T\), jadi hasilnya mengikuti dari <a class="ref" href="#prp3"></a>.</li>
@@ -328,14 +328,14 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="cns3">
 <p class="math">Misalkan \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \), dan \((\tau_n: n \in \N_+)\) adalah barisan waktu henti relatif terhadap \( \mf F \). Maka \(\sup\{\tau_n: n \in \N_+\}\) juga merupakan waktu henti relatif terhadap \( \mf F \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Konstruksi Dasar, butir 3">Detail:</summary>
 <p>Tetapkan \(\tau = \sup\{\tau_n: n \in \N_+\}\). Perhatikan bahwa \(\tau\) termasuk dalam \(T_\infty\) dan merupakan waktu acak. Untuk \(t \in T\), \(\{\tau \le t\} = \bigcap_{n=1}^\infty \{\tau_n \le t\}\). Namun setiap kejadian dalam irisan itu termasuk dalam \(\ms F_t\) dan karenanya begitu pula irisannya.</p>
 </details>
 </div>
 <div class="unit" id="cns4">
 <p class="math">Misalkan \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \), dan \((\tau_n: n \in \N_+)\) adalah barisan meningkat dari waktu-waktu henti relatif terhadap \( \mf F \). Maka \(\lim_{n \to \infty} \tau_n\) adalah waktu henti relatif terhadap \( \mf F \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Konstruksi Dasar, butir 4">Detail:</summary>
 <p>Ini adalah akibat wajar dari <a class="ref" href="#cns3"></a>. Karena urutannya meningkat, \(\lim_{n \to \infty} \tau_n = \sup\{\tau_n: n \in \N_+\}\).</p>
 </details>
 </div>
@@ -347,7 +347,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <li>\(\limsup_{n \to \infty} \tau_n\)</li>
 </ol>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Konstruksi Dasar, butir 5">Detail:</summary>
 <ol class="sub">
 <li>Tetapkan \(\tau = \inf\left\{\tau_n: n \in \N_+\right\}\). Maka \(\{\tau \ge t\} = \bigcap_{n=1}^\infty\{\tau_n \ge t\} \in \ms F_t\) untuk \(t \in T\). Karena itu \(\tau\) adalah waktu henti relatif terhadap \( \mf F_+ \) oleh <a class="ref" href="#prp5"></a>.</li>
 <li>Ingat bahwa \(\liminf_{n \to \infty} \tau_n = \sup\left\{\inf\{\tau_k: k \ge n\}: n \in \N_+\right\}\) dan ini adalah waktu henti yang relatif terhadap \( \mf F_+ \) menurut bagian (a) dan <a class="ref" href="#cns3"></a>.</li>
@@ -364,12 +364,12 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <li>\(\limsup_{n \to \infty} \tau_n\)</li>
 </ol>
 </div>
-<h4 id="alg">\(\sigma\)-Aljabar Waktu Henti</h4>
+<h3 class="reader-level-3" id="alg">\(\sigma\)-Aljabar Waktu Henti</h3>
 <p>Pertimbangkan lagi kerangka umum filtrasi \(\mf F = \{\ms F_t: t \in T\}\) pada ruang sampel \((\Omega, \ms F)\), dan misalkan \(\tau\) adalah waktu henti relatif terhadap \( \mf F \).  Kita ingin mendefinisikan \(\sigma\)-aljabar \(\ms F_\tau\) dari kejadian-kejadian hingga waktu acak \(\tau\), serupa dengan \(\ms F_t\), yaitu \( \sigma \)-aljabar kejadian hingga waktu tetap \(t \in T\). Definisi yang sesuai adalah sebagai berikut:</p>
 <div class="unit" id="alg1">
 <p class="dfn">Misalkan \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \) dan \( \tau \) adalah waktu henti relatif terhadap \( \mf F \). Definisikan \( \ms F_\tau = \left\{A \in \ms F: A \cap \{\tau \le t\} \in \ms F_t \text{ for all } t \in T\right\} \). Maka \( \ms F_\tau \) adalah \( \sigma \)-aljabar.</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: \(\sigma\)-Aljabar Waktu Henti, butir 1">Detail:</summary>
 <p>Pertama \(\Omega \in \ms F_\tau\) karena \(\Omega \cap \{\tau \le t\} = \{\tau \le t\} \in \ms F_t\) untuk \(t \in T\). Jika \(A \in \ms F_\tau\), maka \(A^c \cap \{\tau \le t\} = \{\tau \le t \} \setminus \left(A \cap \{\tau \le t\}\right) \in \ms F_t\) untuk \(t \in T\). Akhirnya, misalkan \(A_i \in \ms F_\tau\) untuk \(i\) dalam himpunan indeks terhitung \(I\). Maka \(\left(\bigcup_{i \in I} A_i\right) \cap \{\tau \le t\} = \bigcup_{i \in I} \left(A_i \cap \{\tau \le t\}\right) \in \ms F_t\) untuk \(t \in T\).</p>
 </details>
 </div>
@@ -377,7 +377,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="alg2">
 <p class="math">Misalkan lagi \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \). Tetapkan \(s \in T\) dan tentukan \(\tau(\omega) = s\) untuk semua \(\omega \in \Omega\). Maka \(\ms F_\tau = \ms F_s\).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: \(\sigma\)-Aljabar Waktu Henti, butir 2">Detail:</summary>
 <p>Misalkan \(A \in \ms F_s\). Maka \(A \in \ms F\) dan untuk \(t \in T\), \(A \cap \{\tau \le t\} = A\) jika \(s \le t\) dan \(A \cap \{\tau \le t\} = \emptyset\) jika \(s \gt t\). Dalam kedua kasus tersebut, \(A \cap \{\tau \le t\} \in \ms F_t\) dan karenanya \(A \in \ms F_\tau\). Sebaliknya, misalkan \(A \in \ms F_\tau\). Maka \(A = A \cap \{\tau \le s\} \in \ms F_s\).</p>
 </details>
 </div>
@@ -385,7 +385,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="alg3">
 <p class="math">Misalkan lagi \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \) dan \( \tau \) adalah waktu henti relatif terhadap \( \mf F \). Maka \(\tau\) terukur terhadap \(\ms F_\tau\).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: \(\sigma\)-Aljabar Waktu Henti, butir 3">Detail:</summary>
 <p>Cukup ditunjukkan bahwa \(\{\tau \le s\} \in \ms F_\tau\) untuk setiap \(s \in T\). Untuk \( s, \, t \in T \),
 		\[\{\tau \le t\} \cap \{\tau \le s\} = \{\tau \le s \wedge t\} \in \ms F_{s \wedge t} \subseteq \ms F_t\]
 		Karena itu \(\{\tau \le s\} \in \ms F_\tau\).</p>
@@ -399,7 +399,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <li>\(A \cap \{\tau = t\} \in \ms F_t\)</li>
 </ol>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: \(\sigma\)-Aljabar Waktu Henti, butir 4">Detail:</summary>
 <ol class="sub">
 <li>Menurut definisi, \(A \cap \{\tau \le t\} \in \ms F_t\). Tetapi \(\{\tau \lt t\} \subseteq \{\tau \le t\}\) dan \(\{\tau \lt t\} \in \ms F_t\). Karena itu \(A \cap \{\tau \lt t\} = A \cap \{\tau \le t\} \cap \{\tau \lt t\} \in \ms F_t\).
 			</li><li>demikian pula \(\{\tau = t\} \subseteq \{\tau \le t\}\) dan \(\{\tau = t\} \in \ms F_t\). Karena itu \(A \cap \{\tau = t\} = A \cap \{\tau \le t\} \cap \{\tau = t\} \in \ms F_t\)</li>
@@ -410,7 +410,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="alg5">
 <p class="math">Misalkan \( \mf F = \{\ms F_t: t \in T\} \) dan \( \mf G = \{\ms G_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \) dan \( \mf G \) lebih halus daripada \( \mf F \). Jika \( \tau \) adalah waktu henti relatif terhadap \( \mf F \), maka \( \ms F_\tau \subseteq \ms G_\tau \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: \(\sigma\)-Aljabar Waktu Henti, butir 5">Detail:</summary>
 <p>Dari hasil di atas, \( \tau \) juga merupakan waktu henti relatif terhadap \( \mf G \), jadi pernyataan itu masuk akal. Jika \( A \in \ms F_\tau \) lalu untuk \( t \in T \), \( A \cap \{\tau \le t\} \in \ms F_t \subseteq \ms G_t \), Jadi \( A \in \ms G_\tau \).</p>
 </details>
 </div>
@@ -418,7 +418,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="alg6">
 <p class="math">Misalkan \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \), serta \(\rho\) dan \(\tau\) adalah waktu henti untuk \( \mf F \) dengan \(\rho \le\tau\). Maka \(\ms F_\rho \subseteq \ms F_\tau\).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: \(\sigma\)-Aljabar Waktu Henti, butir 6">Detail:</summary>
 <p>Misalkan \(A \in \ms F_\rho\) dan \(t \in T\). Perhatikan bahwa \(\{\tau \le t\} \subseteq \{\rho \le t\}\). Menurut definisi, \(A \cap \{\rho \le t\} \in \ms F_t\) dan \(\{\tau \le t\} \in \ms F_t \). Karena itu \(A \cap \{\tau \le t\} = A \cap \{\rho \le t\} \cap \{\tau \le t\} \in \ms F_t\), Jadi \(A \in \ms F_\tau\).</p>
 </details>
 </div>
@@ -432,7 +432,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <li>\(\{\rho \ge \tau\}\)</li>
 </ol>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: \(\sigma\)-Aljabar Waktu Henti, butir 7">Detail:</summary>
 <p>Buktinya mudah bila \(T = \N\).</p>
 <ol class="sub">
 <li>Tetapkan \(t \in T\). Kemudian
@@ -451,18 +451,18 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="alg8">
 <p class="math">Misalkan lagi \( \mf F = \{\ms F_t: t \in T\} \) adalah filtrasi pada \( (\Omega, \ms F) \), dan \(\tau\) adalah waktu henti untuk \( \mf F \). Untuk \( t \in T \), definisikan \( \ms F^\tau_t = \ms F_{t \wedge \tau} \). Maka \( \mf F^\tau = \{\ms F^\tau_t: t \in T\} \) adalah filtrasi dan lebih kasar daripada \( \mf F \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: \(\sigma\)-Aljabar Waktu Henti, butir 8">Detail:</summary>
 <p>Waktu acak \( t \wedge \tau \) adalah waktu henti untuk setiap \( t \in T \) dengan hasil di atas, jadi \( \ms F^\tau_t \) adalah sub \( \sigma \)-aljabar dari \( \ms F \). Jika \( t \in T \), maka menurut definisi, \( A \in \ms F^\tau_t \) jika dan hanya jika \( A \cap \{t \wedge \tau \le r\} \in \ms F_r \) untuk setiap \( r \in T \). Tapi untuk \( r \in T \), \( \{t \wedge \tau \le r\} = \Omega \) jika \( r \ge t \) dan \( \{t \wedge \tau \le r\} = \{\tau \le r\} \) jika \( r \lt t \). Karena itu
 		\( A \in \ms F^\tau_t \) jika dan hanya jika \( A \cap \{\tau \le r\} \in \ms F_r \) untuk \( r \lt t \) dan \( A \in \ms F_t \). Jadi khususnya, \( \mf F^\tau \) lebih kasar daripada \( \mf F \). Selanjutnya, misalkan \( s, \, t \in T \) dengan \( s \le t \), dan \( A \in \ms F^\tau_s \). Tetapkan \( r \in T \). Jika \( r \lt s \), maka \( A \cap \{\tau \le r\} \in \ms F_r \). Jika \( s \le r \lt t \), maka \( A \in \ms F_s \subseteq \ms F_r \) dan \( \{\tau \le r\} \in \ms F_r \) jadi lagi \( A \cap \{\tau \le r\} \in \ms F_r \). Akhirnya jika \( r \ge t \), maka \( A \in \ms F_s \subseteq \ms F_t \). Karena itu \( A \in \ms F^\tau_t \).
 	</p></details>
 </div>
-<h4 id="prc">Proses Stokastik</h4>
+<h3 class="reader-level-3" id="prc">Proses Stokastik</h3>
 <p>Seperti biasa, kerangka yang paling umum adalah proses stokastik \( \bs X = \{X_t: t \in T\} \) yang didefinisikan pada ruang sampel \( (\Omega, \ms F) \) dengan ruang keadaan \( (S, \ms S) \). Jika \( \tau \) adalah waktu acak, kita sering tertarik pada keadaan \( X_\tau \) pada waktu acak tersebut. Namun, ada dua masalah. Pertama, \( \tau \) dapat bernilai tak hingga, sehingga \( X_\tau \) tidak terdefinisi. Solusi yang lazim adalah memperkenalkan <q>keadaan kematian</q> baru \( \delta \), lalu menetapkan \( X_\infty = \delta \). \( \sigma \)-aljabar \( \ms S \) pada \( S \) diperluas ke \( S_\delta = S \cup \{\delta\} \) secara alami, yaitu \( \ms S_\delta = \ms S \cup \{A \cup \{\delta\}: A \in \ms S\} \).</p>
 <p>Masalah kedua adalah bahwa kita secara alami mengharapkan \( X_\tau \) menjadi variabel acak, yakni terukur, sebagaimana \( X_t \) merupakan variabel acak untuk waktu deterministik \( t \in T \). Selain itu, jika \( \bs X \) teradaptasi terhadap filtrasi \( \mf F = \{\ms F_t: t \in T\} \), kita juga mengharapkan \( X_\tau \) terukur terhadap \( \ms F_\tau \), sebagaimana \( X_t \) terukur terhadap \( \ms F_t \) untuk waktu deterministik \( t \in T \). Namun, hal ini tidak langsung terlihat dan bahkan tidak benar tanpa asumsi tambahan. Perhatikan bahwa \( X_\tau \) adalah keadaan acak pada waktu acak, sehingga bergantung pada hasil \( \omega \in \Omega \) melalui dua cara: \(X_{\tau(\omega)}(\omega)\).</p>
 <div class="unit" id="prc1">
 <p class="math">Misalkan \( \bs X = \{X_t: t \in T\} \) adalah proses stokastik pada ruang sampel \( (\Omega, \ms F) \) dengan ruang keadaan \( (S, \ms S) \), dan \( \bs X \) terukur. Jika \( \tau \) adalah waktu acak berhingga, maka \( X_\tau \) terukur. Artinya, \( X_\tau \) adalah variabel acak yang bernilai dalam \( S \). </p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Proses Stokastik, butir 3">Detail:</summary>
 <p>Perhatikan bahwa \( X_\tau: \Omega \to S \) adalah komposisi fungsi \( \omega \mapsto (\omega, \tau(\omega)) \) dari \( \Omega \) ke \( \Omega \times T\) dengan fungsi \((\omega, t) \mapsto X_t(\omega) \) dari \( \Omega \times T \) ke \( S \). Fungsi pertama terukur karena kedua fungsi koordinatnya terukur. Fungsi kedua terukur berdasarkan asumsi.</p>
 </details>
 </div>
@@ -470,7 +470,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="prc2">
 <p class="dfn">Misalkan lagi \( \bs X = \{X_t: t \in T\} \) adalah proses stokastik pada ruang sampel \( (\Omega, \ms F) \) dengan ruang keadaan \( (S, \ms S) \), dan \( \bs X \) terukur. Jika \( \tau \) adalah waktu acak, proses \( \bs X^\tau = \{X^\tau_t: t \in T\} \) yang didefinisikan oleh \( X^\tau_t = X_{t \wedge \tau} \) untuk \( t \in T \) disebut proses \( \bs X \) yang <dfn>dihentikan pada \( \tau \).</dfn></p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Proses Stokastik, butir 4">Detail:</summary>
 <p>Untuk setiap \( t \in T \), perhatikan bahwa \( t \wedge \tau \) adalah waktu acak berhingga, sehingga \( X_{t \wedge \tau} \) terukur menurut hasil sebelumnya. Dengan demikian, \( \bs X^\tau \) adalah proses stokastik yang terdefinisi dengan baik pada \( (\Omega, \ms F) \) dengan ruang keadaan \( (S, \ms S) \).</p>
 </details>
 </div>
@@ -494,7 +494,7 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="prc6">
 <p class="math">Misalkan \( \{X_n: n \in \N\} \) adalah proses stokastik pada \( (\Omega, \ms F) \) dengan ruang keadaan \( (S, \ms S) \). Jika \( A \in \ms S \), maka \(\tau_A\) dan \( \rho_A \) adalah waktu henti relatif terhadap filtrasi alami \( \mf F^0 \).</p>
 <details>
-<summary>Detail:</summary>
+<summary aria-label="Rincian: Proses Stokastik, butir 5">Detail:</summary>
 <p>Tetapkan \( n \in \N \). Perhatikan bahwa \(\{\rho_A \gt n\} = \{X_0 \notin A, X_1 \notin A, \ldots, X_n \notin A\} \in \sigma\{X_0, X_1, \ldots, X_n\}\). Demikian pula, \( \{\tau_A \gt n\} = \{X_1 \notin A, X_2 \notin A  \ldots, X_n \notin A \} \subseteq \sigma\{X_0, X_1, \ldots, X_n\}\).</p>
 </details>
 </div>
@@ -506,21 +506,21 @@ Jadi \( \ms{N} \) adalah koleksi himpunan nol. Lalu kita biarkan \( \ms F^P = \s
 <div class="unit" id="prc8">
 <p class="math">Misalkan \( \bs X = \{X_t: t \in [0, \infty)\} \) adalah proses stokastik pada \( (\Omega, \ms F) \) yang terukur progresif terhadap filtrasi yang lengkap dan kontinu kanan \( \mf F = \{\ms F_t: t \in [0, \infty)\} \). Jika \( A \in \ms S \), maka \( \rho_A \) dan \( \tau_A \) adalah waktu henti relatif terhadap \( \mf F \).</p>
 </div>
-<footer>
+</main><footer>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Acak</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/prob/index.html">1. Ruang Probabilitas</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Experiments.html" title="Eksperimen Acak">1</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Events.html" title="Kejadian dan Peubah Acak">2</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Probability.html" title="Ukuran Probabilitas">3</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Conditional.html" title="Probabilitas Bersyarat">4</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Independence.html" title="Kebebasan">5</a></li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">6</a></li>
-<li class="child"><a href="Probability2.html" title="Ruang Probabilitas Ditinjau Kembali">7</a></li>
-<li class="child"><a href="Processes.html" title="Proses Stokastik">9</a></li>
-<li class="current">9</li>
-<li class="details"><button onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
+<li class="child"><a aria-label="Bagian 1: Eksperimen Acak" href="https://www.randomservices.org/random/prob/Experiments.html" title="Eksperimen Acak">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Kejadian dan Peubah Acak" href="https://www.randomservices.org/random/prob/Events.html" title="Kejadian dan Peubah Acak">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Ukuran Probabilitas" href="https://www.randomservices.org/random/prob/Probability.html" title="Ukuran Probabilitas">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Probabilitas Bersyarat" href="https://www.randomservices.org/random/prob/Conditional.html" title="Probabilitas Bersyarat">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Kebebasan" href="https://www.randomservices.org/random/prob/Independence.html" title="Kebebasan">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">6</a></li>
+<li class="child"><a aria-label="Bagian 7: Ruang Probabilitas Ditinjau Kembali" href="Probability2.html" title="Ruang Probabilitas Ditinjau Kembali">7</a></li>
+<li class="child"><a aria-label="Bagian 9: Proses Stokastik" href="Processes.html" title="Proses Stokastik">9</a></li>
+<li aria-current="page" aria-label="Bagian 9: Filtrasi dan Waktu Henti (halaman saat ini)" class="current">9</li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
 </ol>
 <ul class="map">
 <li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>

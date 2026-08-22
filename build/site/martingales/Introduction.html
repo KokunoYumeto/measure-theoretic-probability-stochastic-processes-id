@@ -25,16 +25,16 @@
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
-<li class="current">1</li>
-<li class="child"><a href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
-<li class="child"><a href="Stop.html" title="Waktu Henti">3</a></li>
-<li class="child"><a href="Inequalities.html" title="Pertidaksamaan">4</a></li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">5</a></li>
-<li class="child"><a href="Backwards.html" title="Martingal Mundur">6</a></li>
-<li class="details"><button onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+<li aria-current="page" aria-label="Bagian 1: Pendahuluan (halaman saat ini)" class="current">1</li>
+<li class="child"><a aria-label="Bagian 2: Sifat dan Konstruksi" href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Pertidaksamaan" href="Inequalities.html" title="Pertidaksamaan">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Martingal Mundur" href="Backwards.html" title="Martingal Mundur">6</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
 </ol>
-<h2>1. Pendahuluan</h2>
+<h1>1. Pendahuluan</h1>
 </header><aside class="component-attribution" id="o009-rights-random-martingale-introduction">
 <strong>Asal komponen.</strong> Terjemahan halaman <cite>Introduction</cite>
 karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
@@ -42,13 +42,13 @@ Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
 beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="https://www.randomservices.org/random/martingales/Introduction.html">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav>
-<h3>Teori Dasar</h3>
-<h4 id="asm">Asumsi Dasar</h4>
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Ekspektasi bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav><main>
+<h2 class="reader-level-2">Teori Dasar</h2>
+<h3 class="reader-level-3" id="asm">Asumsi Dasar</h3>
 <p>Sebagai unsur dasar, kita mulai dengan suatu <a href="../prob/Processes.html">proses stokastik</a> \( \bs{X} = \{X_t: t \in T\} \) pada ruang probabilitas yang mendasarinya \( (\Omega, \mathscr{F}, \P) \), dengan ruang keadaan \( \R \), dan dengan himpunan indeks \( T \) (yang menyatakan waktu) berupa \( \N \) (waktu diskret) atau \( [0, \infty) \) (waktu kontinu). Sebagai tinjauan, \( \Omega \) adalah <a href="https://www.randomservices.org/random/prob/Events.html">ruang sampel</a>, \( \mathscr{F} \) adalah <a href="https://www.randomservices.org/random/foundations/Measure.html">aljabar-\( \sigma \)</a> kejadian, \( \P \) adalah ukuran probabilitas pada \( (\Omega, \mathscr{F}) \), dan \( X_t \) adalah peubah acak yang bernilai di \( \R \) untuk setiap \( t \in T \). Selanjutnya, kita memiliki suatu <a href="../prob/Stop.html">filtrasi</a> \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), dan kita mengandaikan bahwa \( \bs{X} \) <dfn>teradaptasi</dfn> terhadap \( \mathfrak{F} \). Untuk meninjau kembali, \( \mathfrak{F} \) adalah keluarga menaik subaljabar-\( \sigma \) dari \( \mathscr{F} \), sehingga \( \mathscr{F}_s \subseteq \mathscr{F}_t \subseteq \mathscr{F} \) untuk \( s, \, t \in T \) dengan \( s \le t \), dan \( X_t \) terukur terhadap \( \mathscr{F}_t \) untuk \( t \in T \). Kita memandang \( \mathscr{F}_t \) sebagai koleksi kejadian hingga waktu \( t \in T \), sehingga mengodekan informasi yang tersedia pada waktu \( t \). Terakhir, kita mengandaikan bahwa \( \E\left(\left|X_t\right|\right) \lt \infty \), sehingga <a href="https://www.randomservices.org/random/expect/Properties.html">rata-rata</a> \( X_t \) ada sebagai bilangan riil untuk setiap \( t \in T \).</p>
 <p>Ada dua kasus khusus penting dari kerangka dasar ini. Kasus yang paling sederhana adalah ketika \( \mathscr{F}_t = \sigma\{X_s: s \in T, \, s \le t\} \) untuk \( t \in T \), sehingga \( \mathfrak{F} \) merupakan <dfn>filtrasi alami</dfn> yang terkait dengan \( \bs{X} \). Kasus lain yang sering muncul adalah ketika kita memiliki proses stokastik kedua \(\bs{Y} = \{Y_t: t \in T\} \) pada \( (\Omega, \mathscr{F}, \P) \) yang bernilai dalam ruang ukuran umum \( (S, \mathscr{S}) \), dan \( \mathfrak{F} \) merupakan filtrasi alami yang terkait dengan \( \bs{Y} \). Jadi, dalam kasus ini, asumsi utama kita adalah bahwa \( X_t \) terukur terhadap \( \sigma\{Y_s: s \in T, \, s \le t\} \) untuk \( t \in T \).</p>
 <p>Teori martingal itu indah, elegan, dan sebagian besar mudah dipahami dalam waktu diskret, ketika \( T = \N \). Namun, seperti halnya teori <a href="../markov/General.html">proses Markov</a>, teori martingal secara teknis jauh lebih rumit dalam waktu kontinu, ketika \( T = [0, \infty) \). Dalam kasus ini, asumsi tambahan mengenai kekontinuan lintasan sampel \( t \mapsto X_t \) dan filtrasi \( t \mapsto \mathscr{F}_t \) sering diperlukan agar teorinya tertata dengan baik. Secara khusus, kita akan mengandaikan bahwa proses \( \bs X \) kontinu kanan dan memiliki limit kiri, serta bahwa filtrasi \( \mathfrak F \) kontinu kanan dan lengkap. Inilah <dfn>asumsi standar</dfn> dalam waktu kontinu.</p>
-<h4 id="dfn">Definisi</h4>
+<h3 class="reader-level-3" id="dfn">Definisi</h3>
 <p>Untuk memahami definisi-definisi dasar berikut, Anda mungkin perlu meninjau kembali <a href="../expect/Conditional2.html">nilai harapan bersyarat</a> terhadap suatu aljabar-\( \sigma \). </p>
 <div class="unit" id="dfn1">
 <p class="dfn">Proses \(\bs{X}\) merupakan <dfn>martingal</dfn> terhadap \( \mathfrak{F} \) jika \( \E\left(X_t \mid \mathscr{F}_s\right) = X_s \) untuk semua \( s, \, t \in T \) dengan \( s \le t \).</p>
@@ -78,7 +78,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Introductio
 <li>\(\bs{X}\) merupakan supermartingal terhadap \( \frak{F} \) jika dan hanya jika \( \E\left(X_{n+1} \mid \mathscr{F}_n\right) \le X_n \) untuk semua \( n \in \N \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Definisi, butir 1">Rincian:</summary>
 <p>Syarat-syarat dalam definisi jelas mengimplikasikan syarat-syarat di sini, sehingga kita hanya perlu menunjukkan implikasi sebaliknya. Jadi, andaikan syarat pada (a) berlaku dan misalkan \( k, \, n \in \N \) dengan \( k \lt n \). Maka \( k \le n - 1 \), sehingga \( \mathscr{F}_k \subseteq \mathscr{F}_{n-1} \), dan karena itu
 		\[ \E\left(X_n \mid \mathscr{F}_k\right) = \E\left[\E\left(X_n \mid \mathscr{F}_{n-1}\right) \mid \mathscr{F}_k \right] = \E\left(X_{n-1} \mid \mathscr{F}_k\right) \]
 		Dengan mengulangi argumen tersebut, kita memperoleh
@@ -95,23 +95,23 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Introductio
 <li>Jika \( \bs{X} \) merupakan supermartingal terhadap \( \frak{F} \), maka \( \E(X_s) \ge \E(X_t) \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Definisi, butir 2">Rincian:</summary>
 <p>Hasil-hasil ini langsung mengikuti definisi dan fakta penting bahwa \( \E\left[\E\left(X_t \mid \mathscr{F}_s\right)\right] = \E(X_t) \) untuk \( s, \, t \in T \).</p>
 </details>
 </div>
 <p>Jadi, jika \( \bs X \) merupakan martingal, maka \( \bs X \) memiliki nilai harapan konstan, dan nilai ini disebut rata-rata \( \bs X \).</p>
-<h3>Contoh</h3>
+<h2 class="reader-level-2">Contoh</h2>
 <p>Tujuan bagian selanjutnya adalah memberikan beberapa contoh klasik martingal dan, melalui contoh-contoh itu, menunjukkan beragam penerapan tempat martingal muncul. Kita akan kembali membahas banyak contoh ini dalam bagian-bagian berikutnya. Tanpa pengantar lebih lanjut, kita mengandaikan bahwa semua peubah acak bernilai riil, kecuali dinyatakan lain, dan bahwa semua nilai harapan yang disebutkan di bawah ada di \( \R \). Pastikan Anda mencoba sendiri pembuktiannya sebelum membuka rincian.</p>
-<h4 id="cst">Barisan Konstan</h4>
+<h3 class="reader-level-3" id="cst">Barisan Konstan</h3>
 <p>Contoh pertama kita cukup sederhana, tetapi tetap layak diperhatikan.</p>
 <div class="unit" id="cst1">
 <p class="math">Misalkan \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) adalah filtrasi pada ruang probabilitas \( (\Omega, \mathscr{F}, \P) \), dan \( X \) adalah peubah acak yang terukur terhadap \( \mathscr{F}_0 \) serta memenuhi \( \E(\left|X\right|) \lt \infty \). Tetapkan \( X_t = X \) untuk \( t \in T \). Maka \( \bs{X} = \{X_t: t \in T\} \) merupakan martingal terhadap \( \mathfrak{F} \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Barisan Konstan">Rincian:</summary>
 <p>Karena \( X \) terukur terhadap \( \mathscr{F}_0 \), peubah tersebut terukur terhadap \( \mathscr{F}_t \) untuk semua \( t \in T \). Karena itu, \( \bs{X} \) teradaptasi terhadap \( \mathfrak{F} \). Jika \( s, \, t \in T \) dengan \( s \le t \), maka \( \E(X_t \mid \mathscr{F}_s) = \E(X \mid \mathscr{F}_s) = X = X_s \).</p>
 </details>
 </div>
-<h4 id="sum">Jumlah Parsial</h4>
+<h3 class="reader-level-3" id="sum">Jumlah Parsial</h3>
 <p>Untuk pembahasan berikutnya, kita mulai dengan salah satu martingal paling dasar dalam waktu diskret, yang juga memiliki interpretasi perjudian paling sederhana. Misalkan \( \bs{V} = \{V_n: n \in \N\} \) adalah barisan peubah acak independen dengan \( \E(|V_k|) \lt \infty \) untuk \( k \in \N \). Tetapkan
 \[ X_n = \sum_{k=0}^n V_k, \quad n \in \N \]</p>
 sehingga \( \bs X = \{X_n: n \in \N\} \) merupakan <dfn>proses jumlah parsial</dfn> yang terkait dengan \( \bs V \).
@@ -124,7 +124,7 @@ sehingga \( \bs X = \{X_n: n \in \N\} \) merupakan <dfn>proses jumlah parsial</d
 <li>Jika \( \E(V_n) = 0 \) untuk \( n \in \N_+ \), maka \( \bs X \) merupakan martingal.</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Jumlah Parsial, butir 1">Rincian:</summary>
 <p>Tetapkan \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} = \sigma\{V_0, V_1, \ldots, V_n\}\) untuk \( n \in \N \) . Pertama, perhatikan bahwa
 		\[ \E(|X_n|) \le \sum_{k=0}^n \E(|V_k|) \lt \infty, \quad n \in \N \]
 		Selanjutnya,
@@ -139,7 +139,7 @@ sehingga \( \bs X = \{X_n: n \in \N\} \) merupakan <dfn>proses jumlah parsial</d
 	\[Y_n = X_n^2 - \var(X_n), \quad n \in \N \]
 	Maka \( \bs Y = \{Y_n: n \in \N\} \) merupakan martingal terhadap \( \bs X \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Jumlah Parsial, butir 2">Rincian:</summary>
 <p>Sekali lagi, tetapkan \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \) untuk \( n \in \N \). Karena barisan \( \bs V \) independen, perhatikan bahwa 
 		\[ \var(X_n) = \var\left(\sum_{k=0}^n V_k\right) = \sum_{k=0}^n \var(V_k)\] 
 		Selain itu, \( \var(V_k) = \E(V_k^2) \) karena \( \E(V_k) = 0 \) untuk \( k \in \N_+ \). Secara khusus, \( \E(|Y_n|) \lt \infty \) untuk \( n \in \N \). Selanjutnya, untuk \( n \in \N \),
@@ -151,7 +151,7 @@ sehingga \( \bs X = \{X_n: n \in \N\} \) merupakan <dfn>proses jumlah parsial</d
 </details>
 </div>
 <p>Jadi, berdasarkan asumsi dalam teorema ini, \( \bs X \) dan \( \bs Y \) keduanya merupakan martingal. Kita akan menggeneralisasi hasil untuk proses jumlah parsial dalam pembahasan mengenai proses dengan inkremen independen pada <a class="ref" href="#inc">bagian Proses dengan Inkremen Independen</a>.</p>
-<h4 id="mds">Barisan Selisih Martingal</h4>
+<h3 class="reader-level-3" id="mds">Barisan Selisih Martingal</h3>
 <p>Dalam pembahasan sebelumnya, kita melihat bahwa proses jumlah parsial yang terkait dengan barisan peubah independen dengan rata-rata 0 merupakan martingal. Sebaliknya, setiap martingal dalam waktu diskret dapat ditulis sebagai proses jumlah parsial dari peubah-peubah <em>tak berkorelasi</em> dengan rata-rata 0. Representasi ini memberikan pemahaman penting tentang teori martingal secara umum. Misalkan \( \bs X = \{X_n: n \in \N\} \) merupakan martingal terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \). </p>
 <div class="unit" id="mds1">
 <p class="dfn">Tetapkan \( V_0 = X_0 \) dan \( V_n = X_n - X_{n-1} \) untuk \( n \in \N_+ \). Proses \( \bs V = \{V_n: n \in \N\} \) merupakan <dfn>barisan selisih martingal</dfn> yang terkait dengan \( \bs X \), dan 
@@ -166,7 +166,7 @@ sehingga \( \bs X = \{X_n: n \in \N\} \) merupakan <dfn>proses jumlah parsial</d
 <li>\( \E(V_n) = 0 \) untuk \( n \in \N_+ \)</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Barisan Selisih Martingal, butir 1">Rincian:</summary>
 <ol class="sub">
 <li>Tentu saja \( V_0 = X_0 \) terukur terhadap \( \mathscr{F}_0 \). Untuk \( n \in \N_+ \), \( X_n \) dan \( X_{n-1} \), dan karena itu \( V_n \), terukur terhadap \( \mathscr{F}_n \)</li>
 <li>Misalkan \( k \in \N \). Berdasarkan sifat martingal dan keteradaptasian, 
@@ -183,7 +183,7 @@ sehingga \( \bs X = \{X_n: n \in \N\} \) merupakan <dfn>proses jumlah parsial</d
 <p class="math">Misalkan kembali bahwa \( \bs V = \{V_n: n \in \N\} \) adalah barisan selisih martingal yang terkait dengan martingal \( \bs X \). Andaikan \( \var(X_n) \lt \infty \) untuk \( n \in \N \). Maka \( \bs V \) merupakan barisan tak berkorelasi. Lebih lanjut,
 	\[ \var(X_n) = \sum_{k=0}^n \var(V_k) = \var(X_0) + \sum_{k=1}^n \E(V_k^2), \quad n \in \N \]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Barisan Selisih Martingal, butir 2">Rincian:</summary>
 <p>Misalkan \( k, \, n \in \N \) dengan \( k \lt n \). Untuk menunjukkan bahwa \( V_k \) dan \( V_n \) tak berkorelasi, kita hanya perlu menunjukkan bahwa \( \E(V_k V_n) = 0 \) (karena \( \E(V_n) = 0 \)). Namun, berdasarkan hasil sebelumnya,
 		\[ \E(V_k V_n) = \E[\E(V_k V_n \mid \mathscr{F}_k)] = \E[V_k \E(V_n \mid \mathscr{F}_k)] = 0  \]
 		Terakhir, varians jumlah peubah-peubah tak berkorelasi sama dengan jumlah variansnya. Karena \( V_k \) memiliki rata-rata 0, \( \var(V_k) = \E(V_k^2) \) untuk \( k \in \N_+ \). Karena itu, rumus untuk \( 
@@ -191,7 +191,7 @@ sehingga \( \bs X = \{X_n: n \in \N\} \) merupakan <dfn>proses jumlah parsial</d
 </details>
 </div>
 <p>Sekarang kita mengetahui bahwa martingal waktu diskret merupakan proses jumlah parsial yang terkait dengan barisan peubah tak berkorelasi. Karena itu, kita dapat berharap bahwa teorema-teorema dasar untuk proses jumlah parsial yang terkait dengan barisan independen memiliki versi martingal. Ternyata memang demikian, dan inilah salah satu alasan mendasar pentingnya martingal.</p>
-<h4 id="wlk">Gerak Acak Waktu Diskret</h4>
+<h3 class="reader-level-3" id="wlk">Gerak Acak Waktu Diskret</h3>
 <p>Misalkan \( \bs V = \{V_n: n \in \N\} \) adalah barisan peubah acak independen dengan \( \{V_n: n \in \N_+\} \) berdistribusi identik. Kita mengandaikan bahwa \( \E(|V_n|) \lt \infty \) untuk \( n \in \N \), dan \( a \) menyatakan rata-rata yang sama dari \( \{V_n: n \in \N_+\} \). Misalkan \( \bs X = \{X_n: n \in \N\} \) adalah proses jumlah parsial yang terkait dengan \( \bs V \), sehingga
 \[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]
 Kerangka ini merupakan kasus khusus dari proses jumlah parsial yang lebih umum pada <a class="ref" href="#sum">bagian Jumlah Parsial</a>. Proses \( \bs X \) kadang-kadang disebut <dfn>gerak acak</dfn> (waktu diskret). Posisi awal \( X_0 = V_0 \) dari pejalan dapat memiliki distribusi sembarang, sedangkan <dfn>langkah-langkah</dfn> berikutnya saling independen dan berdistribusi identik. Dalam konteks perjudian, \( X_0 = V_0 \) adalah kekayaan awal penjudi yang memainkan serangkaian permainan independen dan identik. Jika \( V_i \) adalah jumlah yang dimenangkan (atau hilang) pada permainan \( i \in \N_+ \), maka \( X_n \) adalah kekayaan bersih penjudi setelah \( n \) permainan. </p>
@@ -207,13 +207,13 @@ Kerangka ini merupakan kasus khusus dari proses jumlah parsial yang lebih umum p
 <div class="unit" id="wlk2">
 <p class="math">Tetapkan \( Y_n = X_n^2 - \var(V_0) - b^2 n \) untuk \( n \in \N \). Maka \( \bs Y = \{Y_n: n \in \N\} \) merupakan martingal terhadap \( \bs X \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Gerak Acak Waktu Diskret">Rincian:</summary>
 <p>Hal ini mengikuti hasil yang bersesuaian untuk proses jumlah parsial umum di atas, karena
 		\[ \var(X_n) = \sum_{k=0}^n \var(V_k) = \var(V_0) + b^2 n, \quad n \in \N \]</p>
 </details>
 </div>
 <p>Kita akan menggeneralisasi hasil-hasil untuk gerak acak waktu diskret dalam pembahasan mengenai <a href="#inc">proses dengan inkremen stasioner dan independen</a>.</p>
-<h4 id="prd">Hasil Kali Parsial</h4>
+<h3 class="reader-level-3" id="prd">Hasil Kali Parsial</h3>
 <p>Pembahasan berikut serupa dengan pembahasan proses jumlah parsial pada <a class="ref" href="#sum">bagian Jumlah Parsial</a>, tetapi menggunakan hasil kali sebagai pengganti jumlah. Jadi, misalkan \( \bs V = \{V_n: n \in \N\} \) adalah barisan independen peubah acak taknegatif dengan \( \E(V_n) \lt \infty \) untuk \( n \in \N \). Tetapkan
 \[ X_n = \prod_{i=0}^n V_i, \quad n \in \N \]
 sehingga \( \bs X = \{X_n: n \in \N\} \) merupakan <dfn>proses hasil kali parsial</dfn> yang terkait dengan \( \bs V \).</p>
@@ -225,7 +225,7 @@ sehingga \( \bs X = \{X_n: n \in \N\} \) merupakan <dfn>proses hasil kali parsia
 <li>Jika \( \E(V_n) \le 1 \) untuk \( n \in \N_+ \), maka \( \bs X \) merupakan supermartingal terhadap \( \bs V \)</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Hasil Kali Parsial">Rincian:</summary>
 <p>Tetapkan \( \mathscr{F}_n = \sigma\{V_0, V_1, \ldots, V_n\}\) untuk \( n \in \N \). Karena peubah-peubah tersebut independen,
 		\[ \E(X_n) = \prod_{i=0}^n \E(V_i) \lt \infty \]
 		Selanjutnya,
@@ -234,7 +234,7 @@ sehingga \( \bs X = \{X_n: n \in \N\} \) merupakan <dfn>proses hasil kali parsia
 </details>
 </div>
 <p>Seperti pada gerak acak, kasus khusus yang menarik terjadi ketika \( \{V_n: n \in \N_+\} \) merupakan barisan yang berdistribusi identik.</p>
-<h4 id="srw">Gerak Acak Sederhana</h4>
+<h3 class="reader-level-3" id="srw">Gerak Acak Sederhana</h3>
 <p>Sekarang misalkan \( \bs{V} = \{V_n: n \in \N\} \) adalah barisan peubah acak independen dengan \( \P(V_i = 1) = p \) dan \( \P(V_i = -1) = 1 - p \) untuk \( i \in \N_+ \), dengan \( p \in (0, 1) \). Misalkan \( \bs{X}  = \{X_n: n \in \N\} \) adalah proses jumlah parsial yang terkait dengan \( \bs{V} \), sehingga
 \[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]
 Maka \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/bernoulli/Walk.html">gerak acak sederhana</a> dengan parameter \( p \), dan tentu saja merupakan kasus khusus dari gerak acak yang lebih umum pada <a class="ref" href="#wlk">bagian Gerak Acak Waktu Diskret</a>. Dalam konteks perjudian, penjudi kita memainkan serangkaian permainan independen dan identik. Pada setiap permainan, ia memenangkan €1 dengan probabilitas \( p \) dan kehilangan €1 dengan probabilitas \( 1 - p \). Jadi, jika \( V_0 \) adalah kekayaan awal penjudi, maka \( X_n \) adalah kekayaan bersihnya setelah \( n \) permainan.</p>
@@ -246,7 +246,7 @@ Maka \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/berno
 <li>Jika \( p = \frac{1}{2} \), maka \( \bs{X} \) merupakan martingal.</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Gerak Acak Sederhana, butir 1">Rincian:</summary>
 <p>Perhatikan bahwa \( \E(V_n) = p - (1 - p) = 2 p - 1 \) untuk \( n \in \N_+ \), sehingga hasil-hasil tersebut mengikuti <a class="ref" href="#wlk1"></a>.</p>
 </details>
 </div>
@@ -258,7 +258,7 @@ Maka \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/berno
 <div class="unit" id="srw3">
 <p class="math">Tinjau gerak acak sederhana dengan parameter \( p = \frac{1}{2} \), dan tetapkan \( Y_n = X_n^2 - \var(V_0) -  n \) untuk \( n \in \N \). Maka \( \bs{Y} = \{Y_n: n \in \N\} \) merupakan martingal terhadap \( \bs{X} \)</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Gerak Acak Sederhana, butir 2">Rincian:</summary>
 <p>Perhatikan bahwa \( \E(V_i) = 0 \) dan \( \var(V_i) = 1 \) untuk setiap \( i \in \N_+ \), sehingga hasil tersebut mengikuti hasil umum di atas.</p>
 </details>
 </div>
@@ -268,7 +268,7 @@ Maka \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/berno
 	\[ Z_n = \left(\frac{1 - p}{p}\right)^{X_n} \]
 	Maka \( \bs{Z} = \{Z_n: n \in \N\} \) merupakan martingal terhadap \( \bs{X} \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Gerak Acak Sederhana, butir 3">Rincian:</summary>
 <p>Perhatikan bahwa 
 		\[ Z_n = \prod_{k=0}^n \left(\frac{1 - p}{p}\right)^{V_k}, \quad n \in \N \]
 		dan
@@ -276,7 +276,7 @@ Maka \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/berno
 		Jadi, hasil tersebut mengikuti <a class="ref" href="#prd1"></a>.</p>
 </details>
 </div>
-<h4 id="bet">Proses Beta-Bernoulli</h4>
+<h3 class="reader-level-3" id="bet">Proses Beta-Bernoulli</h3>
 <p>Ingat bahwa <a href="https://www.randomservices.org/random/bernoulli/BetaBernoulli.html">proses beta-Bernoulli</a> dikonstruksi dengan mengacak parameter keberhasilan dalam suatu <a href="https://www.randomservices.org/random/bernoulli/Introduction.html">proses percobaan Bernoulli</a> menggunakan <a href="https://www.randomservices.org/random/special/Beta.html">distribusi beta</a>. Secara khusus, kita memiliki peubah acak \( P \) yang berdistribusi beta dengan parameter \( a, \, b \in (0, \infty) \), serta barisan peubah indikator \( \bs X = (X_1, X_2, \ldots) \) sedemikian sehingga, dengan syarat \( P = p \in (0, 1) \), \( \bs X \) merupakan barisan peubah independen dengan \( \P(X_i = 1) = p \) untuk \( i \in \N_+ \). Seperti biasa, kita menyatakannya dalam istilah keandalan, sehingga \( X_i = 1 \) berarti <dfn>berhasil</dfn> pada percobaan \( i \), sedangkan \( X_i = 0 \) berarti <dfn>gagal</dfn>. Dalam kajian kita atas proses ini, kita menunjukkan bahwa distribusi berdimensi hingga diberikan oleh
 \[ \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n) = \frac{a^{[k]} b^{[n-k]}}{(a + b)^{[n]}}, \quad n \in \N_+, \; (x_1, x_2, \ldots, x_n) \in \{0, 1\}^n \]
 di mana kita menggunakan <a href="https://www.randomservices.org/random/foundations/Structures.html">notasi pangkat naik</a> \( r^{[j]} = r ( r + 1) \cdots (r + j - 1) \) untuk \( r \in \R \) dan \( j \in \N \). Selanjutnya, misalkan \( \bs{Y} = \{Y_n: n \in \N\} \) menyatakan proses jumlah parsial yang terkait dengan \( \bs{X} \), sehingga sekali lagi,
@@ -289,7 +289,7 @@ Peubah ini juga muncul secara alami. Tetapkan \( \mathscr{F}_n = \sigma\{X_1, X_
 <div class="unit" id="bet1">
 <p class="math">\( \bs Z = \{Z_n: n \in \N\} \) merupakan martingal terhadap \( \bs X \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses Beta-Bernoulli">Rincian:</summary>
 <p>Perhatikan bahwa \( 0 \le Z_n \le 1 \), sehingga \( \E(Z_n) \lt \infty \) untuk \( n \in \N \). Selanjutnya,
 		\[\E\left(Z_{n+1} \mid \mathscr{F}_n\right) = \E\left[\frac{a + Y_{n+1}}{a + b + n + 1} \biggm| \mathscr{F}_n\right] = \frac{\E\left[a + \left(Y_n + X_{n+1}\right) \mid \mathscr{F}_n\right]}{a + b + n + 1} = \frac{a + Y_n + \E\left(X_{n+1} \mid \mathscr{F}_n\right)}{a + b + n + 1} \]
 		Seperti disebutkan di atas, \( \E(X_{n+1} \mid \mathscr{F}_n) = (a + Y_n) / (a + b + n) \). Dengan menyubstitusikannya ke persamaan di atas dan melakukan sedikit aljabar, kita memperoleh
@@ -299,7 +299,7 @@ Peubah ini juga muncul secara alami. Tetapkan \( \mathscr{F}_n = \sigma\{X_1, X_
 <div class="unit">
 <p class="app">Buka <a class="ancillary" href="https://www.randomservices.org/random/apps/BetaBinomial.html">eksperimen beta-binomial</a>. Jalankan simulasi 1000 kali untuk berbagai nilai parameter, lalu bandingkan fungsi kepadatan probabilitas empiris dengan fungsi kepadatan probabilitas sebenarnya.</p>
 </div>
-<h4 id="urn">Proses Urna Pólya</h4>
+<h3 class="reader-level-3" id="urn">Proses Urna Pólya</h3>
 <p>Ingat bahwa dalam versi paling sederhana dari <a href="https://www.randomservices.org/random/urn/Polya.html">proses urna Pólya</a>, kita mulai dengan sebuah urna yang berisi \( a \) bola merah dan \( b \) bola hijau. Pada setiap langkah waktu diskret, kita memilih sebuah bola secara acak dari urna, lalu mengembalikan bola tersebut dan menambahkan \( c \) bola baru dengan warna yang sama ke dalam urna. Parameternya harus memenuhi \( a, \, b \in \N_+ \) dan \( c \in \N \). Untuk \( i \in \N_+ \), misalkan \( X_i \) menyatakan warna bola yang terpilih pada pengambilan ke-\( i \), dengan 1 berarti merah dan 0 berarti hijau. Proses \( \bs{X} = \{X_n: n \in \N_+\} \) merupakan contoh klasik barisan peubah yang dapat dipertukarkan tetapi saling bergantung. Misalkan \( \bs{Y} = \{Y_n: n \in \N\} \) menyatakan proses jumlah parsial yang terkait dengan \( \bs{X} \), sehingga sekali lagi,
 \[ Y_n = \sum_{i=1}^n X_i, \quad n \in \N \]
 Tentu saja \( Y_n \) adalah jumlah bola merah yang terpilih dalam \( n \) pengambilan pertama. Karena itu, pada waktu \( n \in \N \), jumlah bola merah dalam urna adalah \( a + c Y_n \), sedangkan jumlah seluruh bola dalam urna adalah \( a + b + c n \). Jadi, <em>proporsi</em> bola merah dalam urna adalah
@@ -307,7 +307,7 @@ Tentu saja \( Y_n \) adalah jumlah bola merah yang terpilih dalam \( n \) pengam
 <div class="unit" id="urn1">
 <p class="math">\( \bs{Z} = \{Z_n: n \in \N\} \) merupakan martingal terhadap \( \bs{X} \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses Urna Pólya">Rincian:</summary>
 <p><strong>Bukti tidak langsung:</strong> Jika \( c = 0 \), maka \( Z_n = a / (a + b) \) untuk \( n \in \N \), sehingga \( \bs Z \) merupakan martingal konstan. Jika \( c \in \N_+ \), maka \( \bs Z \) ekuivalen dengan proses beta-Bernoulli berparameter \( a / c \) dan \( b / c \). Lebih lanjut, 
 		\[ Z_n = \frac{a + c Y_n}{a + b + c n} = \frac{a / c + Y_n}{a / c + b / c + n}, \quad n \in \N \]
 		Jadi, \( \bs Z \) merupakan martingal berdasarkan <a class="ref" href="#bet1"></a>.</p>
@@ -321,7 +321,7 @@ Tentu saja \( Y_n \) adalah jumlah bola merah yang terpilih dalam \( n \) pengam
 <div class="unit" id="urn2">
 <p class="app">Buka simulasi <a class="ancillary" href="https://www.randomservices.org/random/apps/Polya.html">eksperimen urna Pólya</a>. Jalankan simulasi 1000 kali untuk berbagai nilai parameter, lalu bandingkan fungsi kepadatan probabilitas empiris dari banyaknya bola merah yang terpilih dengan fungsi kepadatan probabilitas sebenarnya.</p>
 </div>
-<h4 id="inc">Proses dengan Inkremen Independen.</h4>
+<h3 class="reader-level-3" id="inc">Proses dengan Inkremen Independen.</h3>
 <p>Contoh pertama di atas membahas proses jumlah parsial \( \bs{X} \) pada <a class="ref" href="#sum">bagian Jumlah Parsial</a> yang terkait dengan barisan peubah acak independen \( \bs{V} \). Proses semacam itu adalah satu-satunya proses dalam waktu diskret yang memiliki <em>inkremen independen</em>. Artinya, untuk \( m, \, n \in \N \) dengan \( m \le n \), \( X_n - X_m \) independen dari \( (X_0, X_1, \ldots, X_m) \). Gerak acak pada <a class="ref" href="#wlk">bagian Gerak Acak Waktu Diskret</a> memiliki sifat tambahan berupa <em>inkremen stasioner</em>. Artinya, distribusi \( X_n - X_m \) sama dengan distribusi \( X_{n-m} - X_0 \) untuk \( m, \, n \in \N \) dengan \( m \le n \). Mari kita tinjau proses dalam waktu diskret atau kontinu yang memiliki sifat-sifat ini. Jadi, misalkan \( \bs{X} = \{X_t: t \in T\} \) memenuhi asumsi dasar pada <a class="ref" href="#asm">bagian Asumsi Dasar</a> di atas relatif terhadap filtrasi \( \mathfrak{F} = \left\{\mathscr{F}_s: s \in T\right\} \). Berikut kedua definisinya.</p>
 <div class="unit" id="inc1">
 <p class="math">Proses \( \bs X \) memiliki</p>
@@ -339,7 +339,7 @@ Tentu saja \( Y_n \) adalah jumlah bola merah yang terpilih dalam \( n \) pengam
 <li>Jika \( m \) konstan, maka \( \bs X \) merupakan martingal</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses dengan Inkremen Independen., butir 1">Rincian:</summary>
 <p>Buktinya sama seperti bukti untuk proses jumlah parsial di atas. Misalkan \( s, \, t \in [0, \infty) \) dengan \( s \lt t \). Maka
 		\[ \E\left(X_t \mid \mathscr{F}_s\right) = \E\left[X_s + (X_t - X_s) \mid \mathscr{F}_s\right] = \E\left(X_s \mid \mathscr{F}_s\right) + \E\left(X_t - X_s \mid \mathscr{F}_s\right)\]
 		Namun, \( X_s \) terukur terhadap \( \mathscr{F}_s \) dan \( X_t - X_s \) independen dari \( \mathscr{F}_s \). Jadi,
@@ -355,7 +355,7 @@ Tentu saja \( Y_n \) adalah jumlah bola merah yang terpilih dalam \( n \) pengam
 <p class="math">Misalkan \( \bs X = \{X_t: t \in T\} \) memiliki inkremen independen dengan fungsi rata-rata konstan dan dengan \( \var(X_t) \lt \infty \) untuk \( t \in T \). Maka \( \bs Y = \{Y_t: t \in T\} \) merupakan martingal dengan
 	\[ Y_t = X_t^2 - \var(X_t), \quad t \in T \]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses dengan Inkremen Independen., butir 2">Rincian:</summary>
 <p>Buktinya pada dasarnya sama dengan bukti untuk proses jumlah parsial dalam waktu diskret. Misalkan \( s, \, t \in T \) dengan \( s \lt t \). Perhatikan bahwa \( \E(Y_t \mid \mathscr{F}_s) = \E(X_t^2 \mid \mathscr{F}_s) - \var(X_t) \). Selanjutnya,
 		\[ X_t^2 = [(X_t - X_s) + X_s]^2 = (X_t - X_s)^2 + 2 (X_t - X_s) X_s + X_s^2 \]
 		Namun, \( X_t - X_s \) independen dari \( \mathscr{F}_s \), \( X_s \) terukur terhadap \( \mathscr{F}_s \), dan \( \E(X_t - X_s) = 0 \), sehingga
@@ -375,7 +375,7 @@ Tentu saja \( Y_n \) adalah jumlah bola merah yang terpilih dalam \( n \) pengam
 <li>\( \bs X \) merupakan supermartingal jika \( a \le 0 \)</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses dengan Inkremen Independen., butir 3">Rincian:</summary>
 <p>Ingat bahwa fungsi rata-rata \( m \) diberikan oleh \( m(t) = \E(X_0) + a t \) untuk \( t \in T \), sehingga hasil tersebut mengikuti hasil yang bersesuaian pada <a class="ref" href="#inc2"></a> untuk proses dengan inkremen independen.</p>
 </details>
 </div>
@@ -384,7 +384,7 @@ Tentu saja \( Y_n \) adalah jumlah bola merah yang terpilih dalam \( n \) pengam
 <p class="math">Misalkan \( \bs X = \{X_t: t \in T\} \) memiliki inkremen stasioner dan independen dengan \( \E(X_0) = \E(X_1) \) dan \( b^2 = \E[(X_1 - X_0)^2] \lt \infty \). Maka \( \bs Y = \{Y_t: t \in T\} \) merupakan martingal dengan
 	\[ Y_t = X_t^2 - \var(X_0) - b^2 t, \quad t \in T \]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses dengan Inkremen Independen., butir 4">Rincian:</summary>
 <p>Ingat bahwa jika \( \E(X_0) = \E(X_1) \), maka \( \bs X \) memiliki fungsi rata-rata konstan. Selain itu, \(\var(X_t) = \var(X_0) + b^2 t \), sehingga hasil tersebut mengikuti hasil yang bersesuaian untuk proses dengan inkremen independen.</p>
 </details>
 </div>
@@ -402,7 +402,7 @@ Inkremen \( N_t - N_s \) memiliki distribusi Poisson dengan parameter \( m(t) - 
 <p class="app">Buka simulasi <a class="ancillary" href="https://www.randomservices.org/random/apps/Poisson.html">eksperimen pencacahan Poisson</a>. Untuk berbagai nilai \( r \) dan \( t \), jalankan eksperimen 1000 kali, lalu bandingkan fungsi kepadatan probabilitas empiris dari banyaknya kedatangan dengan fungsi kepadatan probabilitas sebenarnya.</p>
 </div>
 <p>Kita akan melihat contoh-contoh lain proses dengan inkremen stasioner dan independen dalam waktu kontinu (dan dengan demikian juga contoh martingal waktu kontinu) dalam kajian tentang <a href="https://www.randomservices.org/random/brown/index.html">gerak Brown</a>.</p>
-<h4 id="lrt">Uji Rasio Kemungkinan</h4>
+<h3 class="reader-level-3" id="lrt">Uji Rasio Kemungkinan</h3>
 <p>Misalkan \( (S, \mathscr{S}, \mu) \) adalah ruang ukuran umum, dan \( \bs{X} = \{X_n: n \in \N\} \) adalah barisan peubah acak independen dan berdistribusi identik yang bernilai di \( S \). Dalam istilah statistika, \( \bs{X} \) bersesuaian dengan <dfn>pengambilan sampel</dfn> dari distribusi yang sama, yang biasanya tidak diketahui sepenuhnya. Memang, masalah utama dalam statistika adalah menarik inferensi mengenai distribusi dari pengamatan terhadap \( \bs{X} \). Sekarang misalkan distribusi yang mendasarinya memiliki fungsi kepadatan probabilitas \( g_0 \) atau fungsi kepadatan probabilitas \( g_1 \), terhadap \( \mu \). Kita mengandaikan bahwa \( g_0 \) dan \( g_1 \) positif pada \( S \). Kasus khusus yang umum dari kerangka ini adalah</p>
 <ul>
 <li>\( S \) adalah himpunan bagian terukur dari \( \R^n \) untuk suatu \( n \in \N_+ \), dan \( \mu = \lambda^n \) adalah ukuran Lebesgue berdimensi \( n \) pada \( S \).</li>
@@ -419,7 +419,7 @@ yang dikenal sebagai <dfn>statistik uji rasio kemungkinan</dfn>. Nilai statistik
 <div class="unit" id="lrt1">
 <p class="math">Di bawah hipotesis alternatif \( H_1 \), proses \( \bs{L} = \{L_n: n \in \N\} \) merupakan martingal terhadap \( \bs{X} \), yang dikenal sebagai <dfn>martingal rasio kemungkinan</dfn>.</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Uji Rasio Kemungkinan">Rincian:</summary>
 <p>Tetapkan \( \mathscr{F}_n = \sigma\{X_1, X_2, \ldots, X_n\} \). Untuk \( n \in \N \),
 		\[ \E\left(L_{n+1} \mid \mathscr{F}_n\right) = \E\left[L_n \frac{g_0(X_{n+1})}{g_1(X_{n+1})} \biggm| \mathscr{F}_n\right] = L_n \E\left[\frac{g_0(X_{n+1})}{g_1(X_{n+1})}\right] \]
 		Hal ini berlaku karena \( L_n \) terukur terhadap \( \mathscr{F}_n \) dan \( g_0(X_{n+1}) \big/ g_1(X_{n+1}) \) independen dari \( \mathscr{F}_n \). Namun, di bawah \( H_1 \), dengan menggunakan rumus perubahan peubah untuk nilai harapan, kita memperoleh
@@ -427,7 +427,7 @@ yang dikenal sebagai <dfn>statistik uji rasio kemungkinan</dfn>. Nilai statistik
 		Hasil ini pada dasarnya juga mengikuti <a class="ref" href="#prd">pembahasan Hasil Kali Parsial</a> tentang hasil kali parsial. Barisan \( \bs Z = (Z_1, Z_2, \ldots) \) yang diberikan oleh \( Z_i = g_0(X_i) / g_1(X_i) \) untuk \( i \in \N_+ \) bersifat independen dan berdistribusi identik, serta, seperti baru saja ditunjukkan, memiliki rata-rata 1 di bawah \( H_1 \).</p>
 </details>
 </div>
-<h4 id="brn">Proses Percabangan</h4>
+<h3 class="reader-level-3" id="brn">Proses Percabangan</h3>
 <p>Dalam model paling sederhana dari suatu <dfn>proses percabangan</dfn>, kita memiliki sistem <dfn>partikel</dfn> yang masing-masing dapat punah atau membelah menjadi partikel-partikel baru dengan jenis yang sama. Asumsi dasarnya adalah bahwa partikel-partikel tersebut bertindak secara independen, masing-masing dengan distribusi keturunan yang sama pada \( \N \). Kita akan menggunakan \( f \) untuk menyatakan <a href="https://www.randomservices.org/random/dist/Discrete.html">fungsi kepadatan probabilitas</a> (diskret) dari banyaknya keturunan sebuah partikel, \( m \) untuk <a href="https://www.randomservices.org/random/expect/Properties.html">rata-rata</a> distribusi tersebut, dan \( \phi \) untuk <a href="https://www.randomservices.org/random/expect/Generating.html#pgf">fungsi pembangkit probabilitas</a> distribusi tersebut. Jadi, jika \( U \) adalah banyaknya anak sebuah partikel, maka \( f(n) = \P(U = n) \) untuk \( n \in \N \), \( m = \E(U) \), dan \( \phi(t) = \E\left(t^U\right) \) didefinisikan setidaknya untuk \( t \in (-1, 1] \).</p>
 <p>Perhatian kita tertuju pada <em>waktu generasi</em>, bukan <em>waktu mutlak</em>: partikel awal berada pada generasi 0, dan secara rekursif, anak dari sebuah partikel pada generasi \( n \) termasuk dalam generasi \( n + 1 \). Jadi, proses stokastik yang kita kaji adalah \( \bs{X} = \{X_n: n \in \N\} \), dengan \( X_n \) merupakan banyaknya partikel pada generasi ke-\( n \) untuk \( n \in \N \). Proses \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/markov/index.html">rantai Markov</a> dan telah dipelajari dalam bagian tentang <a href="https://www.randomservices.org/random/markov/Branching.html">rantai percabangan waktu diskret</a>. Secara khusus, salah satu masalah dasarnya adalah menghitung probabilitas kepunahan \( q \) jika dimulai dengan satu partikel:
 \[ q = \P(X_n = 0 \text{ for some } n \in \N \mid X_0 = 1) \]
@@ -439,7 +439,7 @@ Karena partikel-partikel tersebut bertindak secara independen, probabilitas kepu
 <li>\( \bs{Z} = \{Z_n: n \in \N\} \), dengan \( Z_n = q^{X_n} \) untuk \( n \in \N \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses Percabangan">Rincian:</summary>
 <p>Tetapkan \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \). Untuk \( n \in \N \), perhatikan bahwa \( X_{n+1} \) dapat ditulis dalam bentuk
 		\[ X_{n+1} = \sum_{i=1}^{X_n} U_i \]
 		dengan \( \bs{U} = (U_1, U_2, \ldots) \) merupakan barisan peubah independen yang masing-masing memiliki fungsi kepadatan probabilitas \( f \) (dan dengan demikian rata-rata \( m \) serta fungsi pembangkit probabilitas \( \phi \)), dan \( \bs{U} \) independen dari \( \mathscr{F}_n \). Pandang \( U_i \) sebagai banyaknya anak dari partikel ke-\( i \) pada generasi \( n \). </p>
@@ -451,12 +451,12 @@ Karena partikel-partikel tersebut bertindak secara independen, probabilitas kepu
 </ol>
 </details>
 </div>
-<h4 id="doo">Martingal Doob</h4>
+<h3 class="reader-level-3" id="doo">Martingal Doob</h3>
 <p>Contoh berikutnya termasuk salah satu yang paling sederhana, tetapi juga paling penting. Seperti yang akan kita lihat kemudian dalam bagian tentang <a href="Convergence.html">kekonvergenan</a>, jenis martingal ini hampir universal dalam arti bahwa setiap martingal yang <a href="../expect/Uniform.html">terintegralkan seragam</a> termasuk jenis ini. Proses tersebut dikonstruksi dengan mengondisikan suatu peubah acak tetap pada aljabar-\( \sigma \) dalam filtrasi tertentu, sehingga <em>mengakumulasi informasi</em> mengenai peubah acak tersebut.</p>
 <div class="unit" id="doo1">
 <p class="math">Misalkan \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) adalah filtrasi pada ruang probabilitas \( (\Omega, \mathscr{F}, \P) \), dan \( X \) adalah peubah acak bernilai riil dengan \( \E\left(\left|X\right|\right) \lt \infty \). Definisikan \( X_t = \E\left(X \mid \mathscr{F}_t\right) \) untuk \( t \in T \). Maka \( \bs{X} = \{X_t: t \in T\} \) merupakan martingal terhadap \( \mathfrak{F} \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Martingal Doob">Rincian:</summary>
 <p>Untuk \( t \in T \), ingat bahwa \( |X_t| = |\E(X \mid \mathscr{F}_t)| \le \E(|X| \mid \mathscr{F}_t) \). Dengan mengambil nilai harapan, diperoleh \( \E(|X_t|) \le \E(|X|) \lt \infty \). Misalkan \( s, \, t \in T \) dengan \( s \lt t \). Dengan menggunakan sifat menara nilai harapan bersyarat,
 		\[ \E\left(X_t \mid \mathscr{F}_s\right) = \E\left[\E\left(X \mid \mathscr{F}_t\right) \mid \mathscr{F}_s\right] = \E\left(X \mid \mathscr{F}_s\right) = X_s \]</p>
 </details>
@@ -465,30 +465,30 @@ Karena partikel-partikel tersebut bertindak secara independen, probabilitas kepu
 <p>Martingal Doob muncul secara alami dalam konteks statistika berupa <a href="https://www.randomservices.org/random/point/Bayes.html">pendugaan Bayes</a>. Misalkan \( \bs X = (X_1, X_2, \ldots) \) adalah barisan peubah acak independen dengan distribusi yang sama, yang bergantung pada parameter bernilai riil \( \theta \) yang tidak diketahui dan bernilai dalam ruang parameter \( A \subseteq \R \). Untuk setiap \( n \in \N_+ \), tetapkan \( \mathscr{F}_n = \sigma\{X_1, X_2, \ldots, X_n\} \), sehingga \( \mathfrak F = \{\mathscr{F}_n: n \in \N_+\} \) merupakan filtrasi alami yang terkait dengan \( \bs X \). Dalam pendugaan Bayes, kita memodelkan parameter \( \theta \) yang tidak diketahui dengan peubah acak \( \Theta \) yang bernilai di \( A \) dan memiliki <dfn>distribusi prior</dfn> tertentu. <dfn>Penduga Bayes</dfn> bagi \( \theta \) berdasarkan sampel \( \bs{X}_n = (X_1, X_2, \ldots, X_n) \) adalah 
 \[ U_n = \E(\Theta \mid \mathscr{F}_n), \quad n \in \N_+ \]
 Karena itu, barisan penduga Bayes \( \bs U = (U_n: n \in \N_+) \) merupakan martingal Doob. Pendugaan yang disebutkan dalam pembahasan proses <a href="#bet">beta-Bernoulli</a> di atas merupakan kasus khusus.</p>
-<h4 id="den">Fungsi Kepadatan</h4>
+<h3 class="reader-level-3" id="den">Fungsi Kepadatan</h3>
 <p>Untuk contoh ini, Anda mungkin perlu meninjau kembali bagian tentang <a href="https://www.randomservices.org/random/foundations/General.html">ukuran umum</a> dan <a href="https://www.randomservices.org/random/foundations/Density.html">fungsi kepadatan</a>. Kita mulai dengan ruang probabilitas \( (\Omega, \mathscr{F}, \P) \) dan filtrasi \( \mathfrak{F} = \{\mathscr{F}_n: n \in \N\} \) dalam waktu diskret. Sekarang misalkan \( \mu \) adalah ukuran hingga pada ruang sampel \( (\Omega, \mathscr{F}) \). Untuk setiap \( n \in \N \), pembatasan \( \mu \) pada \( \mathscr{F}_n \) merupakan ukuran pada ruang terukur \( (\Omega, \mathscr{F}_n) \); demikian pula, pembatasan \( \P \) pada \(\mathscr{F}_n\) merupakan ukuran probabilitas pada \( (\Omega, \mathscr{F}_n) \). Untuk menyederhanakan notasi dan istilah, kita akan menyebut keduanya masing-masing sebagai <dfn>\( \mu \) dan \( \P \) pada \(\mathscr{F}_n\)</dfn>. Sekarang misalkan \( \mu \) kontinu mutlak terhadap \( \P \) pada \( \mathscr{F}_n \) untuk setiap \( n \in \N \). Ingat bahwa ini berarti bahwa jika \( A \in \mathscr{F}_n \) dan \( \P(A) = 0 \), maka \( \mu(B) = 0 \) untuk setiap \( B \in \mathscr{F}_n \) dengan \( B \subseteq A \). Berdasarkan <a href="https://www.randomservices.org/random/foundations/Density.html#lrn">teorema Radon-Nikodym</a>, \( \mu \) memiliki fungsi kepadatan \( X_n: \Omega \to \R \) terhadap \( \P \) pada \(\mathscr{F}_n\) untuk setiap \( n \in \N \). Fungsi kepadatan suatu ukuran terhadap ukuran positif dikenal sebagai <dfn>turunan Radon-Nikodym</dfn>. Teorema dan turunan tersebut dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Radon.html">Johann Radon</a> dan <a class="ancillary" href="https://www.randomservices.org/random/biographies/Nikodym.html">Otto Nikodym</a>. Berikut hasil utamanya.</p>
 <div class="unit" id="den1">
 <p class="math">\( \bs X = \{X_n: n \in \N\} \) merupakan martingal terhadap \( \mathfrak F \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Fungsi Kepadatan">Rincian:</summary>
 <p>Misalkan \( n \in \N \). Berdasarkan definisi, \( X_n \) terukur terhadap \( \mathscr{F}_n \). Selain itu, \( \E(|X_n|) = \|\mu\|\) (variasi total \( \mu \)) untuk setiap \( n \in \N \). Karena \( \mu \) adalah ukuran hingga, \( \|\mu\| \lt \infty \). Berdasarkan definisi,
 		\[ \mu(A) = \int_A X_n d \P = \E(X_n; A), \quad A \in \mathscr{F}_n \]
 		Di sisi lain, jika \( A \in \mathscr{F}_n \), maka \( A \in \mathscr{F}_{n+1} \), sehingga \( \mu(A) = \E(X_{n+1}; A) \). Ringkasnya, \( X_n \) bersifat \( \mathscr{F}_n \)-terukur dan \( \E(X_{n+1}; A) = \E(X_n ; A) \) untuk semua \( A \in \mathscr{F}_n \). Berdasarkan definisi, ini berarti bahwa \( \E(X_{n+1} \mid \mathscr{F}_n) = X_n \), sehingga \( \bs X \) merupakan martingal terhadap \( \mathfrak F \).</p>
 </details>
 </div>
 <p>Perhatikan bahwa \( \mu \) mungkin tidak kontinu mutlak terhadap \( \P \) pada \( \mathscr{F} \), bahkan mungkin tidak pada \( \mathscr{F}_\infty = \sigma \left(\bigcup_{n=0}^\infty \mathscr{F}_n\right) \). Di sisi lain, jika \( \mu \) <em>memang</em> kontinu mutlak terhadap \( \P \) pada \( \mathscr{F}_\infty \), maka \( \mu \) memiliki fungsi kepadatan \( X \) terhadap \( \P \) pada \( \mathscr{F}_\infty \). Jadi, pertanyaan alami dalam kasus ini adalah hubungan antara martingal \( \bs X \) dan peubah acak \( X \). Anda mungkin sudah dapat menebak jawabannya, tetapi bagaimanapun juga jawabannya akan diberikan dalam bagian tentang <a href="Convergence.html#den">kekonvergenan</a>.</p>
-<footer>
+</main><footer>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
-<li class="current">1</li>
-<li class="child"><a href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
-<li class="child"><a href="Stop.html" title="Waktu Henti">3</a></li>
-<li class="child"><a href="Inequalities.html" title="Pertidaksamaan">4</a></li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">5</a></li>
-<li class="child"><a href="Backwards.html" title="Martingal Mundur">6</a></li>
-<li class="details"><button onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+<li aria-current="page" aria-label="Bagian 1: Pendahuluan (halaman saat ini)" class="current">1</li>
+<li class="child"><a aria-label="Bagian 2: Sifat dan Konstruksi" href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Pertidaksamaan" href="Inequalities.html" title="Pertidaksamaan">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Martingal Mundur" href="Backwards.html" title="Martingal Mundur">6</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
 </ol>
 <ul class="map">
 <li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>

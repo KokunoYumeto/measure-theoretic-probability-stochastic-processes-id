@@ -426,3 +426,59 @@ a separately licensed mastery sequence and deterministic diagnostic; those
 edition additions are not upstream findings. No upstream contact has occurred;
 retain only a concise deduplicated subset for the one possible post-corpus
 report if separately authorized.
+
+## `markov/Discrete.html`
+
+The frozen page is 55,099 bytes at SHA-256
+`808118b103e17cd5e31115b953663b0d8ff94da21f432e6fe7c104e9300380f0`.
+The Indonesian source is 57,545 bytes at SHA-256
+`176d4f9284ee16353142d6c2612b46a32a93c416471621997c89e72308b785ea`
+and preserves all 530 parsed elements, 649 ordered TeX surfaces, 56 unique
+identifiers, 30 disclosures, and four image alternatives. The built reader
+is 65,408 bytes at SHA-256
+`9b21e65c3da1c7989c99adee09da517634ca186d31c2a3886f51d65c9686a2b8`
+and applies 44 exact-once actions: 34 source-content repairs, six source-link
+repairs, and four deterministic mobile reflows.
+
+- The elementary history-conditioned Markov formula is restricted to
+  positive-probability histories, and time homogeneity is expressed through
+  a consistent all-state transition family. The strong Markov statement is
+  correspondingly restricted to homogeneous chains, written with the
+  stopped-state transition kernel, and its future-law prose distinguishes an
+  almost-sure conditional identity from the all-state extension under
+  `(P_x)_{x in S}`.
+- Enlarging a countable discrete-time state space by the time coordinate gives
+  `S × N`, which remains countable; the source incorrectly calls it
+  uncountable. Entrance/positive-hitting-time index domains and the possibly
+  absent or infinite last-visit time are made explicit.
+- The stochastic row-sum uses `P_n`, not `P`; an `(n+1)`-state path belongs to
+  `S^{n+1}`; and two transition-law references point to the wrong result or
+  omit the fragment marker. The n-step expectations and finite-dimensional
+  law are consistently stated under the all-state family; the latter is
+  proved by tower recursion rather than a chain rule through null histories.
+- The potential-matrix definition is made entrywise, the expected visit count
+  is conditioned on its stated starting state, a probability is corrected
+  from an expectation symbol, the geometric support is `N`, and the economic
+  multiplier is called a discount factor. An undefined `q^k` becomes
+  `beta^k`, and the shift identity cites the defining series.
+- General sampling now defines `n_0`; the restricted-matrix path formula is
+  stated for positive time with `P_A^0=I_A` separately.
+- The published two-state resolvent is false even at discount zero. The
+  downstream spectral decomposition was symbolically checked against
+  `(I-alpha P)^{-1}`. A second three-state potential matrix uses an undefined
+  scalar `a`; all occurrences are corrected to `alpha` and the resulting
+  formula was independently checked.
+- The integer-state and doubly-stochastic symbols are normalized. The broken
+  `trn5` fragment and lowercase `limiting.html` URL are repaired, and the SVG
+  media type is corrected. Four long equality chains are reflowed without
+  changing their mathematics.
+
+The source has 115 opening paragraph tags but 113 closing tags, including an
+ordered list nested in the `pot8` paragraph. The deterministic HTML parser
+normalizes those two markup defects in the reader; the frozen and translated
+source topology remains unchanged. The page contains seven explicit exercise
+units with seven worked disclosures. Its TwoState simulation is an external
+Random ancillary, not a frozen offline app; the existing gambler's-ruin lab is
+not misrepresented as a replacement. No upstream contact has occurred; retain
+only a concise deduplicated subset for the one possible post-corpus report if
+separately authorized.

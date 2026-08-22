@@ -25,16 +25,16 @@
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
-<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
-<li class="current">2</li>
-<li class="child"><a href="Stop.html" title="Waktu Henti">3</a></li>
-<li class="child"><a href="Inequalities.html" title="Pertidaksamaan">4</a></li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">5</a></li>
-<li class="child"><a href="Backwards.html" title="Martingal Mundur">6</a></li>
-<li class="details"><button onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+<li class="child"><a aria-label="Bagian 1: Pendahuluan" href="Introduction.html" title="Pendahuluan">1</a></li>
+<li aria-current="page" aria-label="Bagian 2: Sifat dan Konstruksi (halaman saat ini)" class="current">2</li>
+<li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Pertidaksamaan" href="Inequalities.html" title="Pertidaksamaan">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Martingal Mundur" href="Backwards.html" title="Martingal Mundur">6</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
 </ol>
-<h2>2. Sifat dan Konstruksi</h2>
+<h1>2. Sifat dan Konstruksi</h1>
 </header><aside class="component-attribution" id="o009-rights-random-martingale-properties">
 <strong>Asal komponen.</strong> Terjemahan halaman <cite>Properties and Constructions</cite>
 karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
@@ -42,9 +42,9 @@ Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
 beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.html">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav>
-<h3>Teori Dasar</h3>
-<h4 id="pre">Pendahuluan</h4>
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Ekspektasi bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav><main>
+<h2 class="reader-level-2">Teori Dasar</h2>
+<h3 class="reader-level-3" id="pre">Pendahuluan</h3>
 <p>Seperti pada <a href="Introduction.html">pendahuluan</a>, kita mulai dengan suatu <a href="../prob/Processes.html">proses stokastik</a> \( \bs{X} = \{X_t: t \in T\} \) pada ruang probabilitas yang mendasarinya \( (\Omega, \mathscr{F}, \P) \), dengan ruang keadaan \( \R \), dan dengan himpunan indeks \( T \) (yang menyatakan waktu) berupa \( \N \) (waktu diskret) atau \( [0, \infty) \) (waktu kontinu). Selanjutnya, kita memiliki suatu <a href="../prob/Stop.html">filtrasi</a> \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), dan kita mengandaikan bahwa \( \bs{X} \) <dfn>teradaptasi</dfn> terhadap \( \mathfrak{F} \). Jadi, \( \mathfrak{F} \) adalah keluarga menaik subaljabar-\( \sigma \) dari \( \mathscr{F} \), dan \( X_t \) terukur terhadap \( \mathscr{F}_t \) untuk \( t \in T \). Kita memandang \( \mathscr{F}_t \) sebagai koleksi kejadian hingga waktu \( t \in T \). Kita mengandaikan bahwa \( \E\left(\left|X_t\right|\right) \lt \infty \), sehingga <a href="https://www.randomservices.org/random/expect/Properties.html">rata-rata</a> \( X_t \) ada sebagai bilangan riil untuk setiap \( t \in T \). Terakhir, dalam waktu kontinu ketika \( T = [0, \infty) \), kita menggunakan asumsi standar bahwa \( \bs X \) kontinu kanan dan memiliki limit kiri, serta bahwa filtrasi \( \mathfrak F \) kontinu kanan dan lengkap. Ingat kembali hal berikut dari pendahuluan:</p>
 <div class="unit" id="pre1">
 <p class="dfn">Definisi</p>
@@ -55,12 +55,12 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 </ol>
 </div>
 <p>Tujuan kita dalam bagian ini adalah menyajikan sejumlah sifat dasar martingal dan berbagai cara mengonstruksi martingal dari jenis proses lain. Teorema-teorema mendasar yang lebih dalam akan dipelajari dalam bagian-bagian berikutnya.</p>
-<h4 id="prp">Sifat Dasar</h4>
+<h3 class="reader-level-3" id="prp">Sifat Dasar</h3>
 <p>Hasil pertama kita menyatakan bahwa sifat martingal dipertahankan apabila filtrasinya dibuat lebih kasar.</p>
 <div class="unit" id="prp1">
 <p class="math">Misalkan proses \( \bs X \) dan filtrasi \( \mathfrak F \) memenuhi asumsi dasar di atas, dan \( \mathfrak G \) merupakan filtrasi yang lebih kasar daripada \( \mathfrak F \), sehingga \( \mathscr{G}_t \subseteq \mathscr{F}_t \) untuk \( t \in T \). Jika \( \bs X \) merupakan martingal (submartingal, supermartingal) terhadap \( \mathfrak F \) dan \( \bs X \) teradaptasi terhadap \( \mathfrak G \), maka \( \bs X \) merupakan martingal (submartingal, supermartingal) terhadap \( \mathfrak G \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 1">Rincian:</summary>
 <p>Misalkan \( s, \, t \in T \) dengan \( s \le t \). Bukti ini menggunakan sifat menara dan sifat kemonotonan nilai harapan bersyarat, serta fakta bahwa \( \bs X \) teradaptasi terhadap \( \mathfrak G \).</p>
 <ol class="sub">
 <li>Jika \( \bs X \) merupakan martingal terhadap \( \mathfrak F \), maka
@@ -85,7 +85,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 <li>Jika \( \bs{X} \) merupakan supermartingal terhadap \( \mathfrak{F} \), maka \( \E(X_s) \ge \E(X_t) \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 2">Rincian:</summary>
 <p>Hasil-hasil tersebut mengikuti langsung dari definisi dan fakta penting bahwa \( \E\left[\E\left(X_t \mid \mathscr{F}_s\right)\right] = \E(X_t) \) untuk \( s, \, t \in T \).</p>
 </details>
 </div>
@@ -93,7 +93,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 <div class="unit" id="prp4">
 <p class="math">Untuk proses \( \bs{X} = \{X_t: t \in T\} \) dan \( \bs{Y} = \{Y_t: t \in T\} \), tetapkan \( \bs{X} + \bs{Y} = \{X_t + Y_t: t \in T\} \). Jika \( \bs X \) dan \( \bs Y \) merupakan martingal (submartingal, supermartingal) terhadap \( \mathfrak F \), maka \( \bs X + \bs Y \) merupakan martingal (submartingal, supermartingal) terhadap \( \mathfrak F \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 3">Rincian:</summary>
 <p>Hasil-hasil tersebut mengikuti dengan mudah dari sifat dasar nilai harapan dan nilai harapan bersyarat. Pertama, perhatikan bahwa \( \E\left(\left|X_t + Y_t\right|\right) \le \E\left(\left|X_t\right|\right) + \E\left(\left|Y_t\right|\right) \lt \infty \) untuk \( t \in T \). Selanjutnya, \( \E(X_t + Y_t \mid \mathscr{F}_s) = \E(X_t \mid \mathscr{F}_s) + \E(Y_t \mid \mathscr{F}_s)\) untuk \( s, \, t \in T \) dengan \( s \le t \).</p>
 </details>
 </div>
@@ -106,7 +106,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 <li>Jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \), maka \(c \bs X \) merupakan supermartingal jika \( c \gt 0 \), submartingal jika \( c \lt 0 \), dan martingal jika \( c = 0 \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 4">Rincian:</summary>
 <p>Hasil-hasil tersebut mengikuti dengan mudah dari sifat dasar nilai harapan dan nilai harapan bersyarat. Pertama, perhatikan bahwa \( \E\left(\left|c X_t \right|\right) = |c| \E\left(\left|X_t\right|\right) \lt \infty \) untuk \( t \in T \). Selanjutnya, \( \E(c X_t \mid \mathscr{F}_s) = c \E(X_t \mid \mathscr{F}_s) \) untuk \( s, \, t \in T \) dengan \( s \le t \).</p>
 </details>
 </div>
@@ -118,7 +118,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 <li>\( \bs X \) merupakan submartingal dan \( g \) juga menaik.</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 5">Rincian:</summary>
 <p>Bukti ini menggunakan <a href="../expect/Conditional2.html#jen">pertidaksamaan Jensen</a> untuk nilai harapan bersyarat. Jika \( s, \, t \in T \) dengan \( s \le t \), maka karena \( g \) cembung,
 		\[ \E\left[g(X_t) \mid \mathscr{F}_s\right] \ge g\left[\E(X_t \mid \mathscr{F}_s)\right] \]</p>
 <ol class="sub">
@@ -135,7 +135,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 <div class="unit" id="prp7">
 <p class="math">Misalkan kembali bahwa \( \bs X \) merupakan martingal terhadap \( \mathfrak F \). Ambil \( k \in [1, \infty) \) dan andaikan bahwa \( \E\left(|X_t|^k\right) \lt \infty \) untuk \( t \in T \). Maka proses \( |\bs X|^k = \left\{\left|X_t\right|^k: t \in T\right\} \) merupakan submartingal terhadap \( \mathfrak F \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 6">Rincian:</summary>
 <p>Untuk \( k \in [1, \infty) \), fungsi \( x \mapsto |x|^k \) cembung pada \( \R \).</p>
 </details>
 </div>
@@ -151,7 +151,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 <div class="unit" id="prp8">
 <p class="math">Jika \( \bs X = \{X_t: t \in T\} \) merupakan submartingal terhadap \( \mathfrak F = \{\mathscr{F}_t: t \in T\}\), maka \( \bs{X}^+ = \{X_t^+: t \in T\} \) juga merupakan submartingal terhadap \( \mathfrak F \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 7">Rincian:</summary>
 <p>Seperti ditunjukkan pada grafik di atas, fungsi \( x \mapsto x^+ \) menaik dan cembung pada \( \R \).</p>
 </details>
 </div>
@@ -159,14 +159,14 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 <div class="unit" id="prp9">
 <p class="math">Misalkan kembali bahwa proses \( \bs X = \{X_t: t \in [0, \infty)\} \) dan filtrasi \( \mathfrak F = \{\mathscr{F}_t: t \in [0, \infty)\} \) memenuhi asumsi dasar dalam <a class="ref" href="#pre">bagian Pendahuluan</a>. Andaikan pula bahwa \( \{t_n: n \in \N\} \subset [0, \infty) \) merupakan barisan titik waktu yang naik tegas dengan \( t_0 = 0 \), dan definisikan \( Y_n = X_{t_n} \) serta \( \mathscr{G}_n = \mathscr{F}_{t_n} \) untuk \( n \in \N \). Jika \( \bs X \) merupakan martingal (submartingal, supermartingal) terhadap \( \mathfrak F \), maka \( \bs Y = \{Y_n: n \in \N\} \) merupakan martingal (submartingal, supermartingal) terhadap \( \mathfrak G \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat Dasar, butir 8">Rincian:</summary>
 <p>Karena titik-titik waktunya menaik, jelas bahwa \( \mathfrak G \) merupakan filtrasi waktu diskret. Selanjutnya, \( \E(|Y_n|) = \E\left(\left|X_{t_n}\right|\right) \lt \infty \). Terakhir, misalkan \( \bs X \) merupakan martingal dan \( n, \, k \in \N \) dengan \( k \lt n \). Maka \( t_k \lt t_n \), sehingga
 		\[ \E(Y_n \mid \mathscr{G}_k) = \E\left(X_{t_n} \mid \mathscr{F}_{t_k}\right) = X_{t_k} = Y_k \]
 		Jadi, \( \bs Y \) juga merupakan martingal. Bukti untuk submartingal dan supermartingal serupa, dengan pertidaksamaan menggantikan kesamaan kedua.</p>
 </details>
 </div>
 <p>Hasil ini sering berguna untuk memperluas bukti teorema dalam waktu diskret ke waktu kontinu.</p>
-<h4 id="trn">Transformasi Martingal</h4>
+<h3 class="reader-level-3" id="trn">Transformasi Martingal</h3>
 <p>Pembahasan berikutnya, dalam waktu diskret, menunjukkan cara membangun martingal baru dari martingal yang sudah ada dan suatu proses terprediksi. Konstruksi ini ternyata sangat berguna dan memiliki interpretasi perjudian yang menarik. Untuk meninjau definisinya, ingat bahwa \( \{Y_n: n \in \N_+\} \) bersifat <dfn>terprediksi</dfn> terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \) jika \( Y_n\) terukur terhadap \(\mathscr{F}_{n-1} \) untuk \( n \in \N_+ \). Pandang \( Y_n \) sebagai taruhan yang dipasang penjudi pada permainan \( n \in \N_+ \). Penjudi dapat mendasarkan taruhan tersebut pada semua informasi yang dimilikinya saat itu, termasuk hasil dari \( n - 1 \) permainan sebelumnya. Artinya, ia dapat mendasarkan taruhan itu pada informasi yang dikodekan dalam \( \mathscr{F}_{n-1} \).</p>
 <div class="unit" id="trn1">
 <p class="dfn">Misalkan \( \bs X = \{X_n: n \in \N\} \) teradaptasi terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \), dan \( \bs Y = \{Y_n: n \in \N_+\} \) terprediksi terhadap \( \mathfrak F \). <dfn>Transformasi</dfn> \( \bs X \) oleh \( \bs Y \) adalah proses \( \bs Y \cdot \bs X \) yang didefinisikan oleh
@@ -181,7 +181,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 <li>Jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \) dan \( \bs Y \) nonnegatif, maka \( \bs Y \cdot \bs X \) juga merupakan supermartingal terhadap \( \mathfrak F \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Transformasi Martingal">Rincian:</summary>
 <p>Misalkan \( |Y_n| \le c \) untuk \( n \in \N \), dengan \( c \in (0, \infty) \). Maka
 		\[ \E(|(\bs Y \cdot \bs X)_n|) \le \E(|X_0|) + c \sum_{k=1}^n [\E(|X_k|) + \E(|X_{k-1}|)] \lt \infty, \quad n \in \N \]
 		Selanjutnya, untuk \( n \in \N \),
@@ -193,7 +193,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 </details>
 </div>
 <p>Konstruksi dalam <a class="ref" href="#trn2"></a> dikenal sebagai <dfn>transformasi martingal</dfn> dan merupakan versi diskret dari integral stokastik yang akan kita pelajari dalam bab tentang <a href="https://www.randomservices.org/random/brown/index.html">gerak Brown</a>. Hasil tersebut juga berlaku jika, alih-alih \( \bs Y \) terbatas, \( \bs X \) terbatas dan \( \E(|Y_n|) \lt \infty \) untuk \( n \in \N_+ \).</p>
-<h4 id="doo">Dekomposisi Doob</h4>
+<h3 class="reader-level-3" id="doo">Dekomposisi Doob</h3>
 <p>Hasil berikutnya, dalam waktu diskret, menunjukkan cara menguraikan proses stokastik dasar menjadi sebuah martingal dan sebuah proses terprediksi. Hasil tersebut dikenal sebagai <dfn>teorema dekomposisi Doob</dfn> dan dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Doob.html">Joseph Doob</a>, yang mengembangkan banyak bagian teori martingal modern.</p>
 <div class="unit" id="dec1">
 <p class="math">Misalkan \( \bs X = \{X_n: n \in \N\} \) memenuhi asumsi dasar dalam <a class="ref" href="#pre">bagian Pendahuluan</a> di atas terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \). Maka \( X_n = Y_n + Z_n \) untuk \( n \in \N \), dengan \( \bs Y = \{Y_n: n \in \N\} \) merupakan martingal terhadap \( \mathfrak F \), sedangkan \( \bs Z = \{Z_n: n \in \N\} \) terprediksi terhadap \( \mathfrak F \) dan memenuhi \( Z_0 = 0 \). Dengan normalisasi ini, dekomposisi tersebut unik.</p>
@@ -202,7 +202,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 <li>Jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \), maka \( \bs Z \) menurun.</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Dekomposisi Doob">Rincian:</summary>
 <p>Ingat bahwa asumsi dasar berarti \( \bs X = \{X_n: n \in \N\} \) teradaptasi terhadap \( \mathfrak F \) dan \( \E(|X_n|) \lt \infty \) untuk \( n \in \N \). Definisikan \( Z_0 = 0 \) dan
 		\[ Z_n = \sum_{k=1}^n \left[\E(X_k \mid \mathscr{F}_{k-1}) - X_{k-1}\right], \quad n \in \N_+ \]
 		Maka \( Z_n \) terukur terhadap \( \mathscr{F}_{n-1} \) untuk \( n \in \N_+ \), sehingga \( \bs Z \) terprediksi terhadap \( \mathfrak F \). Sekarang definisikan 
@@ -225,7 +225,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Properties.
 </details>
 </div>
 <p>Dalam waktu kontinu, <dfn>teorema dekomposisi Doob–Meyer</dfn> menyatakan bahwa submartingal càdlàg \( \bs X \) kelas D memiliki dekomposisi unik \( X = M + A \), dengan \( M \) suatu martingal dan \( A \) terprediksi, menaik, serta dinormalisasi oleh \( A_0 = 0 \). Untuk supermartingal, dekomposisinya dapat ditulis \( X = M + A \) dengan \( A \) terprediksi, menurun, dan \( A_0 = 0 \). Hasil ini dinamai menurut Joseph Doob dan Paul Meyer.</p>
-<h4 id="mar">Proses Markov</h4>
+<h3 class="reader-level-3" id="mar">Proses Markov</h3>
 <p>Seperti yang mungkin Anda duga, terdapat hubungan penting antara <a href="https://www.randomservices.org/random/markov/index.html">proses Markov</a> dan martingal. Misalkan \( \bs X = \{X_t: t \in T\} \) merupakan proses Markov (homogen) dengan ruang keadaan \( (S, \mathscr{S}) \), terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \). Misalkan \( \bs P = \{P_t: t \in T\} \) menyatakan koleksi <a href="../markov/General.html">kernel transisi</a> \( \bs X \), sehingga 
 \[ P_t(x, A) = \P(X_t \in A \mid X_0 = x), \quad x \in S, A \in \mathscr{S} \]
 Ingat bahwa (seperti semua kernel probabilitas), \( P_t \) beroperasi (dari kanan) pada fungsi (terukur) \( h: S \to \R \) menurut aturan
@@ -248,16 +248,16 @@ dengan asumsi seperti biasa bahwa nilai harapannya ada. Berikut definisi penting
 <li>\( h \) superharmonik bagi \( \bs X \) jika dan hanya jika \( h(\bs X) \) merupakan supermartingal terhadap \( \mathfrak F \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses Markov">Rincian:</summary>
 <p>Misalkan \( s,\, t \in T \) dengan \( s \le t \). Berdasarkan sifat Markov,
 		\[ \E[h(X_t) \mid \mathscr{F}_s] = \E[h(X_t) \mid X_s] = P_{t-s} h(X_s) \]
 		Jadi, jika \( h \) harmonik, \( \E[h(X_t) \mid \mathscr{F}_s] = h(X_s) \), sehingga \( \{h(X_t): t \in T\} \) merupakan martingal. Sebaliknya, andaikan sifat martingal berlaku di bawah \( \P_x \) untuk setiap \( x \in S \). Dengan mengambil \( s = 0 \) di bawah \( \P_x \), kita memperoleh \( P_t h(x) = h(x) \), sehingga \( h \) harmonik. Argumen yang sama, dengan pertidaksamaan menggantikan kesamaan, berlaku untuk submartingal dan supermartingal.</p>
 </details>
 </div>
 <p>Beberapa contoh yang diberikan dalam <a href="Introduction.html">pendahuluan</a> dapat ditafsirkan kembali dalam konteks fungsi harmonik rantai Markov. Kita menelaah beberapa di antaranya di bawah ini.</p>
-<h3>Contoh</h3>
+<h2 class="reader-level-2">Contoh</h2>
 <p>Misalkan \( \mathscr{R} \) menyatakan koleksi biasa semua himpunan bagian terukur Borel dari \( \R \), dan untuk \( A \in \mathscr{R} \) serta \( x \in \R \), tetapkan \( A - x = \{y - x: y \in A\} \). Misalkan \( I \) menyatakan fungsi identitas pada \( \R \), sehingga \( I(x) = x \) untuk \( x \in \R \). Kita akan memerlukan notasi ini dalam beberapa penerapan di bawah.</p>
-<h4 id="wlk">Gerak Acak</h4>
+<h3 class="reader-level-3" id="wlk">Gerak Acak</h3>
 <p>Misalkan \( \bs V = \{V_n: n \in \N\} \) merupakan barisan peubah acak independen bernilai riil, dengan \( \{V_n: n \in \N_+\} \) berdistribusi identik dan memiliki ukuran probabilitas yang sama, yaitu \( Q \) pada \( (\R, \mathscr{R}) \), serta rata-rata \( a \in \R \). Ingat dari <a href="Introduction.html#wlk">pendahuluan</a> bahwa proses jumlah parsial \( \bs X = \{X_n: n \in \N\} \) yang terkait dengan \( \bs V \) diberikan oleh
 \[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]
 dan bahwa \( \bs X \) merupakan <dfn>gerak acak</dfn> (waktu diskret). Namun, \( \bs X \) juga merupakan proses Markov waktu diskret dengan kernel transisi satu langkah \( P \) yang diberikan oleh \( P(x, A) = Q(A - x) \) untuk \( x \in \R \) dan \( A \in \mathscr{R} \).</p>
@@ -269,14 +269,14 @@ dan bahwa \( \bs X \) merupakan <dfn>gerak acak</dfn> (waktu diskret). Namun, \(
 <li>Superharmonik bagi \( \bs X \) jika \( a \le 0 \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Gerak Acak">Rincian:</summary>
 <p>Perhatikan bahwa
 		\[ PI(x) = \E(X_1 \mid X_0 = x) = x + \E(X_1 - X_0 \mid X_0 = x) = x + \E(V_1 \mid X_0 = x) = I(x) + a \ \]
 		karena \( V_1 \) dan \( X_0 = V_0 \) independen. Hasil-hasil tersebut sekarang mengikuti definisi.</p>
 </details>
 </div>
 <p>Sekarang, dari <a class="ref" href="#mar1"></a> diperoleh bahwa \( \bs X \) merupakan martingal jika \( a = 0 \), submartingal jika \( a \gt 0 \), dan supermartingal jika \( a \lt 0 \). Hasil-hasil ini telah kita tunjukkan langsung dari definisi dalam pendahuluan.</p>
-<h4 id="srw">Gerak Acak Sederhana</h4>
+<h3 class="reader-level-3" id="srw">Gerak Acak Sederhana</h3>
 <p>Sekarang misalkan \( \bs{V} = \{V_n: n \in \N\} \) merupakan barisan peubah acak independen dengan \( \P(V_i = 1) = p \) dan \( \P(V_i = -1) = 1 - p \) untuk \( i \in \N_+ \), dengan \( p \in (0, 1) \). Misalkan \( \bs{X}  = \{X_n: n \in \N\} \) merupakan proses jumlah parsial yang terkait dengan \( \bs{V} \), sehingga 
 \[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]
 Maka \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/bernoulli/Walk.html">gerak acak sederhana</a> dengan parameter \( p \). Dalam konteks perjudian, penjudi kita memainkan serangkaian permainan independen dan identik; pada setiap permainan, ia memenangkan €1 dengan probabilitas \( p \) dan kehilangan €1 dengan probabilitas \( 1 - p \). Jadi, jika \( X_0 \) adalah kekayaan awal penjudi, maka \( X_n \) adalah kekayaan bersihnya setelah \( n \) permainan. Dalam pendahuluan, kita menunjukkan bahwa \( \bs X \) merupakan martingal jika \( p = \frac{1}{2} \), supermartingal jika \( p \lt \frac{1}{2} \), dan submartingal jika \( p \gt \frac{1}{2} \). Namun, sekarang misalkan penjudi tidak selalu memasang taruhan satu unit, melainkan memasang taruhan yang bergantung pada hasil permainan sebelumnya. Hal ini menghasilkan transformasi martingal seperti dalam <a class="ref" href="#trn1"></a>.</p>
@@ -289,7 +289,7 @@ Maka \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/berno
 <li>\( \bs Y \cdot \bs X \) merupakan martingal jika \( p = \frac{1}{2} \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Gerak Acak Sederhana, butir 1">Rincian:</summary>
 <p>Hasil-hasil ini mengikuti perhitungan yang sama seperti dalam <a class="ref" href="#trn2">hasil transformasi martingal</a>; keterintegralan berlaku karena \( |V_k| = 1 \) dan \( \E(Y_k) \lt \infty \).</p>
 </details>
 </div>
@@ -298,7 +298,7 @@ Maka \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/berno
 </p><div class="unit" id="mar3">
 <p class="math">Fungsi \( h \) yang diberikan oleh \( h(x) = \left(\frac{1 - p}{p}\right)^x \) untuk \( x \in \Z \) bersifat harmonik bagi \( \bs X \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Gerak Acak Sederhana, butir 2">Rincian:</summary>
 <p>Untuk \( x \in \Z \),
 		\begin{align*}
 			P h(x) &amp; = p h(x + 1) + (1 - p) h(x - 1) = p \left(\frac{1 - p}{p}\right)^{x+1} + (1 - p) \left(\frac{1 - p}{p}\right)^{x-1} \\
@@ -307,13 +307,13 @@ Maka \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/berno
 </details>
 </div>
 <p>Sekarang, dari <a class="ref" href="#mar1"></a> diperoleh bahwa proses \( \bs Z = \{Z_n: n \in \N\} \) yang diberikan oleh \( Z_n = \left(\frac{1 - p}{p}\right)^{X_n} \) untuk \( n \in \N \) merupakan martingal. Kita telah menunjukkan hal ini langsung dari definisi dalam <a href="Introduction.html#srw4">pendahuluan</a>. Seperti yang mungkin Anda ingat, proses ini adalah <dfn>martingal De Moivre</dfn> dan dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/DeMoivre.html">Abraham De Moivre</a>.</p>
-<h4 id="brn">Proses Percabangan</h4>
+<h3 class="reader-level-3" id="brn">Proses Percabangan</h3>
 <p>Ingat pembahasan tentang <dfn>proses percabangan</dfn> sederhana dari <a href="Introduction.html#brn">pendahuluan</a>. Asumsi mendasarnya adalah bahwa partikel-partikel bertindak secara independen dan masing-masing memiliki distribusi keturunan yang sama pada \( \N \). Seperti sebelumnya, kita menggunakan \( f \) untuk menyatakan <a href="https://www.randomservices.org/random/dist/Discrete.html">fungsi kepadatan probabilitas</a> (diskret) banyaknya keturunan suatu partikel, \( m \) untuk <a href="https://www.randomservices.org/random/expect/Properties.html">rata-rata</a> distribusi tersebut, dan \( \phi \) untuk <a href="https://www.randomservices.org/random/expect/Generating.html#pgf">fungsi pembangkit probabilitas</a> distribusi tersebut. Kita mengandaikan bahwa \( f(0) \gt 0 \) dan \( f(0) + f(1) \lt 1 \), sehingga sebuah partikel memiliki probabilitas positif untuk mati tanpa anak dan probabilitas positif untuk menghasilkan lebih dari 1 anak. Ingat bahwa \( q \) menyatakan probabilitas kepunahan jika dimulai dengan satu partikel.</p>
 <p>Proses stokastik yang kita perhatikan adalah \( \bs{X} = \{X_n: n \in \N\} \), dengan \( X_n \) menyatakan banyaknya partikel dalam generasi ke-\( n \) untuk \( n \in \N \). Ingat bahwa \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/markov/Branching.html">rantai Markov waktu diskret</a> pada \( \N \) dengan matriks transisi satu langkah \( P \) yang diberikan oleh \( P(x, y) = f^{* x}(y) \) untuk \( x, \, y \in \N \), dengan \( f^{*x} \) menyatakan pangkat konvolusi orde \( x \) dari \( f \).</p>
 <div class="unit" id="brn1">
 <p class="math">Fungsi \( h \) yang diberikan oleh \( h(x) = q^x \) untuk \( x \in \N \) bersifat harmonik bagi \( \bs X \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses Percabangan">Rincian:</summary>
 <p>Untuk \( x \in \N \),
 		\[ Ph(x) = \sum_{y \in \N} P(x, y) h(y) = \sum_{y \in \N} f^{*x}(y) q^y \]
 		Ungkapan terakhir adalah fungsi pembangkit probabilitas dari \( f^{*x} \) yang dievaluasi di \( q \). Namun, fungsi pembangkit probabilitas ini adalah \( \phi^x \), dan \( q \) merupakan titik tetap \( \phi \), sehingga kita memperoleh
@@ -321,7 +321,7 @@ Maka \( \bs{X} \) merupakan <a href="https://www.randomservices.org/random/berno
 </details>
 </div>
 <p>Sekarang, dari <a class="ref" href="#mar1"></a> diperoleh bahwa proses \( \bs Z = \{Z_n: n \in \N\} \) merupakan martingal, dengan \( Z_n = q^{X_n} \) untuk \( n \in \N \). Kita telah menunjukkan hal ini langsung dari definisi dalam <a href="Introduction.html#brn1">pendahuluan</a>. Kita juga menunjukkan bahwa proses \( \bs Y = \{Y_n: n \in \N\} \) merupakan martingal, dengan \( Y_n = X_n / m^n \) untuk \( n \in \N \). Kecuali jika \( m = 1 \), representasi \( Y_n = X_n / m^n \) bergantung pada waktu dan secara umum tidak dapat ditulis sebagai \( Y_n = h(X_n) \) untuk satu fungsi keadaan yang tidak bergantung pada \( n \); representasi ruang–waktunya adalah \( H(n, x) = x / m^n \).</p>
-<h4 id="inc">Gerak Acak Umum</h4>
+<h3 class="reader-level-3" id="inc">Gerak Acak Umum</h3>
 <p>Misalkan \( \bs X = \{X_t: t \in T\} \) merupakan proses stokastik yang memenuhi asumsi dasar dalam <a class="ref" href="#pre">bagian Pendahuluan</a> di atas terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \). Ingat dari <a href="Introduction.html#inc">pendahuluan</a> bahwa istilah <dfn>inkremen</dfn> merujuk pada selisih berbentuk \( X_{s+t} - X_s \) untuk \( s, \, t \in T \). Proses \( \bs X \) memiliki <dfn>inkremen independen</dfn> jika inkremen ini selalu independen dari \( \mathscr{F}_s \), dan memiliki <dfn>inkremen stasioner</dfn> jika inkremen ini selalu memiliki distribusi yang sama dengan \( X_t - X_0 \). Dalam waktu diskret, proses dengan inkremen stasioner dan independen hanyalah gerak acak seperti dalam <a class="ref" href="#wlk">bagian Gerak Acak</a> yang dibahas di atas. Dalam waktu kontinu, proses dengan inkremen stasioner dan independen (serta asumsi kekontinuan yang telah kita tetapkan) disebut <dfn>gerak acak waktu kontinu</dfn> dan juga <dfn>proses Lévy</dfn>, yang dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Levy.html">Paul Lévy</a>.</p>
 <p>Jadi, misalkan \( \bs X \) memiliki inkremen stasioner dan independen. Untuk \( t \in T \), misalkan \( Q_t \) menyatakan distribusi probabilitas \( X_t - X_0 \) pada \( (\R, \mathscr{R}) \), sehingga \( Q_t \) juga merupakan distribusi probabilitas \( X_{s+t} - X_s \) untuk setiap \( s, \, t \in T \). Dari pembahasan sebelumnya, kita mengetahui bahwa \( \bs X \) merupakan <a href="../markov/General.html#inc">proses Markov</a> dengan kernel transisi \( P_t \) pada waktu \( t \in T \) yang diberikan oleh
 \[ P_t(x, A) = Q_t(A - x); \quad x \in \R, A \in \mathscr{R} \]
@@ -334,25 +334,25 @@ Kita juga mengetahui bahwa \( \E(X_t - X_0) = a t \) untuk \( t \in T \), dengan
 <li>Superharmonik bagi \( \bs X \) jika \( a \le 0 \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Gerak Acak Umum">Rincian:</summary>
 <p>Perhatikan bahwa
 		\[ P_t I(x) = \E(X_t \mid X_0 = x) = x + \E(X_t - X_0 \mid X_0 = x) = I(x) + a t \]
 		karena \( X_t - X_0 \) independen dari \( X_0 \). Hasil-hasil tersebut sekarang mengikuti definisi.</p>
 </details>
 </div>
 <p>Dengan demikian, \( \bs X \) merupakan martingal jika \( a = 0 \), submartingal jika \( a \ge 0 \), dan supermartingal jika \( a \le 0 \). Kita telah menunjukkan hal ini langsung dalam <a href="Introduction.html#inc">pendahuluan</a>. Ingat bahwa dalam waktu kontinu, <a href="https://www.randomservices.org/random/poisson/Poisson.html">proses pencacahan Poisson</a> memiliki inkremen stasioner dan independen, demikian pula <a href="https://www.randomservices.org/random/brown/Standard.html">gerak Brown standar</a>.</p>
-<footer>
+</main><footer>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
-<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
-<li class="current">2</li>
-<li class="child"><a href="Stop.html" title="Waktu Henti">3</a></li>
-<li class="child"><a href="Inequalities.html" title="Pertidaksamaan">4</a></li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">5</a></li>
-<li class="child"><a href="Backwards.html" title="Martingal Mundur">6</a></li>
-<li class="details"><button onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+<li class="child"><a aria-label="Bagian 1: Pendahuluan" href="Introduction.html" title="Pendahuluan">1</a></li>
+<li aria-current="page" aria-label="Bagian 2: Sifat dan Konstruksi (halaman saat ini)" class="current">2</li>
+<li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Pertidaksamaan" href="Inequalities.html" title="Pertidaksamaan">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Martingal Mundur" href="Backwards.html" title="Martingal Mundur">6</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
 </ol>
 <ul class="map">
 <li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>

@@ -28,29 +28,29 @@ python scripts/build_backend.py --validate-only
 python scripts/verify_published_site.py build/site
 ```
 
-The first four commands pass on the locally complete tenth boundary. The
+All five commands pass on the locally complete eleventh boundary. The
 publication verifier is run against local bytes before push and again against
 the anonymously served Pages bytes after deployment.
 
-## Exact tenth-boundary output
+## Exact eleventh-boundary output
 
-- Reader content: 43 manifested files / 2,661,986 bytes.
-- `build/site/PACKAGE_MANIFEST.csv`: 3,985 bytes, SHA-256
-  `c82e526a39a952f439ed11034ce8bbdcccb5deb853fef931a4336453780bf527`.
-- `build/site/BUILD_RECEIPT.json`: 7,015 bytes, SHA-256
-  `682a76f74952286f39bf1aafa1ff2939a8b0c0ea8602ee559efdb396d4175ac8`.
-- Backend: 1,058 entities + 2,737 segments = 3,795 records / 988 relations /
+- Reader content: 44 manifested files / 2,762,106 bytes.
+- `build/site/PACKAGE_MANIFEST.csv`: 4,077 bytes, SHA-256
+  `f2315be8b9d3a9f9a7a64b65ae67766ca9d467078056ce85e385cde69aad8b45`.
+- `build/site/BUILD_RECEIPT.json`: 7,250 bytes, SHA-256
+  `867d2594620907c5e1cc1d4fefc8187bc9dbc45914a2b319c52f776decc5d5a8`.
+- Backend: 1,160 entities + 3,016 segments = 4,176 records / 1,100 relations /
   21 generated files / eight QA passes / zero QA failures.
-- `backend/BACKEND_MANIFEST.json`: 3,995 bytes, SHA-256
-  `6f14a2e733baa821f264c8964fa8e4bcd64ab17bbfae21626832803abe6a3e73`.
+- `backend/BACKEND_MANIFEST.json`: 3,998 bytes, SHA-256
+  `d999141322b17356ad924d5d1dcb02d06d2b675d7708be8a66252bcb905713ca`.
 - Backend input-set SHA-256:
-  `0581b6e3068816ec48833486a8c077c0ee3056441fa575f46fef724021c86ab1`.
-- Reader builder: 187,036 bytes, SHA-256
-  `7a8d426450d9e12ff9fb408912b342eb9dae566c44de0debb2193578b5d69310`.
-- Backend exporter: 162,937 bytes, SHA-256
-  `98f0267f30fe5fc71f5236e28e8046eea6a176ea93feca675f04529a313dc3ac`.
+  `793ef366551e25f0eb9ee501869433ae2ebbe734e3ae57809b650b4f3eec2429`.
+- Reader builder: 222,359 bytes, SHA-256
+  `0046acda50b3e46006c836e133f4e2ac2d8f1efd7db599dc15922d716801e034`.
+- Backend exporter: 176,740 bytes, SHA-256
+  `8b15e23f2f65adcb0fed23403b586b035638323664e848e3eea9457984311fc9`.
 
-The build receipt binds the ordered 15 theory sources, two lab sources, exact
+The build receipt binds the ordered 16 theory sources, two lab sources, exact
 golden rows, current runtime hashes/versions, manifest count/bytes, and legacy
 first-lab compatibility fields. The reader contains no analytics. Every local
 HTML/CSS reference and fragment closes; every generated lab has a copyable
@@ -58,9 +58,10 @@ stable-ID code block, stable-ID result table, complete edition navigation, and
 exact source/result binding. Symbolic links are rejected from inputs and site
 inventory.
 
-Browser QA covered all 18 pages at 1280×720 and 390×844. Each sweep rendered
-9,996 MathJax containers and found 279 disclosures, with zero document
+Browser QA covered all 19 pages at 1280×720 and 390×844. Each sweep rendered
+10,656 MathJax containers, 309 disclosures, and 73 images, with zero document
 overflow, broken image, empty alternative, unresolved visible reference,
-external runtime, navigation mismatch, or browser warning/error. Long code,
-tables, and displays scroll only inside bounded containers. The exact evidence
-is in `qa/TENTH_BOUNDARY_CHECKPOINT_20260822.md`.
+external runtime, navigation/heading/landmark/label mismatch, or browser
+warning/error. Long code, tables, and displays scroll only inside bounded
+containers. The exact evidence is in
+`qa/ELEVENTH_BOUNDARY_CHECKPOINT_20260822.md`.

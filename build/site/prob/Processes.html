@@ -28,19 +28,19 @@
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/prob/index.html">1. Ruang Probabilitas</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Experiments.html" title="Eksperimen Acak">1</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Events.html" title="Kejadian dan Peubah Acak">2</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Probability.html" title="Ukuran Probabilitas">3</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Conditional.html" title="Probabilitas Bersyarat">4</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Independence.html" title="Kebebasan">5</a></li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">6</a></li>
-<li class="child"><a href="Probability2.html" title="Ruang Probabilitas Ditinjau Kembali">7</a></li>
-<li class="current">8</li>
-<li class="child"><a href="Stop.html" title="Filtrasi dan Waktu Henti">9</a></li>
-<li class="details"><button onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
+<li class="child"><a aria-label="Bagian 1: Eksperimen Acak" href="https://www.randomservices.org/random/prob/Experiments.html" title="Eksperimen Acak">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Kejadian dan Peubah Acak" href="https://www.randomservices.org/random/prob/Events.html" title="Kejadian dan Peubah Acak">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Ukuran Probabilitas" href="https://www.randomservices.org/random/prob/Probability.html" title="Ukuran Probabilitas">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Probabilitas Bersyarat" href="https://www.randomservices.org/random/prob/Conditional.html" title="Probabilitas Bersyarat">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Kebebasan" href="https://www.randomservices.org/random/prob/Independence.html" title="Kebebasan">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">6</a></li>
+<li class="child"><a aria-label="Bagian 7: Ruang Probabilitas Ditinjau Kembali" href="Probability2.html" title="Ruang Probabilitas Ditinjau Kembali">7</a></li>
+<li aria-current="page" aria-label="Bagian 8: Proses Stokastik (halaman saat ini)" class="current">8</li>
+<li class="child"><a aria-label="Bagian 9: Filtrasi dan Waktu Henti" href="Stop.html" title="Filtrasi dan Waktu Henti">9</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
 </ol>
-<h2>8. Proses Stokastik</h2>
+<h1>8. Proses Stokastik</h1>
 </header><aside class="component-attribution" id="o009-rights-random-stochastic-processes">
 <strong>Asal komponen.</strong> Terjemahan halaman <cite>Stochastic Processes</cite>
 karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
@@ -48,8 +48,8 @@ Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
 beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="https://www.randomservices.org/random/prob/Processes.html">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="Convergence.html">Konvergensi</a> · <a href="Probability2.html">Probabilitas ditinjau kembali</a> · <a href="Processes.html">Proses stokastik</a> · <a href="Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav>
-<h4>Pendahuluan</h4>
+<a href="Convergence.html">Konvergensi</a> · <a href="Probability2.html">Probabilitas ditinjau kembali</a> · <a href="Processes.html">Proses stokastik</a> · <a href="Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Ekspektasi bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav><main>
+<h2 class="reader-level-2">Pendahuluan</h2>
 <p>Bagian ini memerlukan teori ukuran, jadi Anda mungkin perlu meninjau kembali bab tentang <a href="https://www.randomservices.org/random/foundations/index.html">landasan</a>, khususnya bagian tentang <a href="https://www.randomservices.org/random/foundations/Topology.html">topologi</a>, <a href="https://www.randomservices.org/random/foundations/Measurable.html">ruang terukur</a>, dan <a href="https://www.randomservices.org/random/foundations/Measure.html">ukuran positif</a>. Pertama, ingat bahwa sebuah himpunan \( E \) hampir selalu dilengkapi dengan aljabar-\( \sigma \) \( \ms E \) yang terdiri atas himpunan-himpunan bagian yang diperbolehkan, sehingga \( (E, \ms E) \) merupakan ruang terukur. Biasanya, \( E \) memiliki topologi dan \( \ms E \) merupakan aljabar-\( \sigma \) Borel yang bersesuaian, yaitu aljabar-\( \sigma \) yang dibangkitkan oleh topologi tersebut. Jika \( E \) terhitung, kita hampir selalu mengambil \( \ms E \) sebagai koleksi semua himpunan bagian dari \( E \), dan dalam hal ini \( (E, \ms E) \) adalah <dfn>ruang diskret</dfn>. Kasus umum lainnya adalah ketika \( E \) merupakan himpunan bagian terukur dari \( \R^n \) untuk suatu \( n \in \N \); dalam hal ini \( \ms E \) adalah koleksi himpunan bagian terukur dari \( E \). Jika \( (E_1, \ms E_1), \, (E_2, \ms E_2), \ldots, (E_n, \ms E_n) \) adalah ruang-ruang terukur untuk suatu \( n \in \N_+ \), maka produk Kartesius \( E_1 \times E_2 \times \cdots \times E_n \) dilengkapi dengan aljabar-\( \sigma \) produk \( \ms E_1 \times \ms E_2 \times \cdots \times \ms E_n \). Sebagai kasus khusus, pangkat Kartesius \( E^n \) dilengkapi dengan aljabar-\( \sigma \) pangkat \( \ms E^n \) yang bersesuaian.</p>
 <p>Setelah uraian pendahuluan ini, misalkan \( (\Omega, \ms F, \P) \) adalah sebuah <a href="Probability2.html">ruang probabilitas</a>, dengan \( \Omega \) sebagai himpunan hasil, \( \ms F \) sebagai aljabar-\( \sigma \) kejadian, dan \( \P \) sebagai ukuran probabilitas pada ruang sampel \( (\Omega, \ms F) \). Misalkan pula bahwa \( (S, \ms S) \) dan \( (T, \ms T) \) adalah ruang terukur. Berikut adalah definisi utama kita:</p>
 <div class="unit">
@@ -62,7 +62,7 @@ Aljabar-\( \sigma \) ini, yang dinotasikan dengan \( \ms S^T \), memperumum alja
 <div class="unit" id="mea">
 <p class="math">Misalkan \( \bs X = \{X_t: t \in T\} \) adalah proses stokastik pada ruang probabilitas \( (\Omega, \ms F, \P) \) dengan ruang keadaan \( (S, \ms S) \) dan himpunan indeks \( T \). Maka pemetaan yang memetakan \( \omega \) ke fungsi \( t \mapsto X_t(\omega) \) terukur terhadap \( (\Omega, \ms F) \) dan \( (S^T, \ms S^T) \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pendahuluan">Rincian:</summary>
 <p>Ingat bahwa suatu pemetaan yang nilainya berada di \( S^T \) terukur jika dan hanya jika setiap <q>fungsi koordinatnya</q> terukur. Dalam konteks ini, artinya kita harus menunjukkan bahwa fungsi \( X_t \) terukur terhadap \( (\Omega, \ms F) \) dan \( (S, \ms S) \) untuk setiap \( t \in T \). Namun tentu saja, hal itu langsung mengikuti makna istilah <em>peubah acak</em>.</p>
 </details>
 </div>
@@ -72,7 +72,7 @@ Aljabar-\( \sigma \) ini, yang dinotasikan dengan \( \ms S^T \), memperumum alja
 <p class="dfn">Sebuah proses stokastik \( \bs X = \{X_t: t \in T\} \) yang didefinisikan pada ruang probabilitas \( (\Omega, \ms F, \P) \), dengan ruang indeks \( (T, \ms T) \) dan ruang keadaan \( (S, \ms S) \), disebut <dfn>terukur</dfn> jika \( (\omega, t) \mapsto X_t(\omega) \) merupakan fungsi terukur dari \( \Omega \times T \) ke \( S \).</p>
 </div>
 <p>Setiap proses stokastik yang diindeks oleh himpunan terhitung \( T \) bersifat terukur, sehingga definisi tersebut hanya penting ketika \( T \) tak terhitung, khususnya untuk \( T = [0, \infty) \).</p>
-<h4 id="eqv">Proses-Proses yang Ekuivalen</h4>
+<h3 class="reader-level-3" id="eqv">Proses-Proses yang Ekuivalen</h3>
 <p>Tujuan kita berikutnya adalah mempelajari berbagai cara dua proses stokastik, dengan ruang keadaan dan ruang indeks yang sama, dapat dianggap <q>ekuivalen</q>; jadi Anda mungkin perlu meninjau kembali <a href="https://www.randomservices.org/random/foundations/Equivalence.html">relasi ekuivalensi</a>. Kita akan mengasumsikan bahwa diagonal \( D = \{(x, x): x \in S\} \in \ms S^2 \), suatu asumsi yang hampir selalu berlaku dalam penerapan, khususnya untuk ruang diskret dan ruang Euklides yang paling penting bagi kita. Syarat-syarat yang memadai adalah bahwa \( \ms S \) memiliki subaljabar-\( \sigma \) yang dibangkitkan secara terhitung dan memuat semua himpunan singleton; sifat-sifat ini berlaku bagi aljabar-\( \sigma \) Borel apabila topologi pada \( S \) kompak lokal, Hausdorff, dan memiliki basis terhitung.</p>
 <p>Pertama, kita sering merasa telah memahami proses acak \( \bs X = \{X_t: t \in T\} \) dengan baik jika mengetahui <dfn>distribusi berdimensi hingga</dfn>, yaitu jika kita mengetahui distribusi \( \left(X_{t_1}, X_{t_2}, \ldots, X_{t_n}\right) \) untuk setiap pilihan \( n \in \N_+ \) dan \( (t_1, t_2, \ldots, t_n) \in T^n \). Dengan demikian, kita dapat menghitung \( \P\left[\left(X_{t_1}, X_{t_2}, \ldots, X_{t_n}\right) \in A\right] \) untuk setiap \( n \in \N_+ \), \( (t_1, t_2, \ldots, t_n) \in T^n \), dan \( A \in \ms S^n \). Dengan menggunakan berbagai aturan probabilitas, kita juga dapat menghitung probabilitas banyak kejadian yang melibatkan tak hingga banyak nilai parameter indeks \( t \). Berdasarkan gagasan ini, kita memiliki definisi berikut: </p>
 <div class="unit" id="dst">
@@ -88,7 +88,7 @@ Aljabar-\( \sigma \) ini, yang dinotasikan dengan \( \ms S^T \), memperumum alja
 <p class="math">Misalkan \( \bs X \) adalah barisan peubah acak indikator yang saling bebas dengan \( \P(X_n = 1) = \frac{1}{2} \) untuk setiap \( n \in \N_+ \). Misalkan \( Y_n = 1 - X_n \) untuk \( n \in \N_+ \). Maka \( \bs{Y} = (Y_1, Y_2, \ldots) \) ekuivalen dalam distribusi dengan \( \bs X \), tetapi
 	\[ \P(X_n \ne Y_n \text{ for every } n \in \N_+) = 1 \]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses-Proses yang Ekuivalen, butir 1">Rincian:</summary>
 <p>Himpunan keadaan adalah \( \{0, 1\} \), dan \( Y_n = 1 \) jika dan hanya jika \( X_n = 0 \). Oleh karena itu, \( \bs{Y} \) juga merupakan barisan peubah indikator yang saling bebas dengan \( \P(Y_n = 1) = \frac{1}{2} \) untuk setiap \(n \in \N_+\), sehingga \( \bs X \) dan \( \bs{Y} \) ekuivalen dalam distribusi.</p>
 </details>
 </div>
@@ -102,7 +102,7 @@ Aljabar-\( \sigma \) ini, yang dinotasikan dengan \( \ms S^T \), memperumum alja
 <li>Jika \( \bs X \) adalah versi dari \( \bs{Y} \) dan \( \bs{Y} \) adalah versi dari \( \bs{Z} \), maka \( \bs X \) adalah versi dari \( \bs{Z} \) (<dfn>sifat transitif</dfn>)</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses-Proses yang Ekuivalen, butir 2">Rincian:</summary>
 <p>Perhatikan bahwa \( (X_t, Y_t) \) adalah peubah acak dengan nilai dalam \( S^2 \) (sehingga fungsi \( \omega \mapsto (X_t(\omega), Y_t(\omega)) \) terukur). Kejadian \( \{X_t = Y_t\} \) adalah prapeta diagonal \( D \in \ms S^2 \) di bawah pemetaan ini, sehingga definisi tersebut bermakna.</p>
 </details>
 </div>
@@ -110,7 +110,7 @@ Aljabar-\( \sigma \) ini, yang dinotasikan dengan \( \ms S^T \), memperumum alja
 <div class="unit">
 <p class="math">Misalkan sekali lagi bahwa \( \bs X = \{X_t: t \in T\} \) dan \( \bs{Y} = \{Y_t: t \in T\} \) adalah proses acak pada \( (\Omega, \ms F, \P) \) dengan ruang keadaan \( (S, \ms S) \) dan himpunan indeks \( T \). Jika \( \bs{Y} \) adalah versi dari \( \bs X \), maka \( \bs{Y} \) dan \( \bs X \) ekuivalen dalam distribusi.</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses-Proses yang Ekuivalen, butir 3">Rincian:</summary>
 <p>Misalkan \( (t_1, t_2, \ldots, t_n) \in T^n \) dan \( A \in \ms S^n \). Ingat bahwa irisan koleksi hingga (atau bahkan terhitung tak hingga) dari kejadian-kejadian berprobabilitas 1 tetap berprobabilitas 1. Oleh karena itu,
 		\begin{align}
 			\P\left[\left(X_{t_1}, X_{t_2}, \ldots, X_{t_n}\right) \in A\right] &amp; = \P\left[\left(X_{t_1}, X_{t_2}, \ldots, X_{t_n}\right) \in A, \, X_{t_1} = Y_{t_1}, X_{t_2} = Y_{t_2}, \ldots, X_{t_n} = Y_{t_n} \right] \\ 
@@ -124,7 +124,7 @@ sehingga \( \bs X \) dan \( \bs{Y} \) benar-benar merupakan proses acak yang pad
 <div class="unit" id="equ5">
 <p class="math">Misalkan \( \Omega = T = [0, \infty) \), \( \ms F = \ms T \) adalah aljabar-\( \sigma \) himpunan bagian Borel terukur dari \( [0, \infty) \), dan \( \P \) adalah sembarang ukuran probabilitas kontinu pada \( (\Omega, \ms F) \). Misalkan \( S = \{0, 1\} \) (tentu saja dengan semua himpunan bagiannya terukur). Untuk \( t \in T \) dan \( \omega \in \Omega \), definisikan \( X_t(\omega) = \bs{1}_t(\omega) \) dan \( Y_t(\omega) = 0 \). Maka \( \bs X = \{X_t: t \in T\} \) adalah versi dari \( \bs{Y} = \{Y_t: t \in T\} \), tetapi \( \P(X_t = Y_t \text{ for all } t \in T\} = 0 \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses-Proses yang Ekuivalen, butir 4">Rincian:</summary>
 <p>Untuk \( t \in [0, \infty) \), \( \P(X_t \ne Y_t) = \P\{t\} = 0 \) karena \( P \) adalah ukuran kontinu. Namun \( \{\omega \in \Omega: X_t(\omega) = Y_t(\omega) \text{ for all } t \in T\} = \emptyset \).</p>
 </details>
 </div>
@@ -137,7 +137,7 @@ sehingga \( \bs X \) dan \( \bs{Y} \) benar-benar merupakan proses acak yang pad
 <li>Jika \( \bs X \) tak terbedakan dari \( \bs{Y} \) dan \( \bs{Y} \) tak terbedakan dari \( \bs{Z} \), maka \( \bs X \) tak terbedakan dari \( \bs{Z} \) (<dfn>sifat transitif</dfn>)</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Proses-Proses yang Ekuivalen, butir 5">Rincian:</summary>
 <p>Persyaratan keterukuran bagi proses stokastik diperlukan untuk memastikan bahwa \( \{X_t = Y_t \text{ for all } t \in T\} \) merupakan kejadian yang sah. Untuk melihatnya, perhatikan bahwa \( (\omega, t) \mapsto (X_t(\omega), Y_t(\omega)) \) terukur sebagai fungsi dari \( \Omega \times T \) ke \( S^2 \). Seperti sebelumnya, misalkan \( D = \{(x, x): x \in S\} \) menyatakan diagonal. Maka \( D^c \in \ms S^2 \), dan prapeta \( D^c \) di bawah pemetaan kita adalah
 		\[\{(\omega, t) \in \Omega \times T: X_t(\omega) \ne Y_t(\omega)\} \in \ms F \times \ms T\]
 		Proyeksi himpunan ini pada \( \Omega \)
@@ -147,12 +147,12 @@ sehingga \( \bs X \) dan \( \bs{Y} \) benar-benar merupakan proses acak yang pad
 </details>
 </div>
 <p>Jadi, relasi <em>tak terbedakan dari</em> membagi koleksi proses stokastik terukur pada suatu ruang probabilitas tertentu dan dengan ruang keadaan serta ruang indeks tertentu menjadi kelas-kelas ekuivalensi yang saling lepas. Secara trivial, jika \( \bs X \) tak terbedakan dari \( \bs{Y} \), maka \( \bs X \) adalah versi dari \( \bs{Y} \). Seperti disebutkan di atas, ketika \( T \) terhitung, konversnya juga benar; tetapi sebagaimana ditunjukkan contoh <a class="ref" href="#equ5"></a>, hal itu tidak berlaku ketika \( T \) tak terhitung. Jadi, sebagai rangkuman, <em>tak terbedakan dari</em> mengimplikasikan <em>versi dari</em>, yang mengimplikasikan <em>ekuivalen dalam distribusi</em>, tetapi secara umum tidak satu pun implikasi konversnya berlaku.</p>
-<h4 id="kol">Konstruksi Kolmogorov</h4>
+<h3 class="reader-level-3" id="kol">Konstruksi Kolmogorov</h3>
 <p>Dalam penerapan, proses stokastik sering dimodelkan dengan memberikan berbagai sifat distribusional yang harus dipenuhi oleh proses tersebut. Jadi, masalah eksistensi dasarnya adalah mengonstruksi proses yang memiliki sifat-sifat tersebut. Secara lebih khusus, bagaimana kita dapat mengonstruksi proses acak dengan distribusi berdimensi hingga yang ditentukan? Mari kita mulai dengan kasus paling sederhana, yang telah kita jumpai beberapa kali sebelumnya, lalu mengembangkannya dari sana. Kasus paling sederhana adalah mengonstruksi satu peubah acak dengan distribusi tertentu.</p>
 <div class="unit">
 <p class="math">Misalkan \( (S, \ms S, P) \) adalah ruang probabilitas. Maka terdapat sebuah peubah acak \( X \) pada suatu ruang probabilitas \( (\Omega, \ms F, \P) \) sedemikian sehingga \( X \) bernilai dalam \( S \) dan berdistribusi \( P \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Konstruksi Kolmogorov, butir 1">Rincian:</summary>
 <p>Buktinya benar-benar trivial. Ambil \( (\Omega, \ms F, \P) = (S, \ms S, P) \) dan definisikan \( X: \Omega \to S \) dengan \( X(\omega) = \omega \), sehingga \( X \) adalah fungsi identitas. Maka \( \{X \in A\} = A \), sehingga \( \P(X \in A) = P(A) \) untuk \( A \in \ms S \).</p>
 </details>
 </div>
@@ -160,7 +160,7 @@ sehingga \( \bs X \) dan \( \bs{Y} \) benar-benar merupakan proses acak yang pad
 <div class="unit" id="seq">
 <p class="math">Misalkan \( P_i \) adalah ukuran probabilitas pada ruang terukur \( (S, \ms S) \) untuk \( i \in \N_+ \). Maka terdapat barisan peubah acak saling bebas \( (X_1, X_2, \ldots) \) pada suatu ruang probabilitas \( (\Omega, \ms F, \P) \) sedemikian sehingga \( X_i \) bernilai dalam \(S\) dan berdistribusi \( P_i \) untuk \( i \in \N_+ \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Konstruksi Kolmogorov, butir 2">Rincian:</summary>
 <p>Misalkan \( \Omega = S^\infty = S \times S \times \cdots \). Selanjutnya, misalkan \( \ms F = \ms S^\infty \), yaitu aljabar-\( \sigma \) produk yang bersesuaian. Ingat bahwa ini adalah aljabar-\( \sigma \) yang dibangkitkan oleh himpunan-himpunan berbentuk
 		\[ A_1 \times A_2 \times \cdots \text{ where } A_i \in \ms S \text{ for each } i \in I \text{ and } A_i = S \text{ for all but finitely many } i \in I \]
 		Terakhir, misalkan \( \P = P_1 \times P_2 \times \cdots \), yaitu ukuran produk yang bersesuaian pada \( (\Omega, \ms F) \). Ingat bahwa ini adalah ukuran probabilitas tunggal yang memenuhi
@@ -191,7 +191,7 @@ terakhir, jika \( n \gt 1 \), misalkan \( \bs t_- \) menyatakan vektor \( (t_1, 
 <div class="unit" id="kol1">
 <p class="math"><strong>Teorema Eksistensi Kolmogorov</strong>. Jika \( \ms P \) adalah koleksi konsisten distribusi probabilitas relatif terhadap himpunan indeks \( T \) dan ruang keadaan \( (S, \ms S) \), maka terdapat sebuah ruang probabilitas \( (\Omega, \ms F, \P) \) dan sebuah proses stokastik \( \bs X = \{X_t: t \in T\} \) pada ruang probabilitas ini sedemikian sehingga \( \ms P \) merupakan koleksi distribusi berdimensi hingga dari \( \bs X \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Konstruksi Kolmogorov, butir 3">Rincian:</summary>
 <p>Misalkan \( \Omega = S^T \), yaitu himpunan fungsi dari \( T \) ke \( S \). Fungsi-fungsi tersebut adalah <dfn>hasil</dfn> proses stokastik. Misalkan \( \ms F = \ms S^T \), yaitu aljabar-\( \sigma \) produk yang dibangkitkan oleh himpunan-himpunan berbentuk
 		\[ B = \{\omega \in \Omega: \omega(t) \in A_t \text{ for all } t \in T\} \]
 		dengan \( A_t \in \ms S \) untuk semua \( t \in T \), dan \( A_t = S \) untuk semua kecuali sejumlah hingga \( t \in T \). Kita mengetahui cara ukuran probabilitas yang kita inginkan, \( \P \), bekerja pada himpunan-himpunan yang membangkitkan \( \ms F \). Secara khusus, misalkan \( B \) adalah himpunan berjenis seperti dalam persamaan yang ditampilkan, dan \( A_t = S \) kecuali untuk \( \bs t = (t_1, t_2, \ldots, t_n) \in T^{(n)} \). Maka kita menginginkan
@@ -200,7 +200,7 @@ terakhir, jika \( n \gt 1 \), misalkan \( \bs t_- \) menyatakan vektor \( (t_1, 
 </details>
 </div>
 <p>Perhatikan bahwa kecuali notasinya yang lebih rumit, konstruksi tersebut sangat mirip dengan konstruksi barisan peubah bebas dalam <a class="ref" href="#seq"></a>. Sekali lagi, \( \bs X \) pada hakikatnya adalah fungsi identitas pada \( \Omega = S^T \). Bagian yang penting dan lebih sulit adalah konstruksi ukuran probabilitas \( \P \) pada \( (\Omega, \ms F) \).</p>
-<h4>Penerapan</h4>
+<h3 class="reader-level-3">Penerapan</h3>
 <p>Pembahasan terakhir kita merupakan ringkasan proses stokastik yang dipelajari dalam teks ini. Semuanya merupakan bahasan klasik dan sangat penting dalam penerapan.</p>
 <div class="unit">
 <p class="math">Proses acak yang berkaitan dengan <a href="https://www.randomservices.org/random/bernoulli/index.html">percobaan Bernoulli</a> mencakup</p>
@@ -212,7 +212,7 @@ terakhir, jika \( n \gt 1 \), misalkan \( \bs t_- \) menyatakan vektor \( (t_1, 
 <li><a href="https://www.randomservices.org/random/bernoulli/Walk.html">Gerak acak sederhana</a></li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Penerapan, butir 1">Rincian:</summary>
 <p>Barisan percobaan Bernoulli pada (a) adalah barisan peubah acak indikator yang saling bebas dan berdistribusi identik, sehingga dapat dikonstruksi seperti dalam <a class="ref" href="#seq"></a>. Proses acak pada (b)–(e) dikonstruksi dari barisan percobaan Bernoulli.</p>
 </details>
 </div>
@@ -226,7 +226,7 @@ terakhir, jika \( n \gt 1 \), misalkan \( \bs t_- \) menyatakan vektor \( (t_1, 
 <li><a href="https://www.randomservices.org/random/poisson/General.html">Proses pencacahan pada ruang ukuran umum</a></li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Penerapan, butir 2">Rincian:</summary>
 <p>Proses acak pada (a) adalah barisan peubah acak saling bebas dengan distribusi eksponensial yang sama, sehingga dapat dikonstruksi seperti dalam <a class="ref" href="#seq"></a>. Proses-proses pada (b) dan (c) dapat dikonstruksi dari barisan pada (a).</p>
 </details>
 </div>
@@ -239,21 +239,21 @@ terakhir, jika \( n \gt 1 \), misalkan \( \bs t_- \) menyatakan vektor \( (t_1, 
 </ol>
 </div>
 <p><a href="https://www.randomservices.org/random/markov/index.html">Proses Markov</a> merupakan keluarga proses acak yang sangat penting, demikian pula proses-proses yang berkaitan dengan <a href="https://www.randomservices.org/random/brown/index.html">gerak Brown</a>.</p>
-<footer>
+</main><footer>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/prob/index.html">1. Ruang Probabilitas</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Experiments.html" title="Eksperimen Acak">1</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Events.html" title="Kejadian dan Peubah Acak">2</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Probability.html" title="Ukuran Probabilitas">3</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Conditional.html" title="Probabilitas Bersyarat">4</a></li>
-<li class="child"><a href="https://www.randomservices.org/random/prob/Independence.html" title="Kebebasan">5</a></li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">6</a></li>
-<li class="child"><a href="Probability2.html" title="Ruang Probabilitas Ditinjau Kembali">7</a></li>
-<li class="current">8</li>
-<li class="child"><a href="Stop.html" title="Filtrasi dan Waktu Henti">9</a></li>
-<li class="details"><button onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
+<li class="child"><a aria-label="Bagian 1: Eksperimen Acak" href="https://www.randomservices.org/random/prob/Experiments.html" title="Eksperimen Acak">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Kejadian dan Peubah Acak" href="https://www.randomservices.org/random/prob/Events.html" title="Kejadian dan Peubah Acak">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Ukuran Probabilitas" href="https://www.randomservices.org/random/prob/Probability.html" title="Ukuran Probabilitas">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Probabilitas Bersyarat" href="https://www.randomservices.org/random/prob/Conditional.html" title="Probabilitas Bersyarat">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Kebebasan" href="https://www.randomservices.org/random/prob/Independence.html" title="Kebebasan">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">6</a></li>
+<li class="child"><a aria-label="Bagian 7: Ruang Probabilitas Ditinjau Kembali" href="Probability2.html" title="Ruang Probabilitas Ditinjau Kembali">7</a></li>
+<li aria-current="page" aria-label="Bagian 8: Proses Stokastik (halaman saat ini)" class="current">8</li>
+<li class="child"><a aria-label="Bagian 9: Filtrasi dan Waktu Henti" href="Stop.html" title="Filtrasi dan Waktu Henti">9</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
 </ol>
 <ul class="map">
 <li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>

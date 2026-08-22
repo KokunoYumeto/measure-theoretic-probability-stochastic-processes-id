@@ -27,16 +27,16 @@
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
-<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
-<li class="child"><a href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
-<li class="child"><a href="Stop.html" title="Waktu Henti">3</a></li>
-<li class="current">4</li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">5</a></li>
-<li class="child"><a href="Backwards.html" title="Martingal Mundur">6</a></li>
-<li class="details"><button onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+<li class="child"><a aria-label="Bagian 1: Pendahuluan" href="Introduction.html" title="Pendahuluan">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Sifat dan Konstruksi" href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>
+<li aria-current="page" aria-label="Bagian 4: Pertidaksamaan (halaman saat ini)" class="current">4</li>
+<li class="child"><a aria-label="Bagian 5: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Martingal Mundur" href="Backwards.html" title="Martingal Mundur">6</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
 </ol>
-<h2>4. Pertidaksamaan</h2>
+<h1>4. Pertidaksamaan</h1>
 </header><aside class="component-attribution" id="o009-rights-random-martingale-inequalities">
 <strong>Asal komponen.</strong> Terjemahan halaman <cite>Inequalities</cite>
 karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
@@ -44,18 +44,18 @@ Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
 beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="https://www.randomservices.org/random/martingales/Inequalities.html">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav>
-<h3>Teori Dasar</h3>
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Ekspektasi bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav><main>
+<h2 class="reader-level-2">Teori Dasar</h2>
 <p>Dalam bagian ini, kita akan mempelajari sejumlah pertidaksamaan menarik yang berkaitan dengan martingal beserta kerabatnya, yaitu submartingal dan supermartingal. Pertidaksamaan ini ternyata sangat penting, baik untuk alasan teoretis maupun untuk penerapan. Anda mungkin perlu meninjau kembali <a href="https://www.randomservices.org/random/foundations/Order.html">infimum dan supremum</a>.</p>
-<h4 id="asm">Asumsi Dasar</h4>
+<h3 class="reader-level-3" id="asm">Asumsi Dasar</h3>
 <p>Seperti dalam <a href="Introduction.html">pendahuluan</a>, kita mulai dengan suatu <a href="../prob/Processes.html">proses stokastik</a> \( \bs{X} = \{X_t: t \in T\} \) pada ruang probabilitas yang mendasarinya \( (\Omega, \mathscr{F}, \P) \), dengan ruang keadaan \( \R \), dan dengan himpunan indeks \( T \) (yang menyatakan waktu) berupa \( \N \) (waktu diskret) atau \( [0, \infty) \) (waktu kontinu). Selanjutnya, kita memiliki suatu <a href="../prob/Stop.html">filtrasi</a> \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), dan kita mengandaikan bahwa \( \bs{X} \) <dfn>teradaptasi</dfn> terhadap \( \mathfrak{F} \). Jadi, \( \mathfrak{F} \) merupakan keluarga menaik subaljabar-\( \sigma \) dari \( \mathscr{F} \), dan \( X_t \) terukur terhadap \( \mathscr{F}_t \) untuk \( t \in T \). Kita memandang \( \mathscr{F}_t \) sebagai koleksi kejadian hingga waktu \( t \in T \). Kita mengandaikan bahwa \( \E\left(\left|X_t\right|\right) \lt \infty \), sehingga <a href="https://www.randomservices.org/random/expect/Properties.html">rata-rata</a> \( X_t \) ada sebagai bilangan riil untuk setiap \( t \in T \). Terakhir, dalam waktu kontinu ketika \( T = [0, \infty) \), kita menggunakan asumsi standar bahwa \( t \mapsto X_t \) kontinu kanan dan memiliki limit kiri, serta bahwa filtrasi \( \mathfrak F \) kontinu kanan dan lengkap.</p>
-<h4 id="max">Pertidaksamaan Maksimal</h4>
+<h3 class="reader-level-3" id="max">Pertidaksamaan Maksimal</h3>
 <p>Sebagai motivasi, mari kita tinjau suatu versi modifikasi dari <a href="https://www.randomservices.org/random/expect/Properties2.html#mar">pertidaksamaan Markov</a>, yang dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Markov.html">Andrei Markov</a>. </p>
 <div class="unit" id="max1">
 <p class="math">Jika \( X \) merupakan peubah acak bernilai riil, maka
 	\[ \P(X \ge x) \le \frac{1}{x} \E(X ; X \ge x), \quad x \in (0, \infty) \]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Maksimal, butir 1">Rincian:</summary>
 <p>Versi modifikasi ini pada dasarnya memiliki bukti yang sama elegannya dengan versi semula. Jelas bahwa
 		\[ x \bs{1}(X \ge x) \le X \bs{1}(X \ge x), \quad x \in (0, \infty) \]
 		Mengambil nilai harapan pada pertidaksamaan tersebut memberikan \( x \P(X \ge x) \le \E(X; X \ge x) \). Membagi kedua ruas dengan \( x \) memberikan hasilnya (dan pada titik inilah kita memerlukan \( x \gt 0. \)).</p></details>
@@ -73,7 +73,7 @@ Namun, ketika \( \bs X \) merupakan submartingal, teorema berikut memberikan has
 	\[ \P(U_t \ge x) \le \frac{1}{x} \E(X_t; U_t \ge x), \quad x \in (0, \infty) \]
 	</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Maksimal, butir 2">Rincian:</summary>
 <p><strong>Bukti dalam waktu diskret:</strong> Jadi, \( T = \N \) dan proses maksimal diberikan oleh \( U_n = \max\left\{X_k: k \in \N_n\right\} \) untuk \( n \in \N \). Ambil \( x \in (0, \infty) \), dan definisikan \( \tau_x = \min\{k \in \N: X_k \ge x\} \), dengan seperti biasa \( \min(\emptyset) = \infty \). Waktu acak \( \tau_x \) merupakan <a href="../prob/Stop.html">waktu henti</a> terhadap \( \mathfrak F \). Selain itu, proses \( \{U_n: n \in \N\} \) dan \( \{\tau_x: x \in (0, \infty)\} \) saling invers dalam arti bahwa untuk \( n \in \N \) dan \( x \in (0, \infty) \),
 		\[ U_n \ge x \text{ jika dan hanya jika } \tau_x \le n \]
 		Kita telah melihat jenis dualitas ini sebelumnya—dalam <a href="https://www.randomservices.org/random/poisson/index.html">proses Poisson</a> dan secara lebih umum dalam <a href="https://www.randomservices.org/random/renewal/index.html">proses pembaruan</a>. Ambil \( n \in \N \). Pertama, perhatikan bahwa
@@ -102,7 +102,7 @@ Namun, ketika \( \bs X \) merupakan submartingal, teorema berikut memberikan has
 <p class="math">Misalkan \( \bs X \) merupakan submartingal. Untuk \( t \in T \), tetapkan \( V_t = \sup\{X_s^+: s \in T_t\} \). Maka
 	\[ \P(V_t \ge x) \le \frac{1}{x} \E(X_t^+; V_t \ge x), \quad x \in (0, \infty) \]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Maksimal, butir 3">Rincian:</summary>
 <p><a href="Properties.html#prp7">Ingat</a> bahwa karena \( \bs X \) merupakan submartingal dan \( x \mapsto x^+ \) menaik serta cembung, \( \bs X^+ = \{X_t^+: t \in T\} \) juga merupakan submartingal. Oleh karena itu, hasilnya mengikuti pertidaksamaan maksimal umum untuk submartingal.</p>
 </details>
 </div>
@@ -113,7 +113,7 @@ Dalam literatur, pertidaksamaan maksimal terkadang dinyatakan dalam bentuk ini.<
 <p class="math">Misalkan \( \bs X \) merupakan martingal. Untuk \( t \in T \), tetapkan \( W_t = \sup\{|X_s|: s \in T_t\} \). Maka
 	\[ \P(W_t \ge x) \le \frac{1}{x} \E(|X_t|; W_t \ge x), \quad x \in (0, \infty) \]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Maksimal, butir 4">Rincian:</summary>
 <p>Ingat dari <a href="Properties.html#prp7">sifat-sifat</a> dasar bahwa karena \( \bs X \) merupakan martingal dan \( x \mapsto |x| \) cembung, \( |\bs X| = \{|X_t|: t \in T\} \) merupakan submartingal. Oleh karena itu, hasilnya mengikuti pertidaksamaan maksimal umum untuk submartingal.</p>
 </details>
 </div>
@@ -124,7 +124,7 @@ Selanjutnya, ingat bahwa untuk \( k \in (1, \infty) \), <a href="https://www.ran
 <p class="math">Misalkan kembali bahwa \( \bs X \) merupakan martingal. Untuk \( t \in T \), tetapkan \( W_t = \sup\{|X_s|: s \in T_t\} \). Maka untuk \( k \gt 1 \),
 	\[ \|W_t\|_k \le \frac{k}{k - 1} \|X_t\|_k\]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Maksimal, butir 5">Rincian:</summary>
 <p>Tetapkan \( t \in T \). Jika \( \E(|X_t|^k) = \infty \), pertidaksamaan tersebut berlaku dengan sendirinya, jadi andaikan bahwa \( \E(|X_t|^k) \lt \infty \), dan dengan demikian \( X_t \in \mathscr{L}_k \). Bukti ini bergantung secara mendasar pada <a href="https://www.randomservices.org/random/expect/Spaces.html">pertidaksamaan Hölder</a>, dan agar pertidaksamaan itu dapat digunakan, kita perlu memotong peubah \( W_t \) dan sebagai gantinya meninjau peubah acak terbatas \( W_t \wedge c \), dengan \( c \in (0, \infty) \). Pertama, kita perlu menunjukkan bahwa
 		\[ \P(W_t \wedge c \ge x) \le \frac{1}{x} \E(|X_t|; W_t \wedge c \ge x), \quad x \in (0, \infty) \]
 		Jika \( c \lt x \), kedua ruas bernilai 0. Jika \( c \ge x \), \( \{W_t \wedge c \ge x\} = \{W_t \ge x\} \)
@@ -151,7 +151,7 @@ Hasil terakhir kita dalam pembahasan ini merupakan variasi pertidaksamaan maksim
 <p class="math">Misalkan \( \bs X = \{X_t: t \in T\} \) merupakan supermartingal nonnegatif, dan tetapkan \( U_\infty = \sup\{X_t: t \in T\} \). Maka
 	\[ \P(U_\infty \ge x) \le \frac{1}{x} \E(X_0), \quad x \in (0, \infty) \]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Maksimal, butir 6">Rincian:</summary>
 <p>Untuk \(t\in T\), tetapkan \(U_t=\sup\{X_s:s\in T_t\}\), lalu ambil \(x\in(0,\infty)\). Dalam waktu diskret, tetapkan \(\tau_x=\inf\{s\in T_t:X_s\ge x\}\), dengan \(\inf(\emptyset)=\infty\). Kenonnegatifan dan teorema penghentian opsional memberikan
 		\[ x\P(U_t\ge x) \le \E(X_{\tau_x\wedge t}) \le \E(X_0). \]
 		Dalam waktu kontinu, gunakan kisi diadik berhingga \(T_t^k\) di atas. Untuk \(0\lt y\lt x\),
@@ -165,7 +165,7 @@ Hasil terakhir kita dalam pembahasan ini merupakan variasi pertidaksamaan maksim
 		Karena ini berlaku untuk semua \( \epsilon \in (0, x) \), diperoleh \( \P(U_\infty \ge x) \le \frac{1}{x} \E(X_0) \).</p>
 </details>
 </div>
-<h4 id="upc">Pertidaksamaan Lintas-Naik</h4>
+<h3 class="reader-level-3" id="upc">Pertidaksamaan Lintas-Naik</h3>
 <p>Pertidaksamaan lintas-naik memberikan batas atas bagi tingkat osilasi submartingal (atau supermartingal), dan merupakan alat utama dalam <a href="Convergence.html">teorema konvergensi martingal</a> yang akan dipelajari dalam bagian berikutnya. Kini tidak mengherankan lagi bahwa pertidaksamaan ini berasal dari <a class="ancillary" href="https://www.randomservices.org/random/biographies/Doob.html">Joseph Doob</a>. Kita mulai dengan kasus waktu diskret.</p>
 <div class="unit" id="upc1">
 <p class="dfn"> Misalkan \( \bs x = (x_n: n \in \N) \) merupakan barisan bilangan riil, dan \( a, \, b \in \R \) dengan \( a \lt b \). Definisikan \( t_0(\bs x) = 0  \), lalu secara rekursif definisikan
@@ -180,7 +180,7 @@ Hasil terakhir kita dalam pembahasan ini merupakan variasi pertidaksamaan maksim
 		\[ u_\infty(a, b, \bs x) = \sup\{k \in \N: t_k(\bs x) \lt \infty\} \]</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Lintas-Naik, butir 1">Rincian:</summary>
 <p>Seperti biasa, kita definisikan \( \inf(\emptyset) = \infty \). Perhatikan bahwa jika \( t_k(\bs x) \lt \infty \) untuk \( k \in \N_+ \), maka \( (x_n: n = s_k(\bs x), \ldots t_k(\bs x)) \) merupakan lintas-naik ke-\( k \) dari interval \( [a, b] \) oleh barisan \( \bs x \).</p>
 </details>
 </div>
@@ -193,7 +193,7 @@ Hasil terakhir kita dalam pembahasan ini merupakan variasi pertidaksamaan maksim
 <li>Jika \( c, \, d \in \R \) dengan \( a \lt c \lt d \lt b \), maka \( u_n(c, d, \bs x) \ge u_n(a, b, \bs x) \) untuk \( n \in \N \), dan \( u_\infty(c, d, \bs x) \ge u_\infty(a, b, \bs x) \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Lintas-Naik, butir 2">Rincian:</summary>
 <ol class="sub">
 <li>Perhatikan bahwa \(\{k \in \N: t_k(\bs x) \le n\} \subseteq \{k \in \N: t_k(\bs x) \le n + 1\}\).</li>
 <li>Perhatikan bahwa \( \bigcup_{n=0}^\infty \{k \in \N: t_k(\bs x) \le n\} = \{k \in \N: t_k(\bs x) \lt \infty\} \).</li>
@@ -205,7 +205,7 @@ Hasil terakhir kita dalam pembahasan ini merupakan variasi pertidaksamaan maksim
 <div class="unit" id="upc3">
 <p class="math">Misalkan kembali bahwa \( \bs x = (x_n: n \in \N) \) merupakan barisan bilangan riil. Maka \( \lim_{n \to \infty} x_n \) ada dalam \( \R^* \) jika dan hanya jika \( u_\infty(a,b, \bs x) \lt \infty\) untuk setiap \( a, \, b \in \Q \) dengan \( a \lt b \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Lintas-Naik, butir 3">Rincian:</summary>
 <p>Kita membuktikan kontraposisinya. Perhatikan bahwa pernyataan-pernyataan berikut ekuivalen:</p>
 <ol class="sub">
 <li>\( \lim_{n \to \infty} x_n \) tidak ada dalam \( \R^* \).</li>
@@ -233,7 +233,7 @@ Hasil terakhir kita dalam pembahasan ini merupakan variasi pertidaksamaan maksim
 \end{aligned} \]</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Lintas-Naik, butir 4">Rincian:</summary>
 <p>Dalam konteks definisi <a class="ref" href="#upc1"></a>, tetapkan \( \sigma_k = s_k(\bs X) \) dan \( \tau_k = t_k(\bs X) \). Waktu-waktu acak ini mendefinisikan lintas-naik \( \bs X \). Tetapkan \( Y_k = X_{\tau_k \wedge n} - X_{\sigma_k \wedge n} \), lalu definisikan \( Z_n = \sum_{k=1}^n Y_k \). Untuk memahami jumlah tersebut, mari kita tinjau kasus-kasus untuk suku ke-\( k \), yaitu \( Y_k \):</p>
 <ul>
 <li>Jika \( \tau_k \le n \), maka \( Y_k = X_{\tau_k} - X_{\sigma_k} \ge b - a \). Berdasarkan definisi, sebanyak \( U_n \) suku pertama berbentuk demikian. </li>
@@ -290,7 +290,7 @@ Ini membuktikan pernyataan kedua.</li>
 <li>Jika \( c, \, d \in \R \) dengan \( a \lt c \lt d \lt b \) dan \( I \subset [0, \infty) \), maka \( u_I(c, d, \bs x) \ge u_I(a, b, \bs x) \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Lintas-Naik, butir 5">Rincian:</summary>
 <ol class="sub">
 <li>Hasilnya mudah diperoleh dari definisi jika \( I \) berhingga (dan \( J \) berhingga ataupun tak berhingga). Jika \( I \) tak berhingga (dan dengan demikian \( J \) juga tak berhingga), perhatikan bahwa
 			\[ \{u_K(a, b, \bs x): K \text{ berhingga dan } K \subseteq I\} \subseteq \{u_K(a, b, \bs x): K \text{ berhingga dan } K \subseteq J\} \]</li>
@@ -303,7 +303,7 @@ Ini membuktikan pernyataan kedua.</li>
 <div class="unit" id="upc7">
 <p class="math">Misalkan \( \bs x: [0, \infty) \to \R \). Maka \( \lim_{t \to \infty} x_t \) ada dalam \( \R^* \) jika dan hanya jika \( u_\infty(a, b, \bs x) \lt \infty \) untuk setiap \( a, \, b \in \Q \) dengan \( a \lt b \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Lintas-Naik, butir 6">Rincian:</summary>
 <p>Seperti dalam kasus waktu diskret, kita membuktikan kontraposisinya. Buktinya hampir sama: pernyataan-pernyataan berikut ekuivalen:</p>
 <ol class="sub">
 <li>\( \lim_{t \to \infty} x_t \) tidak ada dalam \( \R^* \).</li>
@@ -334,7 +334,7 @@ Ini membuktikan pernyataan kedua.</li>
 		</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Lintas-Naik, butir 7">Rincian:</summary>
 <p>Definisikan secara rekursif waktu masuk \(\sigma_k\) ke \(( -\infty,a]\) dan \(\tau_k\) ke \([b,\infty)\), seperti dalam kasus diskret. Untuk proses teradaptasi càdlàg di bawah asumsi biasa, waktu-waktu tersebut merupakan waktu henti. Karena itu,
 \[ U_t=\sup\{k\in\N:\tau_k\le t\} \]
 terukur. Ambil \(0\lt\epsilon\lt(b-a)/2\), dan tetapkan
@@ -349,8 +349,8 @@ Untuk supermartingal, argumen yang sama menggunakan bagian negatif dan menghasil
 \[ \E(U_t)\le\frac{1}{b-a}\E[(X_t-a)^-]. \]</p>
 </details>
 </div>
-<h3>Contoh dan Penerapan</h3>
-<h4>Pertidaksamaan Kolmogorov</h4>
+<h2 class="reader-level-2">Contoh dan Penerapan</h2>
+<h3 class="reader-level-3">Pertidaksamaan Kolmogorov</h3>
 <p>Misalkan \( \bs X = \{X_n: n \in \N_+\} \) merupakan barisan peubah independen dengan \( \E(X_n) = 0 \) dan \( \var(X_n) = \E(X_n^2) \lt \infty \) untuk \( n \in \N_+ \). Misalkan \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses jumlah parsial yang terkait dengan \( \bs X \), sehingga
 \[ Y_n = \sum_{i=1}^n X_i, \quad n \in \N \]
 Dari <a href="Introduction.html#sum">pendahuluan</a>, kita mengetahui bahwa \( \bs Y \) merupakan martingal. Penerapan sederhana pertidaksamaan maksimal memberikan hasil berikut. Hasil ini dikenal sebagai <dfn>pertidaksamaan Kolmogorov</dfn> dan dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Kolmogorov.html">Andrei Kolmogorov</a>.</p>
@@ -358,14 +358,14 @@ Dari <a href="Introduction.html#sum">pendahuluan</a>, kita mengetahui bahwa \( \
 <p class="math">Untuk \( n \in \N \), tetapkan \( U_n = \max\left\{\left|Y_i\right|: i \in \N_n\right\} \). Maka
 	\[ \P(U_n \ge x) \le \frac{1}{x^2} \var(Y_n) = \frac{1}{x^2} \sum_{i=1}^n \E(X_i^2), \quad x \in (0, \infty)\]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Pertidaksamaan Kolmogorov">Rincian:</summary>
 <p>Seperti dicatat di atas, \( \bs Y \) merupakan martingal. Karena fungsi \( x \mapsto x^2 \) pada \( \R \) cembung, \( \bs{Y}^2 = \{Y_n^2: n \in \N\} \) merupakan submartingal. Tetapkan \( V_n = \max\{Y_i^2: i \in \N_n\}  \) untuk \( n \in \N \), dan ambil \( x \in (0, \infty) \). Dengan menerapkan pertidaksamaan maksimal untuk submartingal, kita memperoleh
 		\[ \P(U_n \ge x) = \P(V_n \ge x^2) \le \frac{1}{x^2} \E(Y_n^2) = \frac{1}{x^2} \var(Y_n)\]
 		Terakhir, karena \( \bs X \) merupakan barisan independen,
 		\[ \var(Y_n) = \sum_{i=1}^n \var(X_i) = \sum_{i=1}^n \E(X_i^2) \]</p>
 </details>
 </div>
-<h4 id="red">Merah dan Hitam</h4>
+<h3 class="reader-level-3" id="red">Merah dan Hitam</h3>
 <p>Dalam permainan <a href="https://www.randomservices.org/random/games/RedBlack.html">merah dan hitam</a>, seorang penjudi memainkan serangkaian permainan Bernoulli dengan parameter keberhasilan \( p \in (0, 1) \) dan taruhan seimbang. Penjudi memulai dengan kekayaan awal \( x \) dan bermain hingga ia bangkrut atau mencapai target kekayaan tertentu \( a \), dengan \( x, \, a \in (0, \infty) \) dan \( x \lt a \). Ketika \( p \le \frac{1}{2} \), sehingga permainannya adil atau merugikan, strategi optimalnya adalah <dfn>permainan berani</dfn>: pada setiap permainan, penjudi mempertaruhkan seluruh kekayaannya atau hanya jumlah yang diperlukan untuk mencapai target, mana pun yang lebih kecil. Dalam bagian tentang <a href="https://www.randomservices.org/random/games/Bold.html">permainan berani</a>, kita menunjukkan bahwa ketika \( p = \frac{1}{2} \), sehingga permainannya adil, probabilitas menang (yaitu mencapai target \( a \) jika dimulai dengan \( x \)) adalah \( x / a \). Dalam kasus adil ini, pertidaksamaan maksimal untuk supermartingal menunjukkan bahwa tidak ada strategi yang dapat memberikan hasil lebih baik. </p>
 <p>Untuk menetapkan notasi dan meninjau berbagai konsep, misalkan \( X_0 \) menyatakan kekayaan awal penjudi dan \( X_n \) menyatakan hasil permainan \( n \in \N_+ \), dengan 1 berarti menang dan \( -1 \) berarti kalah. Jadi, \( \{X_n: n \in \N\} \) merupakan barisan peubah independen dengan \( \P(X_n = 1) = p \) dan \( \P(X_n = -1) = 1 - p \) untuk \( n \in \N_+ \). (Kekayaan awal \( X_0 \) memiliki distribusi yang tidak ditentukan pada \( (0, \infty) \).) Lagi pula, penjudi berada di kasino, sehingga tentu saja \( p \le \frac{1}{2} \). Tetapkan
 \[ Y_n = \sum_{i=0}^n X_i, \quad n \in \N \]
@@ -376,7 +376,7 @@ Ingat bahwa \( \bs W = \{W_n: n \in \N\} \) merupakan <dfn>transformasi</dfn> ya
 <p class="math">Tetapkan \( U_\infty = \sup\{W_n: n \in \N\} \). Misalkan \( x, \, a \in (0, \infty) \) dengan \( x \lt a \) dan \( X_0 = x \). Maka
 	\[ \P(U_\infty \ge a) \le \frac{x}{a} \]</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Merah dan Hitam">Rincian:</summary>
 <p>Kendala \(0\le Z_n\le W_{n-1}\) memastikan \(W_n\ge0\). Karena \(Z_n\) terukur terhadap informasi sebelum permainan ke-\(n\),
 \[ \E(W_n\mid\mathscr F_{n-1})=W_{n-1}+Z_n(2p-1)\le W_{n-1}. \]
 Jadi \(\bs W\) merupakan supermartingal nonnegatif. Berdasarkan <a class="ref" href="#max7"></a>,
@@ -387,18 +387,18 @@ Jadi \(\bs W\) merupakan supermartingal nonnegatif. Berdasarkan <a class="ref" h
 <div class="unit">
 <p class="app">Buka simulasi <a class="ancillary" href="https://www.randomservices.org/random/apps/Bold.html">permainan berani</a> dan tetapkan \( p = \frac{1}{2} \). Jalankan permainan dengan berbagai nilai kekayaan awal dan target.</p>
 </div>
-<footer>
+</main><footer>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
-<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
-<li class="child"><a href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
-<li class="child"><a href="Stop.html" title="Waktu Henti">3</a></li>
-<li class="current">4</li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">5</a></li>
-<li class="child"><a href="Backwards.html" title="Martingal Mundur">6</a></li>
-<li class="details"><button onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+<li class="child"><a aria-label="Bagian 1: Pendahuluan" href="Introduction.html" title="Pendahuluan">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Sifat dan Konstruksi" href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>
+<li aria-current="page" aria-label="Bagian 4: Pertidaksamaan (halaman saat ini)" class="current">4</li>
+<li class="child"><a aria-label="Bagian 5: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Martingal Mundur" href="Backwards.html" title="Martingal Mundur">6</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
 </ol>
 <ul class="map">
 <li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>

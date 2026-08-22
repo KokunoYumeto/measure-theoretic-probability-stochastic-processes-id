@@ -1,4 +1,5 @@
 outcome_id,course_id,label,locale,cognitive_level,status
+outcome.o009.analyze-discrete-potential-and-restriction,course.o009.d30,"Menganalisis matriks potensial, pengambilan sampel waktu, dan pembatasan substokastik suatu rantai diskret.",id-ID,analyze,active
 outcome.o009.analyze-exchangeability-conditional-iid,course.o009.d30,"Menganalisis pertukaran, keindependenan bersyarat, dan hukum hipergeometrik pada awalan barisan.",id-ID,analyze,active
 outcome.o009.analyze-martingale-limit-applications,course.o009.d30,"Menganalisis limit martingal pada gerak acak, proses percabangan, model Bayes, uji rasio kemungkinan, dan hasil kali parsial.",id-ID,analyze,active
 outcome.o009.analyze-optimal-stopping,course.o009.d30,Menganalisis aturan ambang penghentian optimal pada masalah sekretaris.,id-ID,analyze,active
@@ -6,8 +7,10 @@ outcome.o009.apply-lp-martingale-convergence,course.o009.d30,Menerapkan pertidak
 outcome.o009.apply-martingale-maximal-inequalities,course.o009.d30,Menerapkan pertidaksamaan maksimal Doob dan Kolmogorov untuk membatasi probabilitas maksimum lintasan.,id-ID,apply,active
 outcome.o009.audit-gambling-maximal-bound,course.o009.d30,"Memeriksa syarat keterprediksian, kenegatifan, dan keterbatasan utang saat menerapkan batas maksimal pada strategi perjudian.",id-ID,analyze,active
 outcome.o009.audit-strong-markov-hypotheses,course.o009.d30,"Memeriksa hipotesis ruang keadaan, sifat Feller, regularitas lintasan, dan filtrasi sebelum memakai sifat Markov kuat.",id-ID,analyze,active
+outcome.o009.characterize-discrete-markov-chains,course.o009.d30,Mengkarakterisasi rantai Markov waktu diskret homogen melalui riwayat berprobabilitas positif dan keluarga matriks transisi yang konsisten.,id-ID,analyze,active
 outcome.o009.characterize-ui-martingales,course.o009.d30,Mengkarakterisasi martingal terintegralkan seragam melalui representasi peubah terminal dan konvergensi dalam rata-rata.,id-ID,analyze,active
 outcome.o009.check-optional-stopping-conditions,course.o009.d30,Memeriksa syarat keterbatasan atau integrabilitas sebelum menerapkan teorema penghentian opsional.,id-ID,analyze,active
+outcome.o009.compute-discrete-transition-laws,course.o009.d30,Menghitung matriks transisi beberapa langkah dan hukum berdimensi hingga dengan persamaan Chapman–Kolmogorov.,id-ID,apply,active
 outcome.o009.compute-random-time-expectations,course.o009.d30,"Menghitung probabilitas pencapaian dan nilai harapan pada waktu henti, termasuk Persamaan Wald dan waktu tunggu pola.",id-ID,apply,active
 outcome.o009.construct-markov-kernels,course.o009.d30,"Menyusun kernel transisi, semigrup transisi, dan persamaan Chapman–Kolmogorov pada ruang keadaan yang sesuai.",id-ID,apply,active
 outcome.o009.construct-reverse-martingales,course.o009.d30,Membangun martingal mundur dari keluarga aljabar-σ menurun dan mengubahnya menjadi martingal waktu maju.,id-ID,apply,active
@@ -22,4 +25,5 @@ outcome.o009.prove-reverse-martingale-convergence,course.o009.d30,"Membuktikan k
 outcome.o009.prove-stopped-martingale,course.o009.d30,"Membuktikan bahwa penghentian mempertahankan sifat martingal, submartingal, atau supermartingal.",id-ID,prove,active
 outcome.o009.recover-density-martingale-limits,course.o009.d30,Menentukan limit proses kerapatan melalui teorema Radon-Nikodym dan dekomposisi bagian singular.,id-ID,analyze,active
 outcome.o009.simulate-absorbing-markov-chain,course.o009.d30,Mensimulasikan rantai Markov menyerap secara deterministik dan membandingkan taksiran dengan peluang horizon serta peluang harmonik eksak.,id-ID,apply,active
+outcome.o009.solve-finite-discrete-chain-models,course.o009.d30,"Menyelesaikan model rantai hingga memakai graf keadaan, distribusi invarian, dan struktur stokastik ganda.",id-ID,apply,active
 outcome.o009.use-upcrossings-for-convergence,course.o009.d30,Menggunakan pertidaksamaan lintasan-naik untuk mengendalikan osilasi martingal dan menyiapkan teorema konvergensi.,id-ID,analyze,active

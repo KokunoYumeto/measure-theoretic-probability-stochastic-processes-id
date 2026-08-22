@@ -1878,6 +1878,503 @@ Ruas kanan hanya bergantung pada keadaan diperluas \(Y_s\), sehingga membuktikan
     },
 )
 
+MARKOV_DISCRETE_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "positive-probability-history-condition",
+        "old": r'''<div class="unit" id="dfn4">
+<p class="math">\( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov jika untuk setiap \( n \in \N \) dan setiap barisan keadaan \( (x_0, x_1, \ldots, x_{n-1}, x,  y) \),
+	\[ \P(X_{n+1} = y \mid X_0 = x_0, X_1 = x_1, \ldots, X_{n-1} = x_{n-1}, X_n = x) = \P(X_{n+1} = y \mid X_n = x) \]</p>
+</div>''',
+        "new": r'''<div class="unit" id="dfn4">
+<p class="math">\(\bs X=(X_0,X_1,X_2,\ldots)\) adalah rantai Markov jika, untuk setiap \(n\in\N\), \(y\in S\), dan \((x_0,\ldots,x_n)\in S^{n+1}\) dengan
+\[
+\P(X_0=x_0,\ldots,X_n=x_n)&gt;0,
+\]
+berlaku
+\[
+\P(X_{n+1}=y\mid X_0=x_0,\ldots,X_n=x_n)
+=\P(X_{n+1}=y\mid X_n=x_n).
+\]</p>
+</div>''',
+        "description": "Restrict point conditioning to positive-probability histories and make the indexing valid at n=0.",
+    },
+    {
+        "id": "homogeneous-all-state-transition-version",
+        "old": r'''<div class="unit" id="dfn5">
+<p class="math">Rantai Markov \( \bs{X} = (X_0, X_1, X_2, \ldots) \) <dfn>homogen terhadap waktu</dfn> jika
+	\[ \P(X_{n+k} = y \mid X_k = x) = \P(X_n = y \mid X_0 = x) \]
+	untuk setiap \( k, \, n \in \N \) dan setiap \( x, \, y \in S \).</p>
+</div>''',
+        "new": r'''<div class="unit" id="dfn5">
+<p class="math">Rantai Markov \(\bs X=(X_0,X_1,X_2,\ldots)\) <dfn>homogen terhadap waktu</dfn> jika terdapat keluarga matriks stokastik \(\{P_n:n\in\N\}\) sedemikian sehingga, untuk setiap \(k,n\in\N\) dan \(y\in S\),
+\[
+\P(X_{k+n}=y\mid\mathscr F_k)=P_n(X_k,y)\quad\text{hampir pasti},
+\qquad P_n(x,y)=\P_x(X_n=y).
+\]
+Rumus kedua memakai keluarga ukuran peluang Markov \((\P_x)_{x\in S}\), atau versi peluang transisi yang dipilih secara konsisten untuk semua keadaan.</p>
+</div>''',
+        "description": "Define time homogeneity through a consistent all-state transition family rather than null-event point conditioning.",
+    },
+    {
+        "id": "homogeneous-all-state-process-law-prose",
+        "old": r"Artinya, distribusi bersyarat dari \( X_{n+k} \) jika \( X_k = x \) diketahui hanya bergantung pada \( n \). Jadi, jika \( \bs{X} \) homogen (biasanya kata sifat <em>terhadap waktu</em> tidak kita sebutkan), rantai \( \{X_{k+n}: n \in \N\} \) dengan syarat \( X_k = x \) ekuivalen (dalam distribusi) dengan rantai \( \{X_n: n \in \N\} \) dengan syarat \( X_0 = x \).",
+        "new": r"Artinya, di bawah keluarga ukuran peluang Markov \((\P_x)_{x\in S}\), hukum rantai setelah waktu \(k\) hanya bergantung pada keadaan saat ini dan selang waktu berikutnya. Jadi, hukum masa depan dari keadaan \(x\) diberikan secara konsisten oleh \(\P_x\), tanpa bergantung pada cara rantai mencapai \(x\).",
+        "description": "Explain time homogeneity through the admitted all-state Markov family rather than null-event point conditioning.",
+    },
+    {
+        "id": "homogeneous-all-state-expectation",
+        "old": r'''Untuk rantai Markov homogen, jika \( k, \, n \in \N \), \( x \in S \), dan \( f \in \mathscr{B}\), maka
+\[ \E[f(X_{k+n}) \mid X_k = x] = \E[f(X_n) \mid X_0 = x] \]''',
+        "new": r'''Untuk rantai Markov homogen, jika \(k,n\in\N\) dan \(f\in\mathscr B\), maka, dengan \(P_nf(x)=\E_x[f(X_n)]\),
+\[
+\E[f(X_{k+n})\mid\mathscr F_k]=P_nf(X_k)\quad\text{hampir pasti}.
+\]''',
+        "description": "State the homogeneous expectation identity almost surely through the all-state transition operator.",
+    },
+    {
+        "id": "stationary-versus-time-homogeneous-terminology",
+        "old": "Istilah <dfn>stasioner</dfn> kadang-kadang digunakan sebagai pengganti homogen.",
+        "new": "Sebagian sumber lama memakai istilah <dfn>stasioner</dfn> untuk sifat ini; di sini istilah <em>homogen terhadap waktu</em> dipertahankan agar tidak tertukar dengan stasioneritas distribusi proses.",
+        "description": "Distinguish time-homogeneous transitions from stationarity of the process law.",
+    },
+    {
+        "id": "nonhomogeneous-enlargement-cardinality",
+        "old": "tetapi dengan konsekuensi terciptanya ruang keadaan yang tak terhitung.",
+        "new": r"tetapi dengan konsekuensi memperbesar ruang keadaan menjadi \(S\times\N\), yang tetap terhitung jika \(S\) terhitung.",
+        "description": "The product of two countable discrete state spaces remains countable.",
+    },
+    {
+        "id": "hitting-time-proof-domains",
+        "old": r'''<p>Untuk \( n \in \N \)</p>
+<ol class="sub">
+<li>\(\{\rho_A = n\} = \{X_0 \notin A, X_1 \notin A, \ldots, X_{n-1} \notin A, X_n \in A\} \in \mathscr{F}_n\)</li>
+<li>\(\{\tau_A = n\} = \{X_1 \notin A, X_2 \notin A, \ldots, X_{n-1} \notin A, X_n \in A\} \in \mathscr{F}_n\)</li>
+</ol>''',
+        "new": r'''<p>Dengan konvensi bahwa irisan kosong sama dengan \(\Omega\),</p>
+<ol class="sub">
+<li>\(\{\rho_A=n\}=\bigcap_{j=0}^{n-1}\{X_j\notin A\}\cap\{X_n\in A\}\in\mathscr F_n\) untuk \(n\in\N\).</li>
+<li>\(\{\tau_A=n\}=\bigcap_{j=1}^{n-1}\{X_j\notin A\}\cap\{X_n\in A\}\in\mathscr F_n\) untuk \(n\in\N_+\).</li>
+</ol>''',
+        "description": "State both entrance-time events without an invalid X_{-1} term and exclude n=0 from first-positive hitting.",
+    },
+    {
+        "id": "last-visit-supremum-and-infinity",
+        "old": r'''\[ \zeta_A = \max\{n \in \N_+: X_n \in A\} \]
+Kita tidak dapat menentukan apakah \( \zeta_A = n \) tanpa melihat ke masa depan: \( \{ \zeta_A = n\} = \{X_n \in A, X_{n+1} \notin A, X_{n+2} \notin A, \ldots\} \) untuk \( n \in \N \).''',
+        "new": r'''\[\zeta_A=\sup\bigl(\{n\in\N_+:X_n\in A\}\cup\{0\}\bigr)\in\N\cup\{\infty\}.\]
+Kita tidak dapat menentukan \(\zeta_A\) tanpa melihat ke masa depan. Untuk \(n\in\N_+\),
+\[\{\zeta_A=n\}=\{X_n\in A,X_{n+1}\notin A,X_{n+2}\notin A,\ldots\},\]
+sedangkan \(\{\zeta_A=0\}=\{X_1\notin A,X_2\notin A,\ldots\}\).''',
+        "description": "Define the last visit for zero or infinitely many positive visits and state its events on the correct domains.",
+    },
+    {
+        "id": "stopping-sigma-field-display-language",
+        "old": r"\[ \mathscr{F}_\tau = \{A \in \mathscr{F}: A \cap \{\tau = n\} \in \mathscr{F}_n \text{ for all } n \in \N\} \]",
+        "new": r"\[\mathscr F_\tau=\{A\in\mathscr F:A\cap\{\tau=n\}\in\mathscr F_n\ \text{untuk semua }n\in\N\}.\]",
+        "description": "Localize the prose retained inside the source formula.",
+    },
+    {
+        "id": "strong-markov-homogeneous-introduction",
+        "old": "Untuk rantai Markov waktu diskret, sifat Markov biasa menyiratkan sifat Markov kuat.",
+        "new": "Untuk rantai Markov waktu diskret yang homogen, sifat Markov biasa menyiratkan sifat Markov kuat.",
+        "description": "State the time-homogeneity hypothesis needed for a future law depending only on the stopped state.",
+    },
+    {
+        "id": "strong-markov-homogeneous-kernel-form",
+        "old": r'''<div class="unit" id="str2">
+<p class="math">Jika \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah rantai Markov waktu diskret, maka \( \bs{X} \) memiliki sifat Markov kuat. Artinya, jika \( \tau \) adalah waktu henti berhingga bagi \( \bs{X} \), maka</p>
+<ol class="sub">
+<li>\( \P(X_{\tau+k} = x \mid \mathscr{F}_\tau) = \P(X_{\tau+k} = x \mid X_\tau) \) untuk setiap \(  k \in \N \) dan \( x \in S \).</li>
+<li>\( \E[f(X_{\tau+k}) \mid \mathscr{F}_\tau] = \E[f(X_{\tau+k}) \mid X_\tau] \) untuk setiap \( k \in \N \) dan \( f \in \mathscr{B} \).</li>
+</ol>
+</div>''',
+        "new": r'''<div class="unit" id="str2">
+<p class="math">Jika \(\bs X=(X_0,X_1,X_2,\ldots)\) adalah rantai Markov waktu diskret homogen dengan matriks transisi \(k\)-langkah \(P_k\), maka \(\bs X\) memiliki sifat Markov kuat. Jika \(\tau\) adalah waktu henti berhingga bagi \(\bs X\), maka</p>
+<ol class="sub">
+<li>\(\P(X_{\tau+k}=x\mid\mathscr F_\tau)=P_k(X_\tau,x)\) untuk setiap \(k\in\N\) dan \(x\in S\).</li>
+<li>\(\E[f(X_{\tau+k})\mid\mathscr F_\tau]=P_kf(X_\tau)\) untuk setiap \(k\in\N\) dan \(f\in\mathscr B\).</li>
+</ol>
+</div>''',
+        "description": "State the strong Markov property for homogeneous chains using the consistent transition family.",
+    },
+    {
+        "id": "strong-markov-all-state-future-law-prose",
+        "old": r"Dengan mengasumsikan homogenitas seperti biasa, rantai Markov \( \{X_{\tau + n}: n \in \N\} \) dengan syarat \( X_\tau = x \) ekuivalen dalam distribusi dengan rantai \( \{X_n: n \in \N\} \) dengan syarat \( X_0 = x \).",
+        "new": r"Dengan mengasumsikan homogenitas seperti biasa, untuk setiap \(x\in S\), hukum masa depan rantai setelah \(\tau\), ketika \(X_\tau=x\), diberikan oleh hukum semua-keadaan \(\P_x\) dari \((X_n)_{n\in\N}\). Di bawah hukum semula, identitas bersyarat sebagai fungsi dari \(X_\tau\) berlaku hampir pasti; keluarga \((\P_x)_{x\in S}\) menetapkan versinya secara konsisten untuk semua \(x\).",
+        "description": "Carry the all-state Markov family through the post-stopping-time explanatory prose.",
+    },
+    {
+        "id": "transition-matrix-all-state-definition",
+        "old": r'''<div class="unit" id="trn1">
+<p class="math">Untuk \( n \in \N \), misalkan
+	\[ P_n(x, y) = \P(X_n = y \mid X_0 = x), \quad (x, y) \in S \times S \]
+	Matriks \( P_n \) adalah <dfn>matriks probabilitas transisi</dfn> \( n \) langkah bagi \( \bs{X} \). </p>
+</div>''',
+        "new": r'''<div class="unit" id="trn1">
+<p class="math">Untuk \(n\in\N\), misalkan
+\[
+P_n(x,y)=\P_x(X_n=y),\qquad(x,y)\in S\times S.
+\]
+Matriks \(P_n\) adalah <dfn>matriks probabilitas transisi</dfn> \(n\) langkah bagi \(\bs X\).</p>
+</div>''',
+        "description": "Define every transition row through the admitted all-state Markov family.",
+    },
+    {
+        "id": "transition-matrix-all-state-kernel-prose",
+        "old": r'''<p>Dengan demikian, \( y \mapsto P_n(x, y) \) adalah fungsi kepadatan probabilitas dari \( X_n \) jika \( X_0 = x \) diketahui. Secara khusus, \( P_n \) adalah <dfn>matriks probabilitas</dfn> (atau <dfn>matriks stokastik</dfn>) karena \( P_n(x, y) \ge 0 \) untuk \( (x, y) \in S^2 \) dan \( \sum_{y \in S} P(x, y) = 1 \) untuk \( x \in S \). Seperti setiap matriks nonnegatif pada \( S \), \( P_n \) mendefinisikan kernel pada \( S \) untuk \( n \in \N \):
+\[ P_n(x, A) = \sum_{y \in A} P_n(x, y) = \P(X_n \in A \mid X_0 = x), \quad x \in S, \, A \subseteq S \]
+Jadi, \( A \mapsto P_n(x, A) \) adalah distribusi probabilitas dari \( X_n \) jika \( X_0 = x \) diketahui.''',
+        "new": r'''<p>Dengan demikian, \(y\mapsto P_n(x,y)\) adalah fungsi kepadatan probabilitas \(X_n\) di bawah \(\P_x\). Secara khusus, \(P_n\) adalah <dfn>matriks probabilitas</dfn> (atau <dfn>matriks stokastik</dfn>) karena \(P_n(x,y)\ge0\) untuk \((x,y)\in S^2\) dan \(\sum_{y\in S}P_n(x,y)=1\) untuk \(x\in S\). Seperti setiap matriks nonnegatif pada \(S\), \(P_n\) mendefinisikan kernel pada \(S\) untuk \(n\in\N\):
+\[
+P_n(x,A)=\sum_{y\in A}P_n(x,y)=\P_x(X_n\in A),
+\qquad x\in S,\ A\subseteq S.
+\]
+Jadi, \(A\mapsto P_n(x,A)\) adalah distribusi probabilitas \(X_n\) di bawah \(\P_x\).''',
+        "description": "Carry the all-state convention through transition rows, row sums, and kernel notation.",
+    },
+    {
+        "id": "transition-distribution-proof-reference",
+        "old": r'dari definisi <a class="ref" href="#trn4"></a> dan argumen pengondisian.',
+        "new": r'dari <a class="ref" href="#trn3">identitas operator transisi</a> dan hukum probabilitas total.',
+        "description": "Cite the P_n=P^n operator identity used by the distribution-propagation proof.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "chapman-kolmogorov-all-state-proof",
+        "old": r'''<details>
+<summary>Rincian:</summary>
+<p>Hal ini mengikuti dari sifat Markov dan sifat homogen terhadap waktu serta argumen pengondisian dasar. Jika \( x, \, z \in S \), maka
+		\[ P_{m+n}(x, z) = \P(X_{m+n} = z \mid X_0 = x) = \sum_{y \in S} \P(X_{m+n} = z \mid X_0 = x, X_m = y) \P(X_m = y \mid X_0 = x) \]
+		Namun, berdasarkan sifat Markov dan sifat homogen terhadap waktu,
+		\[ \P(X_{m+n} = z \mid X_0 = x, X_m = y) = \P(X_n = z \mid X_0 = y) = P_n(y, z) \]
+		Tentu saja, \( \P(X_m = y \mid X_0 = x) = P_m(x, y) \) juga berlaku.
+		Karena itu,
+		\[ P_{m+n}(x, z) = \sum_{y \in S} P_m(x, y) P_n(y, z) \]
+		Ruas kanan, berdasarkan definisi, adalah \( P_m P_n(x, z) \).</p>
+</details>''',
+        "new": r'''<details>
+<summary>Rincian:</summary>
+<p>Ambil \(x,z\in S\). Di bawah \(\P_x\), sifat Markov dan homogenitas waktu memberikan
+\[
+\P_x(X_{m+n}=z\mid\mathscr F_m)=P_n(X_m,z)
+\quad\text{hampir pasti}.
+\]
+Karena itu, sifat menara menghasilkan
+\[
+\begin{aligned}
+P_{m+n}(x,z)
+&amp;=\E_x\!\left[P_n(X_m,z)\right]\\
+&amp;=\sum_{y\in S}P_m(x,y)P_n(y,z)
+=(P_mP_n)(x,z).
+\end{aligned}
+\]</p>
+</details>''',
+        "description": "Prove Chapman-Kolmogorov under P_x without conditioning on zero-probability state events.",
+    },
+    {
+        "id": "transition-operator-all-state-expectation",
+        "old": r'''<div class="unit" id="trn3">
+<p class="math">Misalkan \( n \in \N \) dan \( f: S \to \R \). Maka, dengan mengasumsikan bahwa nilai harapannya ada,
+	\[ P^n f(x) = \sum_{y \in S} P^n(x, y) f(y) = \E[f(X_n) \mid X_0 = x], \quad x \in S \]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Hal ini langsung mengikuti dari definisi:
+		\[ P^nf(x) = \sum_{y \in S} P^n(x, y) f(y) = \sum_{y \in S} \P(X_n = y \mid X_0 = x) f(y) = \E[f(X_n) \mid X_0 = x], \quad x \in S\]</p>
+</details>
+</div>''',
+        "new": r'''<div class="unit" id="trn3">
+<p class="math">Misalkan \(n\in\N\) dan \(f:S\to\R\). Jika nilai harapannya ada, maka
+\[
+P^nf(x)=\sum_{y\in S}P^n(x,y)f(y)=\E_x[f(X_n)],
+\qquad x\in S.
+\]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Hal ini langsung mengikuti dari definisi:
+\[
+P^nf(x)=\sum_{y\in S}\P_x(X_n=y)f(y)=\E_x[f(X_n)],
+\qquad x\in S.
+\]</p>
+</details>
+</div>''',
+        "description": "Express the n-step transition operator through expectations under the all-state laws P_x.",
+    },
+    {
+        "id": "transition-result-label-and-fragment",
+        "old": r'dari latihan <a class="ref" href="https://www.randomservices.org/random/markov/trn5"></a> diperoleh',
+        "new": r'dari <a class="ref" href="#trn5">hasil sebelumnya</a> diperoleh',
+        "description": "Label the statement as a result and repair the missing hash in its fragment link.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "transition-distribution-all-state-mixture",
+        "old": r'''\[ \P(X_n = y) = \sum_{x \in S} \P(X_0 = x) \P(X_n = y \mid X_0 = x) = \sum_{x \in S} f(x) P^n(x, y) = f P^n(y), \quad y \in S \]''',
+        "new": r'''\[
+\P(X_n=y)=\sum_{x\in S}f(x)P^n(x,y)=fP^n(y),
+\qquad y\in S.
+\]''',
+        "description": "Propagate the initial distribution by its mixture of all-state transition laws, without null-event conditioning.",
+    },
+    {
+        "id": "finite-dimensional-state-tuple-power",
+        "old": r"\( (x_0, x_1, \ldots, x_n) \in S^n, \)",
+        "new": r"\((x_0,x_1,\ldots,x_n)\in S^{n+1}\)",
+        "description": "Place an (n+1)-tuple in the correct Cartesian power and remove the stray comma.",
+    },
+    {
+        "id": "finite-dimensional-chain-reflow",
+        "old": r"""\[ \P(X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n) = f_0(x_0) P(x_0, x_1) P(x_1, x_2) \cdots P(x_{n-1},x_n) \]""",
+        "new": r"""\[
+\begin{aligned}
+&amp;\P(X_0=x_0,X_1=x_1,\ldots,X_n=x_n)\\
+&amp;\qquad=f_0(x_0)P(x_0,x_1)P(x_1,x_2)\cdots P(x_{n-1},x_n).
+\end{aligned}
+\]""",
+        "description": "Reflow the finite-dimensional product law for readable narrow-screen rendering.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "finite-dimensional-tower-proof",
+        "old": (r'''		\[ \P(X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n) = \P(X_0 = x_0) \P(X_1 = x_1 \mid X_0 = x_0) \P(X_2 = x_2 \mid X_0 = x_0, X_1 = x_1) \cdots \P(X_n = x_n \mid X_0 = x_0, \ldots, X_{n-1} = x_{n-1}) \]
+		Namun, berdasarkan sifat Markov, pernyataan ini menyederhana menjadi
+		\begin{align*}
+			\P(X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n) &amp; = \P(X_0 = x_0) \P(X_1 = x_1 \mid X_0 = x_0) \P(X_2 = x_2 \mid X_1 = x_1) \cdots \P(X_n = x_n \mid X_{n-1} = x_{n-1}) \\
+			&amp; = f_0(x_0) P(x_0, x_1) P(x_1, x_2) \cdots P(x_{n-1}, x_n)''' + " \n" + r'''		\end{align*}'''),
+        "new": r'''Kasus \(n=0\) langsung. Untuk \(n\in\N_+\), tetapkan \(A_j=\{X_j=x_j\}\). Sifat menara dan sifat Markov memberikan
+\[
+\begin{aligned}
+\P(A_0\cap\cdots\cap A_n)
+&amp;=\E\!\left[\bs1_{A_0\cap\cdots\cap A_{n-1}}
+\E(\bs1_{A_n}\mid\mathscr F_{n-1})\right]\\
+&amp;=\E\!\left[\bs1_{A_0\cap\cdots\cap A_{n-1}}
+P(X_{n-1},x_n)\right].
+\end{aligned}
+\]
+Dengan mengulangi langkah ini diperoleh
+\[
+\P(A_0\cap\cdots\cap A_n)
+=f_0(x_0)\prod_{j=1}^{n}P(x_{j-1},x_j).
+\]''',
+        "description": "Prove the finite-dimensional law by tower recursion rather than a chain rule over potentially null histories.",
+    },
+    {
+        "id": "potential-definition-entries",
+        "old": r"\[ R_\alpha = \sum_{n=0}^\infty \alpha^n P^n, \quad (x, y) \in S^2 \]",
+        "new": r"\[R_\alpha(x,y)=\sum_{n=0}^\infty\alpha^nP^n(x,y),\qquad(x,y)\in S^2.\]",
+        "description": "Attach the entrywise state domain to an entrywise potential-matrix definition.",
+    },
+    {
+        "id": "potential-visit-count-reflow",
+        "old": r"""\[ R(x, y) = \sum_{n=0}^\infty P^n(x, y) = \sum_{n=0}^\infty \E[\bs{1}(X_n = y) \mid X_0 = x] = \E\left( \sum_{n=0}^\infty \bs{1}(X_n = y) \biggm| X_0 = x\right) = \E[\#\{n \in \N: X_n = y\} \mid X_0 = x] \]""",
+        "new": r"""\[
+\begin{aligned}
+R(x,y)
+&amp;=\sum_{n=0}^\infty P^n(x,y)
+=\sum_{n=0}^\infty\E_x[\bs1(X_n=y)]\\
+&amp;=\E_x\!\left[\sum_{n=0}^\infty\bs1(X_n=y)\right]
+=\E_x[\#\{n\in\N:X_n=y\}].
+\end{aligned}
+\]""",
+        "description": "Reflow the visit-count identity and express it under the all-state law P_x.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "potential-set-visits-conditioning",
+        "old": r"\E\left[\sum_{n=0}^\infty \bs{1}(X_n \in A)\right]",
+        "new": r"\E_x\left[\sum_{n=0}^\infty\bs{1}(X_n\in A)\right]",
+        "description": "Take the expected number of visits under the all-state law P_x.",
+    },
+    {
+        "id": "random-time-all-state-geometric-mixture",
+        "old": r'''<div class="unit" id="pot3">
+<p class="math">Jika \( \alpha \in (0, 1) \), maka \( (1 - \alpha) R_\alpha(x, y) = \P(X_N = y \mid X_0 = x) \) untuk \( (x, y) \in S^2 \), dengan \( N \) independen dari \( \bs{X} \) dan memiliki distribusi geometrik pada \( \N \) dengan parameter \( 1 - \alpha \).</p>
+<details>
+<summary>Rincian:</summary>
+<p>Misalkan \( (x, y) \in S^2 \). Pengondisian terhadap \( N \) memberikan
+		\[ \P(X_N = y \mid X_0 = x) = \sum_{n=0}^\infty \P(N = n) \P(X_N = y \mid X_0 = x, N = n) \]
+		Namun, berdasarkan aturan substitusi dan asumsi independensi,
+		\[ \P(X_N = y \mid N = n, X_0 = x) = \E(X_n = y \mid N = n, X_0 = x) = \P(X_n = y \mid X_0 = x) = P^n (x, y) \]
+		Karena \( N \) memiliki distribusi geometrik pada \( N \) dengan parameter \( 1 - \alpha \), kita memperoleh \( \P(N = n) = (1 - \alpha) \alpha^n \). Karena itu,
+		\[ \P(X_N = y \mid X_0 = x) = \sum_{n=0}^\infty (1 - \alpha) \alpha^n P^n(x, y) = (1 - \alpha) R_\alpha(x, y) \]</p>
+</details>
+</div>''',
+        "new": r'''<div class="unit" id="pot3">
+<p class="math">Jika \(\alpha\in(0,1)\), maka
+\[
+(1-\alpha)R_\alpha(x,y)=\P_x(X_N=y),\qquad(x,y)\in S^2,
+\]
+dengan \(N\) independen dari \(\bs X\) di bawah setiap \(\P_x\) dan berdistribusi geometrik pada \(\N\) dengan parameter \(1-\alpha\).</p>
+<details>
+<summary>Rincian:</summary>
+<p>Ambil \((x,y)\in S^2\). Dengan mengondisikan pada \(N\) dan memakai independensi,
+\[
+\P_x(X_N=y)=\sum_{n=0}^\infty\P(N=n)\P_x(X_N=y\mid N=n)
+=\sum_{n=0}^\infty\P(N=n)\P_x(X_n=y).
+\]
+Karena \(\P(N=n)=(1-\alpha)\alpha^n\), diperoleh
+\[
+\P_x(X_N=y)=\sum_{n=0}^\infty(1-\alpha)\alpha^nP^n(x,y)
+=(1-\alpha)R_\alpha(x,y).
+\]</p>
+</details>
+</div>''',
+        "description": "State the geometric-time mixture under each P_x and remove null-event and event-expectation notation.",
+    },
+    {
+        "id": "discount-factor-name",
+        "old": r"sehingga \( \alpha \) adalah <dfn>faktor inflasi</dfn> (kadang-kadang juga disebut <dfn>faktor diskonto</dfn>)",
+        "new": r"sehingga \(\alpha\) adalah <dfn>faktor diskonto</dfn>",
+        "description": "Use the standard economic name for a present-value multiplier below one.",
+    },
+    {
+        "id": "potential-product-reflow",
+        "old": r"""\[R_\alpha R_\beta = \sum_{m=0}^\infty \alpha^m P^m R_\beta = \sum_{m=0}^\infty \alpha^m P^m \left(\sum_{n=0}^\infty \beta^n P^n\right) = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^m P^n = \sum_{m=0}^\infty \sum_{n=0}^\infty \alpha^m \beta^n P^{m+n}\]""",
+        "new": r"""\[
+\begin{aligned}
+R_\alpha R_\beta
+&amp;=\sum_{m=0}^\infty\alpha^mP^mR_\beta
+=\sum_{m=0}^\infty\alpha^mP^m\!\left(\sum_{n=0}^\infty\beta^nP^n\right)\\
+&amp;=\sum_{m=0}^\infty\sum_{n=0}^\infty\alpha^m\beta^nP^mP^n
+=\sum_{m=0}^\infty\sum_{n=0}^\infty\alpha^m\beta^nP^{m+n}.
+\end{aligned}
+\]""",
+        "description": "Reflow the double-series product for readable narrow-screen rendering.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "resolvent-beta-symbol",
+        "old": r"\alpha^j q^k P^{j+k}",
+        "new": r"\alpha^j\beta^kP^{j+k}",
+        "description": "Replace the undefined q by the declared parameter beta.",
+    },
+    {
+        "id": "resolvent-geometric-reflow",
+        "old": r"""\[ R_\alpha R_\beta = \sum_{n=0}^\infty \sum_{k=0}^n \alpha^{n-k} \beta^k P^n = \sum_{n=0}^\infty  \sum_{k=0}^n \left(\frac{\beta}{\alpha}\right)^k \alpha^n P^n = \sum_{n=0}^\infty \frac{1 - \left(\frac{\beta}{\alpha}\right)^{n+1}}{1 - \frac{\beta}{\alpha}} \alpha^n P^n \]""",
+        "new": r"""\[
+\begin{aligned}
+R_\alpha R_\beta
+&amp;=\sum_{n=0}^\infty\sum_{k=0}^n\alpha^{n-k}\beta^kP^n\\
+&amp;=\sum_{n=0}^\infty\sum_{k=0}^n
+\left(\frac{\beta}{\alpha}\right)^k\alpha^nP^n\\
+&amp;=\sum_{n=0}^\infty
+\frac{1-(\beta/\alpha)^{n+1}}{1-\beta/\alpha}\alpha^nP^n.
+\end{aligned}
+\]""",
+        "description": "Reflow the finite geometric-sum reduction for readable narrow-screen rendering.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "potential-shift-reference",
+        "old": r'Dari <a class="ref" href="#pot6"></a>,',
+        "new": r'Dari <a class="ref" href="#pot1">definisi matriks potensial</a>,',
+        "description": "Cite the defining series used by the shift identity.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "potential-result-label",
+        "old": r'Latihan <a class="ref" href="#pot8"></a> sekali lagi menunjukkan',
+        "new": r'<a class="ref" href="#pot8">Hasil sebelumnya</a> sekali lagi menunjukkan',
+        "description": "Label the proved inverse relation as a result and supply visible reference text.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "sampling-index-origin",
+        "old": r"\( 0 \lt n_1 \lt n_2 \lt \cdots \) dalam \( \N \)",
+        "new": r"\(0=n_0\lt n_1\lt n_2\lt\cdots\) dalam \(\N\)",
+        "description": "Define n_0 before using Y_0=X_{n_0}.",
+    },
+    {
+        "id": "restricted-matrix-positive-time",
+        "old": r'''<p class="math">Jika \( A \) adalah himpunan bagian tak kosong dari \( S \), maka untuk \( n \in \N \),
+	\[ P_A^n(x, y) = \P(X_1 \in A, X_2 \in A, \ldots, X_{n-1} \in A, X_n = y \mid X_0 = x), \quad (x, y) \in A \times A \]</p>''',
+        "new": r'''<p class="math">Jika \(A\) adalah himpunan bagian tak kosong dari \(S\), maka \(P_A^0=I_A\), dan untuk \(n\in\N_+\), dengan irisan kosong ditafsirkan sebagai \(\Omega\),
+\[
+P_A^n(x,y)=\P_x\!\left(\bigcap_{j=1}^{n-1}\{X_j\in A\}\cap\{X_n=y\}\right),
+\qquad(x,y)\in A\times A.
+\]</p>''',
+        "description": "Separate zero time and express the positive-time restricted law under P_x with an empty-intersection convention at n=1.",
+    },
+    {
+        "id": "finite-chain-exercise-all-state-probability",
+        "old": r"\( \P(X_1 = a, X_2 = b, X_3 = c \mid X_0 = a) \)",
+        "new": r"\(\P_a(X_1=a,X_2=b,X_3=c)\)",
+        "description": "State the finite-chain path probability under the all-state law starting at a.",
+    },
+    {
+        "id": "finite-chain-exercise-all-state-expectation",
+        "old": r"\( \E[g(X_2) \mid X_0 = x] \)",
+        "new": r"\(\E_x[g(X_2)]\)",
+        "description": "State the finite-chain expectation under the all-state law P_x.",
+    },
+    {
+        "id": "random-walk-all-state-kernel-proof",
+        "old": r'''<p>Sekali lagi, misalkan \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \) untuk \( n \in \N \). Maka \( \mathscr{F}_n = \sigma\{Y_0, Y_1, \ldots, Y_n\} \) juga berlaku untuk \( n \in \N \). Karena itu,
+		\[ \P(Y_{n+1} = y \mid \mathscr{F}_n) = \P(Y_n + X_{n+1} = y \mid \mathscr{F}_n) = \P(Y_n + X_{n+1} = y \mid Y_n), \quad y \in \Z \]
+		karena barisan \( \bs{X} \) independen. Secara khusus,
+		\[ \P(Y_{n+1} = y \mid Y_n = x) = \P(x + X_{n+1} = y \mid Y_n = x) = \P(X_{n+1} = y - x) = f(y - x), \quad (x, y) \in \Z^2 \]</p>''',
+        "new": r'''<p>Sekali lagi, misalkan \(\mathscr F_n=\sigma\{X_0,X_1,\ldots,X_n\}=\sigma\{Y_0,Y_1,\ldots,Y_n\}\). Karena \(X_{n+1}\) independen dari \(\mathscr F_n\), untuk \(y\in\Z\),
+\[
+\P(Y_{n+1}=y\mid\mathscr F_n)
+=\P(X_{n+1}=y-Y_n\mid\mathscr F_n)
+=f(y-Y_n)=Q(Y_n,y)
+\quad\text{hampir pasti},
+\]
+dengan kernel yang dipilih untuk semua \((x,y)\in\Z^2\) oleh \(Q(x,y)=f(y-x)\).</p>''',
+        "description": "Prove the random-walk kernel almost surely and define every row without null-event point conditioning.",
+    },
+    {
+        "id": "visible-doubly-stochastic-reference",
+        "old": r'<a class="ref" href="#dbl4"></a>',
+        "new": r'<a class="ref" href="#dbl4">latihan sebelumnya</a>',
+        "description": "Supply visible, accessible fallback text for the doubly stochastic example reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "two-state-potential-matrix",
+        "old": r"""\[ R_\alpha = \frac{1}{(p + q)(1 - \alpha)} \left[\begin{matrix} q &amp; p \\ q &amp; p \\ \end{matrix}\right] + \frac{1}{(p + q)^2 (1 - \alpha)} \left[\begin{matrix} p &amp; -p \\ -q &amp; q \end{matrix}\right] \]""",
+        "new": r"""\[
+R_\alpha=
+\frac{1}{(p+q)(1-\alpha)}
+\begin{bmatrix}q&amp;p\\q&amp;p\end{bmatrix}
++
+\frac{1}{(p+q)\,[1-\alpha(1-p-q)]}
+\begin{bmatrix}p&amp;-p\\-q&amp;q\end{bmatrix}.
+\]""",
+        "description": "Replace the incorrect resolvent; the corrected spectral decomposition equals (I-alpha P)^(-1) and satisfies R_0=I.",
+    },
+    {
+        "id": "limiting-link-case",
+        "old": r'href="https://www.randomservices.org/random/markov/limiting.html"',
+        "new": r'href="https://www.randomservices.org/random/markov/Limiting.html"',
+        "description": "Repair the case-sensitive selected-page URL.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "random-walk-integer-symbol",
+        "old": r"\( x \in Z \)",
+        "new": r"\(x\in\Z\)",
+        "description": "Use the declared integer-set macro.",
+    },
+    {
+        "id": "doubly-stochastic-state-symbol",
+        "old": r"\sum_{u \in s} P(u, y)",
+        "new": r"\sum_{u\in S}P(u,y)",
+        "description": "Use the declared state-space symbol in the column-sum condition.",
+    },
+    {
+        "id": "doubly-stochastic-potential-alpha-symbol",
+        "old": r"""\left[\begin{matrix} 4 - 4 a + a^2 &amp; 2 a - a^2 &amp; a^2 \\ a^2 &amp; 4 - 4 a + a^2 &amp; 2 a - a^2 \\ 2 a - a^2 &amp; a^2 &amp; 4 - 4 a + a^2 \end{matrix}\right]""",
+        "new": r"""\left[\begin{matrix} 4-4\alpha+\alpha^2 &amp; 2\alpha-\alpha^2 &amp; \alpha^2 \\ \alpha^2 &amp; 4-4\alpha+\alpha^2 &amp; 2\alpha-\alpha^2 \\ 2\alpha-\alpha^2 &amp; \alpha^2 &amp; 4-4\alpha+\alpha^2 \end{matrix}\right]""",
+        "description": "Replace the undefined scalar a by alpha throughout the verified potential matrix.",
+    },
+)
+
 THEORY_UNITS = (
     {
         "rel": "prob/Convergence.html",
@@ -1978,7 +2475,7 @@ THEORY_UNITS = (
         "rel": "expect/Conditional2.html",
         "authority_sha256": "98307993d76941808cc87b7d28dfd8b2e24325913471b07c3a350a52a54c87c2",
         "source_title": "Conditional Expected Value Revisited",
-        "nav_label": "Nilai harapan bersyarat",
+        "nav_label": "Ekspektasi bersyarat",
         "rights_id": "o009-rights-random-conditional-expectation",
         "fragment_corrections": {},
         "forbidden": (
@@ -2213,6 +2710,34 @@ THEORY_UNITS = (
             "Recurrence Relations and Differential Equations",
             "Processes with Stationary, Independent Increments",
             "Additional details:",
+            "Details:",
+        ),
+    },
+    {
+        "rel": "markov/Discrete.html",
+        "authority_sha256": "808118b103e17cd5e31115b953663b0d8ff94da21f432e6fe7c104e9300380f0",
+        "source_title": "Discrete-Time Markov Chains",
+        "nav_label": "Rantai Markov waktu diskret",
+        "rights_id": "o009-rights-random-markov-discrete",
+        "fragment_corrections": {},
+        "reader_corrections": MARKOV_DISCRETE_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Discrete-Time Markov Chains",
+            "Basic Theory",
+            "Review",
+            "Definitions",
+            "Stopping Times and the Strong Markov Property",
+            "Transition Matrices",
+            "Potential Matrices",
+            "Sampling in Time",
+            "Examples and Applications",
+            "Computational Exercises",
+            "Two-State Chain",
+            "Independent Variables and Random Walks",
+            "Doubly Stochastic Matrices",
+            "Special Models",
             "Details:",
         ),
     },
@@ -2629,6 +3154,34 @@ def decorate_lab_output(output: Path, spec: dict[str, object]) -> None:
         header.insert_after(nav)
     else:
         soup.body.insert(0, nav)
+    main = soup.new_tag("main")
+    node = nav.next_sibling
+    while node is not None:
+        following = node.next_sibling
+        main.append(node.extract())
+        node = following
+    nav.insert_after(main)
+    output.write_text(str(soup), encoding="utf-8", newline="\n")
+
+
+def decorate_index_output(output: Path) -> None:
+    """Give the generated course landing page one title and one main landmark."""
+    soup = BeautifulSoup(require_file(output).decode("utf-8"), "lxml")
+    if soup.body is None:
+        raise RuntimeError("Pandoc reader index has no body")
+    header = soup.find("header", id="title-block-header")
+    if header is None or len(header.find_all("h1")) != 1:
+        raise RuntimeError("Pandoc reader index title is not exact-once")
+    toc = soup.find("nav", id="TOC")
+    if toc is not None:
+        toc["aria-label"] = "Daftar isi"
+    main = soup.new_tag("main")
+    node = header.next_sibling
+    while node is not None:
+        following = node.next_sibling
+        main.append(node.extract())
+        node = following
+    header.insert_after(main)
     output.write_text(str(soup), encoding="utf-8", newline="\n")
 
 
@@ -2737,6 +3290,74 @@ atribusi. <a href="{official_url}">Baca sumber resmi</a>.
                 f"{rendered.count(old)} times in {unit['rel']}"
             )
         rendered = rendered.replace(old, new, 1)
+    reader_soup = BeautifulSoup(rendered, "lxml")
+    reader_header = reader_soup.find("header")
+    page_heading = reader_header.find("h2") if reader_header is not None else None
+    if page_heading is None:
+        raise RuntimeError(f"theory page heading missing in {unit['rel']}")
+    page_heading.name = "h1"
+    page_topic = re.sub(
+        r"^\s*\d+\.\s*", "", page_heading.get_text(" ", strip=True)
+    )
+    previous_level = 1
+    for content_heading in reader_soup.find_all(("h3", "h4")):
+        candidate_level = int(content_heading.name[1]) - 1
+        level = min(candidate_level, previous_level + 1)
+        content_heading.name = f"h{level}"
+        existing_classes = [
+            value
+            for value in content_heading.get("class", [])
+            if not str(value).startswith("reader-level-")
+        ]
+        content_heading["class"] = [*existing_classes, f"reader-level-{level}"]
+        previous_level = level
+    for section_anchor in reader_soup.select("ol.map a[title]"):
+        section_number = section_anchor.get_text(" ", strip=True)
+        section_title = str(section_anchor.get("title", "")).strip()
+        if section_number and section_title:
+            section_anchor["aria-label"] = f"Bagian {section_number}: {section_title}"
+    for current_item in reader_soup.select("ol.map li.current"):
+        section_number = current_item.get_text(" ", strip=True)
+        current_item["aria-current"] = "page"
+        current_item["aria-label"] = (
+            f"Bagian {section_number}: {page_topic} (halaman saat ini)"
+        )
+    for details_button in reader_soup.select('button[onclick="expandDetails(true);"]'):
+        details_button["aria-label"] = "Buka semua rincian"
+    for details_button in reader_soup.select('button[onclick="expandDetails(false);"]'):
+        details_button["aria-label"] = "Tutup semua rincian"
+    summary_contexts: list[tuple[object, str]] = []
+    context_totals: dict[str, int] = {}
+    for summary in reader_soup.find_all("summary"):
+        previous_heading = summary.find_previous(("h2", "h3"))
+        context = (
+            previous_heading.get_text(" ", strip=True)
+            if previous_heading is not None
+            else page_topic
+        )
+        summary_contexts.append((summary, context))
+        context_totals[context] = context_totals.get(context, 0) + 1
+    context_positions: dict[str, int] = {}
+    for summary, context in summary_contexts:
+        context_positions[context] = context_positions.get(context, 0) + 1
+        suffix = (
+            f", butir {context_positions[context]}"
+            if context_totals[context] > 1
+            else ""
+        )
+        summary["aria-label"] = f"Rincian: {context}{suffix}"
+    edition_nav = reader_soup.find("nav", attrs={"aria-label": "Navigasi edisi"})
+    footer = reader_soup.find("footer")
+    if edition_nav is None or footer is None:
+        raise RuntimeError(f"reader landmarks missing in {unit['rel']}")
+    main = reader_soup.new_tag("main")
+    node = edition_nav.next_sibling
+    while node is not None and node is not footer:
+        following = node.next_sibling
+        main.append(node.extract())
+        node = following
+    footer.insert_before(main)
+    rendered = str(reader_soup)
     output.write_text(rendered, encoding="utf-8", newline="\n")
 
 
@@ -2967,6 +3588,27 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
         soup = BeautifulSoup(text, "lxml")
         if soup.html is None or soup.html.get("lang") != "id-ID":
             raise RuntimeError(f"missing lang=id-ID: {path}")
+        if len(soup.find_all("h1")) != 1:
+            raise RuntimeError(f"reader page must have exactly one h1: {path}")
+        if len(soup.find_all("main")) != 1:
+            raise RuntimeError(f"reader page must have exactly one main landmark: {path}")
+        heading_levels = [
+            int(heading.name[1])
+            for heading in soup.find_all(("h1", "h2", "h3", "h4", "h5", "h6"))
+        ]
+        if any(
+            following - current > 1
+            for current, following in zip(heading_levels, heading_levels[1:])
+        ):
+            raise RuntimeError(f"reader heading hierarchy skips a level: {path}")
+        summary_labels = [
+            str(summary.get("aria-label", "")).strip()
+            for summary in soup.find_all("summary")
+        ]
+        if any(not label for label in summary_labels) or len(summary_labels) != len(
+            set(summary_labels)
+        ):
+            raise RuntimeError(f"reader disclosure labels are missing or duplicated: {path}")
         ids = [str(tag["id"]) for tag in soup.select("[id]")]
         if len(ids) != len(set(ids)):
             raise RuntimeError(f"duplicate id: {path}")
@@ -3112,6 +3754,7 @@ def build() -> None:
             decorate_lab_output(lab_output, spec)
             processed_lab.unlink()
         run_pandoc(SOURCE_INDEX, stage / "index.html", "reader.css")
+        decorate_index_output(stage / "index.html")
         write_manifest(stage, lab_results)
         verify_site(stage)
         site_resolved = SITE.resolve()
@@ -3123,8 +3766,22 @@ def build() -> None:
         if SITE.exists():
             if SITE.is_symlink():
                 raise RuntimeError("refusing to replace linked site directory")
-            shutil.rmtree(SITE)
-        os.replace(stage, SITE)
+            try:
+                shutil.rmtree(SITE)
+            except PermissionError:
+                # Windows can keep the directory handle open briefly after the
+                # bounded preview server exits even though every child was
+                # removed.  The already verified stage can still be copied
+                # losslessly into that exact, demonstrably empty directory.
+                if any(SITE.iterdir()):
+                    raise
+                shutil.copytree(stage, SITE, dirs_exist_ok=True)
+                shutil.rmtree(stage)
+            else:
+                os.replace(stage, SITE)
+        else:
+            os.replace(stage, SITE)
+        verify_site(SITE)
         receipt = json.loads((SITE / "BUILD_RECEIPT.json").read_text("utf-8"))
         print(
             f"PASS files={receipt['file_count']} bytes={receipt['total_bytes']} "

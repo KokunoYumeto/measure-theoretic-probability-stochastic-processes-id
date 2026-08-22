@@ -62,6 +62,10 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Translate `markov/General.html` with exact topology and all 925 ordered TeX surfaces preserved.
 - [x] Integrate 53 exact-once reader repairs, the dependency-closed Žitković absorbing-chain lab, deterministic golden execution, original mastery closure, stable-ID backend, and full two-viewport reader QA.
 - [x] Publish and anonymously verify the 43-file tenth boundary.
+- [x] Translate `markov/Discrete.html` with exact topology and all 649 ordered TeX surfaces preserved.
+- [x] Integrate 44 exact-once reader actions, seven exercise/solution pairs, stable-ID outcomes/relations, and whole-reader hierarchy/landmark/accessibility hardening; independently audit and verify the 44-file boundary at both viewports.
+- [~] Publish the locally committed eleventh boundary when GitHub lifts the account suspension; make only the single bounded attempt/readback at the publication boundary.
+- [~] Translate the selected `markov/Recurrence.html` unit next from its exact 51,381-byte frozen authority.
 
 ## Remaining corpus
 
@@ -71,7 +75,7 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Measure-theoretic conditional expectation and kernels (`Conditional2`, `Uniform`, and `Kernels` public and anonymously verified).
 - [x] Link, do not duplicate, the O006 sampling/LLN/CLT prerequisite.
 - [x] Complete the martingale properties, stopping, inequalities, convergence, and backwards-martingale sequence.
-- [~] Markov processes: `markov/General.html` and its diagnostic lab are public; QuantEcon authority/runtime/native baseline is admitted; translate Random `Discrete` next, followed only by `Recurrence`, `Periodicity`, and `Limiting`.
+- [~] Markov processes: `markov/General.html` and its diagnostic lab are public; `markov/Discrete.html` is locally verified; QuantEcon authority/runtime/native baseline is admitted; translate only Random `Recurrence`, `Periodicity`, and `Limiting` before QuantEcon.
 - [ ] Translate/adapt all eight QuantEcon CTMC chapters with all 25 exercises, 25 solutions, and executable cells.
 - [ ] Translate the selected Random general-space `poisson/General.html` bridge; QuantEcon owns the coherent ordinary-Poisson/CTMC sequence.
 - [ ] Brownian standard/drift/bridge/geometric units and a new accessible path lab.

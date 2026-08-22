@@ -257,6 +257,46 @@ THEORY_SPECS = (
             "concept.brownian.motion",
         ],
     },
+    {
+        "rel": "markov/Discrete.html",
+        "slug": "markov.discrete",
+        "order": 16,
+        "concept_ids": [
+            "concept.markov.chain.discrete-time",
+            "concept.markov.chain.time-homogeneous",
+            "concept.stochastic.stopping-time",
+            "concept.stochastic.entrance-time",
+            "concept.markov.strong-property",
+            "concept.markov.transition-matrix",
+            "concept.markov.chapman-kolmogorov",
+            "concept.markov.invariant-distribution",
+            "concept.markov.state-graph",
+            "concept.markov.potential-matrix",
+            "concept.markov.sampled-chain",
+            "concept.markov.restricted-transition-matrix",
+            "concept.stochastic.random-walk",
+            "concept.markov.doubly-stochastic-matrix",
+        ],
+    },
+)
+
+SEMANTIC_KIND_OVERRIDES = {
+    ("markov.discrete", unit_id): "exercise"
+    for unit_id in ("com1", "com2", "com3", "com4", "ind3", "dbl4", "dbl6")
+}
+SEMANTIC_KIND_OVERRIDES.update(
+    {
+        ("markov.discrete", details_id): "solution"
+        for details_id in (
+            "details-015",
+            "details-016",
+            "details-017",
+            "details-018",
+            "details-025",
+            "details-028",
+            "details-030",
+        )
+    }
 )
 
 SCHEMA = "o009.backend.entity.v2"
@@ -532,6 +572,16 @@ def fixed_entities(lab_text: str, markov_lab_text: str) -> list[dict[str, Any]]:
                 "concept.markov.feller-process",
                 "concept.markov.strong-property",
                 "concept.markov.chapman-kolmogorov",
+                "concept.markov.chain.discrete-time",
+                "concept.markov.chain.time-homogeneous",
+                "concept.stochastic.entrance-time",
+                "concept.markov.transition-matrix",
+                "concept.markov.invariant-distribution",
+                "concept.markov.state-graph",
+                "concept.markov.potential-matrix",
+                "concept.markov.sampled-chain",
+                "concept.markov.restricted-transition-matrix",
+                "concept.markov.doubly-stochastic-matrix",
                 "concept.stochastic.levy-process",
                 "concept.poisson.process",
                 "concept.renewal.process",
@@ -814,6 +864,16 @@ def fixed_entities(lab_text: str, markov_lab_text: str) -> list[dict[str, Any]]:
         "concept.markov.feller-process": "Feller process",
         "concept.markov.strong-property": "strong Markov property",
         "concept.markov.chapman-kolmogorov": "Chapman-Kolmogorov equation",
+        "concept.markov.chain.discrete-time": "discrete-time Markov chain",
+        "concept.markov.chain.time-homogeneous": "time-homogeneous Markov chain",
+        "concept.stochastic.entrance-time": "entrance and first-positive hitting times",
+        "concept.markov.transition-matrix": "transition matrix and its powers",
+        "concept.markov.invariant-distribution": "invariant distribution of a Markov chain",
+        "concept.markov.state-graph": "state graph of a Markov chain",
+        "concept.markov.potential-matrix": "discounted potential matrix and resolvent",
+        "concept.markov.sampled-chain": "chain sampled at deterministic times",
+        "concept.markov.restricted-transition-matrix": "restricted substochastic transition matrix",
+        "concept.markov.doubly-stochastic-matrix": "doubly stochastic transition matrix",
         "concept.stochastic.levy-process": "Lévy process",
         "concept.poisson.process": "Poisson process",
         "concept.renewal.process": "renewal process",
@@ -993,6 +1053,42 @@ def fixed_entities(lab_text: str, markov_lab_text: str) -> list[dict[str, Any]]:
                 "concept.monte-carlo",
             ],
         ),
+        "outcome.o009.characterize-discrete-markov-chains": (
+            "Mengkarakterisasi rantai Markov waktu diskret homogen melalui riwayat berprobabilitas positif dan keluarga matriks transisi yang konsisten.",
+            "analyze",
+            [
+                "concept.markov.chain.discrete-time",
+                "concept.markov.chain.time-homogeneous",
+                "concept.markov.strong-property",
+            ],
+        ),
+        "outcome.o009.compute-discrete-transition-laws": (
+            "Menghitung matriks transisi beberapa langkah dan hukum berdimensi hingga dengan persamaan Chapman–Kolmogorov.",
+            "apply",
+            [
+                "concept.markov.transition-matrix",
+                "concept.markov.chapman-kolmogorov",
+                "concept.markov.invariant-distribution",
+            ],
+        ),
+        "outcome.o009.analyze-discrete-potential-and-restriction": (
+            "Menganalisis matriks potensial, pengambilan sampel waktu, dan pembatasan substokastik suatu rantai diskret.",
+            "analyze",
+            [
+                "concept.markov.potential-matrix",
+                "concept.markov.sampled-chain",
+                "concept.markov.restricted-transition-matrix",
+            ],
+        ),
+        "outcome.o009.solve-finite-discrete-chain-models": (
+            "Menyelesaikan model rantai hingga memakai graf keadaan, distribusi invarian, dan struktur stokastik ganda.",
+            "apply",
+            [
+                "concept.markov.state-graph",
+                "concept.markov.invariant-distribution",
+                "concept.markov.doubly-stochastic-matrix",
+            ],
+        ),
     }
     for stable_id, (label, level, concept_ids) in outcomes.items():
         entities.append(
@@ -1103,6 +1199,7 @@ def html_entities() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
                 if right.select_one(":scope > p.dfn")
                 else "mathematical_unit"
             )
+            kind = SEMANTIC_KIND_OVERRIDES.get((slug, suffix), kind)
             entities.append(
                 record(
                     "unit",
@@ -1516,6 +1613,174 @@ def html_entities() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
                 "unit.o009.random.martingales.backwards.exc2",
                 "outcome.o009.prove-binary-de-finetti",
                 "martingales/Backwards.html#exc2",
+            ),
+            relation(
+                "rel.depends-on.markov-discrete.markov-general",
+                "depends-on",
+                "unit.o009.random.markov.discrete",
+                "unit.o009.random.markov.general",
+                "Discrete.html specializes the all-state Markov family, transition kernels, and strong-property conventions from General.html",
+            ),
+            relation(
+                "rel.depends-on.markov-discrete.processes",
+                "depends-on",
+                "unit.o009.random.markov.discrete",
+                "unit.o009.random.prob.processes",
+                "Discrete.html uses stochastic-process and finite-dimensional-distribution foundations",
+            ),
+            relation(
+                "rel.depends-on.markov-discrete.stopping-times",
+                "depends-on",
+                "unit.o009.random.markov.discrete",
+                "unit.o009.random.prob.stop",
+                "Discrete.html uses filtrations, entrance times, and sigma-algebras at stopping times",
+            ),
+            relation(
+                "rel.depends-on.markov-discrete.kernels",
+                "depends-on",
+                "unit.o009.random.markov.discrete",
+                "unit.o009.random.expect.kernels",
+                "Discrete transition matrices are countable-state probability kernels and operators",
+            ),
+            relation(
+                "rel.depends-on.markov-discrete.random-walk.o006-sampling",
+                "depends-on",
+                "unit.o009.random.markov.discrete.ind2",
+                "resource.o006.c140.shared",
+                "the independent-increment random-walk subsection uses the shared i.i.d. sampling prerequisite without importing O006 chapter-5 bytes",
+            ),
+            relation(
+                "rel.teaches.markov-discrete.definition",
+                "teaches",
+                "unit.o009.random.markov.discrete.dfn1",
+                "outcome.o009.characterize-discrete-markov-chains",
+                "markov/Discrete.html#dfn1 through #dfn5",
+            ),
+            relation(
+                "rel.teaches.markov-discrete.transition-laws",
+                "teaches",
+                "unit.o009.random.markov.discrete.trn2",
+                "outcome.o009.compute-discrete-transition-laws",
+                "markov/Discrete.html#trn1 through #trn6",
+            ),
+            relation(
+                "rel.teaches.markov-discrete.potential",
+                "teaches",
+                "unit.o009.random.markov.discrete.pot8",
+                "outcome.o009.analyze-discrete-potential-and-restriction",
+                "markov/Discrete.html#pot1 through #pot8",
+            ),
+            relation(
+                "rel.teaches.markov-discrete.restriction",
+                "teaches",
+                "unit.o009.random.markov.discrete.smp2",
+                "outcome.o009.analyze-discrete-potential-and-restriction",
+                "markov/Discrete.html#smp2",
+            ),
+            relation(
+                "rel.teaches.markov-discrete.finite-models",
+                "teaches",
+                "unit.o009.random.markov.discrete.two1",
+                "outcome.o009.solve-finite-discrete-chain-models",
+                "markov/Discrete.html#two1 through #dbl6",
+            ),
+            relation(
+                "rel.assesses.markov-discrete.com1",
+                "assesses",
+                "unit.o009.random.markov.discrete.com1",
+                "outcome.o009.solve-finite-discrete-chain-models",
+                "markov/Discrete.html#com1",
+            ),
+            relation(
+                "rel.assesses.markov-discrete.com2",
+                "assesses",
+                "unit.o009.random.markov.discrete.com2",
+                "outcome.o009.analyze-discrete-potential-and-restriction",
+                "markov/Discrete.html#com2",
+            ),
+            relation(
+                "rel.assesses.markov-discrete.com3",
+                "assesses",
+                "unit.o009.random.markov.discrete.com3",
+                "outcome.o009.solve-finite-discrete-chain-models",
+                "markov/Discrete.html#com3",
+            ),
+            relation(
+                "rel.assesses.markov-discrete.com4",
+                "assesses",
+                "unit.o009.random.markov.discrete.com4",
+                "outcome.o009.analyze-discrete-potential-and-restriction",
+                "markov/Discrete.html#com4",
+            ),
+            relation(
+                "rel.assesses.markov-discrete.dbl4",
+                "assesses",
+                "unit.o009.random.markov.discrete.dbl4",
+                "outcome.o009.solve-finite-discrete-chain-models",
+                "markov/Discrete.html#dbl4",
+            ),
+            relation(
+                "rel.assesses.markov-discrete.ind3",
+                "assesses",
+                "unit.o009.random.markov.discrete.ind3",
+                "outcome.o009.compute-discrete-transition-laws",
+                "markov/Discrete.html#ind3",
+            ),
+            relation(
+                "rel.assesses.markov-discrete.dbl6",
+                "assesses",
+                "unit.o009.random.markov.discrete.dbl6",
+                "outcome.o009.solve-finite-discrete-chain-models",
+                "markov/Discrete.html#dbl6",
+            ),
+            relation(
+                "rel.solves.markov-discrete.com1",
+                "solves",
+                "unit.o009.random.markov.discrete.details-015",
+                "unit.o009.random.markov.discrete.com1",
+                "markov/Discrete.html#com1 worked disclosure",
+            ),
+            relation(
+                "rel.solves.markov-discrete.com2",
+                "solves",
+                "unit.o009.random.markov.discrete.details-016",
+                "unit.o009.random.markov.discrete.com2",
+                "markov/Discrete.html#com2 worked disclosure",
+            ),
+            relation(
+                "rel.solves.markov-discrete.com3",
+                "solves",
+                "unit.o009.random.markov.discrete.details-017",
+                "unit.o009.random.markov.discrete.com3",
+                "markov/Discrete.html#com3 worked disclosure",
+            ),
+            relation(
+                "rel.solves.markov-discrete.com4",
+                "solves",
+                "unit.o009.random.markov.discrete.details-018",
+                "unit.o009.random.markov.discrete.com4",
+                "markov/Discrete.html#com4 worked disclosure",
+            ),
+            relation(
+                "rel.solves.markov-discrete.ind3",
+                "solves",
+                "unit.o009.random.markov.discrete.details-025",
+                "unit.o009.random.markov.discrete.ind3",
+                "markov/Discrete.html#ind3 worked disclosure",
+            ),
+            relation(
+                "rel.solves.markov-discrete.dbl4",
+                "solves",
+                "unit.o009.random.markov.discrete.details-028",
+                "unit.o009.random.markov.discrete.dbl4",
+                "markov/Discrete.html#dbl4 worked disclosure",
+            ),
+            relation(
+                "rel.solves.markov-discrete.dbl6",
+                "solves",
+                "unit.o009.random.markov.discrete.details-030",
+                "unit.o009.random.markov.discrete.dbl6",
+                "markov/Discrete.html#dbl6 worked disclosure",
             ),
         ]
     )
@@ -3191,10 +3456,51 @@ def validate_record_envelopes(records: list[dict[str, Any]], relations: list[dic
         "rel.teaches.martingales-stop.pattern-waiting",
         "rel.assesses.martingales-stop.pattern-waiting",
         "rel.teaches.martingales-stop.optimal-stopping",
+        "rel.depends-on.markov-discrete.markov-general",
+        "rel.depends-on.markov-discrete.processes",
+        "rel.depends-on.markov-discrete.stopping-times",
+        "rel.depends-on.markov-discrete.kernels",
+        "rel.depends-on.markov-discrete.random-walk.o006-sampling",
+        "rel.teaches.markov-discrete.definition",
+        "rel.teaches.markov-discrete.transition-laws",
+        "rel.teaches.markov-discrete.potential",
+        "rel.teaches.markov-discrete.restriction",
+        "rel.teaches.markov-discrete.finite-models",
+        "rel.assesses.markov-discrete.com1",
+        "rel.assesses.markov-discrete.com2",
+        "rel.assesses.markov-discrete.com3",
+        "rel.assesses.markov-discrete.com4",
+        "rel.assesses.markov-discrete.ind3",
+        "rel.assesses.markov-discrete.dbl4",
+        "rel.assesses.markov-discrete.dbl6",
+        "rel.solves.markov-discrete.com1",
+        "rel.solves.markov-discrete.com2",
+        "rel.solves.markov-discrete.com3",
+        "rel.solves.markov-discrete.com4",
+        "rel.solves.markov-discrete.ind3",
+        "rel.solves.markov-discrete.dbl4",
+        "rel.solves.markov-discrete.dbl6",
     }
     missing = required_relations - relation_ids
     if missing:
         raise RuntimeError(f"missing required graph relations: {sorted(missing)}")
+    records_by_id = {item["id"]: item for item in records}
+    for exercise_id in ("com1", "com2", "com3", "com4", "ind3", "dbl4", "dbl6"):
+        stable_id = f"unit.o009.random.markov.discrete.{exercise_id}"
+        if records_by_id[stable_id]["payload"].get("unit_kind") != "exercise":
+            raise RuntimeError(f"Discrete exercise role missing: {stable_id}")
+    for details_id in (
+        "details-015",
+        "details-016",
+        "details-017",
+        "details-018",
+        "details-025",
+        "details-028",
+        "details-030",
+    ):
+        stable_id = f"unit.o009.random.markov.discrete.{details_id}"
+        if records_by_id[stable_id]["payload"].get("unit_kind") != "solution":
+            raise RuntimeError(f"Discrete solution role missing: {stable_id}")
     for item in records:
         if item["record_type"] in {"unit", "segment"} and item.get("path") == "labs/01-konvergensi-monte-carlo.Rmd":
             if item["source_target_relationship"] == "adapts" and item["rights_id"] != "rights.o009.indonesian-adaptation.cc-by-4.0":

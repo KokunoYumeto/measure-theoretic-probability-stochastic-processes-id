@@ -25,16 +25,16 @@
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
-<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
-<li class="child"><a href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
-<li class="child"><a href="Stop.html" title="Waktu Henti">3</a></li>
-<li class="child"><a href="Inequalities.html" title="Pertidaksamaan">4</a></li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">5</a></li>
-<li class="current">6</li>
-<li class="details"><button onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+<li class="child"><a aria-label="Bagian 1: Pendahuluan" href="Introduction.html" title="Pendahuluan">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Sifat dan Konstruksi" href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Pertidaksamaan" href="Inequalities.html" title="Pertidaksamaan">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">5</a></li>
+<li aria-current="page" aria-label="Bagian 6: Martingal Mundur (halaman saat ini)" class="current">6</li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
 </ol>
-<h2>6. Martingal Mundur</h2>
+<h1>6. Martingal Mundur</h1>
 </header><aside class="component-attribution" id="o009-rights-random-martingale-backwards">
 <strong>Asal komponen.</strong> Terjemahan halaman <cite>Backwards Martingales</cite>
 karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
@@ -42,10 +42,10 @@ Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
 beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="https://www.randomservices.org/random/martingales/Backwards.html">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav>
-<h3>Teori Dasar</h3>
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Ekspektasi bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav><main>
+<h2 class="reader-level-2">Teori Dasar</h2>
 <p><em>Martingal mundur</em> merupakan proses stokastik yang memenuhi sifat martingal dengan arah waktu dibalik, dalam suatu pengertian tertentu. Dalam beberapa hal, martingal mundur lebih sederhana daripada padanan majunya, dan khususnya memenuhi teorema konvergensi yang serupa dengan <a href="Convergence.html">teorema konvergensi</a> untuk martingal biasa. Arti penting martingal mundur berasal dari banyak penerapannya. Secara khusus, beberapa teorema fundamental probabilitas klasik dapat dirumuskan dalam martingal mundur.</p>
-<h4 id="dfn">Definisi</h4>
+<h3 class="reader-level-3" id="dfn">Definisi</h3>
 <p>Seperti biasa, kita mulai dengan suatu <a href="../prob/Processes.html">proses stokastik</a> \( \bs{Y} = \{Y_t: t \in T\} \) pada ruang probabilitas yang mendasarinya \( (\Omega, \mathscr{F}, \P) \), dengan ruang keadaan \( \R \), dan dengan himpunan indeks \( T \) (yang menyatakan waktu) berupa \( \N \) (waktu diskret) atau \( [0, \infty) \) (waktu kontinu). Untuk meninjau kembali semua pengertiannya, \( \Omega \) merupakan <a href="https://www.randomservices.org/random/prob/Events.html">ruang sampel</a>, \( \mathscr{F} \) merupakan <a href="https://www.randomservices.org/random/foundations/Measure.html">aljabar-\( \sigma \)</a> kejadian, \( \P \) merupakan ukuran probabilitas pada \( (\Omega, \mathscr{F}) \), dan \( Y_t \) merupakan peubah acak yang bernilai dalam \( \R \) untuk setiap \( t \in T \). Namun, pada titik ini perumusan kita menyimpang. Misalkan \( \mathscr{G}_t \) merupakan subaljabar-\( \sigma \) dari \( \mathscr{F} \) untuk setiap \( t \in T \), dan \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \) <em>menurun</em>, sehingga jika \( s, \, t \in T \) dengan \( s \le t \), maka \( \mathscr{G}_t \subseteq \mathscr{G}_s \). Tetapkan \( \mathscr{G}_\infty = \bigcap_{t \in T} \mathscr{G}_t \). Kita mengandaikan bahwa \( Y_t \) terukur terhadap \( \mathscr{G}_t \) dan bahwa \( \E(|Y_t|) \lt \infty \) untuk setiap \( t \in T \).</p>
 <div class="unit" id="dfn1">
 <p class="dfn">Proses \( \bs Y = \{Y_t: t \in T\} \) merupakan <dfn>martingal mundur</dfn> (atau <dfn>martingal terbalik</dfn>) terhadap \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \) jika  \(\E(Y_s \mid \mathscr{G}_t) = Y_t\) untuk semua \(s, \, t \in T\) dengan \(s \le t\).</p>
@@ -54,7 +54,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Backwards.h
 <div class="unit" id="dfn2">
 <p class="math">Misalkan kembali bahwa \( \bs Y = \{Y_t: t \in T\} \) merupakan martingal mundur terhadap \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \). Tetapkan \( X_t = Y_{-t} \) dan \( \mathscr{F}_t = \mathscr{G}_{-t} \) untuk \( t \in T^- \). Maka \( \bs X = \{X_t: t \in T^-\} \) merupakan martingal terhadap \( \mathfrak F = \{\mathscr{F}_t: t \in T^-\} \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Definisi, butir 1">Rincian:</summary>
 <p>Karena \( \mathfrak G \) merupakan keluarga menurun subaljabar-\( \sigma \) dari \( \mathscr{F} \), koleksi \( \mathfrak F \) merupakan keluarga menaik subaljabar-\( \sigma \) dari \( \mathscr F \), dan dengan demikian merupakan filtrasi. Selanjutnya, \( X_t = Y_{-t} \) terukur terhadap \( \mathscr{G}_{-t} = \mathscr{F}_t \) untuk \( t \in T^- \), sehingga \( \bs X \) teradaptasi terhadap \( \mathfrak F \). Terakhir, jika \( s, \, t \in T^- \) dengan \( s \le t \), maka \( -t \le -s \), sehingga
 		\[ \E(X_t \mid \mathscr{F}_s) = \E(Y_{-t} \mid \mathscr{G}_{-s}) = Y_{-s} = X_s \]</p>
 </details>
@@ -63,17 +63,17 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Backwards.h
 <div class="unit" id="dfn3">
 <p class="math">Misalkan kembali bahwa \( \bs Y = \{Y_t: t \in T\} \) merupakan martingal mundur terhadap \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \). Tetapkan \( t \in T \) dan definisikan \( X^t_s = Y_{t-s} \) serta \( \mathscr{F}^t_s = \mathscr{G}_{t-s} \) untuk \( s \in T_t \). Maka \( \bs{X}^t = \{X^t_s: s \in T_t\} \) merupakan martingal terhadap \( \mathfrak{F}^t = \{\mathscr{F}^t_s: s \in T_t\} \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Definisi, butir 2">Rincian:</summary>
 <p>Buktinya pada dasarnya sama dengan bukti untuk <a class="ref" href="#dfn2"></a>. Karena \( \mathfrak G \) merupakan keluarga menurun subaljabar-\( \sigma \) dari \( \mathscr{F} \), koleksi \( \mathfrak{F}^t \) merupakan keluarga menaik subaljabar-\( \sigma \) dari \( \mathscr F \), dan dengan demikian merupakan filtrasi. Selanjutnya, \( X^t_s = Y_{t-s} \) terukur terhadap \( \mathscr{G}_{t-s} = \mathscr{F}^t_s \) untuk \( s \in T_t \), sehingga \( \bs{X}^t \) teradaptasi terhadap \( \mathfrak{F}^t \). Terakhir, jika \( r, \, s \in T_t \) dengan \( r \le s \), maka \( t - s \le t - r \), sehingga
 		\[ \E(X^t_s \mid \mathscr{F}^t_r) = \E(Y_{t-s} \mid \mathscr{G}_{t-r}) = Y_{t-r} = X^t_r \]</p>
 </details>
 </div>
-<h4 id="prp">Sifat</h4>
+<h3 class="reader-level-3" id="prp">Sifat</h3>
 <p>Martingal mundur memenuhi suatu sifat yang sederhana dan penting.</p>
 <div class="unit" id="prp1">
 <p class="math">Misalkan \( \bs Y = \{Y_t: t \in T\} \) merupakan martingal mundur terhadap \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \). Maka \( Y_t = \E(Y_0 \mid \mathscr{G}_t) \) untuk \( t \in T \), sehingga \( \bs Y \) <a href="../expect/Uniform.html">terintegralkan seragam</a>.</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat, butir 1">Rincian:</summary>
 <p>Fakta bahwa \( Y_t = \E(Y_0 \mid \mathscr{G}_t) \) untuk \( t \in T \) mengikuti langsung dari definisi martingal mundur. Karena kita telah mengandaikan bahwa \( \E(|Y_0|) \lt \infty \), berdasarkan suatu <a href="../expect/Uniform.html#exe2">sifat dasar</a> diperoleh bahwa \( \bs Y \) terintegralkan seragam.</p>
 </details>
 </div>
@@ -81,7 +81,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Backwards.h
 <div class="unit" id="prp2">
 <p class="math">Misalkan \( Y \) merupakan peubah acak pada ruang probabilitas kita \( (\Omega, \mathscr{F}, \P) \) dengan \( \E(|Y|) \lt \infty \), dan \(\mathfrak G = \{\mathscr{G}_t: t \in T\} \) merupakan keluarga menurun subaljabar-\( \sigma \) dari \( \mathscr{F} \), seperti di atas. Tetapkan \( Y_t = \E(Y \mid \mathscr{G}_t) \) untuk \( t \in T \). Maka \( \bs Y = \{Y_t: t \in T\} \) merupakan martingal mundur terhadap \( \mathfrak G \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat, butir 2">Rincian:</summary>
 <p>Berdasarkan definisi, \( Y_t = \E(Y \mid \mathscr{G}_t) \) terukur terhadap \( \mathscr{G}_t \). Selain itu,
 		\[ \E(|Y_t|) = \E[|\E(Y \mid \mathscr{G}_t)|] \le \E[\E(|Y| \mid \mathscr{G}_t)] = \E(|Y|) \lt \infty, \quad  t \in T \]
 		Selanjutnya, misalkan \( s, \, t \in T \) dengan \( s \le t \). Maka \( \mathscr{G}_t \subseteq \mathscr{G}_s \), sehingga berdasarkan sifat menara ekspektasi bersyarat,
@@ -99,7 +99,7 @@ dan ruang vektor bernorma \( \mathscr{L}_k \) terdiri atas semua \( X \) dengan 
 <li>\( Y_\infty = \E(Y_0 \mid \mathscr{G}_\infty) \).</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat, butir 3">Rincian:</summary>
 <p>Buktinya pada dasarnya sama dengan <a href="Convergence.html#mct">teorema konvergensi martingal</a> biasa jika kita menggunakan martingal yang dikonstruksi dari \( \bs Y \) dalam <a class="ref" href="#dfn3"></a>. Jadi, tetapkan \( t \in T \) dan misalkan \( T_t = \{s \in T: s \le t\} \). Tetapkan \( X^t_s = Y_{t - s} \) dan \( \mathscr{F}^t_s = \mathscr{G}_{t - s} \) untuk \( s \in T_t \), sehingga \( \bs{X}^t = \{X^t_s: s \in T_t\} \) merupakan martingal terhadap \( \mathfrak{F}^t = \{\mathscr{F}^t_s: s \in T_t\} \). Sekarang, untuk \( a, \, b \in \R \) dengan \( a \lt b \), misalkan \( U_t(a, b) \) menyatakan jumlah lintas-naik \( [a, b] \) oleh \( \bs{X}^t \) pada \( T_t \). Perhatikan bahwa \( U_t(a, b) \) juga merupakan jumlah <em>lintas-turun</em> \( [a, b] \) oleh \( \bs Y \) pada \( T_t \). Berdasarkan <a href="Inequalities.html#upc">pertidaksamaan lintas-naik</a> yang diterapkan pada martingal \( \bs{X}^t \), 
 		\[ \E[U_t(a,b)] \le \frac{1}{b-a}\big[\E(|X^t_t|)+|a|\big] = \frac{1}{b-a}\big[\E(|Y_0|)+|a|\big] \] 
 		Sekarang misalkan \( U_\infty(a, b) \) menyatakan jumlah lintas-turun \( [a, b] \) oleh \( \bs Y \) pada seluruh \( T \). Karena \(U_t\uparrow U_\infty\) ketika \(t\to\infty\), berdasarkan teorema konvergensi monoton diperoleh 
@@ -116,7 +116,7 @@ Dengan demikian, \(\E(Y_\infty;A)=\E(Y_0;A)\) untuk setiap \(A\in\mathscr G_\inf
 <div class="unit">
 <p class="math">Misalkan kembali bahwa \( \bs Y = \{Y_t: t \in T\} \) merupakan martingal mundur terhadap \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \). Jika \( Y_0 \in \mathscr{L}_k \) untuk suatu \( k \in [1, \infty) \), maka \( Y_t \to Y_\infty \) ketika \( t \to \infty \) dalam \(\mathscr{L}_k\).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Sifat, butir 4">Rincian:</summary>
 <p>Teorema <a class="ref" href="#prp3"></a> tentu saja berlaku, sehingga kita mengetahui bahwa terdapat peubah acak \( Y_\infty \in \mathscr{L}_1 \), sedemikian sehingga \( Y_t \to Y_\infty \) ketika \( t \to \infty \) dengan probabilitas 1 dan dalam \( \mathscr{L}_1 \). Fungsi \( x \mapsto |x|^k \) cembung pada \( \R \), sehingga berdasarkan <a href="../expect/Conditional2.html">pertidaksamaan Jensen</a> untuk ekspektasi bersyarat,
 		\[ \E(|Y_t|^k) = \E[|\E(Y_0 \mid \mathscr{G}_t)|^k] \le \E[\E(|Y_0|^k \mid \mathscr{G}_t)] = \E(|Y_0|^k) \lt \infty \]
 		sehingga \( Y_t \in \mathscr{L}_k \) untuk setiap \( t \in T \). Berdasarkan <a href="https://www.randomservices.org/random/expect/Integral.html#lim1">lema Fatou</a>, 
@@ -126,8 +126,8 @@ Dengan demikian, \(\E(Y_\infty;A)=\E(Y_0;A)\) untuk setiap \(A\in\mathscr G_\inf
 		Akibatnya, keluarga peubah acak \( \{|Y_t - Y_\infty|^k: t \in T\} \) terintegralkan seragam, sehingga \( \E(|Y_t - Y_\infty|^k) \to 0 \) ketika \( t \to \infty \).</p>
 </details>
 </div>
-<h3>Penerapan</h3>
-<h4 id="lln">Hukum Kuat Bilangan Besar</h4>
+<h2 class="reader-level-2">Penerapan</h2>
+<h3 class="reader-level-3" id="lln">Hukum Kuat Bilangan Besar</h3>
 <p><a href="https://www.randomservices.org/random/sample/LLN.html">Hukum kuat bilangan besar</a> merupakan salah satu teorema fundamental probabilitas klasik. Bukti awal kita mensyaratkan bahwa distribusi yang mendasarinya memiliki varians berhingga. Di sini kita menyajikan bukti yang elegan dengan menggunakan martingal mundur, tanpa memerlukan asumsi tambahan tersebut. Jadi, misalkan \( \bs X = \{X_n: n \in \N_+\} \) merupakan barisan peubah acak independen dan berdistribusi identik yang masing-masing memiliki rata-rata \( \mu \in \R \). Dalam istilah statistika, \( \bs X \) berkaitan dengan <dfn>pengambilan sampel</dfn> dari distribusi yang mendasarinya. Selanjutnya, tetapkan
 \[ Y_n = \sum_{i=1}^n X_i, \quad n \in \N \]
 sehingga \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses jumlah parsial yang terkait dengan \( \bs X \). Ingat bahwa barisan \( \bs Y \) juga merupakan gerak acak waktu diskret. Terakhir, tetapkan \( M_n = Y_n / n \) untuk \( n \in \N_+ \), sehingga \( \bs M = \{M_n: n \in \N_+\} \) merupakan barisan <dfn>rata-rata sampel</dfn>. </p>
@@ -138,7 +138,7 @@ sehingga \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses jumlah parsial yang te
 <li>\( M_n \to \mu \) ketika \( n \to \infty \) dalam rata-rata.</li>
 </ol>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Hukum Kuat Bilangan Besar">Rincian:</summary>
 <p>Seperti biasa, misalkan \( (\Omega, \mathscr{F}, \P) \) menyatakan ruang probabilitas yang mendasarinya. Selain itu, persamaan yang melibatkan peubah acak (dan khususnya ekspektasi bersyarat) dianggap berlaku dengan probabilitas 1. Sekarang, untuk \(n\in\N_+\), tetapkan
 		\[ \mathscr{G}_n = \sigma\{Y_n, Y_{n+1}, Y_{n+2}, \ldots\} = \sigma\{Y_n, X_{n+1}, X_{n+2} \ldots\}\]
 		sehingga \(\mathfrak G=\{\mathscr G_n:n\in\N_+\}\) merupakan keluarga menurun subaljabar-\( \sigma \) dari \( \mathscr{F} \). Inti bukti ini adalah menunjukkan bahwa \( \bs M \) merupakan martingal mundur terhadap \( \mathfrak G \). Misalkan \( n \in \N_+ \). Jelas bahwa \( M_n \) terukur terhadap \( \mathscr{G}_n \). Berdasarkan independensi, \( \E(X_i \mid \mathscr{G}_n) = \E(X_i \mid Y_n) \) untuk \( i \in \{1, 2, \ldots, n\} \). Berdasarkan simetri (barisan \( \bs X \) <a href="../prob/Probability2.html#exc">dapat dipertukarkan</a>), \( \E(X_i \mid Y_n) = \E(X_j \mid Y_n) \) untuk \( i, \, j \in \{1, 2, \ldots, n\} \). Oleh karena itu, untuk \( i \in \{1, 2, \ldots, n\} \),
@@ -152,12 +152,12 @@ sehingga \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses jumlah parsial yang te
 		untuk setiap \( k \in \N_+ \). Oleh karena itu, \( M_\infty \) merupakan peubah acak ekor untuk barisan independen dan berdistribusi identik \( \bs X \). Berdasarkan <a href="Convergence.html#kol">hukum nol-satu Kolmogorov</a>, \( M_\infty \) harus berupa konstanta. Terakhir, konvergensi dalam rata-rata menyiratkan bahwa rata-ratanya konvergen, dan karena \( \E(M_n) = \mu \) untuk setiap \( n \), diperoleh \( M_\infty = \mu \). </p>
 </details>
 </div>
-<h4 id="exc">Peubah Dapat Dipertukarkan</h4>
+<h3 class="reader-level-3" id="exc">Peubah Dapat Dipertukarkan</h3>
 <p>Kita mulai dengan suatu ruang probabilitas \( (\Omega, \mathscr F, \P) \) dan ruang terukur lain \( (S, \mathscr S) \). Misalkan \( \bs X = (X_1, X_2, \ldots) \) merupakan barisan peubah acak yang masing-masing bernilai dalam \( S \). Ingat bahwa \( \bs X \) <dfn>dapat dipertukarkan</dfn> jika untuk setiap \( n \in \N \), setiap permutasi \( (X_1, X_2, \ldots, X_n) \) memiliki distribusi yang sama pada \( (S^n, \mathscr{S}^n) \) (dengan \( \mathscr{S}^n \) merupakan hasil kali \( n \) aljabar-\( \sigma \)). Jelas bahwa jika \( \bs X \) merupakan barisan peubah independen dan berdistribusi identik, maka \( \bs X \) dapat dipertukarkan. Sebaliknya, jika \( \bs X \) dapat dipertukarkan, maka peubah-peubahnya berdistribusi identik (berdasarkan definisi), tetapi belum tentu independen. Contoh paling terkenal dari barisan yang dapat dipertukarkan tetapi tidak independen adalah <a href="https://www.randomservices.org/random/urn/Polya.html">proses urna Pólya</a>, yang dinamai menurut <a class="ancillary" href="https://www.randomservices.org/random/biographies/Polya.html">George Pólya</a>. Di sisi lain, barisan yang <em>secara bersyarat</em> independen dan berdistribusi identik <em>dapat</em> dipertukarkan. Jadi, misalkan \( (T, \mathscr{T}) \) merupakan ruang terukur lain dan \( \Theta \) merupakan peubah acak yang bernilai dalam \( T \).</p>
 <div class="unit" id="exc1">
 <p class="math">Jika peubah-peubah dalam \( \bs X \), bersyarat pada \( \Theta \), independen dan berdistribusi identik, maka \( \bs X \) dapat dipertukarkan.</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Peubah Dapat Dipertukarkan, butir 1">Rincian:</summary>
 <p>Pernyataan tersebut secara implisit mengandaikan bahwa peubah-peubah dalam barisan memiliki distribusi bersyarat reguler \( \mu_\Theta \) jika diberikan  \( \Theta \). Maka untuk setiap \( n \in \N_+ \), distribusi bersyarat dari setiap permutasi \( (X_1, X_2, \ldots, X_n) \), jika diberikan \( \Theta \), adalah \( \mu^n_\Theta \) pada \( (S^n, \mathscr{S}^n) \), dengan \( \mu_\Theta^n \) merupakan ukuran produk lipat-\( n \). Tanpa pengondisian, distribusi dari setiap permutasi adalah \( B \mapsto \E[\mu^n_\Theta(B)] \) untuk \( B \in \mathscr{S}^n \).</p>
 </details>
 </div>
@@ -165,7 +165,7 @@ sehingga \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses jumlah parsial yang te
 <div class="unit" id="exc2">
 <p class="math"><strong>Teorema de Finetti</strong>. Misalkan \( \bs X = (X_1, X_2, \ldots) \) merupakan barisan peubah acak yang dapat dipertukarkan, dengan masing-masing bernilai dalam \( \{0, 1\} \). Maka terdapat peubah acak \( P \) yang bernilai dalam \( [0, 1] \), sedemikian sehingga jika diberikan \( P = p \in [0, 1] \), \( \bs X \) merupakan barisan percobaan Bernoulli dengan parameter keberhasilan \( p \).</p>
 <details>
-<summary>Rincian:</summary>
+<summary aria-label="Rincian: Peubah Dapat Dipertukarkan, butir 2">Rincian:</summary>
 <p>Seperti biasa, kita memerlukan beberapa notasi. Pertama, ingat kembali notasi <a href="https://www.randomservices.org/random/foundations/Structures.html#per">pangkat menurun</a> \( r^{(j)} = r (r - 1) \cdots (r - j + 1) \) untuk \( r \in \R \) dan \( j \in \N \). Selanjutnya, untuk \( n \in \N_+ \) dan \( k \in \{0, 1, \ldots, n\} \), tetapkan
 		\[ B^n_k = \left\{(x_1, x_2, \ldots, x_n) \in \{0, 1\}^n: \sum_{i=1}^n x_i = k\right\} \]
 		Artinya, \( B^n_k \) merupakan himpunan untaian bit dengan panjang \( n \) yang memuat tepat \( k \) buah 1. Tentu saja, \( \#(B^n_k) = \binom{n}{k} = n^{(k)} / k! \).</p>
@@ -206,18 +206,18 @@ sehingga \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses jumlah parsial yang te
 <p>Teorema de Finetti telah diperluas ke barisan peubah dapat dipertukarkan yang jauh lebih umum. Pada dasarnya, jika \(\bs X=(X_1,X_2,\ldots)\) merupakan barisan peubah acak yang dapat dipertukarkan dan bernilai dalam ruang Borel standar \((S,\mathscr S)\), maka terdapat ukuran probabilitas acak \(\Theta\) pada \((S,\mathscr S)\), sedemikian sehingga, jika diberikan \(\Theta\), peubah-peubah dalam \(\bs X\) independen dan masing-masing berdistribusi \(\Theta\). Untuk barisan dapat dipertukarkan bernilai riil dan terintegralkan, konvergensi hampir pasti dari rata-rata sampel \(M_n=\frac1n\sum_{i=1}^nX_i\) dikenal sebagai <dfn>hukum kuat bilangan besar de Finetti</dfn>. Teorema de Finetti dan generalisasinya penting dalam inferensi statistika Bayes. Untuk barisan peubah acak yang dapat dipertukarkan (pengamatan kita dalam suatu eksperimen statistika), terdapat parameter acak tersembunyi \( \Theta \). Jika diberikan \( \Theta = \theta \), peubah-peubahnya independen dan berdistribusi identik. Kita memperoleh informasi tentang \( \Theta \) dengan menetapkan <dfn>distribusi prior</dfn> pada \( \Theta \), lalu memperbaruinya berdasarkan pengamatan kita dan dengan menggunakan teorema Bayes menjadi <dfn>distribusi posterior</dfn>.</p>
 <p>Dalam bahasa distribusi, teorema de Finetti menyatakan bahwa distribusi bersama dari \( n \) peubah berbeda dalam barisan yang dapat dipertukarkan merupakan <dfn>campuran</dfn> ukuran produk. Artinya, jika \( \mu_\theta \) merupakan distribusi peubah generik \( X \) pada \( (S, \mathscr{S}) \) jika diberikan \( \Theta = \theta \), dan \( \nu \) merupakan distribusi \( \Theta \) pada \( (T, \mathscr{T}) \), maka distribusi bersama dari \( n \) peubah tersebut pada \((S^n,\mathscr S^n)\) adalah
 \[ B \mapsto \int_T \mu_\theta^n(B) \, d\nu(\theta)  \]</p>
-<footer>
+</main><footer>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
 <li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
-<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
-<li class="child"><a href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
-<li class="child"><a href="Stop.html" title="Waktu Henti">3</a></li>
-<li class="child"><a href="Inequalities.html" title="Pertidaksamaan">4</a></li>
-<li class="child"><a href="Convergence.html" title="Kekonvergenan">5</a></li>
-<li class="current">6</li>
-<li class="details"><button onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
-<li class="details"><button onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+<li class="child"><a aria-label="Bagian 1: Pendahuluan" href="Introduction.html" title="Pendahuluan">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Sifat dan Konstruksi" href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Pertidaksamaan" href="Inequalities.html" title="Pertidaksamaan">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Kekonvergenan" href="Convergence.html" title="Kekonvergenan">5</a></li>
+<li aria-current="page" aria-label="Bagian 6: Martingal Mundur (halaman saat ini)" class="current">6</li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
 </ol>
 <ul class="map">
 <li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>

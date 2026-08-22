@@ -98,6 +98,26 @@ summary {
   font-weight: 650;
 }
 
+h2.reader-level-2 {
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font-size: 125%;
+}
+
+h3.reader-level-3 {
+  font-size: 100%;
+}
+
+h3.reader-level-3.chapter::before {
+  content: counter(chapterCount) ". ";
+}
+
+h3.reader-level-3.chapter {
+  counter-increment: chapterCount;
+}
+
 pre {
   overflow-x: auto;
   padding: 0.8rem;
