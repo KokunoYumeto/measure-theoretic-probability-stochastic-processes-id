@@ -350,3 +350,43 @@ dropped the integer domain and its first signed-measure repair still relied on
 ambient Jordan parts. Both defects were corrected before publication; they are
 edition-process findings, not additional upstream defects. No exercise or
 solution block occurs on this page. No upstream contact has occurred.
+
+## `martingales/Backwards.html`
+
+The frozen page is 31,248 bytes at SHA-256
+`adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba`.
+The Indonesian source is 32,504 bytes at SHA-256
+`cfc8490994e139e7c4c869fd1c431b1c0f3872af9247279bf0885472dfaa50c2`
+and preserves all 426 ordered source TeX surfaces. The built reader applies 26
+exact-once actions: 25 source-content repairs and one deterministic
+localization.
+
+- The continuous-time convergence statement needs path regularity; the reader
+  uses a left-continuous/right-limit version so finite time reversal supplies
+  the regularity required by the ordinary martingale theorem.
+- The finite-horizon upcrossing bound names `X_t` rather than the defined
+  `X_t^t`, and the expanding positive horizon is sent to negative instead of
+  positive infinity. Two expectation/conditional-expectation displays also
+  contain macro or parenthesis defects.
+- The terminal-identification proof neither proves
+  `G_infinity`-measurability nor supplies a dominator. The reader defines the
+  integer-time limit, proves terminal measurability, and uses the established
+  L1 convergence to identify the conditional expectation.
+- The SLLN reverse filtration is defined on inconsistent integer domains and
+  invokes a theorem stated from time zero without shifting its positive-index
+  process. The reader aligns the domains and records the explicit shift. It
+  links, rather than duplicates, the O006/C140 sampling chapter.
+- The elementary de Finetti argument starts a bit-string sum at an undefined
+  coordinate, starts its tail intersection before the fields are defined,
+  conditions on possibly null totals, conditions the indicator on the wrong
+  sigma-algebra, cites the wrong construction result, and omits explicit
+  integrability.
+- The second de Finetti martingale uses `Y_m` instead of the conditional mean
+  `(n/m)Y_m`, does not shift its positive index, and its last conditioning step
+  omits the tower property. The general statement also needs standard-Borel
+  scope and must restrict arithmetic sample means to integrable real-valued
+  variables. A final product-space pair omits its comma.
+
+No exercise or solution block occurs on this page. No upstream contact has
+occurred; retain only a concise deduplicated subset for the one possible
+post-corpus report if separately authorized.

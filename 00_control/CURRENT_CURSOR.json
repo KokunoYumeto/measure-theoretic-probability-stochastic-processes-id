@@ -1,7 +1,7 @@
 {
-  "schema": "o009.cursor.v15",
+  "schema": "o009.cursor.v16",
   "as_of": "2026-08-22",
-  "status": "eighth_boundary_public_and_anonymously_verified",
+  "status": "ninth_boundary_verified_publication_pending",
   "course_id": "O009",
   "role_id": "D30",
   "fourth_public_verified_boundary": {
@@ -176,7 +176,7 @@
     "pages_deployment_status_id": 17149932922,
     "verified_at_utc": "2026-08-22T02:29:21.6560745Z"
   },
-  "latest_public_verified_boundary": {
+  "eighth_public_verified_boundary": {
     "new_unit": {
       "authority_path": "authority/random/static/martingales/Convergence.html",
       "authority_bytes": 44951,
@@ -220,14 +220,65 @@
     "pages_deployment_status_id": 17150836791,
     "verified_at_utc": "2026-08-22T03:17:02.5016359Z"
   },
-  "next_translation": {
-    "source": "authority/random/static/martingales/Backwards.html",
-    "target": "source/theory/martingales/Backwards.html",
-    "state": "authority_frozen_translation_not_started",
-    "authority_bytes": 31248,
-    "authority_sha256": "adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba"
+  "latest_verified_candidate_boundary": {
+    "new_unit": {
+      "authority_path": "authority/random/static/martingales/Backwards.html",
+      "authority_bytes": 31248,
+      "authority_sha256": "adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba",
+      "target_path": "source/theory/martingales/Backwards.html",
+      "target_bytes": 32504,
+      "target_sha256": "cfc8490994e139e7c4c869fd1c431b1c0f3872af9247279bf0885472dfaa50c2",
+      "built_path": "build/site/martingales/Backwards.html",
+      "built_bytes": 35188,
+      "built_sha256": "2a77650d3debb9dcce0218b58c2098d851c02fd1f482c08f31682c13d609c293",
+      "translation_tex_surfaces": 426,
+      "built_math_containers": 445,
+      "detail_panels": 9,
+      "reader_corrections": 26
+    },
+    "theory_unit_count": 14,
+    "site_file_count": 41,
+    "site_total_bytes": 2551660,
+    "site_manifest_sha256": "ad9e50cf0c063f9dac3aa68d9d0111820d2665ee0bb9d7b2c005ab9b6ce89108",
+    "build_receipt_sha256": "bbc51c18a5498ff8820520f7dbb0913d0c56b6442b0ce109ec8dfe4b3266be29",
+    "backend_entities": 957,
+    "backend_segments": 2482,
+    "backend_records": 3439,
+    "backend_relations": 881,
+    "backend_manifest_sha256": "d6f0c4fe0bed616d29c77b33522cc7d27727cb317b78cda90bbb08647c7a623b",
+    "backend_input_set_sha256": "f054593cbd8c47aee280627f4730875be1b9ddef014a8e0828e9b5302fac7bf5",
+    "qa_failures": 0,
+    "corrections": {
+      "source_content": 25,
+      "deterministic_output": 1
+    },
+    "browser_qa": {
+      "viewports": ["1280x720", "390x844"],
+      "pages_each": 16,
+      "math_containers_each": 9025,
+      "detail_panels_each": 256,
+      "bad_rows": 0
+    },
+    "qa_checkpoint": "qa/NINTH_BOUNDARY_CHECKPOINT_20260822.md"
   },
-  "next_action": "translate martingales/Backwards.html contiguously, preserve topology and mathematics, apply only backend-recorded downstream repairs, then build, QA, and publish the next verified boundary without duplicating O006 chapter 5",
+  "next_translation": {
+    "source": "authority/random/static/markov/General.html",
+    "target": "source/theory/markov/General.html",
+    "state": "authority_frozen_translation_not_started",
+    "authority_bytes": 74595,
+    "authority_sha256": "69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c",
+    "landing_page": {
+      "path": "authority/random/static/markov/index.html",
+      "bytes": 9248,
+      "sha256": "18dfcf15b97a2af7d90404e879376234865bfb40985deb4d6e50b9778f5f7660"
+    },
+    "successor": {
+      "path": "authority/random/static/markov/Potentials.html",
+      "bytes": 56563,
+      "sha256": "d088101151a0becb1ff9467dd02b859e92da49cea527723d83daf22a516a9d76"
+    }
+  },
+  "next_action": "publish and anonymously verify the ninth boundary, then translate markov/General.html contiguously while preserving topology, mathematics, and the O006 no-duplication boundary",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",

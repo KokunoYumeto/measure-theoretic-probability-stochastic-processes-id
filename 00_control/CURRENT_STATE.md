@@ -320,12 +320,53 @@ Commit `39e0a31a2a2ec1172d3670fa30ea7c5a12388c78` (tree
 anonymous readback matched all 40 manifested files and 2,515,782 bytes at
 2026-08-22T03:17:02.5016359Z. See `PUBLICATION_RECEIPT.json`.
 
+### Ninth reader boundary (verified publication candidate)
+
+`martingales/Backwards.html` is completely translated, repaired downstream,
+integrated, and visually inspected:
+
+- frozen authority: 31,248 bytes / SHA-256
+  `adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba`;
+- Indonesian source: 32,504 bytes / SHA-256
+  `cfc8490994e139e7c4c869fd1c431b1c0f3872af9247279bf0885472dfaa50c2`;
+- built reader: 35,188 bytes / SHA-256
+  `2a77650d3debb9dcce0218b58c2098d851c02fd1f482c08f31682c13d609c293`.
+
+All 393 raw tag events, 202 opening tags, 13 legacy identifiers, nine
+disclosures, ten units, and 426 ordered translation-source TeX surfaces are
+preserved. The built page renders 445 MathJax containers and applies 26
+exact-once reader actions: 25 source-content repairs and one deterministic
+localization. Independent language, mathematical, and structural re-audits
+found no publication veto. The SLLN proof records O006/C140 as an external
+sampling prerequisite and duplicates none of its chapter-5 bytes.
+
+The deterministic site contains 41 files / 2,551,660 bytes at manifest
+SHA-256
+`ad9e50cf0c063f9dac3aa68d9d0111820d2665ee0bb9d7b2c005ab9b6ce89108`;
+build-receipt SHA-256
+`bbc51c18a5498ff8820520f7dbb0913d0c56b6442b0ce109ec8dfe4b3266be29`.
+The backend contains 957 entities, 2,482 segments, and 881 relations (3,439
+semantic records), with zero QA failures; manifest SHA-256
+`d6f0c4fe0bed616d29c77b33522cc7d27727cb317b78cda90bbb08647c7a623b`.
+
+Whole-reader browser QA covered all 16 pages at 1280×720 and 390×844. Each
+sweep rendered 9,025 MathJax containers and found 256 disclosures, with no
+uncontained/document overflow, broken asset, empty alternative, unresolved
+visible or fragment reference, external runtime, or reader-origin browser
+warning/error. The mobile lab's wide R source remains inside its intentional
+horizontal scroll container. The new page's desktop controls open 9/9 panels
+and return to 0/9; its native mobile disclosure opens and closes through the
+visible summary. See `qa/NINTH_BOUNDARY_CHECKPOINT_20260822.md`.
+
 ## Next exact action
 
 1. Continue in source order with
-   `authority/random/static/martingales/Backwards.html` (31,248 bytes,
+   `authority/random/static/markov/General.html` (74,595 bytes,
    SHA-256
-   `adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba`).
+   `69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c`).
+   The Markov landing page is 9,248 bytes at SHA-256
+   `18dfcf15b97a2af7d90404e879376234865bfb40985deb4d6e50b9778f5f7660`;
+   its explicit unit order starts `General.html`, then `Potentials.html`.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

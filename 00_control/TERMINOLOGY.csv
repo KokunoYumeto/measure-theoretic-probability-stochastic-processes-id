@@ -58,3 +58,12 @@ O009-T0056,partial-product process,proses hasil kali parsial,admitted,course,Pla
 O009-T0057,Radon-Nikodym derivative,turunan Radon–Nikodym,admitted,course,Also describe as fungsi kepadatan when appropriate.
 O009-T0058,total variation,variasi total,admitted,course,Distinguish ambient variation from the variation of a restricted signed measure.
 O009-T0059,mutually singular measures,ukuran saling singular,admitted,course,For a signed measure interpret singularity through its total variation.
+O009-T0060,backwards martingale,martingal mundur,admitted,course,Use martingal terbalik as a parenthetical synonym at first definition only.
+O009-T0061,decreasing family of sigma-algebras,keluarga aljabar-σ menurun,admitted,course,Distinguish this reverse filtration from an ordinary increasing filtration.
+O009-T0062,backwards martingale convergence theorem,teorema konvergensi martingal mundur,admitted,course,The built reader states the theorem for discrete time; continuous time needs an additional path-regularity hypothesis.
+O009-T0063,strong law of large numbers,hukum kuat bilangan besar,admitted,course,O006/C140 owns the shared sampling source surface; this lane retains only the disjoint reverse-martingale application.
+O009-T0064,exchangeable sequence,barisan dapat dipertukarkan,admitted,course,Use dapat dipertukarkan rather than a literal mechanical calque.
+O009-T0065,conditionally independent and identically distributed,independen dan berdistribusi identik secara bersyarat,admitted,course,
+O009-T0066,de Finetti theorem,teorema de Finetti,admitted,course,The unrestricted general-space statement requires a standard-Borel-type hypothesis.
+O009-T0067,mixture of product measures,campuran ukuran produk,admitted,course,
+O009-T0068,hypergeometric model,model hipergeometrik,admitted,course,

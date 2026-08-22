@@ -145,6 +145,28 @@ separately identified and do not relicense the frozen source. The
 likelihood-ratio and urn applications consume the O006/C140 sampling module as
 a prerequisite and do not import its chapter-5 bytes.
 
+### Current backwards-martingale component closure
+
+`martingales/Backwards.html` is admitted from the same frozen Random selection
+at 31,248 bytes / SHA-256
+`adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba`.
+It introduces no page-specific content image, audio, dataset, or executable
+asset. Its direct runtime references are only the already frozen favicon,
+`Screen.css`, `Basic.js`, Plus/Minus controls, and local MathJax/`boldsymbol`
+closure. Ancillary biographies and linked applications remain external
+official links rather than claimed offline functionality.
+
+The Random-derived page and translation remain bound to
+`rights.random.dual-witness`. The Indonesian source is 32,504 bytes at SHA-256
+`cfc8490994e139e7c4c869fd1c431b1c0f3872af9247279bf0885472dfaa50c2`
+and preserves all 393 raw tag events, 202 opening tags, 13 legacy identifiers,
+nine disclosures, ten units, and all 426 ordered source TeX surfaces. The
+built reader is 35,188 bytes at SHA-256
+`2a77650d3debb9dcce0218b58c2098d851c02fd1f482c08f31682c13d609c293`
+and applies 25 exact-once source-content repairs plus one deterministic
+localization action. The SLLN application links the O006/C140 sampling module
+as a prerequisite and imports none of its chapter-5 bytes.
+
 ## Žitković laboratory donor
 
 - Official author route: Gordan Žitković’s UT Austin lecture-notes page linking the hosted book and public repository.

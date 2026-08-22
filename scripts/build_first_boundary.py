@@ -1123,6 +1123,184 @@ sehingga \(X_\infty=0\) dengan probabilitas 1.''',
     },
 )
 
+MARTINGALE_BACKWARDS_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "negative-time-filtration-mathscr",
+        "old": r"koleksi \( \mathfrak F \) merupakan keluarga menaik subaljabar-\( \sigma \) dari \( \scr F \)",
+        "new": r"koleksi \( \mathfrak F \) merupakan keluarga menaik subaljabar-\( \sigma \) dari \( \mathscr F \)",
+        "description": "Replace the undefined scr command in the negative-time filtration proof.",
+    },
+    {
+        "id": "finite-reversal-filtration-mathscr",
+        "old": r"koleksi \( \mathfrak{F}^t \) merupakan keluarga menaik subaljabar-\( \sigma \) dari \( \scr F \)",
+        "new": r"koleksi \( \mathfrak{F}^t \) merupakan keluarga menaik subaljabar-\( \sigma \) dari \( \mathscr F \)",
+        "description": "Replace the undefined scr command in the finite-horizon reversal proof.",
+    },
+    {
+        "id": "continuous-time-path-regularity",
+        "old": r"Berikut <dfn>teorema konvergensi martingal mundur</dfn> yang utama:",
+        "new": r"Untuk \(T=[0,\infty)\), hasil konvergensi di bawah ini juga mensyaratkan suatu versi \(\bs Y\) dengan lintasan kontinu kiri dan limit kanan. Untuk \(T=\N\), tidak diperlukan asumsi lintasan tambahan. Inilah <dfn>teorema konvergensi martingal mundur</dfn> yang utama:",
+        "description": "Add the path regularity needed for an all-real-time reverse-martingale limit; fixed-time versions alone do not control continuous-time paths.",
+    },
+    {
+        "id": "finite-horizon-upcrossing-terminal-variable",
+        "old": r"\[\E[U_t(a, b)] \le \frac{1}{b - a}[\E(|X_t|) + |a|] = \frac{1}{b - a} [\E(|Y_0|) + |a|] \]",
+        "new": r"\[ \E[U_t(a,b)] \le \frac{1}{b-a}\big[\E(|X^t_t|)+|a|\big] = \frac{1}{b-a}\big[\E(|Y_0|)+|a|\big] \]",
+        "description": "Use the defined finite-horizon process X^t at its terminal time.",
+    },
+    {
+        "id": "downcrossing-limit-direction",
+        "old": r"Karena \( U_t \uparrow U_\infty \) ketika \( t \to -\infty \), berdasarkan teorema konvergensi monoton diperoleh",
+        "new": r"Karena \(U_t\uparrow U_\infty\) ketika \(t\to\infty\), berdasarkan teorema konvergensi monoton diperoleh",
+        "description": "Send the expanding positive-time horizon to positive infinity, not negative infinity.",
+    },
+    {
+        "id": "downcrossing-expectation-macro",
+        "old": r"\[ E[U_\infty(a, b)] \le \frac{1}{b - a} [\E(|Y_0|) + |a|]\]",
+        "new": r"\[ \E[U_\infty(a,b)] \le \frac{1}{b-a}\big[\E(|Y_0|)+|a|\big] \]",
+        "description": "Use the page's defined expectation macro in the downcrossing bound.",
+    },
+    {
+        "id": "terminal-limit-identification-and-markup",
+        "old": r'''</p><p>
+</p><p>Masih perlu ditunjukkan bahwa \( Y_\infty = \E(Y_0 \mid \mathscr{G}_\infty) \).  Misalkan \( A \in \mathscr{G}_\infty \). Maka \( A \in \mathscr{G}_t \) untuk setiap \( t \in T \). Karena \( Y_t = \E(Y_0 \mid \mathscr{G}_t) \), berdasarkan definisi diperoleh bahwa \( \E(Y_t; A) = \E(Y_0; A) \) untuk setiap \( t \in T \). Dengan mengambil \( t \to \infty \) dan menggunakan teorema konvergensi terdominasi, diperoleh \( \E(Y_\infty ; A) = \E(Y_0; A) \). Oleh karena itu, \( Y_\infty = \E(Y_0 \mid \mathscr{G}_\infty) \).</p>''',
+        "new": r'''</p>
+<p>Masih perlu mengidentifikasi limit tersebut. Tetapkan \(Y_\infty\) sebagai limit di sepanjang indeks bilangan bulat; limit di sepanjang indeks \(T\) yang diperoleh di atas harus sama. Untuk setiap \(s\in T\), peubah \(Y_n\) terukur terhadap \(\mathscr G_s\) untuk setiap bilangan bulat \(n\ge s\). Jadi, \(Y_\infty\) terukur terhadap setiap \(\mathscr G_s\), dan karena itu terhadap \(\mathscr G_\infty\). Jika \(A\in\mathscr G_\infty\), maka \(\E(Y_t;A)=\E(Y_0;A)\) untuk setiap \(t\in T\). Karena \(Y_t\to Y_\infty\) dalam \(\mathscr L_1\),
+\[ \left|\E(Y_t;A)-\E(Y_\infty;A)\right|\le \E(|Y_t-Y_\infty|)\to0. \]
+Dengan demikian, \(\E(Y_\infty;A)=\E(Y_0;A)\) untuk setiap \(A\in\mathscr G_\infty\), yang membuktikan \(Y_\infty=\E(Y_0\mid\mathscr G_\infty)\).</p>''',
+        "description": "Remove the parser-created empty paragraph, prove terminal measurability, and use established L1 convergence instead of an unavailable dominator.",
+    },
+    {
+        "id": "lp-jensen-parenthesis",
+        "old": r"\E[\E(|Y_0|^k \mid \mathscr{G}_t]",
+        "new": r"\E[\E(|Y_0|^k \mid \mathscr{G}_t)]",
+        "description": "Close the inner conditional expectation before closing the outer expectation.",
+    },
+    {
+        "id": "slln-decreasing-family-positive-index",
+        "old": r"Sekarang, untuk \( n \in \N \), tetapkan",
+        "new": r"Sekarang, untuk \(n\in\N_+\), tetapkan",
+        "description": "Define the decreasing family on the same positive index set as the sample-mean process.",
+    },
+    {
+        "id": "slln-filtration-positive-index",
+        "old": r"\( \mathfrak G = \{\mathscr{G}_n: n \in \N\} \) merupakan keluarga menurun",
+        "new": r"\(\mathfrak G=\{\mathscr G_n:n\in\N_+\}\) merupakan keluarga menurun",
+        "description": "Keep the SLLN reverse filtration and sample means on a common positive-integer index set.",
+    },
+    {
+        "id": "slln-sum-expectation-macro",
+        "old": r"\sum_{j=1}^n E(X_j \mid \mathscr{G}_n)",
+        "new": r"\sum_{j=1}^n \E(X_j \mid \mathscr{G}_n)",
+        "description": "Use the defined expectation macro in the exchangeability calculation.",
+    },
+    {
+        "id": "slln-positive-index-shift",
+        "old": r"Dengan membagi oleh \( n \), diperoleh \( \E(M_n \mid \mathscr{G}_{n+1}) = M_{n+1} \), sehingga \( \bs M \) merupakan martingal mundur terhadap \( \mathfrak G \). Berdasarkan teorema konvergensi martingal mundur, terdapat \( M_\infty \), sedemikian sehingga",
+        "new": r"Dengan membagi oleh \(n\), diperoleh \(\E(M_n\mid\mathscr G_{n+1})=M_{n+1}\), sehingga \(\{M_n:n\in\N_+\}\) merupakan martingal mundur terhadap \(\{\mathscr G_n:n\in\N_+\}\). Setelah pergeseran indeks \(Z_r=M_{r+1}\) dan \(\mathscr H_r=\mathscr G_{r+1}\), teorema konvergensi martingal mundur memberikan \(M_\infty\), sedemikian sehingga",
+        "description": "Make the positive-index reverse martingale an explicit index shift before invoking the theorem stated on N.",
+    },
+    {
+        "id": "de-finetti-bit-string-index",
+        "old": r"\sum_{i=0}^n x_i = k",
+        "new": r"\sum_{i=1}^n x_i = k",
+        "description": "Sum the defined bit-string coordinates x_1 through x_n, not an undefined x_0.",
+    },
+    {
+        "id": "de-finetti-tail-field-index",
+        "old": r"\( \mathscr{G}_\infty = \bigcap_{n=0}^\infty \mathscr{G}_n \)",
+        "new": r"\(\mathscr G_\infty=\bigcap_{n=1}^\infty\mathscr G_n\)",
+        "description": "Start the intersection where the de Finetti proof actually defines G_n.",
+    },
+    {
+        "id": "de-finetti-positive-probability-conditioning",
+        "old": r"Misalkan \( m \in \N_+ \) dan \( k \in \{0, 1, \ldots m\} \). Gagasan kuncinya adalah bahwa karena peubah-peubahnya dapat dipertukarkan, jika diberikan \( Y_m = k \),",
+        "new": r"Misalkan \(m\in\N_+\) dan \(k\in\{0,1,\ldots,m\}\) dengan \(\P(Y_m=k)\gt0\). Karena peubah-peubahnya dapat dipertukarkan, jika diberikan \(Y_m=k\),",
+        "description": "Condition only on totals with positive probability in the elementary finite calculation.",
+    },
+    {
+        "id": "de-finetti-first-doob-conditioning-field",
+        "old": r'''Jika \( Y_m \) diberikan, peubah-peubah \( (Y_{m+1}, Y_{m+2}, \ldots) \) tidak memberikan informasi tambahan tentang distribusi \( (X_1, X_2, \ldots, X_n) \), sehingga
+		\[ \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid \mathscr{G}_m) =\E[\bs{1}(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n) \mid \mathscr{G}_n] = \frac{Y_m^{(j)} (m - Y_m)^{(n - j)}}{m^{(n)}} \]''',
+        "new": r'''Jika \(Y_m\) diberikan, peubah-peubah \((Y_{m+1},Y_{m+2},\ldots)\) tidak memberikan informasi tambahan tentang susunan \((X_1,\ldots,X_n)\). Tetapkan \(A_{\bs x}=\{X_1=x_1,\ldots,X_n=x_n\}\). Maka
+\[
+\P(A_{\bs x}\mid\mathscr G_m)
+=\E[\bs 1(A_{\bs x})\mid\mathscr G_m]
+=\frac{Y_m^{(j)}(m-Y_m)^{(n-j)}}{m^{(n)}}.
+\]''',
+        "description": "Condition the indicator on G_m, the field that varies with m, and abbreviate the event for a readable display.",
+    },
+    {
+        "id": "de-finetti-doob-construction-reference",
+        "old": r'martingal mundur Doob <a class="ref" href="#prp1"></a>',
+        "new": r'martingal mundur Doob <a class="ref" href="#prp2"></a>',
+        "description": "Cite the result that constructs conditional-expectation reverse martingales.",
+    },
+    {
+        "id": "de-finetti-integrability-index",
+        "old": r"\( \E(M_n) \le 1 \) untuk setiap \( n \in \N \)",
+        "new": r"\(\E(|M_n|)\le1\) untuk setiap \(n\in\N_+\)",
+        "description": "State integrability explicitly on the positive index set where M_n is defined.",
+    },
+    {
+        "id": "de-finetti-hypergeometric-null-events",
+        "old": r"distribusi bersyarat \( Y_n \) jika diberikan \( Y_m = k \) adalah distribusi hipergeometrik dengan parameter \( m \), \( k \), dan \( n \):",
+        "new": r"untuk setiap \(k\in\{0,1,\ldots,m\}\) dengan \(\P(Y_m=k)\gt0\), distribusi bersyarat \(Y_n\) jika diberikan \(Y_m=k\) adalah distribusi hipergeometrik dengan parameter \(m\), \(k\), dan \(n\):",
+        "description": "Qualify the elementary conditional hypergeometric law on non-null totals.",
+    },
+    {
+        "id": "de-finetti-conditional-mean-scale",
+        "old": r'''Atau secara ekuivalen, \( \E(M_n \mid Y_m) = Y_m / m = M_m \).  Sekali lagi, jika \( Y_m \) diberikan, peubah-peubah \( Y_{m+1}, Y_{m+2} \) tidak memberikan informasi tambahan, sehingga \( \E(Y_n \mid \mathscr{G}_m) = Y_m \). Oleh karena itu, \( \bs M \) merupakan martingal mundur terhadap \( \mathfrak G \). Berdasarkan teorema konvergensi martingal mundur <a class="ref" href="#prp3"></a>, terdapat peubah acak \( P \), sedemikian sehingga''',
+        "new": r'''Atau secara ekuivalen, \(\E(M_n\mid Y_m)=Y_m/m=M_m\). Sekali lagi, jika \(Y_m\) diberikan, peubah-peubah \(Y_{m+1},Y_{m+2},\ldots\) tidak memberikan informasi tambahan tentang \(Y_n\). Jadi, \(\E(Y_n\mid\mathscr G_m)=\frac{n}{m}Y_m\), atau secara ekuivalen \(\E(M_n\mid\mathscr G_m)=M_m\). Dengan demikian, \(\{M_n:n\in\N_+\}\) merupakan martingal mundur terhadap \(\mathfrak G\). Setelah menggeser indeks, teorema konvergensi martingal mundur <a class="ref" href="#prp3"></a> memberikan peubah acak \(P\), sedemikian sehingga''',
+        "description": "Restore the n/m conditional-mean scale and make the positive-index theorem invocation explicit.",
+    },
+    {
+        "id": "de-finetti-final-index-set-comma",
+        "old": r"\( j \in \{0, 1, \ldots n\} \), serta",
+        "new": r"\(j\in\{0,1,\ldots,n\}\), serta",
+        "description": "Restore the missing separator before the final index in the finite-dimensional argument.",
+    },
+    {
+        "id": "hypergeometric-limit-localization",
+        "change_kind": "deterministic-output",
+        "old": r"\[ \frac{k_m^{(j)} (m - k_m)^{(n - j)}}{m^{(n)}} \to p^j (1 - p)^{n - j} \text{ as } m \to \infty \]",
+        "new": r"\[ \frac{k_m^{(j)}(m-k_m)^{(n-j)}}{m^{(n)}} \to p^j(1-p)^{n-j} \text{ ketika } m\to\infty \]",
+        "description": "Translate the prose connector retained inside the source TeX and tighten the display without changing its mathematics.",
+    },
+    {
+        "id": "de-finetti-final-conditioning-tower",
+        "old": r'''Peubah acak \( P \) terukur terhadap \( \mathscr{G}_\infty \), sehingga
+		\[ \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid P) = P^j (1 - P)^{n - j} \text{ as } m \to \infty \]''',
+        "new": r'''Karena \(P\) terukur terhadap \(\mathscr G_\infty\), sifat menara dan identitas sebelumnya memberikan
+\[
+\begin{aligned}
+\P(A_{\bs x}\mid P)
+&amp;=\E\!\left[\P(A_{\bs x}\mid\mathscr G_\infty)\mid P\right] \\
+&amp;=P^j(1-P)^{n-j}.
+\end{aligned}
+\]''',
+        "description": "Use the tower property to pass from conditioning on G_infinity to conditioning on P and remove the stale limit phrase.",
+    },
+    {
+        "id": "general-de-finetti-scope",
+        "old": r"Pada dasarnya, jika \( \bs X = (X_1, X_2, \ldots) \) merupakan barisan peubah acak yang dapat dipertukarkan, dengan masing-masing bernilai dalam ruang terukur \( (S, \mathscr{S}) \) yang cukup baik, maka terdapat peubah acak \( \Theta \), sedemikian sehingga \( \bs X \) independen dan berdistribusi identik jika diberikan \( \Theta \). Dalam bukti tersebut, hasil bahwa \( M_n \to P \) ketika \( n \to \infty \) dengan probabilitas 1, dengan \( M_n = \frac{1}{n} \sum_{i=1}^n X_i \), dikenal sebagai <dfn>hukum kuat bilangan besar de Finetti</dfn>.",
+        "new": r"Pada dasarnya, jika \(\bs X=(X_1,X_2,\ldots)\) merupakan barisan peubah acak yang dapat dipertukarkan dan bernilai dalam ruang Borel standar \((S,\mathscr S)\), maka terdapat ukuran probabilitas acak \(\Theta\) pada \((S,\mathscr S)\), sedemikian sehingga, jika diberikan \(\Theta\), peubah-peubah dalam \(\bs X\) independen dan masing-masing berdistribusi \(\Theta\). Untuk barisan dapat dipertukarkan bernilai riil dan terintegralkan, konvergensi hampir pasti dari rata-rata sampel \(M_n=\frac1n\sum_{i=1}^nX_i\) dikenal sebagai <dfn>hukum kuat bilangan besar de Finetti</dfn>.",
+        "description": "State the standard-Borel scope of the general representation and restrict arithmetic sample means to integrable real-valued variables.",
+    },
+    {
+        "id": "mixture-product-space-comma",
+        "old": r"\( (S^n \mathscr{S}^n) \)",
+        "new": r"\((S^n,\mathscr S^n)\)",
+        "description": "Separate the carrier space from its product sigma-algebra.",
+    },
+)
+
 THEORY_UNITS = (
     {
         "rel": "prob/Convergence.html",
@@ -1244,7 +1422,7 @@ THEORY_UNITS = (
         "rel": "expect/Uniform.html",
         "authority_sha256": "66f610030094a063be69408d3112c74353941849fe36353f4c5365380f03df2d",
         "source_title": "Uniformly Integrable Variables",
-        "nav_label": "Terintegralkan seragam",
+        "nav_label": "Peubah terintegralkan seragam",
         "rights_id": "o009-rights-random-uniform-integrability",
         "fragment_corrections": {},
         "forbidden": (
@@ -1410,6 +1588,27 @@ THEORY_UNITS = (
             "Likelihood Ratio Tests",
             "Partial Products",
             "Density Functions",
+            "Details:",
+        ),
+    },
+    {
+        "rel": "martingales/Backwards.html",
+        "authority_sha256": "adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba",
+        "source_title": "Backwards Martingales",
+        "nav_label": "Martingal mundur",
+        "rights_id": "o009-rights-random-martingale-backwards",
+        "fragment_corrections": {},
+        "reader_corrections": MARTINGALE_BACKWARDS_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Backwards Martingales",
+            "Basic Theory",
+            "Definitions",
+            "Properties",
+            "Applications",
+            "The Strong Law of Large Numbers",
+            "Exchangeable Variables",
             "Details:",
         ),
     },
@@ -1650,9 +1849,9 @@ def build_theory_unit(stage: Path, unit: dict[str, object]) -> None:
     attribution = BeautifulSoup(
         f"""<aside class="component-attribution" id="{rights_id}">
 <strong>Asal komponen.</strong> Terjemahan halaman <cite>{source_title}</cite>
-karya Kyle Siegrist, dari cuplikan situs Random bertanggal 13 Maret 2026.
-Halaman resmi Random saat ini memuat saksi CC BY 2.0 pada beranda dan
-CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
+karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
+Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
+beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="{official_url}">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="{index_href}">Beranda edisi</a> ·
 {' · '.join(edition_links)}</nav>""",

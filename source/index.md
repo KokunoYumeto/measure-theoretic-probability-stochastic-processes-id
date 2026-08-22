@@ -27,7 +27,8 @@ gabungan.
 11. [Waktu henti martingal](martingales/Stop.html)
 12. [Pertidaksamaan martingal](martingales/Inequalities.html)
 13. [Konvergensi martingal](martingales/Convergence.html)
-14. [Laboratorium: konvergensi Monte Carlo](labs/01-konvergensi-monte-carlo.html)
+14. [Martingal mundur](martingales/Backwards.html)
+15. [Laboratorium: konvergensi Monte Carlo](labs/01-konvergensi-monte-carlo.html)
 
 Modul pengambilan sampel, hukum bilangan besar, dan teorema limit pusat dari
 jalur **O006/C140** merupakan prasyarat bersama dan tidak diduplikasi di sini.
