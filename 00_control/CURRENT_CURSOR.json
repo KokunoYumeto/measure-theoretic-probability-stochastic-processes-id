@@ -1,7 +1,7 @@
 {
   "schema": "o009.cursor.v16",
   "as_of": "2026-08-22",
-  "status": "ninth_boundary_verified_publication_pending",
+  "status": "ninth_boundary_public_and_anonymously_verified",
   "course_id": "O009",
   "role_id": "D30",
   "fourth_public_verified_boundary": {
@@ -220,7 +220,7 @@
     "pages_deployment_status_id": 17150836791,
     "verified_at_utc": "2026-08-22T03:17:02.5016359Z"
   },
-  "latest_verified_candidate_boundary": {
+  "latest_public_verified_boundary": {
     "new_unit": {
       "authority_path": "authority/random/static/martingales/Backwards.html",
       "authority_bytes": 31248,
@@ -259,7 +259,14 @@
       "detail_panels_each": 256,
       "bad_rows": 0
     },
-    "qa_checkpoint": "qa/NINTH_BOUNDARY_CHECKPOINT_20260822.md"
+    "qa_checkpoint": "qa/NINTH_BOUNDARY_CHECKPOINT_20260822.md",
+    "deployed_source_commit": "e8f7bedbd45ee8ad8a8463cbc76432c349bab973",
+    "deployed_source_tree": "581b7589cb0e69cb2295bb14147d3d43b0e3b28f",
+    "pages_run_id": 32551382020,
+    "pages_job_id": 96978596938,
+    "pages_deployment_id": 6033127490,
+    "pages_deployment_status_id": 17152082713,
+    "verified_at_utc": "2026-08-22T04:20:31.6178906Z"
   },
   "next_translation": {
     "source": "authority/random/static/markov/General.html",

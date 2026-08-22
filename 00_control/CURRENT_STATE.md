@@ -1,6 +1,6 @@
 # Current state
 
-As of 2026-08-22, this is an active O009/D30 production lane. Its first eight
+As of 2026-08-22, this is an active O009/D30 production lane. Its first nine
 reader boundaries are public and anonymously byte-verified on GitHub Pages.
 The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
@@ -320,7 +320,7 @@ Commit `39e0a31a2a2ec1172d3670fa30ea7c5a12388c78` (tree
 anonymous readback matched all 40 manifested files and 2,515,782 bytes at
 2026-08-22T03:17:02.5016359Z. See `PUBLICATION_RECEIPT.json`.
 
-### Ninth reader boundary (verified publication candidate)
+### Ninth reader boundary (public and anonymously verified)
 
 `martingales/Backwards.html` is completely translated, repaired downstream,
 integrated, and visually inspected:
@@ -357,6 +357,12 @@ warning/error. The mobile lab's wide R source remains inside its intentional
 horizontal scroll container. The new page's desktop controls open 9/9 panels
 and return to 0/9; its native mobile disclosure opens and closes through the
 visible summary. See `qa/NINTH_BOUNDARY_CHECKPOINT_20260822.md`.
+
+Commit `e8f7bedbd45ee8ad8a8463cbc76432c349bab973` (tree
+`581b7589cb0e69cb2295bb14147d3d43b0e3b28f`) is public. Pages run
+`32551382020`, job `96978596938`, and deployment `6033127490` succeeded. An
+anonymous readback matched all 41 manifested files and 2,551,660 bytes at
+2026-08-22T04:20:31.6178906Z. See `PUBLICATION_RECEIPT.json`.
 
 ## Next exact action
 

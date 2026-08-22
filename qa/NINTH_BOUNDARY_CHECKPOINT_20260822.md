@@ -1,6 +1,6 @@
 # Ninth reader-boundary checkpoint — 2026-08-22
 
-Status: **verified publication candidate**.
+Status: **public and anonymously byte-verified**.
 
 ## Added unit and authority closure
 
@@ -112,4 +112,13 @@ unit list—not a guessed global order—controls this cursor.
 
 ## Publication evidence
 
-Pending publication transaction and anonymous public-byte readback.
+- Deployed commit: `e8f7bedbd45ee8ad8a8463cbc76432c349bab973`.
+- Deployed tree: `581b7589cb0e69cb2295bb14147d3d43b0e3b28f`.
+- Pages run/job/deployment: `32551382020` / `96978596938` /
+  `6033127490`; workflow conclusion and deployment state both `success`.
+- Deployment status: `17152082713`.
+- Anonymous verification at `2026-08-22T04:20:31.6178906Z` matched all 41
+  manifested files and 2,551,660 bytes; manifest SHA-256
+  `ad9e50cf0c063f9dac3aa68d9d0111820d2665ee0bb9d7b2c005ab9b6ce89108`.
+- Public reader:
+  `https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/`.
