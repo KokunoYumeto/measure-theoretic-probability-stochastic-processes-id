@@ -167,6 +167,35 @@ and applies 25 exact-once source-content repairs plus one deterministic
 localization action. The SLLN application links the O006/C140 sampling module
 as a prerequisite and imports none of its chapter-5 bytes.
 
+### Current Markov-general and diagnostic-lab component closure
+
+`markov/General.html` is admitted from the frozen Random selection at 74,595
+bytes / SHA-256
+`69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c`.
+It introduces no page-specific image, audio, dataset, or executable asset. Its
+direct runtime references are only the already frozen favicon, `Screen.css`,
+`Basic.js`, Plus/Minus controls, and local MathJax/`boldsymbol` closure.
+Ancillary biographies, experiments, and later Random chapters remain external
+official links rather than claimed offline functionality.
+
+The Random-derived translation is 76,342 bytes / SHA-256
+`fb3026464841179c1480001ecda1e2ab28448a26ba6840f2f9571d6645831194`
+and remains bound to `rights.random.dual-witness`. It preserves the authority's
+ordered topology and all 925 TeX surfaces. Fifty-three exact-once
+source-content repairs occur only in the built reader and remain separately
+identified; they do not relicense the frozen source or faithful translation.
+
+The matched lab admits only the exact Žitković
+`source/05-Markov-chains.Rmd` lines 601–666 slice at SHA-256
+`dcabe361eaaacaa537966f2bf8809dd8eac52e28392edc78d8e289c8c9be2bd8`
+under the already frozen CC0-1.0 donor grant. The 6,910-byte Indonesian Rmd at
+SHA-256
+`28e9b1c731082f9e590d74cf0b44922f5d45759851a7739bf1af1ad50bf09727`
+separates that donor component from the CC BY 4.0 Indonesian adaptation and
+CC BY 4.0 original deterministic comparator, mastery exercise, three hints,
+answer, and worked solution. It imports no missing book child, external
+package, third-party asset, or O006-owned chapter-5 byte.
+
 ## Žitković laboratory donor
 
 - Official author route: Gordan Žitković’s UT Austin lecture-notes page linking the hosted book and public repository.

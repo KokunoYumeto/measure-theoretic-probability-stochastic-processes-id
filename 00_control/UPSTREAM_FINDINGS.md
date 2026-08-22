@@ -390,3 +390,39 @@ localization.
 No exercise or solution block occurs on this page. No upstream contact has
 occurred; retain only a concise deduplicated subset for the one possible
 post-corpus report if separately authorized.
+
+## `markov/General.html`
+
+The frozen page is 74,595 bytes at SHA-256
+`69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c`.
+The Indonesian source is 76,342 bytes at SHA-256
+`fb3026464841179c1480001ecda1e2ab28448a26ba6840f2f9571d6645831194`
+and preserves all 925 ordered TeX surfaces. The final built reader applies 53
+exact-once source-content repairs.
+
+- Pointwise conditioning on possibly null states is replaced downstream by a
+  consistent Markov family/all-state kernel formulation; standard-Borel and
+  regular-conditional-version scope is made explicit.
+- The Feller definition, infinite-discrete-state qualification, càdlàg
+  realization, and strong-Markov filtration/path hypotheses are corrected.
+- Chapman–Kolmogorov uses the correct time variables, kernel proof, density
+  side, almost-everywhere scope, and absolute-continuity/time-zero conditions.
+- The finite-dimensional construction receives standard-Borel scope; random
+  time change, product-state enlargement, finite-memory, and two-step kernels
+  receive their missing domains and measurability conditions.
+- The deterministic recurrence, ODE flow, and random-walk examples receive
+  the correct function/state domains and operator notation.
+- Additive-state/increment support, continuous-time Lévy convention,
+  stochastic continuity, moment regularity, and zero-variance cases are
+  stated explicitly.
+- Poisson support/time zero and Gaussian identity-kernel/time-zero density are
+  separated correctly; the density convolution identity is asserted only
+  when the relevant densities exist.
+- Filtration, stopping-time, stopped-state, dimension/index, product-space,
+  link-label, and embedded-language defects are normalized downstream.
+
+No exercise or solution block occurs on the Random page. Its matched lab adds
+a separately licensed mastery sequence and deterministic diagnostic; those
+edition additions are not upstream findings. No upstream contact has occurred;
+retain only a concise deduplicated subset for the one possible post-corpus
+report if separately authorized.

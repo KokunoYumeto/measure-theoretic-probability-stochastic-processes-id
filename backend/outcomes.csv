@@ -5,9 +5,11 @@ outcome.o009.analyze-optimal-stopping,course.o009.d30,Menganalisis aturan ambang
 outcome.o009.apply-lp-martingale-convergence,course.o009.d30,Menerapkan pertidaksamaan maksimal untuk membuktikan konvergensi martingal dalam Lp.,id-ID,apply,active
 outcome.o009.apply-martingale-maximal-inequalities,course.o009.d30,Menerapkan pertidaksamaan maksimal Doob dan Kolmogorov untuk membatasi probabilitas maksimum lintasan.,id-ID,apply,active
 outcome.o009.audit-gambling-maximal-bound,course.o009.d30,"Memeriksa syarat keterprediksian, kenegatifan, dan keterbatasan utang saat menerapkan batas maksimal pada strategi perjudian.",id-ID,analyze,active
+outcome.o009.audit-strong-markov-hypotheses,course.o009.d30,"Memeriksa hipotesis ruang keadaan, sifat Feller, regularitas lintasan, dan filtrasi sebelum memakai sifat Markov kuat.",id-ID,analyze,active
 outcome.o009.characterize-ui-martingales,course.o009.d30,Mengkarakterisasi martingal terintegralkan seragam melalui representasi peubah terminal dan konvergensi dalam rata-rata.,id-ID,analyze,active
 outcome.o009.check-optional-stopping-conditions,course.o009.d30,Memeriksa syarat keterbatasan atau integrabilitas sebelum menerapkan teorema penghentian opsional.,id-ID,analyze,active
 outcome.o009.compute-random-time-expectations,course.o009.d30,"Menghitung probabilitas pencapaian dan nilai harapan pada waktu henti, termasuk Persamaan Wald dan waktu tunggu pola.",id-ID,apply,active
+outcome.o009.construct-markov-kernels,course.o009.d30,"Menyusun kernel transisi, semigrup transisi, dan persamaan Chapman–Kolmogorov pada ruang keadaan yang sesuai.",id-ID,apply,active
 outcome.o009.construct-reverse-martingales,course.o009.d30,Membangun martingal mundur dari keluarga aljabar-σ menurun dan mengubahnya menjadi martingal waktu maju.,id-ID,apply,active
 outcome.o009.derive-strong-law-reverse-martingale,course.o009.d30,Menurunkan hukum kuat bilangan besar dari struktur martingal mundur sambil menggunakan modul sampling bersama sebagai prasyarat.,id-ID,prove,active
 outcome.o009.distinguish-evidence-proof,course.o009.d30,Membedakan bukti empiris simulasi dari pembuktian probabilistik.,id-ID,analyze,active
@@ -19,4 +21,5 @@ outcome.o009.prove-martingale-convergence,course.o009.d30,Membuktikan konvergens
 outcome.o009.prove-reverse-martingale-convergence,course.o009.d30,"Membuktikan konvergensi martingal mundur waktu diskret hampir pasti, dalam rata-rata, dan dalam Lp dengan syarat yang tepat.",id-ID,prove,active
 outcome.o009.prove-stopped-martingale,course.o009.d30,"Membuktikan bahwa penghentian mempertahankan sifat martingal, submartingal, atau supermartingal.",id-ID,prove,active
 outcome.o009.recover-density-martingale-limits,course.o009.d30,Menentukan limit proses kerapatan melalui teorema Radon-Nikodym dan dekomposisi bagian singular.,id-ID,analyze,active
+outcome.o009.simulate-absorbing-markov-chain,course.o009.d30,Mensimulasikan rantai Markov menyerap secara deterministik dan membandingkan taksiran dengan peluang horizon serta peluang harmonik eksak.,id-ID,apply,active
 outcome.o009.use-upcrossings-for-convergence,course.o009.d30,Menggunakan pertidaksamaan lintasan-naik untuk mengendalikan osilasi martingal dan menyiapkan teorema konvergensi.,id-ID,analyze,active

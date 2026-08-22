@@ -67,3 +67,12 @@ O009-T0065,conditionally independent and identically distributed,independen dan 
 O009-T0066,de Finetti theorem,teorema de Finetti,admitted,course,The unrestricted general-space statement requires a standard-Borel-type hypothesis.
 O009-T0067,mixture of product measures,campuran ukuran produk,admitted,course,
 O009-T0068,hypergeometric model,model hipergeometrik,admitted,course,
+O009-T0069,Markov process,proses Markov,admitted,course,Use proses for the indexed random family and rantai only for discrete-time chains.
+O009-T0070,transition kernel,kernel transisi,admitted,course,Keep the all-state kernel distinct from a conditional law defined only almost everywhere.
+O009-T0071,transition semigroup,semigrup transisi,admitted,course,
+O009-T0072,Feller process,proses Feller,admitted,course,Use the C0-preserving semigroup definition and state continuity at time zero.
+O009-T0073,strong Markov property,sifat Markov kuat,admitted,course,State the path and filtration hypotheses required in continuous time.
+O009-T0074,Chapman-Kolmogorov equation,persamaan Chapman–Kolmogorov,admitted,course,
+O009-T0075,stationary independent increments,inkremen stasioner dan independen,admitted,course,Keep additive-state and continuity hypotheses explicit.
+O009-T0076,Lévy process,proses Lévy,admitted,course,Reserve for continuous time with stochastic continuity and the standard initial-state convention.
+O009-T0077,gambler's ruin,kebangkrutan penjudi,admitted,lab,Absorbing-chain example with exact harmonic comparison.

@@ -1,6 +1,6 @@
 {
-  "schema": "o009.runtime-lock.v1",
-  "as_of": "2026-08-21",
+  "schema": "o009.runtime-lock.v2",
+  "as_of": "2026-08-22",
   "r": {
     "authority_url": "https://cran.r-project.org/bin/windows/base/R-4.6.1-win.exe",
     "authority_md5_url": "https://cran.r-project.org/bin/windows/base/md5sum.R-4.6.1.txt",
@@ -10,6 +10,8 @@
     "installer_sha256": "c5424c40cd70ef85765a55d2ff96bb602b5f30ed536938ff004f14db5db3c2df",
     "installed_path": "tools/R-4.6.1",
     "rscript_path": "tools/R-4.6.1/bin/Rscript.exe",
+    "rscript_bytes": 154624,
+    "rscript_sha256": "d829bcf7e9fa1d7e3e828c565c3cdbb1ed416f551f4fa6fd4dfcdf231e33e5e8",
     "version": "R version 4.6.1 (2026-06-24 ucrt)",
     "platform": "windows",
     "rng_kind": [
@@ -24,7 +26,13 @@
         "--vanilla"
       ]
     },
-    "packages_required_for_first_lab": []
+    "packages_required_for_admitted_labs": []
+  },
+  "pandoc": {
+    "command": "pandoc",
+    "version": "pandoc 3.9.0.2",
+    "executable_bytes": 231056136,
+    "executable_sha256": "24f1593d7ba9f511bc428be3d7177d2a8ddc4bf60457c9f24a888a4790748c5d"
   },
   "first_lab_execution": {
     "source": "source/labs/01-konvergensi-monte-carlo.Rmd",
@@ -54,6 +62,27 @@
         "exact_value": "0.250000000000",
         "signed_error": "-0.000381011435",
         "absolute_error": "0.000381011435"
+      }
+    ]
+  },
+  "markov_lab_execution": {
+    "source": "source/labs/02-simulasi-rantai-markov.Rmd",
+    "source_sha256": "28e9b1c731082f9e590d74cf0b44922f5d45759851a7739bf1af1ad50bf09727",
+    "chunk_label": "o009_lab_markov_gambler_ruin",
+    "result": "pass",
+    "rows": [
+      {
+        "seed": "20260822",
+        "simulasi": "1000",
+        "horizon": "100",
+        "keadaan_awal": "1",
+        "batas_atas": "3",
+        "berhasil": "592",
+        "taksiran": "0.592000000000",
+        "eksak_sampai_horizon": "0.571428571429",
+        "peluang_akhir": "0.571428571429",
+        "celah_ekor_eksak": "1.248349703776e-33",
+        "galat_mutlak": "0.020571428571"
       }
     ]
   },

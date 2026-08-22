@@ -1,0 +1,191 @@
+---
+title: "Simulasi Rantai Markov: Kebangkrutan Penjudi"
+lang: id-ID
+author:
+  - "Gordan Žitković (penulis sumber donor)"
+  - "Codex (penerjemahan, adaptasi, dan tambahan penguasaan atas arahan pengguna)"
+authoring:
+  course_id: "o009"
+  unit_id: "o009-unit-markov-general"
+  lab_id: "o009-lab-markov-gambler-ruin"
+  matched_theory_id: "o009-theory-random-markov-general"
+  target_locale: "id-ID"
+  source_alias: "zitkovic-stochastic-book:source/05-Markov-chains.Rmd#L601-L666"
+  source_commit: "e2b35ad91a3689454ae6455e8ffc510a90760c0d"
+  source_slice_sha256: "dcabe361eaaacaa537966f2bf8809dd8eac52e28392edc78d8e289c8c9be2bd8"
+  donor_license: "CC0-1.0"
+  adaptation_license: "CC-BY-4.0"
+---
+
+::: {#o009-lab-markov-gambler-ruin .lab}
+
+> **Asal komponen dan lisensi.** Bagian “Simulasi rantai” menerjemahkan
+> serta mengadaptasi baris 601–666 dari `source/05-Markov-chains.Rmd` karya
+> Gordan Žitković pada komit
+> `e2b35ad91a3689454ae6455e8ffc510a90760c0d`. Donornya dilepas dengan
+> CC0 1.0 Universal; terjemahan dan adaptasi bahasa Indonesia ini dilepas
+> dengan CC BY 4.0. Benih deterministik, pembanding peluang eksak, dan bagian
+> yang berlabel **Tambahan asli** merupakan materi baru yang juga dilepas
+> dengan CC BY 4.0.
+
+## Simulasi rantai {#o009-lab-markov-gambler-ruin-experiment}
+
+::: {#o009-exercise-markov-gambler-ruin-estimation .exercise}
+Seorang penjudi memiliki modal awal $1$. Pada setiap periode, modalnya naik
+satu dengan peluang $p=2/3$ dan turun satu dengan peluang $q=1/3$. Keadaan
+$0$ dan $3$ menyerap: permainan berhenti ketika modal mencapai salah satunya.
+Simulasikan $1.000$ lintasan sampai $T=100$, lalu taksir peluang bahwa penjudi
+telah keluar dari kasino dengan modal $3$ paling lambat pada waktu tersebut.
+:::
+
+Matriks transisi memakai urutan keadaan $S=(0,1,2,3)$. Baris pertama dan
+terakhir menyatakan keadaan menyerap. Fungsi `langkah_berikutnya` memilih
+baris yang sesuai dengan keadaan sekarang, lalu `sample` menarik keadaan
+berikutnya dari peluang pada baris itu. Potongan berikut hanya memakai R
+dasar dan menetapkan benih secara eksplisit.
+
+```{r o009_lab_markov_gambler_ruin, echo=TRUE}
+S = c(0L, 1L, 2L, 3L)
+P = matrix(c(1,   0,   0,   0,
+             1/3, 0,   2/3, 0,
+             0,   1/3, 0,   2/3,
+             0,   0,   0,   1),
+           byrow=TRUE, ncol=4)
+
+horizon = 100L
+nsim = 1000L
+seed = 20260822L
+
+langkah_berikutnya = function(s) {
+  i = match(s, S)
+  sample(S, prob=P[i, ], size=1)
+}
+
+lintasan_tunggal = function(keadaan_awal) {
+  lintasan = integer(horizon)
+  terakhir = keadaan_awal
+  for (n in seq_len(horizon)) {
+    lintasan[n] = langkah_berikutnya(terakhir)
+    terakhir = lintasan[n]
+  }
+  lintasan
+}
+
+set.seed(seed)
+lintasan = t(replicate(nsim, lintasan_tunggal(1L)))
+berhasil = lintasan[, horizon] == 3L
+
+distribusi = c(0, 1, 0, 0)
+for (n in seq_len(horizon)) {
+  distribusi = as.numeric(distribusi %*% P)
+}
+peluang_eksak_horizon = distribusi[4]
+peluang_akhir = (1 - (1/2)^1) / (1 - (1/2)^3)
+celah_ekor_eksak = (4/7) * (2/9)^50
+
+hasil = data.frame(
+  seed = seed,
+  simulasi = nsim,
+  horizon = horizon,
+  keadaan_awal = 1L,
+  batas_atas = 3L,
+  berhasil = sum(berhasil),
+  taksiran = sprintf("%.12f", mean(berhasil)),
+  eksak_sampai_horizon = sprintf("%.12f", peluang_eksak_horizon),
+  peluang_akhir = sprintf("%.12f", peluang_akhir),
+  celah_ekor_eksak = sprintf("%.12e", celah_ekor_eksak),
+  galat_mutlak = sprintf("%.12f", abs(mean(berhasil) - peluang_eksak_horizon)),
+  stringsAsFactors = FALSE,
+  check.names = FALSE
+)
+write.csv(hasil, file="", row.names=FALSE, quote=FALSE)
+```
+
+<!-- O009_MARKOV_EXECUTION_TABLE -->
+
+Karena keadaan $0$ dan $3$ menyerap, syarat `lintasan[, horizon] == 3`
+ekuivalen dengan “telah mencapai $3$ paling lambat pada waktu $T$.” Kolom
+`eksak_sampai_horizon` dihitung dengan memperbarui distribusi keadaan melalui
+perkalian matriks sebanyak $100$ kali. Kolom `peluang_akhir` adalah peluang
+mencapai $3$ sebelum $0$ tanpa batas waktu. Pada horizon genap $100$, peluang
+yang belum terserap dan kelak mencapai $3$ adalah
+$(4/7)(2/9)^{50}=1{,}248349703776\times10^{-33}$. Kolom
+`celah_ekor_eksak` mempertahankan bilangan positif yang sangat kecil ini dalam
+notasi ilmiah; `eksak_sampai_horizon` dan `peluang_akhir` tetap tampil sama
+pada 12 angka desimal. Dalam aritmetika titik-mengambang, iterasi matriks dan
+representasi $4/7$ justru berbeda sekitar $2{,}22\times10^{-16}$ akibat
+pembulatan—jauh lebih besar daripada celah eksak di atas—sehingga selisih
+bilangan mesin itu tidak dapat dipakai untuk mengukur celah horizon.
+
+## Tambahan asli: persamaan harmonik dan pembanding eksak {#o009-mastery-markov-gambler-ruin .original-addition}
+
+::: {#o009-exercise-markov-gambler-ruin-mastery .exercise}
+Misalkan $h_i$ adalah peluang mencapai keadaan $3$ sebelum keadaan $0$ jika
+modal awalnya $i$.
+
+1. Tuliskan syarat batas untuk $h_0$ dan $h_3$ serta persamaan langkah pertama
+   untuk $h_1$ dan $h_2$.
+2. Selesaikan sistem tersebut dan tentukan $h_1$.
+3. Bandingkan $h_1$ dengan peluang eksak sampai $T=100$ dan taksiran Monte
+   Carlo. Jelaskan mengapa ketiga bilangan itu tidak harus sama persis.
+:::
+
+::: {#o009-hint-markov-gambler-ruin-mastery-1 .hint}
+**Petunjuk 1.** Gunakan $h_0=0$, $h_3=1$, dan kondisikan pada satu langkah
+pertama dari setiap keadaan tak menyerap.
+:::
+
+::: {#o009-hint-markov-gambler-ruin-mastery-2 .hint}
+**Petunjuk 2.** Persamaan yang diperoleh adalah
+$h_1=\frac13h_0+\frac23h_2$ dan
+$h_2=\frac13h_1+\frac23h_3$.
+:::
+
+::: {#o009-hint-markov-gambler-ruin-mastery-3 .hint}
+**Petunjuk 3.** Peluang akhir memasukkan lintasan dengan waktu serap lebih
+besar daripada $100$, sedangkan taksiran Monte Carlo juga mengandung galat
+pengambilan sampel.
+:::
+
+::: {#o009-answer-markov-gambler-ruin-mastery .answer}
+**Jawaban ringkas.** Syarat batasnya $h_0=0$ dan $h_3=1$. Dari dua persamaan
+langkah pertama diperoleh $h_1=4/7$ dan $h_2=6/7$. Peluang sampai horizon
+tidak melebihi peluang akhir $4/7$, dan taksiran simulasi berfluktuasi di
+sekitar peluang sampai horizon.
+:::
+
+::: {#o009-solution-markov-gambler-ruin-mastery .solution}
+**Penyelesaian lengkap.** Keadaan menyerap memberikan
+
+$$
+h_0=0,
+\qquad
+h_3=1.
+$$
+
+Dengan mengondisikan pada langkah pertama,
+
+$$
+h_1=\frac13h_0+\frac23h_2=\frac23h_2,
+\qquad
+h_2=\frac13h_1+\frac23h_3=\frac13h_1+\frac23.
+$$
+
+Substitusi persamaan kedua ke persamaan pertama menghasilkan
+
+$$
+h_1=\frac23\left(\frac13h_1+\frac23\right)
+=\frac29h_1+\frac49,
+$$
+
+sehingga $\frac79h_1=\frac49$ dan $h_1=4/7$. Selanjutnya,
+$h_2=\frac13(4/7)+2/3=6/7$.
+
+Nilai $4/7$ menghitung keberhasilan tanpa batas waktu. Perkalian distribusi
+dengan $P$ sebanyak $100$ kali hanya menghitung keberhasilan yang telah terjadi
+paling lambat pada waktu $100$, sehingga nilainya dapat sedikit lebih kecil.
+Taksiran Monte Carlo memakai hanya $1.000$ lintasan acak dan karena itu tidak
+harus sama persis dengan peluang horizon yang dihitung secara deterministik.
+:::
+
+:::

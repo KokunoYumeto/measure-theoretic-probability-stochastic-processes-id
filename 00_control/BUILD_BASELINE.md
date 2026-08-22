@@ -2,17 +2,21 @@
 
 ## Frozen host/runtime inputs
 
-- Pandoc `3.9.0.2`
-- Python with Beautiful Soup/lxml as used by the builder
-- lane-local official R `4.6.1`, `LC_ALL=C`, `--vanilla`, temporary `R_USER`
-- R RNG: Mersenne-Twister / Inversion / Rejection
+- Pandoc `3.9.0.2`, executable SHA-256
+  `24f1593d7ba9f511bc428be3d7177d2a8ddc4bf60457c9f24a888a4790748c5d`.
+- Python with Beautiful Soup/lxml as used by the builder.
+- Lane-local official R `4.6.1`, `Rscript.exe` SHA-256
+  `d829bcf7e9fa1d7e3e828c565c3cdbb1ed416f551f4fa6fd4dfcdf231e33e5e8`,
+  `LC_ALL=C`, `--vanilla`, and a fresh temporary `R_USER`.
+- R RNG: Mersenne-Twister / Inversion / Rejection.
 - Random MathJax `tex-svg.js`: 1,704,911 bytes, SHA-256
-  `dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a`
+  `dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a`.
 - MathJax `boldsymbol.js`: 4,709 bytes, SHA-256
-  `716cf8735d00abfb1627f8adbbf4aeb915ac9b5c55d47aeaf276e73dac6a2aa1`
+  `716cf8735d00abfb1627f8adbbf4aeb915ac9b5c55d47aeaf276e73dac6a2aa1`.
 
-The exact R installer/runtime/RNG evidence is in `RUNTIME_LOCK.json`; the
-installer and runtime are not publication payloads.
+The exact installer/runtime/RNG/Pandoc and both golden lab results are in
+`RUNTIME_LOCK.json`. The R installer and installed runtime are not publication
+payloads.
 
 ## Deterministic reader commands
 
@@ -24,32 +28,39 @@ python scripts/build_backend.py --validate-only
 python scripts/verify_published_site.py build/site
 ```
 
-All five commands pass on the current 2026-08-22 fifth boundary. The lab estimates are
-`0.177976805338`, `0.256464342623`, and `0.250381011435` for `n=10`, `1000`,
-and `1000000`; the full canonical rows remain in `RUNTIME_LOCK.json` and the
-build receipt.
+The first four commands pass on the locally complete tenth boundary. The
+publication verifier is run against local bytes before push and again against
+the anonymously served Pages bytes after deployment.
 
-## Exact output boundary
+## Exact tenth-boundary output
 
-- Reader content: 37 manifested files / 2,372,365 bytes.
-- `build/site/PACKAGE_MANIFEST.csv`: 3,395 bytes, SHA-256
-  `eca262b01a8bdf87ba4a7dfc23db99e06e11ee18d098e2b702636aa6261fbb38`.
-- `build/site/BUILD_RECEIPT.json`: 3,582 bytes, SHA-256
-  `16608283683eb30fca0f0922b642b69ecb03604180e10cf2aa97f0bc29b7467c`.
-- Backend: 748 entities + 1,990 segments = 2,738 records / 683 relations /
-  21 generated files / zero QA failures; manifest SHA-256
-  `c8a654be6cc87f3349110422ed09ecad68becceecbd487a3e897261ba596b32b`.
-- Backend exporter SHA-256
-  `5909e41ae032b00d74a08084e4cf0e88401ef85ab5beef7c79d883cc119485fb`.
-- Backend input-set SHA-256
-  `06330bd48713053c60ea18680d8ba5ce1aa527ada729386c2a120818e3b515af`.
+- Reader content: 43 manifested files / 2,661,986 bytes.
+- `build/site/PACKAGE_MANIFEST.csv`: 3,985 bytes, SHA-256
+  `c82e526a39a952f439ed11034ce8bbdcccb5deb853fef931a4336453780bf527`.
+- `build/site/BUILD_RECEIPT.json`: 7,015 bytes, SHA-256
+  `682a76f74952286f39bf1aafa1ff2939a8b0c0ea8602ee559efdb396d4175ac8`.
+- Backend: 1,058 entities + 2,737 segments = 3,795 records / 988 relations /
+  21 generated files / eight QA passes / zero QA failures.
+- `backend/BACKEND_MANIFEST.json`: 3,995 bytes, SHA-256
+  `6f14a2e733baa821f264c8964fa8e4bcd64ab17bbfae21626832803abe6a3e73`.
+- Backend input-set SHA-256:
+  `0581b6e3068816ec48833486a8c077c0ee3056441fa575f46fef724021c86ab1`.
+- Reader builder: 187,036 bytes, SHA-256
+  `7a8d426450d9e12ff9fb408912b342eb9dae566c44de0debb2193578b5d69310`.
+- Backend exporter: 162,937 bytes, SHA-256
+  `98f0267f30fe5fc71f5236e28e8046eea6a176ea93feca675f04529a313dc3ac`.
 
-The reader contains no analytics. Every HTML/CSS local reference and fragment
-closes; the executable lab is a copyable code block; all CSS pseudo-icons and
-the MathJax autoload extension are local. Browser QA covered all ten theory
-pages, the index, and the lab at 1280×720 and 390×844 with no document-level
-overflow, broken image, empty image alternative, unresolved visible reference,
-external runtime, or palette mismatch. Long
-code/tables and long mathematical rows scroll only inside bounded containers.
-The reader palette now overrides Random's fixed light-gray `div.unit` and table
-fills, preventing low-contrast light-on-light blocks in dark mode.
+The build receipt binds the ordered 15 theory sources, two lab sources, exact
+golden rows, current runtime hashes/versions, manifest count/bytes, and legacy
+first-lab compatibility fields. The reader contains no analytics. Every local
+HTML/CSS reference and fragment closes; every generated lab has a copyable
+stable-ID code block, stable-ID result table, complete edition navigation, and
+exact source/result binding. Symbolic links are rejected from inputs and site
+inventory.
+
+Browser QA covered all 18 pages at 1280×720 and 390×844. Each sweep rendered
+9,996 MathJax containers and found 279 disclosures, with zero document
+overflow, broken image, empty alternative, unresolved visible reference,
+external runtime, navigation mismatch, or browser warning/error. Long code,
+tables, and displays scroll only inside bounded containers. The exact evidence
+is in `qa/TENTH_BOUNDARY_CHECKPOINT_20260822.md`.

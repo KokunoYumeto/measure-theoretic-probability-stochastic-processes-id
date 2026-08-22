@@ -1,9 +1,15 @@
 relation_id,relation_type,source_id,target_id,evidence,status
+rel.answers.markov-mastery,answers,o009-answer-markov-gambler-ruin-mastery,o009-exercise-markov-gambler-ruin-mastery,explicit Markov mastery sequence,active
 rel.answers.mastery,answers,o009-answer-convergence-mc-mastery,o009-exercise-convergence-mc-mastery,explicit mastery sequence,active
 rel.assesses.estimation,assesses,o009-exercise-convergence-mc-estimation,outcome.o009.estimate-expectation-monte-carlo,estimation exercise prompt,active
+rel.assesses.markov-estimation,assesses,o009-exercise-markov-gambler-ruin-estimation,outcome.o009.simulate-absorbing-markov-chain,absorbing-chain estimation prompt,active
+rel.assesses.markov-mastery.kernels,assesses,o009-exercise-markov-gambler-ruin-mastery,outcome.o009.construct-markov-kernels,first-step harmonic system,active
 rel.assesses.martingales-stop.pattern-waiting,assesses,unit.o009.random.martingales.stop.pat3,outcome.o009.compute-random-time-expectations,martingales/Stop.html#pat3; analogous exercises #pat6 through #pat8,active
 rel.assesses.mastery.evidence,assesses,o009-exercise-convergence-mc-mastery,outcome.o009.distinguish-evidence-proof,mastery item 3,active
 rel.assesses.mastery.proof,assesses,o009-exercise-convergence-mc-mastery,outcome.o009.prove-convergence-in-probability,mastery items 2-3,active
+rel.contains.donor.markov-section.exercise,contains,unit.donor.zitkovic.markov-chain-simulation.section,unit.donor.zitkovic.markov-gambler-ruin.exercise,complete exercise inside source/05-Markov-chains.Rmd L601-L666,active
+rel.contains.donor.markov-section.solution,contains,unit.donor.zitkovic.markov-chain-simulation.section,unit.donor.zitkovic.markov-gambler-ruin.solution,complete solution inside source/05-Markov-chains.Rmd L601-L666,active
+rel.contains.donor.markov-solution.program.1,contains,unit.donor.zitkovic.markov-gambler-ruin.solution,unit.donor.zitkovic.markov-gambler-ruin.program.1,R chunk inside the complete donor Markov solution block,active
 rel.contains.donor.solution.program.1,contains,unit.donor.zitkovic.monte-carlo-exp.solution,unit.donor.zitkovic.monte-carlo-exp.program.1,R chunk 1 inside complete donor solution block,active
 rel.contains.donor.solution.program.2,contains,unit.donor.zitkovic.monte-carlo-exp.solution,unit.donor.zitkovic.monte-carlo-exp.program.2,R chunk 2 inside complete donor solution block,active
 rel.contains.donor.solution.program.3,contains,unit.donor.zitkovic.monte-carlo-exp.solution,unit.donor.zitkovic.monte-carlo-exp.program.3,R chunk 3 inside complete donor solution block,active
@@ -12,13 +18,24 @@ rel.contains.o009-lab-convergence-mc-experiment.o009-solution-convergence-mc-est
 rel.contains.o009-lab-convergence-mc.o009-concept-monte-carlo-lln,contains,o009-lab-convergence-mc,o009-concept-monte-carlo-lln,labs/01-konvergensi-monte-carlo.Rmd:L86-L106,active
 rel.contains.o009-lab-convergence-mc.o009-lab-convergence-mc-experiment,contains,o009-lab-convergence-mc,o009-lab-convergence-mc-experiment,labs/01-konvergensi-monte-carlo.Rmd:L30-L85,active
 rel.contains.o009-lab-convergence-mc.o009-mastery-convergence-mc,contains,o009-lab-convergence-mc,o009-mastery-convergence-mc,labs/01-konvergensi-monte-carlo.Rmd:L107-L175,active
+rel.contains.o009-lab-markov-gambler-ruin-experiment.o009-exercise-markov-gambler-ruin-estimation,contains,o009-lab-markov-gambler-ruin-experiment,o009-exercise-markov-gambler-ruin-estimation,labs/02-simulasi-rantai-markov.Rmd:L33-L39,active
+rel.contains.o009-lab-markov-gambler-ruin-experiment.o009-solution-markov-gambler-ruin-estimation,contains,o009-lab-markov-gambler-ruin-experiment,o009-solution-markov-gambler-ruin-estimation,labs/02-simulasi-rantai-markov.Rmd:L40-L119,active
+rel.contains.o009-lab-markov-gambler-ruin.o009-lab-markov-gambler-ruin-experiment,contains,o009-lab-markov-gambler-ruin,o009-lab-markov-gambler-ruin-experiment,labs/02-simulasi-rantai-markov.Rmd:L31-L119,active
+rel.contains.o009-lab-markov-gambler-ruin.o009-mastery-markov-gambler-ruin,contains,o009-lab-markov-gambler-ruin,o009-mastery-markov-gambler-ruin,labs/02-simulasi-rantai-markov.Rmd:L120-L190,active
 rel.contains.o009-mastery-convergence-mc.o009-answer-convergence-mc-mastery,contains,o009-mastery-convergence-mc,o009-answer-convergence-mc-mastery,labs/01-konvergensi-monte-carlo.Rmd:L138-L144,active
 rel.contains.o009-mastery-convergence-mc.o009-exercise-convergence-mc-mastery,contains,o009-mastery-convergence-mc,o009-exercise-convergence-mc-mastery,labs/01-konvergensi-monte-carlo.Rmd:L109-L120,active
 rel.contains.o009-mastery-convergence-mc.o009-hint-convergence-mc-mastery-1,contains,o009-mastery-convergence-mc,o009-hint-convergence-mc-mastery-1,labs/01-konvergensi-monte-carlo.Rmd:L122-L125,active
 rel.contains.o009-mastery-convergence-mc.o009-hint-convergence-mc-mastery-2,contains,o009-mastery-convergence-mc,o009-hint-convergence-mc-mastery-2,labs/01-konvergensi-monte-carlo.Rmd:L127-L130,active
 rel.contains.o009-mastery-convergence-mc.o009-hint-convergence-mc-mastery-3,contains,o009-mastery-convergence-mc,o009-hint-convergence-mc-mastery-3,labs/01-konvergensi-monte-carlo.Rmd:L132-L136,active
 rel.contains.o009-mastery-convergence-mc.o009-solution-convergence-mc-mastery,contains,o009-mastery-convergence-mc,o009-solution-convergence-mc-mastery,labs/01-konvergensi-monte-carlo.Rmd:L146-L174,active
+rel.contains.o009-mastery-markov-gambler-ruin.o009-answer-markov-gambler-ruin-mastery,contains,o009-mastery-markov-gambler-ruin,o009-answer-markov-gambler-ruin-mastery,labs/02-simulasi-rantai-markov.Rmd:L150-L155,active
+rel.contains.o009-mastery-markov-gambler-ruin.o009-exercise-markov-gambler-ruin-mastery,contains,o009-mastery-markov-gambler-ruin,o009-exercise-markov-gambler-ruin-mastery,labs/02-simulasi-rantai-markov.Rmd:L122-L131,active
+rel.contains.o009-mastery-markov-gambler-ruin.o009-hint-markov-gambler-ruin-mastery-1,contains,o009-mastery-markov-gambler-ruin,o009-hint-markov-gambler-ruin-mastery-1,labs/02-simulasi-rantai-markov.Rmd:L133-L136,active
+rel.contains.o009-mastery-markov-gambler-ruin.o009-hint-markov-gambler-ruin-mastery-2,contains,o009-mastery-markov-gambler-ruin,o009-hint-markov-gambler-ruin-mastery-2,labs/02-simulasi-rantai-markov.Rmd:L138-L142,active
+rel.contains.o009-mastery-markov-gambler-ruin.o009-hint-markov-gambler-ruin-mastery-3,contains,o009-mastery-markov-gambler-ruin,o009-hint-markov-gambler-ruin-mastery-3,labs/02-simulasi-rantai-markov.Rmd:L144-L148,active
+rel.contains.o009-mastery-markov-gambler-ruin.o009-solution-markov-gambler-ruin-mastery,contains,o009-mastery-markov-gambler-ruin,o009-solution-markov-gambler-ruin-mastery,labs/02-simulasi-rantai-markov.Rmd:L157-L189,active
 rel.contains.o009-solution-convergence-mc-estimation.o009-program-convergence-mc,contains,o009-solution-convergence-mc-estimation,o009-program-convergence-mc,labs/01-konvergensi-monte-carlo.Rmd:L44-L77,active
+rel.contains.o009-solution-markov-gambler-ruin-estimation.o009-program-markov-gambler-ruin,contains,o009-solution-markov-gambler-ruin-estimation,o009-program-markov-gambler-ruin,labs/02-simulasi-rantai-markov.Rmd:L47-L103,active
 rel.contains.unit.o009.random.dist.convergence.bdr.unit.o009.random.dist.convergence.details-010,contains,unit.o009.random.dist.convergence.bdr,unit.o009.random.dist.convergence.details-010,dist/Convergence.html:dom-order:195,active
 rel.contains.unit.o009.random.dist.convergence.bin1.unit.o009.random.dist.convergence.details-012,contains,unit.o009.random.dist.convergence.bin1,unit.o009.random.dist.convergence.details-012,dist/Convergence.html:dom-order:241,active
 rel.contains.unit.o009.random.dist.convergence.div-006.unit.o009.random.dist.convergence.details-004,contains,unit.o009.random.dist.convergence.div-006,unit.o009.random.dist.convergence.details-004,dist/Convergence.html:dom-order:120,active
@@ -265,6 +282,79 @@ rel.contains.unit.o009.random.expect.uniform.unit.o009.random.expect.uniform.h4-
 rel.contains.unit.o009.random.expect.uniform.unit.o009.random.expect.uniform.h4-002,contains,unit.o009.random.expect.uniform,unit.o009.random.expect.uniform.h4-002,expect/Uniform.html:dom-order:74,active
 rel.contains.unit.o009.random.expect.uniform.unit.o009.random.expect.uniform.prp1,contains,unit.o009.random.expect.uniform,unit.o009.random.expect.uniform.prp1,expect/Uniform.html:dom-order:76,active
 rel.contains.unit.o009.random.expect.uniform.unit.o009.random.expect.uniform.prp2,contains,unit.o009.random.expect.uniform,unit.o009.random.expect.uniform.prp2,expect/Uniform.html:dom-order:128,active
+rel.contains.unit.o009.random.markov.general.dfn2.unit.o009.random.markov.general.details-001,contains,unit.o009.random.markov.general.dfn2,unit.o009.random.markov.general.details-001,markov/General.html:dom-order:139,active
+rel.contains.unit.o009.random.markov.general.div-003.unit.o009.random.markov.general.details-002,contains,unit.o009.random.markov.general.div-003,unit.o009.random.markov.general.details-002,markov/General.html:dom-order:151,active
+rel.contains.unit.o009.random.markov.general.div-008.unit.o009.random.markov.general.details-004,contains,unit.o009.random.markov.general.div-008,unit.o009.random.markov.general.details-004,markov/General.html:dom-order:211,active
+rel.contains.unit.o009.random.markov.general.div-032.unit.o009.random.markov.general.details-019,contains,unit.o009.random.markov.general.div-032,unit.o009.random.markov.general.details-019,markov/General.html:dom-order:397,active
+rel.contains.unit.o009.random.markov.general.enl1.unit.o009.random.markov.general.details-013,contains,unit.o009.random.markov.general.enl1,unit.o009.random.markov.general.details-013,markov/General.html:dom-order:325,active
+rel.contains.unit.o009.random.markov.general.enl2.unit.o009.random.markov.general.details-014,contains,unit.o009.random.markov.general.enl2,unit.o009.random.markov.general.details-014,markov/General.html:dom-order:332,active
+rel.contains.unit.o009.random.markov.general.fel1.unit.o009.random.markov.general.details-003,contains,unit.o009.random.markov.general.fel1,unit.o009.random.markov.general.details-003,markov/General.html:dom-order:177,active
+rel.contains.unit.o009.random.markov.general.inc10.unit.o009.random.markov.general.details-023,contains,unit.o009.random.markov.general.inc10,unit.o009.random.markov.general.details-023,markov/General.html:dom-order:443,active
+rel.contains.unit.o009.random.markov.general.inc2.unit.o009.random.markov.general.details-017,contains,unit.o009.random.markov.general.inc2,unit.o009.random.markov.general.details-017,markov/General.html:dom-order:371,active
+rel.contains.unit.o009.random.markov.general.inc3.unit.o009.random.markov.general.details-018,contains,unit.o009.random.markov.general.inc3,unit.o009.random.markov.general.details-018,markov/General.html:dom-order:377,active
+rel.contains.unit.o009.random.markov.general.inc6.unit.o009.random.markov.general.details-020,contains,unit.o009.random.markov.general.inc6,unit.o009.random.markov.general.details-020,markov/General.html:dom-order:409,active
+rel.contains.unit.o009.random.markov.general.inc7.unit.o009.random.markov.general.details-021,contains,unit.o009.random.markov.general.inc7,unit.o009.random.markov.general.details-021,markov/General.html:dom-order:423,active
+rel.contains.unit.o009.random.markov.general.inc8.unit.o009.random.markov.general.details-022,contains,unit.o009.random.markov.general.inc8,unit.o009.random.markov.general.details-022,markov/General.html:dom-order:432,active
+rel.contains.unit.o009.random.markov.general.rec1.unit.o009.random.markov.general.details-015,contains,unit.o009.random.markov.general.rec1,unit.o009.random.markov.general.details-015,markov/General.html:dom-order:341,active
+rel.contains.unit.o009.random.markov.general.rec2.unit.o009.random.markov.general.details-016,contains,unit.o009.random.markov.general.rec2,unit.o009.random.markov.general.details-016,markov/General.html:dom-order:348,active
+rel.contains.unit.o009.random.markov.general.sit1.unit.o009.random.markov.general.details-012,contains,unit.o009.random.markov.general.sit1,unit.o009.random.markov.general.details-012,markov/General.html:dom-order:314,active
+rel.contains.unit.o009.random.markov.general.trn1.unit.o009.random.markov.general.details-005,contains,unit.o009.random.markov.general.trn1,unit.o009.random.markov.general.details-005,markov/General.html:dom-order:228,active
+rel.contains.unit.o009.random.markov.general.trn2.unit.o009.random.markov.general.details-006,contains,unit.o009.random.markov.general.trn2,unit.o009.random.markov.general.details-006,markov/General.html:dom-order:240,active
+rel.contains.unit.o009.random.markov.general.trn3.unit.o009.random.markov.general.details-007,contains,unit.o009.random.markov.general.trn3,unit.o009.random.markov.general.details-007,markov/General.html:dom-order:247,active
+rel.contains.unit.o009.random.markov.general.trn4.unit.o009.random.markov.general.details-008,contains,unit.o009.random.markov.general.trn4,unit.o009.random.markov.general.details-008,markov/General.html:dom-order:255,active
+rel.contains.unit.o009.random.markov.general.trn5.unit.o009.random.markov.general.details-009,contains,unit.o009.random.markov.general.trn5,unit.o009.random.markov.general.details-009,markov/General.html:dom-order:266,active
+rel.contains.unit.o009.random.markov.general.trn6.unit.o009.random.markov.general.details-010,contains,unit.o009.random.markov.general.trn6,unit.o009.random.markov.general.details-010,markov/General.html:dom-order:284,active
+rel.contains.unit.o009.random.markov.general.trn8.unit.o009.random.markov.general.details-011,contains,unit.o009.random.markov.general.trn8,unit.o009.random.markov.general.details-011,markov/General.html:dom-order:305,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.bas,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.bas,markov/General.html:dom-order:103,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.dfn,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.dfn,markov/General.html:dom-order:130,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.dfn1,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.dfn1,markov/General.html:dom-order:131,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.dfn2,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.dfn2,markov/General.html:dom-order:137,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.dfn3,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.dfn3,markov/General.html:dom-order:155,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.div-003,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.div-003,markov/General.html:dom-order:149,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.div-008,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.div-008,markov/General.html:dom-order:209,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.div-010,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.div-010,markov/General.html:dom-order:219,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.div-015,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.div-015,markov/General.html:dom-order:260,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.div-017,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.div-017,markov/General.html:dom-order:272,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.div-032,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.div-032,markov/General.html:dom-order:392,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.enl,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.enl,markov/General.html:dom-order:321,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.enl1,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.enl1,markov/General.html:dom-order:323,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.enl2,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.enl2,markov/General.html:dom-order:330,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.exe,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.exe,markov/General.html:dom-order:336,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.fel,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.fel,markov/General.html:dom-order:164,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.fel1,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.fel1,markov/General.html:dom-order:167,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.fel2,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.fel2,markov/General.html:dom-order:183,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.h2-001,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.h2-001,markov/General.html:dom-order:71,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc,markov/General.html:dom-order:357,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc1,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc1,markov/General.html:dom-order:360,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc10,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc10,markov/General.html:dom-order:440,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc11,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc11,markov/General.html:dom-order:449,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc2,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc2,markov/General.html:dom-order:369,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc3,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc3,markov/General.html:dom-order:375,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc4,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc4,markov/General.html:dom-order:381,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc5,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc5,markov/General.html:dom-order:386,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc6,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc6,markov/General.html:dom-order:407,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc7,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc7,markov/General.html:dom-order:417,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc8,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc8,markov/General.html:dom-order:429,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.inc9,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.inc9,markov/General.html:dom-order:437,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.pre,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.pre,markov/General.html:dom-order:104,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.rec,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.rec,markov/General.html:dom-order:337,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.rec1,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.rec1,markov/General.html:dom-order:339,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.rec2,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.rec2,markov/General.html:dom-order:345,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.sit,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.sit,markov/General.html:dom-order:309,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.sit1,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.sit1,markov/General.html:dom-order:312,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.sit2,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.sit2,markov/General.html:dom-order:318,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.smp,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.smp,markov/General.html:dom-order:188,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.smp3,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.smp3,markov/General.html:dom-order:205,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.smp4,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.smp4,markov/General.html:dom-order:216,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.trn,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.trn,markov/General.html:dom-order:221,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.trn1,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.trn1,markov/General.html:dom-order:225,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.trn2,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.trn2,markov/General.html:dom-order:238,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.trn3,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.trn3,markov/General.html:dom-order:245,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.trn4,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.trn4,markov/General.html:dom-order:253,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.trn5,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.trn5,markov/General.html:dom-order:264,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.trn6,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.trn6,markov/General.html:dom-order:282,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.trn7,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.trn7,markov/General.html:dom-order:291,active
+rel.contains.unit.o009.random.markov.general.unit.o009.random.markov.general.trn8,contains,unit.o009.random.markov.general,unit.o009.random.markov.general.trn8,markov/General.html:dom-order:303,active
 rel.contains.unit.o009.random.martingales.backwards.dfn2.unit.o009.random.martingales.backwards.details-001,contains,unit.o009.random.martingales.backwards.dfn2,unit.o009.random.martingales.backwards.details-001,martingales/Backwards.html:dom-order:56,active
 rel.contains.unit.o009.random.martingales.backwards.dfn3.unit.o009.random.martingales.backwards.details-002,contains,unit.o009.random.martingales.backwards.dfn3,unit.o009.random.martingales.backwards.details-002,martingales/Backwards.html:dom-order:64,active
 rel.contains.unit.o009.random.martingales.backwards.div-007.unit.o009.random.martingales.backwards.details-006,contains,unit.o009.random.martingales.backwards.div-007,unit.o009.random.martingales.backwards.details-006,martingales/Backwards.html:dom-order:110,active
@@ -828,16 +918,23 @@ rel.depends-on.unit.o009.random.martingales.properties.convex-function,depends-o
 rel.depends-on.unit.o009.random.martingales.properties.positive-part,depends-on,unit.o009.random.martingales.properties,asset.random.martingales.positive-part,martingales/Properties.html#fig3,active
 rel.depends-on.unit.o009.random.martingales.properties.powers,depends-on,unit.o009.random.martingales.properties,asset.random.martingales.powers,martingales/Properties.html,active
 rel.depends.lab-convergence-mc.theory-convergence,depends-on,o009-lab-convergence-mc,unit.o009.random.prob.convergence,matched_theory_id in Rmd metadata,active
+rel.depends.lab-markov-gambler-ruin.theory-markov-general,depends-on,o009-lab-markov-gambler-ruin,unit.o009.random.markov.general,matched_theory_id in Rmd metadata,active
+rel.hints.markov-mastery.1,hints,o009-hint-markov-gambler-ruin-mastery-1,o009-exercise-markov-gambler-ruin-mastery,explicit Markov mastery sequence,active
+rel.hints.markov-mastery.2,hints,o009-hint-markov-gambler-ruin-mastery-2,o009-exercise-markov-gambler-ruin-mastery,explicit Markov mastery sequence,active
+rel.hints.markov-mastery.3,hints,o009-hint-markov-gambler-ruin-mastery-3,o009-exercise-markov-gambler-ruin-mastery,explicit Markov mastery sequence,active
 rel.hints.mastery.1,hints,o009-hint-convergence-mc-mastery-1,o009-exercise-convergence-mc-mastery,explicit mastery sequence,active
 rel.hints.mastery.2,hints,o009-hint-convergence-mc-mastery-2,o009-exercise-convergence-mc-mastery,explicit mastery sequence,active
 rel.hints.mastery.3,hints,o009-hint-convergence-mc-mastery-3,o009-exercise-convergence-mc-mastery,explicit mastery sequence,active
 rel.precedes.concept.mastery,precedes,o009-concept-monte-carlo-lln,o009-mastery-convergence-mc,lab document order,active
 rel.precedes.experiment.concept,precedes,o009-lab-convergence-mc-experiment,o009-concept-monte-carlo-lln,lab document order,active
+rel.precedes.markov-experiment.mastery,precedes,o009-lab-markov-gambler-ruin-experiment,o009-mastery-markov-gambler-ruin,Markov lab document order,active
+rel.precedes.markov-theory.lab,precedes,unit.o009.random.markov.general,o009-lab-markov-gambler-ruin,theory-to-lab learning sequence,active
 rel.precedes.theory.lab,precedes,unit.o009.random.prob.convergence,o009-lab-convergence-mc,theory-to-lab learning sequence,active
 rel.precedes.unit.o009.random.dist.convergence.unit.o009.random.expect.conditional2,precedes,unit.o009.random.dist.convergence,unit.o009.random.expect.conditional2,reader source order,active
 rel.precedes.unit.o009.random.expect.conditional2.unit.o009.random.expect.uniform,precedes,unit.o009.random.expect.conditional2,unit.o009.random.expect.uniform,reader source order,active
 rel.precedes.unit.o009.random.expect.kernels.unit.o009.random.martingales.introduction,precedes,unit.o009.random.expect.kernels,unit.o009.random.martingales.introduction,reader source order,active
 rel.precedes.unit.o009.random.expect.uniform.unit.o009.random.expect.kernels,precedes,unit.o009.random.expect.uniform,unit.o009.random.expect.kernels,reader source order,active
+rel.precedes.unit.o009.random.martingales.backwards.unit.o009.random.markov.general,precedes,unit.o009.random.martingales.backwards,unit.o009.random.markov.general,reader source order,active
 rel.precedes.unit.o009.random.martingales.convergence.unit.o009.random.martingales.backwards,precedes,unit.o009.random.martingales.convergence,unit.o009.random.martingales.backwards,reader source order,active
 rel.precedes.unit.o009.random.martingales.inequalities.unit.o009.random.martingales.convergence,precedes,unit.o009.random.martingales.inequalities,unit.o009.random.martingales.convergence,reader source order,active
 rel.precedes.unit.o009.random.martingales.introduction.unit.o009.random.martingales.properties,precedes,unit.o009.random.martingales.introduction,unit.o009.random.martingales.properties,reader source order,active
@@ -848,11 +945,17 @@ rel.precedes.unit.o009.random.prob.probability-revisited.unit.o009.random.prob.p
 rel.precedes.unit.o009.random.prob.processes.unit.o009.random.prob.stop,precedes,unit.o009.random.prob.processes,unit.o009.random.prob.stop,reader source order,active
 rel.precedes.unit.o009.random.prob.stop.unit.o009.random.dist.convergence,precedes,unit.o009.random.prob.stop,unit.o009.random.dist.convergence,reader source order,active
 rel.prerequisite.o009.o006,prerequisite,course.o009.d30,resource.o006.c140.shared,cross-lane ownership boundary; O006 prerequisite retained,active
+rel.solves.donor.zitkovic.markov-gambler-ruin,solves,unit.donor.zitkovic.markov-gambler-ruin.solution,unit.donor.zitkovic.markov-gambler-ruin.exercise,Žitković source/05-Markov-chains.Rmd donor solution block,active
 rel.solves.donor.zitkovic.monte-carlo-exp,solves,unit.donor.zitkovic.monte-carlo-exp.solution,unit.donor.zitkovic.monte-carlo-exp.exercise,Žitković source/02-simulation.Rmd donor solution block,active
+rel.solves.markov-mastery,solves,o009-solution-markov-gambler-ruin-mastery,o009-exercise-markov-gambler-ruin-mastery,explicit Markov mastery sequence,active
 rel.solves.mastery,solves,o009-solution-convergence-mc-mastery,o009-exercise-convergence-mc-mastery,explicit mastery sequence,active
 rel.solves.target.convergence-mc-estimation,solves,o009-solution-convergence-mc-estimation,o009-exercise-convergence-mc-estimation,complete adapted solution body,active
+rel.solves.target.markov-gambler-ruin-estimation,solves,o009-solution-markov-gambler-ruin-estimation,o009-exercise-markov-gambler-ruin-estimation,complete adapted Markov-chain solution body,active
 rel.teaches.concept.lln,teaches,o009-concept-monte-carlo-lln,outcome.o009.explain-lln-monte-carlo,mathematical meaning section,active
 rel.teaches.experiment.estimate,teaches,o009-lab-convergence-mc-experiment,outcome.o009.estimate-expectation-monte-carlo,Monte Carlo experiment section,active
+rel.teaches.markov-experiment.kernels,teaches,o009-lab-markov-gambler-ruin-experiment,outcome.o009.construct-markov-kernels,transition-matrix construction and propagation,active
+rel.teaches.markov-experiment.simulation,teaches,o009-lab-markov-gambler-ruin-experiment,outcome.o009.simulate-absorbing-markov-chain,absorbing-chain Monte Carlo experiment,active
+rel.teaches.markov-mastery.harmonic,teaches,o009-mastery-markov-gambler-ruin,outcome.o009.simulate-absorbing-markov-chain,harmonic exact comparator for the simulation,active
 rel.teaches.martingales-backwards.convergence,teaches,unit.o009.random.martingales.backwards.prp3,outcome.o009.prove-reverse-martingale-convergence,martingales/Backwards.html#prp3 and the following Lp extension,active
 rel.teaches.martingales-backwards.de-finetti,teaches,unit.o009.random.martingales.backwards.exc2,outcome.o009.prove-binary-de-finetti,martingales/Backwards.html#exc2,active
 rel.teaches.martingales-backwards.definition,teaches,unit.o009.random.martingales.backwards.dfn1,outcome.o009.construct-reverse-martingales,martingales/Backwards.html#dfn1 through #dfn3,active
@@ -876,7 +979,11 @@ rel.teaches.martingales-stop.wald,teaches,unit.o009.random.martingales.stop.wld1
 rel.teaches.mastery.evidence,teaches,o009-mastery-convergence-mc,outcome.o009.distinguish-evidence-proof,original mastery section,active
 rel.teaches.mastery.proof,teaches,o009-mastery-convergence-mc,outcome.o009.prove-convergence-in-probability,original mastery section,active
 rel.translates.o009-exercise-convergence-mc-estimation.unit.donor.zitkovic.monte-carlo-exp.exercise,translates,o009-exercise-convergence-mc-estimation,unit.donor.zitkovic.monte-carlo-exp.exercise,translation.o009-exercise-convergence-mc-estimation,active
+rel.translates.o009-exercise-markov-gambler-ruin-estimation.unit.donor.zitkovic.markov-gambler-ruin.exercise,translates,o009-exercise-markov-gambler-ruin-estimation,unit.donor.zitkovic.markov-gambler-ruin.exercise,translation.o009-exercise-markov-gambler-ruin-estimation,active
+rel.translates.o009-lab-markov-gambler-ruin-experiment.unit.donor.zitkovic.markov-chain-simulation.section,translates,o009-lab-markov-gambler-ruin-experiment,unit.donor.zitkovic.markov-chain-simulation.section,translation.o009-lab-markov-gambler-ruin-experiment,active
 rel.translates.o009-program-convergence-mc.unit.donor.zitkovic.monte-carlo-exp.program.1,translates,o009-program-convergence-mc,unit.donor.zitkovic.monte-carlo-exp.program.1,translation.o009-program-convergence-mc,active
 rel.translates.o009-program-convergence-mc.unit.donor.zitkovic.monte-carlo-exp.program.2,translates,o009-program-convergence-mc,unit.donor.zitkovic.monte-carlo-exp.program.2,translation.o009-program-convergence-mc.donor-2,active
 rel.translates.o009-program-convergence-mc.unit.donor.zitkovic.monte-carlo-exp.program.3,translates,o009-program-convergence-mc,unit.donor.zitkovic.monte-carlo-exp.program.3,translation.o009-program-convergence-mc.donor-3,active
+rel.translates.o009-program-markov-gambler-ruin.unit.donor.zitkovic.markov-gambler-ruin.program.1,translates,o009-program-markov-gambler-ruin,unit.donor.zitkovic.markov-gambler-ruin.program.1,translation.o009-program-markov-gambler-ruin,active
 rel.translates.o009-solution-convergence-mc-estimation.unit.donor.zitkovic.monte-carlo-exp.solution,translates,o009-solution-convergence-mc-estimation,unit.donor.zitkovic.monte-carlo-exp.solution,translation.o009-solution-convergence-mc-estimation,active
+rel.translates.o009-solution-markov-gambler-ruin-estimation.unit.donor.zitkovic.markov-gambler-ruin.solution,translates,o009-solution-markov-gambler-ruin-estimation,unit.donor.zitkovic.markov-gambler-ruin.solution,translation.o009-solution-markov-gambler-ruin-estimation,active

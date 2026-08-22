@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BACKEND = ROOT / "backend"
 AUTH_RANDOM = ROOT / "authority" / "random"
 LAB = ROOT / "source" / "labs" / "01-konvergensi-monte-carlo.Rmd"
+LAB_MARKOV = ROOT / "source" / "labs" / "02-simulasi-rantai-markov.Rmd"
 TERMS = ROOT / "00_control" / "TERMINOLOGY.csv"
 BUILD_SCRIPT = ROOT / "scripts" / "build_first_boundary.py"
 EXPORTER = Path(__file__).resolve()
@@ -40,6 +41,7 @@ ZIT_ROOT = (
 ZIT_ZIP = ROOT / "authority" / "zitkovic" / "stochastic-book-e2b35ad91a3689454ae6455e8ffc510a90760c0d.zip"
 ZIT_LICENSE = ZIT_ROOT / "LICENSE"
 ZIT_SIMULATION = ZIT_ROOT / "source" / "02-simulation.Rmd"
+ZIT_MARKOV = ZIT_ROOT / "source" / "05-Markov-chains.Rmd"
 
 THEORY_SPECS = (
     {
@@ -238,6 +240,23 @@ THEORY_SPECS = (
             "concept.probability.hypergeometric",
         ],
     },
+    {
+        "rel": "markov/General.html",
+        "slug": "markov.general",
+        "order": 15,
+        "concept_ids": [
+            "concept.markov.process",
+            "concept.markov.transition-kernel",
+            "concept.markov.transition-semigroup",
+            "concept.markov.feller-process",
+            "concept.markov.strong-property",
+            "concept.markov.chapman-kolmogorov",
+            "concept.stochastic.stationary-independent-increments",
+            "concept.stochastic.levy-process",
+            "concept.poisson.process",
+            "concept.brownian.motion",
+        ],
+    },
 )
 
 SCHEMA = "o009.backend.entity.v2"
@@ -396,7 +415,7 @@ def lab_rights_witness(text: str) -> str:
         re.MULTILINE,
     )
     notice = re.search(
-        r'^> \*\*Asal komponen dan lisensi\.\*\*.*?^> baru dan juga dilepas dengan CC BY 4\.0\.$',
+        r'^> \*\*Asal komponen dan lisensi\.\*\*.*?^> .*CC BY 4\.0\.$',
         text,
         re.MULTILINE | re.DOTALL,
     )
@@ -405,13 +424,14 @@ def lab_rights_witness(text: str) -> str:
     return metadata.group(0) + "\n" + notice.group(0) + "\n"
 
 
-def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
+def fixed_entities(lab_text: str, markov_lab_text: str) -> list[dict[str, Any]]:
     random_receipt = load_json(RANDOM_RECEIPT)
     build_receipt = load_json(BUILD_RECEIPT)
     random_manifest_hash = sha256(require_file(RANDOM_MANIFEST))
     if random_receipt.get("manifest_sha256") != random_manifest_hash:
         raise RuntimeError("Random authority receipt does not bind its current manifest")
     adaptation_witness = lab_rights_witness(lab_text)
+    markov_adaptation_witness = lab_rights_witness(markov_lab_text)
     random_index = AUTH_RANDOM / "static" / "index.html"
     random_credits = AUTH_RANDOM / "static" / "Credits.html"
     entities = [
@@ -507,6 +527,12 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
                 "concept.probability.mixture-model",
                 "concept.probability.hypergeometric",
                 "concept.markov.process",
+                "concept.markov.transition-kernel",
+                "concept.markov.transition-semigroup",
+                "concept.markov.feller-process",
+                "concept.markov.strong-property",
+                "concept.markov.chapman-kolmogorov",
+                "concept.stochastic.levy-process",
                 "concept.poisson.process",
                 "concept.renewal.process",
                 "concept.brownian.motion",
@@ -665,6 +691,36 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
         ),
         record(
             "rights",
+            "rights.o009.markov.indonesian-adaptation.cc-by-4.0",
+            source_locator="source/labs/02-simulasi-rantai-markov.Rmd#authoring-rights-and-attribution",
+            source_sha256=sha256(markov_adaptation_witness.encode("utf-8")),
+            locale="id-ID",
+            translation_state="authored",
+            payload={
+                "license": "CC-BY-4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "creator": "Codex at the user's direction",
+                "scope": "Indonesian translation and adaptation bytes in the Markov-chain lab",
+                "donor_component_rights_id": "rights.zitkovic.donor.cc0-1.0",
+                "does_not_relicense_donor_bytes": True,
+            },
+        ),
+        record(
+            "rights",
+            "rights.o009.markov.original.cc-by-4.0",
+            source_locator="source/labs/02-simulasi-rantai-markov.Rmd#authoring-rights-and-attribution",
+            source_sha256=sha256(markov_adaptation_witness.encode("utf-8")),
+            locale="id-ID",
+            translation_state="authored",
+            payload={
+                "license": "CC-BY-4.0",
+                "license_url": "https://creativecommons.org/licenses/by/4.0/",
+                "creator": "Codex at the user's direction",
+                "scope": "original Indonesian additions in the Markov-chain lab",
+            },
+        ),
+        record(
+            "rights",
             "rights.mathjax.apache-2.0",
             source_locator="authority/random/shared/MathJax/LICENSE",
             source_sha256=sha256(require_file(AUTH_RANDOM / "shared" / "MathJax" / "LICENSE")),
@@ -753,6 +809,12 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
         "concept.probability.mixture-model": "mixture of product measures",
         "concept.probability.hypergeometric": "hypergeometric sampling law",
         "concept.markov.process": "Markov process",
+        "concept.markov.transition-kernel": "transition kernel of a Markov process",
+        "concept.markov.transition-semigroup": "transition semigroup",
+        "concept.markov.feller-process": "Feller process",
+        "concept.markov.strong-property": "strong Markov property",
+        "concept.markov.chapman-kolmogorov": "Chapman-Kolmogorov equation",
+        "concept.stochastic.levy-process": "Lévy process",
         "concept.poisson.process": "Poisson process",
         "concept.renewal.process": "renewal process",
         "concept.brownian.motion": "Brownian motion",
@@ -903,6 +965,32 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
                 "concept.probability.de-finetti",
                 "concept.probability.mixture-model",
                 "concept.martingale.reverse-convergence",
+            ],
+        ),
+        "outcome.o009.construct-markov-kernels": (
+            "Menyusun kernel transisi, semigrup transisi, dan persamaan Chapman–Kolmogorov pada ruang keadaan yang sesuai.",
+            "apply",
+            [
+                "concept.markov.transition-kernel",
+                "concept.markov.transition-semigroup",
+                "concept.markov.chapman-kolmogorov",
+            ],
+        ),
+        "outcome.o009.audit-strong-markov-hypotheses": (
+            "Memeriksa hipotesis ruang keadaan, sifat Feller, regularitas lintasan, dan filtrasi sebelum memakai sifat Markov kuat.",
+            "analyze",
+            [
+                "concept.markov.feller-process",
+                "concept.markov.strong-property",
+            ],
+        ),
+        "outcome.o009.simulate-absorbing-markov-chain": (
+            "Mensimulasikan rantai Markov menyerap secara deterministik dan membandingkan taksiran dengan peluang horizon serta peluang harmonik eksak.",
+            "apply",
+            [
+                "concept.markov.process",
+                "concept.markov.transition-kernel",
+                "concept.monte-carlo",
             ],
         ),
     }
@@ -1612,6 +1700,156 @@ def donor_components() -> tuple[list[dict[str, Any]], list[dict[str, str]], list
     return entities, relations, aliases, hashes
 
 
+def markov_donor_components() -> tuple[
+    list[dict[str, Any]],
+    list[dict[str, str]],
+    list[dict[str, str]],
+    dict[str, str],
+]:
+    """Close the exact Žitković Markov-chain donor slice under stable IDs."""
+    whole_text = require_file(ZIT_MARKOV).decode("utf-8")
+    lines = whole_text.splitlines()
+    donor_slice = "\n".join(lines[600:666]) + "\n"
+    expected_slice_hash = "dcabe361eaaacaa537966f2bf8809dd8eac52e28392edc78d8e289c8c9be2bd8"
+    if sha256(donor_slice.encode("utf-8")) != expected_slice_hash:
+        raise RuntimeError("Žitković donor slice source/05-Markov-chains.Rmd L601-L666 changed")
+
+    blocks: list[tuple[tuple[str, ...], Span]] = []
+    stack: list[tuple[tuple[str, ...], int, int]] = []
+    for match in re.finditer(r"^.*(?:\n|$)", donor_slice, re.MULTILINE):
+        raw = match.group(0)
+        opened = re.fullmatch(r"^:::\s+\{([^}]*)\}\s*(?:\n|$)", raw)
+        if opened:
+            classes = tuple(re.findall(r"\.([A-Za-z0-9_.-]+)", opened.group(1)))
+            stack.append((classes, match.start(), match.end()))
+        elif re.fullmatch(r"^:::\s*(?:\n|$)", raw):
+            if not stack:
+                raise RuntimeError("unmatched Markov donor fenced-div close")
+            classes, start, content_start = stack.pop()
+            blocks.append((classes, Span(start, match.end(), content_start, match.start(), classes)))
+    if stack:
+        raise RuntimeError("unclosed Markov donor fenced div")
+    exercise_spans = [span for classes, span in blocks if "exercise" in classes]
+    solution_spans = [span for classes, span in blocks if "solution" in classes]
+    if len(exercise_spans) != 1 or len(solution_spans) != 1:
+        raise RuntimeError(
+            "expected exactly one exercise and one solution in the Markov donor slice"
+        )
+    exercise_span = exercise_spans[0]
+    solution_span = solution_spans[0]
+    chunks = [
+        span
+        for _, span in r_chunk_spans(
+            donor_slice[solution_span.content_start : solution_span.content_end]
+        )
+    ]
+    if len(chunks) != 1:
+        raise RuntimeError(f"expected one donor Markov R chunk, found {len(chunks)}")
+    program_span = Span(
+        solution_span.content_start + chunks[0].start,
+        solution_span.content_start + chunks[0].end,
+        solution_span.content_start + chunks[0].content_start,
+        solution_span.content_start + chunks[0].content_end,
+    )
+    section_span = Span(0, len(donor_slice), 0, len(donor_slice))
+
+    entities: list[dict[str, Any]] = []
+    aliases: list[dict[str, str]] = []
+    hashes: dict[str, str] = {}
+
+    def add_donor(
+        stable_id: str,
+        kind: str,
+        span: Span,
+        parent_id: str | None,
+        order: int,
+        concepts: list[str],
+    ) -> None:
+        body = donor_slice[span.start : span.end]
+        locator = (
+            "source/05-Markov-chains.Rmd"
+            f"#L{line_number(donor_slice, span.start, 601)}-"
+            f"L{line_number(donor_slice, span.end - 1, 601)}"
+        )
+        digest = sha256(body.encode("utf-8"))
+        hashes[stable_id] = digest
+        entities.append(
+            record(
+                "unit",
+                stable_id,
+                parent_id=parent_id,
+                order=order,
+                path=relative(ZIT_MARKOV),
+                resource_id="resource.zitkovic.stochastic-book",
+                edition_id="edition.zitkovic.e2b35ad9",
+                source_local_id=locator,
+                source_locator=locator,
+                source_sha256=digest,
+                target_sha256=digest,
+                translation_state="source_frozen",
+                relationship="copies",
+                rights_id="rights.zitkovic.donor.cc0-1.0",
+                concept_ids=concepts,
+                payload={"unit_kind": kind, "body_extent": "complete", "source_language": "en"},
+            )
+        )
+        aliases.append(
+            {
+                "alias_id": f"alias.{stable_id}",
+                "namespace": "zitkovic-source-locator",
+                "alias": locator,
+                "canonical_id": stable_id,
+                "evidence": f"sha256:{digest}",
+                "status": "active",
+            }
+        )
+
+    section_id = "unit.donor.zitkovic.markov-chain-simulation.section"
+    exercise_id = "unit.donor.zitkovic.markov-gambler-ruin.exercise"
+    solution_id = "unit.donor.zitkovic.markov-gambler-ruin.solution"
+    program_id = "unit.donor.zitkovic.markov-gambler-ruin.program.1"
+    common_concepts = [
+        "concept.markov.process",
+        "concept.markov.transition-kernel",
+        "concept.monte-carlo",
+    ]
+    add_donor(section_id, "section", section_span, None, 1, common_concepts)
+    add_donor(exercise_id, "exercise", exercise_span, section_id, 1, common_concepts)
+    add_donor(solution_id, "solution", solution_span, section_id, 2, common_concepts)
+    add_donor(program_id, "program", program_span, solution_id, 1, common_concepts)
+    relations = [
+        relation(
+            "rel.contains.donor.markov-section.exercise",
+            "contains",
+            section_id,
+            exercise_id,
+            "complete exercise inside source/05-Markov-chains.Rmd L601-L666",
+        ),
+        relation(
+            "rel.contains.donor.markov-section.solution",
+            "contains",
+            section_id,
+            solution_id,
+            "complete solution inside source/05-Markov-chains.Rmd L601-L666",
+        ),
+        relation(
+            "rel.solves.donor.zitkovic.markov-gambler-ruin",
+            "solves",
+            solution_id,
+            exercise_id,
+            "Žitković source/05-Markov-chains.Rmd donor solution block",
+        ),
+        relation(
+            "rel.contains.donor.markov-solution.program.1",
+            "contains",
+            solution_id,
+            program_id,
+            "R chunk inside the complete donor Markov solution block",
+        ),
+    ]
+    return entities, relations, aliases, hashes
+
+
 def lab_entities() -> tuple[
     list[dict[str, Any]],
     list[dict[str, Any]],
@@ -2025,6 +2263,490 @@ def lab_entities() -> tuple[
     return entities, segments, relations, aliases, translations, corrections
 
 
+def markov_lab_entities() -> tuple[
+    list[dict[str, Any]],
+    list[dict[str, Any]],
+    list[dict[str, str]],
+    list[dict[str, str]],
+    list[dict[str, str]],
+    list[dict[str, str]],
+]:
+    data = require_file(LAB_MARKOV)
+    text = data.decode("utf-8")
+    expected_slice_hash = "dcabe361eaaacaa537966f2bf8809dd8eac52e28392edc78d8e289c8c9be2bd8"
+    required_metadata = (
+        'source_alias: "zitkovic-stochastic-book:source/05-Markov-chains.Rmd#L601-L666"',
+        f'source_slice_sha256: "{expected_slice_hash}"',
+        'donor_license: "CC0-1.0"',
+        'adaptation_license: "CC-BY-4.0"',
+    )
+    if any(item not in text for item in required_metadata):
+        raise RuntimeError("Markov lab donor metadata is missing or changed")
+    blocks = fenced_div_spans(text)
+    lab_id = "o009-lab-markov-gambler-ruin"
+    if lab_id not in blocks:
+        raise RuntimeError("Markov lab root block is missing")
+    headings = heading_spans(text, blocks[lab_id])
+    chunks = {name: span for name, span in r_chunk_spans(text) if name}
+    chunk_label = "o009_lab_markov_gambler_ruin"
+    if chunk_label not in chunks:
+        raise RuntimeError("named target Markov R chunk is missing")
+    donor, donor_relations, aliases, donor_hashes = markov_donor_components()
+    entities = list(donor)
+    relations = list(donor_relations)
+    translations: list[dict[str, str]] = []
+    corrections: list[dict[str, str]] = []
+    lab_path = "labs/02-simulasi-rantai-markov.Rmd"
+    adaptation_rights = "rights.o009.markov.indonesian-adaptation.cc-by-4.0"
+    original_rights = "rights.o009.markov.original.cc-by-4.0"
+
+    def span_hash(span: Span) -> str:
+        return sha256(text[span.start : span.end].encode("utf-8"))
+
+    def add_target(
+        stable_id: str,
+        span: Span,
+        *,
+        parent_id: str,
+        order: int,
+        kind: str,
+        original: bool,
+        source_id: str | None = None,
+        source_hash: str | None = None,
+        concepts: list[str] | None = None,
+        target_local_id: str | None = "use-stable-id",
+        alias_namespace: str = "o009-source-id",
+        alias_value: str | None = None,
+        alias_evidence: str | None = None,
+    ) -> None:
+        target_hash = span_hash(span)
+        relationship = "authored" if original else "adapts"
+        rights_id = original_rights if original else adaptation_rights
+        payload: dict[str, Any] = {
+            "unit_kind": kind,
+            "body_extent": "complete",
+            "line_start": line_number(text, span.start),
+            "line_end": line_number(text, span.end - 1),
+        }
+        if not original:
+            payload["component_rights_ids"] = [
+                "rights.zitkovic.donor.cc0-1.0",
+                adaptation_rights,
+            ]
+            payload["donor_component_id"] = source_id
+        entities.append(
+            record(
+                "unit",
+                stable_id,
+                parent_id=parent_id,
+                order=order,
+                path=lab_path,
+                resource_id="resource.zitkovic.stochastic-book" if not original else None,
+                edition_id="edition.zitkovic.e2b35ad9" if not original else None,
+                source_local_id=(
+                    stable_id if target_local_id == "use-stable-id" else target_local_id
+                ),
+                source_locator=(
+                    entities_by_id(donor).get(source_id, {}).get("source_locator")
+                    if source_id
+                    else f"#{stable_id}"
+                ),
+                source_sha256=source_hash,
+                target_sha256=target_hash,
+                locale="id-ID",
+                translation_state="authored" if original else "translated",
+                relationship=relationship,
+                rights_id=rights_id,
+                concept_ids=concepts
+                or ["concept.markov.process", "concept.markov.transition-kernel"],
+                payload=payload,
+            )
+        )
+        aliases.append(
+            {
+                "alias_id": f"alias.target.{stable_id}",
+                "namespace": alias_namespace,
+                "alias": alias_value or stable_id,
+                "canonical_id": stable_id,
+                "evidence": alias_evidence or f"{lab_path}#{stable_id}",
+                "status": "active",
+            }
+        )
+        relations.append(
+            relation(
+                f"rel.contains.{parent_id}.{stable_id}",
+                "contains",
+                parent_id,
+                stable_id,
+                f"{lab_path}:L{line_number(text, span.start)}-L{line_number(text, span.end - 1)}",
+            )
+        )
+        if source_id:
+            translation_id = f"translation.{stable_id}"
+            translations.append(
+                {
+                    "translation_id": translation_id,
+                    "source_id": source_id,
+                    "target_id": stable_id,
+                    "relationship": "adapts",
+                    "source_sha256": source_hash or "",
+                    "target_sha256": target_hash,
+                    "source_rights_id": "rights.zitkovic.donor.cc0-1.0",
+                    "target_rights_id": adaptation_rights,
+                    "locale": "id-ID",
+                    "state": "verified",
+                }
+            )
+            relations.append(
+                relation(
+                    f"rel.translates.{stable_id}.{source_id}",
+                    "translates",
+                    stable_id,
+                    source_id,
+                    translation_id,
+                )
+            )
+
+    root_span = blocks[lab_id]
+    entities.append(
+        record(
+            "unit",
+            lab_id,
+            parent_id="course.o009.d30",
+            order=3,
+            path=lab_path,
+            resource_id="resource.zitkovic.stochastic-book",
+            edition_id="edition.zitkovic.e2b35ad9",
+            source_local_id=lab_id,
+            source_locator="source/05-Markov-chains.Rmd#L601-L666",
+            source_sha256=expected_slice_hash,
+            target_sha256=span_hash(root_span),
+            locale="id-ID",
+            translation_state="translated",
+            relationship="adapts",
+            rights_id=adaptation_rights,
+            concept_ids=[
+                "concept.markov.process",
+                "concept.markov.transition-kernel",
+                "concept.markov.harmonic-function",
+                "concept.monte-carlo",
+            ],
+            payload={
+                "unit_kind": "lab",
+                "runtime": "R-4.6.1/base",
+                "body_extent": "complete",
+                "component_rights_ids": [
+                    "rights.zitkovic.donor.cc0-1.0",
+                    adaptation_rights,
+                    original_rights,
+                ],
+            },
+        )
+    )
+    aliases.append(
+        {
+            "alias_id": "alias.target.o009-lab-markov-gambler-ruin",
+            "namespace": "o009-source-id",
+            "alias": lab_id,
+            "canonical_id": lab_id,
+            "evidence": f"{lab_path}#{lab_id}",
+            "status": "active",
+        }
+    )
+
+    experiment_id = "o009-lab-markov-gambler-ruin-experiment"
+    mastery_id = "o009-mastery-markov-gambler-ruin"
+    donor_section = "unit.donor.zitkovic.markov-chain-simulation.section"
+    common_concepts = [
+        "concept.markov.process",
+        "concept.markov.transition-kernel",
+        "concept.monte-carlo",
+    ]
+    add_target(
+        experiment_id,
+        headings[experiment_id],
+        parent_id=lab_id,
+        order=1,
+        kind="section",
+        original=False,
+        source_id=donor_section,
+        source_hash=donor_hashes[donor_section],
+        concepts=common_concepts,
+    )
+    target_exercise = "o009-exercise-markov-gambler-ruin-estimation"
+    donor_exercise = "unit.donor.zitkovic.markov-gambler-ruin.exercise"
+    add_target(
+        target_exercise,
+        blocks[target_exercise],
+        parent_id=experiment_id,
+        order=1,
+        kind="exercise",
+        original=False,
+        source_id=donor_exercise,
+        source_hash=donor_hashes[donor_exercise],
+        concepts=common_concepts,
+    )
+    solution_span = Span(
+        blocks[target_exercise].end,
+        headings[mastery_id].start,
+        blocks[target_exercise].end,
+        headings[mastery_id].start,
+    )
+    target_solution = "o009-solution-markov-gambler-ruin-estimation"
+    donor_solution = "unit.donor.zitkovic.markov-gambler-ruin.solution"
+    add_target(
+        target_solution,
+        solution_span,
+        parent_id=experiment_id,
+        order=2,
+        kind="solution",
+        original=False,
+        source_id=donor_solution,
+        source_hash=donor_hashes[donor_solution],
+        concepts=common_concepts,
+        target_local_id=None,
+        alias_namespace="backend-derived-id",
+        alias_evidence=(
+            f"{lab_path}:L{line_number(text, solution_span.start)}-"
+            f"L{line_number(text, solution_span.end - 1)}"
+        ),
+    )
+    target_program = "o009-program-markov-gambler-ruin"
+    donor_program = "unit.donor.zitkovic.markov-gambler-ruin.program.1"
+    program_span = chunks[chunk_label]
+    add_target(
+        target_program,
+        program_span,
+        parent_id=target_solution,
+        order=1,
+        kind="program",
+        original=False,
+        source_id=donor_program,
+        source_hash=donor_hashes[donor_program],
+        concepts=common_concepts,
+        target_local_id=chunk_label,
+        alias_namespace="r-chunk-label",
+        alias_value=chunk_label,
+        alias_evidence=f"{lab_path}:chunk:{chunk_label}",
+    )
+    relations.append(
+        relation(
+            "rel.solves.target.markov-gambler-ruin-estimation",
+            "solves",
+            target_solution,
+            target_exercise,
+            "complete adapted Markov-chain solution body",
+        )
+    )
+
+    add_target(
+        mastery_id,
+        headings[mastery_id],
+        parent_id=lab_id,
+        order=2,
+        kind="original-addition",
+        original=True,
+        concepts=["concept.markov.harmonic-function", "concept.markov.transition-kernel"],
+    )
+    nested_original = [
+        ("o009-exercise-markov-gambler-ruin-mastery", "exercise"),
+        ("o009-hint-markov-gambler-ruin-mastery-1", "hint"),
+        ("o009-hint-markov-gambler-ruin-mastery-2", "hint"),
+        ("o009-hint-markov-gambler-ruin-mastery-3", "hint"),
+        ("o009-answer-markov-gambler-ruin-mastery", "answer"),
+        ("o009-solution-markov-gambler-ruin-mastery", "solution"),
+    ]
+    for order, (stable_id, kind) in enumerate(nested_original, start=1):
+        add_target(
+            stable_id,
+            blocks[stable_id],
+            parent_id=mastery_id,
+            order=order,
+            kind=kind,
+            original=True,
+            concepts=["concept.markov.harmonic-function", "concept.markov.transition-kernel"],
+        )
+
+    mastery_exercise = "o009-exercise-markov-gambler-ruin-mastery"
+    relations.extend(
+        [
+            relation(
+                "rel.depends.lab-markov-gambler-ruin.theory-markov-general",
+                "depends-on",
+                lab_id,
+                "unit.o009.random.markov.general",
+                "matched_theory_id in Rmd metadata",
+            ),
+            relation(
+                "rel.hints.markov-mastery.1",
+                "hints",
+                "o009-hint-markov-gambler-ruin-mastery-1",
+                mastery_exercise,
+                "explicit Markov mastery sequence",
+            ),
+            relation(
+                "rel.hints.markov-mastery.2",
+                "hints",
+                "o009-hint-markov-gambler-ruin-mastery-2",
+                mastery_exercise,
+                "explicit Markov mastery sequence",
+            ),
+            relation(
+                "rel.hints.markov-mastery.3",
+                "hints",
+                "o009-hint-markov-gambler-ruin-mastery-3",
+                mastery_exercise,
+                "explicit Markov mastery sequence",
+            ),
+            relation(
+                "rel.answers.markov-mastery",
+                "answers",
+                "o009-answer-markov-gambler-ruin-mastery",
+                mastery_exercise,
+                "explicit Markov mastery sequence",
+            ),
+            relation(
+                "rel.solves.markov-mastery",
+                "solves",
+                "o009-solution-markov-gambler-ruin-mastery",
+                mastery_exercise,
+                "explicit Markov mastery sequence",
+            ),
+            relation(
+                "rel.teaches.markov-experiment.simulation",
+                "teaches",
+                experiment_id,
+                "outcome.o009.simulate-absorbing-markov-chain",
+                "absorbing-chain Monte Carlo experiment",
+            ),
+            relation(
+                "rel.teaches.markov-experiment.kernels",
+                "teaches",
+                experiment_id,
+                "outcome.o009.construct-markov-kernels",
+                "transition-matrix construction and propagation",
+            ),
+            relation(
+                "rel.teaches.markov-mastery.harmonic",
+                "teaches",
+                mastery_id,
+                "outcome.o009.simulate-absorbing-markov-chain",
+                "harmonic exact comparator for the simulation",
+            ),
+            relation(
+                "rel.assesses.markov-estimation",
+                "assesses",
+                target_exercise,
+                "outcome.o009.simulate-absorbing-markov-chain",
+                "absorbing-chain estimation prompt",
+            ),
+            relation(
+                "rel.assesses.markov-mastery.kernels",
+                "assesses",
+                mastery_exercise,
+                "outcome.o009.construct-markov-kernels",
+                "first-step harmonic system",
+            ),
+            relation(
+                "rel.precedes.markov-theory.lab",
+                "precedes",
+                "unit.o009.random.markov.general",
+                lab_id,
+                "theory-to-lab learning sequence",
+            ),
+            relation(
+                "rel.precedes.markov-experiment.mastery",
+                "precedes",
+                experiment_id,
+                mastery_id,
+                "Markov lab document order",
+            ),
+        ]
+    )
+    corrections.extend(
+        [
+            {
+                "correction_id": "correction.o009.markov.program.deterministic-output",
+                "change_kind": "deterministic-output",
+                "source_id": donor_program,
+                "target_id": target_program,
+                "description": (
+                    "Add an explicit seed, preserve the absorbing-chain simulation, "
+                    "and emit a canonical CSV table with finite-horizon and harmonic exact comparators."
+                ),
+                "evidence": (
+                    "source/labs/02-simulasi-rantai-markov.Rmd"
+                    "#o009_lab_markov_gambler_ruin"
+                ),
+                "status": "accepted",
+            },
+            {
+                "correction_id": "correction.o009.markov.mastery.original-addition",
+                "change_kind": "original-addition",
+                "source_id": lab_id,
+                "target_id": mastery_id,
+                "description": (
+                    "Add a separately licensed mastery sequence deriving the exact "
+                    "gambler's-ruin probability from harmonic first-step equations."
+                ),
+                "evidence": (
+                    "source/labs/02-simulasi-rantai-markov.Rmd"
+                    "#o009-mastery-markov-gambler-ruin"
+                ),
+                "status": "accepted",
+            },
+        ]
+    )
+
+    segments: list[dict[str, Any]] = []
+    body = text[root_span.content_start : root_span.content_end]
+    body_without_code = re.sub(
+        r"^```.*?^```\s*$", "", body, flags=re.MULTILINE | re.DOTALL
+    )
+    original_offset = text.index("## Tambahan asli", root_span.content_start)
+    for match in re.finditer(
+        r"(?:^|\n\s*\n)(.+?)(?=\n\s*\n|\Z)", body_without_code, re.DOTALL
+    ):
+        paragraph = match.group(1).strip()
+        if not paragraph or paragraph.startswith(":::"):
+            continue
+        global_offset = root_span.content_start + body.find(paragraph)
+        original = global_offset >= original_offset or "Tambahan asli" in paragraph
+        segments.append(
+            record(
+                "segment",
+                f"segment.o009.lab.markov-gambler-ruin.{len(segments) + 1:04d}",
+                parent_id=mastery_id if original else lab_id,
+                order=len(segments) + 1,
+                path=lab_path,
+                source_locator=(
+                    "local-original"
+                    if original
+                    else "source/05-Markov-chains.Rmd#L601-L666"
+                ),
+                target_sha256=sha256(paragraph.encode("utf-8")),
+                locale="id-ID",
+                translation_state="authored" if original else "translated",
+                relationship="authored" if original else "adapts",
+                rights_id=original_rights if original else adaptation_rights,
+                concept_ids=(
+                    ["concept.markov.harmonic-function"]
+                    if original
+                    else ["concept.markov.process", "concept.markov.transition-kernel"]
+                ),
+                payload={
+                    "target_text": paragraph,
+                    "component_rights_ids": (
+                        [original_rights]
+                        if original
+                        else ["rights.zitkovic.donor.cc0-1.0", adaptation_rights]
+                    ),
+                },
+            )
+        )
+    return entities, segments, relations, aliases, translations, corrections
+
+
 def entities_by_id(records: Iterable[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     return {item["id"]: item for item in records}
 
@@ -2098,7 +2820,9 @@ def artifact_rows() -> list[dict[str, str]]:
         ("artifact.input.zitkovic-zip", "authority-archive", ZIT_ZIP),
         ("artifact.input.zitkovic-license", "rights-witness", ZIT_LICENSE),
         ("artifact.input.zitkovic-simulation", "authority-source", ZIT_SIMULATION),
+        ("artifact.input.zitkovic-markov", "authority-source", ZIT_MARKOV),
         ("artifact.input.target-lab", "translation-source", LAB),
+        ("artifact.input.target-lab-markov", "translation-source", LAB_MARKOV),
         (
             "artifact.input.random-martingale-harness",
             "authority-asset",
@@ -2175,6 +2899,19 @@ def qa_rows(artifacts: list[dict[str, str]], records: list[dict[str, Any]], rela
     theory_inputs_bound = set(receipt_units) == set(current_unit_hashes) and all(
         receipt_units[path].get("target_sha256") == digest for path, digest in current_unit_hashes.items()
     )
+    receipt_lab_sources = {
+        str(item.get("source")): item
+        for item in receipt.get("lab_sources", [])
+        if isinstance(item, dict)
+    }
+    current_lab_sources = {
+        relative(LAB): sha256(require_file(LAB)),
+        relative(LAB_MARKOV): sha256(require_file(LAB_MARKOV)),
+    }
+    lab_sources_bound = set(receipt_lab_sources) == set(current_lab_sources) and all(
+        receipt_lab_sources[path].get("source_sha256") == digest
+        for path, digest in current_lab_sources.items()
+    )
     checks = [
         (
             "qa.o009.theory-structure",
@@ -2203,6 +2940,13 @@ def qa_rows(artifacts: list[dict[str, str]], records: list[dict[str, Any]], rela
             "artifact.input.site-build-receipt",
             "pass" if receipt.get("lab_source_sha256") == sha256(require_file(LAB)) else "fail",
             f"receipt={receipt.get('lab_source_sha256')} current={sha256(require_file(LAB))}",
+        ),
+        (
+            "qa.o009.build-lab-sources-input-binding",
+            "input-binding",
+            "artifact.input.site-build-receipt",
+            "pass" if lab_sources_bound else "fail",
+            f"receipt_paths={sorted(receipt_lab_sources)} current={current_lab_sources}",
         ),
         (
             "qa.o009.rights-component-separation",
@@ -2425,6 +3169,20 @@ def validate_record_envelopes(records: list[dict[str, Any]], relations: list[dic
         "rel.contains.donor.solution.program.2",
         "rel.contains.donor.solution.program.3",
         "rel.contains.o009-solution-convergence-mc-estimation.o009-program-convergence-mc",
+        "rel.translates.o009-lab-markov-gambler-ruin-experiment.unit.donor.zitkovic.markov-chain-simulation.section",
+        "rel.translates.o009-exercise-markov-gambler-ruin-estimation.unit.donor.zitkovic.markov-gambler-ruin.exercise",
+        "rel.translates.o009-solution-markov-gambler-ruin-estimation.unit.donor.zitkovic.markov-gambler-ruin.solution",
+        "rel.translates.o009-program-markov-gambler-ruin.unit.donor.zitkovic.markov-gambler-ruin.program.1",
+        "rel.solves.donor.zitkovic.markov-gambler-ruin",
+        "rel.solves.target.markov-gambler-ruin-estimation",
+        "rel.contains.donor.markov-section.exercise",
+        "rel.contains.donor.markov-section.solution",
+        "rel.contains.donor.markov-solution.program.1",
+        "rel.contains.o009-solution-markov-gambler-ruin-estimation.o009-program-markov-gambler-ruin",
+        "rel.depends.lab-markov-gambler-ruin.theory-markov-general",
+        "rel.teaches.markov-experiment.simulation",
+        "rel.assesses.markov-estimation",
+        "rel.precedes.markov-theory.lab",
         "rel.depends-on.martingales-stop.prob-stop",
         "rel.depends-on.martingales-stop.martingales-properties",
         "rel.teaches.martingales-stop.optional-stopping",
@@ -2441,6 +3199,14 @@ def validate_record_envelopes(records: list[dict[str, Any]], relations: list[dic
         if item["record_type"] in {"unit", "segment"} and item.get("path") == "labs/01-konvergensi-monte-carlo.Rmd":
             if item["source_target_relationship"] == "adapts" and item["rights_id"] != "rights.o009.indonesian-adaptation.cc-by-4.0":
                 raise RuntimeError(f"adapted Indonesian bytes mislabeled: {item['id']}")
+        if item["record_type"] in {"unit", "segment"} and item.get("path") == "labs/02-simulasi-rantai-markov.Rmd":
+            expected_rights = (
+                "rights.o009.markov.original.cc-by-4.0"
+                if item["source_target_relationship"] == "authored"
+                else "rights.o009.markov.indonesian-adaptation.cc-by-4.0"
+            )
+            if item["rights_id"] != expected_rights:
+                raise RuntimeError(f"Markov lab bytes mislabeled: {item['id']}")
     donor_units = [item for item in records if item["id"].startswith("unit.donor.zitkovic.")]
     if not donor_units or any(item["rights_id"] != "rights.zitkovic.donor.cc0-1.0" for item in donor_units):
         raise RuntimeError("donor unit rights are not consistently CC0")
@@ -2475,9 +3241,21 @@ def write_csv(filename: str, rows: list[dict[str, str]]) -> None:
 
 def build() -> None:
     lab_text = require_file(LAB).decode("utf-8")
-    entities = fixed_entities(lab_text)
+    markov_lab_text = require_file(LAB_MARKOV).decode("utf-8")
+    entities = fixed_entities(lab_text, markov_lab_text)
     html, html_segments, html_relations = html_entities()
     lab, lab_segments, lab_relations, aliases, translations, corrections = lab_entities()
+    (
+        markov_lab,
+        markov_lab_segments,
+        markov_lab_relations,
+        markov_aliases,
+        markov_translations,
+        markov_corrections,
+    ) = markov_lab_entities()
+    aliases.extend(markov_aliases)
+    translations.extend(markov_translations)
+    corrections.extend(markov_corrections)
     corrections.append(
         {
             "correction_id": "correction.o009.random.probability-revisited.fragment-tai1",
@@ -2530,9 +3308,10 @@ def build() -> None:
         )
     entities.extend(html)
     entities.extend(lab)
+    entities.extend(markov_lab)
     entities.extend(asset_entities())
-    segments = html_segments + lab_segments
-    relations = html_relations + lab_relations
+    segments = html_segments + lab_segments + markov_lab_segments
+    relations = html_relations + lab_relations + markov_lab_relations
     all_records = entities + segments
     validate_record_envelopes(all_records, relations)
 
@@ -2745,6 +3524,14 @@ def validate_backend() -> None:
         "o009-exercise-convergence-mc-estimation",
         "o009-solution-convergence-mc-estimation",
         "o009-program-convergence-mc",
+        "unit.donor.zitkovic.markov-chain-simulation.section",
+        "unit.donor.zitkovic.markov-gambler-ruin.exercise",
+        "unit.donor.zitkovic.markov-gambler-ruin.solution",
+        "unit.donor.zitkovic.markov-gambler-ruin.program.1",
+        "o009-lab-markov-gambler-ruin-experiment",
+        "o009-exercise-markov-gambler-ruin-estimation",
+        "o009-solution-markov-gambler-ruin-estimation",
+        "o009-program-markov-gambler-ruin",
     }
     missing_aliases = required_alias_targets - {row["canonical_id"] for row in alias_rows}
     if missing_aliases:
@@ -2775,6 +3562,13 @@ def validate_backend() -> None:
     witness_hash = sha256(lab_rights_witness(require_file(LAB).decode("utf-8")).encode("utf-8"))
     rights_expectations["rights.o009.indonesian-adaptation.cc-by-4.0"] = witness_hash
     rights_expectations["rights.o009.original.cc-by-4.0"] = witness_hash
+    markov_witness_hash = sha256(
+        lab_rights_witness(require_file(LAB_MARKOV).decode("utf-8")).encode("utf-8")
+    )
+    rights_expectations[
+        "rights.o009.markov.indonesian-adaptation.cc-by-4.0"
+    ] = markov_witness_hash
+    rights_expectations["rights.o009.markov.original.cc-by-4.0"] = markov_witness_hash
     for rights_id, expected_hash in rights_expectations.items():
         if by_id[rights_id]["source_sha256"] != expected_hash:
             raise RuntimeError(f"rights witness hash differs: {rights_id}")
@@ -2811,8 +3605,60 @@ def validate_backend() -> None:
         if by_id[stable_id]["payload"].get("body_extent") != "complete":
             raise RuntimeError(f"lab unit is not declared as a complete body: {stable_id}")
 
+    markov_lab_text = require_file(LAB_MARKOV).decode("utf-8")
+    markov_blocks = fenced_div_spans(markov_lab_text)
+    markov_root_id = "o009-lab-markov-gambler-ruin"
+    markov_headings = heading_spans(markov_lab_text, markov_blocks[markov_root_id])
+    markov_chunks = {
+        name: span for name, span in r_chunk_spans(markov_lab_text) if name
+    }
+    markov_exercise = "o009-exercise-markov-gambler-ruin-estimation"
+    markov_mastery = "o009-mastery-markov-gambler-ruin"
+    markov_body_spans = {
+        markov_root_id: markov_blocks[markov_root_id],
+        "o009-lab-markov-gambler-ruin-experiment": markov_headings[
+            "o009-lab-markov-gambler-ruin-experiment"
+        ],
+        markov_exercise: markov_blocks[markov_exercise],
+        "o009-solution-markov-gambler-ruin-estimation": Span(
+            markov_blocks[markov_exercise].end,
+            markov_headings[markov_mastery].start,
+            markov_blocks[markov_exercise].end,
+            markov_headings[markov_mastery].start,
+        ),
+        "o009-program-markov-gambler-ruin": markov_chunks[
+            "o009_lab_markov_gambler_ruin"
+        ],
+        markov_mastery: markov_headings[markov_mastery],
+        "o009-exercise-markov-gambler-ruin-mastery": markov_blocks[
+            "o009-exercise-markov-gambler-ruin-mastery"
+        ],
+        "o009-hint-markov-gambler-ruin-mastery-1": markov_blocks[
+            "o009-hint-markov-gambler-ruin-mastery-1"
+        ],
+        "o009-hint-markov-gambler-ruin-mastery-2": markov_blocks[
+            "o009-hint-markov-gambler-ruin-mastery-2"
+        ],
+        "o009-hint-markov-gambler-ruin-mastery-3": markov_blocks[
+            "o009-hint-markov-gambler-ruin-mastery-3"
+        ],
+        "o009-answer-markov-gambler-ruin-mastery": markov_blocks[
+            "o009-answer-markov-gambler-ruin-mastery"
+        ],
+        "o009-solution-markov-gambler-ruin-mastery": markov_blocks[
+            "o009-solution-markov-gambler-ruin-mastery"
+        ],
+    }
+    for stable_id, span in markov_body_spans.items():
+        expected_hash = sha256(markov_lab_text[span.start : span.end].encode("utf-8"))
+        if by_id[stable_id]["target_sha256"] != expected_hash:
+            raise RuntimeError(f"complete Markov lab body hash differs: {stable_id}")
+        if by_id[stable_id]["payload"].get("body_extent") != "complete":
+            raise RuntimeError(f"Markov lab unit is not a complete body: {stable_id}")
+
     current_donor, _, _, _ = donor_components()
-    for donor in current_donor:
+    current_markov_donor, _, _, _ = markov_donor_components()
+    for donor in current_donor + current_markov_donor:
         exported = by_id[donor["id"]]
         if exported["source_sha256"] != donor["source_sha256"] or exported["target_sha256"] != donor["target_sha256"]:
             raise RuntimeError(f"donor component hash differs: {donor['id']}")

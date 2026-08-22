@@ -112,9 +112,14 @@ def verify(site: Path) -> None:
                 raise RuntimeError(f"missing CSS asset: {css} -> {ref}")
     if (site / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js").stat().st_size != 4709:
         raise RuntimeError("MathJax boldsymbol dependency is not the pinned file")
-    lab = (site / "labs" / "01-konvergensi-monte-carlo.html").read_text("utf-8")
-    if 'id="o009_lab_convergence_mc"' not in lab or "set.seed" not in lab or "```{r" in lab:
-        raise RuntimeError("executable lab block is not correctly rendered")
+    labs = (
+        ("labs/01-konvergensi-monte-carlo.html", "o009_lab_convergence_mc"),
+        ("labs/02-simulasi-rantai-markov.html", "o009_lab_markov_gambler_ruin"),
+    )
+    for rel, chunk_id in labs:
+        lab = (site / rel).read_text("utf-8")
+        if f'id="{chunk_id}"' not in lab or "set.seed" not in lab or "```{r" in lab:
+            raise RuntimeError(f"executable lab block is not correctly rendered: {rel}")
     joined = b"\n".join(path.read_bytes() for path in actual_paths)
     for forbidden in (b"C:\\Users\\", b"C:/Users/", b"/home/Floris", b"googletagmanager"):
         if forbidden in joined:
@@ -133,4 +138,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

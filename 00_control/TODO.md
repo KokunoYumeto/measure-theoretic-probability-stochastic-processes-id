@@ -52,6 +52,9 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Translate `martingales/Backwards.html` with exact topology and all 426 source TeX surfaces preserved.
 - [x] Integrate 26 exact-once reader actions, five outcomes, reverse-martingale/de Finetti graph, and the O006 prerequisite; complete independent language, mathematical, structural, and whole-reader browser QA.
 - [x] Publish and anonymously verify the 41-file ninth boundary.
+- [x] Translate `markov/General.html` with exact topology and all 925 ordered TeX surfaces preserved.
+- [x] Integrate 53 exact-once reader repairs, the dependency-closed Žitković absorbing-chain lab, deterministic golden execution, original mastery closure, stable-ID backend, and full two-viewport reader QA.
+- [~] Publish and anonymously verify the 43-file tenth boundary.
 
 ## Remaining corpus
 
@@ -61,7 +64,7 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Measure-theoretic conditional expectation and kernels (`Conditional2`, `Uniform`, and `Kernels` public and anonymously verified).
 - [x] Link, do not duplicate, the O006 sampling/LLN/CLT prerequisite.
 - [x] Complete the martingale properties, stopping, inequalities, convergence, and backwards-martingale sequence.
-- [~] Discrete and continuous Markov processes; next exact unit is `markov/General.html`, then add dependency-closed computational labs.
+- [~] Discrete and continuous Markov processes; `markov/General.html` and its first diagnostic lab are complete. Adopt the material-root selection packet after publication before setting the next exact unit.
 - [ ] Poisson processes and a new executable event-time lab.
 - [ ] Renewal equations/limits/delays/alternation/rewards and a new simulation lab.
 - [ ] Brownian standard/drift/bridge/geometric units and a new accessible path lab.

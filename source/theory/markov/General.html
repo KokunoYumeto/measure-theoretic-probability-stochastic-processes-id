@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+	<meta charset="utf-8">
+	<title>Proses Markov Umum</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probabilitas, proses stokastik, proses Markov, probabilitas transisi, sifat Markov, proses Feller, waktu henti, kernel transisi, sifat Markov kuat, invarian, inkremen stasioner dan independen">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Proses Markov</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Potentials.html" title="Potensial dan Generator">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Rantai Waktu Diskret">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transiens dan Rekurensi">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodisitas">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Distribusi Stasioner dan Limit">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Pembalikan Waktu pada Rantai Waktu Diskret">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="Rantai Ehrenfest">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="Rantai Bernoulli–Laplace">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Rantai Reliabilitas">10</a></li>
+		<li class="child"><a href="Branching.html" title="Rantai Percabangan Waktu Diskret">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Rantai Antrean Waktu Diskret">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Rantai Kelahiran–Kematian Waktu Diskret">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Gerak Acak pada Graf">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Rantai Waktu Kontinu">15</a></li>
+		<li class="child"><a href="Transition.html" title="Matriks Transisi dan Generator">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Matriks Potensial">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Distribusi Stasioner dan Limit">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Pembalikan Waktu pada Rantai Waktu Kontinu">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Rantai yang Disubordinasikan pada Proses Poisson">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Rantai Kelahiran–Kematian Waktu Kontinu">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Rantai Antrean Waktu Kontinu">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Rantai Percabangan Waktu Kontinu">23</a></li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<h2>1. Pendahuluan Proses Markov Umum</h2>
+</header>
+
+<p><dfn>Proses Markov</dfn> adalah <a href="../prob/Processes.html">proses acak</a> berindeks waktu yang memiliki sifat bahwa, jika keadaan sekarang diketahui, masa depan independen dari masa lalu. Proses Markov, yang dinamai menurut <a href="JavaScript:openAncillary('../biographies/Markov.html')" class="ancillary">Andrei Markov</a>, termasuk di antara proses acak yang paling penting. Dalam arti tertentu, proses-proses ini merupakan analog stokastik dari <a href="#rec">persamaan diferensial dan relasi rekurensi</a>, yang tentu saja termasuk di antara proses deterministik terpenting.</p>
+
+<p>Kerumitan teori proses Markov sangat bergantung pada apakah ruang waktu \( T \) adalah \( \N \) (waktu diskret) atau \( [0, \infty) \) (waktu kontinu), dan apakah ruang keadaannya <dfn>diskret</dfn> (terhitung, dengan semua himpunan bagian terukur) atau berupa <a href="../foundations/Topology.html">ruang topologis</a> yang lebih umum. Jika \( T = [0, \infty) \) atau jika ruang keadaannya merupakan ruang umum, asumsi kontinuitas biasanya perlu diberlakukan untuk menyingkirkan berbagai jenis perilaku ganjil yang jika tidak demikian akan memperumit teori.</p>
+
+<p>Jika ruang keadaannya diskret, proses Markov dikenal sebagai <dfn>rantai Markov</dfn>. Teori umum rantai Markov kaya secara matematis dan relatif sederhana.</p>
+
+<ul>
+	<li>Jika \( T = \N \) dan ruang keadaannya diskret, proses Markov dikenal sebagai <dfn>rantai Markov waktu diskret</dfn>. Teori proses semacam itu anggun dan lengkap secara matematis, serta dapat dipahami dengan ketergantungan minimal pada teori ukuran. Bahkan, perangkat utamanya adalah probabilitas dasar dan aljabar linear. Rantai Markov waktu diskret dipelajari dalam bab ini, bersama sejumlah model khusus.</li>
+	<li>Jika \( T = [0, \infty) \) dan ruang keadaannya diskret, proses Markov dikenal sebagai <dfn>rantai Markov waktu kontinu</dfn>. Jika beberapa kesulitan teknis (yang, seperti biasa, timbul karena ruang waktu kontinu) dikesampingkan, teori proses-proses ini juga cukup sederhana dan sangat baik secara matematis. Sifat Markov menyiratkan bahwa proses yang diambil sampelnya pada waktu acak ketika keadaan berubah membentuk rantai Markov <em>waktu diskret</em> tertanam, sehingga kita dapat menerapkan teori yang sudah dipelajari. Sifat Markov juga menyiratkan bahwa waktu tinggal dalam suatu keadaan memiliki sifat tanpa memori sehingga harus ber<a href="../poisson/Exponential.html">distribusi eksponensial</a>, suatu distribusi yang sudah kita kenal baik. Dalam kaitannya dengan materi yang mungkin sudah Anda pelajari, <a href="../poisson/index.html">proses Poisson</a> merupakan contoh sederhana rantai Markov waktu kontinu.</li>
+</ul>
+
+<p>Untuk ruang keadaan umum, teorinya lebih rumit dan teknis, seperti dikemukakan di atas. Namun, kita dapat membedakan dua kelas proses Markov, sekali lagi bergantung pada apakah ruang waktunya diskret atau kontinu.</p>
+
+<ul>
+	<li>Jika \( T = \N \) dan \( S \ = \R \), contoh sederhana proses Markov adalah proses jumlah parsial yang berkaitan dengan barisan variabel acak bernilai riil yang independen dan berdistribusi identik. Barisan semacam ini dipelajari dalam bab mengenai <a href="../sample/index.html">sampel acak</a> (tetapi bukan sebagai proses Markov), dan dibahas kembali <a href="#inc">di bawah</a>.</li>
+	<li>Untuk kasus \( T = [0, \infty) \) dan \( S = \R\), atau secara lebih umum \(S = \R^k \), proses Markov terpenting adalah <dfn>proses difusi</dfn>. Secara umum, proses semacam ini dapat dikonstruksi melalui persamaan diferensial stokastik dari <a href="../brown/index.html">gerak Brown</a>, yang dengan demikian menjadi contoh utama proses Markov dalam waktu dan ruang kontinu.</li>
+</ul>
+
+<p>Tujuan bagian ini adalah memberikan gambaran luas tentang teori umum proses Markov. Sebagian pernyataan tidak sepenuhnya ketat, dan sebagian bukti dihilangkan atau hanya berupa sketsa, karena kita ingin menekankan gagasan utama tanpa terperosok dalam rincian teknis. Jika Anda baru mempelajari probabilitas, Anda mungkin sebaiknya sekadar menelusuri bagian ini untuk mengenal gagasan dan notasi dasar, sambil melewati bukti dan rincian teknis. Setelah itu, lanjutkan ke pembahasan <a href="Discrete.html">rantai Markov waktu diskret</a>. Sebaliknya, untuk memahami bagian ini secara lebih mendalam, Anda perlu meninjau kembali topik-topik dalam bab mengenai <a href="../foundations/index.html">landasan</a> serta bagian mengenai <a href="../prob/Processes.html">proses stokastik</a> dan <a href="../prob/Stop.html">waktu henti</a>.</p>
+
+<h3 id="bas">Teori Dasar</h3>
+
+<h4 id="pre">Pendahuluan</h4>
+
+<p>Seperti biasa, titik awal kita adalah ruang probabilitas \( (\Omega, \mathscr{F}, \P) \), dengan \( \Omega \) sebagai himpunan hasil, \( \mathscr{F} \) sebagai <a href="../foundations/Measurable.html">\( \sigma \)-aljabar</a> kejadian, dan \( \P \) sebagai ukuran probabilitas pada \( (\Omega, \mathscr{F}) \). Himpunan waktu \( T \) adalah \( \N \) (waktu diskret) atau \( [0, \infty) \) (waktu kontinu). Dalam kasus pertama, \( T \) dilengkapi dengan <a href="../foundations/Topology.html#dsc">topologi diskret</a>, sedangkan dalam kasus kedua \( T \) dilengkapi dengan <a href="../foundations/Topology.html#ecl">topologi Euklides</a> biasa. Dalam kedua kasus, \( T \) dilengkapi dengan \( \sigma \)-aljabar Borel \( \mathscr{T} \), yakni \( \sigma \)-aljabar yang dibangkitkan oleh himpunan-himpunan terbuka. Dalam kasus diskret ketika \( T = \N \), ini hanyalah himpunan kuasa dari \( T \), sehingga setiap himpunan bagian dari \( T \) terukur; setiap fungsi dari \( T \) ke <a href="../foundations/Measurable.html">ruang terukur</a> lain bersifat terukur; dan setiap fungsi dari \( T \) ke ruang topologis lain bersifat kontinu. Ruang waktu \( (T, \mathscr{T}) \) memiliki ukuran alami, yaitu ukuran pencacahan \( \# \) dalam kasus diskret dan ukuran Lebesgue dalam kasus kontinu.</p>
+
+<p>Himpunan keadaan \( S \) juga memiliki \( \sigma \)-aljabar \( \mathscr{S} \) yang terdiri atas himpunan bagian yang diperbolehkan, sehingga \( (S, \mathscr{S}) \) merupakan <dfn>ruang keadaan</dfn>. Biasanya \( S \) memiliki topologi dan \( \mathscr{S} \) adalah \( \sigma \)-aljabar Borel yang dibangkitkan oleh himpunan-himpunan terbuka. Asumsi yang lazim adalah bahwa topologi pada \( S \) bersifat <dfn>LCCB</dfn>: kompak lokal, Hausdorff, dan memiliki basis terhitung. Asumsi-asumsi khusus ini cukup umum untuk mencakup semua proses terpenting yang muncul dalam penerapan, tetapi juga cukup membatasi untuk menghasilkan teori matematika yang baik. Biasanya terdapat ukuran positif alami \( \lambda \) pada ruang keadaan \( (S, \mathscr{S}) \). Jika \( S \) memiliki topologi LCCB dan \( \mathscr{S} \) adalah \( \sigma \)-aljabar Borel, ukuran \( \lambda \) biasanya merupakan <dfn>ukuran Borel</dfn> yang memenuhi \( \lambda(C) \lt \infty \) jika \( C \subseteq S \) kompak. Istilah <dfn>ruang keadaan diskret</dfn> berarti bahwa \( S \) terhitung dengan \( \mathscr{S} = \mathscr{P}(S) \), yaitu koleksi semua himpunan bagian dari \( S \). Jadi, setiap himpunan bagian dari \( S \) terukur, demikian pula setiap fungsi dari \( S \) ke ruang terukur lain. Ini adalah \( \sigma \)-aljabar Borel untuk topologi diskret pada \( S \), sehingga setiap fungsi dari \( S \) ke ruang topologis lain kontinu. Himpunan kompak hanyalah himpunan berhingga, dan ukuran acuannya adalah \( \# \), yaitu ukuran pencacahan. Jika \( S = \R^k \) untuk suatu \( k \in S \) (kasus umum lainnya), biasanya kita melengkapi \( S \) dengan <a href="../foundations/Topology.html#ecl">topologi Euklides</a> (yang bersifat LCCB), sehingga \( \mathscr{S} \) merupakan \( \sigma \)-aljabar Borel biasa. Himpunan kompak adalah himpunan tertutup dan terbatas, sedangkan ukuran acuan \( \lambda \) adalah ukuran Lebesgue berdimensi \( k \).</p>
+
+<p>Jelas bahwa struktur topologis dan ukuran pada \( T \) sebenarnya tidak diperlukan ketika \( T = \N \), dan demikian pula struktur-struktur ini pada \( S \) tidak diperlukan ketika \( S \) terhitung. Namun, pokok utamanya adalah bahwa asumsi-asumsi tersebut menyatukan kasus diskret dan kasus kontinu yang umum. Perlu pula dicatat bahwa ruang keadaan yang jauh lebih umum (dan ruang waktu yang lebih umum) dimungkinkan, tetapi sebagian besar proses Markov penting yang muncul dalam penerapan sesuai dengan kerangka yang telah kita uraikan di sini.</p>
+
+<p>Berbagai ruang fungsi bernilai riil pada \( S \) memainkan peran penting. Misalkan \( \mathscr{B} \) menyatakan koleksi fungsi terbatas dan terukur \( f: S \to \R \). Dengan penjumlahan dan perkalian skalar biasa (secara titik demi titik), \( \mathscr{B} \) merupakan ruang vektor. Kita melengkapi \( \mathscr{B} \) dengan norma supremum, yang didefinisikan oleh \( \|f\| = \sup\{\left|f(x)\right|: x \in S\} \).</p>
+
+<p>Sekarang, misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah <a href="../prob/Processes.html">proses stokastik</a> pada \( (\Omega, \mathscr{F}, \P) \) dengan ruang keadaan \( S \) dan ruang waktu \( T \). Jadi, \( X_t \) adalah variabel acak yang mengambil nilai dalam \( S \) untuk setiap \( t \in T \), dan kita memandang \( X_t \in S \) sebagai <dfn>keadaan</dfn> suatu sistem pada <dfn>waktu</dfn> \( t \in T\). Kita juga mengasumsikan adanya koleksi \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\}\) yang terdiri atas \( \sigma \)-aljabar dengan sifat bahwa \( X_t \) terukur terhadap \( \mathscr{F}_t \) untuk \( t \in T \), dan \( \mathscr{F}_s \subseteq \mathscr{F}_t \subseteq \mathscr{F} \) untuk \( s, \, t \in T \) dengan \( s \le t \). Secara intuitif, \( \mathscr{F}_t \) adalah koleksi kejadian hingga waktu \( t \in T \). Secara teknis, asumsi-asumsi tersebut berarti bahwa \( \mathfrak{F} \) merupakan <a href="../prob/Stop.html">filtrasi</a> dan proses \( \bs{X} \) <dfn>teradaptasi</dfn> terhadap \( \mathfrak{F} \). Filtrasi yang paling mendasar (dan paling kasar) adalah <dfn>filtrasi alami</dfn> \( \mathfrak{F}^0 = \left\{\mathscr{F}^0_t: t \in T\right\} \), dengan \( \mathscr{F}^0_t = \sigma\{X_s: s \in T, s \le t\} \), yakni \( \sigma \)-aljabar yang dibangkitkan oleh proses hingga waktu \( t \in T \). Namun, dalam waktu kontinu, sering kali perlu digunakan \( \sigma \)-aljabar yang sedikit lebih halus agar diperoleh teori matematika yang baik. Secara khusus, kita sering perlu mengasumsikan bahwa filtrasi \( \mathfrak{F} \) <dfn>kontinu kanan</dfn>, dalam arti \( \mathscr{F}_{t+} = \mathscr{F}_t \) untuk \( t \in T \), dengan \(\mathscr{F}_{t+} = \bigcap\{\mathscr{F}_s: s \in T, s \gt t\} \). Hal ini dapat dicapai dengan mengambil \( \mathfrak{F} = \mathfrak{F}^0_+ \), sehingga \( \mathscr{F}_t = \mathscr{F}^0_{t+} \) untuk \( t \in T \); dalam hal ini, \( \mathfrak{F} \) disebut <dfn>penyempurnaan kontinu kanan</dfn> dari filtrasi alami. Kadang-kadang kita juga perlu mengasumsikan bahwa \( \mathfrak{F} \) <dfn>lengkap</dfn> terhadap \( \P \), dalam arti bahwa jika \( A \in \mathscr{S} \) dengan \( \P(A) = 0 \) dan \( B \subseteq A \), maka \( B \in \mathscr{F}_0 \). Artinya, \( \mathscr{F}_0 \) memuat semua <dfn>kejadian nol</dfn> (dan karena itu juga semua kejadian <dfn>hampir pasti</dfn>), dan dengan demikian \( \mathscr{F}_t \) pun memuatnya untuk semua \( t \in T \).</p>
+
+<h4 id="dfn">Definisi</h4>
+
+<div class="unit" id="dfn1">
+	<p class="dfn">Proses acak \( \bs{X} \) adalah <dfn>proses Markov</dfn> jika 
+	\[ \P(X_{s+t} \in A \mid \mathscr{F}_s) = \P(X_{s+t} \in A \mid X_s) \]
+	untuk semua \( s, \, t \in T \) dan \( A \in \mathscr{S} \).</p>
+</div>
+
+<p>Syarat yang mendefinisikan ini, yang tepat disebut <dfn>sifat Markov</dfn>, menyatakan bahwa distribusi bersyarat dari \( X_{s+t} \) jika \( \mathscr{F}_s \) diketahui sama dengan distribusi bersyarat dari \( X_{s+t} \) jika hanya \( X_s \) yang diketahui. Pandanglah \( s \) sebagai waktu sekarang, sehingga \( s + t \) adalah suatu waktu di masa depan. Jika kita mengetahui keadaan sekarang \( X_s \), pengetahuan tambahan apa pun mengenai kejadian masa lalu tidak relevan untuk memprediksi keadaan mendatang \( X_{s + t} \). Secara teknis, probabilitas bersyarat dalam definisi tersebut adalah variabel acak, dan kesamaannya harus ditafsirkan berlaku dengan probabilitas 1. Seperti mungkin Anda ingat, <a href="../expect/Conditional2.html">nilai harapan bersyarat</a> merupakan konsep yang lebih umum dan berguna daripada probabilitas bersyarat, sehingga teorema berikut mungkin tidak mengejutkan.</p>
+
+<div class="unit" id="dfn2">
+	<p class="dfn">Proses acak \( \bs{X} \) adalah proses Markov jika dan hanya jika
+	\[ \E[f(X_{s+t}) \mid \mathscr{F}_s] = \E[f(X_{s+t}) \mid X_s] \]
+	untuk setiap \( s, \, t \in T \) dan setiap \( f \in \mathscr{B} \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Syarat dalam teorema ini jelas menyiratkan sifat Markov dengan mengambil \( f = \bs{1}_A \), yaitu fungsi indikator dari \( A \in \mathscr{S} \). Arah sebaliknya merupakan argumen perluasan bertahap yang klasik: sifat Markov menyiratkan syarat nilai harapan</p>
+		<ol class="sub">
+			<li>Pertama, ketika \( f = \bs{1}_A \) untuk \( A \in \mathscr{S} \) (berdasarkan definisi).</li>
+			<li>Berikutnya, ketika \( f \in \mathscr{B} \) adalah fungsi sederhana, berdasarkan linearitas.</li>
+			<li>Berikutnya, ketika \( f  \in \mathscr{B}\) nonnegatif, berdasarkan teorema konvergensi monoton.</li>
+			<li>Terakhir, untuk \( f \in \mathscr{B} \) umum dengan mempertimbangkan bagian positif dan negatif.</li>
+		</ol>
+	</details>
+</div>
+
+<p>Secara teknis, kita seharusnya mengatakan bahwa \( \bs{X} \) adalah proses Markov <dfn>relatif terhadap</dfn> filtrasi \( \mathfrak{F} \). Jika \( \bs{X} \) memenuhi sifat Markov relatif terhadap suatu filtrasi, proses ini memenuhi sifat Markov relatif terhadap setiap filtrasi yang lebih kasar.</p>
+
+<div class="unit">
+	<p class="math">Misalkan proses stokastik \( \bs{X} = \{X_t: t \in T\} \) teradaptasi terhadap filtrasi \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), dan \( \mathfrak{G} = \{\mathscr{G}_t: t \in T\} \) adalah filtrasi yang lebih halus daripada \( \mathfrak{F} \). Jika \( \bs{X} \) merupakan proses Markov relatif terhadap \( \mathfrak{G} \), maka \( \bs{X} \) merupakan proses Markov relatif terhadap \( \mathfrak{F} \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Pertama, ingat bahwa \( \bs{X} \) teradaptasi terhadap \( \mathfrak{G} \) karena \( \bs{X} \) teradaptasi terhadap \( \mathfrak{F} \). Jika \( s, \, t \in T \) dan \( f \in \mathscr{B} \), maka
+		\[ \E[f(X_{s+t}) \mid \mathscr{F}_s] = \E\left(\E[f(X_{s+t}) \mid \mathscr{G}_s] \mid \mathscr{F}_s\right)= \E\left(\E[f(X_{s+t}) \mid X_s] \mid \mathscr{F}_s\right) = \E[f(X_{s+t}) \mid X_s] \]
+		Kesamaan pertama merupakan sifat dasar nilai harapan bersyarat. Kesamaan kedua menggunakan fakta bahwa \( \bs{X} \) bersifat Markov relatif terhadap \( \mathfrak{G} \), sedangkan kesamaan ketiga mengikuti karena \( X_s \) terukur terhadap \( \mathscr{F}_s \).</p>
+	</details>
+</div>
+
+<p>Secara khusus, jika \( \bs{X} \) merupakan proses Markov, maka \( \bs{X} \) memenuhi sifat Markov relatif terhadap filtrasi alami \( \mathfrak{F}^0 \). Teori proses Markov menjadi jauh lebih sederhana jika kita menambahkan satu asumsi lagi.</p>
+
+<div class="unit" id="dfn3">
+	<p class="dfn">Proses Markov \( \bs{X} \) <dfn>homogen terhadap waktu</dfn> jika 
+	\[ \P(X_{s+t} \in A \mid X_s = x) = \P(X_t \in A \mid X_0 = x) \]
+	untuk setiap \( s, \, t \in T \), \( x \in S \), dan \( A \in \mathscr{S} \).</p>
+</div>
+
+<p>Jadi, jika \( \bs{X} \) homogen (biasanya kita tidak menyertakan keterangan <em>terhadap waktu</em>), maka proses \( \{X_{s+t}: t \in T\} \) dengan syarat \( X_s = x \) ekuivalen (dalam distribusi) dengan proses \( \{X_t: t \in T\} \) dengan syarat \( X_0 = x \). Oleh karena itu, distribusi awal sering kali tidak ditentukan dalam kajian proses Markov—jika proses berada pada keadaan \( x \in S \) pada waktu tertentu \( s \in T \), tidak terlalu penting bagaimana proses sampai ke keadaan \( x \); pada dasarnya proses <q>dimulai kembali</q>, secara independen dari masa lalu. Istilah <dfn>stasioner</dfn> kadang-kadang digunakan sebagai pengganti homogen.</p>
+
+<p>Mulai sekarang, biasanya kita akan mengasumsikan bahwa proses Markov yang dibahas bersifat homogen. Hilangnya keumuman tidak sebesar yang mungkin Anda bayangkan. Proses takhomogen dapat diubah menjadi proses homogen dengan memperluas ruang keadaan, seperti ditunjukkan dalam latihan <a href="#enl1" class="ref"></a>. Untuk proses Markov homogen, jika \( s, \, t \in T \), \( x \in S \), dan \( f \in \mathscr{B}\), maka
+\[ \E[f(X_{s+t}) \mid X_s = x] = \E[f(X_t) \mid X_0 = x] \]</p>
+
+<h4 id="fel">Proses Feller</h4>
+
+<p>Dalam waktu kontinu atau pada ruang keadaan umum, proses Markov dapat berperilaku sangat ganjil tanpa asumsi kontinuitas tambahan. Misalkan (seperti biasanya) \( S \) memiliki topologi LCCB dan \( \mathscr{S} \) adalah \( \sigma \)-aljabar Borel. Misalkan \( \mathscr{C} \) menyatakan koleksi fungsi terbatas dan kontinu \( f: S \to \R \). Misalkan \( \mathscr{C}_0 \) menyatakan koleksi fungsi kontinu \( f: S \to \R \) yang <dfn>lenyap di \(\infty\)</dfn>. Frasa terakhir berarti bahwa untuk setiap \( \epsilon \gt 0 \), terdapat himpunan kompak \( C \subseteq S \) sedemikian sehingga \( \left|f(x)\right| \lt \epsilon \) jika \( x \notin C \). Dengan operasi penjumlahan dan perkalian skalar biasa (secara titik demi titik), \( \mathscr{C}_0 \) merupakan subruang vektor dari \( \mathscr{C} \), yang selanjutnya merupakan subruang vektor dari \( \mathscr{B} \). Seperti pada \( \mathscr{B} \), norma supremum digunakan untuk \( \mathscr{C} \) dan \( \mathscr{C}_0 \).</p>
+
+<div class="unit" id="fel1">
+	<p class="dfn">Proses Markov \( \bs{X} = \{X_t: t \in T\} \) adalah <dfn>proses Feller</dfn> jika syarat-syarat berikut terpenuhi.</p>
+	<ol class="sub">
+		<li><dfn>Kontinuitas dalam ruang</dfn>: Untuk \( t \in T \) dan \( y \in S \), distribusi \( X_t \) dengan syarat \( X_0 = x \) <a href="../dist/Convergence.html">konvergen</a> ke distribusi \( X_t \) dengan syarat \( X_0 = y \) ketika \( x \to y \).</li>
+		<li><dfn>Kontinuitas dalam waktu</dfn>: Dengan \(X_0 = x \) untuk \( x \in S \), \( X_t \) <a href="../prob/Convergence.html">konvergen dalam probabilitas</a> ke \( x \) ketika \( t \downarrow 0 \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Ini berarti bahwa \( \E[f(X_t) \mid X_0 = x] \to \E[f(X_t) \mid X_0 = y] \) ketika \( x \to y \) untuk setiap \( f \in \mathscr{C} \).</li>
+			<li>Ini berarti bahwa \( \P[X_t \in U \mid X_0 = x] \to 1 \) ketika \( t \downarrow 0 \) untuk setiap lingkungan \( U \) dari \( x \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Proses Feller dinamai menurut William Feller. Perhatikan bahwa jika \( S \) diskret, (a) terpenuhi secara otomatis, dan jika \( T \) diskret, (b) terpenuhi secara otomatis. Secara khusus, setiap rantai Markov waktu diskret merupakan proses Markov Feller. Tentu ada proses Markov yang lebih umum, tetapi sebagian besar proses penting yang muncul dalam penerapan adalah proses Feller, dan sejumlah sifat yang baik merupakan konsekuensi dari asumsi-asumsi tersebut. Berikut adalah yang pertama:</p>
+
+<div class="unit" id="fel2">
+	<p class="math">Jika \( \bs{X} = \{X_t: t \in T\} \) merupakan proses Feller, maka terdapat <a href="../prob/Processes.html">versi</a> dari \( \bs{X} \) sedemikian sehingga \( t \mapsto X_t(\omega) \) kontinu dari kanan dan memiliki limit kiri untuk setiap \( \omega \in \Omega \).</p>
+</div>
+
+<p>Sekali lagi, hasil ini hanya menarik dalam waktu kontinu \( T = [0, \infty) \). Ingat bahwa untuk \( \omega \in \Omega \), fungsi \( t \mapsto X_t(\omega) \) merupakan <dfn>lintasan sampel</dfn> proses tersebut. Karena kita mengetahui bahwa ada versi dengan sifat-sifat ini, kita sering akan mengasumsikan bahwa proses Markov Feller memiliki lintasan sampel yang kontinu kanan dan memiliki limit kiri.</p>
+
+<h4 id="smp">Waktu Henti dan Sifat Markov Kuat</h4>
+
+<p>Untuk pembahasan berikutnya, Anda mungkin perlu meninjau kembali bagian mengenai <a href="../prob/Stop.html">filtrasi dan waktu henti</a>. Sebagai tinjauan singkat, misalkan sekali lagi kita mulai dengan ruang probabilitas \( (\Omega, \mathscr{F}, \P) \) dan filtrasi \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) (sehingga kita memiliki <dfn>ruang probabilitas berfiltrasi</dfn>).</p>
+
+<p>Karena waktu (masa lalu, sekarang, dan masa depan) memainkan peran begitu mendasar dalam proses Markov, tidak mengherankan bahwa waktu acak itu penting. Kita sering perlu mengizinkan waktu acak mengambil nilai \( \infty \), sehingga himpunan waktu perlu diperluas menjadi \( T_\infty = T \cup \{\infty\} \). Topologi pada \( T \) diperluas ke \( T_\infty \) dengan kaidah bahwa untuk \( s \in T \), himpunan \( \{t \in T_\infty: t \gt s\} \) merupakan lingkungan terbuka dari \( \infty \). Ini adalah kompaktifikasi satu titik dari \( T \), yang digunakan agar pengertian <em>waktu yang menuju tak hingga</em> tetap dipertahankan. \( \sigma \)-aljabar Borel \( \mathscr{T}_\infty \) digunakan pada \( T_\infty \), yang sekali lagi hanyalah himpunan kuasa dalam kasus diskret.</p>
+
+<p>Jika \( \bs{X} = \{X_t: t \in T\} \) adalah proses stokastik pada ruang sampel \( (\Omega, \mathscr{F}) \), dan jika \( \tau \) merupakan waktu acak, kita secara alami ingin mempertimbangkan keadaan \( X_\tau \) pada waktu acak tersebut. Ada dua masalah. Pertama, jika \( \tau \) mengambil nilai \( \infty \), \( X_\tau \) tidak terdefinisi. Penyelesaian yang lazim adalah menambahkan <q>keadaan kematian</q> baru \( \delta \) ke himpunan keadaan \( S \), kemudian melengkapi \( S_\delta = S \cup \{\delta\} \) dengan \( \sigma \)-aljabar \( \mathscr{S}_\delta = \mathscr{S} \cup \{A \cup \{\delta\}: A \in \mathscr{S}\} \). Fungsi \( f \in \mathscr{B} \) diperluas ke \( S_\delta \) dengan kaidah \( f(\delta) = 0 \). Masalah kedua adalah bahwa \( X_\tau \) mungkin bukan variabel acak yang sah (yakni terukur), kecuali kita mengasumsikan bahwa proses stokastik \( \bs{X} \) terukur. Ingat bahwa ini berarti \( \bs{X}: \Omega \times T \to S \) terukur relatif terhadap \( \mathscr{F} \otimes \mathscr{T} \) dan \( \mathscr{S} \). (Hal ini selalu benar dalam waktu diskret.)</p>
+
+<p>Selanjutnya, ingat bahwa waktu acak \( \tau \) adalah <a href="../prob/Stop.html">waktu henti</a> (juga disebut <dfn>waktu Markov</dfn> atau <dfn>waktu opsional</dfn>) relatif terhadap \( \mathfrak{F} \) jika \( \{\tau \le t\} \in \mathscr{F}_t \) untuk setiap \( t \in T \). Secara intuitif, kita dapat mengetahui apakah \( \tau \le t \) dari informasi yang tersedia bagi kita pada waktu \( t \). Dalam arti tertentu, waktu henti adalah waktu acak yang tidak mengharuskan kita melihat ke masa depan. Tentu saja, konsep ini sangat bergantung pada filtrasi. Ingat bahwa jika waktu acak \( \tau \) merupakan waktu henti untuk filtrasi \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), maka ( \tau ) juga merupakan waktu henti untuk filtrasi yang lebih halus \( \mathfrak{G} = \{\mathscr{G}_t: t \in T\} \), sehingga \( \mathscr{F}_t \subseteq \mathscr{G}_t \) untuk \( t \in T \). Jadi, makin halus filtrasinya, makin besar koleksi waktu hentinya. Bahkan, jika filtrasi tersebut adalah filtrasi trivial dengan \( \mathscr{F}_t = \mathscr{F} \) untuk semua \( t \in T \) (sehingga semua informasi tersedia bagi kita sejak awal waktu), maka <em>setiap</em> waktu acak merupakan waktu henti. Namun, tentu saja filtrasi trivial ini biasanya tidak masuk akal.</p>
+
+<p>Berikutnya, ingat bahwa jika \( \tau \) merupakan waktu henti untuk filtrasi \( \mathfrak{F} \), maka \( \sigma \)-aljabar \( \mathscr{F}_\tau \) yang berkaitan dengan \( \tau \) diberikan oleh
+\[ \mathscr{F}_\tau = \left\{A \in \mathscr{F}: A \cap \{\tau \le t\} \in \mathscr{F}_t \text{ for all } t \in T\right\} \]
+Secara intuitif, \( \mathscr{F}_\tau \) adalah koleksi kejadian hingga waktu acak \( \tau \), analog dengan \( \mathscr{F}_t \), yaitu koleksi kejadian hingga waktu deterministik \( t \in T \). Jika \( \bs{X} = \{X_t: t \in T\} \) merupakan proses stokastik yang teradaptasi terhadap \( \mathfrak{F} \), dan jika \( \tau \) merupakan waktu henti relatif terhadap \( \mathfrak{F} \), kita berharap \( X_\tau \) terukur terhadap \( \mathscr{F}_\tau \), sebagaimana \( X_t \) terukur terhadap \( \mathscr{F}_t \) untuk \( t \in T \) deterministik. Namun, secara umum hal ini tidak berlaku kecuali \( \bs{X} \) <dfn>terukur progresif</dfn> relatif terhadap \( \mathfrak{F} \), yang berarti bahwa \( \bs{X}: \Omega \times T_t \to S \) terukur terhadap \( \mathscr{F}_t \otimes \mathscr{T}_t \) dan \( \mathscr{S} \), dengan \( T_t = \{s \in T: s \le t\} \) dan \( \mathscr{T}_t \) sebagai \( \sigma \)-aljabar Borel yang bersesuaian. Tentu saja, hal ini selalu benar dalam waktu diskret, dan secara lebih umum jika \( S \) memiliki topologi LCCB dengan \( \mathscr{S} \) sebagai \( \sigma \)-aljabar Borel, serta \( \bs{X} \) kontinu kanan. Jika \( \bs{X} \) terukur progresif terhadap \( \mathfrak{F} \), maka \( \bs{X} \) terukur dan \( \bs{X} \) teradaptasi terhadap \( \mathfrak{F} \).</p>
+
+<p><dfn>Sifat Markov kuat</dfn> untuk proses stokastik \( \bs{X} = \{X_t: t \in T\} \) menyatakan bahwa masa depan independen dari masa lalu jika keadaan sekarang diketahui, ketika waktu sekarang merupakan waktu henti.</p>
+
+<div class="unit" id="smp3">
+	<p class="dfn">Proses acak \( \bs{X} \) adalah <dfn>proses Markov kuat</dfn> jika
+	\[ \E[f(X_{\tau + t}) \mid \mathscr{F}_\tau] = \E[f(X_{\tau + t}) \mid X_\tau] \]
+	untuk setiap \(t \in T \), waktu henti \( \tau \), dan \( f \in \mathscr{B} \).</p>
+</div>
+
+<p>Seperti sifat Markov biasa, sifat Markov kuat bergantung pada filtrasi yang mendasari \( \mathfrak{F} \). Jika sifat tersebut berlaku terhadap suatu filtrasi tertentu, sifat itu juga berlaku terhadap filtrasi yang lebih kasar.</p>
+
+<div class="unit">
+	<p class="math">Misalkan proses stokastik \( \bs{X} = \{X_t: t \in T\} \) terukur progresif relatif terhadap filtrasi \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), dan filtrasi \( \mathfrak{G} = \{\mathscr{G}_t: t \in T\} \) lebih halus daripada \( \mathfrak{F} \). Jika \( \bs{X} \) merupakan proses Markov kuat relatif terhadap \( \mathfrak{G} \), maka \( \bs{X} \) merupakan proses Markov kuat relatif terhadap \( \mathfrak{F} \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Ingat kembali bahwa karena \( \bs{X} \) teradaptasi terhadap \( \mathfrak{F} \), proses tersebut juga teradaptasi terhadap \( \mathfrak{G} \). Misalkan \( \tau \) merupakan waktu henti berhingga untuk \( \mathfrak{F} \), serta \( t \in T \) dan \( f \in \mathscr{B} \). Maka \( \tau \) juga merupakan waktu henti untuk \( \mathfrak{G} \), dan \( \mathscr{F}_\tau \subseteq \mathscr{G}_\tau \). Oleh karena itu,
+		\[ \E[f(X_{\tau+t}) \mid \mathscr{F}_\tau] = \E\left(\E[f(X_{\tau+t}) \mid \mathscr{G}_\tau] \mid \mathscr{F}_\tau\right)= \E\left(\E[f(X_{\tau+t}) \mid X_\tau] \mid \mathscr{F}_\tau\right) = \E[f(X_{\tau+t}) \mid X_\tau] \]
+		Kesamaan pertama merupakan sifat dasar nilai harapan bersyarat. Kesamaan kedua menggunakan fakta bahwa \( \bs{X} \) memiliki sifat Markov kuat relatif terhadap \( \mathfrak{G} \), sedangkan kesamaan ketiga mengikuti karena \( \bs{X_\tau} \) terukur terhadap \( \mathscr{F}_\tau \). Dalam waktu kontinu, langkah terakhir inilah yang memerlukan keterukuran progresif.</p>
+	</details>
+</div>
+
+<p>Jadi, jika \( \bs{X} \) merupakan proses Markov kuat, maka \( \bs{X} \) memenuhi sifat Markov kuat relatif terhadap filtrasi alaminya. Sekali lagi ada kompromi: filtrasi yang lebih halus memungkinkan lebih banyak waktu henti (umumnya hal yang baik), tetapi membuat sifat Markov kuat lebih sulit dipenuhi dan mungkin tidak wajar (hal yang kurang baik). Karena itu, biasanya kita tidak menginginkan filtrasi yang jauh lebih halus daripada filtrasi alami.</p>
+
+<p>Dengan sifat Markov kuat dan sifat homogen, proses \( \{X_{\tau + t}: t \in T\} \) dengan syarat \( X_\tau = x \) ekuivalen dalam distribusi dengan proses \( \{X_t: t \in T\} \) dengan syarat \( X_0 = x \). Jelas bahwa sifat Markov kuat menyiratkan sifat Markov biasa, karena waktu tetap \( t \in T \) dengan sendirinya juga merupakan waktu henti. Kebalikannya berlaku dalam waktu diskret.</p>
+
+<div class="unit" id="smp4">
+	<p class="math">Misalkan \( \bs{X} = \{X_n: n \in \N\} \) adalah proses Markov (homogen) dalam waktu diskret. Maka \( \bs{X} \) merupakan proses Markov kuat.</p>
+</div>
+
+<p>Seperti biasa dalam waktu kontinu, situasinya lebih rumit dan bergantung pada kontinuitas proses \( \bs{X} \) dan filtrasi \( \mathfrak{F} \). Berikut adalah hasil baku untuk proses Feller.</p>
+
+<div class="unit">
+	<p class="math">Jika \( \bs{X} = \{X_t: t \in [0, \infty) \) adalah proses Markov Feller, maka \( \bs{X} \) merupakan proses Markov kuat relatif terhadap filtrasi \( \mathfrak{F}^0_+ \), yaitu penyempurnaan kontinu kanan dari filtrasi alami.</p>
+</div>
+
+<h4 id="trn">Kernel Transisi Proses Markov</h4>
+
+<p>Untuk pembahasan berikutnya, Anda mungkin perlu meninjau bagian mengenai <a href="../expect/Kernels.html">kernel dan operator</a> dalam bab mengenai <a href="../expect/index.html">nilai harapan</a>. Misalkan sekali lagi bahwa \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov (homogen) dengan ruang keadaan \( S \) dan ruang waktu \( T \), seperti diuraikan di atas. Kernel dalam definisi berikut sangat penting dalam kajian \( \bs{X} \)</p>
+
+<div class="unit" id="trn1">
+	<p class="math">Untuk \( t \in T \), misalkan
+	\[ P_t(x, A) = \P(X_t \in A \mid X_0 = x), \quad x \in S, \, A \in \mathscr{S} \]
+	Maka \( P_t \) adalah kernel probabilitas pada \( (S, \mathscr{S}) \), yang dikenal sebagai <dfn>kernel transisi</dfn> dari \( \bs{X} \) untuk waktu \( t \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Tetapkan \( t \in T \). Keterukuran \( x \mapsto \P(X_t \in A \mid X_0 = x) \) untuk \( A \in \mathscr{S} \) sudah tercakup dalam definisi probabilitas bersyarat. Selain itu, tentu saja, \( A \mapsto \P(X_t \in A \mid X_0 = x) \) merupakan ukuran probabilitas pada \( \mathscr{S} \) untuk \( x \in S \). Secara umum, distribusi bersyarat satu variabel acak, dengan syarat nilai variabel acak lain, mendefinisikan kernel probabilitas.</p>
+	</details>
+</div>
+
+<p>Artinya, \( P_t(x, \cdot) \) adalah distribusi bersyarat dari \( X_t \) dengan syarat \( X_0 = x \), untuk \( t \in T \) dan \( x \in S \). Berdasarkan sifat homogen terhadap waktu, \( P_t(x, \cdot) \) juga merupakan distribusi bersyarat dari \( X_{s + t} \) dengan syarat \( X_s = x \), untuk \( s \in T \):
+\[ P_t(x, A) = \P(X_{s+t} \in A \mid X_s = x), \quad s, \, t \in T, \, x \in S, \, A \in \mathscr{S} \]
+Perhatikan bahwa \( P_0 = I \), yaitu <dfn>kernel identitas</dfn> pada \( (S, \mathscr{S}) \) yang didefinisikan oleh \( I(x, A) = \bs{1}(x \in A) \) untuk \( x \in S \) dan \( A \in \mathscr{S} \), sehingga \( I(x, A) = 1 \) jika \( x \in A \) dan \( I(x, A) = 0 \) jika \( x \notin A \).
+Ingat pula bahwa biasanya terdapat ukuran acuan alami \( \lambda \) pada \( (S, \mathscr{S}) \). Dalam hal ini, kernel transisi \( P_t \) sering memiliki <dfn>kepadatan transisi</dfn> \( p_t \) terhadap \( \lambda \) untuk \( t \in T \). Artinya,
+\[ P_t(x, A) = \P(X_t \in A \mid X_0 = x) = \int_A p_t(x, y) \lambda(dy), \quad x \in S, \, A \in \mathscr{S} \]
+Teorema berikut memberikan persamaan <dfn>Chapman–Kolmogorov</dfn>, yang dinamai menurut <a href="JavaScript:openAncillary('../biographies/Chapman.html')" class="ancillary">Sydney Chapman</a> dan <a href="JavaScript:openAncillary('../biographies/Kolmogorov.html')" class="ancillary">Andrei Kolmogorov</a>. Persamaan ini merupakan hubungan mendasar antara kernel-kernel probabilitas dan menjadi alasan digunakannya nama <em>kernel transisi</em>.</p>
+
+<div class="unit" id="trn2">
+	<p class="math">Misalkan kembali bahwa \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov pada \( S \) dengan kernel transisi \( \bs{P} = \{P_t: t \in T\} \). Jika \( s, \, s \in T \), maka \( P_s P_t = P_{s + t} \). Artinya,
+	\[ P_{s+t}(x, A) = \int_S P_s(x, dy) P_t(y, A), \quad x \in S, \, A \in \mathscr{S} \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Sifat Markov dan argumen pengondisian merupakan perangkat mendasar. Ingat kembali bahwa \( P_s(x, \cdot) \) adalah distribusi bersyarat dari \( X_s \) dengan syarat \( X_0 = x \), untuk \( x \in S \). Misalkan \( A \in \mathscr{S} \). Pengondisian pada \( X_s \) memberikan
+		\[ P_{s+t}(x, A) = \P(X_{s+t} \in A \mid X_0 = x) = \int_S P_s(x, dy) \P(X_{s+t} \in A \mid X_s = y, X_0 = x) \]
+		Namun, berdasarkan sifat Markov dan sifat homogen terhadap waktu, 
+		\[ \P(X_{s+t} \in A \mid X_s = y, X_0 = x) = \P(X_t \in A \mid X_0 = y) = P_t(y, A) \] Dengan menyubstitusikannya, kita memperoleh
+		\[ P_{s+t}(x, A) = \int_S P_s(x, dy) P_t(y, A) = (P_s P_t)(x, A) \]</p>
+	</details>
+</div>
+
+<p>Dalam bahasa analisis fungsional, \( \bs{P} \) adalah <dfn>semigrup</dfn>. Ingat bahwa sifat komutatif umumnya tidak berlaku untuk operasi perkalian kernel. Namun, sifat ini berlaku untuk kernel transisi proses Markov homogen. Artinya, \( P_s P_t = P_t P_s = P_{s+t} \) untuk \( s, \, t \in T \). Sebagai akibat langsung, jika \( S \) memiliki ukuran acuan, hubungan dasar yang sama berlaku untuk kepadatan transisi.</p>
+
+<div class="unit" id="trn3">
+	<p class="math">Misalkan \( \lambda \) adalah ukuran acuan pada \( (S, \mathscr{S}) \), dan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov pada \( S \) dengan kepadatan transisi \( \{p_t: t \in T\} \). Jika \( s, \, t \in T \), maka \( p_s p_t = p_{s+t} \). Artinya,
+	\[ p_t(x, z) = \int_S p_s(x, y) p_t(y, z) \lambda(dy), \quad x, \, z \in S \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Kernel transisi memenuhi \(P_s P_t = P_{s+t} \). Akan tetapi, \( P_s \) memiliki kepadatan \( p_s \), \( P_t \) memiliki kepadatan \( p_t \), dan \( P_{s+t} \) memiliki kepadatan \( p_{s+t} \). Berdasarkan hasil dasar mengenai fungsi kernel, \( P_s P_t \) memiliki kepadatan \( p_s p_t \) sebagaimana didefinisikan dalam teorema.</p>
+	</details>
+</div>
+
+<p>Jika \( T = \N \) (waktu diskret), kernel transisi dari \( \bs{X} \) hanyalah pangkat-pangkat dari kernel transisi <dfn>satu langkah</dfn>. Artinya, jika kita menetapkan \( P = P_1 \), maka \( P_n = P^n \) untuk \( n \in \N \).</p>
+
+<p>Ingat bahwa suatu kernel mendefinisikan dua operasi: beroperasi di sebelah kiri pada ukuran positif di \( (S, \mathscr{S}) \), dan beroperasi di sebelah kanan pada fungsi terukur bernilai riil. Untuk kernel transisi proses Markov, kedua operator ini memiliki tafsiran alami.</p>
+
+<div class="unit" id="trn4">
+	<p class="math">Misalkan \( s, \, t \in T \). Jika \( \mu_s \) adalah distribusi dari \( X_s \), maka \( X_{s+t} \) memiliki distribusi \( \mu_{s+t} = \mu_s P_t \). Artinya,
+	\[ \mu_{s+t}(A) = \int_S \mu_s(dx) P_t(x, A), \quad A \in \mathscr{S} \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan \( A \in \mathscr{S} \). Pengondisian pada \( X_s \) memberikan
+		\[ \P(X_{s+t} \in A) = \E[\P(X_{s+t} \in A \mid X_s)] = \int_S \mu_s(dx) \P(X_{s+t} \in A \mid X_s = x) = \int_S \mu_s(dx) P_t(x, A) = \mu_s P_t(A) \]</p>
+	</details>
+</div>
+
+<p>Jadi, jika \( \mathscr{P} \) menyatakan koleksi ukuran probabilitas pada \( (S, \mathscr{S}) \), operator kiri \( P_t \) memetakan \( \mathscr{P} \) kembali ke \( \mathscr{P} \). Secara khusus, jika \( X_0 \) memiliki distribusi \( \mu_0 \) (<dfn>distribusi awal</dfn>), maka \( X_t \) memiliki distribusi \( \mu_t = \mu_0 P_t \) untuk setiap \( t \in T \).</p>
+
+<div class="unit">
+	<p class="dfn">Ukuran positif \( \mu \) pada \( (S, \mathscr{S}) \) bersifat <dfn>invarian</dfn> untuk \( \bs{X}\) jika \( \mu P_t = \mu \) untuk setiap \( t \in T \).</p>
+</div>
+
+<p>Karena itu, jika \( \mu \) adalah ukuran probabilitas yang invarian untuk \( \bs{X} \), dan \( X_0 \) memiliki distribusi \( \mu \), maka \( X_t \) memiliki distribusi \( \mu \) untuk setiap \( t \in T \), sehingga distribusi proses \( \bs{X} \) sama pada setiap waktu. Dalam waktu diskret, perhatikan bahwa jika \( \mu \) adalah ukuran positif dan \( \mu P = \mu \), maka \( \mu P^n = \mu \) untuk setiap \( n \in \N \), sehingga \( \mu \) invarian untuk \( \bs{X} \). Operator kanan diberikan berikut ini.</p>
+
+<div class="unit" id="trn5">
+	<p class="math">Misalkan \( f: S \to \R \). Jika \(t \in T\), maka (dengan mengasumsikan nilai harapannya ada),
+	\[ P_t f(x) = \int_S P_t(x, dy) f(y) = \E\left[f(X_t) \mid X_0 = x\right], \quad x \in S \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini mengikuti langsung dari definisi:
+		\[ P_t f(x) = \int_S P_t(x, dy) f(y), \quad x \in S \]
+		dan \( P_t(x, \cdot) \) adalah distribusi bersyarat dari \( X_t \) dengan syarat \( X_0 = x \).</p>
+	</details>
+</div>
+
+<p>Secara khusus, operator kanan \( P_t \) didefinisikan pada \( \mathscr{B} \), yaitu ruang vektor fungsi linear terbatas \( f: S \to \R \), dan sesungguhnya merupakan operator linear pada \( \mathscr{B} \). Artinya, jika \( f, \, g \in \mathscr{B} \) dan \( c \in \R \), maka \( P_t(f + g) = P_t f + P_t g \) dan \( P_t(c f) = c P_t f \). Lebih lanjut, \( P_t \) merupakan <dfn>operator kontraksi</dfn> pada \( \mathscr{B} \), karena \( \left\|P_t f\right\| \le \|f\| \) untuk \( f \in \mathscr{B} \). Dengan demikian, \( P_t \) merupakan operator kontinu pada \( \mathscr{B} \) untuk \( t \in T \).</p>
+
+<p>Untuk operator kanan, terdapat konsep yang melengkapi invariansi ukuran positif bagi operator kiri.</p>
+
+<div class="unit">
+	<p class="dfn">Fungsi terukur \( f: S \to \R \) bersifat <dfn>harmonik</dfn> untuk \( \bs{X} \) jika \( P_t f = f \) untuk semua \( t \in T \).</p>
+</div>
+
+<p>Sekali lagi, dalam waktu diskret, jika \( P f = f \), maka \( P^n f = f \) untuk semua \( n \in \N \), sehingga \( f \) harmonik untuk \( \bs{X} \).</p>
+
+<p>Dengan menggabungkan <a href="#trn4" class="ref"></a> dan <a href="#trn5" class="ref"></a>, jika \( X_0 \) memiliki distribusi \( \mu_0 \) dan \( f: S \to \R \) terukur, maka (sekali lagi dengan mengasumsikan nilai harapannya ada), \( \mu_0 P_t f = \E[f(X_t)] \) untuk \( t \in T \). Artinya,
+\[ \E[f(X_t)] = \int_S \mu_0(dx) \int_S P_t(x, dy) f(y) \]</p>
+
+<p>Latihan <a href="#trn4" class="ref"></a> menunjukkan cara memperoleh distribusi \( X_t \) dari distribusi \( X_0 \) dan kernel transisi \( P_t \) untuk \( t \in T \). Namun, kita dapat melakukan lebih banyak. Ingat bahwa salah satu cara dasar untuk mendeskripsikan proses stokastik adalah memberikan <dfn>distribusi berdimensi hingganya</dfn>, yaitu distribusi dari \( \left(X_{t_1}, X_{t_2}, \ldots, X_{t_n}\right) \) untuk setiap \( n \in \N_+ \) dan setiap \( (t_1, t_2, \ldots, t_n) \in T^n \). Untuk proses Markov, distribusi awal dan kernel transisi menentukan distribusi berdimensi hingga. Distribusi tersebut paling mudah dinyatakan dalam bentuk diferensial.</p>
+
+<div class="unit" id="trn6">
+	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov dengan operator transisi \( \bs{P} = \{P_t: t \in T\} \), dan \( (t_1, \ldots, t_n) \in T^n \) dengan \( 0 \lt t_1 \lt \cdots \lt t_n \). Jika \( X_0 \) memiliki distribusi \( \mu_0 \), maka dalam bentuk diferensial, distribusi dari \( \left(X_0, X_{t_1}, \ldots, X_{t_n}\right) \) adalah
+	\[ \mu_0(dx_0) P_{t_1}(x_0, dx_1) P_{t_2 - t_1}(x_1, dx_2) \cdots P_{t_n - t_{n-1}} (x_{n-1}, dx_n) \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini diperoleh melalui induksi dan penggunaan berulang sifat Markov. Sebagai contoh, jika \( t \in T \) dengan \( t \gt 0 \), pengondisian pada \( X_0 \) memberikan
+		\[ \P(X_0 \in A, X_t \in B) = \int_A \P(X_t \in B \mid X_0 = x) \mu_0(dx) = \int_A P_t(x, B) \mu(dx) = \int_A \int_B P_t(x, dy) \mu_0(dx) \]
+		untuk \( A, \, B \in \mathscr{S} \). Jadi, dalam bentuk diferensial, distribusi dari \( (X_0, X_t) \) adalah \( \mu(dx) P_t(x, dy)\). Jika \( s, \, t \in T \) dengan \( 0 \lt s \lt t \), pengondisian pada \( (X_0, X_s) \) dan penggunaan hasil sebelumnya memberikan
+		\[ \P(X_0 \in A, X_s \in B, X_t \in C) = \int_{A \times B} \P(X_t \in C \mid X_0 = x, X_s = y) \mu_0(dx) P_s(x, dy)\]
+		untuk \( A, \, B, \, C \in \mathscr{S} \). Namun, berdasarkan sifat Markov, 
+		\[ \P(X_t \in C \mid X_0 = x, X_s = y) = \P(X_t \in C \mid X_s = y) = P_{t-s}(y, C) = \int_C P_{t- s}(y, dz) \]
+		Karena itu, dalam bentuk diferensial, distribusi dari \( (X_0, X_s, X_t) \) adalah \( \mu_0(dx) P_s(x, dy) P_{t-s}(y, dz) \). Dengan melanjutkan cara ini, kita memperoleh hasil umum.</p>
+	</details>
+</div>
+
+<p>Hasil ini sangat penting untuk mengonstruksi proses Markov. Jika kita mengetahui cara mendefinisikan kernel transisi \( P_t \) untuk \( t \in T \) (misalnya berdasarkan pertimbangan pemodelan), dan jika kita mengetahui distribusi awal \( \mu_0 \), maka hasil terakhir memberikan himpunan distribusi berdimensi hingga yang konsisten. Berdasarkan <a href="../prob/Processes.html#kol">teorema konstruksi Kolmogorov</a>, kita mengetahui bahwa <em>terdapat</em> proses stokastik yang memiliki distribusi berdimensi hingga tersebut. Namun, dalam waktu kontinu masih ada dua masalah serius. Pertama, tidak jelas bagaimana kita akan mengonstruksi kernel transisi agar persamaan Chapman–Kolmogorov yang krusial dalam <a href="#trn2" class="ref"></a> terpenuhi. Kedua, biasanya kita menginginkan proses Markov memiliki sifat-sifat tertentu (seperti sifat kontinuitas lintasan sampel) yang melampaui distribusi berdimensi hingga. Masalah pertama akan dibahas dalam bagian berikutnya, dan untungnya masalah kedua dapat diselesaikan untuk proses Feller.</p>
+
+<div class="unit" id="trn7">
+	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) merupakan proses Markov pada ruang keadaan LCCB \( (S, \mathscr{S}) \) dengan operator transisi \( \bs{P} = \{P_t: t \in [0, \infty)\} \). Maka \( \bs{X} \) merupakan proses Feller jika dan hanya jika syarat-syarat berikut berlaku:</p>
+	<ol class="sub">
+		<li><dfn>Kontinuitas dalam ruang</dfn>: Jika \( f \in \mathscr{C}_0 \) dan \( t \in [0, \infty) \), maka \( P_t f \in \mathscr{C}_0 \)</li>
+		<li><dfn>Kontinuitas dalam waktu</dfn>: Jika \( f \in \mathscr{C}_0 \) dan \( x \in S \), maka \( P_t f(x) \to f(x) \) ketika \( t \downarrow 0 \).</li>
+	</ol>
+</div>
+
+<p>Semigrup kernel probabilitas \( \bs{P} = \{P_t: t \in T\} \) yang memenuhi sifat-sifat dalam teorema ini disebut semigrup <dfn>Feller</dfn>. Jadi, <a href="#trn7" class="ref"></a> menyatakan bahwa <em>proses Markov</em> \(\bs{X}\) bersifat Feller jika dan hanya jika <em>semigrup transisi dari transisi</em> \( \bs{P} \) bersifat Feller. Seperti sebelumnya, (a) terpenuhi secara otomatis jika \( S \) diskret, dan (b) terpenuhi secara otomatis jika \( T \) diskret. Syarat (a) berarti bahwa \( P_t \) merupakan operator pada ruang vektor \( \mathscr{C}_0 \), selain merupakan operator pada ruang yang lebih besar \( \mathscr{B} \). Syarat (b) sebenarnya menyiratkan bentuk kontinuitas dalam waktu yang lebih kuat.</p>
+
+<div class="unit" id="trn8">
+	<p class="math">Misalkan \( \bs{P} = \{P_t: t \in T\} \) adalah semigrup Feller dari operator transisi. Maka \( t \mapsto P_t f \) kontinu (terhadap norma supremum) untuk \( f \in \mathscr{C}_0 \).</p>
+	<details>
+		<summary>Rincian tambahan:</summary>
+		<p>Ini berarti bahwa untuk \( f \in \mathscr{C}_0 \) dan \( t \in [0, \infty) \),
+		\[ \|P_{t+s} f - P_t f \| = \sup\{\left|P_{t+s}f(x) - P_t f(x)\right|: x \in S\} \to 0 \text{ as } s \to 0 \]</p>
+	</details>
+</div>
+
+<p>Jadi, jika digabungkan dengan keterangan di atas, perhatikan bahwa jika \( \bs{P} \) adalah semigrup Feller dari operator transisi, maka \( f \mapsto P_t f \) kontinu pada \( \mathscr{C}_0 \) untuk \( t \in T \) tetap, dan \( t \mapsto P_t f \) kontinu pada \( T \) untuk \( f \in \mathscr{C}_0 \) tetap. Sekali lagi, hal ini penting karena kita sering memulai dengan koleksi kernel probabilitas \( \bs{P} \) dan ingin mengetahui bahwa terdapat proses Markov yang baik \( \bs{X} \) dengan operator transisi tersebut.</p>
+
+<h4 id="sit">Pengambilan Sampel dalam Waktu</h4>
+
+<p>Jika kita <dfn>mengambil sampel</dfn> suatu proses Markov pada barisan titik waktu yang meningkat, kita memperoleh proses Markov lain dalam waktu diskret. Namun, proses waktu diskret tersebut mungkin tidak homogen meskipun proses asalnya homogen.</p>
+
+<div class="unit" id="sit1">
+	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov dengan ruang keadaan \( (S, \mathscr{S}) \), dan \( (t_0, t_1, t_2, \ldots) \) adalah barisan dalam \( T \) dengan \( 0 = t_0 \lt t_1 \lt t_2 \lt \cdots \). Misalkan \( Y_n = X_{t_n} \) untuk \( n \in \N \). Maka \( \bs{Y} = \{Y_n: n \in \N\}\) adalah proses Markov dalam waktu diskret.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Untuk \( n \in \N \), misalkan \( \mathscr{G}_n = \sigma\{Y_k: k \in \N, k \le n\} \), sehingga \( \{\mathscr{G}_n: n \in \N\} \) adalah filtrasi alami yang berkaitan dengan \( \bs{Y} \). Perhatikan bahwa \( \mathscr{G}_n \subseteq \mathscr{F}_{t_n} \), dan \( Y_n = X_{t_n} \) terukur terhadap \( \mathscr{G}_n \) untuk \( n \in \N \). Misalkan \( k, \, n \in \N \) dan \( A \in \mathscr{S} \). Maka
+		\[ \P\left(Y_{k+n} \in A \mid \mathscr{G}_k\right) = \P\left(X_{t_{n+k}} \in A \mid \mathscr{G}_k\right) = \P\left(X_{t_{n+k}} \in A \mid X_{t_k}\right) = \P\left(Y_{n+k} \in A \mid Y_k\right) \]</p>
+	</details>
+</div>
+
+<p>Jika kita mengambil sampel dari proses Markov homogen pada kelipatan waktu positif yang tetap, kita memperoleh proses Markov homogen dalam waktu diskret.</p>
+
+<div class="unit" id="sit2">
+	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov homogen dengan ruang keadaan \( (S, \mathscr{S}) \) dan kernel transisi \( \bs{P} = \{P_t: t \in T\} \). Tetapkan \( r \in T \) dengan \( r \gt 0 \), dan definisikan \( Y_n = X_{n r} \) untuk \( n \in \N \). Maka \( \bs{Y} = \{Y_n: n \in \N\} \) adalah proses Markov homogen dalam waktu diskret, dengan kernel transisi satu langkah \( Q \) yang diberikan oleh 
+	\[ Q(x, A) = P_r(x, A); \quad x \in S, \, A \in \mathscr{S} \]</p>
+</div>
+
+<p>Dalam beberapa kasus, pengambilan sampel dari proses Markov kuat pada barisan waktu henti yang meningkat menghasilkan proses Markov lain dalam waktu diskret. Pokoknya adalah bahwa proses Markov waktu diskret sering ditemukan tertanam secara alami dalam proses Markov waktu kontinu.</p>
+
+<h4 id="enl">Memperluas Ruang Keadaan</h4>
+
+<p>Hasil pertama dalam pembahasan ini adalah bahwa proses Markov takhomogen dapat diubah menjadi proses Markov homogen, tetapi sebagai konsekuensinya ruang keadaan harus diperluas.</p>
+
+<div class="unit" id="enl1">
+	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov takhomogen dengan ruang keadaan \( (S, \mathscr{S}) \). Misalkan pula bahwa \( \tau \) adalah variabel acak yang mengambil nilai dalam \( T \), independen dari \( \bs{X} \). Misalkan \( \tau_t = \tau + t \) dan \( Y_t = \left(X_{\tau_t}, \tau_t\right) \) untuk \( t \in T \). Maka \( \bs{Y} = \{Y_t: t \in T\} \) adalah proses Markov homogen dengan ruang keadaan \( (S \times T, \mathscr{S} \otimes \mathscr{T}) \). Untuk \( t \in T \), kernel transisi \( P_t \) diberikan oleh
+	\[ P_t[(x, r), A \times B] = \P(X_{r+t} \in A \mid X_r = x) \bs{1}(r + t \in B), \quad (x, r) \in S \times T, \, A \times B \in \mathscr{S} \otimes \mathscr{T} \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Berdasarkan definisi dan kaidah substitusi,
+		\begin{align*}
+			\P[Y_{s + t} \in A \times B \mid Y_s = (x, r)] &amp; = \P\left(X_{\tau_{s + t}} \in A, \tau_{s + t} \in B \mid X_{\tau_s} = x, \tau_s = r\right) \\
+			&amp; = \P \left(X_{\tau + s + t} \in A, \tau + s + t \in B \mid X_{\tau + s} = x, \tau + s = r\right) \\
+			&amp; = \P(X_{r + t} \in A, r + t \in B \mid X_r = x, \tau + s = r)
+		\end{align*}
+		Namun, \( \tau \) independen dari \( \bs{X} \), sehingga suku terakhir adalah
+		\[ \P(X_{r + t} \in A, r + t \in B \mid X_r = x) = \P(X_{r+t} \in A \mid X_r = x) \bs{1}(r + t \in B) \]
+		Hal yang penting adalah bahwa ekspresi terakhir tidak bergantung pada \( s \), sehingga \( \bs{Y} \) homogen.</p>
+	</details>
+</div>
+
+<p>Trik memperluas ruang keadaan merupakan cara yang lazim dalam kajian proses stokastik. Kadang-kadang suatu proses dengan bentuk <q>melupakan masa lalu</q> yang lebih lemah dapat dijadikan proses Markov dengan memperluas ruang keadaan secara tepat. Berikut sebuah contoh dalam waktu diskret.</p>
+
+<div class="unit" id="enl2">
+	<p class="math">Misalkan \( \bs{X} = \{X_n: n \in \N\} \) adalah proses acak dengan ruang keadaan \( (S, \mathscr{S}) \), yang masa depannya bergantung secara stokastik pada dua keadaan terakhir. Artinya, untuk \( n \in \N \),
+	\[ \P(X_{n+2} \in A \mid \mathscr{F}_{n+1}) = \P(X_{n+2} \in A \mid X_n, X_{n+1}), \quad A \in \mathscr{S} \]
+	dengan \( \{\mathscr{F}_n: n \in \N\} \) sebagai filtrasi alami yang berkaitan dengan proses \( \bs{X} \). Misalkan pula bahwa proses tersebut homogen terhadap waktu dalam arti bahwa 
+	\[\P(X_{n+2} \in A \mid X_n = x, X_{n+1} = y) = Q(x, y, A) \]
+	secara independen dari \( n \in \N \). Misalkan \( Y_n = (X_n, X_{n+1}) \) untuk \( n \in \N \). Maka \( \bs{Y} = \{Y_n: n \in \N\} \) adalah proses Markov homogen dengan ruang keadaan \( (S \times S, \mathscr{S} \otimes \mathscr{S} \). Kernel transisi satu langkah \( P \) diberikan oleh
+	\[ P[(x, y), A \times B] = I(y, A) Q(x, y, B); \quad x, \, y \in S, \; A, \, B \in \mathscr{S} \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Perhatikan terlebih dahulu bahwa untuk \( n \in \N \), \( \sigma\{Y_k: k \le n\} = \sigma\{(X_k, X_{k+1}): k \le n\} = \mathscr{F}_{n+1} \), sehingga filtrasi alami yang berkaitan dengan proses \( \bs{Y} \) adalah \( \{\mathscr{F}_{n+1}: n \in \N\} \). Jika \( C \in \mathscr{S} \otimes \mathscr{S}) \), maka
+		\begin{align*} 
+			\P(Y_{n+1} \in C \mid \mathscr{F}_{n+1}) &amp; = \P[(X_{n+1}, X_{n+2}) \in C \mid \mathscr{F}_{n+1}]\\
+			&amp; = \P[(X_{n+1}, X_{n+2}) \in C \mid X_n, X_{n+1}] = \P(Y_{n+1} \in C \mid Y_n)
+		\end{align*}
+		berdasarkan asumsi yang diberikan pada \( \bs{X} \). Karena itu, \( \bs{Y} \) merupakan proses Markov. Selanjutnya,
+		\begin{align*}
+			\P[Y_{n+1} \in A \times B \mid Y_n = (x, y)] &amp; = \P[(X_{n+1}, X_{n+2}) \in A \times B \mid (X_n, X_{n+1}) = (x, y)] \\
+			&amp; = \P(X_{n+1} \in A, X_{n+2} \in B \mid X_n = x, X_{n+1} = y) = \P(y \in A, X_{n+2} \in B \mid X_n = x, X_{n + 1} = y) \\
+			&amp; = I(y, A) Q(x, y, B)
+		\end{align*}
+		</p>
+	</details>
+</div>
+
+<p>Hasil terakhir dapat langsung diperumum ke kasus ketika masa depan proses acak dalam waktu diskret bergantung secara stokastik pada \( k \) keadaan terakhir, untuk suatu \( k \in \N \) tetap.</p>
+
+<h3 id="exe">Contoh dan Penerapan</h3>
+
+<h4 id="rec">Relasi Rekurensi dan Persamaan Diferensial</h4>
+
+<p>Seperti dikemukakan dalam pendahuluan, proses Markov dapat dipandang sebagai padanan stokastik dari relasi rekurensi deterministik (waktu diskret) dan persamaan diferensial (waktu kontinu). Tujuan pembahasan ini adalah menelusuri hubungan-hubungan tersebut.</p>
+
+<div class="unit" id="rec1">
+	<p class="math">Misalkan \( \bs{X} = \{X_n: n \in \N\} \) adalah proses stokastik dengan ruang keadaan \( (S, \mathscr{S}) \), dan \(\bs{X}\) memenuhi relasi rekurensi
+	\[ X_{n+1} = g(X_n), \quad n \in \N \]
+	dengan \( g: S \to S \) terukur. Maka \( \bs{X} \) merupakan proses Markov homogen dengan operator transisi satu langkah \( P \) yang diberikan oleh \( P f = f \circ g \) untuk fungsi terukur \( f: S \to \R \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Jelas bahwa \( \bs{X} \) ditentukan secara unik oleh keadaan awal, dan sebenarnya \( X_n = g^n(X_0) \) untuk \( n \in \N \), dengan \( g^n \) sebagai pangkat komposisi \( n \) kali dari \( g \). Jadi, satu-satunya sumber keacakan yang mungkin adalah keadaan awal. Sifat Markov dan sifat homogen terhadap waktu langsung mengikuti fakta sederhana bahwa \( g^{m+n}(X_0) = g^n[g^m(X_0)] \), sehingga \( X_{m+n} = g^n(X_m) \). Artinya, keadaan pada waktu \( m + n \) sepenuhnya ditentukan oleh keadaan pada waktu \( m \) (tanpa memandang keadaan sebelumnya) dan inkremen waktu \( n \). Secara khusus, \( P f(x) = \E[g(X_1) \mid X_0 = x] = f[g(x)] \) untuk \( f: S \to \R \) terukur dan \( x \in S \). Perhatikan bahwa untuk \( n \in \N \), operator transisi \( n \) langkah diberikan oleh \(P^n f =  f \circ g^n \). </p>
+	</details>
+</div>
+
+<p>Dalam dunia deterministik, seperti dalam dunia stokastik, situasinya lebih rumit dalam waktu kontinu. Namun demikian, analogi dasar yang sama tetap berlaku.
+
+<div class="unit" id="rec2">
+	<p class="math">Misalkan \(\bs{X} = \{X_t: t \in [0, \infty)\}\) dengan ruang keadaan \( (\R, \mathscr{R}) \) memenuhi persamaan diferensial orde pertama
+	\[ \frac{d}{dt}X_t = g(X_t) \]
+	dengan \( g: \R \to \R \) <a href="../foundations/Metric.html#hol">kontinu Lipschitz</a>. Maka \(\bs{X}\) adalah proses Markov Feller</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Ingat bahwa <dfn>kontinu Lipschitz</dfn> berarti terdapat konstanta \( k \in (0, \infty) \) sedemikian sehingga \( \left|g(y) - g(x)\right| \le k \left|x - y\right| \) untuk \( x, \, y \in \R \). Ini merupakan syarat baku pada \( g \) yang menjamin keberadaan dan ketunggalan solusi persamaan diferensial pada \( [0, \infty) \). Jadi, seperti sebelumnya, satu-satunya sumber keacakan dalam proses berasal dari nilai awal \( X_0 \). Misalkan \( t \mapsto X_t(x) \) menyatakan solusi tunggal dengan \( X_0(x) = x \) untuk \( x \in \R \). Sifat Markov dan sifat homogen merupakan konsekuensi dari fakta bahwa \( X_{t+s}(x) = X_t(X_s(x)) \) untuk \( s, \, t \in [0, \infty) \) dan \( x \in S \). Artinya, keadaan pada waktu \( t + s \) hanya bergantung pada keadaan pada waktu \( s \) dan inkremen waktu \( t \). Sifat-sifat Feller merupakan konsekuensi dari kontinuitas \( t \mapsto X_t(x) \) dan kontinuitas \( x \mapsto X_t(x) \). Kontinuitas yang terakhir adalah <em>ketergantungan kontinu pada nilai awal</em>, yang sekali lagi dijamin oleh asumsi pada \( g \). Perhatikan bahwa operator transisi diberikan oleh \( P_t f(x) = f[X_t(x)] \) untuk fungsi terukur \( f: S \to \R \) dan \( x \in S \).</p>
+	</details>
+</div>
+
+<p>Dalam bentuk diferensial, proses tersebut dapat dideskripsikan oleh \( d X_t = g(X_t) \, dt \). Proses yang pada dasarnya deterministik ini dapat diperluas menjadi kelas proses Markov yang sangat penting dengan menambahkan suku stokastik yang berkaitan dengan <a href="../brown/index.html">gerak Brown</a>. <dfn>Persamaan diferensial stokastik</dfn> semacam ini merupakan perangkat utama untuk mengonstruksi proses Markov yang dikenal sebagai <dfn>proses difusi</dfn>.</p>
+
+<h4 id="inc">Proses dengan Inkremen Stasioner dan Independen</h4>
+
+<p>Untuk pembahasan berikutnya, kita mempertimbangkan kelas umum proses stokastik yang merupakan proses Markov. Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses acak dengan \( S \subseteq \R\) sebagai himpunan keadaan. Ruang keadaan dapat bersifat diskret (terhitung) atau <q>kontinu</q>. Biasanya, \( S \) adalah \( \N \) atau \( \Z \) dalam kasus diskret, dan \( [0, \infty) \) atau \( \R \) dalam kasus kontinu. Dalam setiap kasus, \( S \) dilengkapi dengan \( \sigma \)-aljabar biasa \( \mathscr{S} \) yang terdiri atas himpunan bagian Borel dari \( S \) (yang merupakan himpunan kuasa dalam kasus diskret). Ruang keadaan \( (S, \mathscr{S}) \) juga memiliki ukuran acuan alami \( \lambda \), yaitu ukuran pencacahan dalam kasus diskret dan ukuran Lebesgue dalam kasus kontinu. Misalkan \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) menyatakan filtrasi alami, sehingga \( \mathscr{F}_t = \sigma\{X_s: s \in T, s \le t\} \) untuk \( t \in T \).</p>
+
+<div class="unit" id="inc1">
+	<p class="math">Proses \( \bs{X} \) memiliki</p>
+	<ol class="sub">
+		<li><dfn>Inkremen independen</dfn> jika \( X_{s+t} - X_s \) independen dari \( \mathscr{F}_s \) untuk semua \( s, \, t \in T \).</li>
+		<li><dfn>Inkremen stasioner</dfn> jika distribusi \( X_{s+t} - X_s \) sama dengan distribusi \( X_t - X_0 \) untuk semua \( s, \, t \in T \).</li>
+	</ol>
+</div>
+
+<p>Selisih berbentuk \( X_{s+t} - X_s \) untuk \( s, \, t \in T \) adalah <dfn>inkremen</dfn> proses, yang menjelaskan penamaan di atas. Kadang-kadang inkremen stasioner didefinisikan dengan mensyaratkan bahwa \( X_{s+t} - X_s \) memiliki distribusi yang sama dengan \( X_t \). Namun, ini memaksa \( X_0 = 0 \) dengan probabilitas 1, dan seperti biasa untuk proses Markov, sebaiknya distribusi awal dibiarkan tidak ditentukan. Jika \( \bs{X} \) memiliki inkremen stasioner dalam pengertian definisi kita, maka proses \( \bs{Y} = \{Y_t = X_t - X_0: t \in T\} \) memiliki inkremen stasioner dalam pengertian yang lebih terbatas. Untuk sisa pembahasan ini, asumsikan bahwa \( \bs X = \{X_t: t \in T\} \) memiliki inkremen stasioner dan independen, dan misalkan \( Q_t \) menyatakan distribusi \( X_t - X_0 \) untuk \( t \in T \).</p>
+
+<div class="unit" id="inc2">
+	<p class="math">\( Q_s * Q_t = Q_{s+t} \) untuk \( s, \, t \in T \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Untuk \( s, \, t \in T \), \( Q_s \) adalah distribusi \( X_s - X_0 \), dan berdasarkan sifat stasioner, \( Q_t \) adalah distribusi \( X_{s + t} - X_s \). Berdasarkan sifat independen, \( X_s - X_0 \) dan \( X_{s+t} - X_s \) saling independen. Karena itu, \( Q_s * Q_t \) merupakan distribusi dari \( \left[X_s - X_0\right] + \left[X_{s+t} - X_s\right] = X_{s+t} - X_0 \). Namun, berdasarkan definisi, variabel ini memiliki distribusi \( Q_{s+t} \)</p>
+	</details>
+</div>
+
+<p>Jadi, koleksi distribusi \( \bs{Q} = \{Q_t: t \in T\} \) membentuk semigrup, dengan konvolusi sebagai operator. Perhatikan bahwa \( Q_0 \) hanyalah massa titik di 0.</p>
+
+<div class="unit" id="inc3">
+	<p class="math">Proses \( \bs{X} \) adalah proses Markov homogen. Untuk \( t \in T \), operator transisi \( P_t \) diberikan oleh
+	\[ P_t f(x) = \int_S f(x + y) Q_t(dy), \quad f \in \mathscr{B} \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan \( s, \, t \in T \) dan \( f \in \mathscr{B} \),
+		\[ \E[f(X_{s+t}) \mid \mathscr{F}_s] = \E[f(X_{s+t} - X_s + X_s) \mid \mathscr{F}_s] = \E[f(X_{s+t}) \mid X_s]  \]
+		karena \( X_{s+t} - X_s \) independen dari \( \mathscr{F}_s \). Selain itu, berdasarkan sifat stasioner, 
+		\[ \E[f(X_{s+t}) \mid X_s = x] = \int_S f(x + y) Q_t(dy), \quad x \in S \]</p>
+	</details>
+</div>
+
+<p>Jelas bahwa sifat semigrup dari \( \bs{P} = \{P_t: t \in T\} \) (dengan perkalian operator biasa) ekuivalen dengan sifat semigrup dari \( \bs{Q} = \{Q_t: t \in T\} \) (dengan konvolusi sebagai perkalian).
+</p>
+
+<div class="unit" id="inc4">
+	<p class="math">Misalkan untuk \( t \in T \) positif, distribusi \( Q_t \) memiliki fungsi kepadatan probabilitas \( g_t \) terhadap ukuran acuan \( \lambda \). Maka <em>kepadatan</em> transisinya adalah
+	\[ p_t(x, y) = g_t(y - x), \quad x, \, y \in S \]</p>
+</div>
+
+<p>Tentu saja, dari <a href="#inc4" class="ref"></a> diperoleh bahwa \( g_s * g_t = g_{s+t} \) untuk \( s, \, t \in T \), dengan \( * \) di sini menyatakan operasi konvolusi pada fungsi kepadatan probabilitas.</p>
+
+<div class="unit" id="inc5">
+	<p class="math">Jika \( Q_t \to Q_0 \) ketika \( t \downarrow 0 \), maka \( \bs{X} \) merupakan proses Markov Feller. </p>
+</div>
+
+<p>Dengan demikian, berdasarkan teori umum yang diuraikan di atas, \( \bs{X} \) merupakan proses Markov kuat, dan terdapat versi dari \( \bs{X} \) yang kontinu kanan serta memiliki limit kiri. Proses semacam itu dikenal sebagai <dfn>proses L&eacute;vy</dfn>, untuk menghormati <a href="JavaScript:openAncillary('../biographies/Levy.html')" class="ancillary">Paul L&eacute;vy</a>.</p>
+
+<p>Untuk proses stokastik bernilai riil \( \bs X = \{X_t: t \in T\} \), misalkan \( m \) dan \( v \) menyatakan fungsi rerata dan varians, sehingga
+\[ m(t) = \E(X_t), \; v(t) = \var(X_t); \quad t \in T \]
+dengan mengasumsikan, tentu saja, bahwa keduanya ada. Fungsi rerata dan varians untuk proses L&eacute;vy sangat sederhana.</p>
+
+<div class="unit">
+	<p class="math">Misalkan kembali bahwa \( \bs X \) memiliki inkremen stasioner dan independen.</p>
+	<ol class="sub">
+		<li>Jika \( \mu_0 = \E(X_0) \in \R \) dan \( \mu_1 = \E(X_1) \in \R \), maka \( m(t) = \mu_0 + (\mu_1 - \mu_0) t \) untuk \( t \in T \).</li>
+		<li>Jika selain itu \( \sigma_0^2 = \var(X_0) \in (0, \infty) \) dan \( \sigma_1^2 = \var(X_1) \in (0, \infty) \), maka \( v(t) = \sigma_0^2 + (\sigma_1^2 - \sigma_0^2) t \) untuk \( t \in T \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Buktinya sederhana dengan menggunakan sifat inkremen independen dan stasioner. Untuk \( t \in T \), misalkan \( m_0(t) = \E(X_t - X_0) = m(t) - \mu_0 \) dan \( v_0(t) = \var(X_t - X_0) = v(t) - \sigma_0^2\), yang masing-masing menyatakan fungsi rerata dan varians untuk proses terpusat \( \{X_t - X_0: t \in T\} \). Sekarang, misalkan \( s, \, t \in T \).</p>
+		<ol class="sub">
+			<li>Berdasarkan sifat aditif nilai harapan dan sifat stasioner,
+			\[ m_0(t + s) = \E(X_{t+s} - X_0) = \E[(X_{t + s} - X_s) + (X_s - X_0)] = \E(X_{t+s} - X_s) + \E(X_s - X_0) = m_0(t) + m_0(s) \]
+			</li>
+			<li>Berdasarkan sifat aditif varians untuk variabel-variabel yang <em>independen</em> dan sifat stasioner,
+			\[ v_0(t + s) = \var(X_{t+s} - X_0) = \var[(X_{t + s} - X_s) + (X_s - X_0)] = \var(X_{t+s} - X_s) + \var(X_s - X_0) = v_0(t) + v_0(s) \]
+			</li>
+		</ol>
+		<p>Jadi, \( m_0 \) dan \( v_0 \) memenuhi <dfn>persamaan Cauchy</dfn>. Dalam waktu diskret, mudah dilihat bahwa terdapat \( a \in \R \) dan \( b^2 \in (0, \infty) \) sedemikian sehingga \( m_0(t) = a t \) dan \( v_0(t) = b^2 t \). Hal yang sama berlaku dalam waktu kontinu, dengan asumsi kontinuitas yang telah kita berlakukan pada proses \( \bs X \). Dengan menyubstitusikan \( t = 1 \), kita memperoleh \( a = \mu_1 - \mu_0 \) dan \( b^2 = \sigma_1^2 - \sigma_0^2 \), sehingga hasil-hasil tersebut mengikuti,</p>
+	</details>
+</div>
+
+<p>Proses dengan inkremen stasioner dan independen dalam waktu diskret mudah dideskripsikan.</p>
+
+<div class="unit" id="inc6">
+	<p class="math">Proses \( \bs{X} = \{X_n: n \in \N\} \) memiliki inkremen independen jika dan hanya jika terdapat barisan variabel acak bernilai riil yang independen \( (U_0, U_1, \ldots) \) sedemikian sehingga
+	\[ X_n = \sum_{i=0}^n U_i \]
+	Selain itu, \( \bs{X} \) memiliki inkremen stasioner jika dan hanya jika \( (U_1, U_2, \ldots) \) berdistribusi identik.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Pertama, misalkan \( \bs{U} = (U_0, U_1, \ldots) \) adalah barisan variabel acak bernilai riil yang independen, dan definisikan \( X_n = \sum_{i=0}^n U_i \) untuk \( n \in \N \). Perhatikan bahwa \(\mathscr{F}_n = \sigma\{X_0, \ldots, X_n\} = \sigma\{U_0, \ldots, U_n\} \) untuk \( n \in \N \). Jika \( k, \, n \in \N \) dengan \( k \le n \), maka \( X_n - X_k = \sum_{i=k+1}^n U_i \), yang independen dari \( \mathscr{F}_k \) berdasarkan asumsi independensi pada \( \bs{U} \). Karena itu, \( \bs{X} \) memiliki inkremen independen. Misalkan selain itu \( (U_1, U_2, \ldots) \) berdistribusi identik. Maka inkremen \( X_n - X_k \) di atas memiliki distribusi yang sama dengan \( \sum_{i=1}^{n-k} U_i = X_{n-k} - X_0 \). Karena itu, \( \bs{X} \) memiliki inkremen stasioner.</p>
+		<p>Sebaliknya, misalkan \( \bs{X} = \{X_n: n \in \N\} \) memiliki inkremen independen. Misalkan \( U_0 = X_0 \) dan \( U_n = X_n - X_{n-1} \) untuk \( n \in \N_+ \). Maka \( X_n = \sum_{i=0}^n U_i \) untuk \( n \in \N \). Seperti sebelumnya, \(\mathscr{F}_n = \sigma\{X_0, \ldots, X_n\} = \sigma\{U_0, \ldots, U_n\} \) untuk \( n \in \N \). Karena \( \bs{X} \) memiliki inkremen independen, \( U_n \) independen dari \( \mathscr{F}_{n-1} \) untuk \( n \in \N_+ \), sehingga \( (U_0, U_1, \ldots) \) saling independen. Jika selain itu \( \bs{X} \) memiliki inkremen stasioner, \( U_n = X_n - X_{n-1} \) memiliki distribusi yang sama dengan \( X_1 - X_0 = U_1 \) untuk \( n \in \N_+ \). Karena itu, \((U_1, U_2, \ldots)\) berdistribusi identik.</p>
+	</details>
+</div>
+
+<p>Jadi, misalkan \( \bs{U} = (U_0, U_1, \ldots) \) adalah barisan variabel acak bernilai riil yang independen, dengan \( (U_1, U_2, \ldots) \) berdistribusi identik menurut distribusi \( Q \). Berdasarkan <a href="#inc3" class="ref"></a>, proses jumlah parsial \( \bs{X} = \{X_n: n \in \N\} \) yang berkaitan dengan \( \bs{U} \) merupakan proses Markov homogen dengan kernel transisi satu langkah \( P \) yang diberikan oleh
+\[ P(x, A) = Q(A - x), \quad x \in S, \, A \in \mathscr{S} \]
+Secara lebih umum, untuk \( n \in \N \), kernel transisi \( n \) langkah adalah \( P^n(x, A) = Q^{*n}(A - x) \) untuk \( x \in S \) dan \( A \in \mathscr{S} \). Proses Markov ini dikenal sebagai <dfn>gerak acak</dfn> (meskipun sayangnya istilah <em>gerak acak</em> juga digunakan dalam sejumlah konteks lain). Gagasannya adalah bahwa pada waktu \( n \), pejalan bergerak sejauh \( U_n \) (dengan arah) pada garis riil, dan langkah-langkah ini independen serta berdistribusi identik. Jika \( Q \) memiliki fungsi kepadatan probabilitas \( g \) terhadap ukuran acuan \( \lambda \), maka kepadatan transisi satu langkahnya adalah
+\[ p(x, y) = g(y - x), \quad x, \, y \in S \]
+</p>
+
+<div class="unit" id="inc7">
+	<p class="math">Pertimbangkan gerak acak pada \( \R \) dengan langkah-langkah yang memiliki <a href="../special/Normal.html">distribusi normal baku</a>. Nyatakan masing-masing berikut ini secara eksplisit:</p>
+	<ol class="sub">
+		<li>Kepadatan transisi satu langkah.</li>
+		<li>Kepadatan transisi \( n \) langkah untuk \( n \in \N_+ \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Untuk \( x \in \R \), \( p(x, \cdot) \) adalah fungsi kepadatan probabilitas normal dengan rerata \( x \) dan varians 1:
+			\[ p(x, y) = \frac{1}{\sqrt{2 \pi}} \exp\left[-\frac{1}{2} (y - x)^2 \right]; \quad x, \, y \in \R\]
+			</li>
+			<li>Untuk \( x \in \R \), \( p^n(x, \cdot) \) adalah fungsi kepadatan probabilitas normal dengan rerata \( x \) dan varians \( n \):
+			\[ p^n(x, y) = \frac{1}{\sqrt{2 \pi n}} \exp\left[-\frac{1}{2 n} (y - x)^2\right], \quad x, \, y \in \R \]
+			</li>
+		</ol>
+	</details>
+</div>
+
+<p>Dalam waktu kontinu, terdapat dua proses yang sangat penting, satu dengan ruang keadaan diskret \( \N \), dan satu lagi dengan ruang keadaan kontinu \( \R \).</p>
+
+<div class="unit" id="inc8">
+	<p class="math">Untuk \( t \in [0, \infty) \), misalkan \( g_t \) menyatakan fungsi kepadatan probabilitas dari <a href="../poisson/Poisson.html">distribusi Poisson</a> dengan parameter \( t \), dan misalkan \( p_t(x, y) = g_t(y - x) \) untuk \( x, \, y \in \N \). Maka \( \{p_t: t \in [0, \infty)\} \) adalah koleksi kepadatan transisi untuk semigrup Feller pada \( \N \)</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Ingat bahwa 
+		\[ g_t(n) = e^{-t} \frac{t^n}{n!}, \quad n \in \N \]
+		Kita hanya perlu menunjukkan bahwa \( \{g_t: t \in [0, \infty)\} \) memenuhi sifat semigrup dan bahwa hasil kontinuitas berlaku. Namun, kita sudah mengetahui bahwa jika \( U, \, V \) adalah variabel independen yang masing-masing berdistribusi Poisson dengan parameter \( s, \, t \in [0, \infty) \), maka \( U + V \) berdistribusi Poisson dengan parameter \( s + t \). Artinya, \( g_s * g_t = g_{s+t} \). Selain itu, \( g_t \to g_0 \) ketika \( t \downarrow 0 \).</p>
+	</details>
+</div>
+
+<p>Jadi, proses L&eacute;vy \( \bs{N} = \{N_t: t \in [0, \infty)\} \) dengan kepadatan transisi tersebut merupakan proses Markov dengan inkremen stasioner dan independen serta memiliki lintasan sampel yang kontinu kanan dan memiliki limit kiri. Kita memang mengenal proses semacam itu, yaitu <a href="../poisson/index.html">proses Poisson</a> dengan laju 1.</p>
+
+<div class="unit" id="inc9">
+	<p class="app">Buka <a href="JavaScript:openAncillary('../apps/Poisson.html')" class="ancillary">eksperimen Poisson</a>, lalu atur parameter laju ke 1 dan parameter waktu ke 10. Jalankan eksperimen beberapa kali dalam mode satu langkah dan amati perilaku proses.</p>
+</div>
+
+<div class="unit" id="inc10">
+	<p class="math">Untuk \( t \in (0, \infty) \), misalkan \( g_t \) menyatakan fungsi kepadatan probabilitas dari <a href="../special/Normal.html">distribusi normal</a> dengan rerata 0 dan varians \( t \), dan misalkan \( p_t(x, y) = g_t(y - x) \) untuk \( x, \, y \in \R \). Maka \(\{p_t: t \in [0, \infty)\} \) adalah koleksi kepadatan transisi dari semigrup Feller pada \( \R \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Ingat bahwa untuk \( t \in (0, \infty) \),
+		\[ g_t(z) = \frac{1}{\sqrt{2 \pi t}} \exp\left(-\frac{z^2}{2 t}\right), \quad z \in \R \]
+		Kita hanya perlu menunjukkan bahwa \( \{g_t: t \in [0, \infty)\} \) memenuhi sifat semigrup dan bahwa hasil kontinuitas berlaku. Namun, kita sudah mengetahui bahwa jika \( U, \, V \) adalah variabel independen yang masing-masing berdistribusi normal dengan rerata 0 dan varians \( s, \, t \in (0, \infty) \), maka \( U + V \) berdistribusi normal dengan rerata 0 dan varians \( s + t \). Artinya, \( g_s * g_t = g_{s+t} \). Selain itu, kita juga mengetahui bahwa distribusi normal dengan varians \( t \) konvergen ke massa titik di 0 ketika \( t \downarrow 0 \).</p>
+	</details>
+</div>
+
+<p>Jadi, proses L&eacute;vy \( \bs{X} = \{X_t: t \in [0, \infty)\} \) pada \( \R \) dengan kepadatan transisi tersebut merupakan proses Markov dengan inkremen stasioner dan independen, serta lintasan sampelnya kontinu dari kanan dan memiliki limit kiri. Bahkan, terdapat proses semacam itu dengan lintasan sampel <em>kontinu</em>. Proses ini adalah <a href="../brown/index.html">gerak Brown</a>, sebuah proses yang cukup penting untuk memiliki bab tersendiri.</p>
+
+<div class="unit" id="inc11">
+	<p class="app">Jalankan simulasi <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">gerak Brown baku</a> dan amati perilaku proses.</p>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">15. Proses Markov</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Potentials.html" title="Potensial dan Generator">2</a></li>
+		<li class="child"><a href="Discrete.html" title="Rantai Waktu Diskret">3</a></li>
+		<li class="child"><a href="Recurrence.html" title="Transiens dan Rekurensi">4</a></li>
+		<li class="child"><a href="Periodicity.html" title="Periodisitas">5</a></li>
+		<li class="child"><a href="Limiting.html" title="Distribusi Stasioner dan Limit">6</a></li>
+		<li class="child"><a href="TimeReversal.html" title="Pembalikan Waktu pada Rantai Waktu Diskret">7</a></li>
+		<li class="child"><a href="Ehrenfest.html" title="Rantai Ehrenfest">8</a></li>
+		<li class="child"><a href="BernoulliLaplace.html" title="Rantai Bernoulli–Laplace">9</a></li>
+		<li class="child"><a href="Reliability.html" title="Rantai Reliabilitas">10</a></li>
+		<li class="child"><a href="Branching.html" title="Rantai Percabangan Waktu Diskret">11</a></li>
+		<li class="child"><a href="Queuing.html" title="Rantai Antrean Waktu Diskret">12</a></li>
+		<li class="child"><a href="BirthDeath.html" title="Rantai Kelahiran–Kematian Waktu Diskret">13</a></li>
+		<li class="child"><a href="WalkGraph.html" title="Gerak Acak pada Graf">14</a></li>
+		<li class="child"><a href="Continuous.html" title="Rantai Waktu Kontinu">15</a></li>
+		<li class="child"><a href="Transition.html" title="Matriks Transisi dan Generator">16</a></li>
+		<li class="child"><a href="Potentials2.html" title="Matriks Potensial">17</a></li>
+		<li class="child"><a href="Limiting2.html" title="Distribusi Stasioner dan Limit">18</a></li>
+		<li class="child"><a href="TimeReversal2.html" title="Pembalikan Waktu pada Rantai Waktu Kontinu">19</a></li>
+		<li class="child"><a href="Poisson.html" title="Rantai yang Disubordinasikan pada Proses Poisson">20</a></li>
+		<li class="child"><a href="BirthDeath2.html" title="Rantai Kelahiran–Kematian Waktu Kontinu">21</a></li>
+		<li class="child"><a href="Queuing2.html" title="Rantai Antrean Waktu Kontinu">22</a></li>
+		<li class="child"><a href="Branching2.html" title="Rantai Percabangan Waktu Kontinu">23</a></li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Kumpulan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

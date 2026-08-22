@@ -107,7 +107,11 @@ pre {
 }
 
 table {
+  box-sizing: border-box;
+  display: block;
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
   border-collapse: collapse;
   margin-block: 1rem;
   font-variant-numeric: tabular-nums;
@@ -160,8 +164,4 @@ svg {
     overflow-y: hidden;
   }
 
-  table {
-    display: block;
-    overflow-x: auto;
-  }
 }

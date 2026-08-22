@@ -1,8 +1,63 @@
 {
-  "built_at_utc": "2026-08-22T04:09:01.549071+00:00",
-  "file_count": 41,
+  "built_at_utc": "2026-08-22T05:32:39.636697+00:00",
+  "file_count": 43,
   "lab_source_sha256": "c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085",
-  "manifest_sha256": "ad9e50cf0c063f9dac3aa68d9d0111820d2665ee0bb9d7b2c005ab9b6ce89108",
+  "lab_sources": [
+    {
+      "chunk_id": "o009_lab_convergence_mc",
+      "output": "labs/01-konvergensi-monte-carlo.html",
+      "r_result_rows": [
+        {
+          "absolute_error": "0.072023194662",
+          "estimate": "0.177976805338",
+          "exact_value": "0.250000000000",
+          "n": "10",
+          "seed": "12341",
+          "signed_error": "0.072023194662"
+        },
+        {
+          "absolute_error": "0.006464342623",
+          "estimate": "0.256464342623",
+          "exact_value": "0.250000000000",
+          "n": "1000",
+          "seed": "12342",
+          "signed_error": "-0.006464342623"
+        },
+        {
+          "absolute_error": "0.000381011435",
+          "estimate": "0.250381011435",
+          "exact_value": "0.250000000000",
+          "n": "1000000",
+          "seed": "12342",
+          "signed_error": "-0.000381011435"
+        }
+      ],
+      "source": "source/labs/01-konvergensi-monte-carlo.Rmd",
+      "source_sha256": "c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085"
+    },
+    {
+      "chunk_id": "o009_lab_markov_gambler_ruin",
+      "output": "labs/02-simulasi-rantai-markov.html",
+      "r_result_rows": [
+        {
+          "batas_atas": "3",
+          "berhasil": "592",
+          "celah_ekor_eksak": "1.248349703776e-33",
+          "eksak_sampai_horizon": "0.571428571429",
+          "galat_mutlak": "0.020571428571",
+          "horizon": "100",
+          "keadaan_awal": "1",
+          "peluang_akhir": "0.571428571429",
+          "seed": "20260822",
+          "simulasi": "1000",
+          "taksiran": "0.592000000000"
+        }
+      ],
+      "source": "source/labs/02-simulasi-rantai-markov.Rmd",
+      "source_sha256": "28e9b1c731082f9e590d74cf0b44922f5d45759851a7739bf1af1ad50bf09727"
+    }
+  ],
+  "manifest_sha256": "c82e526a39a952f439ed11034ce8bbdcccb5deb853fef931a4336453780bf527",
   "r_result_rows": [
     {
       "absolute_error": "0.072023194662",
@@ -32,6 +87,19 @@
   "r_rng": "Mersenne-Twister / Inversion / Rejection",
   "r_version": "R version 4.6.1 (2026-06-24 ucrt)",
   "random_authority_manifest_sha256": "2ee154a38b57201457538db8c0e7df592a052eade8dcfda217605810f04f21e4",
+  "runtime": {
+    "pandoc": {
+      "command": "pandoc",
+      "sha256": "24f1593d7ba9f511bc428be3d7177d2a8ddc4bf60457c9f24a888a4790748c5d",
+      "version": "pandoc 3.9.0.2"
+    },
+    "r": {
+      "command": "tools/R-4.6.1/bin/Rscript.exe",
+      "rng": "Mersenne-Twister / Inversion / Rejection",
+      "sha256": "d829bcf7e9fa1d7e3e828c565c3cdbb1ed416f551f4fa6fd4dfcdf231e33e5e8",
+      "version": "R version 4.6.1 (2026-06-24 ucrt)"
+    }
+  },
   "schema": "o009.reader-build.v2",
   "theory_units": [
     {
@@ -103,7 +171,12 @@
       "authority_sha256": "adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba",
       "path": "martingales/Backwards.html",
       "target_sha256": "cfc8490994e139e7c4c869fd1c431b1c0f3872af9247279bf0885472dfaa50c2"
+    },
+    {
+      "authority_sha256": "69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c",
+      "path": "markov/General.html",
+      "target_sha256": "fb3026464841179c1480001ecda1e2ab28448a26ba6840f2f9571d6645831194"
     }
   ],
-  "total_bytes": 2551660
+  "total_bytes": 2661986
 }

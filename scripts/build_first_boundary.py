@@ -6,7 +6,9 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+import html
 import json
+import math
 import os
 import re
 import shutil
@@ -16,6 +18,7 @@ import tempfile
 import urllib.parse
 from copy import deepcopy
 from datetime import datetime, timezone
+from functools import lru_cache
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -23,12 +26,150 @@ from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
 AUTH_RANDOM = ROOT / "authority" / "random"
-LAB_SOURCE = ROOT / "source" / "labs" / "01-konvergensi-monte-carlo.Rmd"
+LAB_SPECS = (
+    {
+        "source": ROOT / "source" / "labs" / "01-konvergensi-monte-carlo.Rmd",
+        "output": Path("labs/01-konvergensi-monte-carlo.html"),
+        "chunk_id": "o009_lab_convergence_mc",
+        "placeholder": "<!-- O009_EXECUTION_TABLE -->",
+        "expected_fields": (
+            "n",
+            "seed",
+            "estimate",
+            "exact_value",
+            "signed_error",
+            "absolute_error",
+        ),
+        "table_headers": (
+            "n",
+            "benih",
+            "taksiran",
+            "nilai eksak",
+            "galat bertanda",
+            "galat mutlak",
+        ),
+        "table_id": "o009-results-convergence-mc",
+        "required_code": "set.seed(12341)",
+        "nav_label": "Laboratorium Monte Carlo",
+        "front_matter": {
+            "title": "Konvergensi Monte Carlo",
+            "lang": "id-ID",
+            "course_id": "o009",
+            "unit_id": "o009-unit-convergence",
+            "lab_id": "o009-lab-convergence-mc",
+            "matched_theory_id": "o009-theory-random-prob-convergence",
+            "target_locale": "id-ID",
+            "source_alias": "zitkovic-stochastic-book:source/02-simulation.Rmd#L758-L832",
+            "source_commit": "e2b35ad91a3689454ae6455e8ffc510a90760c0d",
+            "source_slice_sha256": "e95fec79fc93f1239951864901c570b8aaa44e77c6a02be64d48bda4aa5c265f",
+            "donor_license": "CC0-1.0",
+            "adaptation_license": "CC-BY-4.0",
+        },
+        "golden_rows": (
+            {
+                "n": "10",
+                "seed": "12341",
+                "estimate": "0.177976805338",
+                "exact_value": "0.250000000000",
+                "signed_error": "0.072023194662",
+                "absolute_error": "0.072023194662",
+            },
+            {
+                "n": "1000",
+                "seed": "12342",
+                "estimate": "0.256464342623",
+                "exact_value": "0.250000000000",
+                "signed_error": "-0.006464342623",
+                "absolute_error": "0.006464342623",
+            },
+            {
+                "n": "1000000",
+                "seed": "12342",
+                "estimate": "0.250381011435",
+                "exact_value": "0.250000000000",
+                "signed_error": "-0.000381011435",
+                "absolute_error": "0.000381011435",
+            },
+        ),
+    },
+    {
+        "source": ROOT / "source" / "labs" / "02-simulasi-rantai-markov.Rmd",
+        "output": Path("labs/02-simulasi-rantai-markov.html"),
+        "chunk_id": "o009_lab_markov_gambler_ruin",
+        "placeholder": "<!-- O009_MARKOV_EXECUTION_TABLE -->",
+        "expected_fields": (
+            "seed",
+            "simulasi",
+            "horizon",
+            "keadaan_awal",
+            "batas_atas",
+            "berhasil",
+            "taksiran",
+            "eksak_sampai_horizon",
+            "peluang_akhir",
+            "celah_ekor_eksak",
+            "galat_mutlak",
+        ),
+        "table_headers": (
+            "benih",
+            "simulasi",
+            "horizon",
+            "awal",
+            "batas atas",
+            "berhasil",
+            "taksiran",
+            "eksak hingga horizon",
+            "peluang akhir",
+            "celah ekor eksak",
+            "galat mutlak",
+        ),
+        "table_id": "o009-results-markov-gambler-ruin",
+        "required_code": "set.seed(seed)",
+        "nav_label": "Laboratorium rantai Markov",
+        "front_matter": {
+            "title": "Simulasi Rantai Markov: Kebangkrutan Penjudi",
+            "lang": "id-ID",
+            "course_id": "o009",
+            "unit_id": "o009-unit-markov-general",
+            "lab_id": "o009-lab-markov-gambler-ruin",
+            "matched_theory_id": "o009-theory-random-markov-general",
+            "target_locale": "id-ID",
+            "source_alias": "zitkovic-stochastic-book:source/05-Markov-chains.Rmd#L601-L666",
+            "source_commit": "e2b35ad91a3689454ae6455e8ffc510a90760c0d",
+            "source_slice_sha256": "dcabe361eaaacaa537966f2bf8809dd8eac52e28392edc78d8e289c8c9be2bd8",
+            "donor_license": "CC0-1.0",
+            "adaptation_license": "CC-BY-4.0",
+        },
+        "golden_rows": (
+            {
+                "seed": "20260822",
+                "simulasi": "1000",
+                "horizon": "100",
+                "keadaan_awal": "1",
+                "batas_atas": "3",
+                "berhasil": "592",
+                "taksiran": "0.592000000000",
+                "eksak_sampai_horizon": "0.571428571429",
+                "peluang_akhir": "0.571428571429",
+                "celah_ekor_eksak": "1.248349703776e-33",
+                "galat_mutlak": "0.020571428571",
+            },
+        ),
+    },
+)
+LAB_SOURCE = LAB_SPECS[0]["source"]
 SOURCE_INDEX = ROOT / "source" / "index.md"
 SOURCE_CSS = ROOT / "source" / "reader.css"
 SITE = ROOT / "build" / "site"
 R_SCRIPT = ROOT / "tools" / "R-4.6.1" / "bin" / "Rscript.exe"
 PANDOC = "pandoc"
+
+BUILD_RECEIPT_SCHEMA = "o009.reader-build.v2"
+R_SCRIPT_SHA256 = "d829bcf7e9fa1d7e3e828c565c3cdbb1ed416f551f4fa6fd4dfcdf231e33e5e8"
+R_VERSION = "R version 4.6.1 (2026-06-24 ucrt)"
+R_RNG = "Mersenne-Twister / Inversion / Rejection"
+PANDOC_VERSION = "pandoc 3.9.0.2"
+PANDOC_SHA256 = "24f1593d7ba9f511bc428be3d7177d2a8ddc4bf60457c9f24a888a4790748c5d"
 
 RANDOM_MANIFEST_SHA256 = "2ee154a38b57201457538db8c0e7df592a052eade8dcfda217605810f04f21e4"
 MATHJAX_SHA256 = "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
@@ -1301,6 +1442,442 @@ Dengan demikian, \(\E(Y_\infty;A)=\E(Y_0;A)\) untuk setiap \(A\in\mathscr G_\inf
     },
 )
 
+MARKOV_GENERAL_READER_CORRECTIONS = (
+    {
+        "id": "state-space-dimension-index",
+        "old": r"\( S = \R^k \) untuk suatu \( k \in S \)",
+        "new": r"\(S=\R^k\) untuk suatu \(k\in\N_+\)",
+        "description": "Use a positive integer, rather than a state-space element, for the Euclidean dimension.",
+    },
+    {
+        "id": "filtration-completeness-event-sigma-algebra",
+        "old": r"jika \( A \in \mathscr{S} \) dengan \( \P(A) = 0 \)",
+        "new": r"jika \(A\in\mathscr F\) dengan \(\P(A)=0\)",
+        "description": "Place null events in the event sigma-algebra rather than the state sigma-algebra.",
+    },
+    {
+        "id": "full-information-filtration-name",
+        "old": r"filtrasi tersebut adalah filtrasi trivial dengan \( \mathscr{F}_t = \mathscr{F} \) untuk semua \( t \in T \)",
+        "new": r"filtrasi tersebut adalah filtrasi informasi penuh yang konstan dengan \(\mathscr F_t=\mathscr F\) untuk semua \(t\in T\)",
+        "description": "Distinguish the full-information filtration from the usual trivial filtration {empty set, Omega}.",
+    },
+    {
+        "id": "full-information-filtration-tail-name",
+        "old": "Namun, tentu saja filtrasi trivial ini biasanya tidak masuk akal.",
+        "new": "Namun, tentu saja filtrasi informasi penuh yang konstan ini biasanya tidak masuk akal.",
+        "description": "Use the corrected full-information name consistently through the end of the paragraph.",
+    },
+    {
+        "id": "homogeneity-consistent-transition-kernels",
+        "old": r'''<div class="unit" id="dfn3">
+<p class="dfn">Proses Markov \( \bs{X} \) <dfn>homogen terhadap waktu</dfn> jika 
+	\[ \P(X_{s+t} \in A \mid X_s = x) = \P(X_t \in A \mid X_0 = x) \]
+	untuk setiap \( s, \, t \in T \), \( x \in S \), dan \( A \in \mathscr{S} \).</p>
+</div>''',
+        "new": r'''<div class="unit" id="dfn3">
+<p class="dfn">Proses Markov \(\bs X\) <dfn>homogen terhadap waktu</dfn> jika terdapat keluarga kernel probabilitas \(\{P_t:t\in T\}\) pada \((S,\mathscr S)\) sedemikian sehingga
+\[
+\P(X_{s+t}\in A\mid\mathscr F_s)=P_t(X_s,A)\quad\text{hampir pasti}
+\]
+untuk setiap \(s,t\in T\) dan \(A\in\mathscr S\). Rumus untuk setiap keadaan \(x\) menggunakan keluarga Markov \((\P_x)_{x\in S}\), atau versi kernel transisi yang dipilih secara konsisten.</p>
+</div>''',
+        "description": "Define homogeneity through consistent all-state kernels instead of pointwise conditioning on possibly null events.",
+    },
+    {
+        "id": "feller-semigroup-definition",
+        "old": r'''<div class="unit" id="fel1">
+<p class="dfn">Proses Markov \( \bs{X} = \{X_t: t \in T\} \) adalah <dfn>proses Feller</dfn> jika syarat-syarat berikut terpenuhi.</p>
+<ol class="sub">
+<li><dfn>Kontinuitas dalam ruang</dfn>: Untuk \( t \in T \) dan \( y \in S \), distribusi \( X_t \) dengan syarat \( X_0 = x \) <a href="../dist/Convergence.html">konvergen</a> ke distribusi \( X_t \) dengan syarat \( X_0 = y \) ketika \( x \to y \).</li>
+<li><dfn>Kontinuitas dalam waktu</dfn>: Dengan \(X_0 = x \) untuk \( x \in S \), \( X_t \) <a href="../prob/Convergence.html">konvergen dalam probabilitas</a> ke \( x \) ketika \( t \downarrow 0 \).</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<ol class="sub">
+<li>Ini berarti bahwa \( \E[f(X_t) \mid X_0 = x] \to \E[f(X_t) \mid X_0 = y] \) ketika \( x \to y \) untuk setiap \( f \in \mathscr{C} \).</li>
+<li>Ini berarti bahwa \( \P[X_t \in U \mid X_0 = x] \to 1 \) ketika \( t \downarrow 0 \) untuk setiap lingkungan \( U \) dari \( x \).</li>
+</ol>
+</details>
+</div>''',
+        "new": r'''<div class="unit" id="fel1">
+<p class="dfn">Proses Markov homogen \(\bs X=\{X_t:t\in T\}\) dengan semigrup transisi \(\{P_t:t\in T\}\) adalah <dfn>proses Feller</dfn> jika:</p>
+<ol class="sub">
+<li><dfn>Kontinuitas dalam ruang</dfn>: \(P_t f\in\mathscr C_0\) untuk setiap \(t\in T\) dan \(f\in\mathscr C_0\).</li>
+<li><dfn>Kontinuitas pada waktu nol</dfn>: jika \(T=[0,\infty)\), maka \(P_t f(x)\to f(x)\) ketika \(t\downarrow0\), untuk setiap \(f\in\mathscr C_0\) dan \(x\in S\). Syarat waktu ini otomatis dalam waktu diskret.</li>
+</ol>
+<details>
+<summary>Rincian:</summary>
+<p>Syarat pertama memuat ketentuan lenyap di tak hingga, bukan hanya kekontinuan lemah terhadap keadaan awal. Bersama syarat kedua, kondisi ini memberikan semigrup Feller yang kuat kontinu pada \(\mathscr C_0\).</p>
+</details>
+</div>''',
+        "description": "Use the standard C0-preserving Feller definition that is needed by the later semigroup results.",
+    },
+    {
+        "id": "feller-discrete-state-qualification",
+        "old": r"Perhatikan bahwa jika \( S \) diskret, (a) terpenuhi secara otomatis, dan jika \( T \) diskret, (b) terpenuhi secara otomatis. Secara khusus, setiap rantai Markov waktu diskret merupakan proses Markov Feller.",
+        "new": r"Syarat waktu otomatis jika \(T\) diskret. Syarat ruang otomatis pada ruang keadaan diskret berhingga, tetapi tetap harus diperiksa pada ruang diskret tak berhingga; karena itu, tidak setiap rantai waktu diskret pada ruang tak berhingga bersifat Feller.",
+        "description": "Do not claim that every infinite-state discrete-time chain preserves C0.",
+    },
+    {
+        "id": "feller-cadlag-version-scope",
+        "old": r'''<div class="unit" id="fel2">
+<p class="math">Jika \( \bs{X} = \{X_t: t \in T\} \) merupakan proses Feller, maka terdapat <a href="../prob/Processes.html">versi</a> dari \( \bs{X} \) sedemikian sehingga \( t \mapsto X_t(\omega) \) kontinu dari kanan dan memiliki limit kiri untuk setiap \( \omega \in \Omega \).</p>
+</div>''',
+        "new": r'''<div class="unit" id="fel2">
+<p class="math">Dalam waktu kontinu, realisasi Markov dari semigrup Feller pada ruang keadaan LCCB memiliki <a href="../prob/Processes.html">versi</a> càdlàg: \(t\mapsto X_t(\omega)\) kontinu dari kanan dan memiliki limit kiri. Pernyataan ini dipakai bersama keluarga Markov dan penyempurnaan filtrasi yang lazim.</p>
+</div>''',
+        "description": "State the path-regularity conclusion with its continuous-time Markov-family scope.",
+    },
+    {
+        "id": "strong-markov-feller-version",
+        "old": r'''<div class="unit">
+<p class="math">Jika \( \bs{X} = \{X_t: t \in [0, \infty) \) adalah proses Markov Feller, maka \( \bs{X} \) merupakan proses Markov kuat relatif terhadap filtrasi \( \mathfrak{F}^0_+ \), yaitu penyempurnaan kontinu kanan dari filtrasi alami.</p>
+</div>''',
+        "new": r'''<div class="unit">
+<p class="math">Misalkan \(\bs X=\{X_t:t\in[0,\infty)\}\) adalah versi càdlàg dari proses Feller dengan keluarga Markovnya. Terhadap penyempurnaan lengkap dan kontinu kanan yang lazim dari filtrasi alami, \(\bs X\) memiliki sifat Markov kuat.</p>
+</div>''',
+        "description": "Close the malformed set and state the path and filtration hypotheses for the strong Markov conclusion.",
+    },
+    {
+        "id": "transition-kernel-version-scope",
+        "old": r'''<div class="unit" id="trn1">
+<p class="math">Untuk \( t \in T \), misalkan
+	\[ P_t(x, A) = \P(X_t \in A \mid X_0 = x), \quad x \in S, \, A \in \mathscr{S} \]
+	Maka \( P_t \) adalah kernel probabilitas pada \( (S, \mathscr{S}) \), yang dikenal sebagai <dfn>kernel transisi</dfn> dari \( \bs{X} \) untuk waktu \( t \).</p>
+<details>
+<summary>Rincian:</summary>
+<p>Tetapkan \( t \in T \). Keterukuran \( x \mapsto \P(X_t \in A \mid X_0 = x) \) untuk \( A \in \mathscr{S} \) sudah tercakup dalam definisi probabilitas bersyarat. Selain itu, tentu saja, \( A \mapsto \P(X_t \in A \mid X_0 = x) \) merupakan ukuran probabilitas pada \( \mathscr{S} \) untuk \( x \in S \). Secara umum, distribusi bersyarat satu variabel acak, dengan syarat nilai variabel acak lain, mendefinisikan kernel probabilitas.</p>
+</details>
+</div>''',
+        "new": r'''<div class="unit" id="trn1">
+<p class="math">Untuk \(t\in T\), kernel \(P_t\) dalam definisi homogenitas disebut <dfn>kernel transisi</dfn>. Dalam keluarga Markov,
+\[
+P_t(x,A)=\P_x(X_t\in A),\qquad x\in S,\ A\in\mathscr S.
+\]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Pada ruang Borel standar, hukum bersyarat reguler dari \(X_t\) jika \(X_0\) diketahui dapat dipilih sebagai kernel terukur. Di bawah satu distribusi awal \(\mu_0\), versi itu hanya ditentukan untuk \(\mu_0\)-hampir setiap \(x\). Rumus untuk semua \(x\), beserta identitas semigrup untuk semua \(x\), memerlukan keluarga Markov \((\P_x)_{x\in S}\) atau versi yang dipilih secara konsisten.</p>
+</details>
+</div>''',
+        "description": "Separate almost-everywhere regular conditional laws from an all-state Markov transition function.",
+    },
+    {
+        "id": "chapman-kolmogorov-kernel-proof",
+        "old": r'''<div class="unit" id="trn2">
+<p class="math">Misalkan kembali bahwa \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov pada \( S \) dengan kernel transisi \( \bs{P} = \{P_t: t \in T\} \). Jika \( s, \, s \in T \), maka \( P_s P_t = P_{s + t} \). Artinya,
+	\[ P_{s+t}(x, A) = \int_S P_s(x, dy) P_t(y, A), \quad x \in S, \, A \in \mathscr{S} \]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Sifat Markov dan argumen pengondisian merupakan perangkat mendasar. Ingat kembali bahwa \( P_s(x, \cdot) \) adalah distribusi bersyarat dari \( X_s \) dengan syarat \( X_0 = x \), untuk \( x \in S \). Misalkan \( A \in \mathscr{S} \). Pengondisian pada \( X_s \) memberikan
+		\[ P_{s+t}(x, A) = \P(X_{s+t} \in A \mid X_0 = x) = \int_S P_s(x, dy) \P(X_{s+t} \in A \mid X_s = y, X_0 = x) \]
+		Namun, berdasarkan sifat Markov dan sifat homogen terhadap waktu, 
+		\[ \P(X_{s+t} \in A \mid X_s = y, X_0 = x) = \P(X_t \in A \mid X_0 = y) = P_t(y, A) \] Dengan menyubstitusikannya, kita memperoleh
+		\[ P_{s+t}(x, A) = \int_S P_s(x, dy) P_t(y, A) = (P_s P_t)(x, A) \]</p>
+</details>
+</div>''',
+        "new": r'''<div class="unit" id="trn2">
+<p class="math">Misalkan \(\bs X=\{X_t:t\in T\}\) adalah proses Markov homogen pada \(S\) dengan fungsi transisi \(\bs P=\{P_t:t\in T\}\). Jika \(s,t\in T\), maka \(P_sP_t=P_{s+t}\). Artinya,
+\[
+P_{s+t}(x,A)=\int_S P_s(x,dy)P_t(y,A),\qquad x\in S,\ A\in\mathscr S.
+\]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Di bawah hukum \(\P_x\), sifat Markov dan sifat menara memberikan
+\[
+P_{s+t}(x,A)=\E_x\!\left[P_t(X_s,A)\right]
+=\int_S P_s(x,dy)P_t(y,A).
+\]
+Penggunaan keluarga \((\P_x)_{x\in S}\) menghindari pengondisian titik demi titik pada kejadian yang mungkin berprobabilitas nol.</p>
+</details>
+</div>''',
+        "description": "Correct the duplicated time variable and prove Chapman-Kolmogorov with the all-state Markov family.",
+    },
+    {
+        "id": "transition-density-positive-time-scope",
+        "old": r"Dalam hal ini, kernel transisi \( P_t \) sering memiliki <dfn>kepadatan transisi</dfn> \( p_t \) terhadap \( \lambda \) untuk \( t \in T \). Artinya,",
+        "new": r"Untuk waktu \(t\) ketika \(P_t(x,\cdot)\ll\lambda\) bagi setiap \(x\), kernel transisi memiliki <dfn>kepadatan transisi</dfn> \(p_t\) terhadap \(\lambda\). Pada ruang tak-atom, ini biasanya hanya berlaku untuk \(t&gt;0\), sebab \(P_0=I\) tidak mutlak kontinu terhadap \(\lambda\). Artinya,",
+        "description": "Do not assume a reference-measure density at time zero or at every time without absolute continuity.",
+    },
+    {
+        "id": "transition-density-composition-scope",
+        "old": r"Misalkan \( \lambda \) adalah ukuran acuan pada \( (S, \mathscr{S}) \), dan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov pada \( S \) dengan kepadatan transisi \( \{p_t: t \in T\} \). Jika \( s, \, t \in T \), maka \( p_s p_t = p_{s+t} \). Artinya,",
+        "new": r"Misalkan \(D\subseteq T\) dan, untuk setiap \(u\in D\), kernel \(P_u\) memiliki kepadatan \(p_u\) terhadap ukuran acuan \(\lambda\). Jika \(s,t,s+t\in D\), maka \(p_s p_t=p_{s+t}\) sebagai kelas kesetaraan hampir di mana-mana. Artinya,",
+        "description": "State Chapman-Kolmogorov for exactly the times whose kernels possess reference-measure densities.",
+    },
+    {
+        "id": "transition-density-consequence-scope",
+        "old": r"Sebagai akibat langsung, jika \( S \) memiliki ukuran acuan, hubungan dasar yang sama berlaku untuk kepadatan transisi.",
+        "new": r"Jika ketiga kernel yang terlibat mutlak kontinu terhadap ukuran acuan, hubungan dasar yang sama berlaku bagi kelas kepadatan transisinya.",
+        "description": "Require absolute continuity rather than merely the existence of a reference measure.",
+    },
+    {
+        "id": "transition-density-chapman-kolmogorov",
+        "old": r"\[ p_t(x, z) = \int_S p_s(x, y) p_t(y, z) \lambda(dy), \quad x, \, z \in S \]",
+        "new": r"\[p_{s+t}(x,z)=\int_Sp_s(x,y)p_t(y,z)\lambda(dy),\quad x,z\in S\] Kesamaan ini berlaku untuk \(\lambda\)-hampir setiap \(z\), kecuali telah dipilih versi kepadatan titik demi titik yang kompatibel.",
+        "description": "Put s+t on the left and state the almost-everywhere scope of density identities.",
+    },
+    {
+        "id": "bounded-measurable-function-space",
+        "old": r"ruang vektor fungsi linear terbatas \( f: S \to \R \)",
+        "new": r"ruang vektor fungsi terbatas dan terukur \(f:S\to\R\)",
+        "description": "Describe B as bounded measurable functions, not bounded linear functions.",
+    },
+    {
+        "id": "harmonic-function-domain",
+        "old": r"Fungsi terukur \( f: S \to \R \) bersifat <dfn>harmonik</dfn>",
+        "new": r"Fungsi \(f\in\mathscr B\) bersifat <dfn>harmonik</dfn>",
+        "description": "Keep harmonic functions inside the bounded-function domain of the transition operators.",
+    },
+    {
+        "id": "transition-result-label",
+        "old": "Latihan <a class=\"ref\" href=\"#trn4\"></a>",
+        "new": "Hasil <a class=\"ref\" href=\"#trn4\"></a>",
+        "description": "Refer to the preceding result rather than calling it an exercise.",
+    },
+    {
+        "id": "finite-dimensional-initial-measure",
+        "old": r"\int_A P_t(x, B) \mu(dx)",
+        "new": r"\int_A P_t(x,B)\mu_0(dx)",
+        "description": "Use the declared initial law in the two-time distribution.",
+    },
+    {
+        "id": "finite-dimensional-differential-law",
+        "old": r"\( \mu(dx) P_t(x, dy)\)",
+        "new": r"\(\mu_0(dx)P_t(x,dy)\)",
+        "description": "Use the declared initial law in differential notation.",
+    },
+    {
+        "id": "kolmogorov-construction-standard-borel-scope",
+        "old": "Berdasarkan <a href=\"../prob/Processes.html#kol\">teorema konstruksi Kolmogorov</a>, kita mengetahui bahwa <em>terdapat</em> proses stokastik",
+        "new": r'''Jika \((S,\mathscr S)\) merupakan ruang Borel standar, <a href="../prob/Processes.html#kol">teorema konstruksi Kolmogorov</a> menjamin bahwa <em>terdapat</em> proses stokastik''',
+        "description": "State a standard-Borel hypothesis for Kolmogorov extension.",
+    },
+    {
+        "id": "feller-characterization-time-index",
+        "old": r"\( \bs{X} = \{X_t: t \in T\} \) merupakan proses Markov pada ruang keadaan LCCB",
+        "new": r"\(\bs X=\{X_t:t\in[0,\infty)\}\) merupakan proses Markov pada ruang keadaan LCCB",
+        "description": "Make the process time index agree with its continuous-time semigroup.",
+    },
+    {
+        "id": "feller-semigroup-prose",
+        "old": r"<em>semigrup transisi dari transisi</em> \( \bs{P} \) bersifat Feller. Seperti sebelumnya, (a) terpenuhi secara otomatis jika \( S \) diskret, dan (b) terpenuhi secara otomatis jika \( T \) diskret.",
+        "new": r"<em>semigrup transisi</em> \(\bs P\) bersifat Feller. Syarat waktu otomatis dalam waktu diskret; syarat pemetaan \(\mathscr C_0\) otomatis hanya pada ruang diskret berhingga dan harus diperiksa pada ruang diskret tak berhingga.",
+        "description": "Remove duplicated prose and retain the infinite-discrete C0 qualification.",
+    },
+    {
+        "id": "random-clock-kernel-and-markov-proof",
+        "old": r'''<div class="unit" id="enl1">
+<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov takhomogen dengan ruang keadaan \( (S, \mathscr{S}) \). Misalkan pula bahwa \( \tau \) adalah variabel acak yang mengambil nilai dalam \( T \), independen dari \( \bs{X} \). Misalkan \( \tau_t = \tau + t \) dan \( Y_t = \left(X_{\tau_t}, \tau_t\right) \) untuk \( t \in T \). Maka \( \bs{Y} = \{Y_t: t \in T\} \) adalah proses Markov homogen dengan ruang keadaan \( (S \times T, \mathscr{S} \otimes \mathscr{T}) \). Untuk \( t \in T \), kernel transisi \( P_t \) diberikan oleh
+	\[ P_t[(x, r), A \times B] = \P(X_{r+t} \in A \mid X_r = x) \bs{1}(r + t \in B), \quad (x, r) \in S \times T, \, A \times B \in \mathscr{S} \otimes \mathscr{T} \]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Berdasarkan definisi dan kaidah substitusi,
+		\begin{align*}
+			\P[Y_{s + t} \in A \times B \mid Y_s = (x, r)] &amp; = \P\left(X_{\tau_{s + t}} \in A, \tau_{s + t} \in B \mid X_{\tau_s} = x, \tau_s = r\right) \\
+			&amp; = \P \left(X_{\tau + s + t} \in A, \tau + s + t \in B \mid X_{\tau + s} = x, \tau + s = r\right) \\
+			&amp; = \P(X_{r + t} \in A, r + t \in B \mid X_r = x, \tau + s = r)
+		\end{align*}
+		Namun, \( \tau \) independen dari \( \bs{X} \), sehingga suku terakhir adalah
+		\[ \P(X_{r + t} \in A, r + t \in B \mid X_r = x) = \P(X_{r+t} \in A \mid X_r = x) \bs{1}(r + t \in B) \]
+		Hal yang penting adalah bahwa ekspresi terakhir tidak bergantung pada \( s \), sehingga \( \bs{Y} \) homogen.</p>
+</details>
+</div>''',
+        "new": r'''<div class="unit" id="enl1">
+<p class="math">Misalkan \(\bs X=\{X_t:t\in T\}\) terukur bersama dan merupakan proses Markov takhomogen dengan kernel transisi terukur bersama \(K_{r,u}(x,dy)\), \(r\le u\). Misalkan \(\tau\) bernilai dalam \(T\) dan independen dari \(\bs X\), lalu definisikan \(Y_t=(X_{\tau+t},\tau+t)\). Maka \(\bs Y\) merupakan proses Markov homogen pada \((S\times T,\mathscr S\otimes\mathscr T)\), dengan
+\[
+P_t((x,r),C)=\int_S\bs1_C(y,r+t)K_{r,r+t}(x,dy),\qquad C\in\mathscr S\otimes\mathscr T.
+\]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Untuk \(\mathscr H_s=\sigma(Y_u:u\le s)\), sifat Markov takhomogen dan independensi jam memberi
+\[
+\E[\bs1_C(Y_{s+t})\mid\mathscr H_s]=P_t(Y_s,C)\quad\text{hampir pasti}.
+\]
+Ruas kanan hanya bergantung pada keadaan diperluas \(Y_s\), sehingga membuktikan sifat Markov; ketergantungan kernel hanya pada inkremen \(t\) membuktikan homogenitas. Keterukuran bersama menjamin bahwa \(X_{\tau+t}\) dan kernel di atas terukur.</p>
+</details>
+</div>''',
+        "description": "Add joint measurability and kernel hypotheses and prove the Markov property for the random-clock enlargement.",
+    },
+    {
+        "id": "two-step-kernel-hypothesis",
+        "old": "Misalkan pula bahwa proses tersebut homogen terhadap waktu dalam arti bahwa",
+        "new": r"Misalkan pula bahwa \(Q\) adalah kernel probabilitas yang terukur dalam \((x,y)\), dan proses tersebut homogen terhadap waktu dalam arti bahwa",
+        "description": "Require the two-state conditional rule to be a measurable probability kernel.",
+    },
+    {
+        "id": "product-state-space-parenthesis",
+        "old": r"\( (S \times S, \mathscr{S} \otimes \mathscr{S} \).",
+        "new": r"\((S\times S,\mathscr S\otimes\mathscr S)\).",
+        "description": "Close the product measurable-space pair correctly.",
+    },
+    {
+        "id": "product-sigma-algebra-parenthesis",
+        "old": r"\( C \in \mathscr{S} \otimes \mathscr{S}) \)",
+        "new": r"\(C\in\mathscr S\otimes\mathscr S\)",
+        "description": "Remove the extra parenthesis in the product sigma-algebra condition.",
+    },
+    {
+        "id": "finite-memory-positive-length",
+        "old": r"untuk suatu \( k \in \N \) tetap",
+        "new": r"untuk suatu \(k\in\N_+\) tetap",
+        "description": "Require a positive number of remembered states.",
+    },
+    {
+        "id": "deterministic-recurrence-operator",
+        "old": r"\( P f(x) = \E[g(X_1) \mid X_0 = x] = f[g(x)] \)",
+        "new": r"\(Pf(x)=\E[f(X_1)\mid X_0=x]=f(g(x))\)",
+        "description": "Apply the transition operator to f, not to the recurrence map g.",
+    },
+    {
+        "id": "ode-state-domain",
+        "old": r"untuk \( s, \, t \in [0, \infty) \) dan \( x \in S \)",
+        "new": r"untuk \(s,t\in[0,\infty)\) dan \(x\in\R\)",
+        "description": "Use the declared real state space in the deterministic flow example.",
+    },
+    {
+        "id": "ode-feller-c0-argument",
+        "old": r"Sifat-sifat Feller merupakan konsekuensi dari kontinuitas \( t \mapsto X_t(x) \) dan kontinuitas \( x \mapsto X_t(x) \). Kontinuitas yang terakhir adalah <em>ketergantungan kontinu pada nilai awal</em>, yang sekali lagi dijamin oleh asumsi pada \( g \).",
+        "new": r"Sifat Lipschitz global menghasilkan aliran kontinu \(\phi_t(x)=X_t(x)\) yang proper. Karena itu, \(f\circ\phi_t\in\mathscr C_0\) untuk \(f\in\mathscr C_0\), dan ketergantungan kontinu pada waktu serta nilai awal memberikan kekontinuan kuat di waktu nol.",
+        "description": "Justify the C0-preserving Feller property rather than inferring it from pointwise continuity alone.",
+    },
+    {
+        "id": "ode-transition-operator-real-domain",
+        "old": r"\( P_t f(x) = f[X_t(x)] \) untuk fungsi terukur \( f: S \to \R \) dan \( x \in S \)",
+        "new": r"\(P_t f(x)=f[X_t(x)]\) untuk fungsi terukur \(f:\R\to\R\) dan \(x\in\R\)",
+        "description": "Use the real state space declared by the ODE example in the transition-operator formula.",
+    },
+    {
+        "id": "stationary-increments-additive-state-scope",
+        "old": r'''<p>Untuk pembahasan berikutnya, kita mempertimbangkan kelas umum proses stokastik yang merupakan proses Markov. Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses acak dengan \( S \subseteq \R\) sebagai himpunan keadaan. Ruang keadaan dapat bersifat diskret (terhitung) atau <q>kontinu</q>. Biasanya, \( S \) adalah \( \N \) atau \( \Z \) dalam kasus diskret, dan \( [0, \infty) \) atau \( \R \) dalam kasus kontinu. Dalam setiap kasus, \( S \) dilengkapi dengan \( \sigma \)-aljabar biasa \( \mathscr{S} \) yang terdiri atas himpunan bagian Borel dari \( S \) (yang merupakan himpunan kuasa dalam kasus diskret). Ruang keadaan \( (S, \mathscr{S}) \) juga memiliki ukuran acuan alami \( \lambda \), yaitu ukuran pencacahan dalam kasus diskret dan ukuran Lebesgue dalam kasus kontinu. Misalkan \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \) menyatakan filtrasi alami, sehingga \( \mathscr{F}_t = \sigma\{X_s: s \in T, s \le t\} \) untuk \( t \in T \).</p>''',
+        "new": r'''<p>Untuk pembahasan berikutnya, misalkan \(\bs X=\{X_t:t\in T\}\) bernilai dalam himpunan Borel \(S\subseteq\R\) yang tertutup terhadap penjumlahan, dan misalkan setiap inkremen \(X_{s+t}-X_s\) juga bernilai dalam \(S\) hampir pasti. Untuk \(S=\N\) atau \([0,\infty)\), ini merupakan asumsi tambahan bahwa inkremen tidak negatif; untuk \(S=\Z\) atau \(\R\), struktur grup aditif sudah memadai. Gunakan \(\sigma\)-aljabar Borel \(\mathscr S\), ukuran pencacahan atau Lebesgue yang sesuai, dan filtrasi alami \(\mathscr F_t=\sigma\{X_s:s\le t\}\). Asumsi aditif ini membuat ekspresi \(x+y\) dan hukum inkremen di bawah terdefinisi pada ruang keadaan.</p>''',
+        "description": "State the additive closure and increment-support assumptions required by the convolution formulas.",
+    },
+    {
+        "id": "increment-density-reference-scope",
+        "old": r"Misalkan untuk \( t \in T \) positif, distribusi \( Q_t \) memiliki fungsi kepadatan probabilitas \( g_t \) terhadap ukuran acuan \( \lambda \).",
+        "new": r"Misalkan untuk \(t\in T\) positif, \(Q_t\) memiliki kepadatan \(g_t\) terhadap ukuran acuan yang kompatibel dengan translasi; bila perlu, perluas \(g_t\) dengan nol di luar dukungan inkremen.",
+        "description": "State the reference-measure and support conditions behind translated densities.",
+    },
+    {
+        "id": "increment-density-semigroup-time-zero-scope",
+        "old": r'''Tentu saja, dari <a class="ref" href="#inc4"></a> diperoleh bahwa \( g_s * g_t = g_{s+t} \) untuk \( s, \, t \in T \), dengan \( * \) di sini menyatakan operasi konvolusi pada fungsi kepadatan probabilitas.''',
+        "new": r'''Dari <a class="ref" href="#inc2"></a> diperoleh \(Q_s*Q_t=Q_{s+t}\) untuk semua \(s,t\in T\). Jika ketiga ukuran tersebut memiliki kepadatan terhadap ukuran acuan, maka \(g_s*g_t=g_{s+t}\) hampir di mana-mana, dengan \(*\) menyatakan konvolusi.''',
+        "description": "State the all-time convolution identity for measures and only assert a density identity when all densities exist.",
+    },
+    {
+        "id": "levy-weak-continuity",
+        "old": r'''<div class="unit" id="inc5">
+<p class="math">Jika \( Q_t \to Q_0 \) ketika \( t \downarrow 0 \), maka \( \bs{X} \) merupakan proses Markov Feller. </p>
+</div>''',
+        "new": r'''<div class="unit" id="inc5">
+<p class="math">Jika \(T=[0,\infty)\) dan \(Q_t\Rightarrow\delta_0\) secara lemah ketika \(t\downarrow0\), maka semigrup konvolusi yang bersesuaian merupakan semigrup Feller.</p>
+</div>''',
+        "description": "Specify continuous time and weak convergence to the point mass at zero.",
+    },
+    {
+        "id": "levy-process-convention",
+        "old": r"Dengan demikian, berdasarkan teori umum yang diuraikan di atas, \( \bs{X} \) merupakan proses Markov kuat, dan terdapat versi dari \( \bs{X} \) yang kontinu kanan serta memiliki limit kiri. Proses semacam itu dikenal sebagai <dfn>proses Lévy</dfn>, untuk menghormati",
+        "new": r"Dalam waktu kontinu, proses yang kontinu secara stokastik, berawal dari \(0\), dan memiliki inkremen stasioner serta independen mempunyai versi càdlàg; versi itu disebut <dfn>proses Lévy</dfn>. Jika \(X_0\) acak dan independen, proses terpusat \(\{X_t-X_0\}\) adalah proses Lévy, sedangkan \(\bs X\) merupakan pergeseran awal independennya. Penamaan ini tidak diterapkan pada gerak acak waktu diskret. Istilah ini menghormati",
+        "description": "Use the standard continuous-time, stochastic-continuity, and initial-state convention for Lévy processes.",
+    },
+    {
+        "id": "stationary-increment-moment-regularity",
+        "old": r'''<p class="math">Misalkan kembali bahwa \( \bs X \) memiliki inkremen stasioner dan independen.</p>''',
+        "new": r'''<p class="math">Misalkan kembali bahwa \(\bs X\) memiliki inkremen stasioner dan independen. Dalam waktu kontinu, asumsikan pula bahwa fungsi rerata atau varians inkremen yang digunakan di bawah kontinu di waktu nol.</p>''',
+        "description": "Add the regularity needed to turn continuous-time Cauchy equations into linear functions.",
+    },
+    {
+        "id": "stationary-increment-variance-range",
+        "old": r"\( \sigma_0^2 = \var(X_0) \in (0, \infty) \) dan \( \sigma_1^2 = \var(X_1) \in (0, \infty) \)",
+        "new": r"\(\sigma_0^2=\var(X_0)\in[0,\infty)\) dan \(\sigma_1^2=\var(X_1)\in[0,\infty)\)",
+        "description": "Allow deterministic initial states and increments with zero variance.",
+    },
+    {
+        "id": "stationary-increment-variance-slope",
+        "old": r"\( b^2 \in (0, \infty) \)",
+        "new": r"\(b^2\in[0,\infty)\)",
+        "description": "Allow the zero-variance increment case.",
+    },
+    {
+        "id": "stationary-increment-continuity-explanation",
+        "old": r"Hal yang sama berlaku dalam waktu kontinu, dengan asumsi kontinuitas yang telah kita berlakukan pada proses \( \bs X \).",
+        "new": r"Hal yang sama berlaku dalam waktu kontinu karena kekontinuan \(m_0\) dan \(v_0\) di waktu nol menyingkirkan solusi aditif Cauchy yang patologis.",
+        "description": "Name the precise moment-function regularity used in the continuous-time Cauchy argument.",
+    },
+    {
+        "id": "random-walk-real-state-space",
+        "old": r"\[ P(x, A) = Q(A - x), \quad x \in S, \, A \in \mathscr{S} \]",
+        "new": r"\[P(x,A)=Q(A-x),\quad x\in\R,\ A\in\mathscr R\]",
+        "description": "Use the real state space declared by the partial-sum construction.",
+    },
+    {
+        "id": "random-walk-real-density-domain",
+        "old": r"\[ p(x, y) = g(y - x), \quad x, \, y \in S \]",
+        "new": r"\[p(x,y)=g(y-x),\quad x,y\in\R\]",
+        "description": "Use the real domain for the partial-sum transition density.",
+    },
+    {
+        "id": "random-walk-real-n-step-domain",
+        "old": r"\( P^n(x, A) = Q^{*n}(A - x) \) untuk \( x \in S \) dan \( A \in \mathscr{S} \)",
+        "new": r"\(P^n(x,A)=Q^{*n}(A-x)\) untuk \(x\in\R\) dan \(A\in\mathscr R\)",
+        "description": "Use the real state space consistently in the n-step random-walk kernel.",
+    },
+    {
+        "id": "poisson-transition-support",
+        "old": r''' dengan parameter \( t \), dan misalkan \( p_t(x, y) = g_t(y - x) \) untuk \( x, \, y \in \N \). Maka \( \{p_t: t \in [0, \infty)\} \) adalah koleksi kepadatan transisi untuk semigrup Feller pada \( \N \)''',
+        "new": r''' dengan parameter \(t\). Definisikan \(g_t(n)=0\) untuk bilangan bulat \(n&lt;0\), dan \(g_0=\delta_0\). Maka \(p_t(x,y)=g_t(y-x)\), \(x,y\in\N\), merupakan keluarga kepadatan transisi semigrup Feller pada \(\N\).''',
+        "description": "Define the Poisson mass for negative differences and at time zero.",
+    },
+    {
+        "id": "gaussian-kernel-at-time-zero",
+        "old": r''' dengan rerata 0 dan varians \( t \), dan misalkan \( p_t(x, y) = g_t(y - x) \) untuk \( x, \, y \in \R \). Maka \(\{p_t: t \in [0, \infty)\} \) adalah koleksi kepadatan transisi dari semigrup Feller pada \( \R \).''',
+        "new": r''' dengan rerata \(0\) dan varians \(t\). Untuk \(t&gt;0\), tetapkan \(P_t(x,dy)=g_t(y-x)\,dy\), serta tetapkan \(P_0=I\). Maka \(\{P_t:t\in[0,\infty)\}\) merupakan semigrup Feller pada \(\R\); kernel identitas \(P_0(x,\cdot)=\delta_x\) tidak memiliki kepadatan terhadap ukuran Lebesgue.''',
+        "description": "Represent time zero by the identity kernel rather than a nonexistent Lebesgue density.",
+    },
+    {
+        "id": "gaussian-semigroup-kernel-notation",
+        "old": r"Kita hanya perlu menunjukkan bahwa \( \{g_t: t \in [0, \infty)\} \) memenuhi sifat semigrup dan bahwa hasil kontinuitas berlaku. Namun, kita sudah mengetahui bahwa jika \( U, \, V \) adalah variabel independen yang masing-masing berdistribusi normal",
+        "new": r"Kita hanya perlu menunjukkan bahwa \(\{P_t:t\in[0,\infty)\}\) memenuhi sifat semigrup dan kontinuitas Feller. Untuk bagian kepadatan pada waktu positif, jika \(U,V\) independen dan masing-masing berdistribusi normal",
+        "description": "State the time-zero semigroup in terms of kernels; only positive-time Gaussian members have Lebesgue densities.",
+    },
+    {
+        "id": "stopping-sigma-algebra-localization",
+        "old": r"\text{ for all }",
+        "new": r"\text{ untuk setiap }",
+        "description": "Localize the remaining English quantifier inside the stopping-time sigma-algebra display.",
+    },
+    {
+        "id": "feller-norm-limit-localization",
+        "old": r"\text{ as }",
+        "new": r"\text{ ketika }",
+        "description": "Localize the remaining English limit connector inside the Feller display.",
+    },
+    {
+        "id": "coarser-filtration-arbitrary-stopping-time",
+        "old": r"Misalkan \( \tau \) merupakan waktu henti berhingga untuk \( \mathfrak{F} \), serta \( t \in T \) dan \( f \in \mathscr{B} \).",
+        "new": r"Misalkan \(\tau\) merupakan waktu henti untuk \(\mathfrak F\), serta \(t\in T\) dan \(f\in\mathscr B\). Pada kejadian \(\{\tau=\infty\}\), gunakan konvensi keadaan kematian dan \(f(\delta)=0\) yang ditetapkan di atas.",
+        "description": "Make the proof cover the same possibly infinite stopping times as the stated strong Markov property.",
+    },
+    {
+        "id": "continuous-chain-holding-time-scope",
+        "old": "Sifat Markov juga menyiratkan bahwa waktu tinggal dalam suatu keadaan memiliki sifat tanpa memori sehingga harus ber",
+        "new": "Untuk rantai homogen waktu kontinu yang reguler, waktu tinggal pada keadaan dengan laju positif memiliki sifat tanpa memori sehingga ber",
+        "description": "Qualify the exponential holding-time claim by homogeneity and regularity.",
+    },
+    {
+        "id": "stopping-time-symbol",
+        "old": r"maka ( \tau ) juga merupakan waktu henti",
+        "new": r"maka \(\tau\) juga merupakan waktu henti",
+        "description": "Remove stray parentheses around the stopping time.",
+    },
+    {
+        "id": "stopped-state-notation",
+        "old": r"\( \bs{X_\tau} \) terukur terhadap \( \mathscr{F}_\tau \)",
+        "new": r"\(X_\tau\) terukur terhadap \(\mathscr F_\tau\)",
+        "description": "Use the stopped state rather than the process-vector macro.",
+    },
+)
+
 THEORY_UNITS = (
     {
         "rel": "prob/Convergence.html",
@@ -1612,6 +2189,33 @@ THEORY_UNITS = (
             "Details:",
         ),
     },
+    {
+        "rel": "markov/General.html",
+        "authority_sha256": "69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c",
+        "source_title": "General Markov Processes",
+        "nav_label": "Proses Markov umum",
+        "rights_id": "o009-rights-random-markov-general",
+        "fragment_corrections": {},
+        "reader_corrections": MARKOV_GENERAL_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "General Markov Processes",
+            "Basic Theory",
+            "Preliminaries",
+            "Definitions",
+            "Feller Processes",
+            "Stopping Times and the Strong Markov Property",
+            "Transition Kernels of Markov Processes",
+            "Sampling in Time",
+            "Enlarging the State Space",
+            "Examples and Applications",
+            "Recurrence Relations and Differential Equations",
+            "Processes with Stationary, Independent Increments",
+            "Additional details:",
+            "Details:",
+        ),
+    },
 )
 MATH_SURFACE_RE = re.compile(
     r"\\\(.*?\\\)|\\\[.*?\\\]|"
@@ -1619,11 +2223,7 @@ MATH_SURFACE_RE = re.compile(
     re.DOTALL,
 )
 CSS_URL_RE = re.compile(r"url\(\s*(['\"]?)([^)'\"]+)\1\s*\)", re.I)
-R_CHUNK_RE = re.compile(
-    r"^```\{r\s+o009_lab_convergence_mc\b[^}]*\}\s*$\n(.*?)^```\s*$",
-    re.MULTILINE | re.DOTALL,
-)
-PLACEHOLDER = "<!-- O009_EXECUTION_TABLE -->"
+PLACEHOLDER = str(LAB_SPECS[0]["placeholder"])
 
 
 def sha256(data: bytes) -> str:
@@ -1634,6 +2234,151 @@ def require_file(path: Path) -> bytes:
     if not path.is_file() or path.is_symlink():
         raise RuntimeError(f"missing or linked regular file: {path}")
     return path.read_bytes()
+
+
+def validate_lab_specs() -> None:
+    """Reject ambiguous, escaping, or incompletely bound lab declarations."""
+    seen: dict[str, set[str]] = {
+        "source": set(),
+        "output": set(),
+        "chunk_id": set(),
+        "placeholder": set(),
+        "table_id": set(),
+    }
+    lab_root = (ROOT / "source" / "labs").resolve()
+    for spec in LAB_SPECS:
+        source = Path(spec["source"])
+        require_file(source)
+        try:
+            source.resolve().relative_to(lab_root)
+        except ValueError as exc:
+            raise RuntimeError(f"lab source escapes source/labs: {source}") from exc
+        output = Path(spec["output"])
+        if (
+            output.is_absolute()
+            or output.suffix != ".html"
+            or not output.parts
+            or output.parts[0] != "labs"
+            or any(part in {"", ".", ".."} for part in output.parts)
+        ):
+            raise RuntimeError(f"unsafe lab output path: {output}")
+        identifiers = (str(spec["chunk_id"]), str(spec["table_id"]))
+        if any(re.fullmatch(r"[a-z0-9][a-z0-9_.-]*", value) is None for value in identifiers):
+            raise RuntimeError(f"unsafe lab identifier declaration: {identifiers}")
+        fields = tuple(str(value) for value in spec["expected_fields"])
+        headers = tuple(str(value) for value in spec["table_headers"])
+        if not fields or len(fields) != len(set(fields)) or len(fields) != len(headers):
+            raise RuntimeError(f"invalid lab result schema: {spec['chunk_id']}")
+        golden_rows = [dict(row) for row in spec["golden_rows"]]
+        if not golden_rows or any(tuple(row) != fields for row in golden_rows):
+            raise RuntimeError(f"golden lab rows do not match declared schema: {spec['chunk_id']}")
+
+        text = require_file(source).decode("utf-8")
+        if "\r" in text:
+            raise RuntimeError(f"lab source must use LF line endings: {source}")
+        front = re.match(r"\A---\n(?P<body>.*?)\n---\n", text, re.DOTALL)
+        if front is None:
+            raise RuntimeError(f"lab source lacks a bounded YAML metadata block: {source}")
+        metadata: dict[str, list[str]] = {}
+        for line in front.group("body").splitlines():
+            item = re.match(r"^\s{0,2}([A-Za-z_][A-Za-z0-9_]*):\s*(.*?)\s*$", line)
+            if item is None or not item.group(2):
+                continue
+            raw_value = item.group(2)
+            try:
+                value = json.loads(raw_value) if raw_value.startswith('"') else raw_value
+            except json.JSONDecodeError as exc:
+                raise RuntimeError(f"invalid quoted YAML scalar in {source}: {line}") from exc
+            metadata.setdefault(item.group(1), []).append(str(value))
+        for key, expected in dict(spec["front_matter"]).items():
+            if metadata.get(str(key)) != [str(expected)]:
+                raise RuntimeError(
+                    f"lab front matter differs for {spec['chunk_id']}:{key}: "
+                    f"{metadata.get(str(key))!r}"
+                )
+        if text.count(str(spec["placeholder"])) != 1:
+            raise RuntimeError(f"lab placeholder is not exact-once: {spec['chunk_id']}")
+        if len(lab_chunk_re(spec).findall(text)) != 1:
+            raise RuntimeError(f"lab executable chunk is not exact-once: {spec['chunk_id']}")
+
+        values = {
+            "source": source.resolve().as_posix().casefold(),
+            "output": output.as_posix().casefold(),
+            "chunk_id": str(spec["chunk_id"]),
+            "placeholder": str(spec["placeholder"]),
+            "table_id": str(spec["table_id"]),
+        }
+        for kind, value in values.items():
+            if value in seen[kind]:
+                raise RuntimeError(f"duplicate lab {kind}: {value}")
+            seen[kind].add(value)
+
+
+@lru_cache(maxsize=1)
+def runtime_evidence() -> dict[str, object]:
+    """Probe and hash the exact executables used by the deterministic build."""
+    if sha256(require_file(R_SCRIPT)) != R_SCRIPT_SHA256:
+        raise RuntimeError("Rscript executable hash changed")
+    with tempfile.TemporaryDirectory(prefix="o009-runtime-") as temp:
+        env = dict(os.environ)
+        env["LC_ALL"] = "C"
+        env["R_USER"] = temp
+        probe = subprocess.run(
+            [
+                str(R_SCRIPT),
+                "--vanilla",
+                "-e",
+                'cat(R.version.string, "\\n", paste(RNGkind(), collapse=" / "), "\\n", sep="")',
+            ],
+            cwd=temp,
+            env=env,
+            check=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            timeout=30,
+        )
+    if probe.returncode != 0 or probe.stderr.strip():
+        raise RuntimeError(f"R runtime probe failed: {probe.stderr.strip()}")
+    r_lines = probe.stdout.splitlines()
+    if r_lines != [R_VERSION, R_RNG]:
+        raise RuntimeError(f"R runtime identity differs: {r_lines!r}")
+
+    pandoc_command = shutil.which(PANDOC)
+    if not pandoc_command:
+        raise RuntimeError("pinned Pandoc command is unavailable")
+    pandoc_path = Path(pandoc_command)
+    if sha256(require_file(pandoc_path)) != PANDOC_SHA256:
+        raise RuntimeError("Pandoc executable hash changed")
+    pandoc_probe = subprocess.run(
+        [str(pandoc_path), "--version"],
+        cwd=ROOT,
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        encoding="utf-8",
+        timeout=30,
+    )
+    if pandoc_probe.returncode != 0 or pandoc_probe.stderr.strip():
+        raise RuntimeError(f"Pandoc runtime probe failed: {pandoc_probe.stderr.strip()}")
+    pandoc_lines = pandoc_probe.stdout.splitlines()
+    if not pandoc_lines or pandoc_lines[0] != PANDOC_VERSION:
+        raise RuntimeError(f"Pandoc runtime identity differs: {pandoc_lines[:1]!r}")
+    return {
+        "r": {
+            "command": "tools/R-4.6.1/bin/Rscript.exe",
+            "sha256": R_SCRIPT_SHA256,
+            "version": R_VERSION,
+            "rng": R_RNG,
+        },
+        "pandoc": {
+            "command": PANDOC,
+            "sha256": PANDOC_SHA256,
+            "version": PANDOC_VERSION,
+        },
+    }
 
 
 def theory_paths(unit: dict[str, object]) -> tuple[Path, Path]:
@@ -1697,18 +2442,36 @@ def validate_theory_translation() -> None:
         validate_theory_unit(unit)
 
 
-def extract_and_run_lab(work: Path) -> tuple[str, list[dict[str, str]]]:
-    text = require_file(LAB_SOURCE).decode("utf-8")
-    match = R_CHUNK_RE.search(text)
+def lab_chunk_re(spec: dict[str, object]) -> re.Pattern[str]:
+    return re.compile(
+        rf"^```\{{r\s+{re.escape(str(spec['chunk_id']))}\b[^}}]*\}}\s*$\n(.*?)^```\s*$",
+        re.MULTILINE | re.DOTALL,
+    )
+
+
+def extract_and_run_lab(
+    work: Path, spec: dict[str, object] | None = None
+) -> tuple[str, list[dict[str, str]]]:
+    spec = LAB_SPECS[0] if spec is None else spec
+    source = Path(spec["source"])
+    text = require_file(source).decode("utf-8")
+    chunk_re = lab_chunk_re(spec)
+    match = chunk_re.search(text)
     if not match:
-        raise RuntimeError("labelled executable R chunk not found exactly once")
-    if len(R_CHUNK_RE.findall(text)) != 1:
-        raise RuntimeError("labelled executable R chunk is not unique")
-    if text.count(PLACEHOLDER) != 1:
-        raise RuntimeError("execution-table placeholder is not unique")
+        raise RuntimeError(f"labelled executable R chunk missing: {spec['chunk_id']}")
+    if len(chunk_re.findall(text)) != 1:
+        raise RuntimeError(f"labelled executable R chunk is not unique: {spec['chunk_id']}")
+    placeholder = str(spec["placeholder"])
+    if text.count(placeholder) != 1:
+        raise RuntimeError(f"execution-table placeholder is not unique: {placeholder}")
     r_bytes = match.group(1).encode("utf-8")
-    script = work / "o009_lab_convergence_mc.R"
-    script.write_bytes(r_bytes)
+    script = work / f"{spec['chunk_id']}.R"
+    guard = (
+        f'if (!identical(R.version.string, "{R_VERSION}")) stop("R version drift")\n'
+        'if (!identical(RNGkind(), c("Mersenne-Twister", "Inversion", "Rejection"))) '
+        'stop("R RNG drift")\n'
+    ).encode("utf-8")
+    script.write_bytes(guard + r_bytes)
     env = dict(os.environ)
     env["LC_ALL"] = "C"
     env["R_USER"] = str(work)
@@ -1728,48 +2491,145 @@ def extract_and_run_lab(work: Path) -> tuple[str, list[dict[str, str]]]:
     if result.stderr.strip():
         raise RuntimeError(f"unexpected R stderr: {result.stderr.strip()}")
     rows = list(csv.DictReader(result.stdout.splitlines()))
-    expected_fields = [
-        "n",
-        "seed",
-        "estimate",
-        "exact_value",
-        "signed_error",
-        "absolute_error",
-    ]
+    expected_fields = list(spec["expected_fields"])
     if not rows or list(rows[0]) != expected_fields:
-        raise RuntimeError("R CSV header mismatch")
-    if [row["n"] for row in rows] != ["10", "1000", "1000000"]:
-        raise RuntimeError("R CSV n sequence mismatch")
-    if [row["seed"] for row in rows] != ["12341", "12342", "12342"]:
-        raise RuntimeError("R CSV seed sequence mismatch")
+        raise RuntimeError(f"R CSV header mismatch: {spec['chunk_id']}")
+    golden_rows = [dict(row) for row in spec["golden_rows"]]
+    if rows != golden_rows:
+        raise RuntimeError(
+            f"R deterministic result differs for {spec['chunk_id']}: "
+            f"expected={golden_rows!r} actual={rows!r}"
+        )
     for row in rows:
-        if row["exact_value"] != "0.250000000000":
-            raise RuntimeError("R CSV exact value mismatch")
-        for key in ("estimate", "signed_error", "absolute_error"):
-            float(row[key])
+        for key in expected_fields:
+            try:
+                value = float(row[key])
+            except ValueError as exc:
+                raise RuntimeError(f"non-numeric lab result: {spec['chunk_id']}:{key}") from exc
+            if not math.isfinite(value):
+                raise RuntimeError(f"non-finite lab result: {spec['chunk_id']}:{key}")
+    if spec["chunk_id"] == "o009_lab_convergence_mc":
+        if [row["n"] for row in rows] != ["10", "1000", "1000000"]:
+            raise RuntimeError("R CSV n sequence mismatch")
+        if [row["seed"] for row in rows] != ["12341", "12342", "12342"]:
+            raise RuntimeError("R CSV seed sequence mismatch")
+        for row in rows:
+            if row["exact_value"] != "0.250000000000":
+                raise RuntimeError("R CSV exact value mismatch")
+            for key in ("estimate", "signed_error", "absolute_error"):
+                float(row[key])
+            estimate = float(row["estimate"])
+            signed_error = float(row["signed_error"])
+            absolute_error = float(row["absolute_error"])
+            if not math.isclose(signed_error, 0.25 - estimate, abs_tol=5e-12):
+                raise RuntimeError("Monte Carlo signed error is inconsistent")
+            if not math.isclose(absolute_error, abs(signed_error), abs_tol=5e-12):
+                raise RuntimeError("Monte Carlo absolute error is inconsistent")
+    elif spec["chunk_id"] == "o009_lab_markov_gambler_ruin":
+        if len(rows) != 1:
+            raise RuntimeError("Markov lab must emit exactly one result row")
+        row = rows[0]
+        if not 0 <= int(row["berhasil"]) <= int(row["simulasi"]):
+            raise RuntimeError("Markov lab success count is outside its simulation range")
+        estimate = float(row["taksiran"])
+        exact_horizon = float(row["eksak_sampai_horizon"])
+        final_probability = float(row["peluang_akhir"])
+        exact_tail = float(row["celah_ekor_eksak"])
+        absolute_error = float(row["galat_mutlak"])
+        if not math.isclose(estimate, int(row["berhasil"]) / int(row["simulasi"]), abs_tol=5e-13):
+            raise RuntimeError("Markov estimate is inconsistent with its success count")
+        if not math.isclose(final_probability, 4 / 7, abs_tol=5e-13):
+            raise RuntimeError("Markov eventual probability is inconsistent")
+        if not math.isclose(exact_tail, (4 / 7) * (2 / 9) ** 50, rel_tol=5e-13):
+            raise RuntimeError("Markov exact tail gap is inconsistent")
+        if exact_tail <= 0 or exact_horizon > final_probability + 5e-13:
+            raise RuntimeError("Markov finite-horizon ordering is inconsistent")
+        if not math.isclose(absolute_error, abs(estimate - exact_horizon), abs_tol=5e-13):
+            raise RuntimeError("Markov absolute error is inconsistent")
+    else:
+        raise RuntimeError(f"no result validator for lab: {spec['chunk_id']}")
     return text, rows
 
 
-def markdown_table(rows: list[dict[str, str]]) -> str:
+def markdown_table(rows: list[dict[str, str]], spec: dict[str, object] | None = None) -> str:
+    spec = LAB_SPECS[0] if spec is None else spec
+    fields = list(spec["expected_fields"])
+    headers = list(spec["table_headers"])
     lines = [
-        "| n | benih | taksiran | nilai eksak | galat bertanda | galat mutlak |",
-        "|---:|---:|---:|---:|---:|---:|",
+        "| " + " | ".join(headers) + " |",
+        "|" + "|".join("---:" for _ in fields) + "|",
     ]
     for row in rows:
-        lines.append(
-            "| {n} | {seed} | {estimate} | {exact_value} | "
-            "{signed_error} | {absolute_error} |".format(**row)
-        )
+        lines.append("| " + " | ".join(row[field] for field in fields) + " |")
     return "\n".join(lines)
 
 
-def pandoc_lab_text(text: str) -> str:
-    """Convert the one admitted R Markdown fence to Pandoc attributes."""
-    opening = "```{r o009_lab_convergence_mc, echo=TRUE}"
-    replacement = "``` {#o009_lab_convergence_mc .r}"
+def pandoc_lab_text(text: str, spec: dict[str, object] | None = None) -> str:
+    """Convert one admitted R Markdown fence to Pandoc attributes."""
+    spec = LAB_SPECS[0] if spec is None else spec
+    chunk_id = str(spec["chunk_id"])
+    opening = f"```{{r {chunk_id}, echo=TRUE}}"
+    replacement = f"``` {{#{chunk_id} .r}}"
     if text.count(opening) != 1:
-        raise RuntimeError("expected exactly one admitted R Markdown fence")
+        raise RuntimeError(f"expected exactly one admitted R Markdown fence: {chunk_id}")
     return text.replace(opening, replacement, 1)
+
+
+def lab_navigation(spec: dict[str, object]) -> list[tuple[str, str]]:
+    """Return the complete edition navigation, relative to one lab page."""
+    current = Path(spec["output"])
+    links = [
+        (
+            os.path.relpath(Path("index.html"), current.parent).replace(os.sep, "/"),
+            "Beranda edisi",
+        )
+    ]
+    links.extend(
+        (
+            os.path.relpath(Path(str(unit["rel"])), current.parent).replace(os.sep, "/"),
+            str(unit["nav_label"]),
+        )
+        for unit in THEORY_UNITS
+    )
+    links.extend(
+        (
+            os.path.relpath(Path(other["output"]), current.parent).replace(os.sep, "/"),
+            str(other["nav_label"]),
+        )
+        for other in LAB_SPECS
+        if other is not spec
+    )
+    return links
+
+
+def decorate_lab_output(output: Path, spec: dict[str, object]) -> None:
+    """Bind the executed table and complete reader navigation into Pandoc HTML."""
+    soup = BeautifulSoup(require_file(output).decode("utf-8"), "lxml")
+    if soup.body is None:
+        raise RuntimeError(f"Pandoc lab has no body: {spec['chunk_id']}")
+    tables = soup.find_all("table")
+    if len(tables) != 1:
+        raise RuntimeError(
+            f"expected exactly one executed result table for {spec['chunk_id']}, found {len(tables)}"
+        )
+    tables[0]["id"] = str(spec["table_id"])
+    nav_links = " · ".join(
+        f'<a href="{html.escape(href, quote=True)}">{html.escape(label)}</a>'
+        for href, label in lab_navigation(spec)
+    )
+    nav_soup = BeautifulSoup(
+        f'<nav aria-label="Navigasi edisi">{nav_links}</nav>',
+        "lxml",
+    )
+    nav = nav_soup.find("nav")
+    if nav is None:
+        raise RuntimeError("failed to construct lab navigation")
+    header = soup.find("header", id="title-block-header")
+    if header is not None:
+        header.insert_after(nav)
+    else:
+        soup.body.insert(0, nav)
+    output.write_text(str(soup), encoding="utf-8", newline="\n")
 
 
 def build_theory_unit(stage: Path, unit: dict[str, object]) -> None:
@@ -1841,10 +2701,11 @@ def build_theory_unit(stage: Path, unit: dict[str, object]) -> None:
         local_target = Path(str(item["rel"]))
         relative_target = os.path.relpath(local_target, rel.parent).replace(os.sep, "/")
         edition_links.append(f'<a href="{relative_target}">{item["nav_label"]}</a>')
-    edition_links.append(
-        f'<a href="{os.path.relpath(Path("labs/01-konvergensi-monte-carlo.html"), rel.parent).replace(os.sep, "/")}">'
-        "Laboratorium Monte Carlo</a>"
-    )
+    for lab_spec in LAB_SPECS:
+        edition_links.append(
+            f'<a href="{os.path.relpath(Path(lab_spec["output"]), rel.parent).replace(os.sep, "/")}">'
+            f'{lab_spec["nav_label"]}</a>'
+        )
     index_href = os.path.relpath(Path("index.html"), rel.parent).replace(os.sep, "/")
     attribution = BeautifulSoup(
         f"""<aside class="component-attribution" id="{rights_id}">
@@ -1885,8 +2746,12 @@ def build_theory(stage: Path) -> None:
 
 
 def run_pandoc(source: Path, output: Path, css: str, mathjax: str | None = None) -> None:
+    runtime_evidence()
+    pandoc_command = shutil.which(PANDOC)
+    if not pandoc_command:
+        raise RuntimeError("pinned Pandoc command is unavailable")
     command = [
-        PANDOC,
+        pandoc_command,
         str(source),
         "--standalone",
         "--from=markdown+fenced_divs+fenced_code_attributes+yaml_metadata_block",
@@ -1962,8 +2827,14 @@ def copy_assets(stage: Path) -> None:
 
 
 def site_rows(site: Path) -> list[dict[str, object]]:
+    if not site.is_dir() or site.is_symlink():
+        raise RuntimeError(f"site root is missing or linked: {site}")
     excluded = {"PACKAGE_MANIFEST.csv", "BUILD_RECEIPT.json"}
-    paths = [path for path in site.rglob("*") if path.is_file()]
+    entries = list(site.rglob("*"))
+    linked = [path.relative_to(site).as_posix() for path in entries if path.is_symlink()]
+    if linked:
+        raise RuntimeError(f"site contains symbolic links: {linked}")
+    paths = [path for path in entries if path.is_file()]
     paths = [path for path in paths if path.relative_to(site).as_posix() not in excluded]
     paths.sort(key=lambda path: path.relative_to(site).as_posix().casefold())
     rows: list[dict[str, object]] = []
@@ -1979,7 +2850,7 @@ def site_rows(site: Path) -> list[dict[str, object]]:
     return rows
 
 
-def write_manifest(site: Path, r_rows: list[dict[str, str]]) -> None:
+def write_manifest(site: Path, lab_results: list[dict[str, object]]) -> None:
     rows = site_rows(site)
     manifest = site / "PACKAGE_MANIFEST.csv"
     with manifest.open("w", encoding="utf-8", newline="") as stream:
@@ -1991,7 +2862,7 @@ def write_manifest(site: Path, r_rows: list[dict[str, str]]) -> None:
         writer.writeheader()
         writer.writerows(rows)
     receipt = {
-        "schema": "o009.reader-build.v2",
+        "schema": BUILD_RECEIPT_SCHEMA,
         "built_at_utc": datetime.now(timezone.utc).isoformat(),
         "random_authority_manifest_sha256": RANDOM_MANIFEST_SHA256,
         "theory_units": [
@@ -2002,10 +2873,21 @@ def write_manifest(site: Path, r_rows: list[dict[str, str]]) -> None:
             }
             for unit in THEORY_UNITS
         ],
-        "lab_source_sha256": sha256(require_file(LAB_SOURCE)),
-        "r_version": "R version 4.6.1 (2026-06-24 ucrt)",
-        "r_rng": "Mersenne-Twister / Inversion / Rejection",
-        "r_result_rows": r_rows,
+        "lab_source_sha256": sha256(require_file(Path(LAB_SPECS[0]["source"]))),
+        "lab_sources": [
+            {
+                "source": Path(spec["source"]).relative_to(ROOT).as_posix(),
+                "output": Path(spec["output"]).as_posix(),
+                "chunk_id": str(spec["chunk_id"]),
+                "source_sha256": sha256(require_file(Path(spec["source"]))),
+                "r_result_rows": result["rows"],
+            }
+            for spec, result in zip(LAB_SPECS, lab_results, strict=True)
+        ],
+        "runtime": runtime_evidence(),
+        "r_version": R_VERSION,
+        "r_rng": R_RNG,
+        "r_result_rows": lab_results[0]["rows"],
         "file_count": len(rows),
         "total_bytes": sum(int(row["bytes"]) for row in rows),
         "manifest_sha256": sha256(manifest.read_bytes()),
@@ -2018,9 +2900,16 @@ def write_manifest(site: Path, r_rows: list[dict[str, str]]) -> None:
 
 
 def verify_site(site: Path, execute_r: bool = True) -> None:
+    validate_lab_specs()
+    runtime = runtime_evidence()
     manifest = site / "PACKAGE_MANIFEST.csv"
     receipt_path = site / "BUILD_RECEIPT.json"
-    if not manifest.is_file() or not receipt_path.is_file():
+    if (
+        not manifest.is_file()
+        or manifest.is_symlink()
+        or not receipt_path.is_file()
+        or receipt_path.is_symlink()
+    ):
         raise RuntimeError("site manifest or build receipt missing")
     with manifest.open("r", encoding="utf-8", newline="") as stream:
         expected = list(csv.DictReader(stream))
@@ -2028,9 +2917,50 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
     if expected != [{key: str(value) for key, value in row.items()} for row in actual]:
         raise RuntimeError("site manifest does not match current files")
     receipt = json.loads(receipt_path.read_text("utf-8"))
+    if receipt.get("schema") != BUILD_RECEIPT_SCHEMA:
+        raise RuntimeError("build receipt schema differs")
+    if receipt.get("random_authority_manifest_sha256") != RANDOM_MANIFEST_SHA256:
+        raise RuntimeError("build receipt does not bind the Random authority manifest")
     if receipt["manifest_sha256"] != sha256(manifest.read_bytes()):
         raise RuntimeError("build receipt does not bind manifest")
-    html_paths = sorted(site.rglob("*.html"), key=lambda path: path.as_posix().casefold())
+    if receipt.get("file_count") != len(actual):
+        raise RuntimeError("build receipt file count differs from the current site")
+    if receipt.get("total_bytes") != sum(int(row["bytes"]) for row in actual):
+        raise RuntimeError("build receipt byte count differs from the current site")
+    expected_theory = [
+        {
+            "path": str(unit["rel"]),
+            "authority_sha256": str(unit["authority_sha256"]),
+            "target_sha256": sha256(require_file(theory_paths(unit)[1])),
+        }
+        for unit in THEORY_UNITS
+    ]
+    if receipt.get("theory_units") != expected_theory:
+        raise RuntimeError("build receipt theory inputs differ from the current ordered units")
+    expected_labs = [
+        {
+            "source": Path(spec["source"]).relative_to(ROOT).as_posix(),
+            "output": Path(spec["output"]).as_posix(),
+            "chunk_id": str(spec["chunk_id"]),
+            "source_sha256": sha256(require_file(Path(spec["source"]))),
+            "r_result_rows": [dict(row) for row in spec["golden_rows"]],
+        }
+        for spec in LAB_SPECS
+    ]
+    if receipt.get("lab_sources") != expected_labs:
+        raise RuntimeError("build receipt lab inputs/results differ from the current ordered specs")
+    if receipt.get("lab_source_sha256") != expected_labs[0]["source_sha256"]:
+        raise RuntimeError("legacy first-lab source binding differs")
+    if receipt.get("r_result_rows") != expected_labs[0]["r_result_rows"]:
+        raise RuntimeError("legacy first-lab result binding differs")
+    if receipt.get("r_version") != R_VERSION or receipt.get("r_rng") != R_RNG:
+        raise RuntimeError("legacy R runtime binding differs")
+    if receipt.get("runtime") != runtime:
+        raise RuntimeError("build receipt executable/runtime evidence differs")
+    html_paths = sorted(
+        (site / str(row["path"]) for row in actual if str(row["path"]).endswith(".html")),
+        key=lambda path: path.as_posix().casefold(),
+    )
     for path in html_paths:
         data = path.read_bytes()
         text = data.decode("utf-8")
@@ -2058,6 +2988,8 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
                 raise RuntimeError(f"local reference escapes site: {path} -> {ref}") from exc
             if not target.is_file():
                 raise RuntimeError(f"missing local reference: {path} -> {ref}")
+            if target.is_symlink():
+                raise RuntimeError(f"linked local reference: {path} -> {ref}")
             if parsed.fragment:
                 target_soup = BeautifulSoup(target.read_text("utf-8"), "lxml")
                 if target_soup.find(id=parsed.fragment) is None:
@@ -2065,13 +2997,17 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
     index_soup = BeautifulSoup((site / "index.html").read_text("utf-8"), "lxml")
     index_hrefs = [str(anchor.get("href", "")) for anchor in index_soup.select("a[href]")]
     required_index_links = [str(unit["rel"]) for unit in THEORY_UNITS]
-    required_index_links.append("labs/01-konvergensi-monte-carlo.html")
+    required_index_links.extend(Path(spec["output"]).as_posix() for spec in LAB_SPECS)
     missing_index_links = [href for href in required_index_links if index_hrefs.count(href) != 1]
     if missing_index_links:
         raise RuntimeError(
             f"reader index must link every admitted unit exactly once: {missing_index_links}"
         )
-    for css_path in sorted(site.rglob("*.css"), key=lambda path: path.as_posix().casefold()):
+    css_paths = sorted(
+        (site / str(row["path"]) for row in actual if str(row["path"]).endswith(".css")),
+        key=lambda path: path.as_posix().casefold(),
+    )
+    for css_path in css_paths:
         css_text = css_path.read_text("utf-8")
         for _, ref in CSS_URL_RE.findall(css_text):
             parsed = urllib.parse.urlparse(ref.strip())
@@ -2084,53 +3020,99 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
                 raise RuntimeError(f"CSS reference escapes site: {css_path} -> {ref}") from exc
             if not target.is_file():
                 raise RuntimeError(f"missing CSS asset: {css_path} -> {ref}")
-    lab_html = site / "labs" / "01-konvergensi-monte-carlo.html"
-    lab_soup = BeautifulSoup(lab_html.read_text("utf-8"), "lxml")
-    executable = lab_soup.find(id="o009_lab_convergence_mc")
-    if executable is None or executable.name not in {"div", "pre", "code"}:
-        raise RuntimeError("rendered lab lacks the stable executable code-block id")
-    code = executable.find("code") if executable.name != "code" else executable
-    if code is None or "set.seed(12341)" not in code.get_text():
-        raise RuntimeError("rendered lab R code is not a copyable code block")
-    if "```{r" in lab_html.read_text("utf-8") or ">true<" in lab_html.read_text("utf-8"):
-        raise RuntimeError("raw R fence or malformed author metadata leaked into rendered lab")
+            if target.is_symlink():
+                raise RuntimeError(f"linked CSS asset: {css_path} -> {ref}")
+    receipt_labs = {str(item["chunk_id"]): item for item in receipt["lab_sources"]}
+    for spec in LAB_SPECS:
+        lab_html = site / Path(spec["output"])
+        lab_text = lab_html.read_text("utf-8")
+        lab_soup = BeautifulSoup(lab_text, "lxml")
+        executable = lab_soup.find(id=str(spec["chunk_id"]))
+        if executable is None or executable.name not in {"div", "pre", "code"}:
+            raise RuntimeError(f"rendered lab lacks stable code-block id: {spec['chunk_id']}")
+        code = executable.find("code") if executable.name != "code" else executable
+        if code is None or str(spec["required_code"]) not in code.get_text():
+            raise RuntimeError(f"rendered lab R code is not copyable: {spec['chunk_id']}")
+        if (
+            "```{r" in lab_text
+            or ">true<" in lab_text
+            or str(spec["placeholder"]) in lab_text
+        ):
+            raise RuntimeError(f"raw R fence or malformed metadata leaked: {spec['chunk_id']}")
+        table = lab_soup.find("table", id=str(spec["table_id"]))
+        if table is None:
+            raise RuntimeError(f"rendered lab result table lacks its stable id: {spec['chunk_id']}")
+        headers = [cell.get_text(" ", strip=True) for cell in table.select("thead th")]
+        if headers != list(spec["table_headers"]):
+            raise RuntimeError(f"rendered lab table headers differ: {spec['chunk_id']}")
+        rendered_rows = [
+            [cell.get_text(" ", strip=True) for cell in row.select("td")]
+            for row in table.select("tbody tr")
+        ]
+        expected_rows = [
+            [row[field] for field in spec["expected_fields"]]
+            for row in receipt_labs[str(spec["chunk_id"])]["r_result_rows"]
+        ]
+        if rendered_rows != expected_rows:
+            raise RuntimeError(f"rendered lab table rows differ: {spec['chunk_id']}")
+        navs = lab_soup.select('nav[aria-label="Navigasi edisi"]')
+        if len(navs) != 1:
+            raise RuntimeError(f"rendered lab navigation is not exact-once: {spec['chunk_id']}")
+        nav_hrefs = [str(anchor.get("href", "")) for anchor in navs[0].select("a[href]")]
+        expected_nav = [href for href, _ in lab_navigation(spec)]
+        if nav_hrefs != expected_nav:
+            raise RuntimeError(f"rendered lab navigation differs: {spec['chunk_id']}")
     theory_text = "\n".join((site / str(unit["rel"])).read_text("utf-8") for unit in THEORY_UNITS)
     boldsymbol_target = site / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js"
     if "\\boldsymbol" in theory_text and not boldsymbol_target.is_file():
         raise RuntimeError("required MathJax boldsymbol autoload extension is missing")
-    joined = b"\n".join(path.read_bytes() for path in site.rglob("*") if path.is_file())
+    joined = b"\n".join((site / str(row["path"])).read_bytes() for row in actual)
     forbidden = (b"googletagmanager", b"C:\\Users\\", b"C:/Users/", b"Floris")
     hits = [value.decode("ascii") for value in forbidden if value in joined]
     if hits:
         raise RuntimeError(f"privacy/runtime residue in site: {hits}")
     if execute_r:
-        with tempfile.TemporaryDirectory(prefix="o009-check-") as temp:
-            _, rows = extract_and_run_lab(Path(temp))
-        if rows != receipt["r_result_rows"]:
-            raise RuntimeError("fresh R execution differs from build receipt")
+        for spec in LAB_SPECS:
+            with tempfile.TemporaryDirectory(prefix="o009-check-") as temp:
+                _, rows = extract_and_run_lab(Path(temp), spec)
+            recorded = receipt_labs.get(str(spec["chunk_id"]), {}).get("r_result_rows")
+            if rows != recorded:
+                raise RuntimeError(f"fresh R execution differs: {spec['chunk_id']}")
 
 
 def build() -> None:
+    validate_lab_specs()
+    runtime_evidence()
     validate_theory_translation()
     ROOT.joinpath("build").mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix="o009-first-boundary-", dir=ROOT / "build"))
     try:
+        lab_results: list[dict[str, object]] = []
         with tempfile.TemporaryDirectory(prefix="o009-r-") as temp:
-            lab_text, r_rows = extract_and_run_lab(Path(temp))
+            for spec in LAB_SPECS:
+                lab_text, rows = extract_and_run_lab(Path(temp), spec)
+                lab_results.append({"text": lab_text, "rows": rows})
         copy_assets(stage)
         build_theory(stage)
-        processed_lab = stage / "lab-build-input.md"
-        processed_lab.write_text(
-            pandoc_lab_text(lab_text.replace(PLACEHOLDER, markdown_table(r_rows))),
-            encoding="utf-8",
-            newline="\n",
-        )
-        lab_output = stage / "labs" / "01-konvergensi-monte-carlo.html"
-        lab_output.parent.mkdir(parents=True, exist_ok=True)
-        run_pandoc(processed_lab, lab_output, "../reader.css", "../MathJax/tex-svg.js")
-        processed_lab.unlink()
+        for index, (spec, result) in enumerate(zip(LAB_SPECS, lab_results, strict=True), start=1):
+            processed_lab = stage / f"lab-build-input-{index:02d}.md"
+            source_text = str(result["text"])
+            rows = result["rows"]
+            processed_lab.write_text(
+                pandoc_lab_text(
+                    source_text.replace(str(spec["placeholder"]), markdown_table(rows, spec)),
+                    spec,
+                ),
+                encoding="utf-8",
+                newline="\n",
+            )
+            lab_output = stage / Path(spec["output"])
+            lab_output.parent.mkdir(parents=True, exist_ok=True)
+            run_pandoc(processed_lab, lab_output, "../reader.css", "../MathJax/tex-svg.js")
+            decorate_lab_output(lab_output, spec)
+            processed_lab.unlink()
         run_pandoc(SOURCE_INDEX, stage / "index.html", "reader.css")
-        write_manifest(stage, r_rows)
+        write_manifest(stage, lab_results)
         verify_site(stage)
         site_resolved = SITE.resolve()
         build_resolved = (ROOT / "build").resolve()
@@ -2159,6 +3141,8 @@ def main() -> int:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     if args.check:
+        validate_lab_specs()
+        runtime_evidence()
         validate_theory_translation()
         verify_site(SITE)
         receipt = json.loads((SITE / "BUILD_RECEIPT.json").read_text("utf-8"))

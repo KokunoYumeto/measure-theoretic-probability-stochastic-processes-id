@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Gordan Žitković (penulis sumber donor)" name="author"/>
+<meta content="Codex (penerjemahan, adaptasi, dan tambahan penguasaan atas arahan pengguna)" name="author"/>
+<title>Simulasi Rantai Markov: Kebangkrutan Penjudi</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+<link href="../reader.css" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Simulasi Rantai Markov: Kebangkrutan Penjudi</h1>
+<p class="author">Gordan Žitković (penulis sumber donor)</p>
+<p class="author">Codex (penerjemahan, adaptasi, dan tambahan penguasaan
+atas arahan pengguna)</p>
+</header><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a></nav>
+<div class="lab" id="o009-lab-markov-gambler-ruin">
+<blockquote>
+<p><strong>Asal komponen dan lisensi.</strong> Bagian “Simulasi rantai”
+menerjemahkan serta mengadaptasi baris 601–666 dari
+<code>source/05-Markov-chains.Rmd</code> karya Gordan Žitković pada
+komit <code>e2b35ad91a3689454ae6455e8ffc510a90760c0d</code>. Donornya
+dilepas dengan CC0 1.0 Universal; terjemahan dan adaptasi bahasa
+Indonesia ini dilepas dengan CC BY 4.0. Benih deterministik, pembanding
+peluang eksak, dan bagian yang berlabel <strong>Tambahan asli</strong>
+merupakan materi baru yang juga dilepas dengan CC BY 4.0.</p>
+</blockquote>
+<h2 id="o009-lab-markov-gambler-ruin-experiment">Simulasi rantai</h2>
+<div class="exercise" id="o009-exercise-markov-gambler-ruin-estimation">
+<p>Seorang penjudi memiliki modal awal <span class="math inline">\(1\)</span>. Pada setiap periode, modalnya naik
+satu dengan peluang <span class="math inline">\(p=2/3\)</span> dan turun
+satu dengan peluang <span class="math inline">\(q=1/3\)</span>. Keadaan
+<span class="math inline">\(0\)</span> dan <span class="math inline">\(3\)</span> menyerap: permainan berhenti ketika
+modal mencapai salah satunya. Simulasikan <span class="math inline">\(1.000\)</span> lintasan sampai <span class="math inline">\(T=100\)</span>, lalu taksir peluang bahwa penjudi
+telah keluar dari kasino dengan modal <span class="math inline">\(3\)</span> paling lambat pada waktu tersebut.</p>
+</div>
+<p>Matriks transisi memakai urutan keadaan <span class="math inline">\(S=(0,1,2,3)\)</span>. Baris pertama dan terakhir
+menyatakan keadaan menyerap. Fungsi <code>langkah_berikutnya</code>
+memilih baris yang sesuai dengan keadaan sekarang, lalu
+<code>sample</code> menarik keadaan berikutnya dari peluang pada baris
+itu. Potongan berikut hanya memakai R dasar dan menetapkan benih secara
+eksplisit.</p>
+<div class="sourceCode" id="o009_lab_markov_gambler_ruin"><pre class="sourceCode r"><code class="sourceCode r"><span id="o009_lab_markov_gambler_ruin-1"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-1" tabindex="-1"></a>S <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>)</span>
+<span id="o009_lab_markov_gambler_ruin-2"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-2" tabindex="-1"></a>P <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,   <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="dv">0</span>,</span>
+<span id="o009_lab_markov_gambler_ruin-3"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-3" tabindex="-1"></a>             <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">0</span>,   <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">0</span>,</span>
+<span id="o009_lab_markov_gambler_ruin-4"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-4" tabindex="-1"></a>             <span class="dv">0</span>,   <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">0</span>,   <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>,</span>
+<span id="o009_lab_markov_gambler_ruin-5"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-5" tabindex="-1"></a>             <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="dv">1</span>),</span>
+<span id="o009_lab_markov_gambler_ruin-6"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-6" tabindex="-1"></a>           <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">ncol=</span><span class="dv">4</span>)</span>
+<span id="o009_lab_markov_gambler_ruin-7"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-7" tabindex="-1"></a></span>
+<span id="o009_lab_markov_gambler_ruin-8"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-8" tabindex="-1"></a>horizon <span class="ot">=</span> <span class="dv">100</span><span class="dt">L</span></span>
+<span id="o009_lab_markov_gambler_ruin-9"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-9" tabindex="-1"></a>nsim <span class="ot">=</span> <span class="dv">1000</span><span class="dt">L</span></span>
+<span id="o009_lab_markov_gambler_ruin-10"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-10" tabindex="-1"></a>seed <span class="ot">=</span> <span class="dv">20260822</span><span class="dt">L</span></span>
+<span id="o009_lab_markov_gambler_ruin-11"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-11" tabindex="-1"></a></span>
+<span id="o009_lab_markov_gambler_ruin-12"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-12" tabindex="-1"></a>langkah_berikutnya <span class="ot">=</span> <span class="cf">function</span>(s) {</span>
+<span id="o009_lab_markov_gambler_ruin-13"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-13" tabindex="-1"></a>  i <span class="ot">=</span> <span class="fu">match</span>(s, S)</span>
+<span id="o009_lab_markov_gambler_ruin-14"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-14" tabindex="-1"></a>  <span class="fu">sample</span>(S, <span class="at">prob=</span>P[i, ], <span class="at">size=</span><span class="dv">1</span>)</span>
+<span id="o009_lab_markov_gambler_ruin-15"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-15" tabindex="-1"></a>}</span>
+<span id="o009_lab_markov_gambler_ruin-16"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-16" tabindex="-1"></a></span>
+<span id="o009_lab_markov_gambler_ruin-17"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-17" tabindex="-1"></a>lintasan_tunggal <span class="ot">=</span> <span class="cf">function</span>(keadaan_awal) {</span>
+<span id="o009_lab_markov_gambler_ruin-18"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-18" tabindex="-1"></a>  lintasan <span class="ot">=</span> <span class="fu">integer</span>(horizon)</span>
+<span id="o009_lab_markov_gambler_ruin-19"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-19" tabindex="-1"></a>  terakhir <span class="ot">=</span> keadaan_awal</span>
+<span id="o009_lab_markov_gambler_ruin-20"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-20" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">seq_len</span>(horizon)) {</span>
+<span id="o009_lab_markov_gambler_ruin-21"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-21" tabindex="-1"></a>    lintasan[n] <span class="ot">=</span> <span class="fu">langkah_berikutnya</span>(terakhir)</span>
+<span id="o009_lab_markov_gambler_ruin-22"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-22" tabindex="-1"></a>    terakhir <span class="ot">=</span> lintasan[n]</span>
+<span id="o009_lab_markov_gambler_ruin-23"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-23" tabindex="-1"></a>  }</span>
+<span id="o009_lab_markov_gambler_ruin-24"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-24" tabindex="-1"></a>  lintasan</span>
+<span id="o009_lab_markov_gambler_ruin-25"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-25" tabindex="-1"></a>}</span>
+<span id="o009_lab_markov_gambler_ruin-26"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-26" tabindex="-1"></a></span>
+<span id="o009_lab_markov_gambler_ruin-27"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-27" tabindex="-1"></a><span class="fu">set.seed</span>(seed)</span>
+<span id="o009_lab_markov_gambler_ruin-28"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-28" tabindex="-1"></a>lintasan <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">replicate</span>(nsim, <span class="fu">lintasan_tunggal</span>(<span class="dv">1</span><span class="dt">L</span>)))</span>
+<span id="o009_lab_markov_gambler_ruin-29"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-29" tabindex="-1"></a>berhasil <span class="ot">=</span> lintasan[, horizon] <span class="sc">==</span> <span class="dv">3</span><span class="dt">L</span></span>
+<span id="o009_lab_markov_gambler_ruin-30"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-30" tabindex="-1"></a></span>
+<span id="o009_lab_markov_gambler_ruin-31"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-31" tabindex="-1"></a>distribusi <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="o009_lab_markov_gambler_ruin-32"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-32" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">seq_len</span>(horizon)) {</span>
+<span id="o009_lab_markov_gambler_ruin-33"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-33" tabindex="-1"></a>  distribusi <span class="ot">=</span> <span class="fu">as.numeric</span>(distribusi <span class="sc">%*%</span> P)</span>
+<span id="o009_lab_markov_gambler_ruin-34"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-34" tabindex="-1"></a>}</span>
+<span id="o009_lab_markov_gambler_ruin-35"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-35" tabindex="-1"></a>peluang_eksak_horizon <span class="ot">=</span> distribusi[<span class="dv">4</span>]</span>
+<span id="o009_lab_markov_gambler_ruin-36"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-36" tabindex="-1"></a>peluang_akhir <span class="ot">=</span> (<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">1</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="o009_lab_markov_gambler_ruin-37"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-37" tabindex="-1"></a>celah_ekor_eksak <span class="ot">=</span> (<span class="dv">4</span><span class="sc">/</span><span class="dv">7</span>) <span class="sc">*</span> (<span class="dv">2</span><span class="sc">/</span><span class="dv">9</span>)<span class="sc">^</span><span class="dv">50</span></span>
+<span id="o009_lab_markov_gambler_ruin-38"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-38" tabindex="-1"></a></span>
+<span id="o009_lab_markov_gambler_ruin-39"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-39" tabindex="-1"></a>hasil <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="o009_lab_markov_gambler_ruin-40"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-40" tabindex="-1"></a>  <span class="at">seed =</span> seed,</span>
+<span id="o009_lab_markov_gambler_ruin-41"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-41" tabindex="-1"></a>  <span class="at">simulasi =</span> nsim,</span>
+<span id="o009_lab_markov_gambler_ruin-42"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-42" tabindex="-1"></a>  <span class="at">horizon =</span> horizon,</span>
+<span id="o009_lab_markov_gambler_ruin-43"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-43" tabindex="-1"></a>  <span class="at">keadaan_awal =</span> <span class="dv">1</span><span class="dt">L</span>,</span>
+<span id="o009_lab_markov_gambler_ruin-44"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-44" tabindex="-1"></a>  <span class="at">batas_atas =</span> <span class="dv">3</span><span class="dt">L</span>,</span>
+<span id="o009_lab_markov_gambler_ruin-45"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-45" tabindex="-1"></a>  <span class="at">berhasil =</span> <span class="fu">sum</span>(berhasil),</span>
+<span id="o009_lab_markov_gambler_ruin-46"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-46" tabindex="-1"></a>  <span class="at">taksiran =</span> <span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, <span class="fu">mean</span>(berhasil)),</span>
+<span id="o009_lab_markov_gambler_ruin-47"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-47" tabindex="-1"></a>  <span class="at">eksak_sampai_horizon =</span> <span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, peluang_eksak_horizon),</span>
+<span id="o009_lab_markov_gambler_ruin-48"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-48" tabindex="-1"></a>  <span class="at">peluang_akhir =</span> <span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, peluang_akhir),</span>
+<span id="o009_lab_markov_gambler_ruin-49"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-49" tabindex="-1"></a>  <span class="at">celah_ekor_eksak =</span> <span class="fu">sprintf</span>(<span class="st">"%.12e"</span>, celah_ekor_eksak),</span>
+<span id="o009_lab_markov_gambler_ruin-50"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-50" tabindex="-1"></a>  <span class="at">galat_mutlak =</span> <span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, <span class="fu">abs</span>(<span class="fu">mean</span>(berhasil) <span class="sc">-</span> peluang_eksak_horizon)),</span>
+<span id="o009_lab_markov_gambler_ruin-51"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-51" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
+<span id="o009_lab_markov_gambler_ruin-52"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-52" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="o009_lab_markov_gambler_ruin-53"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-53" tabindex="-1"></a>)</span>
+<span id="o009_lab_markov_gambler_ruin-54"><a aria-hidden="true" href="#o009_lab_markov_gambler_ruin-54" tabindex="-1"></a><span class="fu">write.csv</span>(hasil, <span class="at">file=</span><span class="st">""</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>, <span class="at">quote=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<table id="o009-results-markov-gambler-ruin">
+<colgroup>
+<col style="width: 9%"/>
+<col style="width: 9%"/>
+<col style="width: 9%"/>
+<col style="width: 9%"/>
+<col style="width: 9%"/>
+<col style="width: 9%"/>
+<col style="width: 9%"/>
+<col style="width: 9%"/>
+<col style="width: 9%"/>
+<col style="width: 9%"/>
+<col style="width: 9%"/>
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: right;">benih</th>
+<th style="text-align: right;">simulasi</th>
+<th style="text-align: right;">horizon</th>
+<th style="text-align: right;">awal</th>
+<th style="text-align: right;">batas atas</th>
+<th style="text-align: right;">berhasil</th>
+<th style="text-align: right;">taksiran</th>
+<th style="text-align: right;">eksak hingga horizon</th>
+<th style="text-align: right;">peluang akhir</th>
+<th style="text-align: right;">celah ekor eksak</th>
+<th style="text-align: right;">galat mutlak</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">20260822</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">592</td>
+<td style="text-align: right;">0.592000000000</td>
+<td style="text-align: right;">0.571428571429</td>
+<td style="text-align: right;">0.571428571429</td>
+<td style="text-align: right;">1.248349703776e-33</td>
+<td style="text-align: right;">0.020571428571</td>
+</tr>
+</tbody>
+</table>
+<p>Karena keadaan <span class="math inline">\(0\)</span> dan <span class="math inline">\(3\)</span> menyerap, syarat
+<code>lintasan[, horizon] == 3</code> ekuivalen dengan “telah mencapai
+<span class="math inline">\(3\)</span> paling lambat pada waktu <span class="math inline">\(T\)</span>.” Kolom
+<code>eksak_sampai_horizon</code> dihitung dengan memperbarui distribusi
+keadaan melalui perkalian matriks sebanyak <span class="math inline">\(100\)</span> kali. Kolom
+<code>peluang_akhir</code> adalah peluang mencapai <span class="math inline">\(3\)</span> sebelum <span class="math inline">\(0\)</span> tanpa batas waktu. Pada horizon genap
+<span class="math inline">\(100\)</span>, peluang yang belum terserap
+dan kelak mencapai <span class="math inline">\(3\)</span> adalah <span class="math inline">\((4/7)(2/9)^{50}=1{,}248349703776\times10^{-33}\)</span>.
+Kolom <code>celah_ekor_eksak</code> mempertahankan bilangan positif yang
+sangat kecil ini dalam notasi ilmiah; <code>eksak_sampai_horizon</code>
+dan <code>peluang_akhir</code> tetap tampil sama pada 12 angka desimal.
+Dalam aritmetika titik-mengambang, iterasi matriks dan representasi
+<span class="math inline">\(4/7\)</span> justru berbeda sekitar <span class="math inline">\(2{,}22\times10^{-16}\)</span> akibat
+pembulatan—jauh lebih besar daripada celah eksak di atas—sehingga
+selisih bilangan mesin itu tidak dapat dipakai untuk mengukur celah
+horizon.</p>
+<h2 class="original-addition" id="o009-mastery-markov-gambler-ruin">Tambahan asli: persamaan harmonik
+dan pembanding eksak</h2>
+<div class="exercise" id="o009-exercise-markov-gambler-ruin-mastery">
+<p>Misalkan <span class="math inline">\(h_i\)</span> adalah peluang
+mencapai keadaan <span class="math inline">\(3\)</span> sebelum keadaan
+<span class="math inline">\(0\)</span> jika modal awalnya <span class="math inline">\(i\)</span>.</p>
+<ol type="1">
+<li>Tuliskan syarat batas untuk <span class="math inline">\(h_0\)</span>
+dan <span class="math inline">\(h_3\)</span> serta persamaan langkah
+pertama untuk <span class="math inline">\(h_1\)</span> dan <span class="math inline">\(h_2\)</span>.</li>
+<li>Selesaikan sistem tersebut dan tentukan <span class="math inline">\(h_1\)</span>.</li>
+<li>Bandingkan <span class="math inline">\(h_1\)</span> dengan peluang
+eksak sampai <span class="math inline">\(T=100\)</span> dan taksiran
+Monte Carlo. Jelaskan mengapa ketiga bilangan itu tidak harus sama
+persis.</li>
+</ol>
+</div>
+<div class="hint" id="o009-hint-markov-gambler-ruin-mastery-1">
+<p><strong>Petunjuk 1.</strong> Gunakan <span class="math inline">\(h_0=0\)</span>, <span class="math inline">\(h_3=1\)</span>, dan kondisikan pada satu langkah
+pertama dari setiap keadaan tak menyerap.</p>
+</div>
+<div class="hint" id="o009-hint-markov-gambler-ruin-mastery-2">
+<p><strong>Petunjuk 2.</strong> Persamaan yang diperoleh adalah <span class="math inline">\(h_1=\frac13h_0+\frac23h_2\)</span> dan <span class="math inline">\(h_2=\frac13h_1+\frac23h_3\)</span>.</p>
+</div>
+<div class="hint" id="o009-hint-markov-gambler-ruin-mastery-3">
+<p><strong>Petunjuk 3.</strong> Peluang akhir memasukkan lintasan dengan
+waktu serap lebih besar daripada <span class="math inline">\(100\)</span>, sedangkan taksiran Monte Carlo juga
+mengandung galat pengambilan sampel.</p>
+</div>
+<div class="answer" id="o009-answer-markov-gambler-ruin-mastery">
+<p><strong>Jawaban ringkas.</strong> Syarat batasnya <span class="math inline">\(h_0=0\)</span> dan <span class="math inline">\(h_3=1\)</span>. Dari dua persamaan langkah pertama
+diperoleh <span class="math inline">\(h_1=4/7\)</span> dan <span class="math inline">\(h_2=6/7\)</span>. Peluang sampai horizon tidak
+melebihi peluang akhir <span class="math inline">\(4/7\)</span>, dan
+taksiran simulasi berfluktuasi di sekitar peluang sampai horizon.</p>
+</div>
+<div class="solution" id="o009-solution-markov-gambler-ruin-mastery">
+<p><strong>Penyelesaian lengkap.</strong> Keadaan menyerap
+memberikan</p>
+<p><span class="math display">\[
+h_0=0,
+\qquad
+h_3=1.
+\]</span></p>
+<p>Dengan mengondisikan pada langkah pertama,</p>
+<p><span class="math display">\[
+h_1=\frac13h_0+\frac23h_2=\frac23h_2,
+\qquad
+h_2=\frac13h_1+\frac23h_3=\frac13h_1+\frac23.
+\]</span></p>
+<p>Substitusi persamaan kedua ke persamaan pertama menghasilkan</p>
+<p><span class="math display">\[
+h_1=\frac23\left(\frac13h_1+\frac23\right)
+=\frac29h_1+\frac49,
+\]</span></p>
+<p>sehingga <span class="math inline">\(\frac79h_1=\frac49\)</span> dan
+<span class="math inline">\(h_1=4/7\)</span>. Selanjutnya, <span class="math inline">\(h_2=\frac13(4/7)+2/3=6/7\)</span>.</p>
+<p>Nilai <span class="math inline">\(4/7\)</span> menghitung
+keberhasilan tanpa batas waktu. Perkalian distribusi dengan <span class="math inline">\(P\)</span> sebanyak <span class="math inline">\(100\)</span> kali hanya menghitung keberhasilan
+yang telah terjadi paling lambat pada waktu <span class="math inline">\(100\)</span>, sehingga nilainya dapat sedikit
+lebih kecil. Taksiran Monte Carlo memakai hanya <span class="math inline">\(1.000\)</span> lintasan acak dan karena itu tidak
+harus sama persis dengan peluang horizon yang dihitung secara
+deterministik.</p>
+</div>
+</div>
+</body>
+</html>

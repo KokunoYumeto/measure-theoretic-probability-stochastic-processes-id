@@ -364,15 +364,55 @@ Commit `e8f7bedbd45ee8ad8a8463cbc76432c349bab973` (tree
 anonymous readback matched all 41 manifested files and 2,551,660 bytes at
 2026-08-22T04:20:31.6178906Z. See `PUBLICATION_RECEIPT.json`.
 
+### Tenth reader boundary (locally complete; publication transaction next)
+
+`markov/General.html` and the matched absorbing-chain diagnostic lab are
+complete, integrated, independently audited, and visually verified:
+
+- frozen authority: 74,595 bytes / SHA-256
+  `69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c`;
+- Indonesian theory source: 76,342 bytes / SHA-256
+  `fb3026464841179c1480001ecda1e2ab28448a26ba6840f2f9571d6645831194`;
+- built theory reader: 80,114 bytes / SHA-256
+  `8adb839f1b7c7f41103dd24edb7cd5171ed305ca5c7160378cbc52da30fa542c`;
+- Indonesian Rmd lab: 6,910 bytes / SHA-256
+  `28e9b1c731082f9e590d74cf0b44922f5d45759851a7739bf1af1ad50bf09727`;
+- built lab: 27,106 bytes / SHA-256
+  `d695b3ad98bb476690947211ccd2dd87374e14a48a442759ee3c88d19f7743c4`.
+
+The theory source preserves all 925 ordered TeX surfaces and its exact
+translation topology. The built page applies 53 exact-once source-content
+repairs; independent mathematical/static review found no remaining
+high-confidence veto. The lab executes one base-R chunk under pinned R
+4.6.1/RNG and emits its exact golden row, including analytic tail gap
+`1.248349703776e-33`. Donor CC0, Indonesian adaptation CC BY 4.0, and original
+mastery CC BY 4.0 remain distinct.
+
+The deterministic site contains 43 files / 2,661,986 bytes at manifest
+SHA-256
+`c82e526a39a952f439ed11034ce8bbdcccb5deb853fef931a4336453780bf527`;
+build-receipt SHA-256
+`682a76f74952286f39bf1aafa1ff2939a8b0c0ea8602ee559efdb396d4175ac8`.
+The backend contains 1,058 entities, 2,737 segments, and 988 relations (3,795
+semantic records), with zero QA failures; manifest SHA-256
+`6f14a2e733baa821f264c8964fa8e4bcd64ab17bbfae21626832803abe6a3e73`.
+
+Whole-reader browser QA covered all 18 pages at 1280×720 and 390×844. Each
+sweep rendered 9,996 MathJax containers and found 279 disclosures, with zero
+document overflow, broken asset, empty alternative/reference, external
+runtime, navigation mismatch, or browser warning/error. The new page's bulk
+controls open 23/23 and return to 0/23; a native summary opens/closes on mobile.
+Wide tables and code remain in bounded scrollers. See
+`qa/TENTH_BOUNDARY_CHECKPOINT_20260822.md`.
+
 ## Next exact action
 
-1. Continue in source order with
-   `authority/random/static/markov/General.html` (74,595 bytes,
-   SHA-256
-   `69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c`).
-   The Markov landing page is 9,248 bytes at SHA-256
-   `18dfcf15b97a2af7d90404e879376234865bfb40985deb4d6e50b9778f5f7660`;
-   its explicit unit order starts `General.html`, then `Potentials.html`.
+1. Commit and push the exact tenth boundary to the existing public repository,
+   wait for the Pages workflow, then anonymously compare every manifested
+   public byte and record the sanitized receipt.
+2. Only after public verification, read the material-root O009 selection packet
+   and exact user-instruction witness named by the coordinator in full. Do not
+   infer `markov/Potentials.html` as the next cursor before that adoption step.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

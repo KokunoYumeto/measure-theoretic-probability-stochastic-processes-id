@@ -1,7 +1,7 @@
 {
-  "schema": "o009.cursor.v16",
+  "schema": "o009.cursor.v17",
   "as_of": "2026-08-22",
-  "status": "ninth_boundary_public_and_anonymously_verified",
+  "status": "tenth_boundary_local_verified_publication_next",
   "course_id": "O009",
   "role_id": "D30",
   "fourth_public_verified_boundary": {
@@ -268,24 +268,56 @@
     "pages_deployment_status_id": 17152082713,
     "verified_at_utc": "2026-08-22T04:20:31.6178906Z"
   },
-  "next_translation": {
-    "source": "authority/random/static/markov/General.html",
-    "target": "source/theory/markov/General.html",
-    "state": "authority_frozen_translation_not_started",
-    "authority_bytes": 74595,
-    "authority_sha256": "69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c",
-    "landing_page": {
-      "path": "authority/random/static/markov/index.html",
-      "bytes": 9248,
-      "sha256": "18dfcf15b97a2af7d90404e879376234865bfb40985deb4d6e50b9778f5f7660"
+  "tenth_boundary_local_verified": {
+    "new_unit": {
+      "authority_path": "authority/random/static/markov/General.html",
+      "authority_bytes": 74595,
+      "authority_sha256": "69b4f54fd8c976d8a7093b3bfb9e0b3e836aa60794d1ad262e55c9b4b27f043c",
+      "target_path": "source/theory/markov/General.html",
+      "target_bytes": 76342,
+      "target_sha256": "fb3026464841179c1480001ecda1e2ab28448a26ba6840f2f9571d6645831194",
+      "built_path": "build/site/markov/General.html",
+      "built_bytes": 80114,
+      "built_sha256": "8adb839f1b7c7f41103dd24edb7cd5171ed305ca5c7160378cbc52da30fa542c",
+      "translation_tex_surfaces": 925,
+      "built_math_containers": 918,
+      "detail_panels": 23,
+      "reader_corrections": 53
     },
-    "successor": {
-      "path": "authority/random/static/markov/Potentials.html",
-      "bytes": 56563,
-      "sha256": "d088101151a0becb1ff9467dd02b859e92da49cea527723d83daf22a516a9d76"
-    }
+    "new_lab": {
+      "source_path": "source/labs/02-simulasi-rantai-markov.Rmd",
+      "source_bytes": 6910,
+      "source_sha256": "28e9b1c731082f9e590d74cf0b44922f5d45759851a7739bf1af1ad50bf09727",
+      "built_path": "build/site/labs/02-simulasi-rantai-markov.html",
+      "built_bytes": 27106,
+      "built_sha256": "d695b3ad98bb476690947211ccd2dd87374e14a48a442759ee3c88d19f7743c4",
+      "donor_slice_sha256": "dcabe361eaaacaa537966f2bf8809dd8eac52e28392edc78d8e289c8c9be2bd8",
+      "execution_status": "golden_row_exact"
+    },
+    "theory_unit_count": 15,
+    "lab_count": 2,
+    "site_file_count": 43,
+    "site_total_bytes": 2661986,
+    "site_manifest_sha256": "c82e526a39a952f439ed11034ce8bbdcccb5deb853fef931a4336453780bf527",
+    "build_receipt_sha256": "682a76f74952286f39bf1aafa1ff2939a8b0c0ea8602ee559efdb396d4175ac8",
+    "backend_entities": 1058,
+    "backend_segments": 2737,
+    "backend_records": 3795,
+    "backend_relations": 988,
+    "backend_manifest_sha256": "6f14a2e733baa821f264c8964fa8e4bcd64ab17bbfae21626832803abe6a3e73",
+    "backend_input_set_sha256": "0581b6e3068816ec48833486a8c077c0ee3056441fa575f46fef724021c86ab1",
+    "qa_failures": 0,
+    "browser_qa": {
+      "viewports": ["1280x720", "390x844"],
+      "pages_each": 18,
+      "math_containers_each": 9996,
+      "detail_panels_each": 279,
+      "bad_rows": 0
+    },
+    "qa_checkpoint": "qa/TENTH_BOUNDARY_CHECKPOINT_20260822.md",
+    "publication_state": "authorized_not_yet_pushed"
   },
-  "next_action": "publish and anonymously verify the ninth boundary, then translate markov/General.html contiguously while preserving topology, mathematics, and the O006 no-duplication boundary",
+  "next_action": "commit and push the exact tenth boundary, verify Pages and every manifested byte anonymously, then adopt the material-root O009 selection packet before setting the next translation cursor",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
