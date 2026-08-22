@@ -1,0 +1,168 @@
+{
+  "authority": {
+    "active_input_manifest_sha256": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "authority_execution_target": false,
+    "check_before_and_after_each_build": "pass",
+    "check_summary": "source=34/384053 source_manifest=6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c notebooks=13/501361 notebook_manifest=d0934f364b8655d114dc9f5e8469214909b8b7af20a9d69febf5bee1d12603ca active=17/260561 active_manifest=6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6"
+  },
+  "claims_not_made": [
+    "upstream HTML is a downstream/public reader",
+    "upstream HTML or PDF is byte-deterministic across clean builds",
+    "native PDF is accessibility-ready",
+    "system MiKTeX is included in the Python wheel lock",
+    "native PDF matches the 100-page official authority PDF"
+  ],
+  "environment": {
+    "deterministic": {
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "MKL_NUM_THREADS": "1",
+      "MPLBACKEND": "Agg",
+      "NUMBA_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONHASHSEED": "0",
+      "PYTHONIOENCODING": "utf-8",
+      "PYTHONUTF8": "1",
+      "SOURCE_DATE_EPOCH": "315532800",
+      "TZ": "UTC"
+    },
+    "offline_additions": {
+      "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+      "PIP_NO_INDEX": "1",
+      "PYTHONNOUSERSITE": "1"
+    },
+    "offline_replay": "tmp/quantecon-offline-replay",
+    "receipt": {
+      "bytes": 9857,
+      "path": "authority/quantecon/environment/ENVIRONMENT_RECEIPT.json",
+      "sha256": "07f5a093e11c7405b9529e7620037f8a2695180843ade6dc4ebc9c40a53b2755"
+    }
+  },
+  "generated_files": {
+    "HAZARD_BUILD_A_HTML_MANIFEST.tsv": {
+      "file_count": 98,
+      "manifest_bytes": 9853,
+      "manifest_sha256": "7145cd820f55044ad6f76a1671926f57d5505f20723449b5df899dae2fcee2e7",
+      "total_bytes": 6350221
+    },
+    "HTML_A_B_COMPARISON.tsv": {
+      "byte_identical": false,
+      "bytes": 17794,
+      "different": 25,
+      "identical": 73,
+      "only_in_hazard_build_a": 0,
+      "only_in_offline_build_b": 0,
+      "path_union": 98,
+      "sha256": "4751817c5e2c640c76e1b8cfb24e3dabf600f123892d726820993060baaa14b1"
+    },
+    "NATIVE_BUILD_HAZARDS.json": {
+      "bytes": 7778,
+      "sha256": "cbe72996411a930827f21c1b434ce3982da9cd34bffb4c672bd7b21295891c92"
+    },
+    "NATIVE_HTML_MANIFEST.tsv": {
+      "file_count": 98,
+      "manifest_bytes": 9853,
+      "manifest_sha256": "b40177b0b9f176ae5e130a490963ac1acbbafbde8c1a8a58a6a29842e6ee09ab",
+      "total_bytes": 6349351
+    },
+    "NATIVE_PDF_LATEX_MANIFEST.tsv": {
+      "file_count": 49,
+      "manifest_bytes": 4356,
+      "manifest_sha256": "8a9c00d92fc170111fa28bc890bb20c3d390d119121b264f45cfb2cf19b2ae74",
+      "total_bytes": 1438564
+    },
+    "WORKING_COPY_MUTATIONS.tsv": {
+      "bytes": 7727,
+      "sha256": "6c853fd560196afac3ca37d3e29dd8737af80ec909b87241e0de32c60c677e64",
+      "working_copy_count": 2
+    }
+  },
+  "hazard_build_a_comparison": {
+    "byte_identical": false,
+    "different": 25,
+    "identical": 73,
+    "only_in_hazard_build_a": 0,
+    "only_in_offline_build_b": 0,
+    "path_union": 98
+  },
+  "hazards": {
+    "bytes": 7778,
+    "path": "authority/quantecon/build_baseline/NATIVE_BUILD_HAZARDS.json",
+    "sha256": "cbe72996411a930827f21c1b434ce3982da9cd34bffb4c672bd7b21295891c92"
+  },
+  "runs": [
+    {
+      "command": "tmp/quantecon-offline-replay/Scripts/jb.exe build -W --keep-going lectures --path-output ./",
+      "ended_utc": "2026-08-22T06:24:36.4089967Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 14589,
+        "path": "authority/quantecon/build_baseline/native_html_build.log",
+        "sha256": "642e92c714f083e5c6a827cb6babe397e9f4bb00352bf8aab934bc88047a8f42"
+      },
+      "name": "native-html-offline-b",
+      "output": {
+        "file_count": 98,
+        "manifest_bytes": 9853,
+        "manifest_sha256": "b40177b0b9f176ae5e130a490963ac1acbbafbde8c1a8a58a6a29842e6ee09ab",
+        "path": "tmp/quantecon-build-work-native-offline-20260822a/_build/html",
+        "total_bytes": 6349351
+      },
+      "started_utc": "2026-08-22T06:23:22.9688036Z",
+      "working_copy": "tmp/quantecon-build-work-native-offline-20260822a"
+    },
+    {
+      "command": "tmp/quantecon-offline-replay/Scripts/jb.exe build lectures --builder pdflatex --path-output ./ -n --keep-going",
+      "ended_utc": "2026-08-22T06:28:29.2685889Z",
+      "exit_code": 1,
+      "log": {
+        "bytes": 18169,
+        "path": "authority/quantecon/build_baseline/native_pdf_build.log",
+        "sha256": "8c29bf57142d59ff23ed741a77de3819b0e013215215c561ef27faecd5004445"
+      },
+      "name": "native-pdf-wrapper",
+      "sphinx_latex_generation": "success-with-one-warning",
+      "started_utc": "2026-08-22T06:25:24.8224741Z",
+      "working_copy": "tmp/quantecon-build-work-native-pdf-20260822a",
+      "wrapper_failure": "FileNotFoundError [WinError 2]: make.bat"
+    },
+    {
+      "command": "LATEXMKOPTS=-latexoption=-disable-installer; cmd.exe /d /c .\\make.bat all-pdf",
+      "ended_utc": "2026-08-22T06:31:17.4405420Z",
+      "exit_code": 0,
+      "log": {
+        "bytes": 82256,
+        "path": "authority/quantecon/build_baseline/native_pdf_manual_make.log",
+        "sha256": "785b3fdad0064c6a763fe687f89d75f5c7c1707343611be77b72d6f3c2016b60"
+      },
+      "name": "native-pdf-generated-batch-manual",
+      "output": {
+        "file_count": 49,
+        "manifest_bytes": 4356,
+        "manifest_sha256": "8a9c00d92fc170111fa28bc890bb20c3d390d119121b264f45cfb2cf19b2ae74",
+        "path": "tmp/quantecon-build-work-native-pdf-20260822a/_build/latex",
+        "total_bytes": 1438564
+      },
+      "pdf": {
+        "author": "Thomas J. Sargent & John Stachurski",
+        "bytes": 451761,
+        "creation_date": "Tue Jan  1 01:00:00 1980 W. Europe Standard Time",
+        "encrypted": "no",
+        "javascript": "no",
+        "local_windows_path_occurrences": 17,
+        "physical_pages": 92,
+        "producer": "MiKTeX-dvipdfmx (20260404)",
+        "runtime_warning_occurrences": 30,
+        "sha256": "bda190957516c405c75505af5a05df3a7bd83159226c8ce1f2577de611c2d24f",
+        "tagged": "no",
+        "title": "Continuous Time Markov Chains",
+        "unresolved_double_question_mark_occurrences": 5
+      },
+      "started_utc": "2026-08-22T06:30:12.2010425Z",
+      "working_copy": "tmp/quantecon-build-work-native-pdf-20260822a/_build/latex"
+    }
+  ],
+  "schema": "o009.quantecon-native-build-baseline.v1",
+  "status": "native HTML proven offline; native PDF wrapper failure isolated and generated batch proven manually; downstream adaptation still required"
+}

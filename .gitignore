@@ -3,7 +3,8 @@ authority/runtime/
 authority/zitkovic/*.zip
 __pycache__/
 *.py[cod]
+/tmp/
+/authority/quantecon/environment/wheelhouse/
 build/*
 !build/site/
 !build/site/**
-

@@ -1,0 +1,229 @@
+{
+  "created_utc": "2026-08-22T06:18:39Z",
+  "deterministic_environment": {
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "MKL_NUM_THREADS": "1",
+    "MPLBACKEND": "Agg",
+    "NUMBA_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONHASHSEED": "0",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "SOURCE_DATE_EPOCH": "315532800",
+    "TZ": "UTC"
+  },
+  "files": {
+    "requirements_in": {
+      "bytes": 562,
+      "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\authority\\quantecon\\environment\\requirements.in",
+      "sha256": "d6e84fed447a99ed6522564ce5896d96528c52be2de436578323d8667b92b389"
+    },
+    "requirements_lock": {
+      "bytes": 15889,
+      "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\authority\\quantecon\\environment\\requirements.lock",
+      "sha256": "9c4464dc9e5705a095ec07cdf943331bd84025460eff3bc202f1ebab29cdb577"
+    },
+    "requirements_resolved": {
+      "bytes": 3107,
+      "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\authority\\quantecon\\environment\\requirements.resolved.txt",
+      "sha256": "d830e291a14fc4012cd54b53d8700f9f16fb01c4e0f6cfa91018fd38bba7708f"
+    },
+    "script": {
+      "bytes": 41390,
+      "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\scripts\\freeze_quantecon_environment.py",
+      "sha256": "da141e6f7d83788a736379cd9c24816b905c9e5eed43a040321808e071e78351"
+    },
+    "wheelhouse_manifest": {
+      "bytes": 27112,
+      "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\authority\\quantecon\\environment\\WHEELHOUSE_MANIFEST.tsv",
+      "sha256": "b967b4d80e739d0b59020acdce19f524d3b3f4e2ae63af5d7c654dc6ec84248b"
+    }
+  },
+  "interpreter": {
+    "absent_optional_artifact_candidates": [],
+    "artifacts": [
+      {
+        "bytes": 253256,
+        "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\tmp\\quantecon-resolve-env\\Scripts\\python.exe",
+        "sha256": "0e818a1f9a0b8fbd4e7cc458a07cb7de2ea02ea326e387699a33b92f151242cd"
+      },
+      {
+        "bytes": 248648,
+        "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\tmp\\quantecon-resolve-env\\Scripts\\pythonw.exe",
+        "sha256": "d7bad364dfefeecd03beb6da309dd64168bfdeb79578cb96495e68c177a56809"
+      },
+      {
+        "bytes": 104264,
+        "path": "C:\\Users\\Floris\\miniconda3\\python.exe",
+        "sha256": "7679e53fa969789309e81fdad0d52b8cda5f83c9abf7cb31a3c58bf24b31e264"
+      },
+      {
+        "bytes": 102728,
+        "path": "C:\\Users\\Floris\\miniconda3\\pythonw.exe",
+        "sha256": "af54425ecc80ac5fa4305334f509697341f6ab25c4b30e340bc0f5b59d2dc585"
+      },
+      {
+        "bytes": 70472,
+        "path": "C:\\Users\\Floris\\miniconda3\\python3.dll",
+        "sha256": "7f008ca911d09a19249321c669060c6894fa40d7bf049af33dc13d75a622b573"
+      },
+      {
+        "bytes": 7116616,
+        "path": "C:\\Users\\Floris\\miniconda3\\python313.dll",
+        "sha256": "d97a98104f8bba00acc6d91c9b1db9ce0e917257da80ec923000f7e9be9d77f4"
+      },
+      {
+        "bytes": 124496,
+        "path": "C:\\Users\\Floris\\miniconda3\\vcruntime140.dll",
+        "sha256": "0205071c36c17f1efbd70178c852cb7d49985c484202752b8704b7ac6b184e60"
+      },
+      {
+        "bytes": 49744,
+        "path": "C:\\Users\\Floris\\miniconda3\\vcruntime140_1.dll",
+        "sha256": "963e45edd064545962e216c12d68071ced94dc8e11862a18f07f14eb2690a57c"
+      }
+    ],
+    "base_executable": "C:\\Users\\Floris\\miniconda3\\python.exe",
+    "base_prefix": "C:\\Users\\Floris\\miniconda3",
+    "cache_tag": "cpython-313",
+    "executable": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\tmp\\quantecon-resolve-env\\Scripts\\python.exe",
+    "implementation": "CPython",
+    "ldlibrary": "python313.dll",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "prefix": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\tmp\\quantecon-resolve-env",
+    "soabi": "cp313-win_amd64",
+    "version": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+    "version_info": [
+      3,
+      13,
+      9,
+      "final",
+      0
+    ]
+  },
+  "offline_replay": {
+    "freeze_exact_match": true,
+    "freeze_sha256": "d830e291a14fc4012cd54b53d8700f9f16fb01c4e0f6cfa91018fd38bba7708f",
+    "jupyter_book_version": "Jupyter Book      : 1.0.4.post1\nExternal ToC      : 1.1.0\nMyST-Parser       : 3.0.1\nMyST-NB           : 1.4.0\nSphinx Book Theme : 1.1.4\nJupyter-Cache     : 1.0.1\nNbClient          : 0.11.0",
+    "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\tmp\\quantecon-offline-replay",
+    "pip_check": "No broken requirements found.",
+    "probe": {
+      "deterministic_environment": {
+        "LANG": "C.UTF-8",
+        "LC_ALL": "C.UTF-8",
+        "MKL_NUM_THREADS": "1",
+        "MPLBACKEND": "Agg",
+        "NUMBA_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "PYTHONHASHSEED": "0",
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONUTF8": "1",
+        "SOURCE_DATE_EPOCH": "315532800",
+        "TZ": "UTC"
+      },
+      "distribution_versions": {
+        "jupyter-book": "1.0.4.post1",
+        "matplotlib": "3.10.9",
+        "numba": "0.66.0",
+        "numpy": "2.4.4",
+        "quantecon": "0.11.3",
+        "quantecon-book-theme": "0.21.0",
+        "scipy": "1.17.1",
+        "sphinx": "7.4.7",
+        "sphinx-exercise": "1.2.1",
+        "sphinx-proof": "0.4.0",
+        "sphinx-tojupyter": "0.6.0"
+      },
+      "imported_modules": [
+        "jupyter_book",
+        "myst_nb",
+        "quantecon_book_theme",
+        "sphinx",
+        "sphinx_exercise",
+        "sphinx_external_toc",
+        "sphinx_jupyterbook_latex",
+        "sphinx_proof",
+        "sphinx_togglebutton",
+        "sphinx_tojupyter",
+        "sphinxcontrib.youtube",
+        "sphinxext.rediraffe"
+      ],
+      "matplotlib_canvas": [
+        160,
+        80
+      ],
+      "numba_compiled_sum": 4.4287158926336305,
+      "numpy_draws_sha256": "c4225ba2e1a03b700523e6e29c787c34924cd771bddeb7541a97158f8eea4372",
+      "quantecon_stationary_distributions": [
+        [
+          0.6666666666666666,
+          0.3333333333333333
+        ]
+      ],
+      "scipy_expm": [
+        [
+          0.7410433867161433,
+          0.25895661328385666
+        ],
+        [
+          0.5179132265677135,
+          0.48208677343228645
+        ]
+      ],
+      "scipy_expm_row_sums": [
+        1.0,
+        1.0
+      ]
+    },
+    "python": {
+      "bytes": 253256,
+      "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\tmp\\quantecon-offline-replay\\Scripts\\python.exe",
+      "sha256": "0e818a1f9a0b8fbd4e7cc458a07cb7de2ea02ea326e387699a33b92f151242cd"
+    },
+    "sphinx_build_version": "sphinx-build 7.4.7",
+    "tree": {
+      "file_count": 31851,
+      "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\tmp\\quantecon-offline-replay",
+      "total_bytes": 763434580,
+      "tree_sha256": "6ee8d8ca56a76cb6ec364f71552e89f122f314d8439bb1e427422d906def2335"
+    }
+  },
+  "policy": {
+    "download_only_binary": true,
+    "offline_install_force_reinstall": true,
+    "offline_install_no_index": true,
+    "offline_install_require_hashes": true,
+    "one_wheel_per_distribution": true,
+    "resolver_and_replay_freeze_exact_match": true,
+    "resolver_was_preinstalled": true
+  },
+  "purpose": "Exact wheel-only Python closure and clean offline replay for the O009 QuantEcon CTMC authority/build baseline.",
+  "receipt_finalization": {
+    "finalized_utc": "2026-08-22T06:29:19Z",
+    "previous_generator_script": {
+      "bytes": 21818,
+      "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\scripts\\freeze_quantecon_environment.py",
+      "sha256": "739616c0b1ea85399b97bb9b4e1005aa0343a63956ac45a32c1361f27095b869"
+    },
+    "previous_receipt_sha256": "8bd0974281de87df5001ac66f7cb68befda76941870a0ca0a6d7c79c194dad18",
+    "reason": "Bind the finalized generator/checker script after adding its non-mutating --check mode."
+  },
+  "resolver": {
+    "distribution_count": 160,
+    "freeze_sha256": "d830e291a14fc4012cd54b53d8700f9f16fb01c4e0f6cfa91018fd38bba7708f",
+    "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\tmp\\quantecon-resolve-env\\Scripts\\python.exe",
+    "pip_check": "No broken requirements found.",
+    "pip_version": "pip 25.2 from C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\tmp\\quantecon-resolve-env\\Lib\\site-packages\\pip (python 3.13)"
+  },
+  "schema_version": 1,
+  "top_level_requirement_count": 13,
+  "wheelhouse": {
+    "manifest_sha256": "b967b4d80e739d0b59020acdce19f524d3b3f4e2ae63af5d7c654dc6ec84248b",
+    "path": "C:\\Users\\Floris\\Documents\\interlanguage\\04_mirrors\\id\\measure-theoretic-probability-stochastic-processes-id\\authority\\quantecon\\environment\\wheelhouse",
+    "total_bytes": 180231134,
+    "wheel_count": 160
+  }
+}

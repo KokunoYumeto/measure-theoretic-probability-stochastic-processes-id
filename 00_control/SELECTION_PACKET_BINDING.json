@@ -1,0 +1,131 @@
+{
+  "schema": "o009.selection-packet-binding.v1",
+  "adopted_at_utc": "2026-08-22T05:56:42.9292562Z",
+  "status": "adopted_after_tenth_boundary_public_verification",
+  "packet": {
+    "markdown_path": "C:/Users/Floris/Documents/interlanguage/outputs/01a01ec1-e685-70d0-b022-211396334723/curriculum_logbook/33_O009_SELECTION_AND_EXISTING_TASK_HANDOFF_20260822.md",
+    "markdown_bytes": 19689,
+    "markdown_sha256": "690ecd32ef99b2c667aeff3f1f6d841d1b72e8ff700a77bac1dc025789cde6cc",
+    "json_path": "C:/Users/Floris/Documents/interlanguage/outputs/01a01ec1-e685-70d0-b022-211396334723/curriculum_logbook/33_O009_SELECTION_AND_EXISTING_TASK_HANDOFF_20260822.json",
+    "json_bytes": 9519,
+    "json_sha256": "94dfc213c1fa0c588b1547e5831935d4dabc08c08ac02c9f2d2e7a88ad9a8834"
+  },
+  "canonical_user_instruction": {
+    "path": "C:/Users/Floris/Documents/Obsidian notes/Untitled 1693.md",
+    "bytes": 10476,
+    "sha256": "cf913e8cb4d487f4c6958c079b372ccbb2fb5929dd483068441e80cefd6794f2",
+    "hash_and_size_verified": true,
+    "read_in_full": true
+  },
+  "architecture": {
+    "kind": "bounded composite adaptation and original synthesis",
+    "random_selected_pages": 27,
+    "random_selected_bytes": 1032759,
+    "random_selected_manifest_bytes": 2511,
+    "random_selected_manifest_sha256": "52fe0905238a12d2e757a5fefc44fb0c8418ccd78bf7234bd4b842ca5380496e",
+    "quantecon_complete_ctmc": true,
+    "quantecon_chapters": 8,
+    "quantecon_pdf_pages": 100,
+    "quantecon_exercises": 25,
+    "quantecon_solutions": 25,
+    "quantecon_executable_cells": 35,
+    "zitkovic_exact_slices": 2,
+    "o006_external_prerequisite": true,
+    "original_labs": 3,
+    "original_fully_solved_problems": 36,
+    "cumulative_forms": 2,
+    "renewal_required": false
+  },
+  "random_selected_paths": [
+    "prob/Convergence.html",
+    "prob/Probability2.html",
+    "prob/Processes.html",
+    "prob/Stop.html",
+    "dist/Convergence.html",
+    "expect/Conditional2.html",
+    "expect/Uniform.html",
+    "expect/Kernels.html",
+    "martingales/index.html",
+    "martingales/Introduction.html",
+    "martingales/Properties.html",
+    "martingales/Stop.html",
+    "martingales/Inequalities.html",
+    "martingales/Convergence.html",
+    "martingales/Backwards.html",
+    "markov/index.html",
+    "markov/General.html",
+    "markov/Discrete.html",
+    "markov/Recurrence.html",
+    "markov/Periodicity.html",
+    "markov/Limiting.html",
+    "poisson/General.html",
+    "brown/index.html",
+    "brown/Standard.html",
+    "brown/Drift.html",
+    "brown/Bridge.html",
+    "brown/Geometric.html"
+  ],
+  "explicit_exclusions": {
+    "random_replaced_by_quantecon": [
+      "markov/Potentials.html",
+      "markov/Continuous.html",
+      "markov/Transition.html",
+      "markov/Potentials2.html",
+      "markov/Limiting2.html",
+      "ordinary Random Poisson pages other than poisson/General.html"
+    ],
+    "optional_outside_canonical_d30": ["all seven Random renewal pages"],
+    "cross_lane_owned": ["Random sample chapter, including LLN and CLT, owned by O006/C140"]
+  },
+  "quantecon": {
+    "title": "Continuous Time Markov Chains",
+    "authors": ["Thomas J. Sargent", "John Stachurski"],
+    "tag": "publish-2026jul14",
+    "commit": "8b06e0aa5a438692445b2c896f9d238c5a7d5eb7",
+    "tree": "f0f11e3bbc6bd23d6e4a447a7e05c0aaf0f7209e",
+    "commit_archive_bytes": 240751,
+    "commit_archive_sha256": "ae12b4e7724b92c16d1caa3d42c82180fd67723212fe641b22594a1bbd5a4346",
+    "root_stripped_manifest_sha256": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "pdf_bytes": 859224,
+    "pdf_sha256": "b08f4503f1ff866a40b0ef0bbedf1c599bccef3c9d6da363013bb524e93054c5",
+    "license": "CC BY-SA 4.0",
+    "license_witness_bytes": 32586,
+    "license_witness_sha256": "ff0dd3b21c95d225b2555710bdb6217d2963954cb95e34655711529d93209e46",
+    "notebook_commit": "1e17c25c937f369544380f769eb9c1bc45d12d1a",
+    "notebook_archive_bytes": 266009,
+    "notebook_archive_sha256": "02f1e55deeb9a3e4544e3af13ffbde8789d7a7488f28d8d3834855ddc7f16bd7",
+    "environment_lock_required_before_translation": true
+  },
+  "reconciliation": {
+    "packet_current_boundary_was_stale_at_adoption": true,
+    "current_public_theory_pages": 15,
+    "current_public_labs": 2,
+    "current_public_site_files": 43,
+    "current_public_site_bytes": 2661986,
+    "current_public_manifest_sha256": "c82e526a39a952f439ed11034ce8bbdcccb5deb853fef931a4336453780bf527",
+    "deployed_source_commit": "2ef87fed687a7b2c8bc909d8e8993c6a4f136f4f",
+    "receipt_commit": "1605cac68899c8749c67e6ac89b8a040ad608183"
+  },
+  "selected_index_policy": {
+    "paths": [
+      "martingales/index.html",
+      "markov/index.html",
+      "brown/index.html"
+    ],
+    "status": "selected_and_not_yet_translated",
+    "rule": "translate their substantive source content as source-faithful landing pages; the generated course index is navigation and does not silently replace these selected authority pages"
+  },
+  "production_sequence": [
+    "freeze complete QuantEcon source, license witness, notebooks, selected assets, and exact offline Python environment",
+    "translate Random markov/Discrete.html, markov/Recurrence.html, markov/Periodicity.html, and markov/Limiting.html",
+    "translate and adapt all eight QuantEcon chapters with exercises, solutions, and executable cells",
+    "translate Random poisson/General.html",
+    "translate Random brown/Standard.html, brown/Drift.html, brown/Bridge.html, and brown/Geometric.html",
+    "complete original bridge, three labs, 36 solved problems, two forms, O006 binding, backend, HTML/PDF, QA, release, and anonymous readback"
+  ],
+  "next_cursor": {
+    "kind": "authority_and_runtime_freeze",
+    "component": "QuantEcon Continuous Time Markov Chains",
+    "action": "copy and independently verify the exact commit source, official license witness, generated notebooks, selected assets, and a clean pinned offline Python environment inside the O009 lane before translating another unit"
+  }
+}

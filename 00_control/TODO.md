@@ -12,6 +12,12 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Exclude O006-owned Random sampling/LLN/CLT bytes; record dependency.
 - [x] Complete Imperial contributor-authority, license, component, coverage, and build veto comparison.
 - [x] Record the final source-selection decision and exact admitted scope.
+- [x] Read, hash, and adopt the controlling O009 selection packet, strict JSON twin, and exact user-instruction witness after the tenth boundary became public.
+- [x] Bind the exact 27-page Random subset, QuantEcon component, exclusions, finite original closure, production sequence, and corrected next cursor in `SELECTION_PACKET_BINDING.json`.
+- [x] Freeze the complete QuantEcon commit source, official CC BY-SA 4.0 witness, generated notebooks, selected assets, and exact clean offline Python environment in this lane.
+- [x] Prove the complete QuantEcon source/notebook native-build baseline, 25/25 exercise-solution closure, 35 source cells, selected/excluded assets, and clean offline execution; retain the non-byte-identical upstream outputs and their hazards as downstream adapter gates rather than overstating determinism.
+- [ ] Recompute and freeze the selected-only 27-page Random dependency closure.
+- [ ] Translate the selected substantive Random landing pages `martingales/index.html`, `markov/index.html`, and `brown/index.html`; do not count the generated course index as their source-faithful replacement.
 - [x] Finish per-component rights/asset manifest for the first admitted page/lab.
 - [ ] Extend the per-component rights/asset manifest with every new admitted page/lab.
 
@@ -64,17 +70,18 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Measure-theoretic conditional expectation and kernels (`Conditional2`, `Uniform`, and `Kernels` public and anonymously verified).
 - [x] Link, do not duplicate, the O006 sampling/LLN/CLT prerequisite.
 - [x] Complete the martingale properties, stopping, inequalities, convergence, and backwards-martingale sequence.
-- [~] Discrete and continuous Markov processes; `markov/General.html` and its first diagnostic lab are complete. Adopt the material-root selection packet after publication before setting the next exact unit.
-- [ ] Poisson processes and a new executable event-time lab.
-- [ ] Renewal equations/limits/delays/alternation/rewards and a new simulation lab.
+- [~] Markov processes: `markov/General.html` and its diagnostic lab are public; QuantEcon authority/runtime/native baseline is admitted; translate Random `Discrete` next, followed only by `Recurrence`, `Periodicity`, and `Limiting`.
+- [ ] Translate/adapt all eight QuantEcon CTMC chapters with all 25 exercises, 25 solutions, and executable cells.
+- [ ] Translate the selected Random general-space `poisson/General.html` bridge; QuantEcon owns the coherent ordinary-Poisson/CTMC sequence.
 - [ ] Brownian standard/drift/bridge/geometric units and a new accessible path lab.
+- [ ] Complete the finite original rigorous bridge, three additional deterministic domain labs beyond the two Žitković slices, 36 fully solved stable-ID problems with progressive hints, and two cumulative forms.
 - [ ] Add prerequisite bridges and missing mastery/assessment closure throughout.
 - [ ] Translate in source order, checkpointing and pushing each substantial verified boundary.
 
 ## Final closure
 
 - [ ] Complete canonical JSON/JSONL/CSV backend and validate schema/relations.
-- [ ] Build full offline HTML reader; build PDF where additive and verified.
+- [ ] Build full offline HTML reader and deterministic combined PDF.
 - [ ] Complete whole-reader accessibility, link/asset, code, privacy, visual, and reproducibility QA.
 - [ ] Publish final GitHub source/reader and record anonymous verification receipt.
 - [ ] Prepare no upstream message during production. After full completion and separate authorization only, deduplicate and submit at most one concise high-confidence report signed `Codex — at the user’s direction.`

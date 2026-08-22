@@ -12,6 +12,60 @@ These are inputs, not lane authority. Current hashes at lane startup:
 
 ## Random theory candidate
 
+### Controlling selected architecture
+
+The material-root packet is adopted through
+`00_control/SELECTION_PACKET_BINDING.json`. Its Markdown is 19,689 bytes at
+SHA-256 `690ecd32ef99b2c667aeff3f1f6d841d1b72e8ff700a77bac1dc025789cde6cc`;
+its strict JSON twin is 9,519 bytes at SHA-256
+`94dfc213c1fa0c588b1547e5831935d4dabc08c08ac02c9f2d2e7a88ad9a8834`.
+The exact user-instruction witness is 10,476 bytes at SHA-256
+`cf913e8cb4d487f4c6958c079b372ccbb2fb5929dd483068441e80cefd6794f2`.
+
+The bounded architecture is exactly 27 selected Random pages, the complete
+QuantEcon *Continuous Time Markov Chains* component, two exact Žitković slices,
+the external O006/C140 sampling prerequisite, and a finite original CC BY 4.0
+closure. QuantEcon replaces Random `markov/Potentials`, `Continuous`,
+`Transition`, `Potentials2`, `Limiting2`, and all ordinary Random Poisson
+pages except the selected general-space `poisson/General.html`. Random renewal
+is an optional external reference, not a completion gate.
+
+QuantEcon authority is tag `publish-2026jul14`, immutable commit
+`8b06e0aa5a438692445b2c896f9d238c5a7d5eb7`, tree
+`f0f11e3bbc6bd23d6e4a447a7e05c0aaf0f7209e`, commit archive 240,751 bytes /
+SHA-256 `ae12b4e7724b92c16d1caa3d42c82180fd67723212fe641b22594a1bbd5a4346`,
+and official-reader CC BY-SA 4.0 witness 32,586 bytes / SHA-256
+`ff0dd3b21c95d225b2555710bdb6217d2963954cb95e34655711529d93209e46`.
+The generated-notebook authority is commit
+`1e17c25c937f369544380f769eb9c1bc45d12d1a`, archive 266,009 bytes / SHA-256
+`02f1e55deeb9a3e4544e3af13ffbde8789d7a7488f28d8d3834855ddc7f16bd7`.
+Lane admission is now proven. `authority/quantecon/AUTHORITY_RECEIPT.json`
+binds the exact 34-file source, 13-file notebook witness, 17 active inputs,
+eight MyST chapters, 25 exercises, 25 paired solutions, 35 source cells, the
+selected flow figure, and every exclusion. A 160-distribution/160-wheel
+hash-required offline replay passes clean installation and scientific/builder
+probes; the environment receipt SHA-256 is
+`07f5a093e11c7405b9529e7620037f8a2695180843ade6dc4ebc9c40a53b2755`.
+The disposable-copy native HTML and LaTeX/PDF baselines pass subject to the
+explicit downstream hazards in
+`authority/quantecon/build_baseline/NATIVE_BUILD_HAZARDS.json`. This admission
+permits later translation; it does not admit the native branded/analytic shell
+into the public reader.
+
+The frozen snapshots are read-only witnesses, not build workspaces. A first
+native baseline attempt exposed an upstream side effect: executing
+`lectures/markov_prop.md` rewrites
+`lectures/_static/lecture_specific/markov_prop/flow_fig.png`. The verifier
+caught the change; the immutable commit archive restored the exact 104,771-byte
+asset at SHA-256
+`54906c3f6f48664960d25ead98af1150014e88367db1d604f6ccc9d01e50564f`,
+and the complete 34-file authority snapshot again matched 384,053 bytes and
+manifest SHA-256
+`6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c`.
+All later native execution must occur only in a fresh validated disposable
+copy, with authority rehashed before and after. The affected build is retained
+only as hazard evidence and cannot prove reproducibility.
+
 - Official authority: Kyle Siegrist, <https://www.randomservices.org/random/>.
 - Upstream form: deployed semantic HTML containing TeX source, local CSS/JavaScript and image assets. No official public authoring repository, edition, tag, commit, archive, or build recipe has been found. Authority must therefore be expressed as exact URL bytes, response metadata, and hashes, not a fictional commit.
 - Current O009 selection: 47 disjoint theory pages plus 3 authority pages and 44 direct assets = 94 files / 1,997,915 bytes.
@@ -217,7 +271,15 @@ The README/preface call the work unofficial student notes by Ivan Kirev and Samu
 
 ## Final selection
 
-Random’s 47 disjoint theory pages are the theory spine; O006/C140 supplies shared sampling/LLN/CLT prerequisites; Žitković supplies only exact dependency-closed CC0 lab slices; original bridge/mastery material is CC BY 4.0. Random’s downstream offline build and asset closure must pass at every boundary. If it fails, do not silently fall back to Imperial.
+The selected 27-page Random subset supplies the measure-theoretic, discrete-
+Markov, general-space Poisson, and Brownian spine; complete QuantEcon CTMC
+supplies the overlapping continuous-time Markov/ordinary-Poisson component;
+O006/C140 supplies shared sampling/LLN/CLT prerequisites; Žitković supplies
+only two exact dependency-closed CC0 lab slices; original bridge/mastery
+material is CC BY 4.0. The frozen 47-page/94-file Random corpus is a superset
+witness, not the selected translation scope. Every component's downstream
+offline build and asset closure must pass; do not silently fall back to
+Imperial or broaden Random.
 
 ## Original additions
 

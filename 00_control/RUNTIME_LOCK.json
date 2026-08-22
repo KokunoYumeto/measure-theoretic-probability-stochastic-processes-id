@@ -1,5 +1,5 @@
 {
-  "schema": "o009.runtime-lock.v2",
+  "schema": "o009.runtime-lock.v3",
   "as_of": "2026-08-22",
   "r": {
     "authority_url": "https://cran.r-project.org/bin/windows/base/R-4.6.1-win.exe",
@@ -86,5 +86,75 @@
       }
     ]
   },
-  "public_repository_policy": "Do not commit the 91.7 MB installer or installed runtime. Commit this lock, the build harness, and exact authority URL/checksums."
+  "python_quantecon": {
+    "purpose": "Pinned offline authority/build baseline and later deterministic execution for the selected QuantEcon CTMC component.",
+    "base_runtime": {
+      "implementation": "CPython",
+      "version": "3.13.9",
+      "distribution": "Anaconda",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "abi": "cp313-win_amd64",
+      "base_python_path": "C:/Users/Floris/miniconda3/python.exe",
+      "base_python_bytes": 104264,
+      "base_python_sha256": "7679e53fa969789309e81fdad0d52b8cda5f83c9abf7cb31a3c58bf24b31e264",
+      "python313_dll_bytes": 7116616,
+      "python313_dll_sha256": "d97a98104f8bba00acc6d91c9b1db9ce0e917257da80ec923000f7e9be9d77f4",
+      "upstream_difference": "The official 2026-07-14 PDF reports Python 3.13.13; the locally reproducible pinned lane environment is CPython 3.13.9 and is therefore recorded as a downstream baseline, not claimed byte-identical to the upstream author's runtime."
+    },
+    "environment_files": {
+      "requirements_in": "authority/quantecon/environment/requirements.in",
+      "requirements_in_sha256": "d6e84fed447a99ed6522564ce5896d96528c52be2de436578323d8667b92b389",
+      "requirements_resolved": "authority/quantecon/environment/requirements.resolved.txt",
+      "requirements_resolved_sha256": "d830e291a14fc4012cd54b53d8700f9f16fb01c4e0f6cfa91018fd38bba7708f",
+      "hash_required_lock": "authority/quantecon/environment/requirements.lock",
+      "hash_required_lock_sha256": "9c4464dc9e5705a095ec07cdf943331bd84025460eff3bc202f1ebab29cdb577",
+      "wheelhouse_manifest": "authority/quantecon/environment/WHEELHOUSE_MANIFEST.tsv",
+      "wheelhouse_manifest_sha256": "b967b4d80e739d0b59020acdce19f524d3b3f4e2ae63af5d7c654dc6ec84248b",
+      "receipt": "authority/quantecon/environment/ENVIRONMENT_RECEIPT.json",
+      "receipt_sha256": "07f5a093e11c7405b9529e7620037f8a2695180843ade6dc4ebc9c40a53b2755",
+      "verifier": "scripts/freeze_quantecon_environment.py",
+      "verifier_sha256": "da141e6f7d83788a736379cd9c24816b905c9e5eed43a040321808e071e78351"
+    },
+    "resolution": {
+      "top_level_requirements": 13,
+      "distributions": 160,
+      "wheels": 160,
+      "wheelhouse_bytes": 180231134,
+      "wheelhouse_policy": "Retained lane-locally for offline replay and intentionally Git-ignored; the public lock and exact wheel manifest preserve package/version/hash identity without adding 180 MB of third-party wheel binaries to source history.",
+      "jupyter_book": "1.0.4.post1",
+      "sphinx": "7.4.7",
+      "quantecon": "0.11.3",
+      "numpy": "2.4.4",
+      "scipy": "1.17.1",
+      "matplotlib": "3.10.9",
+      "numba": "0.66.0"
+    },
+    "offline_replay": {
+      "path": "tmp/quantecon-offline-replay",
+      "pip_check": "pass",
+      "freeze_exact_match": true,
+      "file_count": 31851,
+      "total_bytes": 763434580,
+      "tree_sha256": "6ee8d8ca56a76cb6ec364f71552e89f122f314d8439bb1e427422d906def2335",
+      "scientific_and_builder_probes": "pass"
+    },
+    "deterministic_environment": {
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "MKL_NUM_THREADS": "1",
+      "MPLBACKEND": "Agg",
+      "NUMBA_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONHASHSEED": "0",
+      "PYTHONIOENCODING": "utf-8",
+      "PYTHONUTF8": "1",
+      "SOURCE_DATE_EPOCH": "315532800",
+      "TZ": "UTC",
+      "PIP_NO_INDEX": "1",
+      "PYTHONNOUSERSITE": "1"
+    },
+    "execution_policy": "Fresh disposable source copy; one fresh kernel per chapter; network disabled; six upstream pip-install cells removed only in the downstream execution layer; explicit stochastic seeds; analytic targets and tolerances; no undeclared stderr; frozen authority rehashed before and after."
+  },
+  "public_repository_policy": "Do not commit the 91.7 MB R installer, installed runtimes, virtual environments, or the 180 MB third-party Python wheelhouse. Retain them lane-locally; commit this lock, the hash-required dependency lock, exact wheel manifest, build harness, and authority URL/checksums."
 }

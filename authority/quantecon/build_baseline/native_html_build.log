@@ -1,0 +1,109 @@
+Running Jupyter-Book v1.0.4.post1
+Source Folder: C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures
+Config Path: C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\_config.yml
+Output Path: _build\html
+[01mRunning Sphinx v7.4.7[39;49;00m
+[01mloading translations [en]... [39;49;00mdone
+[01mmaking output directory... [39;49;00mdone
+[etoc] Changing master_doc to 'intro'
+[01mmyst v3.0.1:[39;49;00m MdParserConfig(commonmark_only=False, gfm_only=False, enable_extensions={'colon_fence', 'linkify', 'deflist', 'smartquotes', 'substitution', 'amsmath', 'dollarmath', 'html_image', 'html_admonition', 'replacements'}, disable_syntax=[], all_links_external=False, links_external_new_tab=False, url_schemes=('mailto', 'http', 'https'), ref_domains=None, fence_as_directive=set(), number_code_blocks=[], title_to_header=False, heading_anchors=0, heading_slug_func=None, html_meta={}, footnote_transition=True, words_per_minute=200, substitutions={}, linkify_fuzzy_links=True, dmath_allow_labels=True, dmath_allow_space=True, dmath_allow_digits=True, dmath_double_inline=False, update_mathjax=True, mathjax_classes='tex2jax_process|mathjax_process|math|output_area', enable_checkboxes=False, suppress_warnings=[], highlight_code_blocks=True)
+[01mmyst-nb v1.4.0:[39;49;00m NbParserConfig(custom_formats={}, metadata_key='mystnb', cell_metadata_key='mystnb', kernel_rgx_aliases={}, eval_name_regex='^[a-zA-Z_][a-zA-Z0-9_]*$', execution_mode='cache', execution_cache_path='', execution_excludepatterns=[], execution_timeout=30, execution_in_temp=False, execution_allow_errors=False, execution_raise_on_error=False, execution_show_tb=False, merge_streams=True, render_plugin='default', remove_code_source=False, remove_code_outputs=False, scroll_outputs=False, code_prompt_show='Show code cell {type}', code_prompt_hide='Hide code cell {type}', number_source_lines=False, output_stderr='show', render_text_lexer='myst-ansi', render_error_lexer='ipythontb', render_image_options={}, render_figure_options={}, render_markdown_format='commonmark', output_folder='build', append_css=True, metadata_to_fm=False)
+Using jupyter-cache at: C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\_build\.jupyter_cache
+[01msphinx-multitoc-numbering v0.1.3:[39;49;00m Loaded
+checking bibtex cache... out of date
+parsing bibtex file C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\references.bib... parsed 13 entries
+[01mbuilding [mo]: [39;49;00mtargets for 0 po files that are out of date
+[01mwriting output... [39;49;00m
+[01mbuilding [html]: [39;49;00mtargets for 11 source files that are out of date
+[01mupdating environment: [39;49;00m[new config] 11 added, 0 changed, 0 removed
+[01mreading sources... [39;49;00m[  9%] [35mergodicity[39;49;00m
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\ergodicity.md: Executing notebook using local CWD [mystnb]
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-offline-replay\Lib\site-packages\zmq\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.
+  self._get_loop()
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\ergodicity.md: Executed notebook in 7.89 seconds [mystnb]
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\ergodicity.md: Cached executed notebook: ID=1 [mystnb]
+[01mreading sources... [39;49;00m[ 18%] [35mgenerators[39;49;00m
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\generators.md: Executing notebook using local CWD [mystnb]
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\generators.md: Executed notebook in 4.10 seconds [mystnb]
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\generators.md: Cached executed notebook: ID=2 [mystnb]
+[01mreading sources... [39;49;00m[ 27%] [35mintro[39;49;00m
+[01mreading sources... [39;49;00m[ 36%] [35mkolmogorov_bwd[39;49;00m
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\kolmogorov_bwd.md: Executing notebook using local CWD [mystnb]
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\kolmogorov_bwd.md: Executed notebook in 6.69 seconds [mystnb]
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\kolmogorov_bwd.md: Cached executed notebook: ID=3 [mystnb]
+[01mreading sources... [39;49;00m[ 45%] [35mkolmogorov_fwd[39;49;00m
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\kolmogorov_fwd.md: Executing notebook using local CWD [mystnb]
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\kolmogorov_fwd.md: Executed notebook in 5.42 seconds [mystnb]
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\kolmogorov_fwd.md: Cached executed notebook: ID=4 [mystnb]
+[01mreading sources... [39;49;00m[ 55%] [35mmarkov_prop[39;49;00m
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\markov_prop.md: Executing notebook using local CWD [mystnb]
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\markov_prop.md: Executed notebook in 14.17 seconds [mystnb]
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\markov_prop.md: Cached executed notebook: ID=5 [mystnb]
+[01mreading sources... [39;49;00m[ 64%] [35mmemoryless[39;49;00m
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\memoryless.md: Executing notebook using local CWD [mystnb]
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\memoryless.md: Executed notebook in 6.31 seconds [mystnb]
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\memoryless.md: Cached executed notebook: ID=6 [mystnb]
+[01mreading sources... [39;49;00m[ 73%] [35mpoisson[39;49;00m
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\poisson.md: Executing notebook using local CWD [mystnb]
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\poisson.md: Executed notebook in 6.73 seconds [mystnb]
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\poisson.md: Cached executed notebook: ID=7 [mystnb]
+[01mreading sources... [39;49;00m[ 82%] [35mstatus[39;49;00m
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\status.md: Executing notebook using local CWD [mystnb]
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\status.md: Executed notebook in 8.14 seconds [mystnb]
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\status.md: Cached executed notebook: ID=8 [mystnb]
+[01mreading sources... [39;49;00m[ 91%] [35muc_mc_semigroups[39;49;00m
+C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\lectures\uc_mc_semigroups.md: Using cached notebook: ID=2 [mystnb]
+[01mreading sources... [39;49;00m[100%] [35mzreferences[39;49;00m
+
+Updating 1 file(s) with execution table [mystnb]
+[01mlooking for now-outdated files... [39;49;00mnone found
+[01mpickling environment... [39;49;00mdone
+[01mchecking consistency... [39;49;00mdone
+[01mpreparing documents... [39;49;00mdone
+[01mcopying assets... [39;49;00m
+[01mcopying static files... [39;49;00mdone
+[01mcopying extra files... [39;49;00mdone
+[01mcopying assets: [39;49;00mdone
+[01mwriting output... [39;49;00m[  9%] [32mergodicity[39;49;00m
+[01mwriting output... [39;49;00m[ 18%] [32mgenerators[39;49;00m
+[01mwriting output... [39;49;00m[ 27%] [32mintro[39;49;00m
+[01mwriting output... [39;49;00m[ 36%] [32mkolmogorov_bwd[39;49;00m
+[01mwriting output... [39;49;00m[ 45%] [32mkolmogorov_fwd[39;49;00m
+[01mwriting output... [39;49;00m[ 55%] [32mmarkov_prop[39;49;00m
+[01mwriting output... [39;49;00m[ 64%] [32mmemoryless[39;49;00m
+[01mwriting output... [39;49;00m[ 73%] [32mpoisson[39;49;00m
+[01mwriting output... [39;49;00m[ 82%] [32mstatus[39;49;00m
+[01mwriting output... [39;49;00m[ 91%] [32muc_mc_semigroups[39;49;00m
+[01mwriting output... [39;49;00m[100%] [32mzreferences[39;49;00m
+
+[01mgenerating indices... [39;49;00mgenindex prf-prf done
+[01mwriting additional pages... [39;49;00msearch done
+[01mcopying images... [39;49;00m[100%] [33m_static/lecture_specific/markov_prop/flow_fig.png[39;49;00m
+
+[01mdumping search index in English (code: en)... [39;49;00mdone
+[01mdumping object inventory... [39;49;00mdone
+[etoc] missing index.html written as redirect to 'intro.html'
+[01mbuild succeeded.[39;49;00m
+
+The HTML pages are in _build\html.
+
+[92m===============================================================================[0m
+
+Finished generating HTML for book.
+Your book's HTML pages are here:
+    _build\html\
+You can look at your book by opening this file in a browser:
+    _build\html\index.html
+Or paste this line directly into your browser bar:
+    file://C:\Users\Floris\Documents\interlanguage\04_mirrors\id\measure-theoretic-probability-stochastic-processes-id\tmp\quantecon-build-work-native-offline-20260822a\_build\html\index.html            
+
+[92m===============================================================================[0m
+

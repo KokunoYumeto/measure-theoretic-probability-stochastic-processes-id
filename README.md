@@ -4,10 +4,12 @@ Repositori ini memuat edisi bahasa Indonesia yang sedang diproduksi untuk
 peran kurikulum **O009/D30**. Pembaca yang telah diverifikasi tersedia di
 [GitHub Pages](https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/).
 
-Status saat ini: **aktif dan belum merupakan korpus lengkap**. Batas pembaca
-pertama memuat unit kekonvergenan kejadian dan peubah acak, sebuah laboratorium
-Monte Carlo yang dapat dijalankan ulang, serta latihan penguasaan dengan
-petunjuk, jawaban, dan solusi. Unit selanjutnya diterjemahkan secara berurutan.
+Status saat ini: **aktif dan belum merupakan korpus lengkap**. Sepuluh batas
+pembaca telah diterbitkan: 15 unit teori Random dan dua laboratorium yang dapat
+dijalankan ulang. Sumber lengkap delapan bab *Continuous Time Markov Chains*
+dari QuantEcon, pasangan 25 latihan/25 solusi, notebook, aset terpilih, dan
+lingkungan Python luringnya juga telah dibekukan dan diverifikasi; terjemahan
+komponen tersebut belum dimulai. Unit selanjutnya diterjemahkan secara berurutan.
 Modul pengambilan sampel, hukum bilangan besar, dan teorema limit pusat dari
 jalur O006/C140 dipakai sebagai prasyarat bersama dan tidak diduplikasi di sini.
 
@@ -26,13 +28,17 @@ jalur O006/C140 dipakai sebagai prasyarat bersama dan tidak diduplikasi di sini.
 
 Lingkungan yang dibekukan tercatat dalam `00_control/RUNTIME_LOCK.json`.
 Pembangunan lokal memakai Python, Pandoc, dan R 4.6.1; runtime/installer R tidak
-disimpan di repositori.
+disimpan di repositori. Wheelhouse Python 180 MB dipertahankan secara lokal;
+lock ber-hash dan manifest setiap wheel dicatat di repositori.
 
 ```text
 python scripts/build_first_boundary.py
 python scripts/build_first_boundary.py --check
 python scripts/build_backend.py
 python scripts/verify_published_site.py build/site
+python scripts/verify_quantecon_authority.py --check
+python scripts/freeze_quantecon_environment.py --resolver tmp/quantecon-resolve-env/Scripts/python.exe --replay tmp/quantecon-offline-replay --output authority/quantecon/environment --check
+python scripts/verify_quantecon_native_build.py --check
 ```
 
 ## Hak dan atribusi
@@ -44,4 +50,3 @@ unit, serta rekaman mesin di `backend/`.
 
 Ini adalah edisi independen dan tidak didukung atau disahkan oleh para penulis
 sumber maupun lembaga mereka.
-

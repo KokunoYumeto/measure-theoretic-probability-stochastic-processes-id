@@ -1,6 +1,6 @@
 # Current state
 
-As of 2026-08-22, this is an active O009/D30 production lane. Its first nine
+As of 2026-08-22, this is an active O009/D30 production lane. Its first ten
 reader boundaries are public and anonymously byte-verified on GitHub Pages.
 The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
@@ -8,10 +8,25 @@ curriculum-admission decision.
 
 ## Source disposition
 
+- The controlling selection packet is adopted and hash-bound in
+  `00_control/SELECTION_PACKET_BINDING.json`. It selects exactly 27 Random
+  pages, complete QuantEcon CTMC, two Žitković slices, an O006 prerequisite,
+  and a finite original closure.
 - Random is admitted as an exact URL-byte theory source, with the current home
   CC BY 2.0 and Credits CC BY 1.0 witnesses both retained.
 - Random chapter 5 sampling/LLN/CLT belongs to O006/C140 and is a shared
   prerequisite, not duplicated source.
+- QuantEcon *Continuous Time Markov Chains* is admitted at immutable commit
+  `8b06e0aa5a438692445b2c896f9d238c5a7d5eb7` under the official reader's CC
+  BY-SA 4.0 witness. Its exact source/notebook/asset closure, 25/25 solved
+  exercise pairs, 35-source-cell census, 160-wheel offline Python replay, and
+  disposable-copy native HTML/LaTeX/PDF baseline pass. Indonesian translation
+  remains pending after the four selected Random discrete-Markov pages.
+- The first native build attempt revealed that `markov_prop.md` overwrites its
+  flow-figure source asset. The verifier caught it, the immutable archive
+  restored the exact asset, and the complete authority manifest passed again.
+  Frozen snapshots are now never executable workspaces: all native builds use
+  fresh disposable copies and rehash authority before and after.
 - Only dependency-closed Žitković CC0 slices are admitted as computational
   donors. The translated adaptation and original additions are separately CC
   BY 4.0.
@@ -20,8 +35,15 @@ curriculum-admission decision.
 - MathJax 3.1.2 plus its required `boldsymbol` extension are frozen under
   Apache-2.0; Google Analytics is excluded.
 
-The Random selection remains 94 files / 1,997,915 bytes with manifest SHA-256
+The frozen Random superset remains 94 files / 1,997,915 bytes with manifest SHA-256
 `2ee154a38b57201457538db8c0e7df592a052eade8dcfda217605810f04f21e4`.
+The selected subset is exactly 27 pages / 1,032,759 bytes; its 2,511-byte
+sorted path/size/hash manifest has SHA-256
+`52fe0905238a12d2e757a5fefc44fb0c8418ccd78bf7234bd4b842ca5380496e`.
+Fifteen selected substantive pages are translated. Twelve selected paths
+remain: three substantive source index/landing pages and nine content pages.
+The three source indexes will be translated as landing pages; the generated
+course index is not treated as their silent replacement.
 The authority receipt is schema v3 and binds the 4,709-byte `boldsymbol.js`
 dependency at SHA-256
 `716cf8735d00abfb1627f8adbbf4aeb915ac9b5c55d47aeaf276e73dac6a2aa1`.
@@ -412,13 +434,38 @@ status `17153722812` succeeded. An anonymous readback matched all 43
 manifested files and 2,661,986 bytes at 2026-08-22T05:47:39.9902666Z. See
 `00_control/PUBLICATION_RECEIPT.json`.
 
+## QuantEcon authority-admission checkpoint
+
+The immutable source snapshot passes at 34 files / 384,053 bytes / manifest
+SHA-256
+`6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c`;
+the 13-file notebook witness passes at manifest SHA-256
+`d0934f364b8655d114dc9f5e8469214909b8b7af20a9d69febf5bee1d12603ca`;
+and the 17 active inputs pass at manifest SHA-256
+`6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6`.
+The exact 160-distribution offline replay and scientific/builder probes pass;
+its receipt SHA-256 is
+`07f5a093e11c7405b9529e7620037f8a2695180843ade6dc4ebc9c40a53b2755`.
+
+A disposable-copy native HTML build succeeds with 98 files / 6,349,351 bytes
+at manifest SHA-256
+`b40177b0b9f176ae5e130a490963ac1acbbafbde8c1a8a58a6a29842e6ee09ab`.
+The Windows Jupyter Book PDF wrapper generates LaTeX but fails to locate bare
+`make.bat`; the generated batch succeeds explicitly and produces a 92-page
+PDF at SHA-256
+`bda190957516c405c75505af5a05df3a7bd83159226c8ce1f2577de611c2d24f`.
+This proves native buildability, not downstream byte determinism. Analytics,
+remote runtime, branding, local paths/warnings, missing alternatives,
+unresolved references, and untagged PDF output remain explicit adapter gates.
+See `qa/QUANTECON_AUTHORITY_ADMISSION_CHECKPOINT_20260822.md`.
+
 ## Next exact action
 
-1. Read and hash the complete material-root O009 selection packet, its strict
-   JSON twin, and the exact user-instruction witness named by the coordinator.
-2. Adopt that finite selection and record its corrected next cursor. Do not
-   infer `markov/Potentials.html` as the successor before the adoption is
-   complete.
+Translate the complete selected Random `markov/Discrete.html` unit into
+natural id-ID, preserve exact topology and mathematics, apply only auditable
+downstream corrections, integrate stable IDs/backend/navigation, and verify
+the next reader boundary. Do not translate replaced Random CTMC/ordinary-
+Poisson pages or renewal.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

@@ -1,0 +1,316 @@
+{
+  "archive_safety": [
+    {
+      "archive": "evidence/continuous_time_mcs-8b06e0a.zip",
+      "crc_check": "pass",
+      "encrypted_entries": 0,
+      "entry_count_including_directories": 44,
+      "file_count": 34,
+      "single_root": "continuous_time_mcs-8b06e0aa5a438692445b2c896f9d238c5a7d5eb7",
+      "symlink_entries": 0,
+      "unsafe_entries": 0
+    },
+    {
+      "archive": "evidence/continuous_time_mcs-publish-2026jul14.zip",
+      "crc_check": "pass",
+      "encrypted_entries": 0,
+      "entry_count_including_directories": 44,
+      "file_count": 34,
+      "single_root": "continuous_time_mcs-publish-2026jul14",
+      "symlink_entries": 0,
+      "unsafe_entries": 0
+    },
+    {
+      "archive": "evidence/continuous_time_mcs.notebooks-1e17c25c.zip",
+      "crc_check": "pass",
+      "encrypted_entries": 0,
+      "entry_count_including_directories": 14,
+      "file_count": 13,
+      "single_root": "continuous_time_mcs.notebooks-1e17c25c937f369544380f769eb9c1bc45d12d1a",
+      "symlink_entries": 0,
+      "unsafe_entries": 0
+    }
+  ],
+  "asset_disposition": {
+    "additional_inactive_logo_excluded": "lectures/logo.png",
+    "branding_reuse_assumed": false,
+    "mathematical_asset_has_executable_generation_witness": true,
+    "mathematical_asset_retained_for_adaptation": "lectures/_static/lecture_specific/markov_prop/flow_fig.png",
+    "unused_diagram_sources_excluded": [
+      "diagrams/cmc_inventory.tikz",
+      "diagrams/markov.tikzstyles"
+    ],
+    "upstream_branding_build_witness_not_reused_in_derivative": "lectures/_static/qe-logo-large.png"
+  },
+  "evidence": {
+    "commit_archive": {
+      "bytes": 240751,
+      "path": "evidence/continuous_time_mcs-8b06e0a.zip",
+      "sha256": "ae12b4e7724b92c16d1caa3d42c82180fd67723212fe641b22594a1bbd5a4346"
+    },
+    "license_witness": {
+      "bytes": 32586,
+      "explicit_statement_present": true,
+      "license": "CC BY-SA 4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "path": "evidence/quantecon-ctmc-intro-license-witness.html",
+      "sha256": "ff0dd3b21c95d225b2555710bdb6217d2963954cb95e34655711529d93209e46"
+    },
+    "notebook_archive": {
+      "bytes": 266009,
+      "commit": "1e17c25c937f369544380f769eb9c1bc45d12d1a",
+      "path": "evidence/continuous_time_mcs.notebooks-1e17c25c.zip",
+      "repository": "https://github.com/QuantEcon/continuous_time_mcs.notebooks",
+      "sha256": "02f1e55deeb9a3e4544e3af13ffbde8789d7a7488f28d8d3834855ddc7f16bd7"
+    },
+    "pdf": {
+      "bytes": 859224,
+      "page_count_basis": "fixed authority receipt fact; byte identity is verified here",
+      "path": "evidence/quantecon-ctmc-book.pdf",
+      "physical_pages": 100,
+      "sha256": "b08f4503f1ff866a40b0ef0bbedf1c599bccef3c9d6da363013bb524e93054c5"
+    },
+    "tag_archive": {
+      "bytes": 238727,
+      "path": "evidence/continuous_time_mcs-publish-2026jul14.zip",
+      "sha256": "0b2f27dd6f502369289074917574a54d556c552c7ec66b0788121d16a55ba81d"
+    }
+  },
+  "generated_notebooks": {
+    "all_code_outputs_empty": true,
+    "all_execution_counts_null": true,
+    "all_notebook_cells": 290,
+    "code_cells": 36,
+    "code_cells_by_file": {
+      "ergodicity.ipynb": 4,
+      "generators.ipynb": 0,
+      "intro.ipynb": 0,
+      "kolmogorov_bwd.ipynb": 7,
+      "kolmogorov_fwd.ipynb": 6,
+      "markov_prop.ipynb": 5,
+      "memoryless.ipynb": 5,
+      "poisson.ipynb": 7,
+      "status.ipynb": 2,
+      "uc_mc_semigroups.ipynb": 0,
+      "zreferences.ipynb": 0
+    },
+    "notebook_count": 11,
+    "one_extra_generated_code_cell": "kolmogorov_bwd.ipynb contains one fenced ipython3 exercise cell in addition to the 35 MyST code-cell directives"
+  },
+  "rights": {
+    "derivative_obligations": [
+      "attribute Thomas J. Sargent and John Stachurski and identify changes",
+      "license adapted QuantEcon material under CC BY-SA 4.0",
+      "retain the license link and non-endorsement",
+      "keep separately licensed composite components separately attributed"
+    ],
+    "license": "CC BY-SA 4.0",
+    "official_reader_witness_required": true,
+    "repository_root_license_file_present": false
+  },
+  "runtime_and_network_hazards": {
+    "admission_status": "not runtime-admitted by this verifier",
+    "environment_install_or_execution_performed": false,
+    "environment_is_constraint_spec_not_hash_locked_solver_closure": true,
+    "generated_notebook_environment": {
+      "anaconda_metapackage": "2024.10",
+      "jupyter_book": "0.15.1",
+      "path": "notebook_snapshot/continuous_time_mcs.notebooks-1e17c25c937f369544380f769eb9c1bc45d12d1a/environment.yml",
+      "python": "3.12"
+    },
+    "offline_derivative_requirements": [
+      "remove Google Analytics",
+      "vendor or locally provide MathJax",
+      "remove remote Colab and remote branding image dependencies",
+      "pin a clean solver-explicit environment with artifact hashes",
+      "replace QuantEcon theme/logo branding while preserving attribution"
+    ],
+    "source_and_notebook_environment_specs_differ": true,
+    "source_environment": {
+      "anaconda_metapackage": "2026.06",
+      "jupyter_book": "1.0.4post1",
+      "path": "source_snapshot/continuous_time_mcs-8b06e0aa5a438692445b2c896f9d238c5a7d5eb7/environment.yml",
+      "python": "3.13"
+    },
+    "upstream_network_dependent_configuration": [
+      "analytics",
+      "remote_mathjax",
+      "remote_colab",
+      "remote_twitter_logo",
+      "remote_open_graph_logo",
+      "remote_notebook_image_base"
+    ]
+  },
+  "schema": "o009.quantecon-authority-receipt.v1",
+  "source_closure": {
+    "commit_and_tag_root_stripped_contents_identical": true,
+    "commit_archive_is_immutable_authority": true,
+    "manifest_order": "explicit frozen Windows-culture path order; UTF-8 LF; no header",
+    "manifests": {
+      "ACTIVE_INPUT_MANIFEST.tsv": {
+        "bytes": 1624,
+        "expanded_bytes": 260561,
+        "files": 17,
+        "sha256": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6"
+      },
+      "NOTEBOOK_MANIFEST.tsv": {
+        "bytes": 1134,
+        "expanded_bytes": 501361,
+        "files": 13,
+        "sha256": "d0934f364b8655d114dc9f5e8469214909b8b7af20a9d69febf5bee1d12603ca"
+      },
+      "SOURCE_MANIFEST.tsv": {
+        "bytes": 3220,
+        "expanded_bytes": 384053,
+        "files": 34,
+        "sha256": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c"
+      }
+    },
+    "notebook_snapshot_matches_notebook_archive": true,
+    "source_snapshot_matches_commit_archive": true
+  },
+  "source_partition": {
+    "active_bytes": 260561,
+    "active_file_count": 17,
+    "active_official_build_inputs": [
+      "environment.yml",
+      "lectures/_config.yml",
+      "lectures/_static/lecture_specific/markov_prop/flow_fig.png",
+      "lectures/_static/qe-logo-large.png",
+      "lectures/_toc.yml",
+      "lectures/ergodicity.md",
+      "lectures/generators.md",
+      "lectures/intro.md",
+      "lectures/kolmogorov_bwd.md",
+      "lectures/kolmogorov_fwd.md",
+      "lectures/markov_prop.md",
+      "lectures/memoryless.md",
+      "lectures/poisson.md",
+      "lectures/references.bib",
+      "lectures/status.md",
+      "lectures/uc_mc_semigroups.md",
+      "lectures/zreferences.md"
+    ],
+    "all_source_files": 34,
+    "excluded_file_count": 17,
+    "excluded_inactive_source_files": [
+      "_notebook_repo/environment.yml",
+      "_notebook_repo/README.md",
+      ".github/dependabot.yml",
+      ".github/workflows/cache.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/linkcheck.yml",
+      ".github/workflows/publish.yml",
+      ".gitignore",
+      "diagrams/cmc_inventory.tikz",
+      "diagrams/markov.tikzstyles",
+      "lectures/logo.png",
+      "lectures/old_stuff.txt",
+      "old_notebooks/ctmc.ipynb",
+      "old_notebooks/ctmc1.ipynb",
+      "old_notebooks/ctmc2.ipynb",
+      "old_notebooks/poisson.ipynb",
+      "README.md"
+    ],
+    "partition_is_exact_and_disjoint": true
+  },
+  "status": "authority-verified; runtime environment still requires a separate lock/build gate",
+  "teaching_surfaces": {
+    "authoring_format": "MyST Markdown with Jupyter Book configuration",
+    "chapter_count": 8,
+    "chapters_in_order": [
+      "memoryless",
+      "poisson",
+      "markov_prop",
+      "kolmogorov_bwd",
+      "kolmogorov_fwd",
+      "generators",
+      "uc_mc_semigroups",
+      "ergodicity"
+    ],
+    "direct_network_io_in_source_code_cells": false,
+    "exercise_count": 25,
+    "exercise_ids": [
+      "memoryless-ex-1",
+      "memoryless-ex-2",
+      "poisson-ex-1",
+      "poisson-ex-2",
+      "markov-prop-1",
+      "markov-prop-2",
+      "markov-prop-3",
+      "markov-prop-4",
+      "kolmogorov-bwd-1",
+      "kolmogorov-bwd-2",
+      "kolmogorov-bwd-3",
+      "kolmogorov-fwd-1",
+      "kolmogorov-fwd-2",
+      "kolmogorov-fwd-3",
+      "generators-ex-1",
+      "generators-ex-2",
+      "generators-ex-3",
+      "uc-mc-semigroups-ex-1",
+      "uc-mc-semigroups-ex-2",
+      "uc-mc-semigroups-ex-3",
+      "uc-mc-semigroups-ex-4",
+      "uc-mc-semigroups-ex-5",
+      "ergodicity-ex-1",
+      "ergodicity-ex-2",
+      "ergodicity-ex-3"
+    ],
+    "exercise_solution_pairing": "25 unique IDs; exact set equality",
+    "runtime_import_statements": [
+      "from matplotlib import cm",
+      "from mpl_toolkits.mplot3d import Axes3D",
+      "from mpl_toolkits.mplot3d.art3d import Poly3DCollection",
+      "from myst_nb import glue",
+      "from numba import njit",
+      "from scipy.linalg import expm",
+      "from scipy.special import factorial, binom",
+      "from scipy.stats import binom",
+      "import matplotlib.pyplot as plt",
+      "import numpy as np",
+      "import quantecon as qe",
+      "import scipy as sp"
+    ],
+    "solution_count": 25,
+    "source_code_cells": {
+      "by_file": {
+        "lectures/ergodicity.md": 4,
+        "lectures/generators.md": 0,
+        "lectures/kolmogorov_bwd.md": 6,
+        "lectures/kolmogorov_fwd.md": 6,
+        "lectures/markov_prop.md": 5,
+        "lectures/memoryless.md": 5,
+        "lectures/poisson.md": 7,
+        "lectures/status.md": 2,
+        "lectures/uc_mc_semigroups.md": 0
+      },
+      "mathematical_chapters": 33,
+      "status_page": 2,
+      "total_directives": 35
+    },
+    "toc_support_pages": [
+      "intro",
+      "status",
+      "zreferences"
+    ]
+  },
+  "verification_scope": {
+    "environment_built_or_installed": false,
+    "generated_output_is_deterministic": true,
+    "network_access_performed": false,
+    "notebooks_executed": false
+  },
+  "work": {
+    "authors": [
+      "Thomas J. Sargent",
+      "John Stachurski"
+    ],
+    "commit": "8b06e0aa5a438692445b2c896f9d238c5a7d5eb7",
+    "official_reader": "https://continuous-time-mcs.quantecon.org/",
+    "repository": "https://github.com/QuantEcon/continuous_time_mcs",
+    "tag": "publish-2026jul14",
+    "title": "Continuous Time Markov Chains",
+    "tree": "f0f11e3bbc6bd23d6e4a447a7e05c0aaf0f7209e"
+  }
+}
