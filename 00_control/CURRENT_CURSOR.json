@@ -1,7 +1,7 @@
 {
-  "schema": "o009.cursor.v14",
+  "schema": "o009.cursor.v15",
   "as_of": "2026-08-22",
-  "status": "eighth_boundary_locally_verified_publication_pending",
+  "status": "eighth_boundary_public_and_anonymously_verified",
   "course_id": "O009",
   "role_id": "D30",
   "fourth_public_verified_boundary": {
@@ -132,7 +132,7 @@
     "pages_deployment_status_id": 17148971521,
     "verified_at_utc": "2026-08-22T01:39:44.8137221Z"
   },
-  "latest_public_verified_boundary": {
+  "seventh_public_verified_boundary": {
     "new_unit": {
       "authority_path": "authority/random/static/martingales/Inequalities.html",
       "authority_bytes": 38731,
@@ -176,7 +176,7 @@
     "pages_deployment_status_id": 17149932922,
     "verified_at_utc": "2026-08-22T02:29:21.6560745Z"
   },
-  "pending_publication_boundary": {
+  "latest_public_verified_boundary": {
     "new_unit": {
       "authority_path": "authority/random/static/martingales/Convergence.html",
       "authority_bytes": 44951,
@@ -211,16 +211,23 @@
       "detail_panels_each": 247,
       "bad_rows": 0
     },
-    "qa_checkpoint": "qa/EIGHTH_BOUNDARY_CHECKPOINT_20260822.md"
+    "qa_checkpoint": "qa/EIGHTH_BOUNDARY_CHECKPOINT_20260822.md",
+    "deployed_source_commit": "39e0a31a2a2ec1172d3670fa30ea7c5a12388c78",
+    "deployed_source_tree": "016d83022898c81f5f6c50196b7f32ff745f59cf",
+    "pages_run_id": 32548461973,
+    "pages_job_id": 96971081076,
+    "pages_deployment_id": 6032660668,
+    "pages_deployment_status_id": 17150836791,
+    "verified_at_utc": "2026-08-22T03:17:02.5016359Z"
   },
   "next_translation": {
     "source": "authority/random/static/martingales/Backwards.html",
     "target": "source/theory/martingales/Backwards.html",
-    "state": "authority_frozen_waiting_for_eighth_publication",
+    "state": "authority_frozen_translation_not_started",
     "authority_bytes": 31248,
     "authority_sha256": "adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba"
   },
-  "next_action": "commit and push the verified eighth boundary, wait for Pages, anonymously verify all 40 manifested files, record the receipt, then translate martingales/Backwards.html without duplicating O006 chapter 5",
+  "next_action": "translate martingales/Backwards.html contiguously, preserve topology and mathematics, apply only backend-recorded downstream repairs, then build, QA, and publish the next verified boundary without duplicating O006 chapter 5",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",

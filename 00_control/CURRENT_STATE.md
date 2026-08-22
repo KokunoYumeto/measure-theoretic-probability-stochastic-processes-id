@@ -1,9 +1,8 @@
 # Current state
 
-As of 2026-08-22, this is an active O009/D30 production lane. Its first seven
+As of 2026-08-22, this is an active O009/D30 production lane. Its first eight
 reader boundaries are public and anonymously byte-verified on GitHub Pages.
-The eighth boundary is locally verified and awaiting its immediate publication
-transaction. The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
+The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
 curriculum-admission decision.
 
@@ -285,7 +284,7 @@ Commit `bf8761e7b57f32738e41a6bf449de22a923185da` (tree
 anonymous readback matched all 39 manifested files and 2,465,207 bytes at
 2026-08-22T02:29:21.6560745Z. See `PUBLICATION_RECEIPT.json`.
 
-### Eighth reader boundary (locally verified; publication pending)
+### Eighth reader boundary (public and anonymously verified)
 
 `martingales/Convergence.html` is completely translated, repaired downstream,
 integrated, and visually inspected:
@@ -315,11 +314,15 @@ browser QA covered all 15 pages at 1280×720 and 390×844. Each sweep rendered
 warnings/errors, broken assets, empty visible references, external runtime, or
 document overflow. See `qa/EIGHTH_BOUNDARY_CHECKPOINT_20260822.md`.
 
+Commit `39e0a31a2a2ec1172d3670fa30ea7c5a12388c78` (tree
+`016d83022898c81f5f6c50196b7f32ff745f59cf`) is public. Pages run
+`32548461973`, job `96971081076`, and deployment `6032660668` succeeded. An
+anonymous readback matched all 40 manifested files and 2,515,782 bytes at
+2026-08-22T03:17:02.5016359Z. See `PUBLICATION_RECEIPT.json`.
+
 ## Next exact action
 
-1. Commit and push the verified 40-file eighth boundary, wait for its Pages
-   deployment, and anonymously read back every manifested byte.
-2. Record the public receipt, then continue in source order with
+1. Continue in source order with
    `authority/random/static/martingales/Backwards.html` (31,248 bytes,
    SHA-256
    `adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba`).

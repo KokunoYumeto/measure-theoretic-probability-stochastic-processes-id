@@ -1,6 +1,6 @@
 # Eighth reader-boundary checkpoint — 2026-08-22
 
-Status: **verified locally; publication transaction pending**.
+Status: **public and anonymously byte-verified**.
 
 ## Added unit and authority closure
 
@@ -113,5 +113,13 @@ unit after publication is
 
 ## Publication evidence
 
-Pending. The artifact commit, Pages workflow/deployment, anonymous manifest
-readback, and receipt-only commit will be recorded here after the transaction.
+- Deployed commit: `39e0a31a2a2ec1172d3670fa30ea7c5a12388c78`.
+- Deployed tree: `016d83022898c81f5f6c50196b7f32ff745f59cf`.
+- Pages run/job/deployment: `32548461973` / `96971081076` /
+  `6032660668`; workflow conclusion and deployment state both `success`.
+- Deployment status: `17150836791`.
+- Anonymous verification at `2026-08-22T03:17:02.5016359Z` matched all 40
+  manifested files and 2,515,782 bytes; manifest SHA-256
+  `f930653432a727a7941bfb1af77185d46635801e62aaabcd7891b67077b446ff`.
+- Public reader:
+  `https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/`.
