@@ -1,7 +1,7 @@
 {
-  "schema": "o009.cursor.v11",
+  "schema": "o009.cursor.v12",
   "as_of": "2026-08-22",
-  "status": "fifth_boundary_public_and_anonymously_verified",
+  "status": "sixth_boundary_locally_verified_publication_next",
   "course_id": "O009",
   "role_id": "D30",
   "previous_public_verified_boundary": {
@@ -88,19 +88,51 @@
     "pages_deployment_status_id": 17148175116,
     "verified_at_utc": "2026-08-22T00:58:29.7321943Z"
   },
-  "next_translation": {
-    "source": "authority/random/static/martingales/Stop.html",
-    "target": "source/theory/martingales/Stop.html",
-    "state": "translation_complete_local_not_yet_integrated",
-    "authority_bytes": 43887,
-    "authority_sha256": "8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af",
-    "target_bytes": 45971,
-    "target_sha256": "ae0bc60e3663906e5452505e52efd053269537f0c3b4fc1a6f5454b2325acec4",
-    "tex_surfaces": 580,
-    "detail_panels": 18,
-    "topology_status": "exact"
+  "local_verified_boundary": {
+    "new_unit": {
+      "authority_path": "authority/random/static/martingales/Stop.html",
+      "authority_bytes": 43887,
+      "authority_sha256": "8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af",
+      "target_path": "source/theory/martingales/Stop.html",
+      "target_bytes": 45979,
+      "target_sha256": "7b2d717eb0c5e04a0fe1d46cd9cadb2e5d295fd4a43cab863cf6d3835bef23b2",
+      "built_path": "build/site/martingales/Stop.html",
+      "built_bytes": 48094,
+      "built_sha256": "621a18ee8468e3112d2233843693a3ceb9075833dc8ec0f27467df686a5818d5",
+      "translation_tex_surfaces": 580,
+      "built_math_containers": 598,
+      "detail_panels": 18,
+      "reader_corrections": 20
+    },
+    "theory_unit_count": 11,
+    "site_file_count": 38,
+    "site_total_bytes": 2420936,
+    "site_manifest_sha256": "210398e53aba6ea35748cf8d09d21a9a89e0820c3fff899d0b786e0b926de7a6",
+    "build_receipt_sha256": "76d312d58eff8add50e88a5647e12f6cbb3cbb929c1eadc6abad52cb36071359",
+    "backend_entities": 809,
+    "backend_segments": 2169,
+    "backend_records": 2978,
+    "backend_relations": 743,
+    "backend_manifest_sha256": "2788f5a50e364fa1794b6281941ae9e4c8190a947c58dda7c59b3a5a330be940",
+    "backend_input_set_sha256": "bee0f38b4be42ba7e796e076f9e64c1de8fbfeeada9ef1ff9433a973bb53ddcb",
+    "qa_failures": 0,
+    "browser_qa": {
+      "viewports": ["1280x720", "390x844"],
+      "pages_each": 13,
+      "math_containers_each": 7300,
+      "detail_panels_each": 220,
+      "bad_rows": 0
+    },
+    "qa_checkpoint": "qa/SIXTH_BOUNDARY_CHECKPOINT_20260822.md"
   },
-  "next_action": "integrate martingales/Stop.html with exact-once downstream repairs, full build/backend/browser QA, and no duplication of O006 chapter 5",
+  "next_translation": {
+    "source": "authority/random/static/martingales/Inequalities.html",
+    "target": "source/theory/martingales/Inequalities.html",
+    "state": "authority_frozen_translation_not_started",
+    "authority_bytes": 38731,
+    "authority_sha256": "9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3"
+  },
+  "next_action": "publish and anonymously verify the sixth boundary, then translate martingales/Inequalities.html without duplicating O006 chapter 5",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",

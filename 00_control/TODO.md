@@ -41,7 +41,8 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Repair ten pre-existing empty visible references and verify the whole reader at both viewports.
 - [x] Publish and anonymously verify the 37-file fifth boundary.
 - [x] Translate `martingales/Stop.html` with exact topology and all 580 TeX surfaces preserved.
-- [~] Integrate, repair, build, and visually verify `martingales/Stop.html`.
+- [x] Integrate, repair, build, and visually verify `martingales/Stop.html`.
+- [~] Publish and anonymously verify the 38-file sixth boundary.
 
 ## Remaining corpus
 
@@ -50,7 +51,7 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Distributional/Lp/uniform-integrability convergence.
 - [x] Measure-theoretic conditional expectation and kernels (`Conditional2`, `Uniform`, and `Kernels` public and anonymously verified).
 - [ ] Link, do not duplicate, the O006 sampling/LLN/CLT prerequisite.
-- [~] Martingale properties, stopping, inequalities, convergence, and backwards martingales; `Introduction` and `Properties` are public, and `martingales/Stop.html` is translated locally pending integration.
+- [~] Martingale properties, stopping, inequalities, convergence, and backwards martingales; `Introduction` and `Properties` are public, and `martingales/Stop.html` is locally verified pending immediate publication.
 - [ ] Discrete and continuous Markov processes; add dependency-closed computational labs.
 - [ ] Poisson processes and a new executable event-time lab.
 - [ ] Renewal equations/limits/delays/alternation/rewards and a new simulation lab.

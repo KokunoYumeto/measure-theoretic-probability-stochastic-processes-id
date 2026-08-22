@@ -34,3 +34,12 @@ O009-T0032,Doob decomposition,dekomposisi Doob,admitted,course,
 O009-T0033,Doob-Meyer decomposition,dekomposisi Doob–Meyer,admitted,course,
 O009-T0034,harmonic function,fungsi harmonik,admitted,course,Qualify the Markov process and initial-law scope.
 O009-T0035,predictable process,proses terprediksi,admitted,course,
+O009-T0036,optional stopping,penghentian opsional,admitted,course,
+O009-T0037,stopped martingale,martingal yang dihentikan,admitted,course,
+O009-T0038,Wald's equation,persamaan Wald,admitted,course,
+O009-T0039,pattern waiting time,waktu tunggu pola,admitted,course,
+O009-T0040,secretary problem,masalah sekretaris,admitted,course,Canonical optimal-stopping example.
+O009-T0041,hitting time,waktu pencapaian,admitted,course,Use for first entrance into a specified state or level.
+O009-T0042,simple word,kata sederhana,admitted,course,No proper prefix is also a suffix.
+O009-T0043,compound word,kata majemuk,admitted,course,Has a proper prefix that is also a suffix.
+O009-T0044,optimal stopping,penghentian optimal,admitted,course,Umbrella concept for the secretary application.

@@ -500,6 +500,168 @@ MARTINGALE_PROPERTIES_READER_CORRECTIONS = (
     },
 )
 
+MARTINGALE_STOP_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "optional-stopping-missing-variables",
+        "old": r'<p class="math">Misalkan bahwa  merupakan waktu henti terbatas terhadap \( \mathfrak F \) dengan \( \rho \le \tau \). </p>',
+        "new": r'<p class="math">Misalkan \( \rho \) dan \( \tau \) merupakan waktu henti terbatas terhadap \( \mathfrak F \) dengan \( \rho \le \tau \). </p>',
+        "description": "Restore the two stopping-time variables omitted from the optional-stopping theorem premise.",
+    },
+    {
+        "id": "continuous-proof-time-word",
+        "old": r"\text{ as } n \to \infty",
+        "new": r"\text{ saat } n \to \infty",
+        "description": "Translate the remaining prose word inside the continuous-time limit display.",
+    },
+    {
+        "id": "stopping-time-sigma-algebra-quantifier",
+        "old": r"\text{ for all } t \in T",
+        "new": r"\text{ untuk setiap } t \in T",
+        "description": "Translate the prose quantifier inside the stopping-time sigma-algebra display.",
+    },
+    {
+        "id": "restricted-expectation-separator",
+        "old": r"\E\left(X_{\rho_n}: A\right)",
+        "new": r"\E\left(X_{\rho_n}; A\right)",
+        "description": "Use the page's semicolon notation consistently for expectation restricted to an event.",
+    },
+    {
+        "id": "unbounded-counterexample-reference",
+        "old": r'ketika asumsi ini tidak berlaku diberikan dalam <a class="ref" href="#srw2"></a>. Berikut dua akibat sederhana:',
+        "new": r'ketika asumsi ini tidak berlaku diberikan dalam <a class="ref" href="#srw3"></a>. Berikut dua akibat sederhana:',
+        "description": "Point to the example that actually violates the bounded-stopping-time identity.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "stopped-process-time-domain",
+        "old": r"""<p class="math">Misalkan \( \bs X \) memenuhi asumsi di atas dan \( \tau \) merupakan waktu henti terhadap filtrasi \( \mathfrak F \). <dfn>Proses yang dihentikan</dfn> \( X^\tau = \{X^\tau_t: t \in [0, \infty)\} \) didefinisikan oleh
+	\[ X^\tau_t = X_{t \wedge \tau}, \quad t \in [0, \infty) \]</p>""",
+        "new": r"""<p class="math">Misalkan \( \bs X \) memenuhi asumsi di atas dan \( \tau \) merupakan waktu henti terhadap filtrasi \( \mathfrak F \). <dfn>Proses yang dihentikan</dfn> \( \bs X^\tau = \{X^\tau_t: t \in T\} \) didefinisikan oleh
+	\[ X^\tau_t = X_{t \wedge \tau}, \quad t \in T \]</p>""",
+        "description": "Define the stopped process on the page's actual discrete-or-continuous time set T.",
+    },
+    {
+        "id": "remove-empty-summary",
+        "old": "<summary></summary>\n",
+        "new": "",
+        "description": "Remove the stray second empty summary from the stopped-martingale proof panel.",
+    },
+    {
+        "id": "stopped-process-notation",
+        "old": r"\bs Y \cdot \bs X = \bs{X}_\tau",
+        "new": r"\bs Y \cdot \bs X = \bs{X}^\tau",
+        "description": "Use superscript stopping notation for the stopped process rather than a subscripted process.",
+    },
+    {
+        "id": "stopped-process-expectation-macros",
+        "old": r"""<ol class="sub">
+<li>Jika \( \bs X \) merupakan martingal terhadap \( \mathfrak F \), maka \( \E(X_{t \wedge \tau}) = E(X_0) \)</li>
+<li>Jika \( \bs X \) merupakan submartingal terhadap \( \mathfrak F \), maka \( \E(X_{t \wedge \tau}) \ge E(X_0) \)</li>
+<li>Jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \), maka \( \E(X_{t \wedge \tau}) \le E(X_0) \)</li>
+</ol>""",
+        "new": r"""<ol class="sub">
+<li>Jika \( \bs X \) merupakan martingal terhadap \( \mathfrak F \), maka \( \E(X_{t \wedge \tau}) = \E(X_0) \)</li>
+<li>Jika \( \bs X \) merupakan submartingal terhadap \( \mathfrak F \), maka \( \E(X_{t \wedge \tau}) \ge \E(X_0) \)</li>
+<li>Jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \), maka \( \E(X_{t \wedge \tau}) \le \E(X_0) \)</li>
+</ol>""",
+        "description": "Use the page's defined expectation macro in all three stopped-process expectation relations.",
+    },
+    {
+        "id": "exit-time-optional-stopping-reference",
+        "old": r'<li>Teorema pencuplikan opsional <a class="ref" href="#ost1"></a> berlaku, sehingga \( \E(X_\tau) = \E(X_0) = 0 \).</li>',
+        "new": r'<li>Teorema penghentian opsional waktu diskret <a class="ref" href="#dis2"></a> berlaku, sehingga \( \E(X_\tau) = \E(X_0) = 0 \).</li>',
+        "description": "Cite the unbounded-time discrete theorem whose finite-mean and bounded-increment hypotheses were established.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "optional-stopping-canonical-term",
+        "old": r"versi pertama teorema pencuplikan opsional dapat gagal",
+        "new": r"versi pertama teorema penghentian opsional dapat gagal",
+        "description": "Use the edition's canonical Indonesian term for optional stopping consistently.",
+    },
+    {
+        "id": "wald-integrability-hypothesis",
+        "old": r"merupakan barisan peubah independen dan berdistribusi identik dengan rata-rata bersama \( \mu \in \R \).",
+        "new": r"merupakan barisan peubah independen dan berdistribusi identik dengan \( \E(|X_1|) \lt \infty \) dan \( \E(X_1) = \mu \in \R \).",
+        "description": "State the integrability hypothesis used by Wald's equation explicitly.",
+    },
+    {
+        "id": "wald-valid-martingale-proof",
+        "old": r"""<p>Misalkan \( \mathfrak F \) menyatakan filtrasi alami yang terkait dengan \( \bs X \). Tetapkan \( c = \E(|X_n|)\), sehingga berdasarkan asumsi, \( c \lt \infty \). Terakhir, tetapkan 
+		\[ Y_n = \sum_{k=1}^n (X_k - \mu) \, \quad n \in \N_+ \]
+		Maka \( \bs Y = (Y_n: n \in \N_+) \) merupakan martingal terhadap \( \mathfrak F \), dengan rata-rata 0. Perhatikan bahwa
+		\[ \E(|Y_{n+1} - Y_n|) = \E(|X_{n+1} - \mu|) \le c + |\mu|, \quad n \in \N_+ \]
+		Oleh karena itu, versi diskret teorema penghentian opsional dalam <a class="ref" href="#dis2"></a> berlaku, dan kita memperoleh \( \E(Y_N) = 0 \). Dengan demikian,
+		\[ 0 = \E(Y_N) = \E\left[\sum_{k=1}^N (X_k - \mu)\right] = \E\left(\sum_{k=1}^N X_k - N \mu\right) = \E\left(\sum_{k=1}^N X_k\right) - \E(N) \mu \]</p>""",
+        "new": r"""<p>Misalkan \( \mathfrak F \) merupakan filtrasi alami \( \bs X \), lalu tetapkan \( Y_0=0 \) dan
+		\[ Y_n = \sum_{k=1}^n (X_k - \mu), \quad n \in \N_+. \]
+		Maka \( \bs Y=\{Y_n:n\in\N\} \) merupakan martingal. Untuk setiap \(n\), waktu henti \(N\wedge n\) terbatas, sehingga <a class="ref" href="#ost3"></a> memberikan \(\E(Y_{N\wedge n})=0\). Untuk \(k\ge1\), kejadian \(\{N\ge k\}=\{N\gt k-1\}\) berada dalam \(\mathscr F_{k-1}\) dan karena itu independen dari \(X_k\). Maka
+		\[ \begin{aligned}
+\E\left(|Y_N-Y_{N\wedge n}|\right)
+&amp;\le \sum_{k=n+1}^{\infty}\E\left[|X_k-\mu|\bs{1}(N\ge k)\right] \\
+&amp;= \E(|X_1-\mu|)\sum_{k=n+1}^{\infty}\P(N\ge k) \\
+&amp;\longrightarrow 0.
+\end{aligned} \]
+		karena \(\E(N)=\sum_{k=1}^{\infty}\P(N\ge k)\lt\infty\). Jadi \(Y_{N\wedge n}\to Y_N\) dalam \(L^1\) dan \(\E(Y_N)=0\). Dengan demikian,
+		\[ \begin{aligned}
+0 &amp;= \E(Y_N) \\
+  &amp;= \E\left[\sum_{k=1}^N (X_k - \mu)\right] \\
+  &amp;= \E\left(\sum_{k=1}^N X_k\right) - \mu\E(N).
+\end{aligned} \]</p>""",
+        "description": "Replace an invalid bounded-increment invocation with bounded stopping followed by an explicit L1 convergence argument.",
+    },
+    {
+        "id": "pattern-terminal-wealth-statement",
+        "old": r'<p class="math">Untuk kata berhingga \( \bs a \) dari alfabet \( S \), \( \nu(\bs a) \) merupakan total kemenangan semua pemain pada waktu \( N_{\bs a} \).</p>',
+        "new": r'<p class="math">Untuk kata berhingga \( \bs a \), misalkan \( W_{N_{\bs a}} \) menyatakan total kekayaan semua penjudi ketika permainan dihentikan pada \( N_{\bs a} \). Maka \( W_{N_{\bs a}} \) deterministik dan \( \nu(\bs a)=W_{N_{\bs a}} \).</p>',
+        "description": "State the deterministic terminal-wealth identity proved by the fair-game accounting argument.",
+    },
+    {
+        "id": "pattern-valid-net-gain-proof",
+        "old": r"""<p>Misalkan \( X_n \) menyatakan total kekayaan semua penjudi setelah percobaan \( n \in \N_+ \). Karena semua taruhan adil, \( \bs X = \{X_n: n \in \N_+\} \) merupakan martingal dengan rata-rata 0. Kita akan menunjukkan bahwa syarat dalam versi diskret teorema pencuplikan opsional <a class="ref" href="#dis2"></a> berlaku. Pertama, tinjau blok-blok percobaan saling lepas sepanjang \( k \), yakni
+		\[ \left((L_1, L_2, \ldots, L_k), (L_{k+1}, L_{k+2}, \ldots, L_{2 k}), \ldots\right) \]
+		Misalkan \( M_{\bs a} \) menyatakan indeks blok pertama semacam itu yang membentuk kata \( \bs a \). Peubah ini memiliki <a href="https://www.randomservices.org/random/bernoulli/Geometric.html">distribusi geometrik</a> pada \( \N_+ \) dengan parameter keberhasilan \( f(\bs a) \), sehingga khususnya \( \E(M_\bs{a}) = 1 / f(\bs a) \). Jelas bahwa \( N_{\bs a} \le k M_{\bs a} \), sehingga \( \nu(\bs a) \lt k / f(\bs a) \lt \infty \). Selanjutnya, perhatikan bahwa semua penjudi telah berhenti bermain pada waktu \( N \), sehingga jelas \( |X_{n+1} - X_n| \le 1 / f(a) \) untuk \( n \in \N_+ \). Jadi, teorema penghentian opsional berlaku, dan karenanya \( \E\left(X_{N_a}\right) = 0 \). Namun, \( \nu(\bs a) \) juga dapat ditafsirkan sebagai jumlah uang yang diharapkan telah ditanamkan oleh para penjudi (1 unit pada setiap waktu hingga permainan berakhir pada waktu \( N_{\bs a} \)); karena itu, nilai tersebut juga harus sama dengan total kemenangan pada waktu \( N_{\bs a} \) (yang deterministik).</p>""",
+        "new": r"""<p>Tuliskan \( N=N_{\bs a} \). Misalkan \( W_n \) menyatakan total kekayaan semua penjudi setelah percobaan \( n \), dengan \( W_0=0 \), dan definisikan \( X_n=W_n-n \). Pengurangan \(n\) mencatat satu unit modal baru yang ditanamkan pada setiap percobaan. Karena setiap taruhan adil, \( \bs X=\{X_n:n\in\N\} \) merupakan martingal dengan rata-rata 0.
+
+Misalkan \( M_{\bs a} \) merupakan indeks blok saling lepas pertama sepanjang \( k \) yang membentuk \( \bs a \). Maka
+\[ \E(N)\le k\E(M_{\bs a})=\frac{k}{f(\bs a)}\lt\infty. \]
+Pada setiap saat paling banyak \( k \) penjudi masih aktif dan kekayaan setiap penjudi aktif paling besar \(1/f(\bs a)\). Karena itu, misalnya,
+\[ |X_{n+1}-X_n|\le 1+\frac{2k}{f(\bs a)}, \]
+sehingga <a class="ref" href="#dis2"></a> berlaku dan \( \E(X_N)=0 \). Karena \(X_N=W_N-N\), diperoleh \( \E(W_N)=\E(N)=\nu(\bs a)\). Pada waktu \(N\), penjudi yang masih memiliki kekayaan tepat bersesuaian dengan prefiks \( \bs a \) yang juga merupakan sufiksnya; akibatnya \(W_N\) deterministik. Jadi \(W_N=\nu(\bs a)\).</p>""",
+        "description": "Use net gain rather than injected total wealth as the martingale and justify integrability and bounded increments correctly.",
+    },
+    {
+        "id": "pattern-example-gambler-index",
+        "old": r"Penjudi \( N - 2 \) memasang dua taruhan, memenangkan yang pertama tetapi kalah pada yang kedua.",
+        "new": r"Penjudi \( N - 1 \) memasang dua taruhan, memenangkan yang pertama tetapi kalah pada yang kedua.",
+        "description": "Correct the repeated gambler index in the 001 pattern accounting example.",
+    },
+    {
+        "id": "secretary-sequence-count",
+        "old": r"Aproksimasi 10 suku pertamanya adalah",
+        "new": r"Aproksimasi suku \(a_0\) sampai \(a_{10}\) adalah",
+        "description": "Describe the eleven displayed sequence terms without calling them ten terms.",
+    },
+    {
+        "id": "secretary-filtration-and-initialization",
+        "old": r'<p>Misalkan \( \mathfrak F = \{\mathscr{F}_k: k \in \N_n^+\} \) merupakan filtrasi alami \( \bs X \), dan misalkan \( \rho \) merupakan waktu henti bagi \( \mathfrak F \). Definisikan \( \bs Y = \{Y_k: k \in \N_n\} \) dengan \( Y_0 = 0 \) dan \( Y_k = X_{\rho \wedge k} \vee a_{n-k} \) untuk \( k \in \N_n^+ \). Kita akan menunjukkan bahwa \( \bs Y \) merupakan supermartingal terhadap \( \mathfrak F \). Pertama, pada kejadian \( \rho \le k - 1 \),',
+        "new": r'<p>Misalkan \( \mathfrak F=\{\mathscr F_k:k\in\N_n\} \) merupakan filtrasi alami \( \bs X \), dengan \( \mathscr F_0=\{\emptyset,\Omega\} \) dan \( \mathscr F_k=\sigma(X_1,\ldots,X_k) \). Misalkan \( \rho \) merupakan waktu henti bernilai dalam \( \N_n^+ \). Definisikan \( \bs Y=\{Y_k:k\in\N_n\} \) dengan \( Y_0=a_n \) dan \( Y_k=X_{\rho\wedge k}\vee a_{n-k} \) untuk \( k\in\N_n^+ \). Kita akan menunjukkan bahwa \( \bs Y \) merupakan supermartingal terhadap \( \mathfrak F \). Pertama, pada kejadian \( \rho \le k - 1 \),',
+        "description": "Include the time-zero sigma-algebra and initialize the comparison process at a_n so the supermartingale proof also works at k=1.",
+    },
+    {
+        "id": "secretary-expectation-macro",
+        "old": r"\E(Y_\rho) \le E(Y_0) = a_n",
+        "new": r"\E(Y_\rho) \le \E(Y_0) = a_n",
+        "description": "Use the page's defined expectation macro in the secretary upper-bound calculation.",
+    },
+)
+
 THEORY_UNITS = (
     {
         "rel": "prob/Convergence.html",
@@ -713,6 +875,30 @@ THEORY_UNITS = (
             "Simple Random Walk",
             "Branching Processes",
             "Processes with Independent Increments",
+            "Details:",
+        ),
+    },
+    {
+        "rel": "martingales/Stop.html",
+        "authority_sha256": "8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af",
+        "source_title": "Stopping Times",
+        "nav_label": "Waktu henti martingal",
+        "rights_id": "o009-rights-random-martingale-stopping",
+        "fragment_corrections": {},
+        "reader_corrections": MARTINGALE_STOP_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Stopping Times",
+            "Basic Theory",
+            "Optional Stopping",
+            "Stopped Martingales",
+            "Optional Stopping in Discrete Time",
+            "Examples and Applications",
+            "Simple Random Walk",
+            "Wald's Equation",
+            "Patterns in Multinomial Trials",
+            "Secretary Problem",
             "Details:",
         ),
     },

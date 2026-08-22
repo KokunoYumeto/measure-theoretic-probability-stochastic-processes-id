@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+	<meta charset="utf-8">
+	<title>Waktu Henti</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, martingale, stopping time, optional stopping, stopped martingale, random walk, Wald's equation, patterns in multinomial trials, secretary problem">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingal</a></li>
+		<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
+		<li class="child"><a href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Inequalities.html" title="Pertidaksamaan">4</a></li>
+		<li class="child"><a href="Convergence.html" title="Kekonvergenan">5</a></li>
+		<li class="child"><a href="Backwards.html" title="Martingal Mundur">6</a></li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<h2>3. Waktu Henti</h2>
+</header>
+
+<h3>Teori Dasar</h3>
+
+<p>Seperti dalam <a href="Introduction.html">pendahuluan</a>, kita mulai dengan suatu <a href="../prob/Processes.html">proses stokastik</a> \( \bs{X} = \{X_t: t \in T\} \) pada ruang probabilitas yang mendasarinya \( (\Omega, \mathscr{F}, \P) \), dengan ruang keadaan \( \R \), dan dengan himpunan indeks \( T \) (yang menyatakan waktu) berupa \( \N \) (waktu diskret) atau \( [0, \infty) \) (waktu kontinu). Selanjutnya, kita memiliki suatu <a href="../prob/Stop.html">filtrasi</a> \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), dan kita mengandaikan bahwa \( \bs{X} \) <dfn>teradaptasi</dfn> terhadap \( \mathfrak{F} \). Jadi, \( \mathfrak{F} \) merupakan keluarga menaik subaljabar-\( \sigma \) dari \( \mathscr{F} \), dan \( X_t \) terukur terhadap \( \mathscr{F}_t \) untuk \( t \in T \). Kita memandang \( \mathscr{F}_t \) sebagai koleksi kejadian hingga waktu \( t \in T \). Kita mengandaikan bahwa \( \E\left(\left|X_t\right|\right) \lt \infty \), sehingga <a href="../expect/Properties.html">rata-rata</a> \( X_t \) ada sebagai bilangan riil untuk setiap \( t \in T \). Terakhir, dalam waktu kontinu ketika \( T = [0, \infty) \), kita menggunakan asumsi standar bahwa \( \bs X \) kontinu kanan dan memiliki limit kiri, serta bahwa filtrasi \( \mathfrak F \) kontinu kanan dan lengkap.</p>
+
+<p>Tujuan umum kita dalam bagian ini adalah menentukan apakah beberapa sifat penting martingal tetap berlaku ketika waktu deterministik \( t \in T \) diganti dengan suatu <a href="../prob/Stop.html">waktu henti</a> (acak). Ingat bahwa waktu acak \( \tau \) yang bernilai dalam \( T \cup \{\infty\} \) merupakan <dfn>waktu henti</dfn> terhadap \( \mathfrak F \) jika \( \{\tau \le t\} \in \mathscr{F}_t \) untuk \( t \in T \). Jadi, waktu henti adalah waktu acak yang tidak mengharuskan kita melihat ke masa depan. Artinya, kita dapat menentukan apakah \( \tau \le t \) dari informasi yang tersedia pada waktu \( t \). Ingat pula bahwa aljabar-\( \sigma \) yang terkait dengan waktu henti \( \tau \) adalah
+\[ \mathscr{F}_\tau = \left\{A \in \mathscr{F}: A \cap \{\tau \le t\} \in \mathscr{F}_t \text{ for all } t \in T\right\} \]
+Jadi, \( \mathscr{F}_\tau \) merupakan koleksi kejadian hingga waktu acak \( \tau \), sebagaimana \( \mathscr{F}_t \) merupakan koleksi kejadian hingga waktu deterministik \( t \in T \). Dalam gambaran seorang penjudi yang memainkan serangkaian permainan, waktu ketika penjudi memutuskan untuk berhenti bermain harus berupa waktu henti; bahkan, penafsiran inilah asal nama tersebut. Artinya, waktu ketika penjudi memutuskan berhenti hanya boleh bergantung pada informasi yang dimilikinya hingga saat itu.</p>
+
+<h4 id="ost">Penghentian Opsional</h4>
+
+<p>Persamaan dasar martingal \( \E(X_t \mid \mathscr{F}_s) = X_s \) untuk \( s, \, t \in T \) dengan \( s \le t \) dapat diperumum dengan mengganti \( s \) dan \( t \) dengan waktu henti terbatas. Hasil ini dikenal sebagai <dfn>teorema penghentian opsional Doob</dfn> dan kembali dinamai menurut <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">Joseph Doob</a>. Misalkan \( \bs X = \{X_t: t \in T\} \) memenuhi asumsi dasar di atas terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \).</p>
+
+<div class="unit" id="ost1">
+	<p class="math">Misalkan bahwa  merupakan waktu henti terbatas terhadap \( \mathfrak F \) dengan \( \rho \le \tau \). </p>
+	<ol class="sub">
+		<li>Jika \( \bs X \) merupakan martingal terhadap \( \mathfrak F \), maka \( \E(X_\tau \mid \mathscr{F}_\rho) = X_\rho \).</li>
+		<li>Jika \( \bs X \) merupakan submartingal terhadap \( \mathfrak F \), maka \( \E(X_\tau \mid \mathscr{F}_\rho) \ge X_\rho \).</li>
+		<li>Jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \), maka \( \E(X_\tau \mid \mathscr{F}_\rho) \le X_\rho \).</li>
+	</ol>
+	<details>
+	<summary>Rincian:</summary>
+	<p><strong>Bukti dalam waktu diskret:</strong></p>
+	<ol class="sub">
+		<li>Misalkan \( \tau \le k \), dengan \( k \in \N_+ \), dan ambil \( A \in \mathscr{F}_\tau \). Untuk \( j \in \N \) dengan \( j \le k \), berlaku \( A \cap \{\tau = j\} \in \mathscr{F}_j \). Oleh karena  sifat martingal,
+		\[ \E(X_k ; A \cap \{\tau = j\}) = \E(X_j ; A \cap \{\tau = j\}) = \E(X_\tau ; A \cap \{\tau = j\})\]
+		Karena \( k \) merupakan batas atas bagi \( \tau \), kejadian \( A \cap \{\tau = j\} \) untuk \( j = 0, 1, \ldots, k \) membentuk partisi \( A \). Dengan menjumlahkan persamaan yang ditampilkan terhadap \( j \), diperoleh \( \E(X_k ; A) = \E(X_\tau ; A) \). Menurut definisi nilai harapan bersyarat, \( \E(X_k \mid \mathscr{F}_\tau) = X_\tau \). Karena \( k \) juga merupakan batas atas bagi \( \rho \), kita juga memiliki \( \E(X_k \mid \mathscr{F}_\rho) = X_\rho \). Terakhir, dengan menggunakan sifat menara, kita memperoleh
+		\[ X_\rho = \E(X_k \mid \mathscr{F}_\rho) = \E[\E(X_k \mid \mathscr{F}_\rho) \mid \mathscr{F}_\tau] = \E[\E(X_k \mid \mathscr{F}_\tau) \mid \mathscr{F}_\rho] = \E(X_\tau \mid \mathscr{F}_\rho)\]
+		</li>
+		<li>Jika \( \bs X \) merupakan submartingal, maka menurut <a href="Properties.html#doo">teorema dekomposisi Doob</a>, \( X_n = Y_n + Z_n \) untuk \( n \in \N \), dengan \( \bs Y = \{Y_n: n \in \N\} \) merupakan martingal terhadap \( \mathfrak F \), sedangkan \( \bs Z = \{Z_n: n \in \N\} \) menaik dan terprediksi terhadap \( \mathfrak F \). Jadi, 
+		\[  \E(X_\tau \mid \mathscr{F}_\rho) = \E(Y_\tau \mid \mathscr{F}_\rho) + \E(Z_\tau \mid \mathscr{F}_\rho)\]
+		Namun, \( \E(Y_\tau \mid \mathscr{F}_\rho) = Y_\rho \) menurut bagian (a), dan karena \( \bs Z \) menaik, \( \E(Z_\tau \mid \mathscr{F}_\rho) \ge \E(Z_\rho \mid \mathscr{F}_\rho) = Z_\rho \). Oleh karena itu, \( \E(X_\tau \mid \mathscr{F}_\rho) \ge X_\rho \).</li>
+		<li>Bukti ketika \( \bs X \) merupakan supermartingal sama seperti bagian (b), kecuali bahwa proses \( \bs Z \) menurun.</li>
+	</ol>
+	<p><strong>Bukti dalam waktu kontinu:</strong> Misalkan \( \bs X \) merupakan martingal. Kita perlu menunjukkan bahwa \( \E(X_\tau; A) = \E(X_\rho; A) \) untuk setiap \( A \in \mathscr{F}_\rho \). Tetapkan \( \rho_n = \lceil 2^n \rho \rceil / 2^n \) dan \( \tau_n = \lceil 2^n \tau \rceil / 2^n \) untuk \( n \in \N \). Waktu henti \( \rho_n \) dan \( \tau_n \) bernilai dalam himpunan terhitung \( T_n \) untuk setiap \( n \in \N \), serta \( \rho_n \downarrow \rho \) dan \( \tau_n \downarrow \tau \) ketika \( n \to \infty \). Proses \( \{X_t: t \in T_n\} \) merupakan martingal waktu diskret untuk setiap \( n \in \N \). Berdasarkan kekontinuan kanan \( \bs X \),
+	\[ X_{\rho_n} \to X_\rho, \; X_{\tau_n} \to X_\tau \text{ as } n \to \infty \]
+	Selanjutnya, misalkan \( \tau \le c \), dengan \( c \in (0, \infty) \), sehingga \( \rho \le c \) juga. Maka \( \rho_n \le c + 1 \) dan \( \tau_n \le c + 1 \) untuk \( n \in \N \), sehingga waktu henti diskret tersebut terbatas seragam. Berdasarkan versi diskret teorema, \( X_{\rho_n} = \E\left(X_{c+1} \mid \mathscr{F}_{\rho_n}\right) \) dan \( X_{\tau_n} = \E\left(X_{c+1} \mid \mathscr{F}_{\tau_n}\right) \) untuk \( n \in \N \). Dengan demikian, barisan \( \left\{X_{\rho_n}: n \in \N\right\} \) dan \( \left\{X_{\tau_n}: n \in \N\right\} \) <a href="../expect/Uniform.html">terintegralkan seragam</a>; oleh karena itu, \( X_{\rho_n} \to X_\rho \) dan \( X_{\tau_n} \to X_\tau \) ketika \( n \to \infty \), baik <a href="../expect/Spaces.html#con">dalam rata-rata</a> maupun dengan probabilitas 1. Sekarang ambil \( A \in \mathscr{F}_\rho \). Karena \( \rho \le \rho_n \), berlaku \( \mathscr{F}_\rho \subseteq \mathscr{F}_{\rho_n} \), sehingga \( A \in \mathscr{F}_{\rho_n} \) untuk setiap \( n \in \N \). Berdasarkan teorema dalam waktu diskret,
+	\[ \E\left(X_{\tau_n}; A\right) = \E\left(X_{\rho_n}: A\right), \quad n \in \N \]
+	Dengan membiarkan \( n \to \infty \), diperoleh \( \E(X_\tau; A) = \E(X_\rho; A) \). Bukti bagian (b) dan (c) sama seperti dalam waktu diskret.</p>
+	</details>
+</div>
+
+<p>Asumsi bahwa waktu henti terbatas sangat penting. Suatu contoh tandingan ketika asumsi ini tidak berlaku diberikan dalam <a href="#srw2" class="ref"></a>. Berikut dua akibat sederhana:</p>
+
+<div class="unit" id="ost2">
+	<p class="math">Misalkan kembali bahwa \( \rho \) dan \( \tau \) merupakan waktu henti terbatas terhadap \( \mathfrak F \) dengan \( \rho \le \tau \). </p>
+	<ol class="sub">
+		<li>Jika \( \bs X \) merupakan martingal terhadap \( \mathfrak F \), maka \( \E(X_\tau) = \E(X_\rho) \).</li>
+		<li>Jika \( \bs X \) merupakan submartingal terhadap \( \mathfrak F \), maka \( \E(X_\tau) \ge \E(X_\rho) \).</li>
+		<li>Jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \), maka \( \E(X_\tau) \le \E(X_\rho) \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Ingat bahwa \( \E(X_\tau) = \E[\E(X_\tau \mid \mathscr{F}_\rho)] \), sehingga hasil-hasil tersebut langsung mengikuti teorema penghentian opsional <a href="#ost1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<div class="unit" id="ost3">
+	<p class="math">Misalkan \( \tau \) merupakan waktu henti terbatas terhadap \( \mathfrak F \). </p>
+	<ol class="sub">
+		<li>Jika \( \bs X \) merupakan martingal terhadap \( \mathfrak F \), maka \( \E(X_\tau) = \E(X_0) \).</li>
+		<li>Jika \( \bs X \) merupakan submartingal terhadap \( \mathfrak F \), maka \( \E(X_\tau) \ge \E(X_0) \).</li>
+		<li>Jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \), maka \( \E(X_\tau) \le \E(X_0) \).</li>
+	</ol>
+</div>
+
+<h4 id="stp">Martingal yang Dihentikan</h4>
+
+<p>Untuk pembahasan berikutnya, kita perlu terlebih dahulu <a href="../prob/Stop.html#stc">mengingat kembali</a> cara menghentikan suatu proses stokastik pada waktu henti.</p>
+
+<div class="unit" id="stp1">
+	<p class="math">Misalkan \( \bs X \) memenuhi asumsi di atas dan \( \tau \) merupakan waktu henti terhadap filtrasi \( \mathfrak F \). <dfn>Proses yang dihentikan</dfn> \( X^\tau = \{X^\tau_t: t \in [0, \infty)\} \) didefinisikan oleh
+	\[ X^\tau_t = X_{t \wedge \tau}, \quad t \in [0, \infty) \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Dalam waktu kontinu, asumsi standar kita memastikan bahwa \( \bs{X}^\tau \) merupakan proses stokastik yang sah dan teradaptasi terhadap \( \mathfrak F \). Artinya, \( X^\tau_t \) terukur terhadap \( \mathscr{F}_t \) untuk setiap \( t \in [0, \infty) \). Selain itu, \( \bs{X}^\tau \) juga kontinu kanan dan memiliki limit kiri.</p>
+</details>
+</div>
+
+<p>Jadi, \( X^\tau_t = X_t \) jika \( t \lt \tau \), dan \( X^\tau_t = X_\tau \) jika \( t \ge \tau \). Secara khusus, perhatikan bahwa \( X^\tau_0 = X_0 \). Jika \( X_t \) adalah kekayaan seorang penjudi pada waktu \( t \in T \), maka \( X^\tau_t \) adalah kekayaan yang disesuaikan pada waktu \( t \) ketika \( \tau \) menjadi waktu henti penjudi tersebut. Hasil berikutnya, yang dikenal sebagai <dfn>teorema penghentian elementer</dfn>, menyatakan bahwa martingal yang dihentikan pada suatu waktu henti tetap merupakan martingal. </p>
+
+<div class="unit" id="stp2">
+	<p class="math">Misalkan kembali bahwa \( \bs X \) memenuhi asumsi di atas dan \( \tau \) merupakan waktu henti terhadap \( \mathfrak F \).</p>
+	<ol class="sub">
+		<li>Jika \( \bs X \) merupakan martingal terhadap \( \mathfrak F \), maka demikian pula \( \bs{X}^\tau \).</li>
+		<li>Jika \( \bs X \) merupakan submartingal terhadap \( \mathfrak F \), maka demikian pula \( \bs{X}^\tau \).</li>
+		<li>Jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \), maka demikian pula \( \bs{X}^\tau \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p><strong>Bukti umum:</strong> Jika \( s, \, t \in T \) dengan \( s \le t \), maka \( \tau \wedge s \) dan \( \tau \wedge t \) merupakan waktu henti terbatas dengan \( \tau \wedge s \le \tau \wedge t \). Jadi, hasil tersebut langsung mengikuti teorema penghentian opsional <a href="#ost1" class="ref"></a>. </p>
+		<summary></summary>
+		<p><strong>Bukti khusus dalam waktu diskret:</strong> Dalam waktu diskret, terdapat bukti langsung yang sederhana dengan menggunakan <a href="Properties.html#trn">transformasi martingal</a>. Jadi, misalkan \( T = \N \) dan definisikan proses \( \bs Y = \{Y_n: n \in \N_+\} \) oleh 
+		\[ Y_n = \bs{1}(\tau \ge n) = 1 - \bs{1}(\tau \le n - 1), \quad n \in \N_+ \]
+		Menurut definisi waktu henti, \( \{\tau \le n - 1\} \in \mathscr{F}_{n-1} \) untuk \( n \in \N_+ \), sehingga proses \( \bs Y \) terprediksi. Tentu saja, \( \bs Y \) juga merupakan proses terbatas dan nonnegatif. Transformasi \( \bs X \) oleh \( \bs Y \) adalah
+		\[ (\bs Y \cdot \bs X)_n = X_0 + \sum_{k=1}^n Y_k (X_k - X_{k-1}) = X_0 + \sum_{k=1}^n \bs{1}(\tau \ge k)(X_k - X_{k-1}), \quad n \in \N_+ \]
+		Namun, perhatikan bahwa \( X^\tau_k - X^\tau_{k-1} = X_k - X_{k-1} \) jika \( \tau \ge k \), dan \( X^\tau_k - X^\tau_{k-1} = X_\tau - X_\tau = 0 \) jika \( \tau \lt k \). Artinya, \( X^\tau_k - X^\tau_{k-1} = \bs{1}(\tau \ge k)(X_k - X_{k-1}) \). Oleh karena itu,
+		\[ (\bs Y \cdot \bs X)_n = X_0 + \sum_{k=1}^n (X^\tau_k - X^\tau_{k-1}) = X_0 + X^\tau_n - X^\tau_0 = X^\tau_n, \quad n \in \N_+ \]
+		Jika \( \bs X \) merupakan martingal (submartingal) (supermartingal), maka demikian pula transformasi \( \bs Y \cdot \bs X = \bs{X}_\tau\).</p>
+	</details>
+</div>
+
+<p>Teorema penghentian elementer membawa kabar buruk bagi penjudi yang memainkan serangkaian permainan. Jika permainannya adil atau merugikan, tidak ada waktu henti—secerdik apa pun rancangannya—yang dapat membantu penjudi. Karena martingal yang dihentikan tetap merupakan martingal, sifat rata-ratanya tetap berlaku.</p>
+
+<div class="unit" id="stp3">
+	<p class="math">Misalkan kembali bahwa \( \bs X \) memenuhi asumsi di atas dan \( \tau \) merupakan waktu henti terhadap \( \mathfrak F \). Ambil \( t \in T \).</p>
+	<ol class="sub">
+		<li>Jika \( \bs X \) merupakan martingal terhadap \( \mathfrak F \), maka \( \E(X_{t \wedge \tau}) = E(X_0) \)</li>
+		<li>Jika \( \bs X \) merupakan submartingal terhadap \( \mathfrak F \), maka \( \E(X_{t \wedge \tau}) \ge E(X_0) \)</li>
+		<li>Jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \), maka \( \E(X_{t \wedge \tau}) \le E(X_0) \)</li>
+	</ol>
+</div>
+
+<h4 id="dis">Penghentian Opsional dalam Waktu Diskret</h4>
+
+<p>Akibat sederhana dari teorema penghentian opsional <a href="#ost1" class="ref"></a> adalah bahwa jika \( \bs X \) merupakan martingal dan \( \tau \) waktu henti terbatas, maka \( \E(X_\tau) = \E(X_0) \) (dengan pertidaksamaan yang sesuai jika \( \bs X \) merupakan submartingal atau supermartingal). Pembahasan berikutnya berpusat pada syarat lain yang memberikan hasil-hasil tersebut dalam waktu diskret. Misalkan \( \bs X = \{X_n: n \in \N\} \) memenuhi asumsi dasar di atas terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \), dan \( \tau \) merupakan waktu henti terhadap \( \mathfrak F \).</p>
+
+<div class="unit" id="dis1">
+	<p class="math">Misalkan \( \left|X_n\right| \) terbatas seragam terhadap \( n \in \N \) dan \( \tau \) berhingga. </p>
+	<ol class="sub" start="4">
+		<li>Jika \( \bs X \) merupakan martingal, maka \( \E(X_\tau) = \E(X_0) \).</li>
+		<li>Jika \( \bs X \) merupakan submartingal, maka \( \E(X_\tau) \ge \E(X_0) \).</li>
+		<li>Jika \( \bs X \) merupakan supermartingal, maka \( \E(X_\tau) \le \E(X_0) \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Andaikan bahwa \( \bs X \) merupakan supermartingal. Bukti untuk submartingal serupa, dan hasil untuk martingal kemudian langsung mengikuti. Alat utamanya adalah <a href="#stp3" class="ref"></a> bagi supermartingal yang dihentikan:
+		\[ \E(X_{\tau \wedge n}) \le \E(X_0), \quad n \in \N \]
+		Karena \( \tau \lt \infty \) dengan probabilitas 1, berlaku \( \tau \wedge n \to \tau \) ketika \( n \to \infty \), juga dengan probabilitas 1. Karena \( |X_n| \) terbatas terhadap \( n \in T \), <a href="../expect/Integral.html#lim2">teorema kekonvergenan terbatas</a> memberikan \( \E(X_{\tau \wedge n}) \to \E(X_\tau) \) ketika \( n \to \infty \). Dengan membiarkan \( n \to \infty \) dalam persamaan yang ditampilkan, diperoleh \( \E(X_\tau) \le \E(X_0) \).</p>
+	</details>
+</div>
+
+<div class="unit" id="dis2">
+	<p class="math">Misalkan \( \left|X_{n+1} - X_n\right| \) terbatas seragam terhadap \( n \in \N \) dan \( \E(\tau) \lt \infty \).</p>
+	<ol class="sub" start="4">
+		<li>Jika \( \bs X \) merupakan martingal, maka \( \E(X_\tau) = \E(X_0) \).</li>
+		<li>Jika \( \bs X \) merupakan submartingal, maka \( \E(X_\tau) \ge \E(X_0) \).</li>
+		<li>Jika \( \bs X \) merupakan supermartingal, maka \( \E(X_\tau) \le \E(X_0) \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Andaikan bahwa \( \bs X \) merupakan supermartingal. Bukti untuk submartingal serupa, dan hasil untuk martingal kemudian langsung mengikuti. Alat utamanya sekali lagi adalah sifat rata-rata dalam <a href="#stp3" class="ref"></a> di atas bagi supermartingal yang dihentikan:
+		\[ \E(X_{\tau \wedge n}) \le \E(X_0), \quad n \in \N \]
+		Misalkan \( |X_{n+1} - X_n| \le c \), dengan \( c \in (0, \infty) \). Maka
+		\[ |X_{\tau \wedge n} - X_0| = \left|\sum_{k=1}^{\tau \wedge n} (X_k - X_{k-1})\right| \le \sum_{k=1}^{\tau \wedge n} |X_k - X_{k-1}| \le c (\tau \wedge n) \le c \tau \]
+		Oleh karena itu, \( |X_{\tau \wedge n}| \le c \tau + |X_0| \). Karena \( \E(\tau) \lt \infty \), kita mengetahui bahwa \( \tau \lt \infty \) dengan probabilitas 1, sehingga seperti sebelumnya, \( \tau \wedge n \to \tau \) ketika \( n \to \infty \). Selain itu, \(\E(c \tau + |X_0|) \lt \infty\), sehingga menurut <a href="../expect/Integral.html#lim2">teorema kekonvergenan terdominasi</a>, \( \E(X_{\tau \wedge n}) \to \E(X_\tau) \) ketika \( n \to \infty \). Jadi, dengan kembali membiarkan \( n \to \infty \) dalam persamaan yang ditampilkan, diperoleh \( \E(X_\tau) \le \E(X_0) \).</p>
+	</details>
+</div>
+
+<p>Mari kembali ke penafsiran awal kita tentang martingal \( \bs{X} \) sebagai kekayaan seorang penjudi yang memainkan permainan adil. Penjudi dapat memilih berhenti pada waktu acak \( \tau \), tetapi \( \tau \) harus berupa waktu henti berdasarkan informasi penjudi yang dikodekan dalam filtrasi \( \mathfrak{F} \). Di bawah syarat teorema, tidak ada strategi semacam itu yang dapat membantu penjudi dalam hal nilai harapan.</p>
+
+<h3>Contoh dan Penerapan</h3>
+
+<h4 id="srw">Gerak Acak Sederhana</h4>
+
+<p>Misalkan \( \bs{V} = (V_1, V_2, \ldots) \) merupakan barisan peubah acak independen dan berdistribusi identik dengan \( \P(V_i = 1) = p \) serta \( \P(V_i = -1) = 1 - p \) untuk \( i \in \N_+ \), dengan \( p \in (0, 1) \). Misalkan \( \bs{X}  = (X_0, X_1, X_2, \ldots)\) merupakan proses jumlah parsial yang terkait dengan \( \bs{V} \), sehingga 
+\[ X_n = \sum_{i=1}^n V_i, \quad n \in \N \]
+Maka \( \bs{X} \) merupakan <a href="../bernoulli/Walk.html">gerak acak sederhana</a> dengan parameter \( p \). Dalam konteks perjudian, penjudi kita memainkan serangkaian permainan independen dan identik; pada setiap permainan, ia memenangkan &euro;1 dengan probabilitas \( p \) dan kehilangan &euro;1 dengan probabilitas \( 1 - p \). Jadi, \( X_n \) adalah total kemenangan bersih penjudi setelah \( n \) permainan. Dalam <a href="Introduction.html">pendahuluan</a>, kita menunjukkan bahwa \( \bs X \) merupakan martingal jika \( p = \frac{1}{2} \) (kasus adil), submartingal jika \( p \gt \frac{1}{2} \) (kasus menguntungkan), dan supermartingal jika \( p \lt \frac{1}{2} \) (kasus merugikan). Sekarang, untuk \( c \in \Z \), tetapkan 
+\[ \tau_c = \inf\{n \in \N: X_n = c\} \]
+dengan, seperti biasa, \( \inf(\emptyset) = \infty \). Jadi, \( \tau_c \) adalah waktu pertama ketika kekayaan penjudi mencapai \( c \). Bagaimana jika penjudi terus bermain hingga kemenangan bersihnya mencapai suatu bilangan positif yang telah ditentukan (misalnya &euro;\(1\,000\,000 \))? Apakah strategi tersebut dapat dijalankan?</p>
+
+<div class="unit" id="srw1">
+	<p class="math">Misalkan \( p = \frac{1}{2} \) dan \( c \in \N_+ \).</p>
+	<ol class="sub">
+		<li>\( \P(\tau_c \lt \infty) = 1 \)</li>
+		<li>\( \E\left(X_{\tau_c}\right) = c \ne 0 = \E(X_0) \)</li>
+		<li>\( \E(\tau_c) = \infty \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Bagian (a) dan (c) berlaku karena \( \bs X \) merupakan <a href="../markov/Limiting.html">rantai Markov rekuren nol</a>. Bagian (b) mengikuti dari (a) karena jelas bahwa \( X_{\tau_c} = c \) jika \( \tau_c \lt \infty \).</p>
+	</details>
+</div>
+
+<p>Perhatikan bahwa bagian (b) tidak bertentangan dengan teorema penghentian opsional <a href="#ost2" class="ref"></a> karena bagian (c). Strategi menunggu hingga kemenangan bersih mencapai sasaran tertentu \( c \) tidak dapat dipertahankan. Sekarang, misalkan penjudi bermain hingga kemenangan bersihnya turun ke suatu bilangan negatif yang telah ditentukan (kerugian yang masih dapat ditoleransi) atau mencapai suatu bilangan positif yang telah ditentukan (sasaran yang ingin dicapai).</p>
+
+<div class="unit" id="srw2">
+	<p class="math">Misalkan kembali bahwa \( p = \frac{1}{2} \). Untuk \( a, \, b \in \N_+ \), tetapkan \( \tau = \tau_{-a} \wedge \tau_b \). Maka</p>
+	<ol class="sub">
+		<li>\( \E(\tau) \lt \infty \)</li>
+		<li>\( \E(X_\tau) = 0 \)</li>
+		<li>\( \P(\tau_{-a} \lt \tau_b) = b / (a + b) \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Kita membiarkan \( X_0 \) memiliki nilai sebarang dalam himpunan \( \{-a, -a + 1, \ldots, b - 1, b\} \), sehingga kita dapat menggunakan teknik rantai Markov. Tetapkan \( m(x) = \E(\tau \mid X_0 = x) \) untuk \( x \) dalam himpunan ini. Dengan mengondisikan pada keadaan pertama dan menggunakan sifat Markov, kita memperoleh
+			\[ m(x) = 1 + \frac{1}{2} m(x - 1) + \frac{1}{2} m(x + 1), \quad x \in \{-a + 1, \ldots, b - 1\} \]
+			dengan syarat batas \( m(-a) = m(b) = 0 \). Relasi rekurensi linear ini dapat diselesaikan secara eksplisit, tetapi yang kita perlukan hanyalah fakta bahwa solusinya berhingga.</li>
+			<li>Teorema pencuplikan opsional <a href="#ost1" class="ref"></a> berlaku, sehingga \( \E(X_\tau) = \E(X_0) = 0 \).</li>
+			<li>Tetapkan \( q = \P(\tau_{-a} \lt \tau_b) \), sehingga \( 1 - q = \P(\tau_b \lt \tau_{-a}) \). Menurut definisi, \( X_\tau = -a \) jika \( \tau_{-a} \lt \tau_b \), dan \( X_\tau = b \) jika \( \tau_b \lt \tau_{-a} \). Jadi, dari bagian (b), \( q(-a) + (1 - q) b = 0  \), dan dengan demikian \( q = b / (a + b) \).
+			</li>
+		</ol>
+	</details>
+</div>
+
+<p>Jadi, berjudi hingga kemenangan bersih turun ke \( -a \) atau mencapai \( b \) merupakan strategi yang dapat dijalankan, tetapi sayangnya memiliki nilai harapan 0. Berikut contoh lain yang menunjukkan bahwa versi pertama teorema pencuplikan opsional dapat gagal jika waktu hentinya tidak terbatas.</p>
+
+<div class="unit" id="srw3">
+	<p class="math">Misalkan kembali bahwa \( p = \frac{1}{2} \). Ambil \( a, \, b \in \N_+ \) dengan \( a \lt b \). Maka \( \tau_a \lt \tau_b \lt \infty \), tetapi
+	\[ b = \E\left(X_{\tau_b} \mid \mathscr{F}_{\tau_a} \right) \ne X_{\tau_a} = a \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Karena \( X_0 = 0 \), proses \( \bs X \) harus mencapai \( a \) sebelum mencapai \( b \). Seperti sebelumnya, \( \tau_b \lt \infty \), tetapi \( \E(\tau_b) = \infty \) karena \( \bs X \) merupakan rantai Markov rekuren nol.</p>
+	</details>
+</div>
+
+<p>Hasil ini tidak bertentangan dengan teorema penghentian opsional <a href="#ost1" class="ref"></a> karena waktu hentinya tidak terbatas.</p>
+
+<h4 id="wld">Persamaan Wald</h4>
+
+<p><dfn>Persamaan Wald</dfn>, yang dinamai menurut <a href="JavaScript:openAncillary('../biographies/Wald.html')" class="ancillary">Abraham Wald</a>, merupakan rumus bagi nilai harapan suatu jumlah dengan banyak suku acak, yang suku-sukunya berupa peubah acak independen dan berdistribusi identik. Kita telah menelaahnya sebelumnya dalam pembahasan tentang <a href="../expect/Conditional.html#sum">nilai harapan bersyarat</a> dan <a href="../sample/CLT.html#wld">sampel acak</a>, tetapi teori martingal menghasilkan bukti yang sangat sederhana dan elegan.</p>
+
+<div class="unit" id="wld1">
+	<p class="math">Misalkan \( \bs X = (X_n: n \in \N_+) \) merupakan barisan peubah independen dan berdistribusi identik dengan rata-rata bersama \( \mu \in \R \). Jika \( N \) merupakan waktu henti bagi \( \bs X \) dengan \( \E(N) \lt \infty \), maka
+	\[ \E\left(\sum_{k=1}^N X_k\right) = \E(N) \mu \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan \( \mathfrak F \) menyatakan filtrasi alami yang terkait dengan \( \bs X \). Tetapkan \( c = \E(|X_n|)\), sehingga berdasarkan asumsi, \( c \lt \infty \). Terakhir, tetapkan 
+		\[ Y_n = \sum_{k=1}^n (X_k - \mu) \, \quad n \in \N_+ \]
+		Maka \( \bs Y = (Y_n: n \in \N_+) \) merupakan martingal terhadap \( \mathfrak F \), dengan rata-rata 0. Perhatikan bahwa
+		\[ \E(|Y_{n+1} - Y_n|) = \E(|X_{n+1} - \mu|) \le c + |\mu|, \quad n \in \N_+ \]
+		Oleh karena itu, versi diskret teorema penghentian opsional dalam <a href="#dis2" class="ref"></a> berlaku, dan kita memperoleh \( \E(Y_N) = 0 \). Dengan demikian,
+		\[ 0 = \E(Y_N) = \E\left[\sum_{k=1}^N (X_k - \mu)\right] = \E\left(\sum_{k=1}^N X_k - N \mu\right) = \E\left(\sum_{k=1}^N X_k\right) - \E(N) \mu \]</p>
+	</details>
+</div>
+
+<h4 id="pat">Pola dalam Percobaan Multinomial</h4>
+
+<p><a href="../renewal/Delayed.html#pat">Pola dalam percobaan multinomial</a> telah dipelajari dalam <a href="../renewal/index.html">Bab 14</a> tentang proses pembaruan. Seperti yang sering terjadi, martingal memberikan penyelesaian yang lebih elegan. Misalkan \( \bs{L} = (L_1, L_2, \ldots) \) merupakan barisan peubah acak independen dan berdistribusi identik yang bernilai dalam himpunan berhingga \( S \), sehingga \( \bs{L} \) merupakan barisan <a href="../bernoulli/Multinomial.html">percobaan multinomial</a>. Misalkan \( f \) menyatakan <a href="../dist/Discrete.html">fungsi kepadatan probabilitas</a> bersama, sehingga untuk peubah percobaan generik \( L \), berlaku \( f(a) = \P(L = a) \) untuk \( a \in S \). Kita mengandaikan bahwa semua hasil dalam \( S \) benar-benar mungkin, sehingga \( f(a) \gt 0 \) untuk \( a \in S \).</p>
+
+<p>Dalam pembahasan ini, kita menafsirkan \( S \) sebagai suatu <dfn>alfabet</dfn>, dan menulis barisan peubah dalam bentuk perangkaian, \(\bs{L} = L_1 L_2 \cdots\), alih-alih bentuk barisan standar. Dengan demikian, barisan tersebut merupakan untaian tak berhingga huruf-huruf dari alfabet \( S \). Kita tertarik pada kemunculan pertama suatu subuntaian huruf berhingga tertentu (yakni sebuah <q>kata</q> atau <q>pola</q>) dalam barisan tak berhingga tersebut. Definisi berikut akan menyederhanakan notasi.</p>
+
+<div class="unit" id="pat1">
+	<p class="math">Jika \( \bs a = a_1 a_2 \cdots a_k \) merupakan kata sepanjang \( k \in \N_+ \) dari alfabet \( S \), definisikan 
+	\[ f(\bs{a}) = \prod_{i=1}^k f(a_i) \]
+	sehingga \( f(\bs a) \) merupakan probabilitas bahwa \( k \) percobaan berurutan menghasilkan kata \( \bs a \).</p>
+</div>
+
+<p>Jadi, tetapkan sebuah kata \( \bs a = a_1 a_2 \cdots a_k \) sepanjang \( k \in \N_+ \) dari alfabet \( S \), dan tinjau banyaknya percobaan \( N_{\bs a} \) hingga \( \bs a \) selesai terbentuk. Tujuan kita adalah menghitung \( \nu(\bs a) = \E\left(N_{\bs a}\right) \). Kita melakukannya dengan menyatakan masalah ini melalui serangkaian penjudi yang memainkan permainan adil, lalu menggunakan teorema penghentian opsional <a href="#ost2" class="ref"></a> di atas. Misalkan seorang penjudi mempertaruhkan \( c \in (0, \infty) \) pada huruf \( a \in S \) dalam suatu percobaan. Penjudi memperoleh \( c / f(a) \) jika \( a \) muncul pada percobaan tersebut, dan memperoleh 0 jika tidak. Nilai harapan taruhan ini adalah
+\[ f(a) \frac{c}{f(a)} - c = 0 \]
+sehingga taruhan tersebut adil. Sekarang, tinjau seorang penjudi dengan kekayaan awal 1. Ketika mulai bermain, ia mempertaruhkan 1 pada \( a_1 \). Jika menang, ia mempertaruhkan seluruh kekayaannya \( 1 / f(a_1) \) pada \( a_2 \) dalam percobaan berikutnya. Ia melanjutkan dengan cara ini: selama menang, ia mempertaruhkan seluruh kekayaannya pada huruf berikutnya dari kata tersebut dalam percobaan berikutnya, hingga ia kalah atau menyelesaikan kata \( \bs a \). Terakhir, kita meninjau serangkaian penjudi independen yang memainkan strategi ini, dengan penjudi \( i \) mulai pada percobaan \( i \) untuk setiap \( i \in \N_+ \).</p>
+
+<div class="unit" id="pat2">
+	<p class="math">Untuk kata berhingga \( \bs a \) dari alfabet \( S \), \( \nu(\bs a) \) merupakan total kemenangan semua pemain pada waktu \( N_{\bs a} \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan \( X_n \) menyatakan total kekayaan semua penjudi setelah percobaan \( n \in \N_+ \). Karena semua taruhan adil, \( \bs X = \{X_n: n \in \N_+\} \) merupakan martingal dengan rata-rata 0. Kita akan menunjukkan bahwa syarat dalam versi diskret teorema pencuplikan opsional <a href="#dis2" class="ref"></a> berlaku. Pertama, tinjau blok-blok percobaan saling lepas sepanjang \( k \), yakni
+		\[ \left((L_1, L_2, \ldots, L_k), (L_{k+1}, L_{k+2}, \ldots, L_{2 k}), \ldots\right) \]
+		Misalkan \( M_{\bs a} \) menyatakan indeks blok pertama semacam itu yang membentuk kata \( \bs a \). Peubah ini memiliki <a href="../bernoulli/Geometric.html">distribusi geometrik</a> pada \( \N_+ \) dengan parameter keberhasilan \( f(\bs a) \), sehingga khususnya \( \E(M_\bs{a}) = 1 / f(\bs a) \). Jelas bahwa \( N_{\bs a} \le k M_{\bs a} \), sehingga \( \nu(\bs a) \lt k / f(\bs a) \lt \infty \). Selanjutnya, perhatikan bahwa semua penjudi telah berhenti bermain pada waktu \( N \), sehingga jelas \( |X_{n+1} - X_n| \le 1 / f(a) \) untuk \( n \in \N_+ \). Jadi, teorema penghentian opsional berlaku, dan karenanya \( \E\left(X_{N_a}\right) = 0 \). Namun, \( \nu(\bs a) \) juga dapat ditafsirkan sebagai jumlah uang yang diharapkan telah ditanamkan oleh para penjudi (1 unit pada setiap waktu hingga permainan berakhir pada waktu \( N_{\bs a} \)); karena itu, nilai tersebut juga harus sama dengan total kemenangan pada waktu \( N_{\bs a} \) (yang deterministik).</p>
+	</details>
+</div>
+
+<p>Untuk \( \bs a \) yang diberikan, kita dapat menghitung total kemenangan secara tepat. Menurut definisi, percobaan \( N - k + 1, \ldots, N \) membentuk kata \( \bs a \) untuk pertama kalinya. Oleh karena itu, untuk \( i \le N - k \), penjudi \( i \) kalah pada suatu saat. Juga menurut definisi, penjudi \( N - k + 1 \) memenangkan semua taruhannya, menyelesaikan kata \( \bs a \), dan dengan demikian memperoleh \( 1 / f(\bs a)  \). Kerumitannya adalah bahwa penjudi \( N - k + 2, \ldots, N \) mungkin telah memenangkan semua taruhan mereka ketika permainan berakhir, atau mungkin belum. Latihan berikut menggambarkan hal ini.</p>
+
+<div class="unit" id="pat3">
+	<p class="math">Misalkan \( \bs{L} \) merupakan barisan <a href="../bernoulli/index.html">percobaan Bernoulli</a> (sehingga \( S = \{0, 1\} \)) dengan probabilitas keberhasilan \( p \in (0, 1) \). Untuk setiap untaian berikut, tentukan nilai harapan banyaknya percobaan yang diperlukan untuk menyelesaikan untaian tersebut.</p>
+	<ol class="sub">
+		<li>001</li>
+		<li>010</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Tetapkan \( q = 1 - p \).</p>
+		<ol class="sub">
+			<li>Untuk kata 001, penjudi \( N - 2 \) memenangkan \( \frac{1}{q^2 p} \) dari ketiga taruhannya. Penjudi \( N - 2 \) memasang dua taruhan, memenangkan yang pertama tetapi kalah pada yang kedua. Penjudi \( N \) kalah pada taruhan pertamanya (dan satu-satunya). Oleh karena itu, \( \nu(001) = \frac{1}{q^2 p} \)</li>
+			<li>Untuk kata 010, penjudi \( N - 2 \) memenangkan \( \frac{1}{q^2 p} \) dari ketiga taruhannya seperti sebelumnya. Penjudi \( N - 1 \) kalah pada taruhan pertamanya. Penjudi \( N \) memenangkan \( 1 / q \) pada taruhan pertamanya (dan satu-satunya). Jadi, \( \nu(010) = \frac{1}{q^2 p} + \frac{1}{q} \)</li>
+		</ol>
+	</details>
+</div>
+
+<p>Perbedaan antara kedua kata tersebut adalah bahwa kata dalam bagian (b) memiliki suatu <dfn>prefiks</dfn> (untaian sejati pada awal kata) yang juga merupakan <dfn>sufiks</dfn> (untaian sejati pada akhir kata). Kata \( \bs a \) tidak memiliki prefiks semacam itu. Dengan demikian, kita secara alami sampai pada dikotomi berikut:</p>
+
+<div class="unit" id="pat4">
+	<p class="dfn">Misalkan \( \bs a \) merupakan kata berhingga dari alfabet \( S \). Jika tidak ada prefiks sejati \( \bs a \) yang juga merupakan sufiks, maka \( \bs a \) disebut <dfn>sederhana</dfn>. Jika tidak, \( \bs a \) disebut <dfn>majemuk</dfn>.</p>
+</div>
+
+<p>Berikut hasil utamanya, yang tentu sama dengan hasil ketika masalah ini diselesaikan menggunakan <a href="../renewal/Delayed.html#pat">teori pembaruan</a>.</p>
+
+<div class="unit" id="pat5">
+	<p class="math">Misalkan \( \bs a \) merupakan kata berhingga dalam alfabet \( S \).</p>
+	<ol class="sub">
+		<li>Jika \( \bs a \) sederhana, maka \( \nu(\bs a) = 1 / f(\bs a) \).</li>
+		<li>Jika \( \bs a \) majemuk, maka \( \nu(\bs a) = 1 / f(\bs a) + \nu(\bs b) \), dengan \( \bs b \) merupakan kata terpanjang yang sekaligus menjadi prefiks dan sufiks \( \bs a \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Semua unsur yang diperlukan telah tersedia dari pembahasan sebelumnya. Misalkan \( \bs a \) memiliki panjang \( k \in \N_+ \).</p>
+		<ol class="sub">
+			<li>Jika \( \bs a \) sederhana, hanya pemain \( N - k + 1 \) yang menang, dan ia memenangkan \( 1 / f(\bs a) \). </li>
+			<li>Misalkan \( \bs a \) majemuk dan \( \bs b \) merupakan prefiks-sufiks sejati terpanjang. Seperti biasa, pemain \( N - k + 1 \) memenangkan \( 1 / f(\bs a) \). Kemenangan pemain \( N - k + 2, \ldots, N \) sama dengan kemenangan suatu barisan penjudi baru yang memainkan barisan percobaan baru dengan sasaran mencapai kata \( \bs b \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Untuk kata majemuk, kita dapat menggunakan bagian (b) untuk mereduksi perhitungan menjadi kata-kata sederhana.</p>
+
+<div class="unit" id="pat6">
+	<p class="math">Tinjau percobaan Bernoulli dengan probabilitas keberhasilan \( p \in (0, 1) \). Tentukan nilai harapan banyaknya percobaan hingga setiap untaian berikut selesai terbentuk.</p>
+	<ol class="sub">
+		<li>\( 1011011\)</li>
+		<li>\(1 1 \cdots 1 \) (sebanyak \( k \) kali)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Sekali lagi, tetapkan \( q = 1 - p \).</p>
+			<ol class="sub">
+				<li>\( \nu(1011011) = \frac{1}{p^5 q^2} + \nu(1011) = \frac{1}{p^5 q^2} + \frac{1}{p^3 q} + \nu(1) = \frac{1}{p^5 q^2} + \frac{1}{p^3 q} + \frac{1}{p}\)</li>
+				<li>Misalkan \( \bs{1}_j \) menyatakan untaian yang terdiri atas \( j \) buah angka 1 untuk \( j \in \N_+ \). Jika \( k \ge 2 \), maka \( \nu(\bs{1}_k) = 1 / p^k + \nu(\bs{1}_{k-1}) \). Oleh karena itu,
+				\[ \nu(\bs{1}_k) = \sum_{j=1}^k \frac{1}{p^j} \]</li>
+			</ol>
+	</details>
+</div>
+
+<p>Ingat bahwa <dfn>dadu pipih as-enam</dfn> adalah dadu bersisi enam dengan sisi 1 dan 6 masing-masing berprobabilitas \(\frac{1}{4}\), sedangkan sisi 2, 3, 4, dan 5 masing-masing berprobabilitas \( \frac{1}{8} \). Dadu pipih as-enam terkadang digunakan penjudi untuk berbuat curang.</p>
+
+<div class="unit" id="pat7">
+	<p class="math">Misalkan sebuah dadu pipih as-enam dilempar berulang kali. Tentukan nilai harapan banyaknya lemparan hingga pola \( 6165616 \) muncul.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Berdasarkan teorema utama kita,
+		\begin{align*}
+			\nu(6165616) &amp; = \frac{1}{f(6165616)} + \nu(616) = \frac{1}{f(6165616)} + \frac{1}{f(616)} + \nu(6) \\
+			&amp; = \frac{1}{f(6165616)} + \frac{1}{f(616)} + \frac{1}{f(6)} = \frac{1}{(1/4)^6(1/8)} + \frac{1}{(1/4)^3} + \frac{1}{1/4} = 32\,836
+		\end{align*}
+		</p>
+	</details>
+</div>
+
+<div class="unit" id="pat8">
+	<p class="math">Misalkan seekor monyet mengetik secara acak pada papan ketik yang memiliki 26 tombol huruf kecil dan tombol spasi (jadi 27 tombol). Tentukan nilai harapan banyaknya penekanan tombol hingga monyet menghasilkan masing-masing frasa berikut:</p>
+	<ol class="sub">
+		<li><em>it was the best of times</em></li>
+		<li><em>to be or not to be</em></li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>\( 27^{24} \approx 2.258 \times 10^{34} \)</li>
+			<li>\( 27^5 + 27^{18} \approx 5.815 \times 10^{25} \)</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="sec">Masalah Sekretaris</h4>
+
+<p><a href="../urn/Secretary.html">Masalah sekretaris</a> telah dibahas dalam bab tentang <a href="../urn/index.html">model pencuplikan berhingga</a>. Dalam pembahasan ini, kita akan menyelesaikan suatu variasi masalah tersebut menggunakan martingal. Misalkan terdapat \( n \in \N_+ \) kandidat untuk suatu pekerjaan, atau mungkin calon pasangan hidup. Para kandidat datang secara berurutan dalam urutan acak dan diwawancarai. Kita mengukur mutu setiap kandidat dengan suatu bilangan dalam interval \( [0, 1] \). Tujuan kita adalah memilih kandidat terbaik, tetapi setelah seorang kandidat ditolak, ia tidak dapat dipanggil kembali. Secara matematis, kita mengandaikan bahwa barisan peubah kandidat \( \bs X = (X_1, X_2, \ldots, X_n) \) <a href="../prob/Independence.html">independen</a> dan masing-masing <a href="../dist/Continuous.html#uni">berdistribusi seragam</a> pada interval \( [0, 1] \) (sehingga memiliki <dfn>distribusi seragam standar</dfn>). Tujuan kita adalah memilih waktu henti \( \tau \) terhadap \( \bs X \) yang memaksimumkan \( \E(X_\tau) \), yaitu nilai harapan kandidat yang dipilih. Barisan berikut akan berperan penting sebagai barisan ambang.</p>
+
+<div class="unit" id="sec1">
+	<p class="math">Definisikan barisan \( \bs a = (a_k: k \in \N) \) dengan \( a_0 = 0 \) dan \( a_{k+1} = \frac{1}{2}(1 + a_k^2) \) untuk \( k \in \N \). Maka</p>
+	<ol class="sub">
+		<li>\( a_k \lt 1 \) untuk \( k \in \N \).</li>
+		<li>\( a_k \lt a_{k+1} \) untuk \( k \in \N \).</li>
+		<li>\( a_k \to 1 \) ketika \( k \to \infty \).</li>
+		<li>Jika \( X \) berdistribusi seragam pada \( [0, 1] \), maka \( \E(X \vee a_k) = a_{k+1} \) untuk \( k \in \N \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Perhatikan bahwa \( a_1 = \frac{1}{2} \lt 1 \). Misalkan \( a_k \lt 1 \) untuk suatu \( k \in \N_+ \). Maka \(a_{k+1} = \frac{1}{2}(1 + a_k^2) \lt \frac{1}{2}(1 + 1) = 1 \)</li>
+			<li>Perhatikan bahwa \( 0 = a_0 \lt a_1 = \frac{1}{2} \). Misalkan \( a_k \gt a_{k-1} \) untuk suatu \( k \in \N_+ \). Maka \( a_{k+1} = \frac{1}{2}(1 + a_k^2) \gt \frac{1}{2}(1 + a_{k-1}^2) = a_k \).</li>
+			<li>Karena barisan tersebut menaik dan terbatas di atas, \( a_\infty = \lim_{k \to \infty} a_k \) ada. Dengan mengambil limit dalam relasi rekurensi, diperoleh \( a_\infty = \frac{1}{2}(1 + a_\infty^2) \), atau secara ekuivalen \( (a_\infty - 1)^2 = 0 \).</li>
+			<li>Untuk \( k \in \N \),
+			\[ \E(X \vee a_k) = \int_0^1 (x \vee a_k) dx = \int_0^{a_k} a_k \, dx + \int_{a_k}^1 x \, dx = \frac{1}{2}(1 + a_k^2) = a_{k+1} \]</li>
+		</ol>
+	</details>
+</div>
+
+<p>Karena \( a_0 = 0 \), berdasarkan bagian (a), semua suku barisan berada dalam \( [0, 1) \). Aproksimasi 10 suku pertamanya adalah 
+\[ (0, 0.5, 0.625, 0.695, 0.742, 0.775, 0.800, 0.820, 0.836, 0.850, 0.861, \ldots) \]
+Sifat (d) memberikan gambaran mengapa barisan tersebut penting bagi masalah sekretaris. Bagaimanapun, teorema berikut memberikan penyelesaiannya. Untuk menyederhanakan notasi, tetapkan \( \N_n = \{0, 1, \ldots, n\} \) dan \( \N_n^+ = \{1, 2, \ldots, n\} \).</p>
+
+<div class="unit" id="sec2">
+	<p class="math">Waktu henti \( \tau = \inf\left\{k \in \N_n^+: X_k \gt a_{n-k}\right\} \) optimal bagi masalah sekretaris dengan \( n \) kandidat. Nilai optimalnya adalah \( \E(X_\tau) = a_n \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan \( \mathfrak F = \{\mathscr{F}_k: k \in \N_n^+\} \) merupakan filtrasi alami \( \bs X \), dan misalkan \( \rho \) merupakan waktu henti bagi \( \mathfrak F \). Definisikan \( \bs Y = \{Y_k: k \in \N_n\} \) dengan \( Y_0 = 0 \) dan \( Y_k = X_{\rho \wedge k} \vee a_{n-k} \) untuk \( k \in \N_n^+ \). Kita akan menunjukkan bahwa \( \bs Y \) merupakan supermartingal terhadap \( \mathfrak F \). Pertama, pada kejadian \( \rho \le k - 1 \),
+		\[ \E(Y_k \mid \mathscr{F}_{k-1}) = \E[(X_\rho \vee a_{n-k}) \mid \mathscr{F}_{k-1}] = X_\rho \vee a_{n-k} \le X_\rho \vee a_{n - k + 1} = Y_{k-1}  \]
+		dengan menggunakan fakta bahwa \( X_\rho \bs{1}(\rho \le k - 1) \) terukur terhadap \( \mathscr{F}_{k-1} \) dan bahwa barisan \( \bs a \) menaik. Pada kejadian \( \rho \gt k - 1 \),
+		\[ \E(Y_k \mid \mathscr{F}_{k-1}) = \E(X_k \vee a_{n-k} \mid \mathscr{F}_{k-1}) = \E(X_k \vee a_{n-k}) = a_{n - k + 1} \le Y_{k - 1} \]
+		dengan menggunakan fakta bahwa \( X_k \) dan \( \mathscr{F}_{k-1} \) independen, serta bagian (d) dari <a href="#sec1" class="ref"></a>. Karena \( \bs Y \) merupakan supermartingal dan \( \rho \) terbatas, teorema penghentian opsional berlaku, dan kita memperoleh
+		\[ \E(X_\rho) \le \E(X_\rho \vee a_{n - \rho}) = \E(Y_\rho) \le E(Y_0) = a_n \]
+		sehingga \( a_n \) merupakan batas atas bagi nilai harapan kandidat yang dipilih oleh waktu henti \( \rho \).</p>
+		<p>Selanjutnya, kita akan menunjukkan bahwa dalam kasus khusus \( \rho = \tau \), proses \( \bs Y \) merupakan martingal. Pada kejadian \( \tau \le k - 1 \), seperti sebelumnya kita memiliki \(\E(Y_k \mid \mathscr{F}_{k-1}) = X_\tau \vee a_{n-k}\). Namun, menurut definisi, \( X_\tau \ge a_{n - \tau} \ge a_{n - k + 1} \ge a_{n - k}  \), sehingga pada kejadian ini,
+		\[ \E(Y_k \mid \mathscr{F}_{k-1}) = X_\tau = X_\tau \vee a_{n - k + 1} = Y_{k-1} \]
+		Pada kejadian \( \tau \gt k - 1 \), seperti sebelumnya kita memiliki \( \E(Y_k \mid \mathscr{F}_{k-1}) = a_{n-k+1}\). Namun, pada kejadian ini, \(Y_{k-1} = a_{n-k+1} \). Karena \( \bs Y \) merupakan martingal dan \( \tau \) terbatas, teorema penghentian opsional berlaku, dan kita memperoleh
+		\[ \E(X_\tau) = \E(X_\tau \vee a_{n-\tau}) = \E(Y_\tau) = \E(Y_0) = a_n \]</p>
+	</details>
+</div>
+
+<p>Berikut sebuah contoh khusus:</p>
+
+<div class="unit">
+	<p class="math">Untuk \( n = 5 \), aturan keputusannya adalah sebagai berikut:</p>
+	<ol class="sub">
+		<li>Pilih kandidat 1 jika \( X_1 \gt 0.742 \); jika tidak,</li>
+		<li>pilih kandidat 2 jika \( X_2 \gt 0.695 \); jika tidak,</li>
+		<li>pilih kandidat 3 jika \( X_3 \gt 0.625 \); jika tidak,</li>
+		<li>pilih kandidat 4 jika \( X_4 \gt 0.5 \); jika tidak,</li>
+		<li>pilih kandidat 5.</li>
+	</ol>
+	<p>Nilai harapan kandidat yang kita pilih adalah 0.775.</p>
+</div>
+
+ <p>Dalam versi awal <a href="../urn/Secretary.html">masalah sekretaris</a>, kita hanya dapat mengamati <em>peringkat relatif</em> para kandidat, dan tujuan kita adalah memaksimumkan probabilitas memilih kandidat terbaik. Untuk \( n = 5 \), strategi optimalnya adalah melewatkan dua kandidat pertama, lalu memilih kandidat pertama setelahnya yang lebih baik daripada semua kandidat sebelumnya, jika kandidat semacam itu ada. Jika tidak ada, tentu saja kita harus memilih kandidat 5. Probabilitas memilih kandidat terbaik adalah 0.433.</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingal</a></li>
+		<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
+		<li class="child"><a href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Inequalities.html" title="Pertidaksamaan">4</a></li>
+		<li class="child"><a href="Convergence.html" title="Kekonvergenan">5</a></li>
+		<li class="child"><a href="Backwards.html" title="Martingal Mundur">6</a></li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Kumpulan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

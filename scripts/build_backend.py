@@ -168,6 +168,21 @@ THEORY_SPECS = (
             "concept.markov.process",
         ],
     },
+    {
+        "rel": "martingales/Stop.html",
+        "slug": "martingales.stop",
+        "order": 11,
+        "concept_ids": [
+            "concept.stochastic.stopping-time",
+            "concept.stochastic.stopped-process",
+            "concept.martingale.optional-stopping",
+            "concept.stochastic.hitting-time",
+            "concept.stochastic.random-walk",
+            "concept.probability.wald-equation",
+            "concept.probability.pattern-waiting-time",
+            "concept.stochastic.optimal-stopping",
+        ],
+    },
 )
 
 SCHEMA = "o009.backend.entity.v2"
@@ -406,6 +421,11 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
                 "concept.martingale.doob-meyer",
                 "concept.markov.harmonic-function",
                 "concept.stochastic.stationary-independent-increments",
+                "concept.martingale.optional-stopping",
+                "concept.stochastic.hitting-time",
+                "concept.probability.wald-equation",
+                "concept.probability.pattern-waiting-time",
+                "concept.stochastic.optimal-stopping",
                 "concept.markov.process",
                 "concept.poisson.process",
                 "concept.renewal.process",
@@ -622,6 +642,11 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
         "concept.martingale.doob-meyer": "Doob-Meyer decomposition",
         "concept.markov.harmonic-function": "harmonic function for a Markov process",
         "concept.stochastic.stationary-independent-increments": "stationary independent increments",
+        "concept.martingale.optional-stopping": "optional stopping theorem",
+        "concept.stochastic.hitting-time": "hitting time",
+        "concept.probability.wald-equation": "Wald's equation",
+        "concept.probability.pattern-waiting-time": "waiting time for a finite pattern",
+        "concept.stochastic.optimal-stopping": "optimal stopping",
         "concept.markov.process": "Markov process",
         "concept.poisson.process": "Poisson process",
         "concept.renewal.process": "renewal process",
@@ -634,21 +659,50 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
         "outcome.o009.estimate-expectation-monte-carlo": (
             "Menaksir nilai harapan dengan simulasi Monte Carlo deterministik.",
             "apply",
+            ["concept.monte-carlo"],
         ),
         "outcome.o009.explain-lln-monte-carlo": (
             "Menjelaskan hubungan hukum bilangan besar dengan estimasi Monte Carlo.",
             "understand",
+            ["concept.monte-carlo", "concept.probability.convergence-in-probability"],
         ),
         "outcome.o009.distinguish-evidence-proof": (
             "Membedakan bukti empiris simulasi dari pembuktian probabilistik.",
             "analyze",
+            ["concept.monte-carlo", "concept.probability.convergence-in-probability"],
         ),
         "outcome.o009.prove-convergence-in-probability": (
             "Membuktikan konvergensi dalam probabilitas memakai ketaksamaan Chebyshev.",
             "prove",
+            ["concept.probability.convergence-in-probability"],
+        ),
+        "outcome.o009.check-optional-stopping-conditions": (
+            "Memeriksa syarat keterbatasan atau integrabilitas sebelum menerapkan teorema penghentian opsional.",
+            "analyze",
+            ["concept.stochastic.stopping-time", "concept.martingale.optional-stopping"],
+        ),
+        "outcome.o009.prove-stopped-martingale": (
+            "Membuktikan bahwa penghentian mempertahankan sifat martingal, submartingal, atau supermartingal.",
+            "prove",
+            ["concept.stochastic.stopped-process", "concept.martingale.optional-stopping"],
+        ),
+        "outcome.o009.compute-random-time-expectations": (
+            "Menghitung probabilitas pencapaian dan nilai harapan pada waktu henti, termasuk Persamaan Wald dan waktu tunggu pola.",
+            "apply",
+            [
+                "concept.stochastic.hitting-time",
+                "concept.stochastic.random-walk",
+                "concept.probability.wald-equation",
+                "concept.probability.pattern-waiting-time",
+            ],
+        ),
+        "outcome.o009.analyze-optimal-stopping": (
+            "Menganalisis aturan ambang penghentian optimal pada masalah sekretaris.",
+            "analyze",
+            ["concept.stochastic.optimal-stopping"],
         ),
     }
-    for stable_id, (label, level) in outcomes.items():
+    for stable_id, (label, level, concept_ids) in outcomes.items():
         entities.append(
             record(
                 "outcome",
@@ -657,7 +711,7 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
                 locale="id-ID",
                 translation_state="authored",
                 rights_id="rights.o009.original.cc-by-4.0",
-                concept_ids=["concept.monte-carlo", "concept.probability.convergence-in-probability"],
+                concept_ids=concept_ids,
                 payload={"label": label, "cognitive_level": level},
             )
         )
@@ -910,6 +964,66 @@ def html_entities() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
                 "reader source order",
             )
         )
+    relations.extend(
+        [
+            relation(
+                "rel.depends-on.martingales-stop.prob-stop",
+                "depends-on",
+                "unit.o009.random.martingales.stop",
+                "unit.o009.random.prob.stop",
+                "martingales/Stop.html recalls filtration, stopping-time, and stopped-process definitions",
+            ),
+            relation(
+                "rel.depends-on.martingales-stop.martingales-properties",
+                "depends-on",
+                "unit.o009.random.martingales.stop",
+                "unit.o009.random.martingales.properties",
+                "martingales/Stop.html uses martingale transforms and earlier martingale properties",
+            ),
+            relation(
+                "rel.teaches.martingales-stop.optional-stopping",
+                "teaches",
+                "unit.o009.random.martingales.stop.ost1",
+                "outcome.o009.check-optional-stopping-conditions",
+                "martingales/Stop.html#ost1; #dis1; #dis2",
+            ),
+            relation(
+                "rel.teaches.martingales-stop.stopped-martingale",
+                "teaches",
+                "unit.o009.random.martingales.stop.stp2",
+                "outcome.o009.prove-stopped-martingale",
+                "martingales/Stop.html#stp2",
+            ),
+            relation(
+                "rel.teaches.martingales-stop.wald",
+                "teaches",
+                "unit.o009.random.martingales.stop.wld1",
+                "outcome.o009.compute-random-time-expectations",
+                "martingales/Stop.html#wld1",
+            ),
+            relation(
+                "rel.teaches.martingales-stop.pattern-waiting",
+                "teaches",
+                "unit.o009.random.martingales.stop.pat2",
+                "outcome.o009.compute-random-time-expectations",
+                "martingales/Stop.html#pat2",
+            ),
+            relation(
+                "rel.assesses.martingales-stop.pattern-waiting",
+                "assesses",
+                "unit.o009.random.martingales.stop.pat3",
+                "outcome.o009.compute-random-time-expectations",
+                "martingales/Stop.html#pat3; analogous exercises #pat6 through #pat8",
+            ),
+            relation(
+                "rel.teaches.martingales-stop.optimal-stopping",
+                "teaches",
+                "unit.o009.random.martingales.stop.sec2",
+                "outcome.o009.analyze-optimal-stopping",
+                "martingales/Stop.html#sec2",
+            ),
+        ]
+    )
     return entities, segments, relations
 
 
@@ -1899,6 +2013,14 @@ def validate_record_envelopes(records: list[dict[str, Any]], relations: list[dic
         "rel.contains.donor.solution.program.2",
         "rel.contains.donor.solution.program.3",
         "rel.contains.o009-solution-convergence-mc-estimation.o009-program-convergence-mc",
+        "rel.depends-on.martingales-stop.prob-stop",
+        "rel.depends-on.martingales-stop.martingales-properties",
+        "rel.teaches.martingales-stop.optional-stopping",
+        "rel.teaches.martingales-stop.stopped-martingale",
+        "rel.teaches.martingales-stop.wald",
+        "rel.teaches.martingales-stop.pattern-waiting",
+        "rel.assesses.martingales-stop.pattern-waiting",
+        "rel.teaches.martingales-stop.optimal-stopping",
     }
     missing = required_relations - relation_ids
     if missing:

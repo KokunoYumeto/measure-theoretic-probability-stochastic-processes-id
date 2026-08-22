@@ -1,8 +1,8 @@
 {
-  "built_at_utc": "2026-08-22T00:48:01.325145+00:00",
-  "file_count": 37,
+  "built_at_utc": "2026-08-22T01:31:18.947674+00:00",
+  "file_count": 38,
   "lab_source_sha256": "c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085",
-  "manifest_sha256": "eca262b01a8bdf87ba4a7dfc23db99e06e11ee18d098e2b702636aa6261fbb38",
+  "manifest_sha256": "210398e53aba6ea35748cf8d09d21a9a89e0820c3fff899d0b786e0b926de7a6",
   "r_result_rows": [
     {
       "absolute_error": "0.072023194662",
@@ -83,7 +83,12 @@
       "authority_sha256": "0f8bc07eb5eda38e8d4f78e94ba71a7dae8e9b788278f9b6ed250b0f66dc3850",
       "path": "martingales/Properties.html",
       "target_sha256": "7420e69d72f16ab55ba0f9c3c8f6e0476de8b3516aff5613210620824bee21f9"
+    },
+    {
+      "authority_sha256": "8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af",
+      "path": "martingales/Stop.html",
+      "target_sha256": "7b2d717eb0c5e04a0fe1d46cd9cadb2e5d295fd4a43cab863cf6d3835bef23b2"
     }
   ],
-  "total_bytes": 2372365
+  "total_bytes": 2420936
 }

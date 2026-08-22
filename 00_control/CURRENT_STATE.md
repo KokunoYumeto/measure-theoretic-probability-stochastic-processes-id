@@ -1,7 +1,8 @@
 # Current state
 
 As of 2026-08-22, this is an active O009/D30 production lane. Its first five
-reader boundaries are public and anonymously byte-verified on GitHub Pages.
+reader boundaries are public and anonymously byte-verified on GitHub Pages;
+the sixth boundary is locally verified and queued for immediate publication.
 The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
 curriculum-admission decision.
@@ -210,15 +211,43 @@ Commit `ff0931a39df6d0ce59c557c6950851e835e935ab` (tree
 anonymous readback matched all 37 manifested files and 2,372,365 bytes at
 2026-08-22T00:58:29.7321943Z. See `PUBLICATION_RECEIPT.json`.
 
+### Sixth reader boundary (locally verified; publication next)
+
+`martingales/Stop.html` is fully translated, repaired downstream, integrated,
+and visually inspected:
+
+- frozen authority: 43,887 bytes / SHA-256
+  `8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af`;
+- Indonesian source: 45,979 bytes / SHA-256
+  `7b2d717eb0c5e04a0fe1d46cd9cadb2e5d295fd4a43cab863cf6d3835bef23b2`;
+- built reader: 48,094 bytes / SHA-256
+  `621a18ee8468e3112d2233843693a3ceb9075833dc8ec0f27467df686a5818d5`.
+
+All 580 translation-source TeX surfaces and exact source topology are
+preserved. Twenty exact-once built-reader actions repair the source's theorem,
+notation, proof, accounting, initialization, markup, and bounded localization
+defects; all are exported in the backend. The deterministic site contains 38
+files / 2,420,936 bytes at manifest SHA-256
+`210398e53aba6ea35748cf8d09d21a9a89e0820c3fff899d0b786e0b926de7a6`.
+The backend contains 809 entities, 2,169 segments, and 743 relations (2,978
+records), with zero QA failures; manifest SHA-256
+`2788f5a50e364fa1794b6281941ae9e4c8190a947c58dda7c59b3a5a330be940`.
+
+Browser QA covered all 13 reader pages at 1280×720 and 390×844. Each sweep
+rendered 7,300 math containers and 220 details with zero bad rows. The new
+page's visible controls open and close all 18 panels at both sizes, and its
+corrected Wald proof is reflowed into readable mobile lines. See
+`qa/SIXTH_BOUNDARY_CHECKPOINT_20260822.md`.
+
 ## Next exact action
 
-1. Integrate the completed local translation of
-   `authority/random/static/martingales/Stop.html` (43,887
-   bytes, SHA-256
-   `8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af`),
-   at `source/theory/martingales/Stop.html` (45,971 bytes, SHA-256
-   `ae0bc60e3663906e5452505e52efd053269537f0c3b4fc1a6f5454b2325acec4`),
-   whose 580 TeX surfaces and exact structural inventory are already verified.
+1. Commit and push the locally verified sixth boundary, wait for GitHub Pages,
+   anonymously verify all 38 manifested files, and persist the sanitized
+   receipt.
+2. Continue in source order with
+   `authority/random/static/martingales/Inequalities.html` (38,731 bytes,
+   SHA-256
+   `9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3`).
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

@@ -94,8 +94,8 @@ direct runtime references are only the already frozen favicon, `Screen.css`,
 `Basic.js`, Plus/Minus controls, and MathJax closure. The page and its
 translation remain bound to `rights.random.dual-witness`; any downstream
 mathematical or markup repairs must be separately identified rather than
-relicensing the source. The local translation is 45,971 bytes at SHA-256
-`ae0bc60e3663906e5452505e52efd053269537f0c3b4fc1a6f5454b2325acec4`
+relicensing the source. The local translation is 45,979 bytes at SHA-256
+`7b2d717eb0c5e04a0fe1d46cd9cadb2e5d295fd4a43cab863cf6d3835bef23b2`
 and preserves all 580 ordered TeX surfaces.
 
 ## Žitković laboratory donor

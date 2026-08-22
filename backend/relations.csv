@@ -1,6 +1,7 @@
 relation_id,relation_type,source_id,target_id,evidence,status
 rel.answers.mastery,answers,o009-answer-convergence-mc-mastery,o009-exercise-convergence-mc-mastery,explicit mastery sequence,active
 rel.assesses.estimation,assesses,o009-exercise-convergence-mc-estimation,outcome.o009.estimate-expectation-monte-carlo,estimation exercise prompt,active
+rel.assesses.martingales-stop.pattern-waiting,assesses,unit.o009.random.martingales.stop.pat3,outcome.o009.compute-random-time-expectations,martingales/Stop.html#pat3; analogous exercises #pat6 through #pat8,active
 rel.assesses.mastery.evidence,assesses,o009-exercise-convergence-mc-mastery,outcome.o009.distinguish-evidence-proof,mastery item 3,active
 rel.assesses.mastery.proof,assesses,o009-exercise-convergence-mc-mastery,outcome.o009.prove-convergence-in-probability,mastery items 2-3,active
 rel.contains.donor.solution.program.1,contains,unit.donor.zitkovic.monte-carlo-exp.solution,unit.donor.zitkovic.monte-carlo-exp.program.1,R chunk 1 inside complete donor solution block,active
@@ -388,6 +389,57 @@ rel.contains.unit.o009.random.martingales.properties.unit.o009.random.martingale
 rel.contains.unit.o009.random.martingales.properties.unit.o009.random.martingales.properties.wlk,contains,unit.o009.random.martingales.properties,unit.o009.random.martingales.properties.wlk,martingales/Properties.html:dom-order:209,active
 rel.contains.unit.o009.random.martingales.properties.unit.o009.random.martingales.properties.wlk1,contains,unit.o009.random.martingales.properties,unit.o009.random.martingales.properties.wlk1,martingales/Properties.html:dom-order:213,active
 rel.contains.unit.o009.random.martingales.properties.wlk1.unit.o009.random.martingales.properties.details-012,contains,unit.o009.random.martingales.properties.wlk1,unit.o009.random.martingales.properties.details-012,martingales/Properties.html:dom-order:219,active
+rel.contains.unit.o009.random.martingales.stop.dis1.unit.o009.random.martingales.stop.details-005,contains,unit.o009.random.martingales.stop.dis1,unit.o009.random.martingales.stop.details-005,martingales/Stop.html:dom-order:131,active
+rel.contains.unit.o009.random.martingales.stop.dis2.unit.o009.random.martingales.stop.details-006,contains,unit.o009.random.martingales.stop.dis2,unit.o009.random.martingales.stop.details-006,martingales/Stop.html:dom-order:142,active
+rel.contains.unit.o009.random.martingales.stop.ost1.unit.o009.random.martingales.stop.details-001,contains,unit.o009.random.martingales.stop.ost1,unit.o009.random.martingales.stop.details-001,martingales/Stop.html:dom-order:58,active
+rel.contains.unit.o009.random.martingales.stop.ost2.unit.o009.random.martingales.stop.details-002,contains,unit.o009.random.martingales.stop.ost2,unit.o009.random.martingales.stop.details-002,martingales/Stop.html:dom-order:79,active
+rel.contains.unit.o009.random.martingales.stop.pat2.unit.o009.random.martingales.stop.details-011,contains,unit.o009.random.martingales.stop.pat2,unit.o009.random.martingales.stop.details-011,martingales/Stop.html:dom-order:214,active
+rel.contains.unit.o009.random.martingales.stop.pat3.unit.o009.random.martingales.stop.details-012,contains,unit.o009.random.martingales.stop.pat3,unit.o009.random.martingales.stop.details-012,martingales/Stop.html:dom-order:226,active
+rel.contains.unit.o009.random.martingales.stop.pat5.unit.o009.random.martingales.stop.details-013,contains,unit.o009.random.martingales.stop.pat5,unit.o009.random.martingales.stop.details-013,martingales/Stop.html:dom-order:246,active
+rel.contains.unit.o009.random.martingales.stop.pat6.unit.o009.random.martingales.stop.details-014,contains,unit.o009.random.martingales.stop.pat6,unit.o009.random.martingales.stop.details-014,martingales/Stop.html:dom-order:258,active
+rel.contains.unit.o009.random.martingales.stop.pat7.unit.o009.random.martingales.stop.details-015,contains,unit.o009.random.martingales.stop.pat7,unit.o009.random.martingales.stop.details-015,martingales/Stop.html:dom-order:268,active
+rel.contains.unit.o009.random.martingales.stop.pat8.unit.o009.random.martingales.stop.details-016,contains,unit.o009.random.martingales.stop.pat8,unit.o009.random.martingales.stop.details-016,martingales/Stop.html:dom-order:278,active
+rel.contains.unit.o009.random.martingales.stop.sec1.unit.o009.random.martingales.stop.details-017,contains,unit.o009.random.martingales.stop.sec1,unit.o009.random.martingales.stop.details-017,martingales/Stop.html:dom-order:297,active
+rel.contains.unit.o009.random.martingales.stop.sec2.unit.o009.random.martingales.stop.details-018,contains,unit.o009.random.martingales.stop.sec2,unit.o009.random.martingales.stop.details-018,martingales/Stop.html:dom-order:307,active
+rel.contains.unit.o009.random.martingales.stop.srw1.unit.o009.random.martingales.stop.details-007,contains,unit.o009.random.martingales.stop.srw1,unit.o009.random.martingales.stop.details-007,martingales/Stop.html:dom-order:159,active
+rel.contains.unit.o009.random.martingales.stop.srw2.unit.o009.random.martingales.stop.details-008,contains,unit.o009.random.martingales.stop.srw2,unit.o009.random.martingales.stop.details-008,martingales/Stop.html:dom-order:171,active
+rel.contains.unit.o009.random.martingales.stop.srw3.unit.o009.random.martingales.stop.details-009,contains,unit.o009.random.martingales.stop.srw3,unit.o009.random.martingales.stop.details-009,martingales/Stop.html:dom-order:181,active
+rel.contains.unit.o009.random.martingales.stop.stp1.unit.o009.random.martingales.stop.details-003,contains,unit.o009.random.martingales.stop.stp1,unit.o009.random.martingales.stop.details-003,martingales/Stop.html:dom-order:95,active
+rel.contains.unit.o009.random.martingales.stop.stp2.unit.o009.random.martingales.stop.details-004,contains,unit.o009.random.martingales.stop.stp2,unit.o009.random.martingales.stop.details-004,martingales/Stop.html:dom-order:106,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.dis,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.dis,martingales/Stop.html:dom-order:122,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.dis1,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.dis1,martingales/Stop.html:dom-order:125,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.dis2,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.dis2,martingales/Stop.html:dom-order:136,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.div-023,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.div-023,martingales/Stop.html:dom-order:313,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.h2-001,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.h2-001,martingales/Stop.html:dom-order:37,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.h3-001,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.h3-001,martingales/Stop.html:dom-order:38,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.h3-002,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.h3-002,martingales/Stop.html:dom-order:148,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.ost,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.ost,martingales/Stop.html:dom-order:48,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.ost1,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.ost1,martingales/Stop.html:dom-order:52,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.ost2,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.ost2,martingales/Stop.html:dom-order:73,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.ost3,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.ost3,martingales/Stop.html:dom-order:83,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.pat,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.pat,martingales/Stop.html:dom-order:198,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.pat1,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.pat1,martingales/Stop.html:dom-order:208,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.pat2,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.pat2,martingales/Stop.html:dom-order:212,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.pat3,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.pat3,martingales/Stop.html:dom-order:220,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.pat4,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.pat4,martingales/Stop.html:dom-order:235,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.pat5,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.pat5,martingales/Stop.html:dom-order:241,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.pat6,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.pat6,martingales/Stop.html:dom-order:253,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.pat7,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.pat7,martingales/Stop.html:dom-order:266,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.pat8,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.pat8,martingales/Stop.html:dom-order:271,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.sec,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.sec,martingales/Stop.html:dom-order:283,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.sec1,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.sec1,martingales/Stop.html:dom-order:290,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.sec2,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.sec2,martingales/Stop.html:dom-order:305,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.srw,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.srw,martingales/Stop.html:dom-order:149,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.srw1,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.srw1,martingales/Stop.html:dom-order:153,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.srw2,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.srw2,martingales/Stop.html:dom-order:165,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.srw3,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.srw3,martingales/Stop.html:dom-order:179,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.stp,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.stp,martingales/Stop.html:dom-order:89,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.stp1,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.stp1,martingales/Stop.html:dom-order:92,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.stp2,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.stp2,martingales/Stop.html:dom-order:100,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.stp3,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.stp3,martingales/Stop.html:dom-order:116,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.wld,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.wld,martingales/Stop.html:dom-order:186,active
+rel.contains.unit.o009.random.martingales.stop.unit.o009.random.martingales.stop.wld1,contains,unit.o009.random.martingales.stop,unit.o009.random.martingales.stop.wld1,martingales/Stop.html:dom-order:192,active
+rel.contains.unit.o009.random.martingales.stop.wld1.unit.o009.random.martingales.stop.details-010,contains,unit.o009.random.martingales.stop.wld1,unit.o009.random.martingales.stop.details-010,martingales/Stop.html:dom-order:194,active
 rel.contains.unit.o009.random.prob.convergence.bcl1.unit.o009.random.prob.convergence.details-013,contains,unit.o009.random.prob.convergence.bcl1,unit.o009.random.prob.convergence.details-013,prob/Convergence.html:dom-order:224,active
 rel.contains.unit.o009.random.prob.convergence.bcl2.unit.o009.random.prob.convergence.details-014,contains,unit.o009.random.prob.convergence.bcl2,unit.o009.random.prob.convergence.details-014,prob/Convergence.html:dom-order:234,active
 rel.contains.unit.o009.random.prob.convergence.con1.unit.o009.random.prob.convergence.details-009,contains,unit.o009.random.prob.convergence.con1,unit.o009.random.prob.convergence.details-009,prob/Convergence.html:dom-order:175,active
@@ -649,6 +701,8 @@ rel.contains.unit.o009.random.prob.stop.unit.o009.random.prob.stop.stc5,contains
 rel.contains.unit.o009.random.prob.stop.unit.o009.random.prob.stop.stc6,contains,unit.o009.random.prob.stop,unit.o009.random.prob.stop.stc6,prob/Stop.html:dom-order:145,active
 rel.contains.unit.o009.random.prob.stop.unit.o009.random.prob.stop.stc7,contains,unit.o009.random.prob.stop,unit.o009.random.prob.stop.stc7,prob/Stop.html:dom-order:149,active
 rel.contains.unit.o009.random.prob.stop.unit.o009.random.prob.stop.stp,contains,unit.o009.random.prob.stop,unit.o009.random.prob.stop.stp,prob/Stop.html:dom-order:211,active
+rel.depends-on.martingales-stop.martingales-properties,depends-on,unit.o009.random.martingales.stop,unit.o009.random.martingales.properties,martingales/Stop.html uses martingale transforms and earlier martingale properties,active
+rel.depends-on.martingales-stop.prob-stop,depends-on,unit.o009.random.martingales.stop,unit.o009.random.prob.stop,"martingales/Stop.html recalls filtration, stopping-time, and stopped-process definitions",active
 rel.depends-on.unit.o009.random.martingales.introduction.fig1.asset.random.martingale-harness,depends-on,unit.o009.random.martingales.introduction.fig1,asset.random.martingale-harness,martingales/Introduction.html#fig1,active
 rel.depends-on.unit.o009.random.martingales.properties.convex-function,depends-on,unit.o009.random.martingales.properties,asset.random.martingales.convex-function,martingales/Properties.html#fig2,active
 rel.depends-on.unit.o009.random.martingales.properties.positive-part,depends-on,unit.o009.random.martingales.properties,asset.random.martingales.positive-part,martingales/Properties.html#fig3,active
@@ -665,6 +719,7 @@ rel.precedes.unit.o009.random.expect.conditional2.unit.o009.random.expect.unifor
 rel.precedes.unit.o009.random.expect.kernels.unit.o009.random.martingales.introduction,precedes,unit.o009.random.expect.kernels,unit.o009.random.martingales.introduction,reader source order,active
 rel.precedes.unit.o009.random.expect.uniform.unit.o009.random.expect.kernels,precedes,unit.o009.random.expect.uniform,unit.o009.random.expect.kernels,reader source order,active
 rel.precedes.unit.o009.random.martingales.introduction.unit.o009.random.martingales.properties,precedes,unit.o009.random.martingales.introduction,unit.o009.random.martingales.properties,reader source order,active
+rel.precedes.unit.o009.random.martingales.properties.unit.o009.random.martingales.stop,precedes,unit.o009.random.martingales.properties,unit.o009.random.martingales.stop,reader source order,active
 rel.precedes.unit.o009.random.prob.convergence.unit.o009.random.prob.probability-revisited,precedes,unit.o009.random.prob.convergence,unit.o009.random.prob.probability-revisited,reader source order,active
 rel.precedes.unit.o009.random.prob.probability-revisited.unit.o009.random.prob.processes,precedes,unit.o009.random.prob.probability-revisited,unit.o009.random.prob.processes,reader source order,active
 rel.precedes.unit.o009.random.prob.processes.unit.o009.random.prob.stop,precedes,unit.o009.random.prob.processes,unit.o009.random.prob.stop,reader source order,active
@@ -675,6 +730,11 @@ rel.solves.mastery,solves,o009-solution-convergence-mc-mastery,o009-exercise-con
 rel.solves.target.convergence-mc-estimation,solves,o009-solution-convergence-mc-estimation,o009-exercise-convergence-mc-estimation,complete adapted solution body,active
 rel.teaches.concept.lln,teaches,o009-concept-monte-carlo-lln,outcome.o009.explain-lln-monte-carlo,mathematical meaning section,active
 rel.teaches.experiment.estimate,teaches,o009-lab-convergence-mc-experiment,outcome.o009.estimate-expectation-monte-carlo,Monte Carlo experiment section,active
+rel.teaches.martingales-stop.optimal-stopping,teaches,unit.o009.random.martingales.stop.sec2,outcome.o009.analyze-optimal-stopping,martingales/Stop.html#sec2,active
+rel.teaches.martingales-stop.optional-stopping,teaches,unit.o009.random.martingales.stop.ost1,outcome.o009.check-optional-stopping-conditions,martingales/Stop.html#ost1; #dis1; #dis2,active
+rel.teaches.martingales-stop.pattern-waiting,teaches,unit.o009.random.martingales.stop.pat2,outcome.o009.compute-random-time-expectations,martingales/Stop.html#pat2,active
+rel.teaches.martingales-stop.stopped-martingale,teaches,unit.o009.random.martingales.stop.stp2,outcome.o009.prove-stopped-martingale,martingales/Stop.html#stp2,active
+rel.teaches.martingales-stop.wald,teaches,unit.o009.random.martingales.stop.wld1,outcome.o009.compute-random-time-expectations,martingales/Stop.html#wld1,active
 rel.teaches.mastery.evidence,teaches,o009-mastery-convergence-mc,outcome.o009.distinguish-evidence-proof,original mastery section,active
 rel.teaches.mastery.proof,teaches,o009-mastery-convergence-mc,outcome.o009.prove-convergence-in-probability,original mastery section,active
 rel.translates.o009-exercise-convergence-mc-estimation.unit.donor.zitkovic.monte-carlo-exp.exercise,translates,o009-exercise-convergence-mc-estimation,unit.donor.zitkovic.monte-carlo-exp.exercise,translation.o009-exercise-convergence-mc-estimation,active

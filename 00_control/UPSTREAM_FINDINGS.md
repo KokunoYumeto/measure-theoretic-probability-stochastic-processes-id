@@ -215,3 +215,45 @@ applies only exact, separately recorded repairs:
 
 Minor source prose and markup defects remain queued for final deduplication. No
 upstream contact occurs during production.
+
+## `martingales/Stop.html`
+
+The frozen page is 43,887 bytes at SHA-256
+`8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af`.
+Its Indonesian translation preserves the exact source topology, all 30 IDs,
+all 69 ordered `href`/`src` references, 18 detail panels, and all 580 ordered
+TeX surfaces. The built reader makes only exact-once, backend-recorded repairs.
+
+- The first optional-stopping theorem omits both stopping-time variables from
+  its premise, and one restricted-expectation formula uses a colon instead of
+  the page's semicolon convention.
+- The stated unbounded-time counterexample points to `#srw2`; `#srw3` is the
+  example that actually violates the conditional optional-stopping identity.
+- The stopped-process definition hard-codes `[0,∞)` despite the page also
+  covering discrete time. Its transform conclusion writes `X_τ` instead of
+  the stopped process `X^τ`, and three ensuing relations use bare `E` rather
+  than the defined `\E` macro.
+- A second empty `<summary>` occurs inside one detail panel. The favicon uses
+  the nonstandard media type `image/svg` rather than `image/svg+xml`.
+- The two-sided exit-time calculation cites the bounded-stopping-time theorem
+  `#ost1`, although the exit time is unbounded; its established finite mean and
+  bounded increments support the discrete theorem `#dis2` instead.
+- The proof of Wald's equation bounds only the *expected* increment magnitude
+  and then invokes `#dis2`, whose hypothesis is an almost-sure uniform bound.
+  The reader replaces this with bounded stopping followed by an explicit
+  `L¹` convergence argument and states integrability explicitly.
+- The pattern-waiting proof calls total gambler wealth a mean-zero martingale
+  even though one unit of new capital enters at every trial. It also uses a
+  false strict bound, an undefined `N`, an inadequate increment bound, and
+  inconsistent bold-word subscripts. The reader uses net gain `W_n-n`, proves
+  finite mean and bounded increments, and identifies deterministic terminal
+  wealth through prefix–suffix overlaps.
+- The 001 worked example repeats gambler `N-2`; the second gambler is `N-1`.
+  The secretary sequence displays `a_0` through `a_10`—eleven terms—not ten.
+- The secretary proof omits time zero from the filtration and sets `Y_0=0`
+  while later requiring `E(Y_0)=a_n`. The reader includes the trivial
+  time-zero sigma-algebra, sets `Y_0=a_n`, and repairs the expectation macro.
+
+The reader also completes two Indonesian phrases embedded in source TeX and
+normalizes one Indonesian optional-stopping term. Those localization actions
+are not upstream findings. No upstream contact occurs during production.
