@@ -1,10 +1,10 @@
 {
   "schema": "o009.cursor.v13",
   "as_of": "2026-08-22",
-  "status": "seventh_boundary_locally_verified_awaiting_publication",
+  "status": "seventh_boundary_public_and_anonymously_verified",
   "course_id": "O009",
   "role_id": "D30",
-  "previous_public_verified_boundary": {
+  "fourth_public_verified_boundary": {
     "theory_targets": [
       {"path": "source/theory/prob/Convergence.html", "bytes": 40997, "sha256": "185888375673550452d1d2428cd0b4203fecd31f0f338fc6c703849642a7809a"},
       {"path": "source/theory/prob/Probability2.html", "bytes": 51686, "sha256": "4cd3a1eb9edca1c3dc81eba39b97c018b339136241d8a668063e3bf62c1a4c32"},
@@ -37,7 +37,7 @@
     "pages_deployment_status_id": 17147562272,
     "verified_at_utc": "2026-08-22T00:29:31.5580754Z"
   },
-  "public_verified_boundary": {
+  "previous_public_verified_boundary": {
     "new_unit": {
       "authority_path": "authority/random/static/martingales/Properties.html",
       "authority_bytes": 37473,
@@ -88,7 +88,7 @@
     "pages_deployment_status_id": 17148175116,
     "verified_at_utc": "2026-08-22T00:58:29.7321943Z"
   },
-  "latest_public_verified_boundary": {
+  "public_verified_boundary": {
     "new_unit": {
       "authority_path": "authority/random/static/martingales/Stop.html",
       "authority_bytes": 43887,
@@ -132,7 +132,7 @@
     "pages_deployment_status_id": 17148971521,
     "verified_at_utc": "2026-08-22T01:39:44.8137221Z"
   },
-  "verified_local_boundary": {
+  "latest_public_verified_boundary": {
     "new_unit": {
       "authority_path": "authority/random/static/martingales/Inequalities.html",
       "authority_bytes": 38731,
@@ -168,7 +168,13 @@
       "bad_rows": 0
     },
     "qa_checkpoint": "qa/SEVENTH_BOUNDARY_CHECKPOINT_20260822.md",
-    "publication_state": "pending"
+    "deployed_source_commit": "bf8761e7b57f32738e41a6bf449de22a923185da",
+    "deployed_source_tree": "10bfd2133a379bc64b4ac6ed85f6d2b0b16bcdea",
+    "pages_run_id": 32546297240,
+    "pages_job_id": 96965238838,
+    "pages_deployment_id": 6032323338,
+    "pages_deployment_status_id": 17149932922,
+    "verified_at_utc": "2026-08-22T02:29:21.6560745Z"
   },
   "next_translation": {
     "source": "authority/random/static/martingales/Convergence.html",
@@ -177,7 +183,7 @@
     "authority_bytes": 44951,
     "authority_sha256": "c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f"
   },
-  "next_action": "publish and anonymously verify the seventh boundary, then translate martingales/Convergence.html contiguously without duplicating O006 chapter 5",
+  "next_action": "translate martingales/Convergence.html contiguously, preserve topology and mathematics, apply only backend-recorded downstream repairs, then build, QA, and publish the next verified boundary without duplicating O006 chapter 5",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",

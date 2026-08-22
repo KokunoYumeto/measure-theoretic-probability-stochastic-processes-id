@@ -214,6 +214,39 @@
       "run_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/actions/runs/32543990253"
     }
   },
-  "schema": "o009.github-publication-receipt.v6",
-  "status": "sixth_boundary_public_and_anonymously_verified"
+  "seventh_boundary": {
+    "anonymous_verification": {
+      "base_url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+      "build_receipt_sha256": "b57a48023545e448749293d2ab1b9a468cb39c5215dbf485ba47c0299b971778",
+      "file_count": 39,
+      "manifest_sha256": "10fcbf5114f7a914a8d924c254c33e77a27456b3a89fca7eb76845a26ba67d95",
+      "status": "all_manifested_bytes_exact",
+      "total_bytes": 2465207,
+      "verified_at_utc": "2026-08-22T02:29:21.6560745Z",
+      "verifier_path": "scripts/verify_remote_pages.py",
+      "verifier_sha256": "dad7315449bf5940003cba7decfd92fbda0e9063b95d4eb4875611ff279e287d"
+    },
+    "deployed_source": {
+      "commit_sha": "bf8761e7b57f32738e41a6bf449de22a923185da",
+      "commit_tree_sha": "10bfd2133a379bc64b4ac6ed85f6d2b0b16bcdea",
+      "default_branch": "main",
+      "message": "Publish seventh martingale inequalities boundary"
+    },
+    "pages": {
+      "build_type": "workflow",
+      "deployment_id": 6032323338,
+      "deployment_status_id": 17149932922,
+      "deployment_status": "success",
+      "environment": "github-pages",
+      "https_enforced": true,
+      "job_id": 96965238838,
+      "page_url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+      "run_conclusion": "success",
+      "run_event": "push",
+      "run_id": 32546297240,
+      "run_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/actions/runs/32546297240"
+    }
+  },
+  "schema": "o009.github-publication-receipt.v7",
+  "status": "seventh_boundary_public_and_anonymously_verified"
 }

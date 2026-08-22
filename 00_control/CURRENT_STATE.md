@@ -1,6 +1,6 @@
 # Current state
 
-As of 2026-08-22, this is an active O009/D30 production lane. Its first six
+As of 2026-08-22, this is an active O009/D30 production lane. Its first seven
 reader boundaries are public and anonymously byte-verified on GitHub Pages.
 The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
@@ -244,7 +244,7 @@ Commit `e53b2c4fcd8251f520c39a0a9eac9d477e764527` (tree
 anonymous readback matched all 38 manifested files and 2,420,936 bytes at
 2026-08-22T01:39:44.8137221Z. See `PUBLICATION_RECEIPT.json`.
 
-### Seventh reader boundary (locally complete and verified)
+### Seventh reader boundary (public and anonymously verified)
 
 `martingales/Inequalities.html` is fully translated, repaired downstream,
 integrated, and visually inspected:
@@ -278,11 +278,15 @@ warnings/errors, broken assets, empty visible references, external runtime, or
 document overflow. The new page's controls open and close all 15 panels at
 both sizes. See `qa/SEVENTH_BOUNDARY_CHECKPOINT_20260822.md`.
 
+Commit `bf8761e7b57f32738e41a6bf449de22a923185da` (tree
+`10bfd2133a379bc64b4ac6ed85f6d2b0b16bcdea`) is public. Pages run
+`32546297240`, job `96965238838`, and deployment `6032323338` succeeded. An
+anonymous readback matched all 39 manifested files and 2,465,207 bytes at
+2026-08-22T02:29:21.6560745Z. See `PUBLICATION_RECEIPT.json`.
+
 ## Next exact action
 
-1. Publish the verified seventh boundary to the existing GitHub Pages lineage
-   and anonymously verify every manifested byte.
-2. Continue in source order with
+1. Continue in source order with
    `authority/random/static/martingales/Convergence.html` (44,951 bytes,
    SHA-256
    `c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f`).

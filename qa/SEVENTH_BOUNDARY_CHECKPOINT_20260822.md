@@ -1,6 +1,6 @@
 # Seventh reader-boundary checkpoint — 2026-08-22
 
-Status: **locally complete and verified; publication pending**.
+Status: **public and anonymously byte-verified**.
 
 ## Added unit and authority closure
 
@@ -100,6 +100,13 @@ SHA-256
 
 ## Publication evidence
 
-Pending publication to the existing GitHub Pages lineage. This section will be
-replaced with commit/tree, Pages run/job/deployment, and anonymous manifested
-byte-readback evidence immediately after deployment.
+- Deployed commit: `bf8761e7b57f32738e41a6bf449de22a923185da`.
+- Deployed tree: `10bfd2133a379bc64b4ac6ed85f6d2b0b16bcdea`.
+- Pages run/job/deployment: `32546297240` / `96965238838` / `6032323338`;
+  workflow conclusion and deployment state both `success`.
+- Deployment status: `17149932922`.
+- Anonymous verification at 2026-08-22T02:29:21.6560745Z matched all 39
+  manifested files and 2,465,207 bytes; manifest SHA-256
+  `10fcbf5114f7a914a8d924c254c33e77a27456b3a89fca7eb76845a26ba67d95`.
+- Public reader:
+  `https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/`.
