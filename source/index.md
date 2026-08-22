@@ -23,7 +23,8 @@ gabungan.
 7. [Peubah terintegralkan seragam](expect/Uniform.html)
 8. [Kernel dan operator](expect/Kernels.html)
 9. [Pendahuluan martingal](martingales/Introduction.html)
-10. [Laboratorium: konvergensi Monte Carlo](labs/01-konvergensi-monte-carlo.html)
+10. [Sifat dan konstruksi martingal](martingales/Properties.html)
+11. [Laboratorium: konvergensi Monte Carlo](labs/01-konvergensi-monte-carlo.html)
 
 Modul pengambilan sampel, hukum bilangan besar, dan teorema limit pusat dari
 jalur **O006/C140** merupakan prasyarat bersama dan tidak diduplikasi di sini.

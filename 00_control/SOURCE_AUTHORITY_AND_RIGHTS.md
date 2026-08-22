@@ -16,7 +16,7 @@ These are inputs, not lane authority. Current hashes at lane startup:
 - Upstream form: deployed semantic HTML containing TeX source, local CSS/JavaScript and image assets. No official public authoring repository, edition, tag, commit, archive, or build recipe has been found. Authority must therefore be expressed as exact URL bytes, response metadata, and hashes, not a fictional commit.
 - Current O009 selection: 47 disjoint theory pages plus 3 authority pages and 44 direct assets = 94 files / 1,997,915 bytes.
 - Canonical manifest: `authority/random/RANDOM_AUTHORITY_MANIFEST.csv`, SHA-256 `2ee154a38b57201457538db8c0e7df592a052eade8dcfda217605810f04f21e4`.
-- Receipt: `authority/random/RANDOM_AUTHORITY_RECEIPT.json`, schema `o009.random-authority-freeze.v2`.
+- Receipt: `authority/random/RANDOM_AUTHORITY_RECEIPT.json`, schema `o009.random-authority-freeze.v3`.
 - First page: `prob/Convergence.html`, 39,189 bytes, SHA-256 `749de69aba8c7b54e5944ddbe4b342fec8695b32ff46e34409f7b6040241e34f`, Last-Modified `Fri, 13 Mar 2026 16:39:13 GMT`.
 - Shared MathJax: `authority/random/shared/MathJax/tex-svg.js`, 1,704,911 bytes, SHA-256 `dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a`; MathJax 3.1.2 / Apache-2.0 license at `shared/MathJax/LICENSE`, 11,358 bytes, SHA-256 `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30`.
 - Excluded runtime: Google Analytics. The reader must be offline-capable and must not ship it.
@@ -60,6 +60,43 @@ reader must preserve that visible credit and license link, copy the exact
 frozen image, and bind it to a separate component-rights record rather than
 placing it under Random's dual page-level witnesses. Other runtime references
 are the already frozen shared favicon, controls, CSS, JavaScript, and MathJax.
+
+### Current martingale-properties component closure
+
+`martingales/Properties.html` is admitted from the same frozen Random
+selection at 37,473 bytes / SHA-256
+`0f8bc07eb5eda38e8d4f78e94ba71a7dae8e9b788278f9b6ed250b0f66dc3850`.
+Its three same-origin mathematical plots are frozen as direct page assets:
+
+| Asset | Bytes | SHA-256 |
+|---|---:|---|
+| `martingales/ConvexFunction.png` | 2,861 | `0849bd7b68a2e0f3c34a990b568eb9f778d39e5293798ebbe9327c1b464ee84d` |
+| `martingales/Powers.png` | 14,675 | `67ec6db3d3a459d051b4c24d1d2fbd9122086c6b8c58eddb0063a655786431fc` |
+| `martingales/PositivePart.png` | 6,483 | `44f6d78041b2d1959a9887395c84bdd1064097894145bfa7225c50776ad56b14` |
+
+The page names Kyle Siegrist as author, integrates the plots into its
+mathematical exposition, and gives no separate creator, external source,
+watermark, or conflicting rights statement. The official Credits page
+separately calls out third-party images elsewhere but not these plots. They
+therefore remain bound to `rights.random.dual-witness`, not to the edition's
+original-work license. The source's broken `../../MathJax/tex-svg.js` relative
+reference is not treated as a new dependency: the downstream builder maps it
+to the exact already frozen shared MathJax 3.1.2/Apache-2.0 payload and verifies
+that local closure.
+
+### Current martingale-stopping component closure
+
+`martingales/Stop.html` is admitted from the same frozen Random selection at
+43,887 bytes / SHA-256
+`8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af`.
+It introduces no page-specific image, audio, data, or executable asset. Its
+direct runtime references are only the already frozen favicon, `Screen.css`,
+`Basic.js`, Plus/Minus controls, and MathJax closure. The page and its
+translation remain bound to `rights.random.dual-witness`; any downstream
+mathematical or markup repairs must be separately identified rather than
+relicensing the source. The local translation is 45,971 bytes at SHA-256
+`ae0bc60e3663906e5452505e52efd053269537f0c3b4fc1a6f5454b2325acec4`
+and preserves all 580 ordered TeX surfaces.
 
 ## Žitković laboratory donor
 

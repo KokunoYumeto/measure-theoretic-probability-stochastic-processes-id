@@ -257,6 +257,16 @@ himpunan nol dapat dipilih berbeda. Tambahan asli ini berlisensi CC BY 4.0.
     },
 )
 
+DIST_CONVERGENCE_READER_CORRECTIONS = (
+    {
+        "id": "visible-skorohod-section-reference",
+        "old": r'<a class="ref" href="#sko"></a> Skorohod',
+        "new": r'<a class="ref" href="#sko">representasi</a> Skorohod',
+        "description": "Supply visible Indonesian text for the source's empty reference to the Skorohod-representation section.",
+        "change_kind": "source-link-repair",
+    },
+)
+
 MARTINGALE_INTRO_READER_CORRECTIONS = (
     {
         "id": "expectation-macro-second-moment",
@@ -335,6 +345,158 @@ MARTINGALE_INTRO_READER_CORRECTIONS = (
         "old": r"<dfn>Inkremen stasioner</dfn> jika \( X_t - X_s \) memiliki distribusi yang sama dengan \( X_{t-s} - X_0 \) untuk semua \( s, \, t \in T \).",
         "new": r"<dfn>Inkremen stasioner</dfn> jika \( X_t - X_s \) memiliki distribusi yang sama dengan \( X_{t-s} - X_0 \) untuk semua \( s, \, t \in T \) dengan \( s \le t \).",
         "description": "Restrict stationary-increment comparisons to ordered times so that t-s is in the time domain.",
+    },
+    {
+        "id": "visible-basic-assumptions-reference-definition",
+        "old": r'memenuhi asumsi dasar pada <a class="ref" href="#asm"></a> di atas.</p>',
+        "new": r'memenuhi asumsi dasar pada <a class="ref" href="#asm">bagian Asumsi Dasar</a> di atas.</p>',
+        "description": "Supply visible Indonesian text for the empty basic-assumptions reference in the definition.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-independent-increments-reference",
+        "old": r'inkremen independen pada <a class="ref" href="#inc"></a>.</p>',
+        "new": r'inkremen independen pada <a class="ref" href="#inc">bagian Proses dengan Inkremen Independen</a>.</p>',
+        "description": "Supply visible Indonesian text for the empty independent-increments section reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-partial-sums-reference-random-walk",
+        "old": r'lebih umum pada <a class="ref" href="#sum"></a>. Proses',
+        "new": r'lebih umum pada <a class="ref" href="#sum">bagian Jumlah Parsial</a>. Proses',
+        "description": "Supply visible Indonesian text for the empty partial-sums reference in the random-walk discussion.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-partial-sums-reference-products",
+        "old": r'proses jumlah parsial pada <a class="ref" href="#sum"></a>, tetapi',
+        "new": r'proses jumlah parsial pada <a class="ref" href="#sum">bagian Jumlah Parsial</a>, tetapi',
+        "description": "Supply visible Indonesian text for the empty partial-sums reference in the partial-product discussion.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-random-walk-reference-simple",
+        "old": r'lebih umum pada <a class="ref" href="#wlk"></a>. Dalam konteks',
+        "new": r'lebih umum pada <a class="ref" href="#wlk">bagian Gerak Acak Waktu Diskret</a>. Dalam konteks',
+        "description": "Supply visible Indonesian text for the empty discrete-time-random-walk section reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-partial-sums-reference-increments",
+        "old": r'proses jumlah parsial \( \bs{X} \) pada <a class="ref" href="#sum"></a> yang terkait',
+        "new": r'proses jumlah parsial \( \bs{X} \) pada <a class="ref" href="#sum">bagian Jumlah Parsial</a> yang terkait',
+        "description": "Supply visible Indonesian text for the empty partial-sums reference in the increments discussion.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-random-walk-reference-increments",
+        "old": r'Gerak acak pada <a class="ref" href="#wlk"></a> memiliki',
+        "new": r'Gerak acak pada <a class="ref" href="#wlk">bagian Gerak Acak Waktu Diskret</a> memiliki',
+        "description": "Supply visible Indonesian text for the empty random-walk reference in the increments discussion.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-basic-assumptions-reference-increments",
+        "old": r'memenuhi asumsi dasar pada <a class="ref" href="#asm"></a> di atas relatif',
+        "new": r'memenuhi asumsi dasar pada <a class="ref" href="#asm">bagian Asumsi Dasar</a> di atas relatif',
+        "description": "Supply visible Indonesian text for the empty basic-assumptions reference in the increments discussion.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-partial-products-reference",
+        "old": r'mengikuti <a class="ref" href="#prd"></a> tentang hasil kali parsial',
+        "new": r'mengikuti <a class="ref" href="#prd">pembahasan Hasil Kali Parsial</a> tentang hasil kali parsial',
+        "description": "Supply visible Indonesian text for the empty partial-products reference in the likelihood-ratio proof.",
+        "change_kind": "source-link-repair",
+    },
+)
+
+MARTINGALE_PROPERTIES_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "filtration-command",
+        "old": r"""<ol class="sub">
+<li>Jika \( \bs{X} \) merupakan martingal terhadap \( \frak{F} \), maka \( \E(X_s) = \E(X_t) \).</li>
+<li>Jika \( \bs{X} \) merupakan submartingal terhadap \( \frak{F} \), maka \( \E(X_s) \le \E(X_t) \).</li>
+<li>Jika \( \bs{X} \) merupakan supermartingal terhadap \( \frak{F} \), maka \( \E(X_s) \ge \E(X_t) \).</li>
+</ol>""",
+        "new": r"""<ol class="sub">
+<li>Jika \( \bs{X} \) merupakan martingal terhadap \( \mathfrak{F} \), maka \( \E(X_s) = \E(X_t) \).</li>
+<li>Jika \( \bs{X} \) merupakan submartingal terhadap \( \mathfrak{F} \), maka \( \E(X_s) \le \E(X_t) \).</li>
+<li>Jika \( \bs{X} \) merupakan supermartingal terhadap \( \mathfrak{F} \), maka \( \E(X_s) \ge \E(X_t) \).</li>
+</ol>""",
+        "description": "Use the page's defined mathfrak command for the filtration in all three expectation relations.",
+    },
+    {
+        "id": "preliminaries-reference-sampling",
+        "old": r'memenuhi asumsi dasar dalam <a class="ref" href="#pre"></a>. Andaikan pula',
+        "new": r'memenuhi asumsi dasar dalam <a class="ref" href="#pre">bagian Pendahuluan</a>. Andaikan pula',
+        "description": "Supply visible text for the empty reference whose target is a heading rather than a unit.",
+    },
+    {
+        "id": "doob-normalization-and-reference",
+        "old": r'memenuhi asumsi dasar dalam <a class="ref" href="#pre"></a> di atas terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \). Maka \( X_n = Y_n + Z_n \) untuk \( n \in \N \), dengan \( \bs Y = \{Y_n: n \in \N\} \) merupakan martingal terhadap \( \mathfrak F \) dan \( \bs Z = \{Z_n: n \in \N\} \) terprediksi terhadap \( \mathfrak F \). Dekomposisi tersebut unik.',
+        "new": r'memenuhi asumsi dasar dalam <a class="ref" href="#pre">bagian Pendahuluan</a> di atas terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \). Maka \( X_n = Y_n + Z_n \) untuk \( n \in \N \), dengan \( \bs Y = \{Y_n: n \in \N\} \) merupakan martingal terhadap \( \mathfrak F \), sedangkan \( \bs Z = \{Z_n: n \in \N\} \) terprediksi terhadap \( \mathfrak F \) dan memenuhi \( Z_0 = 0 \). Dengan normalisasi ini, dekomposisi tersebut unik.',
+        "description": "State the zero-at-origin normalization required for uniqueness and expose the heading reference.",
+    },
+    {
+        "id": "doob-meyer-hypotheses",
+        "old": r'<p>Dekomposisi berbentuk demikian lebih rumit dalam waktu kontinu, antara lain karena definisi proses terprediksi lebih halus dan kompleks. Teorema dekomposisi berlaku dalam waktu kontinu dengan asumsi dasar kita dan asumsi tambahan bahwa koleksi peubah acak \( \{X_\tau: \tau \text{ is a finite-valued stopping time}\} \) <a href="../expect/Uniform.html">terintegralkan seragam</a>. Hasil tersebut dikenal sebagai <dfn>teorema dekomposisi Doob–Meyer</dfn>, yang juga dinamai menurut Paul Meyer.</p>',
+        "new": r'<p>Dalam waktu kontinu, <dfn>teorema dekomposisi Doob–Meyer</dfn> menyatakan bahwa submartingal càdlàg \( \bs X \) kelas D memiliki dekomposisi unik \( X = M + A \), dengan \( M \) suatu martingal dan \( A \) terprediksi, menaik, serta dinormalisasi oleh \( A_0 = 0 \). Untuk supermartingal, dekomposisinya dapat ditulis \( X = M + A \) dengan \( A \) terprediksi, menurun, dan \( A_0 = 0 \). Hasil ini dinamai menurut Joseph Doob dan Paul Meyer.</p>',
+        "description": "State the cadlag sub/supermartingale and class-D hypotheses, predictable monotonicity, and normalization required by Doob-Meyer.",
+    },
+    {
+        "id": "harmonic-every-start-scope",
+        "old": r'<p class="math">Misalkan \( h: S \to \R \) dan \( \E[\left|h(X_t)\right|] \lt \infty \) untuk \( t \in T \). Definisikan \( h(\bs X) = \{h(X_t): t \in T\} \).</p>',
+        "new": r'<p class="math">Misalkan \( h: S \to \R \) dan \( \E_x[\left|h(X_t)\right|] \lt \infty \) untuk setiap \( x \in S \) dan \( t \in T \). Definisikan \( h(\bs X) = \{h(X_t): t \in T\} \). Semua pernyataan martingal, submartingal, dan supermartingal berikut dipahami berlaku di bawah hukum \( \P_x \) untuk setiap keadaan awal \( x \in S \).</p>',
+        "description": "Require the martingale assertions under every initial-state law so the harmonic converse is global on the state space.",
+    },
+    {
+        "id": "harmonic-converse-every-start",
+        "old": r'Sebaliknya, jika \( \{h(X_t): t \in T\} \) merupakan martingal, maka \( P_{t-s}h(X_s) = h(X_s) \). Dengan mengambil \( s = 0 \) dan \( X_0 = x \), kita memperoleh \( P_t h(x) = h(x) \), sehingga \( h \) harmonik. Bukti untuk submartingal dan supermartingal serupa, dengan pertidaksamaan menggantikan kesamaan.',
+        "new": r'Sebaliknya, andaikan sifat martingal berlaku di bawah \( \P_x \) untuk setiap \( x \in S \). Dengan mengambil \( s = 0 \) di bawah \( \P_x \), kita memperoleh \( P_t h(x) = h(x) \), sehingga \( h \) harmonik. Argumen yang sama, dengan pertidaksamaan menggantikan kesamaan, berlaku untuk submartingal dan supermartingal.',
+        "description": "Derive the harmonic converse from the explicitly quantified every-start martingale property.",
+    },
+    {
+        "id": "simple-walk-transform-reference",
+        "old": r'<p>Hasil-hasil ini langsung mengikuti transformasi martingal dalam <a class="ref" href="#wlk1"></a>.</p>',
+        "new": r'<p>Hasil-hasil ini mengikuti perhitungan yang sama seperti dalam <a class="ref" href="#trn2">hasil transformasi martingal</a>; keterintegralan berlaku karena \( |V_k| = 1 \) dan \( \E(Y_k) \lt \infty \).</p>',
+        "description": "Point to the transform result rather than the random-walk proposition and close the unbounded-bet integrability condition.",
+    },
+    {
+        "id": "de-moivre-alignment-equality",
+        "old": r'&amp; \frac{(1 - p)^{x + 1}}{p^x}',
+        "new": r'&amp; = \frac{(1 - p)^{x + 1}}{p^x}',
+        "description": "Restore the missing equality sign in the harmonic-function calculation.",
+    },
+    {
+        "id": "branching-state-function-exception",
+        "old": r'Namun, kita tidak dapat menulis \( Y_n = h(X_n) \) untuk fungsi \( h \) yang didefinisikan pada ruang keadaan, sehingga martingal ini tidak dapat ditafsirkan melalui fungsi harmonik.',
+        "new": r'Kecuali jika \( m = 1 \), representasi \( Y_n = X_n / m^n \) bergantung pada waktu dan secara umum tidak dapat ditulis sebagai \( Y_n = h(X_n) \) untuk satu fungsi keadaan yang tidak bergantung pada \( n \); representasi ruang–waktunya adalah \( H(n, x) = x / m^n \).',
+        "description": "Qualify the state-only representation claim by its m=1 exception and give the correct space-time function.",
+    },
+    {
+        "id": "independent-increments-preliminaries-reference",
+        "old": r'Misalkan \( \bs X = \{X_t: t \in T\} \) merupakan proses stokastik yang memenuhi asumsi dasar dalam <a class="ref" href="#pre"></a> di atas',
+        "new": r'Misalkan \( \bs X = \{X_t: t \in T\} \) merupakan proses stokastik yang memenuhi asumsi dasar dalam <a class="ref" href="#pre">bagian Pendahuluan</a> di atas',
+        "description": "Supply visible text for the independent-increments section's heading reference.",
+    },
+    {
+        "id": "random-walk-heading-reference",
+        "old": r'Dalam waktu diskret, proses dengan inkremen stasioner dan independen hanyalah gerak acak seperti dalam <a class="ref" href="#wlk"></a> yang dibahas di atas.',
+        "new": r'Dalam waktu diskret, proses dengan inkremen stasioner dan independen hanyalah gerak acak seperti dalam <a class="ref" href="#wlk">bagian Gerak Acak</a> yang dibahas di atas.',
+        "description": "Supply visible text for the random-walk heading reference.",
+    },
+    {
+        "id": "identity-function-introduction",
+        "old": r'<p class="math">Fungsi identitas \( I \) bersifat .</p>',
+        "new": r'<p class="math">Fungsi identitas \( I \) memiliki sifat berikut:</p>',
+        "description": "Complete the truncated sentence introducing the harmonicity classification.",
     },
 )
 
@@ -418,6 +580,7 @@ THEORY_UNITS = (
         "nav_label": "Konvergensi dalam distribusi",
         "rights_id": "o009-rights-random-convergence-in-distribution",
         "fragment_corrections": {},
+        "reader_corrections": DIST_CONVERGENCE_READER_CORRECTIONS,
         "forbidden": (
             "Expand Details",
             "Contract Details",
@@ -524,6 +687,32 @@ THEORY_UNITS = (
             "Branching Processes",
             "Doob's Martingale",
             "Density Functions",
+            "Details:",
+        ),
+    },
+    {
+        "rel": "martingales/Properties.html",
+        "authority_sha256": "0f8bc07eb5eda38e8d4f78e94ba71a7dae8e9b788278f9b6ed250b0f66dc3850",
+        "source_title": "Properties and Constructions",
+        "nav_label": "Sifat dan konstruksi martingal",
+        "rights_id": "o009-rights-random-martingale-properties",
+        "fragment_corrections": {},
+        "reader_corrections": MARTINGALE_PROPERTIES_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Properties and Constructions",
+            "Basic Theory",
+            "Preliminaries",
+            "Basic Properties",
+            "Martingale Transforms",
+            "Doob Decomposition",
+            "Markov Processes",
+            "Examples",
+            "Random Walks",
+            "Simple Random Walk",
+            "Branching Processes",
+            "Processes with Independent Increments",
             "Details:",
         ),
     },
@@ -816,7 +1005,16 @@ def run_pandoc(source: Path, output: Path, css: str, mathjax: str | None = None)
     result = subprocess.run(command, cwd=ROOT, check=False, capture_output=True, text=True)
     if result.returncode != 0:
         raise RuntimeError(f"Pandoc failed: {result.stderr.strip()}")
-    output.write_bytes(output.read_bytes().replace(b"\r\n", b"\n"))
+    rendered = output.read_text(encoding="utf-8").replace("\r\n", "\n")
+    if rendered.count("</head>") != 1:
+        raise RuntimeError(f"Pandoc output has an unexpected head boundary: {output}")
+    favicon = "../icons/Icon.svg" if css.startswith("../") else "icons/Icon.svg"
+    rendered = rendered.replace(
+        "</head>",
+        f'<link href="{favicon}" rel="icon" type="image/svg+xml" />\n</head>',
+        1,
+    )
+    output.write_text(rendered, encoding="utf-8", newline="\n")
 
 
 def copy_assets(stage: Path) -> None:
@@ -840,6 +1038,15 @@ def copy_assets(stage: Path) -> None:
         AUTH_RANDOM / "static" / "expect" / "ConvexFunction.png": stage / "expect" / "ConvexFunction.png",
         AUTH_RANDOM / "static" / "martingales" / "Martingale.png": (
             stage / "martingales" / "Martingale.png"
+        ),
+        AUTH_RANDOM / "static" / "martingales" / "ConvexFunction.png": (
+            stage / "martingales" / "ConvexFunction.png"
+        ),
+        AUTH_RANDOM / "static" / "martingales" / "Powers.png": (
+            stage / "martingales" / "Powers.png"
+        ),
+        AUTH_RANDOM / "static" / "martingales" / "PositivePart.png": (
+            stage / "martingales" / "PositivePart.png"
         ),
         AUTH_RANDOM / "shared" / "MathJax" / "tex-svg.js": stage / "MathJax" / "tex-svg.js",
         AUTH_RANDOM / "shared" / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js": (

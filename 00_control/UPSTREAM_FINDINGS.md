@@ -171,3 +171,47 @@ and`, `number of success`, `number of red ball selected`, `martinagle`, a
 missing sentence break before “So,” and missing “of” in “the children a
 particle.” These are translated naturally rather than imitated as Indonesian
 typos. No upstream contact occurs during production.
+
+## Cross-page empty heading references
+
+The source leaves `.ref` anchors empty while targeting headings rather than
+numbered `.unit` elements. `Basic.js` populates only the latter, so these links
+render with no visible text. The downstream reader supplies explicit Indonesian
+labels without changing the frozen authority or translation sources:
+
+- `dist/Convergence.html`: one `#sko` reference;
+- `martingales/Introduction.html`: two `#asm`, one `#inc`, three `#sum`, two
+  `#wlk`, and one `#prd` references.
+
+All ten are backend-recorded source-link repairs. The browser gate now requires
+zero empty `.ref` anchors across the whole reader.
+
+## `martingales/Properties.html`
+
+The frozen page is 37,473 bytes at SHA-256
+`0f8bc07eb5eda38e8d4f78e94ba71a7dae8e9b788278f9b6ed250b0f66dc3850`.
+Its translation source preserves all 520 ordered TeX surfaces. The built reader
+applies only exact, separately recorded repairs:
+
+- The page's relative MathJax path does not resolve inside the official static
+  tree; the reader maps it to the frozen local MathJax closure. The favicon
+  declares `image/svg` instead of `image/svg+xml`.
+- Three expectation relations use undefined `\frak` where the page otherwise
+  uses `\mathfrak`.
+- Four references to heading IDs (`#pre` and `#wlk`) are empty and remain blank
+  under `Basic.js`; the reader supplies visible labels.
+- Doob decomposition uniqueness needs the normalization `Z_0=0`.
+- The Doob–Meyer paragraph is false for an arbitrary adapted integrable class-D
+  process; the reader states the càdlàg sub/supermartingale hypotheses,
+  predictable monotone compensator, and zero normalization.
+- The harmonic-function converse is global on the state space only when the
+  martingale assertion holds under every initial-state law `P_x`.
+- The simple-walk gambling paragraph cites `#wlk1` rather than the martingale
+  transform and omits the integrability argument for unbounded bets.
+- The De Moivre alignment omits an equality sign.
+- The claim that `X_n/m^n` cannot be a state-only function has the exception
+  `m=1`; the general representation is the space–time function `H(n,x)=x/m^n`.
+- The final identity-function introduction is truncated.
+
+Minor source prose and markup defects remain queued for final deduplication. No
+upstream contact occurs during production.

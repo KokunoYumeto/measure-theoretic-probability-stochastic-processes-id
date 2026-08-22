@@ -1,7 +1,7 @@
 {
-  "schema": "o009.cursor.v9",
+  "schema": "o009.cursor.v10",
   "as_of": "2026-08-22",
-  "status": "fourth_boundary_public_and_anonymously_verified",
+  "status": "fifth_boundary_release_ready_local",
   "course_id": "O009",
   "role_id": "D30",
   "public_verified_boundary": {
@@ -13,8 +13,8 @@
       {"path": "source/theory/dist/Convergence.html", "bytes": 65986, "sha256": "948e294db3cfe1daefbd5bfd1e50f9d7a8b942dadfc0cefc63ca171be974dccc"},
       {"path": "source/theory/expect/Conditional2.html", "bytes": 48721, "sha256": "ddd6260bfafc60a7de3e2b78220c0b793349abcf01afa8cf35420cb16f4e55b7"},
       {"path": "source/theory/expect/Uniform.html", "bytes": 25643, "sha256": "63fc5afefa354f1f5db2530860089d5810284a185fba28713d315c5cd30ac895"},
-      {"path": "source/theory/expect/Kernels.html", "bytes": 54612, "sha256": "5eb002c6749c46f90468ca78f62b57d88f068c5ec4b9dcd465aa90814f274b8b", "authority_bytes": 53030, "authority_sha256": "9dd2a5474f284fcb11c9e9f9e81099a1c4fe1708094bfcd64b08ccb9f82c5b8d", "built_bytes": 57311, "built_sha256": "f52bfb7994749b55f30b7b67286fb7a21fddb606f4ec19cae66452bc25683fd2"},
-      {"path": "source/theory/martingales/Introduction.html", "bytes": 61528, "sha256": "38702482ef4563bd29c050d1dfaec7d280ea1bee0bf6b55ff272d0ee5d2346e7", "authority_bytes": 59687, "authority_sha256": "ff102fd4f54926d89c47b92885176e587f342378e442f1f38e4a69199a02375a", "built_bytes": 64294, "built_sha256": "4318a2f8cfde41d3f3d633ef1abd7181bd7800f72675128ba3b4630401b51fc9"}
+      {"path": "source/theory/expect/Kernels.html", "bytes": 54612, "sha256": "5eb002c6749c46f90468ca78f62b57d88f068c5ec4b9dcd465aa90814f274b8b"},
+      {"path": "source/theory/martingales/Introduction.html", "bytes": 61528, "sha256": "38702482ef4563bd29c050d1dfaec7d280ea1bee0bf6b55ff272d0ee5d2346e7"}
     ],
     "theory_unit_count": 9,
     "lab_target": "source/labs/01-konvergensi-monte-carlo.Rmd",
@@ -28,10 +28,6 @@
     "backend_relations": 629,
     "backend_manifest_sha256": "db70ebe0880e31a607c57bc7282476f2d2f2fd386a1ed937946bf35e1e7eefe7",
     "qa_failures": 0,
-    "source_content_repairs_total": 47,
-    "source_link_repairs_total": 1,
-    "original_additions_total": 2,
-    "new_source_content_repairs": 13,
     "qa_checkpoint": "qa/FOURTH_BOUNDARY_CHECKPOINT_20260822.md",
     "deployed_source_commit": "5a77276ea7a6dcaee2d25f5e4518877f820b0db8",
     "deployed_source_tree": "dd1a0d56f4fc34c08edaa54889bf1ff95f719d0a",
@@ -41,16 +37,63 @@
     "pages_deployment_status_id": 17147562272,
     "verified_at_utc": "2026-08-22T00:29:31.5580754Z"
   },
-  "next_translation": {
-    "source": "authority/random/static/martingales/Properties.html",
-    "target": "source/theory/martingales/Properties.html",
-    "state": "translation_complete_local_not_yet_integrated",
-    "authority_bytes": 37473,
-    "authority_sha256": "0f8bc07eb5eda38e8d4f78e94ba71a7dae8e9b788278f9b6ed250b0f66dc3850",
-    "target_bytes": 38315,
-    "target_sha256": "7420e69d72f16ab55ba0f9c3c8f6e0476de8b3516aff5613210620824bee21f9"
+  "release_ready_boundary": {
+    "new_unit": {
+      "authority_path": "authority/random/static/martingales/Properties.html",
+      "authority_bytes": 37473,
+      "authority_sha256": "0f8bc07eb5eda38e8d4f78e94ba71a7dae8e9b788278f9b6ed250b0f66dc3850",
+      "target_path": "source/theory/martingales/Properties.html",
+      "target_bytes": 38315,
+      "target_sha256": "7420e69d72f16ab55ba0f9c3c8f6e0476de8b3516aff5613210620824bee21f9",
+      "built_path": "build/site/martingales/Properties.html",
+      "built_bytes": 40809,
+      "built_sha256": "cd9797175f9b119db56058b6be2185568fdeb427fde986d583c5c6327515ffe6",
+      "translation_tex_surfaces": 520,
+      "built_math_containers": 536,
+      "detail_panels": 16
+    },
+    "theory_unit_count": 10,
+    "site_file_count": 37,
+    "site_total_bytes": 2372365,
+    "site_manifest_sha256": "eca262b01a8bdf87ba4a7dfc23db99e06e11ee18d098e2b702636aa6261fbb38",
+    "build_receipt_sha256": "16608283683eb30fca0f0922b642b69ecb03604180e10cf2aa97f0bc29b7467c",
+    "backend_entities": 748,
+    "backend_segments": 1990,
+    "backend_records": 2738,
+    "backend_relations": 683,
+    "backend_manifest_sha256": "c8a654be6cc87f3349110422ed09ecad68becceecbd487a3e897261ba596b32b",
+    "backend_input_set_sha256": "06330bd48713053c60ea18680d8ba5ce1aa527ada729386c2a120818e3b515af",
+    "qa_failures": 0,
+    "corrections": {
+      "source_content": 60,
+      "source_link": 11,
+      "original_addition": 2,
+      "deterministic_output": 1,
+      "new_page_repairs": 13,
+      "new_cross_page_visible_reference_repairs": 10
+    },
+    "browser_qa": {
+      "viewports": ["1280x720", "390x844"],
+      "pages_each": 12,
+      "math_containers_each": 6702,
+      "detail_panels_each": 202,
+      "bad_rows": 0
+    },
+    "qa_checkpoint": "qa/FIFTH_BOUNDARY_CHECKPOINT_20260822.md"
   },
-  "next_action": "integrate and validate martingales/Properties.html with exact-once downstream repairs and component asset closure; then continue the martingale sequence without duplicating O006 chapter 5",
+  "next_translation": {
+    "source": "authority/random/static/martingales/Stop.html",
+    "target": "source/theory/martingales/Stop.html",
+    "state": "translation_complete_local_not_yet_integrated",
+    "authority_bytes": 43887,
+    "authority_sha256": "8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af",
+    "target_bytes": 45971,
+    "target_sha256": "ae0bc60e3663906e5452505e52efd053269537f0c3b4fc1a6f5454b2325acec4",
+    "tex_surfaces": 580,
+    "detail_panels": 18,
+    "topology_status": "exact"
+  },
+  "next_action": "publish and anonymously verify the fifth boundary, then integrate martingales/Stop.html with exact-once downstream repairs without duplicating O006 chapter 5",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",

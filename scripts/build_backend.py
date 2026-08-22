@@ -153,6 +153,21 @@ THEORY_SPECS = (
             "concept.martingale.doob",
         ],
     },
+    {
+        "rel": "martingales/Properties.html",
+        "slug": "martingales.properties",
+        "order": 10,
+        "concept_ids": [
+            "concept.function.convex",
+            "concept.martingale.transform",
+            "concept.martingale.doob-decomposition",
+            "concept.martingale.doob-meyer",
+            "concept.markov.harmonic-function",
+            "concept.stochastic.stationary-independent-increments",
+            "concept.martingale",
+            "concept.markov.process",
+        ],
+    },
 )
 
 SCHEMA = "o009.backend.entity.v2"
@@ -385,6 +400,12 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
                 "concept.martingale.likelihood-ratio",
                 "concept.stochastic.branching-process",
                 "concept.martingale.doob",
+                "concept.function.convex",
+                "concept.martingale.transform",
+                "concept.martingale.doob-decomposition",
+                "concept.martingale.doob-meyer",
+                "concept.markov.harmonic-function",
+                "concept.stochastic.stationary-independent-increments",
                 "concept.markov.process",
                 "concept.poisson.process",
                 "concept.renewal.process",
@@ -595,6 +616,12 @@ def fixed_entities(lab_text: str) -> list[dict[str, Any]]:
         "concept.martingale.likelihood-ratio": "likelihood-ratio martingale",
         "concept.stochastic.branching-process": "branching process",
         "concept.martingale.doob": "Doob martingale",
+        "concept.function.convex": "convex function",
+        "concept.martingale.transform": "martingale transform",
+        "concept.martingale.doob-decomposition": "Doob decomposition",
+        "concept.martingale.doob-meyer": "Doob-Meyer decomposition",
+        "concept.markov.harmonic-function": "harmonic function for a Markov process",
+        "concept.stochastic.stationary-independent-increments": "stationary independent increments",
         "concept.markov.process": "Markov process",
         "concept.poisson.process": "Poisson process",
         "concept.renewal.process": "renewal process",
@@ -847,6 +874,32 @@ def html_entities() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[di
             "martingales/Introduction.html#fig1",
         )
     )
+    for suffix, asset_id, evidence in (
+        (
+            "convex-function",
+            "asset.random.martingales.convex-function",
+            "martingales/Properties.html#fig2",
+        ),
+        (
+            "powers",
+            "asset.random.martingales.powers",
+            "martingales/Properties.html",
+        ),
+        (
+            "positive-part",
+            "asset.random.martingales.positive-part",
+            "martingales/Properties.html#fig3",
+        ),
+    ):
+        relations.append(
+            relation(
+                f"rel.depends-on.unit.o009.random.martingales.properties.{suffix}",
+                "depends-on",
+                "unit.o009.random.martingales.properties",
+                asset_id,
+                evidence,
+            )
+        )
     for left, right in zip(page_ids, page_ids[1:]):
         relations.append(
             relation(
@@ -1472,6 +1525,21 @@ def asset_entities() -> list[dict[str, Any]]:
             AUTH_RANDOM / "static" / "martingales" / "Martingale.png",
             "rights.random.martingale-image.cc-by-3.0",
         ),
+        (
+            "asset.random.martingales.convex-function",
+            AUTH_RANDOM / "static" / "martingales" / "ConvexFunction.png",
+            "rights.random.dual-witness",
+        ),
+        (
+            "asset.random.martingales.powers",
+            AUTH_RANDOM / "static" / "martingales" / "Powers.png",
+            "rights.random.dual-witness",
+        ),
+        (
+            "asset.random.martingales.positive-part",
+            AUTH_RANDOM / "static" / "martingales" / "PositivePart.png",
+            "rights.random.dual-witness",
+        ),
         ("asset.mathjax.tex-svg", AUTH_RANDOM / "shared" / "MathJax" / "tex-svg.js", "rights.mathjax.apache-2.0"),
         ("asset.o009.reader-css", ROOT / "source" / "reader.css", "rights.o009.original.cc-by-4.0"),
     ]
@@ -1509,6 +1577,21 @@ def artifact_rows() -> list[dict[str, str]]:
             "artifact.input.random-martingale-harness",
             "authority-asset",
             AUTH_RANDOM / "static" / "martingales" / "Martingale.png",
+        ),
+        (
+            "artifact.input.random-martingales-convex-function",
+            "authority-asset",
+            AUTH_RANDOM / "static" / "martingales" / "ConvexFunction.png",
+        ),
+        (
+            "artifact.input.random-martingales-powers",
+            "authority-asset",
+            AUTH_RANDOM / "static" / "martingales" / "Powers.png",
+        ),
+        (
+            "artifact.input.random-martingales-positive-part",
+            "authority-asset",
+            AUTH_RANDOM / "static" / "martingales" / "PositivePart.png",
         ),
         ("artifact.input.site-package-manifest", "build-manifest", BUILD_MANIFEST),
         ("artifact.input.site-build-receipt", "build-receipt", BUILD_RECEIPT),
@@ -1885,7 +1968,9 @@ def build() -> None:
             corrections.append(
                 {
                     "correction_id": f"correction.o009.random.{slug}.{correction['id']}",
-                    "change_kind": "source-content-repair",
+                    "change_kind": str(
+                        correction.get("change_kind", "source-content-repair")
+                    ),
                     "source_id": page_id,
                     "target_id": page_id,
                     "description": str(correction["description"]),
