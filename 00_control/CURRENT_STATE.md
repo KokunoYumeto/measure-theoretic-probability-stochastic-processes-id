@@ -2,7 +2,7 @@
 
 As of 2026-08-22, this is an active O009/D30 production lane. Its first three
 theory–lab reader boundaries are public and anonymously byte-verified on
-GitHub Pages; its fourth boundary is release-ready after complete local QA.
+GitHub Pages, including the fourth boundary after complete local and public QA.
 The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
 curriculum-admission decision.
@@ -133,7 +133,7 @@ Commit `347517ed1bd8252bd5735677cbe680145d302802` (tree
 anonymous readback matched all 31 manifested files and 2,173,893 bytes at
 2026-08-21T21:20:22.3315139Z. See `PUBLICATION_RECEIPT.json`.
 
-### Fourth reader boundary (release-ready)
+### Fourth reader boundary (public and anonymously verified)
 
 `martingales/Introduction.html` is completely translated, structurally
 verified, integrated, and visually inspected:
@@ -165,16 +165,24 @@ renders 742 MathJax containers and its visible controls open and close all 22
 detail panels at both sizes. One long display scrolls only within its own
 bounded container. See `qa/FOURTH_BOUNDARY_CHECKPOINT_20260822.md`.
 
+Commit `5a77276ea7a6dcaee2d25f5e4518877f820b0db8` (tree
+`dd1a0d56f4fc34c08edaa54889bf1ff95f719d0a`) is public. Pages run
+`32540431719`, job `96949257411`, and deployment `6031439023` succeeded. An
+anonymous readback matched all 33 manifested files and 2,306,486 bytes at
+2026-08-22T00:29:31.5580754Z. See `PUBLICATION_RECEIPT.json`.
+
 ## Next exact action
 
-1. Publish the verified 33-file fourth boundary and anonymously compare every
-   public byte against `build/site/PACKAGE_MANIFEST.csv`.
-2. Continue with `authority/random/static/martingales/Properties.html` (37,473
+1. Integrate the completed local translation of
+   `authority/random/static/martingales/Properties.html` (37,473
    bytes,
    SHA-256
    `0f8bc07eb5eda38e8d4f78e94ba71a7dae8e9b788278f9b6ed250b0f66dc3850`),
-   preserving its exact topology and TeX while resolving only downstream
-   reader/build defects through recorded corrections.
+   at target `source/theory/martingales/Properties.html` (38,315 bytes,
+   SHA-256
+   `7420e69d72f16ab55ba0f9c3c8f6e0476de8b3516aff5613210620824bee21f9`),
+   preserving its exact topology and 520 TeX surfaces while resolving only
+   downstream reader/build defects through recorded corrections.
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

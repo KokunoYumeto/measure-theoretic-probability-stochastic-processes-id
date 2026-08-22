@@ -1,6 +1,6 @@
 # Fourth reader-boundary checkpoint — 2026-08-22
 
-Status: **release-ready; public deployment and anonymous byte readback pending**.
+Status: **public and anonymously byte-verified**.
 
 ## Added unit and component asset
 
@@ -88,7 +88,16 @@ bounded formula scroll, not a non-centered page layout.
 
 ## Publication evidence
 
-The source commit, tree, Pages run/job/deployment, and anonymous manifest
-readback will be appended immediately after the authorized push succeeds. This
-checkpoint is not the complete edition; the next exact source-order unit is
-`authority/random/static/martingales/Properties.html`.
+- Deployed commit: `5a77276ea7a6dcaee2d25f5e4518877f820b0db8`.
+- Deployed tree: `dd1a0d56f4fc34c08edaa54889bf1ff95f719d0a`.
+- Pages run/job/deployment: `32540431719` / `96949257411` / `6031439023`;
+  workflow conclusion and deployment state both `success`.
+- Deployment status: `17147562272`.
+- Anonymous verification at 2026-08-22T00:29:31.5580754Z matched all 33
+  manifested files and 2,306,486 bytes; manifest SHA-256
+  `9cc2ed7d7867a63082285338cf9727b1aeb90d8ae884bc55cb2f6934566b7284`.
+- Public reader:
+  `https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/`.
+
+This checkpoint is not the complete edition; the next exact source-order unit
+is `authority/random/static/martingales/Properties.html`.

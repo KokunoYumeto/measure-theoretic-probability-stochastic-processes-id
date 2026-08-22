@@ -36,7 +36,7 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Translate, repair, integrate, and visually verify `expect/Kernels.html`.
 - [x] Publish and anonymously verify the 31-file third boundary.
 - [x] Translate, repair, integrate, and visually verify `martingales/Introduction.html`.
-- [~] Publish and anonymously verify the 33-file fourth boundary.
+- [x] Publish and anonymously verify the 33-file fourth boundary.
 
 ## Remaining corpus
 
