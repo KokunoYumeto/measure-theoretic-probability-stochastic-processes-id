@@ -459,6 +459,17 @@ remote runtime, branding, local paths/warnings, missing alternatives,
 unresolved references, and untagged PDF output remain explicit adapter gates.
 See `qa/QUANTECON_AUTHORITY_ADMISSION_CHECKPOINT_20260822.md`.
 
+The source-admission checkpoint is committed locally at
+`e38bc3974adb4a01f8a15a0992a14c6268fa1012` (tree
+`0a3014a3be8c2ca4a4318c01db2b9229e17d8667`). Its push was attempted once and
+failed with GitHub HTTP 403 stating that the account is suspended. A bounded
+check of the exact user-supplied credential note found two candidates: the
+active account receives the same suspension 403 and the second receives 401.
+Anonymous repository and Pages requests both return 404. No token value was
+printed, persisted, or added to a URL. Do not loop or create a substitute
+account; retain local commits, continue production, and retry once only after
+the external account state changes.
+
 ## Next exact action
 
 Translate the complete selected Random `markov/Discrete.html` unit into

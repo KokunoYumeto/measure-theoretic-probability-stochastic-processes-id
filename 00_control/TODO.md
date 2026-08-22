@@ -16,6 +16,7 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Bind the exact 27-page Random subset, QuantEcon component, exclusions, finite original closure, production sequence, and corrected next cursor in `SELECTION_PACKET_BINDING.json`.
 - [x] Freeze the complete QuantEcon commit source, official CC BY-SA 4.0 witness, generated notebooks, selected assets, and exact clean offline Python environment in this lane.
 - [x] Prove the complete QuantEcon source/notebook native-build baseline, 25/25 exercise-solution closure, 35 source cells, selected/excluded assets, and clean offline execution; retain the non-byte-identical upstream outputs and their hazards as downstream adapter gates rather than overstating determinism.
+- [~] Push the locally committed QuantEcon admission checkpoint after GitHub lifts the account suspension; one bounded credential retry proved the remote 403/404 state, so continue production without looping.
 - [ ] Recompute and freeze the selected-only 27-page Random dependency closure.
 - [ ] Translate the selected substantive Random landing pages `martingales/index.html`, `markov/index.html`, and `brown/index.html`; do not count the generated course index as their source-faithful replacement.
 - [x] Finish per-component rights/asset manifest for the first admitted page/lab.

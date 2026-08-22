@@ -358,6 +358,17 @@
     "native_build_baseline_sha256": "56cfa007c532a73d49518d11e8ce83fb5f6a80801b727e416d1aa8c9d43bc949",
     "qa_checkpoint": "qa/QUANTECON_AUTHORITY_ADMISSION_CHECKPOINT_20260822.md",
     "verified_at_utc": "2026-08-22T07:05:10.6058820Z",
+    "local_commit": "e38bc3974adb4a01f8a15a0992a14c6268fa1012",
+    "local_tree": "0a3014a3be8c2ca4a4318c01db2b9229e17d8667",
+    "publication_attempt": {
+      "status": "blocked_by_remote_account_suspension",
+      "push_http": 403,
+      "credential_note_candidates": 2,
+      "candidate_results": ["authenticated_but_suspended_403", "invalid_401"],
+      "anonymous_repository_http": 404,
+      "anonymous_pages_http": 404,
+      "policy": "do not loop or create another account; preserve local commit and retry once after external account state changes"
+    },
     "qualification": "This admits the exact editable component and its offline native baseline; upstream HTML/PDF hazards remain explicit downstream adapter gates and are not public-reader artifacts."
   },
   "next_cursor": {
