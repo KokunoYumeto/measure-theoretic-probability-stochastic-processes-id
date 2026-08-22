@@ -1,7 +1,7 @@
 {
-  "schema": "o009.cursor.v13",
+  "schema": "o009.cursor.v14",
   "as_of": "2026-08-22",
-  "status": "seventh_boundary_public_and_anonymously_verified",
+  "status": "eighth_boundary_locally_verified_publication_pending",
   "course_id": "O009",
   "role_id": "D30",
   "fourth_public_verified_boundary": {
@@ -176,14 +176,51 @@
     "pages_deployment_status_id": 17149932922,
     "verified_at_utc": "2026-08-22T02:29:21.6560745Z"
   },
-  "next_translation": {
-    "source": "authority/random/static/martingales/Convergence.html",
-    "target": "source/theory/martingales/Convergence.html",
-    "state": "authority_frozen_translation_not_started",
-    "authority_bytes": 44951,
-    "authority_sha256": "c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f"
+  "pending_publication_boundary": {
+    "new_unit": {
+      "authority_path": "authority/random/static/martingales/Convergence.html",
+      "authority_bytes": 44951,
+      "authority_sha256": "c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f",
+      "target_path": "source/theory/martingales/Convergence.html",
+      "target_bytes": 47368,
+      "target_sha256": "da3c58c6260e21b9c04a67bdb18656bfcaabea4d7f8ee83b8f9538d0668a5747",
+      "built_path": "build/site/martingales/Convergence.html",
+      "built_bytes": 50294,
+      "built_sha256": "0df044a093006920698ab95354c6c5cf3ebde8b4dc0f56be563f67764362ffa4",
+      "translation_tex_surfaces": 722,
+      "built_math_containers": 727,
+      "detail_panels": 12,
+      "reader_corrections": 30
+    },
+    "theory_unit_count": 13,
+    "site_file_count": 40,
+    "site_total_bytes": 2515782,
+    "site_manifest_sha256": "f930653432a727a7941bfb1af77185d46635801e62aaabcd7891b67077b446ff",
+    "build_receipt_sha256": "70b75c7d60b859cfeacee6755d45ddaa7e0d4fbbcbcd91ad5d4262bc461d1954",
+    "backend_entities": 914,
+    "backend_segments": 2405,
+    "backend_records": 3319,
+    "backend_relations": 844,
+    "backend_manifest_sha256": "038d71c967415bbe1d6613e83d4a9cb7518ac7fa84c377aa90087cd2d1d99a1c",
+    "backend_input_set_sha256": "822e9600097dc5351dadf302d708417c1aeac2e591e289a5c648868b77bdfa8f",
+    "qa_failures": 0,
+    "browser_qa": {
+      "viewports": ["1280x720", "390x844"],
+      "pages_each": 15,
+      "math_containers_each": 8580,
+      "detail_panels_each": 247,
+      "bad_rows": 0
+    },
+    "qa_checkpoint": "qa/EIGHTH_BOUNDARY_CHECKPOINT_20260822.md"
   },
-  "next_action": "translate martingales/Convergence.html contiguously, preserve topology and mathematics, apply only backend-recorded downstream repairs, then build, QA, and publish the next verified boundary without duplicating O006 chapter 5",
+  "next_translation": {
+    "source": "authority/random/static/martingales/Backwards.html",
+    "target": "source/theory/martingales/Backwards.html",
+    "state": "authority_frozen_waiting_for_eighth_publication",
+    "authority_bytes": 31248,
+    "authority_sha256": "adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba"
+  },
+  "next_action": "commit and push the verified eighth boundary, wait for Pages, anonymously verify all 40 manifested files, record the receipt, then translate martingales/Backwards.html without duplicating O006 chapter 5",
   "publication_receipt": "00_control/PUBLICATION_RECEIPT.json",
   "public_repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
   "public_reader": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",

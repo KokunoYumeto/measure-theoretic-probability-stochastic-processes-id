@@ -300,3 +300,53 @@ exact-once source-content repairs and four deterministic mobile reflows:
 No exercise or solution block occurs on this page. No upstream contact has
 occurred; retain only deduplicated high-confidence items for the one possible
 post-corpus report, if separately authorized.
+
+## `martingales/Convergence.html`
+
+The frozen page is 44,951 bytes at SHA-256
+`c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f`.
+The Indonesian source is 47,368 bytes at SHA-256
+`da3c58c6260e21b9c04a67bdb18656bfcaabea4d7f8ee83b8f9538d0668a5747`
+and preserves all 722 ordered TeX surfaces. The final built reader applies 30
+exact-once actions: 27 source-content repairs, two deterministic mobile
+reflows, and one source-link repair.
+
+- The first convergence proof mixes discrete and continuous upcrossing
+  references, uses an undefined total-upcrossing index, states a strict bound
+  where only a non-strict limit bound follows, and names `X` rather than
+  `X_infinity` in the terminal measurability claim.
+- The uniform-integrability proof has a broken theorem URL, uses `X` instead
+  of `X_infinity` in mean convergence, and does not justify passage of
+  conditional expectations to the limit. The Lp theorem is false as stated
+  for arbitrary sub/supermartingales and one maximal estimate drops its norm
+  subscript.
+- The simple-walk application defines increments at an undefined time zero,
+  starts the partial sum at that undefined increment, gives the wrong state
+  space, and diagnoses the failed convergence hypothesis only through the
+  mean—missing the symmetric case.
+- The branching paragraph overstates an exponential divergence rate and what
+  the normalized martingale proves on nonextinction. The beta–Bernoulli page
+  omits the argument transferring convergence to the sample mean; the Pólya
+  prose confuses draw counts, sample proportions, and urn composition and
+  leaves `M_0=Y_0/0` if the time domain is not restricted.
+- The likelihood-ratio proof applies a strong law without handling an
+  infinite negative log mean and invokes continuity of the logarithm at zero.
+  The partial-product discussion indexes an undefined normalized term and
+  typesets the normalizer outside the product, leaving its index free.
+- The density proof uses inconsistent expectation notation and undefined
+  terminal-measure symbols. For a signed measure it falsely assumes that
+  ambient Jordan parts remain absolutely continuous after restriction to a
+  coarse sigma-algebra; cancellation makes this false. It also equates the
+  total variation of every restriction with ambient total variation. The
+  reader instead uses the restricted-variation bound, Fatou's lemma, and a
+  monotone-class argument against a full-probability total-variation-null set.
+- The dyadic measure example omits parentheses around the interval argument.
+  Two long displays are reflowed for phone width while retaining the exact
+  integer domain. One empty reference to the Doob heading receives visible
+  Indonesian link text.
+
+The first candidate reader build was vetoed because its own dyadic reflow
+dropped the integer domain and its first signed-measure repair still relied on
+ambient Jordan parts. Both defects were corrected before publication; they are
+edition-process findings, not additional upstream defects. No exercise or
+solution block occurs on this page. No upstream contact has occurred.

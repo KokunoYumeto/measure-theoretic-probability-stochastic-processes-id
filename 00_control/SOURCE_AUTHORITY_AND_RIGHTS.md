@@ -123,6 +123,28 @@ and remain separately recorded; the frozen authority and translation source
 are unchanged. The Kolmogorov application depends on the O006/C140 sampling
 module and does not import or relicense its chapter-5 bytes.
 
+### Current martingale-convergence component closure
+
+`martingales/Convergence.html` is admitted from the same frozen Random
+selection at 44,951 bytes / SHA-256
+`c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f`.
+It introduces no page-specific content image, audio, dataset, or executable
+asset. Its direct runtime references are the already frozen favicon,
+`Screen.css`, `Basic.js`, Plus/Minus controls, and local MathJax/`boldsymbol`
+closure. Ancillary biographies and application pages remain external official
+links rather than claimed offline functionality.
+
+The Random-derived page and translation remain bound to
+`rights.random.dual-witness`. The Indonesian source is 47,368 bytes at SHA-256
+`da3c58c6260e21b9c04a67bdb18656bfcaabea4d7f8ee83b8f9538d0668a5747`
+and preserves the exact 275-element tag sequence, 22 identifiers, 12
+disclosures, 13 units, and all 722 ordered source TeX surfaces. Thirty
+exact-once actions occur only in the built reader: 27 source-content repairs,
+two deterministic mobile reflows, and one visible-link repair. They remain
+separately identified and do not relicense the frozen source. The
+likelihood-ratio and urn applications consume the O006/C140 sampling module as
+a prerequisite and do not import its chapter-5 bytes.
+
 ## Žitković laboratory donor
 
 - Official author route: Gordan Žitković’s UT Austin lecture-notes page linking the hosted book and public repository.

@@ -1,12 +1,17 @@
 outcome_id,course_id,label,locale,cognitive_level,status
+outcome.o009.analyze-martingale-limit-applications,course.o009.d30,"Menganalisis limit martingal pada gerak acak, proses percabangan, model Bayes, uji rasio kemungkinan, dan hasil kali parsial.",id-ID,analyze,active
 outcome.o009.analyze-optimal-stopping,course.o009.d30,Menganalisis aturan ambang penghentian optimal pada masalah sekretaris.,id-ID,analyze,active
+outcome.o009.apply-lp-martingale-convergence,course.o009.d30,Menerapkan pertidaksamaan maksimal untuk membuktikan konvergensi martingal dalam Lp.,id-ID,apply,active
 outcome.o009.apply-martingale-maximal-inequalities,course.o009.d30,Menerapkan pertidaksamaan maksimal Doob dan Kolmogorov untuk membatasi probabilitas maksimum lintasan.,id-ID,apply,active
 outcome.o009.audit-gambling-maximal-bound,course.o009.d30,"Memeriksa syarat keterprediksian, kenegatifan, dan keterbatasan utang saat menerapkan batas maksimal pada strategi perjudian.",id-ID,analyze,active
+outcome.o009.characterize-ui-martingales,course.o009.d30,Mengkarakterisasi martingal terintegralkan seragam melalui representasi peubah terminal dan konvergensi dalam rata-rata.,id-ID,analyze,active
 outcome.o009.check-optional-stopping-conditions,course.o009.d30,Memeriksa syarat keterbatasan atau integrabilitas sebelum menerapkan teorema penghentian opsional.,id-ID,analyze,active
 outcome.o009.compute-random-time-expectations,course.o009.d30,"Menghitung probabilitas pencapaian dan nilai harapan pada waktu henti, termasuk Persamaan Wald dan waktu tunggu pola.",id-ID,apply,active
 outcome.o009.distinguish-evidence-proof,course.o009.d30,Membedakan bukti empiris simulasi dari pembuktian probabilistik.,id-ID,analyze,active
 outcome.o009.estimate-expectation-monte-carlo,course.o009.d30,Menaksir nilai harapan dengan simulasi Monte Carlo deterministik.,id-ID,apply,active
 outcome.o009.explain-lln-monte-carlo,course.o009.d30,Menjelaskan hubungan hukum bilangan besar dengan estimasi Monte Carlo.,id-ID,understand,active
 outcome.o009.prove-convergence-in-probability,course.o009.d30,Membuktikan konvergensi dalam probabilitas memakai ketaksamaan Chebyshev.,id-ID,prove,active
+outcome.o009.prove-martingale-convergence,course.o009.d30,Membuktikan konvergensi hampir pasti martingal dengan pertidaksamaan lintas-naik dan syarat keterbatasan L1.,id-ID,prove,active
 outcome.o009.prove-stopped-martingale,course.o009.d30,"Membuktikan bahwa penghentian mempertahankan sifat martingal, submartingal, atau supermartingal.",id-ID,prove,active
+outcome.o009.recover-density-martingale-limits,course.o009.d30,Menentukan limit proses kerapatan melalui teorema Radon-Nikodym dan dekomposisi bagian singular.,id-ID,analyze,active
 outcome.o009.use-upcrossings-for-convergence,course.o009.d30,Menggunakan pertidaksamaan lintasan-naik untuk mengendalikan osilasi martingal dan menyiapkan teorema konvergensi.,id-ID,analyze,active

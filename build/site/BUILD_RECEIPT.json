@@ -1,8 +1,8 @@
 {
-  "built_at_utc": "2026-08-22T02:25:00.885217+00:00",
-  "file_count": 39,
+  "built_at_utc": "2026-08-22T03:03:57.861138+00:00",
+  "file_count": 40,
   "lab_source_sha256": "c95bb36c66684b3fdc1b02de5233fe748aa11805205ef8f831f24d7bec9df085",
-  "manifest_sha256": "10fcbf5114f7a914a8d924c254c33e77a27456b3a89fca7eb76845a26ba67d95",
+  "manifest_sha256": "f930653432a727a7941bfb1af77185d46635801e62aaabcd7891b67077b446ff",
   "r_result_rows": [
     {
       "absolute_error": "0.072023194662",
@@ -93,7 +93,12 @@
       "authority_sha256": "9e03259e83a9e8ac67c9a43a2df1aa8a85d65944f86b82653e46869f4ab451f3",
       "path": "martingales/Inequalities.html",
       "target_sha256": "f7327659431ab0f8a7b6f696474e4b0e57e7dd138ba0374c5f722a31781161b6"
+    },
+    {
+      "authority_sha256": "c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f",
+      "path": "martingales/Convergence.html",
+      "target_sha256": "da3c58c6260e21b9c04a67bdb18656bfcaabea4d7f8ee83b8f9538d0668a5747"
     }
   ],
-  "total_bytes": 2465207
+  "total_bytes": 2515782
 }

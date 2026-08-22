@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+	<meta charset="utf-8">
+	<title>Kekonvergenan</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probabilitas, statistika, proses stokastik, martingal, teorema konvergensi martingal, gerak acak, martingal Doob, hukum nol-satu Kolmogorov, proses percabangan, proses beta-Bernoulli, proses urna Polya, uji rasio kemungkinan, hasil kali parsial">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\renewcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Q}{\mathbb{Q}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingal</a></li>
+		<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
+		<li class="child"><a href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
+		<li class="child"><a href="Stop.html" title="Waktu Henti">3</a></li>
+		<li class="child"><a href="Inequalities.html" title="Pertidaksamaan">4</a></li>
+		<li class="current">5</li>
+		<li class="child"><a href="Backwards.html" title="Martingal Mundur">6</a></li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<h2>5. Kekonvergenan</h2>
+</header>
+
+<h3>Teori Dasar</h3>
+
+<h4 id="asm">Asumsi Dasar</h4>
+
+<p>Seperti dalam <a href="Introduction.html">pendahuluan</a>, kita mulai dengan suatu <a href="../prob/Processes.html">proses stokastik</a> \( \bs{X} = \{X_t: t \in T\} \) pada ruang probabilitas yang mendasarinya \( (\Omega, \mathscr{F}, \P) \), dengan ruang keadaan \( \R \), dan dengan himpunan indeks \( T \) (yang menyatakan waktu) berupa \( \N \) (waktu diskret) atau \( [0, \infty) \) (waktu kontinu). Selanjutnya, kita memiliki suatu <a href="../prob/Stop.html">filtrasi</a> \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), dan kita mengandaikan bahwa \( \bs{X} \) <dfn>teradaptasi</dfn> terhadap \( \mathfrak{F} \). Jadi, \( \mathfrak{F} \) merupakan keluarga menaik subaljabar-\( \sigma \) dari \( \mathscr{F} \), dan \( X_t \) terukur terhadap \( \mathscr{F}_t \) untuk \( t \in T \). Kita memandang \( \mathscr{F}_t \) sebagai koleksi kejadian hingga waktu \( t \in T \). Kita mengandaikan bahwa \( \E\left(\left|X_t\right|\right) \lt \infty \), sehingga <a href="../expect/Properties.html">rata-rata</a> \( X_t \) ada sebagai bilangan riil untuk setiap \( t \in T \). Terakhir, dalam waktu kontinu ketika \( T = [0, \infty) \), kita memerlukan asumsi tambahan bahwa \( t \mapsto X_t \) kontinu kanan dan memiliki limit kiri, serta bahwa filtrasi \( \mathfrak F \) standar (yaitu kontinu kanan dan lengkap). Ingat pula bahwa \( \mathscr{F}_\infty = \sigma\left(\bigcup_{t \in T} \mathscr{F}_t\right) \), dan inilah aljabar-\( \sigma \) yang mengodekan informasi kita sepanjang waktu.</p>
+
+<h4 id="mct">Teorema Konvergensi Martingal</h4>
+
+<p>Jika \( \bs X \) merupakan submartingal terhadap \( \mathfrak F \), maka \( \bs X \) memiliki semacam <em>sifat menaik</em>: \( E(X_t \mid \mathscr{F}_s) \ge X_s\) untuk \( s, \, t \in T \) dengan \( s \le t \). Demikian pula, jika \( \bs X \) merupakan supermartingal terhadap \( \mathfrak F \), maka \( \bs X \) memiliki semacam <em>sifat menurun</em>, karena pertidaksamaan terakhir dibalik. Dengan demikian, ada harapan bahwa jika sifat menaik atau menurun ini digabungkan dengan suatu sifat keterbatasan yang sesuai, maka submartingal atau supermartingal tersebut dapat konvergen, dalam suatu pengertian, ketika \( t \to \infty \). Hal ini memang benar dan menjadi pokok bahasan bagian ini. Teorema-teorema konvergensi martingal, yang pertama kali dirumuskan oleh <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">Joseph Doob</a>, termasuk hasil terpenting dalam teori martingal. <dfn>Teorema konvergensi martingal pertama</dfn> menyatakan bahwa jika nilai harapan dari nilai mutlaknya terbatas terhadap waktu, maka proses martingal tersebut <a href="../prob/Convergence.html#con">konvergen dengan probabilitas 1</a>.</p>
+
+<div class="unit" id="mct1">
+	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) merupakan submartingal atau supermartingal terhadap \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), dan \( \E\left(\left|X_t\right|\right) \) terbatas dalam \( t \in T \). Maka terdapat peubah acak \( X_\infty \) yang terukur terhadap \( \mathscr{F}_\infty \), sedemikian sehingga \( \E(\left|X_\infty\right|) \lt \infty \) dan \( X_t \to X_\infty \) ketika \( t \to \infty \) dengan probabilitas 1.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Buktinya sederhana dengan menggunakan <a href="Inequalities.html#upc">pertidaksamaan lintas-naik</a>. Tetapkan \( T_t = \{s \in T: s \le t\} \) untuk \( t \in T \). Untuk \( a, b \in \R \) dengan \( a \lt b \), misalkan \( U_t(a, b) \) menyatakan jumlah lintas-naik interval \( [a, b] \) oleh proses \( \bs X \) pada \( T_t \), dan misalkan \( U_\infty(a, b) \) menyatakan jumlah lintas-naik \( [a, b] \) oleh \( \bs X \) pada \( T \). Ingat bahwa \( U_t \uparrow U_\infty \) ketika \( t \to \infty \). Andaikan bahwa \( \E(|X_t|) \lt c \) untuk \( t \in T \), dengan \( c \in (0, \infty) \). Berdasarkan pertidaksamaan lintas-naik,
+		\[ \E[U_t(a, b)] \le \frac{1}{b - a}[|a| + \E(|X_t|)]  \le \frac{|a| + c}{b - a}, \quad n \in \N\]
+		Berdasarkan teorema konvergensi monoton, diperoleh 
+		\[ \E[U_\infty(a, b)] \lt \frac{|a| + c}{b - a} \lt \infty  \]
+		Oleh karena itu, \( \P[U_\infty(a, b) \lt \infty] = 1 \). Dengan demikian, dengan probabilitas 1, \( U_\infty(a, b) \lt \infty \) untuk setiap \( a, \, b \in \Q \) dengan \( a \lt b \). Berdasarkan <a href="Inequalities.html#upc3">karakterisasi</a> konvergensi kita dalam hal lintas-naik, diperoleh bahwa terdapat peubah acak \( X_\infty \) yang bernilai dalam \( \R^* = \R \cup \{-\infty, \infty\} \), sedemikian sehingga dengan probabilitas 1, \( X_t \to X_\infty \) ketika \( t \to \infty \). Perhatikan bahwa \( X \) terukur terhadap \( \mathscr{F}_\infty \). Berdasarkan <a href="../expect/Integral.html#lim1">lema Fatou</a>, 
+		\[ \E(|X_\infty|) \le \liminf_{t \to \infty} \E(|X_t|) \lt \infty \]
+		Oleh karena itu, \( \P(X_\infty \in \R) = 1 \).</p>
+	</details>
+</div>
+
+<p>Syarat keterbatasan tersebut berarti bahwa \( \bs X \) terbatas (dalam norma) sebagai himpunan bagian dari <a href="../expect/Spaces.html">ruang vektor</a> \( \mathscr{L}_1 \). Berikut akibat yang sangat sederhana tetapi berguna:</p>
+
+<div class="unit" id="mct2">
+	<p class="math">Jika \( \bs X = \{X_t: t \in T\} \) merupakan supermartingal nonnegatif terhadap \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \), maka terdapat peubah acak \( X_\infty \), yang terukur terhadap \( \mathscr{F}_\infty \), sedemikian sehingga \( X_t \to X_\infty \) dengan probabilitas 1.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Karena \( \bs X \) merupakan supermartingal nonnegatif, \( \E(|X_t|) = \E(X_t) \le \E(X_0) \) untuk \( t \in T \). Oleh karena itu, teorema konvergensi martingal <a href="#mct1" class="ref"></a> berlaku.</p>
+	</details>
+</div>
+
+<p>Tentu saja, sebagai kasus khusus, akibat tersebut berlaku untuk martingal nonnegatif. Untuk <dfn>teorema konvergensi martingal</dfn> kedua, Anda perlu meninjau <a href="../expect/Uniform.html">peubah terintegralkan seragam</a>. Ingat pula bahwa untuk \( k \in [1, \infty) \), norma-\( k \) dari peubah acak \( X \) adalah 
+\[ \|X\|_k = \left[\E\left(|X|^k\right)\right]^{1/k} \]
+dan \( \mathscr{L}_k \) merupakan ruang vektor bernorma dari semua peubah acak bernilai riil yang normanya berhingga. <dfn>Konvergensi dalam rata-rata</dfn> mengacu pada konvergensi dalam \( \mathscr{L}_1 \), dan secara lebih umum, <dfn>konvergensi dalam rata-rata orde \( k \)</dfn> mengacu pada konvergensi dalam \( \mathscr{L}_k \).</p>
+
+<div class="unit" id="mct3">
+	<p class="math">Misalkan \( \bs X \) terintegralkan seragam dan merupakan submartingal atau supermartingal terhadap \( \mathfrak F \). Maka terdapat peubah acak \( X_\infty \), yang terukur terhadap \( \mathscr{F}_\infty \), sedemikian sehingga \( X_t \to X_\infty \) ketika \( t \to \infty \) dengan probabilitas 1 dan dalam rata-rata. Selain itu, jika \( \bs X \) merupakan martingal terhadap \( \mathfrak F \), maka \( X_t = \E(X_\infty \mid \mathscr{F}_t) \) untuk \( t \in T \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Karena \( \bs X = \{X_t: t \in T\} \) terintegralkan seragam, \( \E(|X_t|) \) terbatas dalam \( t \in T \). Oleh karena itu, berdasarkan teorema konvergensi martingal <a href="mct1" class="ref"></a>, terdapat \( X_\infty \) yang terukur terhadap \( \mathscr{F}_\infty \), sedemikian sehingga \( \E(|X_\infty|) \lt \infty \) dan \( X_t \to X_\infty \) ketika \( t \to \infty \) dengan probabilitas 1. Berdasarkan <a href="../expect/Uniform.html#con2">teorema keterintegralan seragam</a>, konvergensi tersebut juga berlaku dalam rata-rata, sehingga \( \E(|X_t - X|) \to 0 \) ketika \( t \to \infty \). Sekarang andaikan bahwa \( \bs X \) merupakan martingal terhadap \( \mathfrak F \). Untuk \( s \in T \) tetap, kita mengetahui bahwa \( \E(X_t \mid \mathscr{F}_s) \to \E(X_\infty \mid \mathscr{F}_s) \) ketika \( t \to \infty \) (dengan probabilitas 1). Namun, \( \E(X_t \mid \mathscr{F}_s) = X_s \) untuk \( t \ge s \), sehingga diperoleh \( X_s = \E(X_\infty \mid \mathscr{F}_s) \).</p>
+	</details>
+</div>
+
+<p>Sebagai akibat sederhana, ingat bahwa jika \( \|X_t\|_k \) terbatas dalam \( t \in T \) untuk suatu \( k \in (1, \infty) \), maka \( \bs X \) terintegralkan seragam, sehingga teorema konvergensi martingal kedua berlaku. Namun, kita dapat memperoleh hasil yang lebih kuat.</p>
+
+<div class="unit" id="mct4">
+	<p class="math">Misalkan kembali bahwa \( \bs X = \{X_t: t \in T\} \) merupakan submartingal atau supermartingal terhadap \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \), dan \( \|X_t\|_k \) terbatas dalam \( t \in T \) untuk suatu \( k \in (1, \infty) \). Maka terdapat peubah acak \( X_\infty \in \mathscr{L}_k \), sedemikian sehingga \( X_t \to X_\infty \) ketika \( t \to \infty \) dalam \( \mathscr{L}_k \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Andaikan bahwa \( \|X_t\|_k \le c \) untuk \( t \in T \), dengan \( c \in (0, \infty) \). Karena \( \|X\|_1 \le \|X\|_k \), kita memiliki \( \E(|X_t|) \) yang terbatas dalam \( t \in T \), sehingga teorema konvergensi martingal <a href="#mct1" class="ref"></a> berlaku. Dengan demikian, terdapat \( X_\infty \), yang terukur terhadap \( \mathscr{F}_\infty \), sedemikian sehingga \( X_t \to X_\infty \) ketika \( t \to \infty \) dengan probabilitas 1. Secara ekuivalen, dengan probabilitas 1,
+		\[ |X_t - X_\infty|^k \to 0 \text{ as } t \to \infty \]
+		Selanjutnya, untuk \( t \in T \), misalkan \( T_t = \{s \in T: s \le t\} \) mendefinisikan \( W_t = \sup\{|X_s|: s \in T_t\} \). Berdasarkan versi norma dari <a href="Inequalities.html#max6">pertidaksamaan maksimal</a>,
+		\[ \|W_t\|_k \le \frac{k}{k-1}\|X_t\| \le \frac{k c}{k - 1}, \quad t \in T \]
+		Jika kita menetapkan \( W_\infty = \sup\{|X_s|: s \in T\} \), maka berdasarkan <a href="../expect/Integral.html#lim2">teorema konvergensi monoton</a>,
+		\[ \|W_\infty\|_k = \lim_{t \to \infty} \|W_t\|_k \le \frac{c k}{k - 1} \]
+		Jadi, \( W_\infty \in \mathscr{L}_k \). Namun, \( |X_\infty| \le W_\infty \), sehingga \( X_\infty \in \mathscr{L}_k \) juga. Selain itu, \( |X_t - X_\infty|^k \le 2^k W^k_\infty \), sehingga dengan menerapkan <a href="../expect/Integral.html#lim2">teorema konvergensi terdominasi</a> pada persamaan pertama yang ditampilkan di atas, kita memperoleh \( \E(|X_t - X_\infty|^k) \to 0 \) ketika \(  t \to \infty \). </p>
+	</details>
+</div>
+
+<h3>Contoh dan Penerapan</h3>
+
+<p>Dalam subbagian ini, kita meninjau sejumlah penerapan teorema konvergensi martingal. Salah satu petunjuk mengenai pentingnya teori martingal adalah kenyataan bahwa banyak teorema klasik probabilitas memiliki bukti yang sederhana dan elegan jika dirumuskan dalam martingal.</p>
+
+<h4>Gerak Acak Sederhana</h4>
+
+<p>Misalkan sekarang bahwa \( \bs{V} = \{V_n: n \in \N\} \) merupakan barisan peubah acak independen dengan \( \P(V_i = 1) = p \) dan \( \P(V_i = -1) = 1 - p \) untuk \( i \in \N_+ \), dengan \( p \in (0, 1) \). Misalkan \( \bs{X}  = \{X_n: n \in \N\} \) merupakan proses jumlah parsial yang terkait dengan \( \bs{V} \), sehingga 
+\[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]
+Ingat bahwa \( \bs{X} \) merupakan <a href="Introduction.html#srw">gerak acak sederhana</a> dengan parameter \( p \). Dari kajian kita mengenai rantai Markov, kita mengetahui bahwa jika \( p \gt \frac{1}{2} \), maka \( X_n \to \infty \) ketika \( n \to \infty \), dan jika \( p \lt \frac{1}{2} \), maka \( X_n \to -\infty \) ketika \( n \to \infty \). Rantai tersebut transien dalam kedua kasus ini. Jika \( p = \frac{1}{2} \), rantai tersebut rekuren (nol), sehingga mengunjungi setiap keadaan dalam \( \N \) tak berhingga kali. Dalam kasus ini, \( X_n \) tidak konvergen ketika \( n \to \infty \). Namun, tentu saja \( \E(X_n) = n (2 p - 1) \) untuk \( n \in \N \), sehingga teorema konvergensi martingal tidak berlaku.</p>
+
+<h4 id="doo">Martingal Doob</h4>
+
+<p>Ingat bahwa jika \( X \) merupakan peubah acak dengan \( \E(|X|) \lt \infty \) dan kita <em>mendefinisikan</em> \( X_t = \E(X \mid \mathscr{F}_t) \) untuk \( t \in T \), maka \( \bs X = \{X_t: t \in T\} \) merupakan martingal terhadap \( \mathfrak F \) dan dikenal sebagai <a href="Introduction.html#doo">martingal Doob</a>, yang dinamai menurut <a href="JavaScript:openAncillary('../biographies/Doob.html')" class="ancillary">orang yang sudah Anda ketahui</a>. Jadi, teorema konvergensi martingal kedua menyatakan bahwa setiap martingal terintegralkan seragam merupakan martingal Doob. Selain itu, kita <a href="../expect/Uniform.html#exe2">mengetahui</a> bahwa martingal Doob \( \bs X \) yang dikonstruksi dari \( X \) dan \( \mathfrak F \) terintegralkan seragam, sehingga teorema konvergensi martingal kedua berlaku. Pertanyaan terakhir yang tersisa adalah hubungan antara \( X \) dan peubah acak limit \( X_\infty \). Jawabannya mungkin tidak mengejutkan.</p>
+
+<div class="unit" id="doo1">
+	<p class="math">Misalkan \( \bs X = \{X_t: t \in T\} \) merupakan martingal Doob yang dikonstruksi dari \( X \) dan \( \mathfrak F \). Maka \( X_t \to X_\infty \) ketika \( t \to \infty \) dengan probabilitas 1 dan dalam rata-rata, dengan 
+	\[ X_\infty = \E(X \mid \mathscr{F}_\infty) \]</p>
+</div>
+
+<p>Tentu saja, jika \( \mathscr{F}_\infty = \mathscr{F} \), yang sangat mungkin terjadi, maka \( X_\infty = X \). Pada ekstrem lainnya, jika \( \mathscr{F}_t = \{\emptyset, \Omega\}\), yaitu aljabar-\( \sigma \) trivial, untuk semua \( t \in T \), maka \( X_\infty = \E(X) \), suatu konstanta.</p>
+
+<h4 id="kol">Hukum Nol-Satu Kolmogorov</h4>
+
+<p>Misalkan \( \bs X = (X_n: n \in \N_+) \) merupakan barisan peubah acak yang bernilai dalam ruang keadaan umum \( (S, \mathscr{S}) \). Tetapkan \( \mathscr{G}_n = \sigma\{X_k: k \ge n\} \) untuk \( n \in \N_+ \), dan tetapkan \( \mathscr{G}_\infty = \bigcap_{n=1}^\infty \mathscr{G}_n \). Jadi, \( \mathscr{G}_\infty \) merupakan <dfn>aljabar-\( \sigma \) ekor</dfn> dari \( \bs X \), yaitu koleksi kejadian yang hanya bergantung pada suku-suku barisan dengan indeks yang sebesar apa pun. Sebagai contoh, jika barisan tersebut bernilai riil (atau secara lebih umum bernilai dalam suatu <a href="../foundations/Metric.html">ruang metrik</a>), maka kejadian bahwa \( X_n \) memiliki limit ketika \( n \to \infty \) merupakan kejadian ekor. Jika \( B \in \mathscr{S} \), maka kejadian bahwa \( X_n \in B \) untuk tak berhingga banyaknya \( n \in \N_+ \) juga merupakan kejadian ekor. <dfn>Hukum nol-satu Kolmogorov</dfn>, yang dinamai menurut <a href="JavaScript:openAncillary('../biographies/Kolmogorov.html')" class="ancillary">Andrei Kolmogorov</a>, menyatakan bahwa jika \( \bs X \) merupakan barisan independen, maka kejadian-kejadian ekornya pada hakikatnya deterministik.</p>
+
+<div class="unit" id="kol1">
+	<p class="math">Misalkan \( \bs X \) merupakan barisan peubah acak independen. Jika \( A \in \mathscr{G}_\infty \), maka \( \P(A) = 0 \) atau \( \P(A) = 1 \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Tetapkan \( \mathscr{F}_n = \sigma\{X_k: k \le n\} \) untuk \( n \in \N_+ \), sehingga \( \mathfrak F = \{\mathscr{F}_n: n \in \N_+\} \) merupakan filtrasi alami yang terkait dengan \( \bs X \). Seperti dalam notasi kita di atas, tetapkan \( \mathscr{F}_\infty = \sigma\left(\bigcup_{n \in \N_+} \mathscr{F}_n\right) \). Sekarang, misalkan \( A \in \mathscr{G}_\infty \) merupakan kejadian ekor. Maka \( \{\E(\bs{1}_A \mid \mathscr{F}_n): n \in \N_+\} \) merupakan martingal Doob yang terkait dengan peubah indikator \( \bs{1}_A \) dan \( \mathfrak F \). Berdasarkan hasil di atas, \( \E(\bs{1}_A \mid \mathscr{F}_n) \to \E(\bs{1}_A \mid \mathscr{F}_\infty) \) ketika \( n \to \infty \) dengan probabilitas 1. Namun, \( A \in \mathscr{F}_\infty \), sehingga \( \E(\bs{1}_A \mid \mathscr{F}_\infty) = \bs{1}_A \). Di sisi lain, \( A \in \mathscr{G}_{n+1} \), dan aljabar-\( \sigma \) \( \mathscr{G}_{n+1} \) dan \( \mathscr{F}_n \) independen. Oleh karena itu, \( \E(\bs{1}_A \mid \mathscr{F}_n) = \P(A) \) untuk setiap \( n \in \N_+ \). Dengan demikian, \( \P(A) = \bs{1}_A \).</p>
+	</details>
+</div>
+
+<p><a href="../prob/Probability2.html#tai">Kejadian ekor</a> dan hukum nol-satu Kolmogorov telah dipelajari sebelumnya dalam bagian tentang <a href="../foundations/Measure.html">ukuran</a>. Peubah acak yang terukur terhadap \( \mathscr{G}_\infty \) merupakan <dfn>peubah acak ekor</dfn>. Berdasarkan hukum nol-satu Kolmogorov, peubah acak ekor bernilai riil untuk suatu barisan independen harus berupa konstanta (dengan probabilitas 1).</p>
+
+<h4 id="brn">Proses Percabangan</h4>
+
+<p>Ingat pembahasan mengenai <dfn>proses percabangan</dfn> sederhana dari <a href="Introduction.html#brn">pendahuluan</a>. Asumsi dasarnya adalah bahwa partikel-partikel bertindak secara independen dan masing-masing memiliki distribusi keturunan yang sama pada \( \N \). Seperti sebelumnya, kita menggunakan \( f \) untuk menyatakan <a href="../dist/Discrete.html">fungsi kepadatan probabilitas</a> (diskret) dari banyaknya keturunan suatu partikel, \( m \) untuk <a href="../expect/Properties.html">rata-rata</a> distribusi tersebut, dan \( q \) untuk probabilitas kepunahan jika dimulai dengan satu partikel. Kita mengandaikan bahwa \( f(0) \gt 0 \) dan \( f(0) + f(1) \lt 1 \), sehingga sebuah partikel memiliki probabilitas positif untuk mati tanpa anak dan probabilitas positif untuk menghasilkan lebih dari 1 anak. </p>
+
+<p>Proses stokastik yang dikaji adalah \( \bs{X} = \{X_n: n \in \N\} \), dengan \( X_n \) merupakan banyaknya partikel dalam generasi ke-\( n \) untuk \( n \in \N \). Ingat bahwa \( \bs{X} \) merupakan <a href="../markov/Branching.html">rantai Markov waktu diskret</a> pada \( \N \). Karena 0 merupakan keadaan penyerap dan semua keadaan positif mengarah ke 0, kita mengetahui bahwa keadaan-keadaan positif bersifat transien sehingga dikunjungi hanya berhingga kali dengan probabilitas 1. Akibatnya, \( X_n \to 0 \) ketika \( n \to \infty \) (kepunahan) atau \( X_n \to \infty \) ketika \( n \to \infty \) (ledakan). Dari kajian kita mengenai rantai Markov, kita memiliki cukup banyak informasi tentang kejadian mana yang akan berlangsung, tetapi teorema konvergensi martingal memberikan lebih banyak informasi.</p>
+
+<div class="unit" id="brn1">
+	<p class="math">Kepunahan dan ledakan</p>
+	<ol class="sub">
+		<li>Jika \( m \le 1 \), maka \( q = 1 \) dan kepunahan pasti terjadi.</li>
+		<li>Jika \( m \gt 1 \), maka \( q \in (0, 1) \). Berlaku \( X_n \to 0 \) ketika \( n \to \infty \) atau \( X_n \to \infty \) ketika \( n \to \infty \) dengan laju eksponensial.</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Informasi yang baru adalah laju divergensi menuju \( \infty \) pada (b). Pernyataan lainnya berasal dari kajian kita mengenai rantai Markov percabangan waktu diskret. Dalam <a href="Introduction.html#brn">pendahuluan</a>, kita menunjukkan bahwa \( \{X_n / m^n: n \in \N\} \) merupakan martingal. Karena martingal ini nonnegatif, martingal tersebut memiliki limit ketika \( n \to \infty \), dan peubah acak limitnya bernilai dalam \( \R \). Jadi, jika \( m \gt 1 \) dan \( X_n \to \infty \) ketika \( n \to \infty \), maka divergensi menuju \( \infty \) pada dasarnya harus memiliki laju yang sama dengan \( m^n. \)</p>
+	</details>
+</div>
+
+<h4 id="bet">Proses Beta-Bernoulli</h4>
+
+<p>Ingat bahwa <a href="../bernoulli/BetaBernoulli.html">proses beta-Bernoulli</a> dikonstruksi dengan mengacak parameter keberhasilan dalam suatu <a href="../bernoulli/Introduction.html">proses percobaan Bernoulli</a> menggunakan <a href="../special/Beta.html">distribusi beta</a>. Secara khusus, kita mulai dengan peubah acak \( P \) yang berdistribusi beta dengan parameter \( a, \, b \in (0, \infty) \). Selanjutnya, kita memiliki barisan peubah indikator \( \bs X = (X_1, X_2, \ldots) \) dengan sifat bahwa \( \bs X \) independen bersyarat jika diberikan \( P = p \in (0, 1) \), dengan \( \P(X_i = 1 \mid P = p) = p \) untuk \( i \in \N_+ \). Misalkan \( \bs{Y} = \{Y_n: n \in \N\} \) menyatakan proses jumlah parsial yang terkait dengan \( \bs{X} \), sehingga sekali lagi, \( Y_n = \sum_{i=1}^n X_i\) untuk \(n \in \N \). Selanjutnya, tetapkan \( M_n = Y_n / n \) untuk \( n \in \N_+ \), sehingga \( M_n \) merupakan <dfn>rata-rata sampel</dfn> dari \( (X_1, X_2, \ldots, X_n) \). Terakhir, tetapkan
+\[ Z_n = \frac{a + Y_n}{a + b + n}, \quad n \in \N\]
+Dalam <a href="Introduction.html#bet">pendahuluan</a>, kita menunjukkan bahwa \( \bs Z = \{Z_n: n \in \N\} \) merupakan martingal terhadap \( \bs X \).</p>
+
+<div class="unit" id="bet1">
+	<p class="math">\( M_n \to P \) dan \( Z_n \to P \) ketika \( n \to \infty \) dengan probabilitas 1 dan dalam rata-rata.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Dalam bagian tentang <a href="../bernoulli/BetaBernoulli.html#pro2">proses beta-Bernoulli</a>, kita menunjukkan bahwa \( Z_n \to P \) ketika \( n \to \infty \) dengan probabilitas 1. Perhatikan bahwa \( 0 \le Z_n \le 1 \) untuk \( n \in \N \), sehingga martingal \( \bs Z \) terintegralkan seragam. Oleh karena itu, teorema konvergensi martingal <a href="#mct3" class="ref"></a> berlaku, dan konvergensi tersebut juga berlaku dalam rata-rata.</p>
+	</details>
+</div>
+
+<p>Ini merupakan hasil yang sangat bagus dan mengingatkan kita pada fakta bahwa untuk barisan percobaan Bernoulli biasa dengan parameter keberhasilan \( p \in (0, 1) \), berdasarkan hukum bilangan besar berlaku \( M_n \to p \) ketika \( n \to \infty \) dengan probabilitas 1 dan dalam rata-rata.</p>
+
+<h4 id="urn">Proses Urna P&oacute;lya</h4>
+
+<p>Ingat bahwa dalam versi paling sederhana dari <a href="../urn/Polya.html">proses urna P&oacute;lya</a>, kita mulai dengan sebuah urna yang berisi \( a \) bola merah dan \( b \) bola hijau. Pada setiap langkah waktu diskret, kita memilih sebuah bola secara acak dari urna, lalu mengembalikan bola tersebut dan menambahkan \( c \) bola baru dengan warna yang sama ke dalam urna. Parameternya harus memenuhi \( a, \, b \in \N_+ \) dan \( c \in \N \). Untuk \( i \in \N_+ \), misalkan \( X_i \) menyatakan warna bola yang dipilih pada pengambilan ke-\( i \), dengan 1 berarti merah dan 0 berarti hijau. Untuk \( n \in \N \), tetapkan \( Y_n = \sum_{i=1}^n X_i \), sehingga \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses jumlah parsial yang terkait dengan \( \bs X = \{X_i: i \in \N_+\} \). Karena \( Y_n \) merupakan banyaknya bola merah dalam urna pada waktu \( n \in \N_+ \), banyaknya bola <em>rata-rata</em> pada waktu \( n \) adalah \( M_n = Y_n / n \). Di sisi lain, jumlah seluruh bola dalam urna pada waktu \( n \in \N \) adalah \( a + b + c n \), sehingga <em>proporsi</em> bola merah dalam urna pada waktu \( n \) adalah
+\[ Z_n = \frac{a + c Y_n}{a + b + c n} \]
+Dalam <a href="Introduction.html#urn">pendahuluan</a>, kita menunjukkan bahwa \( \bs Z = \{Z_n: n \in \N\} \) merupakan martingal. Sekarang kita tertarik pada perilaku limit \( M_n \) dan \( Z_n \) ketika \( n \to \infty \). Ketika \( c = 0 \), jawabannya mudah. Dalam kasus ini, \( Y_n \) memiliki distribusi binomial dengan parameter percobaan \( n \) dan parameter keberhasilan \( a / (a + b) \), sehingga berdasarkan hukum bilangan besar (<a href="../sample/LLN.html">Bagian 5.3</a>), \( M_n \to a / (a + b) \) ketika \( n \to \infty \) dengan probabilitas 1 dan dalam rata-rata. Di sisi lain, \( Z_n = a / (a + b) \) ketika \( c = 0 \). Jadi, kasus yang menarik adalah ketika \( c \gt 0 \).</p>
+
+<div class="unit" id="urn1">
+	<p class="math">Misalkan \( c \in \N_+ \). Maka terdapat peubah acak \( P \), sedemikian sehingga \( M_n \to P \) dan \( Z_n \to P \) ketika \( n \to \infty \) dengan probabilitas 1 dan dalam rata-rata. Selain itu, \( P \) memiliki distribusi beta dengan parameter kiri \( a / c \) dan parameter kanan \( b / c \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Dalam kajian kita mengenai <a href="../urn/Polya.html">proses urna P&oacute;lya</a>, kita menunjukkan bahwa ketika \( c \in \N_+ \), proses \( \bs X \) merupakan proses beta-Bernoulli dengan parameter \( a / c \) dan \( b / c \). Jadi, hasilnya mengikuti <a href="#bet1" class="ref"></a>.</p>
+	</details>
+</div>
+
+<h4 id="lrt">Uji Rasio Kemungkinan</h4>
+
+<p>Ingat pembahasan mengenai uji rasio kemungkinan dalam <a href="Introduction.html#lrt">pendahuluan</a>. Sebagai tinjauan, misalkan \( (S, \mathscr{S}, \mu) \) merupakan ruang ukuran umum, dan \( \bs{X} = \{X_n: n \in \N\} \) merupakan barisan peubah acak independen dan berdistribusi identik yang bernilai dalam \( S \) serta memiliki fungsi kepadatan probabilitas bersama terhadap \( \mu \). <a href="../hypothesis/Likelihood.html">Uji rasio kemungkinan</a> merupakan suatu <a href="../hypothesis/index.html">uji hipotesis</a>, dengan hipotesis nol dan alternatif sebagai berikut:</p>
+
+<ul>
+	<li>\( H_0 \): fungsi kepadatan probabilitasnya adalah \( g_0 \).</li>
+	<li>\( H_1 \): fungsi kepadatan probabilitasnya adalah \( g_1 \).</li>
+</ul>	 
+	  
+<p>Kita mengandaikan bahwa \( g_0 \) dan \( g_1 \) positif pada \( S \). Selain itu, tidak masuk akal jika \( g_0 \) dan \( g_1 \) sama, sehingga kita mengandaikan bahwa \( g_0 \ne g_1 \) pada suatu himpunan berukuran positif. Uji tersebut didasarkan pada <dfn>statistik uji rasio kemungkinan</dfn>
+\[ L_n = \prod_{i=1}^n \frac{g_0(X_i)}{g_1(X_i)}, \quad n \in \N \]
+Kita telah menunjukkan bahwa di bawah hipotesis alternatif \( H_1 \), \( \bs{L} = \{L_n: n \in \N\} \) merupakan martingal terhadap \( \bs{X} \), yang dikenal sebagai <dfn>martingal rasio kemungkinan</dfn>. </p>
+
+<div class="unit" id="lrt1">
+	<p class="math">Di bawah \( H_1 \), \( L_n \to 0 \) ketika \( n \to \infty \) dengan probabilitas 1.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Andaikan bahwa \( H_1 \) benar. \( \bs L \) merupakan martingal nonnegatif, sehingga teorema konvergensi martingal pertama berlaku, dan karenanya terdapat peubah acak \( L_\infty \) yang bernilai dalam \( [0, \infty) \), sedemikian sehingga \( L_n \to L_\infty \) ketika \( n \to \infty \) dengan probabilitas 1. Selanjutnya, perhatikan bahwa
+		\[ \ln(L_n) = \sum_{i=1}^n \ln\left[\frac{g_0(X_i)}{g_1(X_i)}\right] \]
+		Peubah-peubah \( \ln[g_0(X_i) / g_1(X_i)] \) untuk \( i \in \N_+ \) juga independen dan berdistribusi identik, jadi misalkan \( m \) menyatakan rata-rata bersamanya. Logaritma alami bersifat cekung dan martingal \( \bs L \) memiliki rata-rata 1, sehingga berdasarkan <a href="../expect/Properties2.html#jen">pertidaksamaan Jensen</a>,
+		\[ m = \E\left(\ln\left[\frac{g_0(X)}{g_1(X)}\right]\right) \lt \ln\left(\E\left[\frac{g_0(X)}{g_1(X)}\right]\right) = \ln(1) = 0  \]
+		Oleh karena itu, \( m \in [-\infty, 0) \). Berdasarkan <a href="../sample/LLN.html">hukum kuat bilangan besar</a>, \( \frac{1}{n} \ln(L_n) \to m \) ketika \( n \to \infty \) dengan probabilitas 1. Dengan demikian, harus berlaku \( \ln(L_n) \to -\infty \) ketika \( n \to \infty \) dengan probabilitas 1. Namun, berdasarkan kekontinuan, \( \ln(L_n) \to \ln(L_\infty) \) ketika \( n \to \infty \) dengan probabilitas 1, sehingga \( L_\infty = 0 \) dengan probabilitas 1.</p>
+	</details>
+</div>
+
+<p>Teorema <a href="#lrt1" class="ref"></a> merupakan kabar baik dari sudut pandang statistik. Nilai kecil \( L_n \) merupakan bukti yang mendukung \( H_1 \), sehingga aturan keputusannya adalah menolak \( H_0 \) demi \( H_1 \) jika \( L_n \le l \) untuk suatu nilai kritis terpilih \( l \in (0, \infty) \). Jika \( H_1 \) benar dan ukuran sampel \( n \) cukup besar, kita akan menolak \( H_0 \). Dalam bukti, perhatikan bahwa \( \ln(L_n) \) harus divergen menuju \( -\infty \) setidaknya secepat \( n \) divergen menuju \( \infty \). Oleh karena itu, \( L_n \to 0 \) ketika \( n \to \infty \) setidaknya dengan laju eksponensial. Perlu diperhatikan pula bahwa \( \bs L \) merupakan martingal dengan rata-rata 1 (di bawah \( H_1 \)), sehingga secara langsung \( \E(L_n) \to 1 \) ketika \( n \to \infty \), meskipun \( L_n \to 0 \) ketika \( n \to \infty \) dengan probabilitas 1. Jadi, martingal rasio kemungkinan merupakan contoh yang baik dari barisan yang tidak memungkinkan pertukaran limit dan nilai harapan.</p>
+
+<h4>Hasil Kali Parsial</h4>
+
+<p>Misalkan \( \bs X = \{X_n: n \in \N_+\} \) merupakan barisan independen peubah acak nonnegatif dengan \( \E(X_n) = 1 \) untuk \( n \in \N_+ \). Tetapkan
+\[Y_n = \prod_{i=1}^n X_i, \quad n \in \N\]
+sehingga \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses hasil kali parsial yang terkait dengan \( \bs X \). Dari pembahasan mengenai proses ini dalam <a href="Introduction.html#prd">pendahuluan</a>, kita mengetahui bahwa \( \bs Y \) merupakan martingal terhadap \( \bs X \). Karena \( \bs Y \) nonnegatif, teorema konvergensi martingal <a href="#mct2" class="ref"></a> berlaku, sehingga terdapat peubah acak \( Y_\infty \), sedemikian sehingga \( Y_n \to Y_\infty \) ketika \( n \to \infty \) dengan probabilitas 1. Apa lagi yang dapat kita katakan? Hasil berikut, yang dikenal sebagai <dfn>teorema martingal hasil kali Kakutani</dfn>, berasal dari Shizuo Kakutani.</p>
+
+<div class="unit">
+	<p class="math">Tetapkan \( a_n = \E\left(\sqrt{X_n}\right) \) untuk \( n \in \N_+ \), dan tetapkan \( A = \prod_{i=1}^\infty a_i \).</p>
+	<ol class="sub">
+		<li>Jika \( A \gt 0 \), maka \( Y_n \to Y_\infty \) ketika \( n \to \infty \) dalam rata-rata dan \( \E(Y_\infty) = 1 \).</li>
+		<li>Jika \( A = 0 \), maka \( Y_\infty = 0 \) dengan probabilitas 1.</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Perhatikan bahwa \( a_n \gt 0 \) untuk \( n \in \N_+ \), karena \( X_n \) nonnegatif dan \( \P(X_n \gt 0) \gt 0 \). Selain itu, karena \( x \mapsto \sqrt{x} \) cekung pada \( (0, \infty) \), berdasarkan <a href="../expect/Properties2.html#jen">pertidaksamaan Jensen</a> diperoleh
+		\[ a_n = \E\left(\sqrt{X_n}\right) \le \sqrt{\E(X_n)} = 1 \]
+		Tetapkan \( A_n = \prod_{i=1}^n a_i \) untuk \( n \in \N \). Karena \( a_n \in (0, 1] \) untuk \( n \in \N_+ \), diperoleh bahwa \( A_n \in (0, 1] \) untuk \( n \in \N \), dan \( A_n \) menurun dalam \( n \in \N \) dengan limit \( A = \prod_{i=1}^\infty a_i \in [0, 1] \). Selanjutnya, tetapkan \(Z_n = \prod_{i=1}^n \sqrt{X_i} / a_i\) untuk \( n \in \N \), sehingga \( \bs Z = \{Z_n: n \in \N\} \) merupakan proses hasil kali parsial yang terkait dengan \( \{\sqrt{X_n} / a_n: n \in \N\} \). Karena \( \E\left(\sqrt{X_n} / a_n\right) = 1 \) untuk \( n \in \N_+ \), proses \( \bs Z \) juga merupakan martingal nonnegatif, sehingga terdapat peubah acak \( Z_\infty \), sedemikian sehingga \( Z_n \to Z_\infty \) ketika \( n \to \infty \) dengan probabilitas 1. Perhatikan bahwa \( Z_n^2 = Y_n / A_n^2 \), \( Y_n = A_n^2 Z_n^2 \), dan \( Y_n \le Z_n^2 \) untuk \( n \in \N \).</p>
+		<ol class="sub">
+			<li>Misalkan \( A \gt 0 \). Karena martingal \( \bs Y \) memiliki rata-rata 1,
+			\[ \E\left(Z_n^2\right) = \E(Y_n / A_n^2) = 1 / A_n^2 \le 1 / A^2 \lt \infty, \quad n \in \N \]
+			Tetapkan \( W_n = \max\{Z_k: k \in \{0, 1, \ldots, n\}\} \) untuk \( n \in \N \), sehingga \( \bs W = \{W_n: n \in \N\} \) merupakan proses maksimal yang terkait dengan \( \bs Z \). Tetapkan pula \( W_\infty = \sup\{Z_k: k \in \N\} \), dan perhatikan bahwa \( W_n \uparrow W_\infty \) ketika \( n \to \infty \). Berdasarkan <a href="Inequalities.html#max6">pertidaksamaan maksimal</a> \( \mathscr{L}_2 \),
+			\[ \E(W_n^2) \le 4 \E(Z_n^2) \le 4 / A^2, \quad n \in \N \]
+			Berdasarkan teorema konvergensi monoton, \( \E(W_\infty^2) = \lim_{n \to \infty} \E(W_n^2) \le 4 / A^2 \).
+			Karena \( x \to x^2 \) naik tegas pada \( [0, \infty) \), \( W_\infty^2 = \sup\{Z_n^2: n \in \N\} \), sehingga \( Y_n \le W_\infty^2 \) untuk \( n \in \N \). Karena \( \E(W_\infty^2) \lt \infty \), diperoleh bahwa martingal \( \bs Y \) <a href="../expect/Uniform.html">terintegralkan seragam</a>. Oleh karena itu, berdasarkan teorema konvergensi martingal <a href="#mct3" class="ref"></a>, \( Y_n \to Y_\infty \) dalam rata-rata. Karena konvergensi dalam rata-rata menyiratkan bahwa rata-ratanya konvergen, \( \E(Y_\infty) = \lim_{n \to \infty} \E(Y_n) = 1 \).
+			</li>
+			<li>Misalkan \( A = 0 \). Maka \( Y_n = A_n^2 Z_n^2  \to 0 \cdot Z_\infty^2 = 0\) ketika \( n \to \infty \) dengan probabilitas 1. Perhatikan bahwa dalam kasus ini, konvergensinya tidak berlaku dalam rata-rata, dan secara langsung \( \E(Y_\infty) = 0 \).</li>
+		</ol>
+	</details>
+</div>
+
+<h4 id="den">Fungsi Kepadatan</h4>
+
+<p>Pembahasan ini melanjutkan pembahasan mengenai fungsi kepadatan dalam <a href="Introduction.html#den">pendahuluan</a>. Sebagai tinjauan, kita mulai dengan ruang probabilitas \( (\Omega, \mathscr{F}, \P) \) dan filtrasi \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \) dalam waktu diskret. Ingat kembali bahwa \( \mathscr{F}_\infty = \sigma \left(\bigcup_{n=0}^\infty \mathscr{F}_n\right) \). Misalkan sekarang \( \mu \) merupakan <a href="../foundations/General.html">ukuran berhingga</a> pada ruang sampel \( (\Omega, \mathscr{F}) \). Untuk setiap \( n \in \N \cup \{\infty\} \), restriksi \( \mu \) pada \( \mathscr{F}_n \) merupakan ukuran pada \( (\Omega, \mathscr{F}_n) \), dan demikian pula restriksi \( \P \) pada \( \mathscr{F}_n \) merupakan ukuran probabilitas pada \( (\Omega, \mathscr{F}_n) \). Untuk menghemat notasi dan terminologi, masing-masing akan kita sebut sebagai <dfn>\( \mu \) dan \( \P \) pada \(\mathscr{F}_n\)</dfn>. Misalkan sekarang \( \mu \) kontinu mutlak terhadap \( \P \) pada \(\mathscr{F}_n\) untuk setiap \( n \in \N \). Berdasarkan <a href="../foundations/Density.html#lrn">teorema Radon-Nikodym</a>, \( \mu \) memiliki fungsi kepadatan (atau turunan Radon-Nikodym) \( X_n: \Omega \to \R \) terhadap \( \P \) pada \( \mathscr{F}_n \) untuk setiap \( n \in \N \). Teorema dan turunannya dinamai menurut <a href="JavaScript:openAncillary('../biographies/Radon.html')" class="ancillary">Johann Radon</a> dan <a href="JavaScript:openAncillary('../biographies/Nikodym.html')" class="ancillary">Otto Nikodym</a>. Dalam pendahuluan, kita menunjukkan bahwa \( \bs X = \{X_n: n \in \N\} \) merupakan martingal terhadap \( \mathfrak F\). Berikut hasil konvergensinya:</p>
+
+<div class="unit" id="den1">
+	<p class="math">Terdapat peubah acak \( X_\infty \), sedemikian sehingga \( X_n \to X_\infty \) ketika \( n \to \infty \) dengan probabilitas 1.</p>
+	<ol class="sub">
+		<li>Jika \( \mu \) kontinu mutlak terhadap \( \P \) pada \( \mathscr{F}_\infty \), maka \( X_\infty \) merupakan fungsi kepadatan \( \mu\) terhadap \( \P \) pada \(\mathscr{F}_\infty\).</li>
+		<li>Jika \( \mu \) dan \( \P \) saling singular pada \( \mathscr{F}_\infty \), maka \( X_\infty = 0 \) dengan probabilitas 1.</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Sekali lagi, seperti yang ditunjukkan dalam <a href="Introduction.html#den">pendahuluan</a>, \( \bs X \) merupakan martingal terhadap \( \mathfrak F \). Selain itu, \( \E(|X_n|) = \|\mu\| \) (variasi total dari \( \mu \)) untuk setiap \( n \in \N \). Karena \( \mu \) merupakan ukuran berhingga, \( \|\mu\| \lt \infty \), sehingga teorema konvergensi martingal <a href="#mct1" class="ref"></a> berlaku. Oleh karena itu, terdapat peubah acak \( X_\infty \), yang terukur terhadap \( \mathscr{F}_\infty \), sedemikian sehingga \( X_n \to X_\infty \) ketika \( n \to \infty \).</p>
+		<ol class="sub">
+			<li>Jika \( \mu \) kontinu mutlak terhadap \( \P \) pada \( \mathscr{F}_\infty \), maka \( \mu \) memiliki fungsi kepadatan \( Y_\infty \) terhadap \( \P \) pada \( \mathscr{F}_\infty \). Tujuan kita adalah menunjukkan bahwa \( X_\infty = Y_\infty \) dengan probabilitas 1. Berdasarkan definisi, \( Y_\infty \) terukur terhadap \( \mathscr{F}_\infty \) dan 
+			\[ \int_A Y_\infty d\P = \E(Y_\infty; A) = \mu(A), \quad A \in \mathscr{F}_\infty \]
+			Misalkan sekarang \( n \in \N \) dan \( A \in \mathscr{F}_n \). Sekali lagi berdasarkan definisi, \( \E(X_n; A) = \mu(A)\). Namun, \( A \in \mathscr{F}_\infty \) juga, sehingga \( \E(Y_\infty; A) = \mu(A) \). Ringkasnya, \( X_n \) bersifat \( \mathscr{F}_n \)-terukur dan \( E(X_n: A) = \E(Y_\infty; A) \) untuk setiap \( A \in \mathscr{F}_n \). Berdasarkan definisi, ini berarti bahwa \( X_n = \E(Y_\infty \mid \mathscr{F}_n) \), sehingga \( \bs X \) merupakan martingal Doob <a href="#doo" class="ref"></a> yang terkait dengan \( Y_\infty \). Dengan mengambil \( n \to \infty \) dan menggunakan <a href="#doo1" class="ref"></a>, diperoleh \( X_\infty = \E(Y_\infty \mid \mathscr{F}_\infty) = Y_\infty \) (tentu saja dengan probabilitas 1).</li>
+			<li>Misalkan \( \mu \) dan \( \P \) saling singular pada \( \mathscr{F}_\infty \). Andaikan terlebih dahulu bahwa \( \mu \) merupakan ukuran positif, sehingga \( X_n \) nonnegatif untuk \( n \in \N \cup \{\infty\}\). Berdasarkan definisi kesingularan bersama, terdapat \( B \in \mathscr{F}_\infty \), sedemikian sehingga \( \mu_\infty(B) = 0 \) dan \( \P_\infty(B^c) = 0 \), sehingga \( \P(B) = 1 \). Tujuan kita adalah menunjukkan bahwa \( \E(X_\infty; A) \le \mu(A) \) untuk setiap \( A \in \mathscr{F}_\infty \). Untuk itu, tetapkan 
+			\[ \mathscr{M} = \left\{A \in \mathscr{F}_\infty: \E(X_\infty ; A) \le \mu(A)\right\} \]
+			Misalkan \( A \in \bigcup_{k=0}^\infty \mathscr{F}_k \), sehingga \( A \in \mathscr{F}_k \) untuk suatu \( k \in \N \). Maka \( A \in \mathscr{F}_n \) untuk semua \( n \ge k \), dan karena itu \( \E(X_n; A) = \mu(A) \) untuk semua \( n \ge k \). Berdasarkan <a href="../expect/Integral.html">lema-lema Fatou</a>,
+			\[ \E(X_\infty; A) \le \liminf_{n \to \infty} \E(X_n; A) \le \mu(A) \]
+			sehingga \( A \in \mathscr{M} \). Selanjutnya, misalkan \( \{A_n: n \in \N\} \) merupakan barisan menaik atau menurun dalam \( \mathscr{M} \), dan tetapkan \( A_\infty = \lim_{n \to \infty} A_n \) (gabungan dalam kasus pertama dan irisan dalam kasus kedua). Maka \( \E(X_\infty; A_n) \le \mu(A_n) \) untuk setiap \( n \in \N \). Berdasarkan teorema-teorema kekontinuan, \( \E(X_\infty; A_n) \to \E(X_\infty; A_\infty) \) dan \( \mu(A_n) \to \mu(A_\infty) \) ketika \( n \to \infty \). Oleh karena itu, \( \E(X_\infty; A_\infty) \le \mu(A_\infty) \), sehingga \( A_\infty \in \mathscr{M} \). Akibatnya, \( \mathscr{M} \) merupakan <a href="../foundations/Other.html#mon1">kelas monoton</a>. Karena \( \mathscr{M} \) memuat aljabar \( \bigcup_{n=0}^\infty \mathscr{F}_n \), berdasarkan <a href="../foundations/Other.html#mon2">teorema kelas monoton</a> diperoleh bahwa \( \mathscr{F}_\infty \subseteq \mathscr{M} \). Secara khusus, \( B \in \mathscr{M} \), sehingga \( \E(X_\infty) = \E(X_\infty; B) \le \mu(B) = 0 \), dan karenanya \( X_\infty = 0 \) dengan probabilitas 1. Jika \( \mu \) merupakan ukuran berhingga umum, maka berdasarkan <a href="../foundations/General.html#jor">teorema dekomposisi Jordan</a>, \( \mu \) dapat ditulis secara unik dalam bentuk \( \mu = \mu^+ - \mu^- \), dengan \( \mu^+ \) dan \( \mu^- \) merupakan ukuran positif berhingga. Selain itu, \( X_n^+ \) merupakan fungsi kepadatan \( \mu^+ \) pada \(\mathscr{F}_n\), dan \( X_n^- \) merupakan fungsi kepadatan \( \mu^- \) pada \( \mathscr{F}_n \). Berdasarkan bagian pertama bukti, \( X^+ = 0 \), \( X^- = 0 \), dan juga \( X = 0 \), semuanya dengan probabilitas 1.</li>
+		</ol>
+	</details>
+</div>
+
+<p>Pendekatan martingal dapat digunakan untuk memberikan bukti probabilistik bagi teorema Radon-Nikodym, setidaknya dalam kasus-kasus tertentu. Kita mulai dengan himpunan sampel \( \Omega \). Misalkan \( \mathscr{A}_n = \{A^n_i: i \in I_n\} \) merupakan partisi terhitung dari \( \Omega \) untuk setiap \( n \in \N \). Jadi, \( I_n \) terhitung, \( A^n_i \cap A^n_j = \emptyset \) untuk \( i, \, j \in I_n \) yang berbeda, dan \( \bigcup_{i \in I_n} A^n_i = \Omega \). Andaikan pula bahwa \( \mathscr{A}_{n+1} \) <dfn>memperhalus</dfn> \( \mathscr{A}_n \) untuk setiap \( n \in \N \), dalam arti bahwa \( A^n_i \) merupakan gabungan himpunan-himpunan dalam \( \mathscr{A}_{n+1} \) untuk setiap \( i \in I_n \). Tetapkan \( \mathscr{F}_n = \sigma(\mathscr{A}_n) \). Jadi, \( \mathscr{F}_n \) dibangkitkan oleh partisi terhitung, sehingga himpunan-himpunan dalam \( \mathscr{F}_n \) berbentuk \( \bigcup_{j \in J} A^n_j \), dengan \( J \subseteq I_n \). Selain itu, berdasarkan sifat penghalusan, \( \mathscr{F}_n \subseteq \mathscr{F}_{n+1} \) untuk \( n \in \N \), sehingga \( \mathfrak F = \{\mathscr{F}_n: n \in \N\} \) merupakan filtrasi. Tetapkan \( \mathscr{F} = \mathscr{F}_\infty = \sigma\left(\bigcup_{n=0}^\infty \mathscr{F}_n\right) = \sigma\left(\bigcup_{n=0}^\infty \mathscr{A}_n\right) \), sehingga ruang sampel kita adalah \( (\Omega, \mathscr{F}) \). Terakhir, misalkan \( \P \) merupakan ukuran probabilitas pada \( (\Omega, \mathscr{F}) \) dengan sifat bahwa \( \P(A^n_i) \gt 0 \) untuk \( n \in \N \) dan \( i \in I_n \). Sekarang kita memiliki ruang probabilitas \( (\Omega, \mathscr{F}, \P) \). Ruang probabilitas menarik yang muncul dalam penerapan memiliki bentuk ini, sehingga kerangka tersebut tidak sespesifik yang mungkin Anda bayangkan.</p>
+
+<p>Misalkan sekarang \( \mu \) merupakan ukuran berhingga pada \( (\Omega, \mathscr{F}) \). Berdasarkan asumsi kita, satu-satunya himpunan nol bagi \( \P \) pada \(\mathscr{F}_n\) adalah \( \emptyset \), sehingga \( \mu \) secara otomatis kontinu mutlak terhadap \( \P \) pada \( \mathscr{F}_n \). Selain itu, untuk \( n \in \N \), kita dapat memberikan secara eksplisit fungsi kepadatan \( \mu \) terhadap \( \P \) pada \(\mathscr{F}_n\):</p>
+
+<div class="unit" id="den2">
+	<p class="math">Fungsi kepadatan \( \mu \) terhadap \( \P \) pada \( \mathscr F_n \) adalah peubah acak \( X_n \) yang nilainya pada \( A^n_i \) adalah \(\mu(A^n_i)/ \P(A^n_i) \) untuk setiap \( i \in I_n \). Secara ekuivalen,
+	\[ X_n = \sum_{i \in I_n} \frac{\mu(A^n_i)}{\P(A^n_i)} \bs{1}(A^n_i) \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Kita perlu menunjukkan bahwa \( \mu(A) = \E(X_n; A) \) untuk setiap \( A \in \mathscr F_n \). Jadi, misalkan \( A = \bigcup_{j \in J} A^n_j \), dengan \( J \subseteq I_n \). Maka
+		\[ \E(X_n; A) = \sum_{j \in J} \E(X_n; A^n_j) = \sum_{j \in J} \frac{\mu(A^n_j)}{\P(A^n_j)} \P(A^n_j) = \sum_{j \in J} \mu(A^n_j) = \mu(A)\]</p>
+	</details>
+</div>
+
+<p>Berdasarkan teorema di atas, terdapat peubah acak \( X \), sedemikian sehingga \( X_n \to X \) ketika \( n \to \infty \) dengan probabilitas 1. Jika \( \mu \) kontinu mutlak terhadap \( \P \) pada \( \mathscr{F} \), maka \( X \) merupakan fungsi kepadatan \( \mu \) terhadap \( \P \) pada \(\mathscr{F}\). Intinya adalah bahwa kita telah memberikan konstruksi kepadatan yang kurang lebih eksplisit.</p>
+
+<p>Sebagai contoh konkret, tinjau \( \Omega = [0, 1) \). Untuk \( n \in \N \), tetapkan
+\[ \mathscr{A}_n = \left\{\left[\frac{j}{2^n}, \frac{j + 1}{2^n}\right): j \in \{0, 1, \ldots, 2^n - 1\}\right\} \]
+Ini merupakan partisi \( [0, 1) \) menjadi \( 2^n \) subinterval dengan panjang yang sama, yaitu \( 1/2^n \), berdasarkan <dfn>bilangan rasional diadik</dfn> (atau <dfn>bilangan rasional biner</dfn>) dengan peringkat \( n \) atau kurang. Perhatikan bahwa setiap interval dalam \( \mathscr{A}_n \) merupakan gabungan dua interval berdampingan dalam \( \mathscr{A}_{n+1} \), sehingga sifat penghalusan berlaku. Misalkan \( \P \) merupakan ukuran Lebesgue biasa pada \( [0, 1) \), sehingga \( \P(A^n_i) = 1 / 2^n \) untuk \( n \in \N \) dan \( i \in \{0, 1, \ldots, 2^n - 1\} \). Seperti di atas, tetapkan \( \mathscr{F}_n = \sigma(\mathscr{A}_n) \) dan \( \mathscr{F} = \sigma\left(\bigcup_{n=0}^\infty \mathscr{F}_n\right) = \sigma\left(\bigcup_{n=0}^\infty \mathscr{A}_n\right) \). Bilangan rasional diadik rapat dalam \( [0, 1) \), sehingga \( \mathscr{F} \) merupakan aljabar-\( \sigma \) Borel biasa pada \( [0, 1) \). Jadi, ruang probabilitas kita \( (\Omega, \mathscr{F}, \P) \) adalah \( [0, 1) \) dengan struktur Euklides biasa. Jika \( \mu \) merupakan ukuran berhingga pada \( ([0, 1), \mathscr{F}) \), maka fungsi kepadatan \( \mu \) pada \( \mathscr{F}_n \) merupakan peubah acak \( X_n \) yang nilainya pada interval \( [j / 2^n, (j + 1) / 2^n) \) adalah \(2^n \mu[j / 2^n, (j + 1) / 2^n) \). Jika \( \mu \) kontinu mutlak terhadap \( \P \) pada \( \mathscr{F} \) (jadi kontinu mutlak dalam pengertian biasa), maka suatu fungsi kepadatan \( \mu \) adalah \( X = \lim_{n \to \infty} X_n \).</p>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Martingal</a></li>
+		<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
+		<li class="child"><a href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
+		<li class="child"><a href="Stop.html" title="Waktu Henti">3</a></li>
+		<li class="child"><a href="Inequalities.html" title="Pertidaksamaan">4</a></li>
+		<li class="current">5</li>
+		<li class="child"><a href="Backwards.html" title="Martingal Mundur">6</a></li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Kumpulan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

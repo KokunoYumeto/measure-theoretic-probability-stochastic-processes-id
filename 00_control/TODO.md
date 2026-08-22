@@ -46,6 +46,9 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Translate `martingales/Inequalities.html` with exact topology and all 550 TeX surfaces preserved.
 - [x] Integrate 26 exact-once reader actions, the O006 dependency edge, backend records, and mobile reflow; verify the 39-file site and 3,159-record backend.
 - [x] Publish and anonymously verify the 39-file seventh boundary.
+- [x] Translate `martingales/Convergence.html` with exact topology and all 722 source TeX surfaces preserved.
+- [x] Integrate 30 exact-once reader actions, five outcomes, density/application graph, O006 prerequisite edges, and mobile reflow; complete mathematical and whole-reader browser QA.
+- [~] Publish and anonymously verify the 40-file eighth boundary.
 
 ## Remaining corpus
 
@@ -54,7 +57,7 @@ Statuses: `[x]` done, `[~]` active, `[ ]` pending.
 - [x] Distributional/Lp/uniform-integrability convergence.
 - [x] Measure-theoretic conditional expectation and kernels (`Conditional2`, `Uniform`, and `Kernels` public and anonymously verified).
 - [ ] Link, do not duplicate, the O006 sampling/LLN/CLT prerequisite.
-- [~] Martingale properties, stopping, inequalities, convergence, and backwards martingales; `Introduction`, `Properties`, `Stop`, and `Inequalities` are public and anonymously verified; continue with `martingales/Convergence.html`.
+- [~] Martingale properties, stopping, inequalities, convergence, and backwards martingales; through `Inequalities` is public, `Convergence` is locally verified and awaiting immediate publication, then continue with `martingales/Backwards.html`.
 - [ ] Discrete and continuous Markov processes; add dependency-closed computational labs.
 - [ ] Poisson processes and a new executable event-time lab.
 - [ ] Renewal equations/limits/delays/alternation/rewards and a new simulation lab.

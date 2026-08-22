@@ -2,7 +2,8 @@
 
 As of 2026-08-22, this is an active O009/D30 production lane. Its first seven
 reader boundaries are public and anonymously byte-verified on GitHub Pages.
-The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
+The eighth boundary is locally verified and awaiting its immediate publication
+transaction. The complete Indonesian edition is not yet finished, and no upstream contact has occurred.
 Completion of this edition is independent of the coordinator's later
 curriculum-admission decision.
 
@@ -284,12 +285,44 @@ Commit `bf8761e7b57f32738e41a6bf449de22a923185da` (tree
 anonymous readback matched all 39 manifested files and 2,465,207 bytes at
 2026-08-22T02:29:21.6560745Z. See `PUBLICATION_RECEIPT.json`.
 
+### Eighth reader boundary (locally verified; publication pending)
+
+`martingales/Convergence.html` is completely translated, repaired downstream,
+integrated, and visually inspected:
+
+- frozen authority: 44,951 bytes / SHA-256
+  `c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f`;
+- Indonesian source: 47,368 bytes / SHA-256
+  `da3c58c6260e21b9c04a67bdb18656bfcaabea4d7f8ee83b8f9538d0668a5747`;
+- built reader: 50,294 bytes / SHA-256
+  `0df044a093006920698ab95354c6c5cf3ebde8b4dc0f56be563f67764362ffa4`.
+
+The authority/source pair preserves the exact 275-element topology, 22 IDs,
+12 disclosures, 13 units, and all 722 ordered TeX surfaces. Thirty exact-once
+reader actions repair convergence proofs and links, random-walk, branching,
+beta–Bernoulli, Pólya, likelihood-ratio, partial-product, and signed-density
+arguments; two displays are reflowed for mobile. An independent re-audit found
+no remaining mathematical veto.
+
+The site contains 40 manifested files / 2,515,782 bytes at manifest SHA-256
+`f930653432a727a7941bfb1af77185d46635801e62aaabcd7891b67077b446ff`.
+The backend contains 914 entities, 2,405 segments, and 844 relations (3,319
+semantic records), with zero QA failures; manifest SHA-256
+`038d71c967415bbe1d6613e83d4a9cb7518ac7fa84c377aa90087cd2d1d99a1c`.
+Whole-reader
+browser QA covered all 15 pages at 1280×720 and 390×844. Each sweep rendered
+8,580 math containers and 247 details with zero bad rows, reader-origin browser
+warnings/errors, broken assets, empty visible references, external runtime, or
+document overflow. See `qa/EIGHTH_BOUNDARY_CHECKPOINT_20260822.md`.
+
 ## Next exact action
 
-1. Continue in source order with
-   `authority/random/static/martingales/Convergence.html` (44,951 bytes,
+1. Commit and push the verified 40-file eighth boundary, wait for its Pages
+   deployment, and anonymously read back every manifested byte.
+2. Record the public receipt, then continue in source order with
+   `authority/random/static/martingales/Backwards.html` (31,248 bytes,
    SHA-256
-   `c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f`).
+   `adae3d5409d9f698129b8b21dfe9f1cd8d3045e2bd3f79e42cbc70751b7b28ba`).
 
 The durable goal remains active. No PDF has yet been admitted because HTML is
 the additive and accessible publication surface at this boundary.

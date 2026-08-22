@@ -49,3 +49,12 @@ O009-T0047,Doob Lp maximal inequality,pertidaksamaan maksimal Lp Doob,provisiona
 O009-T0048,upcrossing,lintas-naik,admitted,course,Use consistently for alternating crossings from at most a to at least b.
 O009-T0049,upcrossing inequality,pertidaksamaan lintas-naik,admitted,course,Doob's oscillation bound for submartingales or supermartingales.
 O009-T0050,bold play,permainan berani,provisional,course,Retain the English term in parentheses on first occurrence in the gambling application.
+O009-T0051,martingale convergence theorem,teorema konvergensi martingal,admitted,course,Qualify first/second theorem where the source distinguishes them.
+O009-T0052,uniform integrability,keterintegralan seragam,admitted,course,Use peubah terintegralkan seragam for the adjectival form.
+O009-T0053,beta-Bernoulli process,proses beta–Bernoulli,admitted,course,Preserve the named compound process.
+O009-T0054,Pólya urn process,proses urna Pólya,admitted,course,Distinguish sample draw proportion from urn composition.
+O009-T0055,likelihood-ratio martingale,martingal rasio kemungkinan,admitted,course,Matches uji rasio kemungkinan in the statistical application.
+O009-T0056,partial-product process,proses hasil kali parsial,admitted,course,Place indexed normalizers inside the product.
+O009-T0057,Radon-Nikodym derivative,turunan Radon–Nikodym,admitted,course,Also describe as fungsi kepadatan when appropriate.
+O009-T0058,total variation,variasi total,admitted,course,Distinguish ambient variation from the variation of a restricted signed measure.
+O009-T0059,mutually singular measures,ukuran saling singular,admitted,course,For a signed measure interpret singularity through its total variation.

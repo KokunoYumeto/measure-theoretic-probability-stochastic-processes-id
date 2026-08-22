@@ -899,6 +899,230 @@ Jadi \(\bs W\) merupakan supermartingal nonnegatif. Berdasarkan <a class="ref" h
     },
 )
 
+MARTINGALE_CONVERGENCE_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "submartingale-expectation-macro",
+        "old": r"\( E(X_t \mid \mathscr{F}_s) \ge X_s\)",
+        "new": r"\( \E(X_t \mid \mathscr{F}_s) \ge X_s\)",
+        "description": "Use the page's defined expectation macro in the introductory submartingale relation.",
+    },
+    {
+        "id": "upcrossing-time-domain",
+        "old": r"\[ \E[U_t(a, b)] \le \frac{1}{b - a}[|a| + \E(|X_t|)]  \le \frac{|a| + c}{b - a}, \quad n \in \N\]",
+        "new": r"\[ \E[U_t(a, b)] \le \frac{1}{b-a}[|a|+\E(|X_t|)] \le \frac{|a|+c}{b-a}, \quad t \in T \]",
+        "description": "Use the general time index t in the first martingale-convergence proof.",
+    },
+    {
+        "id": "upcrossing-limit-bound",
+        "old": r"\[ \E[U_\infty(a, b)] \lt \frac{|a| + c}{b - a} \lt \infty  \]",
+        "new": r"\[ \E[U_\infty(a,b)] \le \frac{|a|+c}{b-a} \lt \infty \]",
+        "description": "Use the non-strict bound justified after passing to the increasing limit.",
+    },
+    {
+        "id": "upcrossing-discrete-continuous-references",
+        "old": r'<a href="Inequalities.html#upc3">karakterisasi</a> konvergensi kita dalam hal lintas-naik',
+        "new": r'<a href="Inequalities.html#upc3">karakterisasi waktu diskret</a> dan <a href="Inequalities.html#upc7">karakterisasi waktu kontinu</a> dalam hal lintas-naik',
+        "description": "Cite the separate discrete- and continuous-time upcrossing characterizations used by the theorem.",
+    },
+    {
+        "id": "limit-variable-measurability",
+        "old": r"Perhatikan bahwa \( X \) terukur terhadap \( \mathscr{F}_\infty \).",
+        "new": r"Perhatikan bahwa \( X_\infty \) terukur terhadap \( \mathscr{F}_\infty \).",
+        "description": "Name the limiting random variable in the measurability conclusion.",
+    },
+    {
+        "id": "uniform-integrability-valid-terminal-proof",
+        "old": r'''<p>Karena \( \bs X = \{X_t: t \in T\} \) terintegralkan seragam, \( \E(|X_t|) \) terbatas dalam \( t \in T \). Oleh karena itu, berdasarkan teorema konvergensi martingal <a class="ref" href="https://www.randomservices.org/random/martingales/mct1"></a>, terdapat \( X_\infty \) yang terukur terhadap \( \mathscr{F}_\infty \), sedemikian sehingga \( \E(|X_\infty|) \lt \infty \) dan \( X_t \to X_\infty \) ketika \( t \to \infty \) dengan probabilitas 1. Berdasarkan <a href="../expect/Uniform.html#con2">teorema keterintegralan seragam</a>, konvergensi tersebut juga berlaku dalam rata-rata, sehingga \( \E(|X_t - X|) \to 0 \) ketika \( t \to \infty \). Sekarang andaikan bahwa \( \bs X \) merupakan martingal terhadap \( \mathfrak F \). Untuk \( s \in T \) tetap, kita mengetahui bahwa \( \E(X_t \mid \mathscr{F}_s) \to \E(X_\infty \mid \mathscr{F}_s) \) ketika \( t \to \infty \) (dengan probabilitas 1). Namun, \( \E(X_t \mid \mathscr{F}_s) = X_s \) untuk \( t \ge s \), sehingga diperoleh \( X_s = \E(X_\infty \mid \mathscr{F}_s) \).</p>''',
+        "new": r'''<p>Karena \(\bs X=\{X_t:t\in T\}\) terintegralkan seragam, \(\E(|X_t|)\) terbatas dalam \(t\in T\). Berdasarkan teorema konvergensi martingal <a class="ref" href="#mct1"></a>, terdapat peubah acak \(X_\infty\) yang terukur terhadap \(\mathscr F_\infty\), terintegralkan, dan memenuhi \(X_t\to X_\infty\) dengan probabilitas 1. Teorema <a href="../expect/Uniform.html#con2">keterintegralan seragam</a> juga memberikan konvergensi dalam rata-rata:
+\[ \E(|X_t-X_\infty|)\to0. \]
+Sekarang andaikan bahwa \(\bs X\) merupakan martingal. Untuk \(s\in T\) tetap, sifat kontraksi nilai harapan bersyarat dalam \(\mathscr L_1\) memberikan
+\[ \E\!\left(\left|\E(X_t-X_\infty\mid\mathscr F_s)\right|\right) \le \E(|X_t-X_\infty|)\to0. \]
+Karena \(\E(X_t\mid\mathscr F_s)=X_s\) untuk \(t\ge s\), limit ini menghasilkan \(X_s=\E(X_\infty\mid\mathscr F_s)\).</p>''',
+        "description": "Repair the broken theorem link, use X_infinity in mean convergence, and justify the terminal representation through L1 contraction.",
+    },
+    {
+        "id": "lp-theorem-martingale-hypothesis",
+        "old": r"Misalkan kembali bahwa \( \bs X = \{X_t: t \in T\} \) merupakan submartingal atau supermartingal terhadap",
+        "new": r"Misalkan kembali bahwa \( \bs X = \{X_t: t \in T\} \) merupakan martingal terhadap",
+        "description": "Restrict the false general submartingale/supermartingale Lp claim to martingales, for which the cited maximal inequality applies.",
+    },
+    {
+        "id": "lp-maximal-norm-subscript",
+        "old": r"\[ \|W_t\|_k \le \frac{k}{k-1}\|X_t\| \le \frac{k c}{k - 1}, \quad t \in T \]",
+        "new": r"\[ \|W_t\|_k \le \frac{k}{k-1}\|X_t\|_k \le \frac{k c}{k-1}, \quad t \in T \]",
+        "description": "Restore the missing k-norm subscript in the Lp maximal estimate.",
+    },
+    {
+        "id": "translate-as-in-limit-display",
+        "old": r"\text{ as }",
+        "new": r"\text{ ketika }",
+        "description": "Translate the remaining prose connector inside the Lp convergence display.",
+    },
+    {
+        "id": "simple-walk-increment-domain",
+        "old": r"\( \bs{V} = \{V_n: n \in \N\} \)",
+        "new": r"\( \bs{V} = \{V_n: n \in \N_+\} \)",
+        "description": "Index the random-walk increments on the positive integers, where their laws are defined.",
+    },
+    {
+        "id": "simple-walk-partial-sum-index",
+        "old": r"\[ X_n = \sum_{i=0}^n V_i, \quad n \in \N \]",
+        "new": r"\[ X_0=0, \qquad X_n=\sum_{i=1}^n V_i, \quad n\in\N_+. \]",
+        "description": "Make the partial-sum definition consistent with the increment domain and stated mean.",
+    },
+    {
+        "id": "simple-walk-state-space",
+        "old": r"mengunjungi setiap keadaan dalam \( \N \) tak berhingga kali",
+        "new": r"mengunjungi setiap keadaan dalam \( \mathbb Z \) tak berhingga kali",
+        "description": "Use the integer state space of the simple symmetric random walk.",
+    },
+    {
+        "id": "simple-walk-convergence-hypothesis-diagnosis",
+        "old": r"Namun, tentu saja \( \E(X_n) = n (2 p - 1) \) untuk \( n \in \N \), sehingga teorema konvergensi martingal tidak berlaku.",
+        "new": r"Dalam setiap kasus, \(\sup_n\E(|X_n|)=\infty\), sehingga syarat keterbatasan teorema konvergensi martingal gagal. Untuk \(p\ne\frac12\), hal ini mengikuti dari \(\E|X_n|\ge|\E X_n|=n|2p-1|\); untuk \(p=\frac12\), \(\E|X_n|\) bertumbuh seorde \(\sqrt n\).",
+        "description": "Explain the failed L1-boundedness hypothesis in both biased and symmetric cases.",
+    },
+    {
+        "id": "branching-limit-claim",
+        "old": r"<li>Jika \( m \gt 1 \), maka \( q \in (0, 1) \). Berlaku \( X_n \to 0 \) ketika \( n \to \infty \) atau \( X_n \to \infty \) ketika \( n \to \infty \) dengan laju eksponensial.</li>",
+        "new": r'''<li>Jika \(m\gt1\), maka \(q\in(0,1)\). Berlaku \(X_n\to0\) atau \(X_n\to\infty\). Selain itu, terdapat peubah acak nonnegatif berhingga \(W\), sedemikian sehingga
+\[ \frac{X_n}{m^n}\to W \]
+dengan probabilitas 1.</li>''',
+        "description": "State the normalized branching-process limit actually supplied by martingale convergence.",
+    },
+    {
+        "id": "branching-new-information-statement",
+        "old": r"Informasi yang baru adalah laju divergensi menuju \( \infty \) pada (b).",
+        "new": r"Informasi yang baru pada (b) adalah kekonvergenan martingal ternormalisasi \(X_n/m^n\).",
+        "description": "Describe the normalized martingale convergence actually established, not an unsupported divergence rate.",
+    },
+    {
+        "id": "branching-limit-rate-scope",
+        "old": r"Jadi, jika \( m \gt 1 \) dan \( X_n \to \infty \) ketika \( n \to \infty \), maka divergensi menuju \( \infty \) pada dasarnya harus memiliki laju yang sama dengan \( m^n. \)",
+        "new": r"Jadi, \(X_n/m^n\) konvergen dengan probabilitas 1 menuju limit nonnegatif berhingga. Argumen ini saja tidak menyiratkan bahwa limit tersebut positif pada kejadian tidak punah; kesimpulan demikian memerlukan syarat momen keturunan tambahan.",
+        "description": "Remove the unsupported assertion that the normalized branching limit is positive on nonextinction.",
+    },
+    {
+        "id": "beta-bernoulli-sample-mean-proof",
+        "old": r'''Oleh karena itu, teorema konvergensi martingal <a class="ref" href="#mct3"></a> berlaku, dan konvergensi tersebut juga berlaku dalam rata-rata.</p>''',
+        "new": r'''Oleh karena itu, teorema konvergensi martingal <a class="ref" href="#mct3"></a> berlaku, dan konvergensi \(Z_n\) juga berlaku dalam rata-rata. Selain itu,
+\[ Z_n-M_n=\frac{a n-(a+b)Y_n}{n(a+b+n)}. \]
+Karena \(0\le Y_n\le n\),
+\[ |Z_n-M_n|\le\frac{\max(a,b)}{a+b+n}\to0. \]
+Jadi, \(M_n\to P\) dengan probabilitas 1 dan
+\[ \E(|M_n-P|)\le\E(|Z_n-P|)+\frac{\max(a,b)}{a+b+n}\to0. \]</p>''',
+        "description": "Complete the omitted proof that the beta-Bernoulli sample mean shares the martingale limit in both modes.",
+    },
+    {
+        "id": "polya-urn-variable-interpretation",
+        "old": r'''Karena \( Y_n \) merupakan banyaknya bola merah dalam urna pada waktu \( n \in \N_+ \), banyaknya bola <em>rata-rata</em> pada waktu \( n \) adalah \( M_n = Y_n / n \). Di sisi lain, jumlah seluruh bola dalam urna pada waktu \( n \in \N \) adalah \( a + b + c n \), sehingga <em>proporsi</em> bola merah dalam urna pada waktu \( n \) adalah''',
+        "new": r'''Peubah \(Y_n\) menyatakan banyaknya pemilihan bola merah dalam \(n\) pengambilan pertama. Untuk \(n\in\N_+\), \(M_n=Y_n/n\) merupakan proporsi sampel pemilihan merah. Banyaknya bola merah dalam urna pada waktu \(n\) adalah \(a+cY_n\), sedangkan jumlah seluruh bolanya \(a+b+cn\). Jadi, proporsi bola merah dalam urna adalah''',
+        "description": "Correct the meanings of the Pólya-urn draw count and sample proportion.",
+    },
+    {
+        "id": "likelihood-ratio-infinite-mean-proof",
+        "old": r'''Peubah-peubah \( \ln[g_0(X_i) / g_1(X_i)] \) untuk \( i \in \N_+ \) juga independen dan berdistribusi identik, jadi misalkan \( m \) menyatakan rata-rata bersamanya. Logaritma alami bersifat cekung dan martingal \( \bs L \) memiliki rata-rata 1, sehingga berdasarkan <a href="https://www.randomservices.org/random/expect/Properties2.html#jen">pertidaksamaan Jensen</a>,
+		\[ m = \E\left(\ln\left[\frac{g_0(X)}{g_1(X)}\right]\right) \lt \ln\left(\E\left[\frac{g_0(X)}{g_1(X)}\right]\right) = \ln(1) = 0  \]
+		Oleh karena itu, \( m \in [-\infty, 0) \). Berdasarkan <a href="https://www.randomservices.org/random/sample/LLN.html">hukum kuat bilangan besar</a>, \( \frac{1}{n} \ln(L_n) \to m \) ketika \( n \to \infty \) dengan probabilitas 1. Dengan demikian, harus berlaku \( \ln(L_n) \to -\infty \) ketika \( n \to \infty \) dengan probabilitas 1. Namun, berdasarkan kekontinuan, \( \ln(L_n) \to \ln(L_\infty) \) ketika \( n \to \infty \) dengan probabilitas 1, sehingga \( L_\infty = 0 \) dengan probabilitas 1.</p>''',
+        "new": r'''Tetapkan
+\[ \xi_i=\ln\left[\frac{g_0(X_i)}{g_1(X_i)}\right], \quad i\in\N_+. \]
+Peubah-peubah \(\xi_i\) independen dan berdistribusi identik. Karena \(\xi_i^+\le g_0(X_i)/g_1(X_i)\), bagian positifnya terintegralkan. Pertidaksamaan Jensen tegas memberikan
+\[ m=\E(\xi_1)\in[-\infty,0). \]
+Jika \(m\gt-\infty\), <a href="https://www.randomservices.org/random/sample/LLN.html">hukum kuat bilangan besar</a> memberikan
+\[ \frac1n\ln L_n=\frac1n\sum_{i=1}^n\xi_i\to m\lt0. \]
+Jika \(m=-\infty\), tetapkan \(\xi_i^{(r)}=\xi_i\vee(-r)\) untuk \(r\in\N_+\). Hukum kuat dan \(\xi_i\le\xi_i^{(r)}\) memberikan
+\[ \limsup_{n\to\infty}\frac1n\ln L_n\le\E(\xi_1^{(r)}). \]
+Ketika \(r\to\infty\), ruas kanan menuju \(-\infty\). Jadi, dalam kedua kasus, \(\ln L_n\to-\infty\). Pada kejadian \(\{L_\infty\gt0\}\), kekontinuan justru akan memberikan \(\ln L_n\to\ln L_\infty\in\R\), suatu kontradiksi. Oleh karena itu, \(L_\infty=0\) dengan probabilitas 1.</p>''',
+        "description": "Handle an infinite logarithmic mean by truncation and avoid applying logarithmic continuity at zero.",
+    },
+    {
+        "id": "partial-product-normalized-domain",
+        "old": r"\( \{\sqrt{X_n} / a_n: n \in \N\} \)",
+        "new": r"\( \{\sqrt{X_n} / a_n: n \in \N_+\} \)",
+        "description": "Exclude the undefined X_0/a_0 term from the normalized product sequence.",
+    },
+    {
+        "id": "partial-product-ratio-scope",
+        "old": r"\(Z_n = \prod_{i=1}^n \sqrt{X_i} / a_i\)",
+        "new": r"\(Z_n = \prod_{i=1}^n \frac{\sqrt{X_i}}{a_i}\)",
+        "description": "Place the normalization inside the product so the index is bound and the later squared identity follows.",
+    },
+    {
+        "id": "density-restriction-total-variation-bound",
+        "old": r"Selain itu, \( \E(|X_n|) = \|\mu\| \) (variasi total dari \( \mu \)) untuk setiap \( n \in \N \). Karena \( \mu \) merupakan ukuran berhingga, \( \|\mu\| \lt \infty \), sehingga teorema konvergensi martingal",
+        "new": r"Selain itu, \(\E(|X_n|)=|\mu\!\restriction_{\mathscr F_n}|(\Omega)\le |\mu|(\Omega)\lt\infty\) untuk setiap \(n\in\N\), sehingga teorema konvergensi martingal",
+        "description": "Bound the variation of each restricted signed measure by the ambient total variation instead of asserting equality.",
+    },
+    {
+        "id": "density-expectation-notation",
+        "old": r"\( E(X_n: A) = \E(Y_\infty; A) \)",
+        "new": r"\( \E(X_n; A) = \E(Y_\infty; A) \)",
+        "description": "Use the defined expectation macro and event separator in the density-martingale proof.",
+    },
+    {
+        "id": "density-defined-measures",
+        "old": r"\( \mu_\infty(B) = 0 \) dan \( \P_\infty(B^c) = 0 \)",
+        "new": r"\( \mu(B) = 0 \) dan \( \P(B^c) = 0 \)",
+        "description": "Use the measures actually defined on the terminal sigma-algebra.",
+    },
+    {
+        "id": "density-signed-measure-proof",
+        "old": r'''Jika \( \mu \) merupakan ukuran berhingga umum, maka berdasarkan <a href="https://www.randomservices.org/random/foundations/General.html#jor">teorema dekomposisi Jordan</a>, \( \mu \) dapat ditulis secara unik dalam bentuk \( \mu = \mu^+ - \mu^- \), dengan \( \mu^+ \) dan \( \mu^- \) merupakan ukuran positif berhingga. Selain itu, \( X_n^+ \) merupakan fungsi kepadatan \( \mu^+ \) pada \(\mathscr{F}_n\), dan \( X_n^- \) merupakan fungsi kepadatan \( \mu^- \) pada \( \mathscr{F}_n \). Berdasarkan bagian pertama bukti, \( X^+ = 0 \), \( X^- = 0 \), dan juga \( X = 0 \), semuanya dengan probabilitas 1.''',
+        "new": r'''Untuk ukuran bertanda berhingga, kesingularan \(\mu\) dan \(\P\) berarti \(|\mu|\perp\P\) pada \(\mathscr F_\infty\). Ulangi argumen di atas dengan \(|X_\infty|\) dan \(|\mu|\). Jika \(A\in\mathscr F_k\) dan \(n\ge k\), maka
+\[ \E(|X_n|;A)=|\mu\!\restriction_{\mathscr F_n}|(A)\le|\mu|(A). \]
+Lema Fatou memberikan \(\E(|X_\infty|;A)\le|\mu|(A)\). Dengan argumen kelas monoton yang sama, pertidaksamaan ini berlaku untuk setiap \(A\in\mathscr F_\infty\). Kesingularan menyediakan \(B\in\mathscr F_\infty\) dengan \(|\mu|(B)=0\) dan \(\P(B^c)=0\). Karena itu,
+\[ \E(|X_\infty|)=\E(|X_\infty|;B)\le|\mu|(B)=0, \]
+sehingga \(X_\infty=0\) dengan probabilitas 1.''',
+        "description": "Use total variation of each restricted signed measure; ambient Jordan parts need not remain absolutely continuous on coarse sigma-algebras.",
+    },
+    {
+        "id": "density-sum-mobile-reflow",
+        "change_kind": "deterministic-output",
+        "old": r"\[ \E(X_n; A) = \sum_{j \in J} \E(X_n; A^n_j) = \sum_{j \in J} \frac{\mu(A^n_j)}{\P(A^n_j)} \P(A^n_j) = \sum_{j \in J} \mu(A^n_j) = \mu(A)\]",
+        "new": r'''\[
+\begin{aligned}
+\E(X_n;A)
+&amp;=\sum_{j\in J}\E(X_n;A_j^n) \\
+&amp;=\sum_{j\in J}\frac{\mu(A_j^n)}{\P(A_j^n)}\P(A_j^n) \\
+&amp;=\sum_{j\in J}\mu(A_j^n)=\mu(A).
+\end{aligned}
+\]''',
+        "description": "Reflow the density equality chain into readable mobile lines without changing its mathematics.",
+    },
+    {
+        "id": "dyadic-partition-mobile-reflow",
+        "change_kind": "deterministic-output",
+        "old": r"\[ \mathscr{A}_n = \left\{\left[\frac{j}{2^n}, \frac{j + 1}{2^n}\right): j \in \{0, 1, \ldots, 2^n - 1\}\right\} \]",
+        "new": r'''\[
+\mathscr A_n=
+\left\{
+\left[\frac{j}{2^n},\frac{j+1}{2^n}\right)
+:j\in\{0,1,\ldots,2^n-1\}
+\right\}.
+\]''',
+        "description": "Reflow the dyadic-partition set builder for phone readability without changing the set.",
+    },
+    {
+        "id": "measure-interval-argument",
+        "old": r"\(2^n \mu[j / 2^n, (j + 1) / 2^n) \)",
+        "new": r"\(2^n \mu\!\left([j / 2^n, (j + 1) / 2^n)\right) \)",
+        "description": "Write the dyadic interval as the argument of the measure.",
+    },
+    {
+        "id": "doob-heading-visible-reference",
+        "change_kind": "source-link-repair",
+        "old": r'<a class="ref" href="#doo"></a> yang terkait',
+        "new": r'<a class="ref" href="#doo">pembahasan Martingal Doob</a> yang terkait',
+        "description": "Supply visible Indonesian text for the heading reference that Basic.js cannot populate.",
+    },
+)
+
 THEORY_UNITS = (
     {
         "rel": "prob/Convergence.html",
@@ -1158,6 +1382,34 @@ THEORY_UNITS = (
             "Examples and Applications",
             "Kolmogorov's Inequality",
             "Red and Black",
+            "Details:",
+        ),
+    },
+    {
+        "rel": "martingales/Convergence.html",
+        "authority_sha256": "c5ef4134737d39992647bc1bf7ab4c9b16814f11450e53e7f54642ec64bdea0f",
+        "source_title": "Convergence",
+        "nav_label": "Konvergensi martingal",
+        "rights_id": "o009-rights-random-martingale-convergence",
+        "fragment_corrections": {},
+        "reader_corrections": MARTINGALE_CONVERGENCE_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Convergence",
+            "Basic Theory",
+            "Basic Assumptions",
+            "The Martingale Convergence Theorems",
+            "Example and Applications",
+            "Simple Random Walk",
+            "Doob's Martingale",
+            "Kolmogorov Zero-One Law",
+            "Branching Processes",
+            "The Beta-Bernoulli Process",
+            "Pólya's Urn Process",
+            "Likelihood Ratio Tests",
+            "Partial Products",
+            "Density Functions",
             "Details:",
         ),
     },
