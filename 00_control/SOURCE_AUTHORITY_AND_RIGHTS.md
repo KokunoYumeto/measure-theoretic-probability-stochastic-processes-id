@@ -281,6 +281,72 @@ O006/C140 shared sampling resource but imports none of its Random chapter-5
 bytes. No Random potential/continuous-time/ordinary-Poisson/renewal page is
 admitted by this boundary.
 
+### Current recurrence component closure
+
+`markov/Recurrence.html` is admitted from the selected Random subset at
+51,381 bytes / SHA-256
+`24edb8bd0237b0e3abd7beeae48596f35421c9aa35653c6845cfaebb223c5535`.
+Its six direct mathematical figures are frozen as exact same-origin assets:
+
+| Asset | Bytes | SHA-256 |
+|---|---:|---|
+| `markov/Visits.png` | 1,953 | `0ed3aadd84f6e296270f96287d3817262e975f9b2de17e23ee5cf827f70b5e93` |
+| `markov/Partition.png` | 2,643 | `817c5c94c358540871001fd281108c9b48ad9352b9c62c17c92bd595c8c6c79b` |
+| `markov/Classes.png` | 2,985 | `132c391c50cd9e1653b347edb8ebc8ec12243f5d97dd69d2a711e198368e140c` |
+| `markov/State1.png` | 1,258 | `2b15a45801e4cab3714d436e3bc5f99761ed1fd5fc8d3f777450f6cf8d98a631` |
+| `markov/State2.png` | 1,765 | `5c191a6749001ad00bb19eb4e847955a79d843ecb3b017053563c9753d073cfa` |
+| `markov/State3.png` | 1,678 | `3110d56709574b218b9e48701080c63b12fc09f0e43bbe95447b55c71ade3546` |
+
+The Random-derived translation remains bound to
+`rights.random.dual-witness`. It is 53,864 bytes / SHA-256
+`d8695a4cd7c3a5fea54df673e65d7283172fddbbac0520e171bb0d1df8ebdb13`
+and preserves all 519 parsed elements, 48 ordered unique identifiers, 35
+units, 27 disclosures, six figures, and 698 ordered TeX surfaces. The built
+reader is 61,061 bytes / SHA-256
+`dda38d92b3c4ed9aae02383ab53248cb5bcdc0400715d9b886e6f290fa17757f`
+and applies 33 separately exported guarded actions. These mathematical, link,
+localization, and reflow repairs neither alter nor relicense the frozen
+authority or faithful translation source. The corrected finite-chain row is
+also bound to a historical official-site print witness rather than treated as
+an unsupported editorial substitution.
+
+The page's three exercises and worked solutions are all represented in the
+stable-ID backend. No Random potential/continuous-time/ordinary-Poisson,
+renewal, or O006-owned source byte is admitted by this boundary.
+
+### Current periodicity component closure
+
+\`markov/Periodicity.html\` is admitted from the selected Random subset at
+17,457 bytes / SHA-256
+\`6311c165cff1538b2b8da7ff2f5b6d243b86cb6f1e7cb423a2712c3a7689f9b3\`.
+Its two direct figures are frozen as exact same-origin Random assets:
+
+| Asset | Bytes | SHA-256 |
+|---|---:|---|
+| \`markov/CyclicClasses.png\` | 3,849 | \`8a605c51ae08099741e010d33008d69677d630178b12a2f8d803f4a608f05bbe\` |
+| \`markov/State4.png\` | 2,121 | \`fd8cdf778a760425393840d8e2730c7a4feea37ed4b23332baf2cb55481af8e7\` |
+
+The Random-derived translation remains bound to
+\`rights.random.dual-witness\`. It is 18,148 bytes / SHA-256
+\`d22a8fdd9e81ccf43cd72f323915276afa3cbf9a96b52767a82bb4040d1f8bc0\`
+and preserves all 229 parsed elements, 16 unique identifiers, five
+disclosures, two figures, and 175 ordered TeX surfaces. The built reader is
+25,403 bytes / SHA-256
+\`f00a2899a5456558d7cb8b4c314c71d063c9117f145f6b24282ca8b05b8e9f4c\`
+and applies 18 separately exported guarded actions: 13 source-content
+repairs, two source-link/accessibility repairs, two deterministic-output
+localization/reflow actions, and one explicitly marked original accessible
+graph explanation.
+
+The two finite-chain exercises and their two worked disclosures have complete
+stable-ID \`assesses\` and \`solves\` relations. The corrected divisibility
+proof, cyclic-class indices, empty-return convention, closed-class scope, and
+\`157/288\` matrix entry are downstream repairs only; they do not alter or
+relicense the frozen authority or faithful translation source. Links to the
+unselected model pages and foundations material remain official external
+references. No excluded Random continuous-time, ordinary-Poisson, renewal,
+or O006-owned source byte is admitted by this boundary.
+
 ## Žitković laboratory donor
 
 - Official author route: Gordan Žitković’s UT Austin lecture-notes page linking the hosted book and public repository.
@@ -311,6 +377,30 @@ material is CC BY 4.0. The frozen 47-page/94-file Random corpus is a superset
 witness, not the selected translation scope. Every component's downstream
 offline build and asset closure must pass; do not silently fall back to
 Imperial or broaden Random.
+
+## Original bridge 02 — source and rights freeze
+
+`source/original/02-keterukuran-proses-dan-hukum-lintasan.md` is an original
+Indonesian synthesis rather than a translation or incorporated donor source.
+Its exact reader-integration freeze is 29,971 bytes / SHA-256
+`f14bd9e7ad6a80079eb40609dd97f9768e08fae5bc638e9d5939666f53ad0acb`,
+strict UTF-8 with LF endings and a final LF. The source declares 29 ordered
+stable IDs: one root, ten bridge sections, three mastery sequences, and five
+children for each sequence. Its mastery closure is exactly three exercises,
+six progressive hints, three concise answers, and three complete solutions.
+It introduces no executable code, image, audio, data, font, or third-party
+asset.
+
+The unit is separately CC BY 4.0 under
+`rights.o009.original.bridge.process-measurability-path-law.cc-by-4.0`. That
+grant covers only the original unit and its mastery material. Links to the
+Random probability/process pages and the first Kolmogorov bridge express
+prerequisites and duplication boundaries; they do not incorporate or
+relicense those components. The source preserves the exact production-model
+disclosure `OpenAI Codex gpt-5.6-sol, Ultra.` and explicit non-endorsement.
+Source freezing and reader integration do not by themselves admit the unit to
+the stable-ID backend, PDF, or a public checkpoint; those later deterministic
+gates remain separate.
 
 ## Original additions
 

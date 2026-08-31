@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Penguasaan martingal dan waktu henti 01–02</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="05-bersyarat-kernel-03.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="05-bersyarat-kernel-03.html">Unit sebelumnya</a></nav><main class="mastery-reader">
+
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#penguasaan-martingal-dan-waktu-henti-0102" id="toc-penguasaan-martingal-dan-waktu-henti-0102">Penguasaan martingal
+dan waktu henti 01–02</a>
+<ul>
+<li><a href="#ikatan-prasyarat-dan-capaian" id="toc-ikatan-prasyarat-dan-capaian">Ikatan prasyarat dan
+capaian</a></li>
+<li><a href="#hak-dan-provenans" id="toc-hak-dan-provenans">Hak dan
+provenans</a></li>
+</ul></li>
+</ul>
+</nav>
+<div class="mastery-unit" id="unit.o009.original.mastery.martingales.01-02">
+<h1 id="penguasaan-martingal-dan-waktu-henti-0102">Penguasaan martingal
+dan waktu henti 01–02</h1>
+<p>Dua masalah ini menguji dua pemakaian penghentian yang berbeda.
+Masalah pertama mencari sendiri fungsi harmonik dan kompensator bagi
+rantai kelahiran-kematian dengan peluang transisi bergantung keadaan.
+Masalah kedua bergerak ke waktu kontinu: generator proses hitung
+kelahiran murni dipakai untuk membangun kompensator dan martingal
+ruang-waktu.</p>
+<div class="mastery-bindings" id="unit.o009.original.mastery.martingales.01-02.bindings">
+<h2 id="ikatan-prasyarat-dan-capaian">Ikatan prasyarat dan capaian</h2>
+<table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Masalah</th>
+<th>Ikatan prasyarat</th>
+<th>Ikatan capaian</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td><code>prerequisite.o009.conditional-expectation</code>,
+<code>prerequisite.o009.martingales.definition</code>,
+<code>prerequisite.o009.martingales.optional-stopping</code></td>
+<td><code>outcome.o009.mastery.martingales.01.harmonic-stopping</code>,
+<code>outcome.o009.mastery.martingales.01.compensator</code></td>
+</tr>
+<tr>
+<td>02</td>
+<td><code>prerequisite.o009.conditional-expectation</code>,
+<code>prerequisite.o009.martingales.definition</code>,
+<code>prerequisite.o009.martingales.optional-stopping</code>,
+<code>prerequisite.o009.ctmc.generator</code></td>
+<td><code>outcome.o009.mastery.martingales.02.counting-compensator</code>,
+<code>outcome.o009.mastery.martingales.02.laplace-stopping</code></td>
+</tr>
+</tbody>
+</table>
+<p>Prasyarat yang dimaksud ialah kemampuan menghitung nilai harapan
+bersyarat, memeriksa sifat martingal terhadap filtrasi alami, serta
+memakai penghentian opsional pada waktu henti terbatas. Setelah
+menyelesaikan kedua masalah, pembaca diharapkan mampu memilih fungsi uji
+yang harmonik, membangun kompensator dari hanyutan lokal atau generator,
+dan melewatkan penghentian terpotong ke waktu acak tanpa menghilangkan
+syarat keterintegralan.</p>
+</div>
+<div class="mastery-sequence" data-outcomes="outcome.o009.mastery.martingales.01.harmonic-stopping outcome.o009.mastery.martingales.01.compensator" data-prerequisites="prerequisite.o009.conditional-expectation prerequisite.o009.martingales.definition prerequisite.o009.martingales.optional-stopping" id="unit.o009.original.mastery.martingales.01">
+<div class="exercise" id="unit.o009.original.mastery.martingales.01.exercise">
+<h2 id="masalah-01-skala-harmonik-dan-biaya-sebelum-absorpsi">Masalah 01
+— skala harmonik dan biaya sebelum absorpsi</h2>
+<p>Tetapkan bilangan bulat <span class="math inline">\(N\ge2\)</span>.
+Rantai Markov <span class="math inline">\((X_n)_{n\ge0}\)</span>
+mempunyai ruang keadaan <span class="math inline">\(\{0,1,\ldots,N\}\)</span>, keadaan <span class="math inline">\(0\)</span> dan <span class="math inline">\(N\)</span> menyerap, dan untuk <span class="math inline">\(1\le i\le N-1\)</span> mempunyai peluang
+transisi</p>
+<p><span class="math display">\[
+\mathbb P(X_{n+1}=i+1\mid X_n=i)=\frac{i+1}{2i+1},
+\qquad
+\mathbb P(X_{n+1}=i-1\mid X_n=i)=\frac{i}{2i+1}.
+\]</span></p>
+<p>Ambil <span class="math inline">\(X_0=r\in\{1,\ldots,N-1\}\)</span>,
+filtrasi alami <span class="math inline">\(\mathcal
+F_n=\sigma(X_0,\ldots,X_n)\)</span>, dan</p>
+<p><span class="math display">\[
+\tau=\inf\{n\ge0:X_n\in\{0,N\}\}.
+\]</span></p>
+<p>Tuliskan <span class="math inline">\(H_0=0\)</span> dan <span class="math inline">\(H_i=\sum_{j=1}^i j^{-1}\)</span> untuk <span class="math inline">\(i\ge1\)</span>.</p>
+<ol type="1">
+<li><p>Buktikan bahwa <span class="math inline">\(\tau\)</span>
+merupakan waktu henti, <span class="math inline">\(\tau&lt;\infty\)</span> hampir pasti, dan bahkan
+<span class="math inline">\(\mathbb E_r\tau&lt;\infty\)</span>.</p></li>
+<li><p>Buktikan bahwa <span class="math inline">\((H_{X_{n\wedge\tau}})_{n\ge0}\)</span> merupakan
+martingal. Gunakan fakta ini untuk menentukan <span class="math inline">\(\mathbb P_r(X_\tau=N)\)</span> secara
+eksak.</p></li>
+<li><p>Bangun sebuah martingal terkompensasi dari proses koordinat <span class="math inline">\(X_n\)</span> dan hitung secara eksak</p>
+<p><span class="math display">\[
+\mathbb E_r\!\left[
+  \sum_{k=0}^{\tau-1}\frac{1}{2X_k+1}
+\right].
+\]</span></p></li>
+<li><p>Dari jawaban bagian 3, turunkan sebuah batas atas eksplisit bagi
+<span class="math inline">\(\mathbb E_r\tau\)</span>.</p></li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.martingales.01.hint.01"><summary aria-label="Petunjuk: unit.o009.original.mastery.martingales.01.hint.01">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Jika rantai masih berada di <span class="math inline">\(i\)</span>, peluang mengikuti <span class="math inline">\(i\)</span> langkah turun berturut-turut sampai
+<span class="math inline">\(0\)</span> adalah</p>
+<p><span class="math display">\[
+\prod_{j=1}^{i}\frac{j}{2j+1}.
+\]</span></p>
+<p>Bandingkan hasil kali ini dengan hasil kali yang sama sampai <span class="math inline">\(N-1\)</span>, lalu kelompokkan waktu ke dalam
+blok-blok sepanjang <span class="math inline">\(N-1\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.martingales.01.hint.02"><summary aria-label="Petunjuk: unit.o009.original.mastery.martingales.01.hint.02">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Gunakan</p>
+<p><span class="math display">\[
+H_{i+1}-H_i=\frac1{i+1},
+\qquad
+H_i-H_{i-1}=\frac1i.
+\]</span></p>
+<p>Kedua suku hanyutan <span class="math inline">\(H\)</span> saling
+meniadakan setelah dikalikan dengan peluang transisi. Karena <span class="math inline">\(H_{X_{n\wedge\tau}}\)</span> terbatas, pelewatan
+<span class="math inline">\(n\to\infty\)</span> dapat dilakukan dengan
+konvergensi terdominasi.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.martingales.01.hint.03"><summary aria-label="Petunjuk: unit.o009.original.mastery.martingales.01.hint.03">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Pada keadaan interior <span class="math inline">\(i\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E[X_{n+1}-X_n\mid X_n=i]=\frac1{2i+1}.
+\]</span></p>
+<p>Kurangi jumlah hanyutan yang terakumulasi dari <span class="math inline">\(X_{n\wedge\tau}\)</span>. Terapkan identitas
+ekspektasi terlebih dahulu pada <span class="math inline">\(n\wedge\tau\)</span>; untuk menuju <span class="math inline">\(\tau\)</span>, gunakan konvergensi monoton pada
+jumlah biaya dan konvergensi terdominasi pada keadaan yang
+dihentikan.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.martingales.01.answer">
+<p><strong>Jawaban ringkas.</strong> Dengan <span class="math inline">\(\delta=\prod_{j=1}^{N-1}j/(2j+1)&gt;0\)</span>
+berlaku <span class="math inline">\(\mathbb
+P_r(\tau&gt;m(N-1))\le(1-\delta)^m\)</span>, sehingga <span class="math inline">\(\tau\)</span> terintegralkan. Fungsi <span class="math inline">\(i\mapsto H_i\)</span> harmonik pada keadaan
+interior, dan karena itu</p>
+<p><span class="math display">\[
+\mathbb P_r(X_\tau=N)=\frac{H_r}{H_N}.
+\]</span></p>
+<p>Martingal terkompensasinya adalah</p>
+<p><span class="math display">\[
+Y_n=X_{n\wedge\tau}
+-\sum_{k=0}^{n-1}
+\frac{\mathbf1_{\{k&lt;\tau\}}}{2X_k+1}.
+\]</span></p>
+<p>Akibatnya,</p>
+<p><span class="math display">\[
+\mathbb E_r\!\left[
+\sum_{k=0}^{\tau-1}\frac1{2X_k+1}
+\right]
+=N\frac{H_r}{H_N}-r,
+\]</span></p>
+<p>dan</p>
+<p><span class="math display">\[
+\mathbb E_r\tau
+\le(2N-1)\left(N\frac{H_r}{H_N}-r\right).
+\]</span></p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.martingales.01.solution"><summary aria-label="Penyelesaian lengkap: unit.o009.original.mastery.martingales.01.solution">Penyelesaian lengkap</summary>
+<p><strong>Penyelesaian lengkap.</strong> Karena <span class="math inline">\(X_n\)</span> terukur terhadap <span class="math inline">\(\mathcal F_n\)</span>,</p>
+<p><span class="math display">\[
+\{\tau\le n\}
+=\bigcup_{k=0}^{n}\{X_k\in\{0,N\}\}
+\in\mathcal F_n.
+\]</span></p>
+<p>Jadi <span class="math inline">\(\tau\)</span> merupakan waktu henti.
+Untuk membuktikan keterhinggaan, tetapkan</p>
+<p><span class="math display">\[
+\delta=\prod_{j=1}^{N-1}\frac{j}{2j+1}&gt;0.
+\]</span></p>
+<p>Jika <span class="math inline">\(X_s=i\in\{1,\ldots,N-1\}\)</span>,
+kejadian bahwa <span class="math inline">\(i\)</span> transisi
+berikutnya semuanya bergerak turun membawa rantai ke <span class="math inline">\(0\)</span>. Peluang bersyarat kejadian itu
+adalah</p>
+<p><span class="math display">\[
+\prod_{j=1}^{i}\frac{j}{2j+1}\ge\delta,
+\]</span></p>
+<p>karena hasil kali di ruas kanan hanya menambahkan faktor-faktor dalam
+<span class="math inline">\((0,1)\)</span>. Maka, pada kejadian <span class="math inline">\(\{\tau&gt;s\}\)</span>, peluang bersyarat untuk
+terserap dalam paling banyak <span class="math inline">\(N-1\)</span>
+langkah berikutnya sekurang-kurangnya <span class="math inline">\(\delta\)</span>. Dengan induksi terhadap blok,</p>
+<p><span class="math display">\[
+\mathbb P_r\bigl(\tau&gt;m(N-1)\bigr)
+\le(1-\delta)^m,
+\qquad m\ge0.
+\]</span></p>
+<p>Ruas kanan menuju nol, sehingga <span class="math inline">\(\tau&lt;\infty\)</span> hampir pasti. Rumus jumlah
+ekor untuk peubah acak bilangan bulat juga memberi</p>
+<p><span class="math display">\[
+\mathbb E_r\tau
+=\sum_{n=0}^{\infty}\mathbb P_r(\tau&gt;n)
+\le (N-1)\sum_{m=0}^{\infty}(1-\delta)^m
+=\frac{N-1}{\delta}&lt;\infty.
+\]</span></p>
+<p>Sekarang ambil <span class="math inline">\(1\le i\le N-1\)</span>.
+Dari relasi inkremen bilangan harmonik,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E[H_{X_{n+1}}-H_{X_n}\mid X_n=i]
+&amp;=\frac{i+1}{2i+1}\frac1{i+1}
+  -\frac{i}{2i+1}\frac1i\\
+&amp;=0.
+\end{aligned}
+\]</span></p>
+<p>Pada keadaan menyerap, inkremennya juga nol. Sifat Markov lalu
+menghasilkan</p>
+<p><span class="math display">\[
+\mathbb E[H_{X_{(n+1)\wedge\tau}}\mid\mathcal F_n]
+=H_{X_{n\wedge\tau}},
+\]</span></p>
+<p>jadi proses tersebut merupakan martingal. Ia dibatasi oleh <span class="math inline">\(H_N\)</span>. Oleh sebab itu, untuk setiap <span class="math inline">\(n\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E_r[H_{X_{n\wedge\tau}}]=H_r,
+\]</span></p>
+<p>dan, karena <span class="math inline">\(\tau&lt;\infty\)</span>
+hampir pasti, <span class="math inline">\(X_{n\wedge\tau}\to
+X_\tau\)</span>. Konvergensi terdominasi memberi</p>
+<p><span class="math display">\[
+H_r=\mathbb E_r[H_{X_\tau}]
+=H_N\mathbb P_r(X_\tau=N)+H_0\mathbb P_r(X_\tau=0).
+\]</span></p>
+<p>Karena <span class="math inline">\(H_0=0\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P_r(X_\tau=N)=\frac{H_r}{H_N}.
+\]</span></p>
+<p>Untuk bagian kompensator, pada <span class="math inline">\(\{n&lt;\tau\}\)</span> kita mempunyai <span class="math inline">\(X_n\in\{1,\ldots,N-1\}\)</span> dan</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E[X_{n+1}-X_n\mid\mathcal F_n]
+&amp;=\frac{X_n+1}{2X_n+1}-\frac{X_n}{2X_n+1}\\
+&amp;=\frac1{2X_n+1}.
+\end{aligned}
+\]</span></p>
+<p>Pada <span class="math inline">\(\{n\ge\tau\}\)</span>, proses yang
+dihentikan tidak berubah. Jadi</p>
+<p><span class="math display">\[
+\mathbb E[
+X_{(n+1)\wedge\tau}-X_{n\wedge\tau}
+\mid\mathcal F_n]
+=\frac{\mathbf1_{\{n&lt;\tau\}}}{2X_n+1}.
+\]</span></p>
+<p>Definisikan</p>
+<p><span class="math display">\[
+A_n=\sum_{k=0}^{n-1}
+\frac{\mathbf1_{\{k&lt;\tau\}}}{2X_k+1},
+\qquad
+Y_n=X_{n\wedge\tau}-A_n.
+\]</span></p>
+<p>Perhitungan terakhir menunjukkan bahwa <span class="math inline">\((Y_n)\)</span> merupakan martingal. Semua sukunya
+terintegralkan untuk <span class="math inline">\(n\)</span> tetap,
+sehingga</p>
+<p><span class="math display">\[
+\mathbb E_r[A_n]
+=\mathbb E_r[X_{n\wedge\tau}]-r.
+\]</span></p>
+<p>Ketika <span class="math inline">\(n\to\infty\)</span>, <span class="math inline">\(A_n\)</span> naik menuju</p>
+<p><span class="math display">\[
+A_\tau=\sum_{k=0}^{\tau-1}\frac1{2X_k+1},
+\]</span></p>
+<p>sedangkan <span class="math inline">\(X_{n\wedge\tau}\to
+X_\tau\)</span> dan <span class="math inline">\(0\le X_{n\wedge\tau}\le
+N\)</span>. Teorema konvergensi monoton pada ruas kiri dan teorema
+konvergensi terdominasi pada ruas kanan memberikan</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E_r[A_\tau]
+&amp;=\mathbb E_r[X_\tau]-r\\
+&amp;=N\mathbb P_r(X_\tau=N)-r\\
+&amp;=N\frac{H_r}{H_N}-r.
+\end{aligned}
+\]</span></p>
+<p>Argumen ini sekaligus membuktikan bahwa biaya total tersebut
+terintegralkan; kita tidak mengasumsikannya sebelum melewatkan limit.
+Terakhir, selama <span class="math inline">\(k&lt;\tau\)</span> berlaku
+<span class="math inline">\(1\le X_k\le N-1\)</span>, sehingga</p>
+<p><span class="math display">\[
+\frac1{2X_k+1}\ge\frac1{2N-1}.
+\]</span></p>
+<p>Dengan menjumlahkan sampai <span class="math inline">\(\tau-1\)</span>,</p>
+<p><span class="math display">\[
+A_\tau\ge\frac{\tau}{2N-1}.
+\]</span></p>
+<p>Pengambilan ekspektasi menghasilkan batas eksplisit</p>
+<p><span class="math display">\[
+\mathbb E_r\tau
+\le(2N-1)\left(N\frac{H_r}{H_N}-r\right).
+\]</span></p>
+</details>
+</div>
+<div class="mastery-sequence" data-outcomes="outcome.o009.mastery.martingales.02.counting-compensator outcome.o009.mastery.martingales.02.laplace-stopping" data-prerequisites="prerequisite.o009.conditional-expectation prerequisite.o009.martingales.definition prerequisite.o009.martingales.optional-stopping prerequisite.o009.ctmc.generator" id="unit.o009.original.mastery.martingales.02">
+<div class="exercise" id="unit.o009.original.mastery.martingales.02.exercise">
+<h2 id="masalah-02-kompensator-dan-waktu-kelahiran-ke-k">Masalah 02 —
+kompensator dan waktu kelahiran ke-<span class="math inline">\(K\)</span></h2>
+<p>Tetapkan <span class="math inline">\(K\in\mathbb N_+\)</span>, <span class="math inline">\(a&gt;0\)</span>, dan <span class="math inline">\(b\ge0\)</span>. Untuk <span class="math inline">\(j=0,\ldots,K-1\)</span>, tuliskan</p>
+<p><span class="math display">\[
+\lambda_j=a+bj.
+\]</span></p>
+<p>Ambil peubah acak independen <span class="math inline">\(E_j\sim\operatorname{Eksponensial}(\lambda_j)\)</span>
+dan definisikan</p>
+<p><span class="math display">\[
+T_0=0,
+\qquad
+T_n=\sum_{j=0}^{n-1}E_j
+\quad (1\le n\le K),
+\]</span></p>
+<p><span class="math display">\[
+Z_t=\max\{n\in\{0,\ldots,K\}:T_n\le t\}.
+\]</span></p>
+<p>Jadi <span class="math inline">\((Z_t)_{t\ge0}\)</span> adalah proses
+kelahiran murni yang meloncat <span class="math inline">\(j\to
+j+1\)</span> dengan laju <span class="math inline">\(\lambda_j\)</span>,
+dan <span class="math inline">\(K\)</span> menyerap. Gunakan filtrasi
+alami yang dilengkapi dan dibuat kontinu kanan, serta tuliskan</p>
+<p><span class="math display">\[
+\tau_K=\inf\{t\ge0:Z_t=K\}=T_K.
+\]</span></p>
+<ol type="1">
+<li><p>Turunkan generator</p>
+<p><span class="math display">\[
+(\mathcal Lf)(j)=
+\lambda_j\bigl(f(j+1)-f(j)\bigr)
+\quad (j&lt;K),
+\qquad
+(\mathcal Lf)(K)=0,
+\]</span></p>
+<p>dan buktikan bahwa, untuk setiap fungsi <span class="math inline">\(f:\{0,\ldots,K\}\to\mathbb R\)</span>,</p>
+<p><span class="math display">\[
+D_t^f
+=f(Z_t)-f(Z_0)-\int_0^t(\mathcal Lf)(Z_s)\,ds
+\]</span></p>
+<p>merupakan martingal.</p></li>
+<li><p>Pilih <span class="math inline">\(f(j)=j\)</span> untuk
+mengidentifikasi kompensator proses hitung <span class="math inline">\(Z\)</span>. Dengan penghentian terpotong dan limit
+yang dibenarkan, hitung</p>
+<p><span class="math display">\[
+\mathbb E\!\left[
+\int_0^{\tau_K}\lambda_{Z_s}\,ds
+\right].
+\]</span></p></li>
+<li><p>Bangun fungsi <span class="math inline">\(g\)</span> sehingga
+<span class="math inline">\((g(Z_{t\wedge\tau_K})-t\wedge\tau_K)_{t\ge0}\)</span>
+merupakan martingal, lalu tentukan <span class="math inline">\(\mathbb
+E\tau_K\)</span> secara eksak.</p></li>
+<li><p>Untuk <span class="math inline">\(s\ge0\)</span>, bangun
+martingal ruang-waktu terbatas yang menghasilkan transformasi Laplace
+<span class="math inline">\(\mathbb E(e^{-s\tau_K})\)</span>.</p></li>
+<li><p>Turunkan <span class="math inline">\(\operatorname{Var}(\tau_K)\)</span> dari
+transformasi tersebut.</p></li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.martingales.02.hint.01"><summary aria-label="Petunjuk: unit.o009.original.mastery.martingales.02.hint.01">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Jika proses berada di <span class="math inline">\(j&lt;K\)</span>, maka dalam selang sepanjang <span class="math inline">\(h\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P_j(Z_h=j+1)=\lambda_jh+o(h),
+\qquad
+\mathbb P_j(Z_h=j)=1-\lambda_jh+o(h).
+\]</span></p>
+<p>Pada ruang keadaan hingga, identitas semigrup <span class="math inline">\(P_uf-f=\int_0^uP_v\mathcal Lf\,dv\)</span> dapat
+dipadukan dengan sifat Markov untuk membuktikan klaim martingal.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.martingales.02.hint.02"><summary aria-label="Petunjuk: unit.o009.original.mastery.martingales.02.hint.02">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Untuk <span class="math inline">\(f(j)=j\)</span>, generatornya sama dengan <span class="math inline">\(\lambda_j\)</span> sebelum absorpsi. Untuk waktu
+pencapaian, coba</p>
+<p><span class="math display">\[
+g(0)=0,
+\qquad
+g(j)=\sum_{\ell=0}^{j-1}\frac1{\lambda_\ell}.
+\]</span></p>
+<p>Periksa bahwa <span class="math inline">\(\mathcal Lg=1\)</span> pada
+<span class="math inline">\(\{0,\ldots,K-1\}\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.martingales.02.hint.03"><summary aria-label="Petunjuk: unit.o009.original.mastery.martingales.02.hint.03">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Untuk <span class="math inline">\(s\ge0\)</span>, tetapkan <span class="math inline">\(q_s(K)=1\)</span> dan cari <span class="math inline">\(q_s(j)\)</span> mundur dari persamaan <span class="math inline">\(\mathcal Lq_s=sq_s\)</span>. Kemudian hentikan</p>
+<p><span class="math display">\[
+e^{-st}q_s(Z_t)
+\]</span></p>
+<p>pada <span class="math inline">\(\tau_K\)</span>. Untuk momen,
+diferensiasikan logaritma hasil kali berhingga yang diperoleh.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.martingales.02.answer">
+<p><strong>Jawaban ringkas.</strong> Kompensatornya ialah</p>
+<p><span class="math display">\[
+A_t=\int_0^{t\wedge\tau_K}\lambda_{Z_s}\,ds,
+\qquad
+Z_{t\wedge\tau_K}-A_t
+\quad\text{martingal},
+\]</span></p>
+<p>dengan versi prediktabel yang sama <span class="math inline">\(A_t=\int_0^{t\wedge\tau_K}\lambda_{Z_{s-}}\,ds\)</span>.
+Selain itu,</p>
+<p><span class="math display">\[
+\mathbb E[A_{\tau_K}]=K.
+\]</span></p>
+<p>Dengan <span class="math inline">\(g(j)=\sum_{\ell=0}^{j-1}\lambda_\ell^{-1}\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E\tau_K
+=\sum_{j=0}^{K-1}\frac1{a+bj}.
+\]</span></p>
+<p>Untuk <span class="math inline">\(s\ge0\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E(e^{-s\tau_K})
+=\prod_{j=0}^{K-1}\frac{a+bj}{a+bj+s},
+\]</span></p>
+<p>dan</p>
+<p><span class="math display">\[
+\operatorname{Var}(\tau_K)
+=\sum_{j=0}^{K-1}\frac1{(a+bj)^2}.
+\]</span></p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.martingales.02.solution"><summary aria-label="Penyelesaian lengkap: unit.o009.original.mastery.martingales.02.solution">Penyelesaian lengkap</summary>
+<p><strong>Penyelesaian lengkap.</strong> Karena <span class="math inline">\(\tau_K=\sum_{j=0}^{K-1}E_j\)</span> merupakan
+jumlah berhingga peubah eksponensial yang berhingga hampir pasti,</p>
+<p><span class="math display">\[
+\tau_K&lt;\infty
+\quad\text{hampir pasti}.
+\]</span></p>
+<p>Untuk <span class="math inline">\(j&lt;K\)</span>, hanya satu
+lompatan yang mempunyai peluang orde <span class="math inline">\(h\)</span> pada selang <span class="math inline">\([0,h]\)</span>; peluang dua atau lebih lompatan
+adalah <span class="math inline">\(o(h)\)</span> karena semua laju
+dibatasi oleh <span class="math inline">\(\lambda_{K-1}\)</span>. Jadi,
+untuk setiap fungsi <span class="math inline">\(f\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E_j[f(Z_h)]-f(j)
+&amp;=\lambda_jh\bigl(f(j+1)-f(j)\bigr)+o(h).
+\end{aligned}
+\]</span></p>
+<p>Pembagian dengan <span class="math inline">\(h\)</span> dan pelewatan
+<span class="math inline">\(h\downarrow0\)</span> memberi</p>
+<p><span class="math display">\[
+(\mathcal Lf)(j)
+=\lambda_j\bigl(f(j+1)-f(j)\bigr),
+\qquad j&lt;K.
+\]</span></p>
+<p>Di keadaan menyerap <span class="math inline">\(K\)</span>,
+generatornya nol.</p>
+<p>Untuk membuktikan klaim martingal tanpa hanya mengutip nama teorema,
+tuliskan <span class="math inline">\((P_u)_{u\ge0}\)</span> untuk
+semigrup transisi. Karena ruang keadaan hingga dan generator
+terbatas,</p>
+<p><span class="math display">\[
+P_uf-f=\int_0^uP_v\mathcal Lf\,dv.
+\]</span></p>
+<p>Jika <span class="math inline">\(0\le r\le t\)</span>, sifat Markov
+dan Fubini memberi</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E[D_t^f-D_r^f\mid\mathcal F_r]
+&amp;=P_{t-r}f(Z_r)-f(Z_r)
+  -\int_0^{t-r}P_v\mathcal Lf(Z_r)\,dv\\
+&amp;=0.
+\end{aligned}
+\]</span></p>
+<p>Semua suku terbatas pada setiap selang waktu berhingga, sehingga
+<span class="math inline">\((D_t^f)\)</span> benar-benar merupakan
+martingal, bukan sekadar martingal lokal.</p>
+<p>Ambil sekarang <span class="math inline">\(f(j)=j\)</span>. Untuk
+<span class="math inline">\(j&lt;K\)</span>,</p>
+<p><span class="math display">\[
+(\mathcal Lf)(j)=\lambda_j,
+\]</span></p>
+<p>sedangkan <span class="math inline">\((\mathcal Lf)(K)=0\)</span>.
+Karena proses tetap di <span class="math inline">\(K\)</span> setelah
+<span class="math inline">\(\tau_K\)</span>, proses menaik kontinu</p>
+<p><span class="math display">\[
+A_t=\int_0^{t\wedge\tau_K}\lambda_{Z_{s-}}\,ds
+\]</span></p>
+<p>bersifat prediktabel. Lintasan <span class="math inline">\(Z\)</span>
+hanya mempunyai berhingga banyak titik lompatan, sehingga integral
+Lebesgue yang sama dapat ditulis dengan <span class="math inline">\(Z_s\)</span> sebagai pengganti <span class="math inline">\(Z_{s-}\)</span>. Dengan demikian,</p>
+<p><span class="math display">\[
+M_t
+=Z_{t\wedge\tau_K}
+-\int_0^{t\wedge\tau_K}\lambda_{Z_s}\,ds
+\]</span></p>
+<p>merupakan martingal yang berawal dari nol. Maka</p>
+<p><span class="math display">\[
+\mathbb E\!\left[
+\int_0^{t\wedge\tau_K}\lambda_{Z_s}\,ds
+\right]
+=\mathbb E[Z_{t\wedge\tau_K}].
+\]</span></p>
+<p>Ketika <span class="math inline">\(t\to\infty\)</span>, integral di
+ruas kiri naik menuju integral sampai <span class="math inline">\(\tau_K\)</span>, sedangkan <span class="math inline">\(Z_{t\wedge\tau_K}\to K\)</span> dan dibatasi oleh
+<span class="math inline">\(K\)</span>. Teorema konvergensi monoton di
+ruas kiri dan konvergensi terdominasi di ruas kanan menghasilkan</p>
+<p><span class="math display">\[
+\mathbb E\!\left[
+\int_0^{\tau_K}\lambda_{Z_s}\,ds
+\right]
+=K.
+\]</span></p>
+<p>Perhatikan bahwa limit ini sekaligus membuktikan keterintegralan
+kompensator yang dihentikan; keterintegralan itu tidak diasumsikan
+sebelumnya.</p>
+<p>Untuk waktu pencapaian, definisikan</p>
+<p><span class="math display">\[
+g(0)=0,
+\qquad
+g(j)=\sum_{\ell=0}^{j-1}\frac1{\lambda_\ell},
+\quad 1\le j\le K.
+\]</span></p>
+<p>Bagi <span class="math inline">\(j&lt;K\)</span>,</p>
+<p><span class="math display">\[
+(\mathcal Lg)(j)
+=\lambda_j\bigl(g(j+1)-g(j)\bigr)
+=\lambda_j\frac1{\lambda_j}
+=1.
+\]</span></p>
+<p>Karena <span class="math inline">\(\mathcal Lg(K)=0\)</span>,
+martingal Dynkin untuk <span class="math inline">\(g\)</span> adalah</p>
+<p><span class="math display">\[
+g(Z_{t\wedge\tau_K})-t\wedge\tau_K.
+\]</span></p>
+<p>Pengambilan ekspektasi memberi</p>
+<p><span class="math display">\[
+\mathbb E[t\wedge\tau_K]
+=\mathbb E[g(Z_{t\wedge\tau_K})].
+\]</span></p>
+<p>Ruas kiri naik menuju <span class="math inline">\(\mathbb
+E\tau_K\)</span>. Ruas kanan menuju <span class="math inline">\(g(K)\)</span> dengan konvergensi terdominasi
+karena <span class="math inline">\(g\)</span> terbatas pada ruang
+keadaan hingga. Akibatnya,</p>
+<p><span class="math display">\[
+\mathbb E\tau_K
+=g(K)
+=\sum_{j=0}^{K-1}\frac1{\lambda_j}
+=\sum_{j=0}^{K-1}\frac1{a+bj}.
+\]</span></p>
+<p>Sekarang tetapkan <span class="math inline">\(s\ge0\)</span> dan
+definisikan</p>
+<p><span class="math display">\[
+q_s(K)=1,
+\qquad
+q_s(j)=\prod_{\ell=j}^{K-1}
+\frac{\lambda_\ell}{\lambda_\ell+s},
+\quad 0\le j&lt;K.
+\]</span></p>
+<p>Relasi mundurnya ialah</p>
+<p><span class="math display">\[
+q_s(j)=\frac{\lambda_j}{\lambda_j+s}q_s(j+1).
+\]</span></p>
+<p>Dengan demikian,</p>
+<p><span class="math display">\[
+\begin{aligned}
+(\mathcal Lq_s)(j)
+&amp;=\lambda_j\bigl(q_s(j+1)-q_s(j)\bigr)\\
+&amp;=s\,q_s(j),
+\qquad j&lt;K.
+\end{aligned}
+\]</span></p>
+<p>Rumus Dynkin ruang-waktu, dihentikan pada <span class="math inline">\(\tau_K\)</span>, sekarang menunjukkan bahwa</p>
+<p><span class="math display">\[
+R_t
+=e^{-s(t\wedge\tau_K)}
+q_s(Z_{t\wedge\tau_K})
+\]</span></p>
+<p>merupakan martingal. Memang, sebelum absorpsi, hanyutannya adalah</p>
+<p><span class="math display">\[
+e^{-st}\bigl(-s q_s+\mathcal Lq_s\bigr)=0,
+\]</span></p>
+<p>dan setelah absorpsi proses yang dihentikan konstan. Selain itu,
+<span class="math inline">\(0&lt;R_t\le1\)</span>, sehingga tidak ada
+persoalan martingal lokal atau keterintegralan seragam. Karena <span class="math inline">\(R_0=q_s(0)\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E[R_t]=q_s(0).
+\]</span></p>
+<p>Ketika <span class="math inline">\(t\to\infty\)</span>, berlaku <span class="math inline">\(R_t\to e^{-s\tau_K}q_s(K)=e^{-s\tau_K}\)</span>
+hampir pasti. Konvergensi terdominasi memberi</p>
+<p><span class="math display">\[
+\mathbb E(e^{-s\tau_K})
+=q_s(0)
+=\prod_{j=0}^{K-1}\frac{\lambda_j}{\lambda_j+s}
+=\prod_{j=0}^{K-1}\frac{a+bj}{a+bj+s}.
+\]</span></p>
+<p>Terakhir, tuliskan <span class="math inline">\(\phi(s)=\mathbb
+E(e^{-s\tau_K})\)</span>. Karena <span class="math inline">\(\tau_K\)</span> merupakan jumlah berhingga peubah
+eksponensial, momen keduanya berhingga dan diferensiasi pada <span class="math inline">\(s=0\)</span> sah. Dari hasil kali berhingga di
+atas,</p>
+<p><span class="math display">\[
+\log\phi(s)
+=-\sum_{j=0}^{K-1}\log\left(1+\frac{s}{\lambda_j}\right).
+\]</span></p>
+<p>Pada <span class="math inline">\(s=0\)</span>,</p>
+<p><span class="math display">\[
+(\log\phi)'(0)
+=-\sum_{j=0}^{K-1}\frac1{\lambda_j},
+\qquad
+(\log\phi)''(0)
+=\sum_{j=0}^{K-1}\frac1{\lambda_j^2}.
+\]</span></p>
+<p>Karena <span class="math inline">\(\phi(0)=1\)</span>, <span class="math inline">\(\phi'(0)=-\mathbb E\tau_K\)</span> dan <span class="math inline">\(\phi''(0)=\mathbb E(\tau_K^2)\)</span>.
+Identitas <span class="math inline">\(\phi''/\phi=(\log\phi)''+((\log\phi)')^2\)</span>
+menghasilkan</p>
+<p><span class="math display">\[
+\mathbb E(\tau_K^2)
+=\left(\sum_{j=0}^{K-1}\frac1{\lambda_j}\right)^2
++\sum_{j=0}^{K-1}\frac1{\lambda_j^2}.
+\]</span></p>
+<p>Oleh karena itu,</p>
+<p><span class="math display">\[
+\operatorname{Var}(\tau_K)
+=\sum_{j=0}^{K-1}\frac1{\lambda_j^2}
+=\sum_{j=0}^{K-1}\frac1{(a+bj)^2}.
+\]</span></p>
+<p>Untuk <span class="math inline">\(b=0\)</span>, rumus-rumus ini
+mereduksi menjadi <span class="math inline">\(\mathbb
+E\tau_K=K/a\)</span> dan <span class="math inline">\(\operatorname{Var}(\tau_K)=K/a^2\)</span>, sesuai
+dengan waktu tunggu Erlang.</p>
+</details>
+</div>
+<div class="rights-provenance" id="unit.o009.original.mastery.martingales.01-02.rights">
+<h2 id="hak-dan-provenans">Hak dan provenans</h2>
+<p>Unit <strong>Penguasaan martingal dan waktu henti 01–02</strong>,
+termasuk kedua masalah, petunjuk, jawaban, dan penyelesaian, merupakan
+materi asli berbahasa Indonesia yang disusun untuk edisi ini. Sejauh hak
+baru timbul, materi tersebut dilisensikan di bawah <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International (CC BY 4.0)</a>. ID hak komponennya ialah
+<code>rights.o009.original.mastery.martingales.01-02.cc-by-4.0</code>.</p>
+<p>Penyusunan dibantu oleh <strong>OpenAI Codex gpt-5.6-sol,
+Ultra.</strong> Identitas model tidak menggantikan kredit sumber atau
+kontributor manusia. Masalah, parameter, urutan pertanyaan, petunjuk,
+serta penyelesaiannya dirumuskan baru untuk unit ini. Tautan prasyarat
+hanya menunjuk teori yang diperlukan; unit ini tidak menyalin prosa,
+latihan, laboratorium, atau jembatan yang ditautkan dan tidak mengubah
+lisensi komponen lain.</p>
+</div>
+</div>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

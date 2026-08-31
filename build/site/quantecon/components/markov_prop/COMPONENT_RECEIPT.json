@@ -1,0 +1,221 @@
+{
+  "authority": {
+    "active_input_manifest_sha256_after": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "active_input_manifest_sha256_before": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "commit": "8b06e0aa5a438692445b2c896f9d238c5a7d5eb7",
+    "notebook_path": "authority\\quantecon\\notebook_snapshot\\continuous_time_mcs.notebooks-1e17c25c937f369544380f769eb9c1bc45d12d1a\\markov_prop.ipynb",
+    "notebook_sha256": "c5e3ff8f3bfe4b32d6bee0a6d15435fc738032357025e5ff8b0293b684a801db",
+    "source_manifest_sha256_after": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_manifest_sha256_before": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_path": "authority\\quantecon\\source_snapshot\\continuous_time_mcs-8b06e0aa5a438692445b2c896f9d238c5a7d5eb7\\lectures\\markov_prop.md",
+    "source_sha256": "0380ca588468e4185391e8bf5d2d207978a958a6c954029f41399473d9d6f545",
+    "tree": "f0f11e3bbc6bd23d6e4a447a7e05c0aaf0f7209e"
+  },
+  "built_at_utc": "2026-08-24T06:34:32.111631+00:00",
+  "code_cells": [
+    {
+      "execution_source_sha256": "3b5055509a42069a0ca0515b9feff6d3ff6cecf9678c27f7480146e2c16dd72e",
+      "index": 1,
+      "replay": {
+        "figures": [],
+        "index": 1,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "c18d8d19d04280516dbaa4fcf818d5c05656b4c8539e7c68449e3eed34df1b4b"
+    },
+    {
+      "execution_source_sha256": "337640f6e63786a45a6195ce100cf97cd25bbd560451e72d42a852f6cd246bdc",
+      "index": 2,
+      "replay": {
+        "figures": [],
+        "index": 2,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "337640f6e63786a45a6195ce100cf97cd25bbd560451e72d42a852f6cd246bdc"
+    },
+    {
+      "execution_source_sha256": "a4dae62cfaade6585c33d27e8fe9bb321d5b0d5e4c8e5d918d503b254c0e1045",
+      "index": 3,
+      "replay": {
+        "figures": [],
+        "index": 3,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "a4dae62cfaade6585c33d27e8fe9bb321d5b0d5e4c8e5d918d503b254c0e1045"
+    },
+    {
+      "execution_source_sha256": "80bcada9ba1dd60f1f866a8ab6dccdb6ee4a7f5ff70b0581b2161ce4d041581a",
+      "index": 4,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 11073,
+            "index": 1,
+            "sha256": "2e56d5b836d29651a125b7b2bf55abd46c646108cec5bbea6393ab25fa006d9d"
+          }
+        ],
+        "index": 4,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "21609366a1ec99cdd3bbc269f574ee534e4a9bca606509276b11d69617d672b3"
+    },
+    {
+      "execution_source_sha256": "2f00193de5ebd76cea64e0c19a04902d69e48f8f3adf1cce0ab76b46aac3d276",
+      "index": 5,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 95172,
+            "index": 1,
+            "sha256": "5ba66db4bbb4d65aebf1c3f5e7cdf6d577f2d00f48a21a18bfd68a88a6e67404"
+          }
+        ],
+        "index": 5,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "a23918ede3ad55d947fda379f4b6554ea7b32e7e5bf4cc6fea803f92f2c27e20"
+    }
+  ],
+  "corrections": [
+    {
+      "description": "Aligned the inventory-simulation prose with the preserved implementation and docstring, which start at X_0=b rather than X_0=0.",
+      "id": "markov-prop-inventory-initial-state"
+    },
+    {
+      "description": "Restored the missing simulation index m in the empirical cross-sectional distribution formula.",
+      "id": "markov-prop-empirical-replicate-index"
+    },
+    {
+      "description": "Rendered the authority typo 'updates at follows' as natural Indonesian prose.",
+      "id": "markov-prop-source-typo"
+    },
+    {
+      "description": "Kept n=b+1 for states 0 through b and used Binomial(b, 0.25) so the initial distribution has total mass one on that state space.",
+      "id": "markov-prop-binomial-support"
+    },
+    {
+      "description": "Removed package installation, glue-only calls, and writes into the frozen source tree from downstream execution copies.",
+      "id": "markov-prop-offline-mutation-guards"
+    },
+    {
+      "description": "Localized visible time and inventory axis labels only in downstream execution copies.",
+      "id": "markov-prop-localized-plot-labels"
+    },
+    {
+      "description": "Resolved citations, prior-unit references, same-page anchors, and the forward unit reference into human-readable local or source-safe text.",
+      "id": "markov-prop-myst-references"
+    },
+    {
+      "description": "Added Indonesian alternatives and captions to the frozen flow asset and generated figures.",
+      "id": "markov-prop-accessibility"
+    },
+    {
+      "description": "Removed remote theme, analytics, and launch runtime while preserving author, source, CC BY-SA 4.0, model provenance, and non-endorsement.",
+      "id": "quantecon-branding-runtime"
+    }
+  ],
+  "file_count": 9,
+  "files": [
+    {
+      "bytes": 104771,
+      "path": "assets/markov-prop-flow-source.png",
+      "sha256": "54906c3f6f48664960d25ead98af1150014e88367db1d604f6ccc9d01e50564f"
+    },
+    {
+      "bytes": 11073,
+      "path": "assets/markov_prop-cell-04-figure-01.png",
+      "sha256": "2e56d5b836d29651a125b7b2bf55abd46c646108cec5bbea6393ab25fa006d9d"
+    },
+    {
+      "bytes": 95172,
+      "path": "assets/markov_prop-cell-05-figure-01.png",
+      "sha256": "5ba66db4bbb4d65aebf1c3f5e7cdf6d577f2d00f48a21a18bfd68a88a6e67404"
+    },
+    {
+      "bytes": 61240,
+      "path": "lectures/markov_prop.html",
+      "sha256": "0710ea148adb9976bb739c86f5134dd6599fffc6df2fd2fb9fd2d8ff2c810d9c"
+    },
+    {
+      "bytes": 1704911,
+      "path": "MathJax/tex-svg.js",
+      "sha256": "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
+    },
+    {
+      "bytes": 307365,
+      "path": "notebooks/markov_prop-authority.ipynb",
+      "sha256": "c5e3ff8f3bfe4b32d6bee0a6d15435fc738032357025e5ff8b0293b684a801db"
+    },
+    {
+      "bytes": 3773,
+      "path": "notebooks/markov_prop-executed.ipynb",
+      "sha256": "4066f0bf1ce4917b757d1e713179df73885dd60a11e14fe3d6d21f50e392a34c"
+    },
+    {
+      "bytes": 3366,
+      "path": "reader.css",
+      "sha256": "820f354bd797c5b5cb0e34248bc82c9b835e0fafb66fed75145f7c8180fa997c"
+    },
+    {
+      "bytes": 34799,
+      "path": "source-markov_prop.md",
+      "sha256": "82320a9bcc311726c7255398d9950c62adc106733dd2bcef9c400c7664543807"
+    }
+  ],
+  "manifest_sha256": "76b98358c99028e692472ccc90fe967f7068225f7be569258fbc0d7bca0171d4",
+  "replay_match": true,
+  "runtime": {
+    "bytes": 253256,
+    "lock_sha256": "7b7009aa8abf346cd7dec13c50f03f413471e7e0585ed23563685fd4b1f86210",
+    "path": "tmp\\quantecon-offline-replay\\Scripts\\python.exe",
+    "sha256": "0e818a1f9a0b8fbd4e7cc458a07cb7de2ea02ea326e387699a33b92f151242cd",
+    "version": "Python 3.13.9"
+  },
+  "schema": "o009.quantecon-component.v1",
+  "status": "complete-unit-local",
+  "target": {
+    "path": "source/quantecon/lectures/markov_prop.md",
+    "sha256": "82320a9bcc311726c7255398d9950c62adc106733dd2bcef9c400c7664543807",
+    "title": "Sifat Markov"
+  },
+  "topology": {
+    "code_cells": 5,
+    "equation_refs": [
+      "chapkol_ct2",
+      "distflowconst",
+      "ijumpkern",
+      "kernprod",
+      "kernprodk",
+      "markovprop",
+      "markovpropd",
+      "mathjointd",
+      "poissemi",
+      "update_rule",
+      "xfromy"
+    ],
+    "exercises": 4,
+    "headings": 27,
+    "labels": [
+      "markov-prop-1",
+      "markov-prop-2",
+      "markov-prop-3",
+      "markov-prop-4"
+    ],
+    "proof_directives": 1,
+    "solutions": 4,
+    "standalone_labels": [
+      "consjumptransemi",
+      "finstatediscretemc",
+      "invdistflows",
+      "inventory_dynam",
+      "jdfin"
+    ]
+  },
+  "total_bytes": 2326470,
+  "unit_id": "unit.o009.quantecon.ctmc.markov-property"
+}

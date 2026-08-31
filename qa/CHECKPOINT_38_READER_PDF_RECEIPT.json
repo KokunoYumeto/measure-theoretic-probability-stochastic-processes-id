@@ -1,0 +1,1913 @@
+{
+  "path": "output/pdf/00_PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_READER_CHECKPOINT_38.pdf",
+  "bytes": 39843697,
+  "sha256": "dda34267df928672e03e04b4c8a36d768aab2d33bc1194b269074da0d2d24e40",
+  "pages": 447,
+  "text_characters": 1040444,
+  "text_extractor": "Poppler pdftotext UTF-8",
+  "first_substantive_page": 5,
+  "last_unit_start_page": 433,
+  "metadata_title": "Probabilitas Teoretis-Ukuran dan Proses Stokastik - Edisi Bahasa Indonesia",
+  "metadata_creator": "Pipeline lokal HTML/MathJax 2026.08.30-checkpoint.38; OpenAI Codex gpt-5.6-sol, Ultra.",
+  "outline_present": true,
+  "outline_destinations": 72,
+  "outline_pages_monotonic": true,
+  "link_annotations": 1562,
+  "created_utc": "2026-08-31T00:23:42.966512+00:00",
+  "format": "A4 portrait",
+  "checkpoint": 38,
+  "document_version": "2026.08.30-checkpoint.38",
+  "theory_units": 36,
+  "substantive_theory_units": 36,
+  "overview_units": 3,
+  "labs": 5,
+  "mastery_units": 14,
+  "assessment_forms": 2,
+  "quantecon_units": 8,
+  "quantecon_notebooks": 8,
+  "original_bridge_units": 4,
+  "random_substantive_units": 24,
+  "random_selected_pages": 27,
+  "random_selected_pages_complete": true,
+  "component_units_total": 60,
+  "component_page_counts": [
+    {
+      "kind": "Teori",
+      "title": "Konvergensi kejadian dan peubah acak",
+      "relpath": "prob/Convergence.html",
+      "start_page": 5,
+      "pages": 9
+    },
+    {
+      "kind": "Teori",
+      "title": "Probabilitas ditinjau kembali",
+      "relpath": "prob/Probability2.html",
+      "start_page": 14,
+      "pages": 10
+    },
+    {
+      "kind": "Teori",
+      "title": "Proses stokastik",
+      "relpath": "prob/Processes.html",
+      "start_page": 24,
+      "pages": 6
+    },
+    {
+      "kind": "Teori",
+      "title": "Filtrasi dan waktu henti",
+      "relpath": "prob/Stop.html",
+      "start_page": 30,
+      "pages": 11
+    },
+    {
+      "kind": "Teori",
+      "title": "Konvergensi dalam distribusi",
+      "relpath": "dist/Convergence.html",
+      "start_page": 41,
+      "pages": 12
+    },
+    {
+      "kind": "Teori",
+      "title": "Nilai harapan bersyarat ditinjau kembali",
+      "relpath": "expect/Conditional2.html",
+      "start_page": 53,
+      "pages": 10
+    },
+    {
+      "kind": "Teori",
+      "title": "Peubah terintegralkan seragam",
+      "relpath": "expect/Uniform.html",
+      "start_page": 63,
+      "pages": 5
+    },
+    {
+      "kind": "Teori",
+      "title": "Kernel dan operator",
+      "relpath": "expect/Kernels.html",
+      "start_page": 68,
+      "pages": 12
+    },
+    {
+      "kind": "Ikhtisar",
+      "title": "Ikhtisar martingal",
+      "relpath": "martingales/index.html",
+      "start_page": 80,
+      "pages": 1
+    },
+    {
+      "kind": "Teori",
+      "title": "Pendahuluan martingal",
+      "relpath": "martingales/Introduction.html",
+      "start_page": 81,
+      "pages": 13
+    },
+    {
+      "kind": "Teori",
+      "title": "Sifat dan konstruksi martingal",
+      "relpath": "martingales/Properties.html",
+      "start_page": 94,
+      "pages": 8
+    },
+    {
+      "kind": "Teori",
+      "title": "Waktu henti martingal",
+      "relpath": "martingales/Stop.html",
+      "start_page": 102,
+      "pages": 9
+    },
+    {
+      "kind": "Teori",
+      "title": "Pertidaksamaan martingal",
+      "relpath": "martingales/Inequalities.html",
+      "start_page": 111,
+      "pages": 10
+    },
+    {
+      "kind": "Teori",
+      "title": "Konvergensi martingal",
+      "relpath": "martingales/Convergence.html",
+      "start_page": 121,
+      "pages": 8
+    },
+    {
+      "kind": "Teori",
+      "title": "Martingal mundur",
+      "relpath": "martingales/Backwards.html",
+      "start_page": 129,
+      "pages": 6
+    },
+    {
+      "kind": "Ikhtisar",
+      "title": "Ikhtisar proses Markov",
+      "relpath": "markov/index.html",
+      "start_page": 135,
+      "pages": 2
+    },
+    {
+      "kind": "Teori",
+      "title": "Proses Markov umum",
+      "relpath": "markov/General.html",
+      "start_page": 137,
+      "pages": 13
+    },
+    {
+      "kind": "Teori",
+      "title": "Rantai Markov waktu diskret",
+      "relpath": "markov/Discrete.html",
+      "start_page": 150,
+      "pages": 13
+    },
+    {
+      "kind": "Teori",
+      "title": "Keadaan transien dan rekuren",
+      "relpath": "markov/Recurrence.html",
+      "start_page": 163,
+      "pages": 12
+    },
+    {
+      "kind": "Teori",
+      "title": "Periodisitas",
+      "relpath": "markov/Periodicity.html",
+      "start_page": 175,
+      "pages": 4
+    },
+    {
+      "kind": "Teori",
+      "title": "Distribusi invarian dan limit",
+      "relpath": "markov/Limiting.html",
+      "start_page": 179,
+      "pages": 12
+    },
+    {
+      "kind": "Laboratorium",
+      "title": "Simulasi rantai Markov",
+      "relpath": "labs/02-simulasi-rantai-markov.html",
+      "start_page": 191,
+      "pages": 3
+    },
+    {
+      "kind": "Laboratorium",
+      "title": "Konvergensi Monte Carlo",
+      "relpath": "labs/01-konvergensi-monte-carlo.html",
+      "start_page": 194,
+      "pages": 2
+    },
+    {
+      "kind": "Teori",
+      "title": "Distribusi tanpa ingatan (QuantEcon)",
+      "relpath": "quantecon/lectures/memoryless.html",
+      "start_page": 196,
+      "pages": 7
+    },
+    {
+      "kind": "Teori",
+      "title": "Proses Poisson (QuantEcon)",
+      "relpath": "quantecon/lectures/poisson.html",
+      "start_page": 203,
+      "pages": 9
+    },
+    {
+      "kind": "Teori",
+      "title": "Sifat Markov (QuantEcon)",
+      "relpath": "quantecon/lectures/markov_prop.html",
+      "start_page": 212,
+      "pages": 14
+    },
+    {
+      "kind": "Teori",
+      "title": "Persamaan Kolmogorov mundur (QuantEcon)",
+      "relpath": "quantecon/lectures/kolmogorov_bwd.html",
+      "start_page": 226,
+      "pages": 10
+    },
+    {
+      "kind": "Teori",
+      "title": "Persamaan Kolmogorov maju (QuantEcon)",
+      "relpath": "quantecon/lectures/kolmogorov_fwd.html",
+      "start_page": 236,
+      "pages": 10
+    },
+    {
+      "kind": "Teori",
+      "title": "Semigrup dan generator (QuantEcon)",
+      "relpath": "quantecon/lectures/generators.html",
+      "start_page": 246,
+      "pages": 6
+    },
+    {
+      "kind": "Teori",
+      "title": "Semigrup Markov yang kontinu seragam (QuantEcon)",
+      "relpath": "quantecon/lectures/uc_mc_semigroups.html",
+      "start_page": 252,
+      "pages": 8
+    },
+    {
+      "kind": "Teori",
+      "title": "Stasioneritas dan ergodisitas (QuantEcon)",
+      "relpath": "quantecon/lectures/ergodicity.html",
+      "start_page": 260,
+      "pages": 10
+    },
+    {
+      "kind": "Teori",
+      "title": "Proses Poisson pada ruang umum",
+      "relpath": "poisson/General.html",
+      "start_page": 270,
+      "pages": 5
+    },
+    {
+      "kind": "Ikhtisar",
+      "title": "Ikhtisar gerak Brown",
+      "relpath": "brown/index.html",
+      "start_page": 275,
+      "pages": 1
+    },
+    {
+      "kind": "Teori",
+      "title": "Gerak Brown standar",
+      "relpath": "brown/Standard.html",
+      "start_page": 276,
+      "pages": 13
+    },
+    {
+      "kind": "Teori",
+      "title": "Gerak Brown dengan hanyutan",
+      "relpath": "brown/Drift.html",
+      "start_page": 289,
+      "pages": 5
+    },
+    {
+      "kind": "Teori",
+      "title": "Jembatan Brown",
+      "relpath": "brown/Bridge.html",
+      "start_page": 294,
+      "pages": 6
+    },
+    {
+      "kind": "Teori",
+      "title": "Gerak Brown geometrik",
+      "relpath": "brown/Geometric.html",
+      "start_page": 300,
+      "pages": 5
+    },
+    {
+      "kind": "Jembatan asli",
+      "title": "Konstruksi Kolmogorov dan proses kanonik",
+      "relpath": "original/01-konstruksi-kolmogorov.html",
+      "start_page": 305,
+      "pages": 9
+    },
+    {
+      "kind": "Jembatan asli",
+      "title": "Keterukuran proses dan hukum lintasan",
+      "relpath": "original/02-keterukuran-proses-dan-hukum-lintasan.html",
+      "start_page": 314,
+      "pages": 7
+    },
+    {
+      "kind": "Jembatan asli",
+      "title": "Distribusi bersyarat reguler dan disiplin versi",
+      "relpath": "original/03-probabilitas-bersyarat-reguler.html",
+      "start_page": 321,
+      "pages": 9
+    },
+    {
+      "kind": "Jembatan asli",
+      "title": "Audit hipotesis untuk proses stokastik",
+      "relpath": "original/04-audit-hipotesis-proses-stokastik.html",
+      "start_page": 330,
+      "pages": 10
+    },
+    {
+      "kind": "Laboratorium",
+      "title": "Mode konvergensi dan pembanding LLN/CLT",
+      "relpath": "labs/03-konvergensi-mode-dan-lln-clt.html",
+      "start_page": 340,
+      "pages": 2
+    },
+    {
+      "kind": "Laboratorium",
+      "title": "Nilai harapan bersyarat, filtrasi, dan penghentian opsional",
+      "relpath": "labs/04-nilai-harapan-bersyarat-martingal.html",
+      "start_page": 342,
+      "pages": 4
+    },
+    {
+      "kind": "Laboratorium",
+      "title": "Gerak Brown: Donsker, variasi kuadratik, dan waktu kena",
+      "relpath": "labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html",
+      "start_page": 346,
+      "pages": 5
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan konvergensi 01–02",
+      "relpath": "mastery/01-konvergensi-01-02.html",
+      "start_page": 351,
+      "pages": 4
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan konvergensi 03–04",
+      "relpath": "mastery/02-konvergensi-03-04.html",
+      "start_page": 355,
+      "pages": 4
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan konvergensi 05",
+      "relpath": "mastery/03-konvergensi-05.html",
+      "start_page": 359,
+      "pages": 3
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan nilai harapan bersyarat dan kernel 01–02",
+      "relpath": "mastery/04-bersyarat-kernel-01-02.html",
+      "start_page": 362,
+      "pages": 5
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan nilai harapan bersyarat dan kernel 03",
+      "relpath": "mastery/05-bersyarat-kernel-03.html",
+      "start_page": 367,
+      "pages": 5
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan martingal 01–02",
+      "relpath": "mastery/06-martingal-01-02.html",
+      "start_page": 372,
+      "pages": 7
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan martingal 03–04",
+      "relpath": "mastery/07-martingal-03-04.html",
+      "start_page": 379,
+      "pages": 5
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan martingal 05",
+      "relpath": "mastery/08-martingal-05.html",
+      "start_page": 384,
+      "pages": 5
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan konstruksi ukuran acak Poisson",
+      "relpath": "mastery/09-poisson-konstruksi-01.html",
+      "start_page": 389,
+      "pages": 5
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan gerak Brown 01",
+      "relpath": "mastery/10-brown-01.html",
+      "start_page": 394,
+      "pages": 3
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan gerak Brown 02",
+      "relpath": "mastery/11-brown-02.html",
+      "start_page": 397,
+      "pages": 5
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan gerak Brown 03–04",
+      "relpath": "mastery/12-brown-03-04.html",
+      "start_page": 402,
+      "pages": 5
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan gerak Brown 05–06",
+      "relpath": "mastery/13-brown-05-06.html",
+      "start_page": 407,
+      "pages": 6
+    },
+    {
+      "kind": "Penguasaan",
+      "title": "Penguasaan gerak Brown 07",
+      "relpath": "mastery/14-brown-07.html",
+      "start_page": 413,
+      "pages": 4
+    },
+    {
+      "kind": "Penilaian",
+      "title": "Penilaian kumulatif — Formulir A",
+      "relpath": "assessments/01-formulir-kumulatif-a.html",
+      "start_page": 417,
+      "pages": 16
+    },
+    {
+      "kind": "Penilaian",
+      "title": "Penilaian kumulatif — Formulir B",
+      "relpath": "assessments/02-formulir-kumulatif-b.html",
+      "start_page": 433,
+      "pages": 15
+    }
+  ],
+  "render_diagnostics": [
+    {
+      "title": "Kekonvergenan",
+      "details": 24,
+      "openDetails": 24,
+      "mathJax": 408,
+      "images": 7,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 28164,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Probabilitas Ditinjau Kembali",
+      "details": 16,
+      "openDetails": 16,
+      "mathJax": 697,
+      "images": 5,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 38745,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Proses Stokastik",
+      "details": 11,
+      "openDetails": 11,
+      "mathJax": 438,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 25315,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Filtrasi dan Waktu Henti",
+      "details": 32,
+      "openDetails": 32,
+      "mathJax": 1029,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 44199,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Konvergensi dalam Distribusi",
+      "details": 25,
+      "openDetails": 25,
+      "mathJax": 993,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 51181,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Nilai Harapan Bersyarat Ditinjau Kembali",
+      "details": 24,
+      "openDetails": 24,
+      "mathJax": 598,
+      "images": 5,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 33910,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Peubah Terintegralkan Seragam",
+      "details": 10,
+      "openDetails": 10,
+      "mathJax": 365,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 18003,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Kernel dan Operator",
+      "details": 22,
+      "openDetails": 22,
+      "mathJax": 862,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 40530,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Martingal",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 0,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 2247,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Pendahuluan",
+      "details": 22,
+      "openDetails": 22,
+      "mathJax": 742,
+      "images": 5,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 46200,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Sifat dan Konstruksi",
+      "details": 16,
+      "openDetails": 16,
+      "mathJax": 536,
+      "images": 7,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 27642,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Waktu Henti",
+      "details": 18,
+      "openDetails": 18,
+      "mathJax": 598,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 33883,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Pertidaksamaan",
+      "details": 15,
+      "openDetails": 15,
+      "mathJax": 553,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 31932,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Kekonvergenan",
+      "details": 12,
+      "openDetails": 12,
+      "mathJax": 727,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 35612,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Martingal Mundur",
+      "details": 9,
+      "openDetails": 9,
+      "mathJax": 445,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 25305,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Proses Markov",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 0,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 3505,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Proses Markov Umum",
+      "details": 23,
+      "openDetails": 23,
+      "mathJax": 918,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 58612,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Rantai Markov Waktu Diskret",
+      "details": 30,
+      "openDetails": 30,
+      "mathJax": 660,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 39467,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Keadaan Transien dan Rekuren",
+      "details": 27,
+      "openDetails": 27,
+      "mathJax": 685,
+      "images": 10,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 35442,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Periodisitas",
+      "details": 5,
+      "openDetails": 5,
+      "mathJax": 182,
+      "images": 6,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 10497,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Distribusi Invarian dan Limit",
+      "details": 22,
+      "openDetails": 22,
+      "mathJax": 616,
+      "images": 9,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 35572,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Simulasi Rantai Markov: Kebangkrutan Penjudi",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 53,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 6723,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Konvergensi Monte Carlo",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 34,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 6142,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Distribusi Tanpa Ingatan",
+      "details": 1,
+      "openDetails": 1,
+      "mathJax": 144,
+      "images": 3,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 13105,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Proses Poisson",
+      "details": 3,
+      "openDetails": 3,
+      "mathJax": 133,
+      "images": 5,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 13843,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Sifat Markov",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 415,
+      "images": 3,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 32773,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Persamaan Kolmogorov Mundur",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 217,
+      "images": 2,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 22862,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Persamaan Kolmogorov Maju",
+      "details": 4,
+      "openDetails": 4,
+      "mathJax": 199,
+      "images": 3,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 23245,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Semigrup dan Generator",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 277,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 21039,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Semigrup Markov yang Kontinu Seragam",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 343,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 24523,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Stasioneritas dan Ergodisitas",
+      "details": 1,
+      "openDetails": 1,
+      "mathJax": 346,
+      "images": 1,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 26143,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Proses Poisson pada Ruang Umum",
+      "details": 13,
+      "openDetails": 13,
+      "mathJax": 276,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 19679,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Gerak Brown",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 0,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 2984,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Gerak Brown Standar",
+      "details": 30,
+      "openDetails": 30,
+      "mathJax": 576,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 43644,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Gerak Brown dengan Hanyutan",
+      "details": 10,
+      "openDetails": 10,
+      "mathJax": 194,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 15401,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Jembatan Brown",
+      "details": 9,
+      "openDetails": 9,
+      "mathJax": 260,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 18971,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Gerak Brown Geometrik",
+      "details": 8,
+      "openDetails": 8,
+      "mathJax": 155,
+      "images": 4,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 12099,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Konstruksi Kolmogorov dan proses kanonik",
+      "details": 9,
+      "openDetails": 9,
+      "mathJax": 286,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 31250,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Keterukuran proses dan hukum lintasan",
+      "details": 9,
+      "openDetails": 9,
+      "mathJax": 338,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 26723,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Distribusi bersyarat reguler dan disiplin versi",
+      "details": 9,
+      "openDetails": 9,
+      "mathJax": 428,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 30229,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Audit hipotesis untuk proses stokastik",
+      "details": 9,
+      "openDetails": 9,
+      "mathJax": 307,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 35725,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Mode konvergensi dan pembanding LLN/CLT",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 45,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 6114,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Nilai harapan bersyarat, filtrasi, dan penghentian opsional",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 52,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 11172,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": [
+        {
+          "id": "o009-results-conditional-martingale",
+          "sourceColumns": 18,
+          "sourceRows": 1,
+          "outputRows": 9,
+          "fieldsPreserved": 18
+        }
+      ]
+    },
+    {
+      "title": "Gerak Brown: Donsker, variasi kuadratik, dan waktu kena",
+      "details": 0,
+      "openDetails": 0,
+      "mathJax": 90,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 12161,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": [
+        {
+          "id": "o009-results-brownian-diagnostics",
+          "sourceColumns": 15,
+          "sourceRows": 4,
+          "outputRows": 32,
+          "fieldsPreserved": 60,
+          "sourceOrderPreserved": true
+        }
+      ]
+    },
+    {
+      "title": "Penguasaan konvergensi: subbarisan dan pemetaan diskontinu",
+      "details": 6,
+      "openDetails": 6,
+      "mathJax": 163,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 11861,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Latihan penguasaan konvergensi dan teorema limit: butir 03–04",
+      "details": 7,
+      "openDetails": 7,
+      "mathJax": 144,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 10603,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Penguasaan 03.05: limit gabungan pada waktu Poisson",
+      "details": 4,
+      "openDetails": 4,
+      "mathJax": 85,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 6024,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Penguasaan 01–02: perubahan ukuran dan jembatan kernel Gaussian",
+      "details": 8,
+      "openDetails": 8,
+      "mathJax": 180,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 11836,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Penguasaan bersyarat–kernel 05.03: pembaruan Beta melalui komposisi kernel",
+      "details": 4,
+      "openDetails": 4,
+      "mathJax": 162,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 12332,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Penguasaan martingal dan waktu henti 01–02",
+      "details": 8,
+      "openDetails": 8,
+      "mathJax": 215,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 15414,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "07-martingal-03-04",
+      "details": 6,
+      "openDetails": 6,
+      "mathJax": 165,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 10214,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Martingal mundur dan pelupaan kuantitatif pada rantai Markov reversibel",
+      "details": 4,
+      "openDetails": 4,
+      "mathJax": 141,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 10142,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Konstruksi ukuran acak Poisson pada ruang ukuran umum",
+      "details": 4,
+      "openDetails": 4,
+      "mathJax": 162,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 13725,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Penguasaan 10.01: gerak Brown dengan luas lintasan yang ditambatkan",
+      "details": 4,
+      "openDetails": 4,
+      "mathJax": 93,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 7205,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Penguasaan gerak Brown 02 — spektrum kovarians dan aproksimasi Karhunen–Loève",
+      "details": 4,
+      "openDetails": 4,
+      "mathJax": 171,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 11208,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Penguasaan 12.03–12.04: perubahan tanda kisi dan energi lintasan Brown",
+      "details": 8,
+      "openDetails": 8,
+      "mathJax": 136,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 10696,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Penguasaan gerak Brown 05–06: jam eksponensial dan variasi kuadratik",
+      "details": 8,
+      "openDetails": 8,
+      "mathJax": 174,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 15694,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Maksimum gerak Brown bersyarat pada titik akhir",
+      "details": 4,
+      "openDetails": 4,
+      "mathJax": 108,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 8853,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Penilaian Kumulatif D30 — Formulir A",
+      "details": 24,
+      "openDetails": 24,
+      "mathJax": 558,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 44077,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    },
+    {
+      "title": "Penilaian Kumulatif D30 — Formulir B",
+      "details": 24,
+      "openDetails": 24,
+      "mathJax": 507,
+      "images": 0,
+      "brokenImages": [],
+      "emptyAltImages": [],
+      "externalRuntime": [],
+      "bodyTextCharacters": 39421,
+      "mathErrors": [],
+      "rawMystRoles": [],
+      "rawMathMacros": [],
+      "printTableReflows": []
+    }
+  ],
+  "print_scale": 1.25,
+  "render_strategy": "single Chromium print document; pypdf appends metadata/outlines incrementally while preserving the Chromium master byte-for-byte as the output prefix",
+  "pagination_pass_pages": 447,
+  "final_master_pages": 447,
+  "incremental_finalization": {
+    "mode": "pypdf incremental append",
+    "pypdf_version": "6.12.2",
+    "master_bytes_preserved_as_exact_prefix": 39827550,
+    "incremental_bytes": 16147,
+    "changed_object_ids": [
+      1,
+      52112,
+      52260,
+      52261,
+      52262,
+      52263,
+      52264,
+      52265,
+      52266,
+      52267,
+      52268,
+      52269,
+      52270,
+      52271,
+      52272,
+      52273,
+      52274,
+      52275,
+      52276,
+      52277,
+      52278,
+      52279,
+      52280,
+      52281,
+      52282,
+      52283,
+      52284,
+      52285,
+      52286,
+      52287,
+      52288,
+      52289,
+      52290,
+      52291,
+      52292,
+      52293,
+      52294,
+      52295,
+      52296,
+      52297,
+      52298,
+      52299,
+      52300,
+      52301,
+      52302,
+      52303,
+      52304,
+      52305,
+      52306,
+      52307,
+      52308,
+      52309,
+      52310,
+      52311,
+      52312,
+      52313,
+      52314,
+      52315,
+      52316,
+      52317,
+      52318,
+      52319,
+      52320,
+      52321,
+      52322,
+      52323,
+      52324,
+      52325,
+      52326,
+      52327,
+      52328,
+      52329,
+      52330,
+      52331,
+      52332,
+      52333,
+      52334,
+      52335,
+      52336,
+      52337,
+      52338,
+      52339,
+      52340,
+      52341,
+      52342,
+      52343,
+      52344,
+      52345,
+      52346,
+      52347,
+      52348,
+      52349,
+      52350,
+      52351,
+      52352,
+      52353,
+      52354,
+      52355,
+      52356,
+      52357,
+      52358,
+      52359,
+      52360,
+      52361,
+      52362,
+      52363,
+      52364,
+      52365,
+      52366,
+      52367,
+      52368,
+      52369,
+      52370,
+      52371,
+      52372,
+      52373,
+      52374,
+      52375,
+      52376,
+      52377,
+      52378,
+      52379,
+      52380,
+      52381,
+      52382,
+      52383,
+      52384,
+      52385,
+      52386,
+      52387,
+      52388,
+      52389,
+      52390,
+      52391,
+      52392,
+      52393,
+      52394,
+      52395,
+      52396,
+      52397,
+      52398,
+      52399,
+      52400,
+      52401,
+      52402,
+      52403,
+      52404
+    ],
+    "allowed_changed_existing_object_ids": [
+      1,
+      52112
+    ],
+    "unexpected_changed_existing_object_ids": [],
+    "new_page_or_resource_object_ids": []
+  },
+  "chromium_metadata_normalization": {
+    "pagination_pass": {
+      "fixed_date": "D:20260830000000+02'00'",
+      "replacement_counts": {
+        "CreationDate": 1,
+        "ModDate": 1
+      },
+      "byte_length_preserved": true
+    },
+    "final_pass": {
+      "fixed_date": "D:20260830000000+02'00'",
+      "replacement_counts": {
+        "CreationDate": 1,
+        "ModDate": 1
+      },
+      "byte_length_preserved": true
+    }
+  },
+  "site_inputs": {
+    "manifest": {
+      "label": "build/site/PACKAGE_MANIFEST.csv",
+      "bytes": 17624,
+      "sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d"
+    },
+    "build_receipt": {
+      "label": "build/site/BUILD_RECEIPT.json",
+      "bytes": 41905,
+      "sha256": "1c2755cd401477c167f708a37d953ca809ed90338684ec1027ee9dd67cea1b00"
+    },
+    "file_count": 161,
+    "total_bytes": 7796646,
+    "reader_css": {
+      "label": "build/site/reader.css",
+      "bytes": 4087,
+      "sha256": "7be8f5b85d344f123c648320e519b167bdd5d3efb269a11f0b40ad0d2261180b"
+    },
+    "printed_units": [
+      {
+        "relpath": "prob/Convergence.html",
+        "bytes": 46838,
+        "sha256": "6b25a9eac2f30ba1073610b2a62d327cb17ee5b8aa6f82553b406093c57b2a88"
+      },
+      {
+        "relpath": "prob/Probability2.html",
+        "bytes": 57676,
+        "sha256": "60ae45b47ca68333bce9367d0d39220455a8bb8b7874b6043e28be15882e4b6f"
+      },
+      {
+        "relpath": "prob/Processes.html",
+        "bytes": 40023,
+        "sha256": "463182e106ddee78acd0b7019e9bf2360e62a665eb7e842ca5718df659b6a125"
+      },
+      {
+        "relpath": "prob/Stop.html",
+        "bytes": 68621,
+        "sha256": "0e35c508809090ebac94fe00f7db4b403c57babe36880d373485c72bde0aa838"
+      },
+      {
+        "relpath": "dist/Convergence.html",
+        "bytes": 73338,
+        "sha256": "d9844b1494cb1660b6023496e845bc0b67495a8c2e3aa2ef0c9c9717fe313484"
+      },
+      {
+        "relpath": "expect/Conditional2.html",
+        "bytes": 55645,
+        "sha256": "52302bbef2a0ea59ea2635057d0e8bcaa28bf99006bd6409fc0ac12f3592e6eb"
+      },
+      {
+        "relpath": "expect/Uniform.html",
+        "bytes": 31716,
+        "sha256": "495ca92caed5810fd997a537d2b68a0ccd55c750067ecaec96bf2c2563d74ac0"
+      },
+      {
+        "relpath": "expect/Kernels.html",
+        "bytes": 61747,
+        "sha256": "6ffcc9704026bc9ab629048f3975c3591f07c4f732df3541ac4d270811abc9d6"
+      },
+      {
+        "relpath": "martingales/index.html",
+        "bytes": 12174,
+        "sha256": "69dc746df9a9995b926c2a1b2fcfc2f39e468e50b9f587af15e2805a7fe7bf5d"
+      },
+      {
+        "relpath": "martingales/Introduction.html",
+        "bytes": 67381,
+        "sha256": "60f10b0c48a0ac527a16bc015e596c581a832e92413ce436ac3a8378d9d54c1c"
+      },
+      {
+        "relpath": "martingales/Properties.html",
+        "bytes": 43309,
+        "sha256": "3bfd576c6a7a76a291104785ceb55385ad0d717cb86e429fdab51ced297d74df"
+      },
+      {
+        "relpath": "martingales/Stop.html",
+        "bytes": 51097,
+        "sha256": "1d77d18154db8778d86a1a2fd95ce76383d7aa59ded3dca7d015ba79baad275b"
+      },
+      {
+        "relpath": "martingales/Inequalities.html",
+        "bytes": 46478,
+        "sha256": "c1c8e689fb81cc3cd4f9d208a98307098593f54cfae735bee5ad67d7bbd3f8df"
+      },
+      {
+        "relpath": "martingales/Convergence.html",
+        "bytes": 53068,
+        "sha256": "ac2e75618ae0a85d6eb74530bd2cb01beb17a5d01fea0b69d266277a7e209964"
+      },
+      {
+        "relpath": "martingales/Backwards.html",
+        "bytes": 37625,
+        "sha256": "d1ed73db3fb39c366ed02b2f1790e57d22e9c1a791181696f081095138152fec"
+      },
+      {
+        "relpath": "markov/index.html",
+        "bytes": 16188,
+        "sha256": "78a4647e2ce8cbdf00899c4b7e9f82d5256213c3e2d0d3d095bea736adf4dc6e"
+      },
+      {
+        "relpath": "markov/General.html",
+        "bytes": 85003,
+        "sha256": "e31e39351ae089e574262e73a83c03c6e171cdb4b144ba9c3ff093cea8a3bedd"
+      },
+      {
+        "relpath": "markov/Discrete.html",
+        "bytes": 66072,
+        "sha256": "23c0eba509e8e36a82abd4b661528804fb3251180c16fec73fdf7496dca49fe4"
+      },
+      {
+        "relpath": "markov/Recurrence.html",
+        "bytes": 61760,
+        "sha256": "c86b64ec42f32aadcc73285c35089760f57cbf6956c422019732e7ca3a33c35b"
+      },
+      {
+        "relpath": "markov/Periodicity.html",
+        "bytes": 26234,
+        "sha256": "14a93db7390cd91d744dba1b8ef1700594697c127932cc78145d09bb726c200a"
+      },
+      {
+        "relpath": "markov/Limiting.html",
+        "bytes": 62305,
+        "sha256": "1c83b00e2f389779dc90c8f711f484ecc25b53cff5d9ff3fdd7952101eb39b73"
+      },
+      {
+        "relpath": "labs/02-simulasi-rantai-markov.html",
+        "bytes": 28284,
+        "sha256": "6d5233504166b5496c297f70de55982965ae4312315bc1c551e71aec02051276"
+      },
+      {
+        "relpath": "labs/01-konvergensi-monte-carlo.html",
+        "bytes": 22167,
+        "sha256": "72c68f0bbe41cd0fbc5e9a1359dfef2d55df8105dd20046f6e732449bfd30c54"
+      },
+      {
+        "relpath": "quantecon/lectures/memoryless.html",
+        "bytes": 27587,
+        "sha256": "49ef6496e6f8a36ea95c475ee6c350939626934440fb57de89a77a0b34d3e991"
+      },
+      {
+        "relpath": "quantecon/lectures/poisson.html",
+        "bytes": 27983,
+        "sha256": "f4071ccb5c5e916abf53c0897c50135785205a187265723e2b8f3c44d7d82496"
+      },
+      {
+        "relpath": "quantecon/lectures/markov_prop.html",
+        "bytes": 61324,
+        "sha256": "cff5523b4ac9a24f884191740a90bc509d28906583343d1eea8646592de76fed"
+      },
+      {
+        "relpath": "quantecon/lectures/kolmogorov_bwd.html",
+        "bytes": 42766,
+        "sha256": "d20aeebafe5181170c51453455a76c649c4a2bf25e28ede5515deea1c4bb257d"
+      },
+      {
+        "relpath": "quantecon/lectures/kolmogorov_fwd.html",
+        "bytes": 43319,
+        "sha256": "3a188825f024be507dfc0c7af4bc4dd3c48e8c555417d64334bedbadf0e8106a"
+      },
+      {
+        "relpath": "quantecon/lectures/generators.html",
+        "bytes": 41129,
+        "sha256": "770468b3ddae0cfd4932aae64859cb7369748a98915dccea11b6955deba626f7"
+      },
+      {
+        "relpath": "quantecon/lectures/uc_mc_semigroups.html",
+        "bytes": 47304,
+        "sha256": "1b422b210347b0dd7221f91e76578b193e32103b5e3d1e972d8f2c36c14a41df"
+      },
+      {
+        "relpath": "quantecon/lectures/ergodicity.html",
+        "bytes": 49978,
+        "sha256": "d2f1338f89d7e5145a03fe9d99a3ae9ec73fe1afd3ae064cdf4441a4d1210622"
+      },
+      {
+        "relpath": "poisson/General.html",
+        "bytes": 32423,
+        "sha256": "6614a72d13e03cd38531f73745444b923ea45f855964663c95d42bcd0155e4d0"
+      },
+      {
+        "relpath": "brown/index.html",
+        "bytes": 14122,
+        "sha256": "732d7913bfc4d566099dc411d9539c37904256a5dd9105faf7fbfad49af6a6b5"
+      },
+      {
+        "relpath": "brown/Standard.html",
+        "bytes": 65633,
+        "sha256": "6d1a809a78b540b7bda7aa8a941c6da7eda8360f097b629de9489a0e47222b39"
+      },
+      {
+        "relpath": "brown/Drift.html",
+        "bytes": 29090,
+        "sha256": "275574611860fad0f8445297bc22ef782e8c6e627a7472a6829593b6c5d51f25"
+      },
+      {
+        "relpath": "brown/Bridge.html",
+        "bytes": 32843,
+        "sha256": "e9a2e081da36c9fe7aeb513b40fc9434c5ca888e3ac7de6f7034c07b47d1a16f"
+      },
+      {
+        "relpath": "brown/Geometric.html",
+        "bytes": 26684,
+        "sha256": "1251796da1a5ac913d20b03faf91ce7ce75cf89be1996d10b987db37083977ee"
+      },
+      {
+        "relpath": "original/01-konstruksi-kolmogorov.html",
+        "bytes": 50463,
+        "sha256": "1f1804c0b89e078d99607a5f789207646a3adf68612ccf0a183f5630a2ba078a"
+      },
+      {
+        "relpath": "original/02-keterukuran-proses-dan-hukum-lintasan.html",
+        "bytes": 48072,
+        "sha256": "61bcf60c98ece0ed28cd12b16707cc6c44f28dd53ea87d104dbe2e92e717baba"
+      },
+      {
+        "relpath": "original/03-probabilitas-bersyarat-reguler.html",
+        "bytes": 55368,
+        "sha256": "bad1bc0e694b88d9c149916061ec93872812dfecb7393dd9ab48f8e5f0a94dbf"
+      },
+      {
+        "relpath": "original/04-audit-hipotesis-proses-stokastik.html",
+        "bytes": 58554,
+        "sha256": "29cdb397628cbc17867aca2e678b951c452f19f0b432c31c67e329ef54f4b202"
+      },
+      {
+        "relpath": "labs/03-konvergensi-mode-dan-lln-clt.html",
+        "bytes": 24572,
+        "sha256": "5f903912227ccf4bb4cb91239077d8b7043485bb7cde65ed93b63cb9396a2e10"
+      },
+      {
+        "relpath": "labs/04-nilai-harapan-bersyarat-martingal.html",
+        "bytes": 46194,
+        "sha256": "833b072cd2a99f768062658eb85e636d11f3778aaed43e3047cab29f2567deaf"
+      },
+      {
+        "relpath": "labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html",
+        "bytes": 40440,
+        "sha256": "7b8f5375fae1a7638c8874a37c383d8f7ece45d7038a813023449ef0bafbc06e"
+      },
+      {
+        "relpath": "mastery/01-konvergensi-01-02.html",
+        "bytes": 23396,
+        "sha256": "29f8c0f03e874971ecc80fc61b23b786e1e2b659946559546d3b4a41ff0664b5"
+      },
+      {
+        "relpath": "mastery/02-konvergensi-03-04.html",
+        "bytes": 22615,
+        "sha256": "c2ecb6812847cd22ab5418aee17fb54d4573a674e005b0177320f8881108ec8f"
+      },
+      {
+        "relpath": "mastery/03-konvergensi-05.html",
+        "bytes": 12154,
+        "sha256": "1e3aa98f630793ae43e43c71cd9f035023b5bb89c80f3e0479978a79f7ab82b9"
+      },
+      {
+        "relpath": "mastery/04-bersyarat-kernel-01-02.html",
+        "bytes": 24593,
+        "sha256": "f94925602ce2ed0d0db16ac028efa881da82f0bf6240b73c997000a721246132"
+      },
+      {
+        "relpath": "mastery/05-bersyarat-kernel-03.html",
+        "bytes": 22979,
+        "sha256": "d6e15a10715749c9ae2d468f26b3299454d240c2f4a52fdeabafa51928635663"
+      },
+      {
+        "relpath": "mastery/06-martingal-01-02.html",
+        "bytes": 30652,
+        "sha256": "799457a32b1ff3402f3c9a6219833b7c4b8b9222709745f743ff88ceadf6f055"
+      },
+      {
+        "relpath": "mastery/07-martingal-03-04.html",
+        "bytes": 21726,
+        "sha256": "b569a45d64ad5287e04b02acc1fd21d8e5c63987622997f2ad24dcf14cd7e48d"
+      },
+      {
+        "relpath": "mastery/08-martingal-05.html",
+        "bytes": 20580,
+        "sha256": "6bfd1cf6ba232f51c985334f1e07fd31a62e7bb8c1d148668a997561a0c99729"
+      },
+      {
+        "relpath": "mastery/09-poisson-konstruksi-01.html",
+        "bytes": 26071,
+        "sha256": "4c9e6d72a394aa94e422d4a653a41dbb9b6061fad1698a3d257f6c157691c37c"
+      },
+      {
+        "relpath": "mastery/10-brown-01.html",
+        "bytes": 13183,
+        "sha256": "8ae8a12ce4ec6e42246583a41b3363a6ea92d6b1e6d566432b652fb1c4222b2c"
+      },
+      {
+        "relpath": "mastery/11-brown-02.html",
+        "bytes": 22561,
+        "sha256": "fe06781bedaeefeaa8d1e4a1fb0cf977422cee2a0ba0e2fd018af356c3fe88a7"
+      },
+      {
+        "relpath": "mastery/12-brown-03-04.html",
+        "bytes": 19978,
+        "sha256": "a47516c39831f4ded23018f84bf3b6adc77d21924e6ac9b2f9eccab8086bb18b"
+      },
+      {
+        "relpath": "mastery/13-brown-05-06.html",
+        "bytes": 28645,
+        "sha256": "5016d87856c1bf43a1dd9dbf66a835417fcae9f55a252eaaa8f36b1207bdedda"
+      },
+      {
+        "relpath": "mastery/14-brown-07.html",
+        "bytes": 17952,
+        "sha256": "dda6c17fa19aa72ce7b226dfd09c2891625c1b324a96e815931962a702f458cb"
+      },
+      {
+        "relpath": "assessments/01-formulir-kumulatif-a.html",
+        "bytes": 84018,
+        "sha256": "5fd9e9be36094eeb730b177b2c4d98a2a9623c4b1f3065dd3ddd541b95143497"
+      },
+      {
+        "relpath": "assessments/02-formulir-kumulatif-b.html",
+        "bytes": 77130,
+        "sha256": "97c91cbc425cb5eb2edd7f32fac0636a0289d65602c4fee9dd7cf793551e4b2e"
+      }
+    ]
+  },
+  "runtime_inputs": {
+    "node": {
+      "label": "runtime/node.exe",
+      "bytes": 92825416,
+      "sha256": "3602f2bb1a10f2cbab4c36886218a33c1ab3db87290e73b033c46c77147d0237",
+      "version": "v24.19.0"
+    },
+    "chrome": {
+      "label": "runtime/chrome.exe",
+      "bytes": 4026008,
+      "sha256": "15a9dc47ee632185a555072a66b05587e788328a3b9ca0c95e76acf3124c4ac2"
+    },
+    "renderer": {
+      "label": "scripts/render_reader_pdf.cjs",
+      "bytes": 35213,
+      "sha256": "03ddba286c5f985b1a19aeb5fb1f7ed4a683a75f56d721f833eb2ce6e42ba24e"
+    },
+    "pdftotext": {
+      "label": "runtime/pdftotext.exe",
+      "bytes": 406016,
+      "sha256": "6f1f7d8db783bd2fac74043dca400a53f42d0a03c4e7f81b2c51ed436c13faeb"
+    },
+    "playwright": {
+      "label": "runtime/playwright/package.json",
+      "bytes": 1416,
+      "sha256": "ca170ec143a88ed3043ac953eb3b2377b2b97304104f4e1e23316684ce2c35af",
+      "version": "1.62.1"
+    },
+    "playwright_core": {
+      "label": "runtime/playwright-core/package.json",
+      "bytes": 876,
+      "sha256": "07c47543631fef9508760365dee9fbe958c562093ec8d122543949ed231f233f",
+      "version": "1.62.1"
+    }
+  }
+}

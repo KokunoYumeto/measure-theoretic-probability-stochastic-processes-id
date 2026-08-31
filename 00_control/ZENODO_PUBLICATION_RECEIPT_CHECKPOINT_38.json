@@ -1,0 +1,142 @@
+{
+  "schema": "o009.zenodo-publication-receipt.v1",
+  "verified_at_utc": "2026-08-31T00:31:28.075167+00:00",
+  "authentication": "Bearer header; credential value neither logged nor persisted",
+  "deposition_id": 22182655,
+  "record_id": 22182655,
+  "conceptrecid": "22059941",
+  "doi": "10.5281/zenodo.22182655",
+  "doi_url": "https://doi.org/10.5281/zenodo.22182655",
+  "record_url": "https://zenodo.org/records/22182655",
+  "title": "Probabilitas Teoretis-Ukuran dan Proses Stokastik — Edisi Kerja Bahasa Indonesia",
+  "version": "2026.08.30-checkpoint.38",
+  "publication_date": "2026-08-31",
+  "completion_state": "complete course",
+  "license_metadata": {
+    "id": "other-open"
+  },
+  "mixed_license_disclosure": true,
+  "public_metadata_verification": {
+    "exact": true,
+    "fields_compared": [
+      "access_right",
+      "creators",
+      "description",
+      "keywords",
+      "language",
+      "license",
+      "notes",
+      "publication_date",
+      "publication_type",
+      "title",
+      "upload_type",
+      "version"
+    ],
+    "mixed_license_disclosure": true,
+    "model_provenance_disclosure": true
+  },
+  "metadata_source": {
+    "path": "release/ZENODO_METADATA_CHECKPOINT_38.json",
+    "bytes": 4816,
+    "sha256": "5c75125a4e65668ab659dea82b3561be3ea47da91731054420af94aec00a12b7"
+  },
+  "source_archive_privacy": {
+    "manifest_path": "probabilitas-teoretis-ukuran-proses-stokastik-id/PUBLIC_SANITIZATION_MANIFEST.json",
+    "manifest_sha256": "8273bb09fe6008a2bbccef081a72719c9300897539d1ef80e6c86b09084e1c36",
+    "sanitized_entry_count": 14,
+    "actual_zip_inventory_and_content_scan": "pass"
+  },
+  "completion_evidence": {
+    "schema": "o009.checkpoint-38-completion-evidence.v1",
+    "build_receipt": {
+      "path": "build/site/BUILD_RECEIPT.json",
+      "sha256": "1c2755cd401477c167f708a37d953ca809ed90338684ec1027ee9dd67cea1b00"
+    },
+    "reader_manifest": {
+      "path": "build/site/PACKAGE_MANIFEST.csv",
+      "sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d",
+      "file_count": 161
+    },
+    "backend_manifest": {
+      "path": "backend/BACKEND_MANIFEST.json",
+      "sha256": "001edf5160e066adf0af7c0d673ba1a1d0382be2f9c12662ad9148f2f3bef91d",
+      "input_set_sha256": "1f3b1f535c1dca95d99b552201a2ec5eea5e434e2e2d093958d061606641de49"
+    },
+    "mastery": {
+      "problem_count": 36,
+      "solved_problem_count": 36,
+      "source_mastery_problem_count": 21,
+      "original_bridge_problem_count": 12,
+      "brown_reader_problem_count": 3,
+      "problem_ids_sha256": "2a50e3446b264519d6813cee474a01c4bebf99964315fb592748c5c556004aad"
+    },
+    "assessments": {
+      "form_count": 2,
+      "equivalent": true,
+      "problem_count_per_form": 8,
+      "total_points_per_form": 100,
+      "recommended_time_minutes_per_form": 240,
+      "common_outcome_count": 26,
+      "equivalence_basis": "reciprocal alternate-form relation plus identical ordered per-problem point and learning-outcome blueprints",
+      "form_ids_sha256": "604a4cd181d62c265755db22ec6406247265801ab6b73fd68b031fb357a7808c",
+      "outcome_blueprint_sha256": "b33e2ea995cc958fa6eeacf9fa45dfbb1800769e38c3c3e7661f36e8533b1d0e"
+    }
+  },
+  "completion_archive_evidence": {
+    "source_archive_evidence": "exact",
+    "reader_archive_evidence": "exact",
+    "evidence_sha256": "c31ad598faf5991fb094de8a4296ac685d14c95907794b2d446755174a808720"
+  },
+  "files": [
+    {
+      "filename": "00_PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_READER_CHECKPOINT_38.pdf",
+      "bytes": 39843697,
+      "sha256": "dda34267df928672e03e04b4c8a36d768aab2d33bc1194b269074da0d2d24e40",
+      "zenodo_checksum": "md5:9dbac36ba2c9bc5d6f4d6bf23cf2b217",
+      "anonymous_download_url": "https://zenodo.org/api/records/22182655/files/00_PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_READER_CHECKPOINT_38.pdf/content",
+      "anonymous_transport": "python-requests"
+    },
+    {
+      "filename": "PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_READER_CHECKPOINT_38.zip",
+      "bytes": 3029582,
+      "sha256": "e32dba5a896fb847192bbe944e7fd3db4d95f61ee57e33751bbff3108fca214a",
+      "zenodo_checksum": "md5:4acf47933de5bd7df3b9d9e1f88319ed",
+      "anonymous_download_url": "https://zenodo.org/api/records/22182655/files/PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_READER_CHECKPOINT_38.zip/content",
+      "anonymous_transport": "python-requests"
+    },
+    {
+      "filename": "PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_SOURCE_BACKEND_CHECKPOINT_38.zip",
+      "bytes": 5850300,
+      "sha256": "7586a6a55a57ebeb40dcfb3116eec740f8cdfeb728c70d9d1d20c2a11c6304f4",
+      "zenodo_checksum": "md5:1a577f0e28a3885367bb2cb6fb71af54",
+      "anonymous_download_url": "https://zenodo.org/api/records/22182655/files/PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_SOURCE_BACKEND_CHECKPOINT_38.zip/content",
+      "anonymous_transport": "python-requests"
+    },
+    {
+      "filename": "RELEASE_MANIFEST_CHECKPOINT_38.json",
+      "bytes": 4759,
+      "sha256": "b84a353b9c89e26b5851585e52f31e21a3201249b0a9e2d404501907fec91378",
+      "zenodo_checksum": "md5:8e84b66cab47154674248e43cebf43c3",
+      "anonymous_download_url": "https://zenodo.org/api/records/22182655/files/RELEASE_MANIFEST_CHECKPOINT_38.json/content",
+      "anonymous_transport": "python-requests"
+    },
+    {
+      "filename": "ZENODO_METADATA_CHECKPOINT_38.json",
+      "bytes": 4816,
+      "sha256": "5c75125a4e65668ab659dea82b3561be3ea47da91731054420af94aec00a12b7",
+      "zenodo_checksum": "md5:50a98ac039034f3728fa2a60d3d474bb",
+      "anonymous_download_url": "https://zenodo.org/api/records/22182655/files/ZENODO_METADATA_CHECKPOINT_38.json/content",
+      "anonymous_transport": "python-requests"
+    },
+    {
+      "filename": "SHA256SUMS_CHECKPOINT_38.txt",
+      "bytes": 625,
+      "sha256": "b529593280c3dad93a6b4617687353f561c0f5a0ab4ff0cf23a982aa345fa836",
+      "zenodo_checksum": "md5:8198953d2c38cdc6c7d802aa83c60bf7",
+      "anonymous_download_url": "https://zenodo.org/api/records/22182655/files/SHA256SUMS_CHECKPOINT_38.txt/content",
+      "anonymous_transport": "python-requests"
+    }
+  ],
+  "anonymous_inventory_exact": true,
+  "all_public_sha256_exact": true
+}

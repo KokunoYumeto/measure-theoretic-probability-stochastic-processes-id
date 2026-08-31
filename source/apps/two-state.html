@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="id-ID">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Simulator deterministik lokal untuk rantai Markov dua keadaan.">
+  <title>Simulator Rantai Markov Dua Keadaan</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --background: #f8fafc;
+      --surface: #ffffff;
+      --foreground: #172033;
+      --muted: #53627a;
+      --border: #aab4c3;
+      --accent: #2855a6;
+      --accent-foreground: #ffffff;
+      --soft: #e9eff9;
+      --error: #a51d2d;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 100%;
+      line-height: 1.55;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --background: #111827;
+        --surface: #1f2937;
+        --foreground: #f3f4f6;
+        --muted: #c7d0df;
+        --border: #718096;
+        --accent: #8bb5ff;
+        --accent-foreground: #101827;
+        --soft: #263653;
+        --error: #ff9aaa;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--foreground);
+    }
+
+    a {
+      color: var(--accent);
+      text-underline-offset: 0.15em;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 0.2rem solid var(--accent);
+      outline-offset: 0.15rem;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 0.75rem;
+      top: -5rem;
+      padding: 0.65rem 0.85rem;
+      background: var(--surface);
+      color: var(--foreground);
+      border: 1px solid var(--border);
+      z-index: 2;
+    }
+
+    .skip-link:focus {
+      top: 0.75rem;
+    }
+
+    main {
+      width: min(100% - 2rem, 70rem);
+      margin-inline: auto;
+      padding-block: 1.5rem 3rem;
+    }
+
+    h1,
+    h2 {
+      line-height: 1.2;
+    }
+
+    h1 {
+      margin: 0 0 0.65rem;
+      font-size: clamp(1.75rem, 4vw, 2.6rem);
+    }
+
+    h2 {
+      margin: 0 0 0.8rem;
+      font-size: clamp(1.25rem, 3vw, 1.6rem);
+    }
+
+    p {
+      max-width: 75ch;
+    }
+
+    code {
+      font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    }
+
+    .lede {
+      margin-block: 0 1.25rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .panel {
+      margin-block: 1.25rem;
+      padding: 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.55rem;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+      gap: 1rem;
+      align-items: end;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      font: inherit;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      color: var(--foreground);
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 0.35rem;
+    }
+
+    input,
+    select {
+      min-height: 2.75rem;
+      padding: 0.45rem 0.6rem;
+    }
+
+    textarea {
+      min-height: 13rem;
+      padding: 0.75rem;
+      resize: vertical;
+      font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+      line-height: 1.45;
+    }
+
+    .hint {
+      display: block;
+      margin-top: 0.25rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+
+    button {
+      min-height: 2.75rem;
+      padding: 0.55rem 0.9rem;
+      color: var(--foreground);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.35rem;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: var(--accent-foreground);
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    button:hover {
+      filter: brightness(0.96);
+    }
+
+    .error {
+      min-height: 1.5rem;
+      margin: 0.75rem 0 0;
+      color: var(--error);
+      font-weight: 600;
+    }
+
+    .result-summary {
+      padding: 0.8rem 1rem;
+      background: var(--soft);
+      border-inline-start: 0.3rem solid var(--accent);
+    }
+
+    .result-summary p {
+      margin: 0.25rem 0;
+    }
+
+    .table-wrap {
+      max-width: 100%;
+      overflow-x: auto;
+      margin-block: 1rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    caption {
+      padding-bottom: 0.5rem;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    th,
+    td {
+      padding: 0.65rem;
+      border-bottom: 1px solid var(--border);
+      text-align: right;
+      vertical-align: top;
+    }
+
+    th:first-child,
+    td:first-child {
+      text-align: left;
+    }
+
+    .license-note {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .copy-status {
+      min-height: 1.5rem;
+      margin: 0.5rem 0 0;
+      color: var(--muted);
+    }
+
+    @media (max-width: 34rem) {
+      main {
+        width: min(100% - 1rem, 70rem);
+        padding-top: 1rem;
+      }
+
+      .panel {
+        padding: 0.85rem;
+      }
+
+      .actions button {
+        flex: 1 1 9rem;
+      }
+
+      th,
+      td {
+        padding: 0.5rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#two-state-main">Lewati ke simulator</a>
+
+  <main id="two-state-main">
+    <header id="two-state-header">
+      <h1 id="two-state-title">Simulator Rantai Markov Dua Keadaan</h1>
+      <nav aria-label="Navigasi edisi">
+        <a href="../index.html">Beranda edisi</a> ·
+        <a href="../markov/Limiting.html#fin">Kembali ke unit distribusi limit</a>
+      </nav>
+      <p class="lede">
+        Jelajahi rantai dengan matriks transisi
+        <code>P = [[1 − p, p], [q, 1 − q]]</code>. Bilangan acak semu berbenih
+        membuat hasil dapat diulang tepat dengan masukan yang sama.
+      </p>
+    </header>
+
+    <section class="panel" id="two-state-controls-panel" aria-labelledby="two-state-controls-heading">
+      <h2 id="two-state-controls-heading">Parameter simulasi</h2>
+      <form id="two-state-controls" novalidate>
+        <div class="controls">
+          <div class="field">
+            <label for="two-state-p">Peluang <code>p</code> (0 → 1)</label>
+            <input id="two-state-p" name="p" type="number" min="0" max="1" step="0.01" value="0.30" inputmode="decimal" required>
+          </div>
+
+          <div class="field">
+            <label for="two-state-q">Peluang <code>q</code> (1 → 0)</label>
+            <input id="two-state-q" name="q" type="number" min="0" max="1" step="0.01" value="0.20" inputmode="decimal" required>
+          </div>
+
+          <div class="field">
+            <label for="two-state-steps">Banyak langkah</label>
+            <input id="two-state-steps" name="steps" type="number" min="1" max="1000000" step="1" value="1000" inputmode="numeric" aria-describedby="two-state-steps-hint" required>
+            <span class="hint" id="two-state-steps-hint">Jumlah transisi; keadaan awal tidak dihitung dalam frekuensi.</span>
+          </div>
+
+          <div class="field">
+            <label for="two-state-seed">Benih</label>
+            <input id="two-state-seed" name="seed" type="number" min="0" max="4294967295" step="1" value="20260823" inputmode="numeric" required>
+          </div>
+
+          <div class="field">
+            <label for="two-state-start">Keadaan awal <code>X₀</code></label>
+            <select id="two-state-start" name="start">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions" id="two-state-actions">
+          <button class="primary" id="two-state-run" type="submit">Jalankan simulasi</button>
+          <button id="two-state-reset" type="button">Kembalikan nilai awal</button>
+        </div>
+        <p class="error" id="two-state-error" role="alert" aria-live="assertive"></p>
+      </form>
+    </section>
+
+    <section class="panel" id="two-state-results" aria-labelledby="two-state-results-heading">
+      <h2 id="two-state-results-heading">Hasil</h2>
+      <div class="result-summary" id="two-state-result-summary" role="status" aria-live="polite" aria-atomic="true">
+        <p id="two-state-classification">Belum ada hasil.</p>
+        <p id="two-state-final-state"></p>
+      </div>
+
+      <div class="table-wrap" id="two-state-table-wrap">
+        <table id="two-state-result-table">
+          <caption>Okupansi empiris dibandingkan dengan distribusi invarian</caption>
+          <thead>
+            <tr>
+              <th scope="col">Keadaan</th>
+              <th scope="col">Kunjungan</th>
+              <th scope="col">Proporsi empiris</th>
+              <th scope="col">Proporsi invarian</th>
+              <th scope="col">Selisih mutlak</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">0</th>
+              <td id="two-state-count-0">—</td>
+              <td id="two-state-empirical-0">—</td>
+              <td id="two-state-invariant-0">—</td>
+              <td id="two-state-difference-0">—</td>
+            </tr>
+            <tr>
+              <th scope="row">1</th>
+              <td id="two-state-count-1">—</td>
+              <td id="two-state-empirical-1">—</td>
+              <td id="two-state-invariant-1">—</td>
+              <td id="two-state-difference-1">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <label for="two-state-copy-text">Ringkasan teks yang dapat disalin</label>
+      <textarea id="two-state-copy-text" readonly aria-describedby="two-state-copy-hint"></textarea>
+      <span class="hint" id="two-state-copy-hint">Pilih teks secara manual atau gunakan tombol salin.</span>
+      <div class="actions">
+        <button id="two-state-copy" type="button">Salin hasil</button>
+      </div>
+      <p class="copy-status" id="two-state-copy-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <aside class="license-note" id="two-state-provenance" aria-labelledby="two-state-provenance-heading">
+      <h2 id="two-state-provenance-heading">Asal dan lisensi</h2>
+      <p>
+        Ini adalah tambahan asli edisi Bahasa Indonesia dan dilisensikan dengan
+        <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener noreferrer">CC BY 4.0</a>.
+        Konteks sumbernya adalah
+        <a href="https://www.randomservices.org/random/apps/TwoState.html" rel="noopener noreferrer">aplikasi resmi Two-State Chain di Random oleh Kyle Siegrist</a>.
+        Tambahan ini dibuat sebagai pendamping lokal dan tidak menyatakan afiliasi atau pengesahan oleh penulis maupun Random.
+      </p>
+    </aside>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const form = document.getElementById("two-state-controls");
+      const inputP = document.getElementById("two-state-p");
+      const inputQ = document.getElementById("two-state-q");
+      const inputSteps = document.getElementById("two-state-steps");
+      const inputSeed = document.getElementById("two-state-seed");
+      const inputStart = document.getElementById("two-state-start");
+      const resetButton = document.getElementById("two-state-reset");
+      const copyButton = document.getElementById("two-state-copy");
+      const errorBox = document.getElementById("two-state-error");
+      const classificationBox = document.getElementById("two-state-classification");
+      const finalStateBox = document.getElementById("two-state-final-state");
+      const copyText = document.getElementById("two-state-copy-text");
+      const copyStatus = document.getElementById("two-state-copy-status");
+
+      const cells = {
+        count: [
+          document.getElementById("two-state-count-0"),
+          document.getElementById("two-state-count-1")
+        ],
+        empirical: [
+          document.getElementById("two-state-empirical-0"),
+          document.getElementById("two-state-empirical-1")
+        ],
+        invariant: [
+          document.getElementById("two-state-invariant-0"),
+          document.getElementById("two-state-invariant-1")
+        ],
+        difference: [
+          document.getElementById("two-state-difference-0"),
+          document.getElementById("two-state-difference-1")
+        ]
+      };
+
+      function mulberry32(seed) {
+        let state = seed >>> 0;
+        return function nextRandom() {
+          state = (state + 0x6D2B79F5) | 0;
+          let value = Math.imul(state ^ (state >>> 15), 1 | state);
+          value = (value + Math.imul(value ^ (value >>> 7), 61 | value)) ^ value;
+          return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+
+      function formatDecimal(value) {
+        return value.toFixed(6).replace(".", ",");
+      }
+
+      function formatInteger(value) {
+        return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      }
+
+      function parseInputs() {
+        const p = Number(inputP.value);
+        const q = Number(inputQ.value);
+        const steps = Number(inputSteps.value);
+        const seed = Number(inputSeed.value);
+        const start = Number(inputStart.value);
+
+        if (!Number.isFinite(p) || p < 0 || p > 1) {
+          throw new Error("p harus berupa bilangan antara 0 dan 1.");
+        }
+        if (!Number.isFinite(q) || q < 0 || q > 1) {
+          throw new Error("q harus berupa bilangan antara 0 dan 1.");
+        }
+        if (!Number.isInteger(steps) || steps < 1 || steps > 1000000) {
+          throw new Error("Banyak langkah harus berupa bilangan bulat dari 1 sampai 1.000.000.");
+        }
+        if (!Number.isInteger(seed) || seed < 0 || seed > 4294967295) {
+          throw new Error("Benih harus berupa bilangan bulat dari 0 sampai 4.294.967.295.");
+        }
+        if (start !== 0 && start !== 1) {
+          throw new Error("Keadaan awal harus 0 atau 1.");
+        }
+
+        return { p, q, steps, seed, start };
+      }
+
+      function classifyChain(p, q) {
+        if (p === 0 && q === 0) {
+          return {
+            invariant: null,
+            text: "p = q = 0: kedua keadaan menyerap. Setiap distribusi pada {0, 1} bersifat invarian, sehingga distribusi invarian tidak tunggal; lintasan tetap pada keadaan awal."
+          };
+        }
+
+        const total = p + q;
+        const invariant = [q / total, p / total];
+
+        if (p === 1 && q === 1) {
+          return {
+            invariant,
+            text: "p = q = 1: rantai tak tereduksi dan periodik dengan periode 2. Distribusi invarian (1/2, 1/2) ada, tetapi distribusi Xₙ dari keadaan awal tetap tidak memiliki limit karena beralternasi."
+          };
+        }
+
+        if (p > 0 && q > 0) {
+          return {
+            invariant,
+            text: "Rantai tak tereduksi, rekuren positif, dan aperiodik. Distribusi invarian tunggal juga merupakan distribusi limit."
+          };
+        }
+
+        if (p === 0) {
+          return {
+            invariant,
+            text: "Rantai tereduksi: keadaan 0 menyerap. Distribusi invarian tunggal adalah massa satu di keadaan 0."
+          };
+        }
+
+        return {
+          invariant,
+          text: "Rantai tereduksi: keadaan 1 menyerap. Distribusi invarian tunggal adalah massa satu di keadaan 1."
+        };
+      }
+
+      function simulate(parameters) {
+        const random = mulberry32(parameters.seed);
+        const counts = [0, 0];
+        let state = parameters.start;
+
+        for (let index = 0; index < parameters.steps; index += 1) {
+          const draw = random();
+          if (state === 0) {
+            state = draw < parameters.p ? 1 : 0;
+          } else {
+            state = draw < parameters.q ? 0 : 1;
+          }
+          counts[state] += 1;
+        }
+
+        return {
+          counts,
+          empirical: [counts[0] / parameters.steps, counts[1] / parameters.steps],
+          finalState: state
+        };
+      }
+
+      function buildCopyText(parameters, classification, result) {
+        const invariantValues = classification.invariant
+          ? classification.invariant.map(formatDecimal)
+          : ["tidak tunggal", "tidak tunggal"];
+        const differences = classification.invariant
+          ? result.empirical.map((value, state) => formatDecimal(Math.abs(value - classification.invariant[state])))
+          : ["—", "—"];
+
+        return [
+          "Simulator Rantai Markov Dua Keadaan",
+          `P = [[${formatDecimal(1 - parameters.p)}, ${formatDecimal(parameters.p)}], [${formatDecimal(parameters.q)}, ${formatDecimal(1 - parameters.q)}]]`,
+          `Langkah = ${parameters.steps}; benih = ${parameters.seed}; X0 = ${parameters.start}`,
+          classification.text,
+          `Keadaan akhir = ${result.finalState}`,
+          "",
+          "Keadaan\tKunjungan\tProporsi empiris\tProporsi invarian\tSelisih mutlak",
+          `0\t${result.counts[0]}\t${formatDecimal(result.empirical[0])}\t${invariantValues[0]}\t${differences[0]}`,
+          `1\t${result.counts[1]}\t${formatDecimal(result.empirical[1])}\t${invariantValues[1]}\t${differences[1]}`,
+          "",
+          "Frekuensi dihitung atas X1, …, Xn; X0 tidak dihitung."
+        ].join("\n");
+      }
+
+      function render(parameters, classification, result) {
+        classificationBox.textContent = classification.text;
+        finalStateBox.textContent = `Setelah ${formatInteger(parameters.steps)} langkah, keadaan akhir adalah ${result.finalState}.`;
+
+        for (let state = 0; state <= 1; state += 1) {
+          cells.count[state].textContent = formatInteger(result.counts[state]);
+          cells.empirical[state].textContent = formatDecimal(result.empirical[state]);
+
+          if (classification.invariant) {
+            cells.invariant[state].textContent = formatDecimal(classification.invariant[state]);
+            cells.difference[state].textContent = formatDecimal(
+              Math.abs(result.empirical[state] - classification.invariant[state])
+            );
+          } else {
+            cells.invariant[state].textContent = "Tidak tunggal";
+            cells.difference[state].textContent = "—";
+          }
+        }
+
+        copyText.value = buildCopyText(parameters, classification, result);
+      }
+
+      function runSimulation() {
+        errorBox.textContent = "";
+        copyStatus.textContent = "";
+
+        try {
+          const parameters = parseInputs();
+          const classification = classifyChain(parameters.p, parameters.q);
+          const result = simulate(parameters);
+          render(parameters, classification, result);
+        } catch (error) {
+          errorBox.textContent = error instanceof Error ? error.message : "Masukan tidak valid.";
+        }
+      }
+
+      async function copyResults() {
+        if (!copyText.value) {
+          copyStatus.textContent = "Belum ada hasil untuk disalin.";
+          return;
+        }
+
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(copyText.value);
+          } else {
+            copyText.focus();
+            copyText.select();
+            const copied = document.execCommand("copy");
+            copyText.setSelectionRange(0, 0);
+            if (!copied) {
+              throw new Error("Salin otomatis tidak tersedia.");
+            }
+          }
+          copyStatus.textContent = "Hasil telah disalin ke papan klip.";
+        } catch (error) {
+          copyText.focus();
+          copyText.select();
+          copyStatus.textContent = "Salin otomatis tidak tersedia; teks hasil telah dipilih untuk disalin secara manual.";
+        }
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        runSimulation();
+      });
+
+      resetButton.addEventListener("click", () => {
+        form.reset();
+        runSimulation();
+        inputP.focus();
+      });
+
+      copyButton.addEventListener("click", copyResults);
+
+      runSimulation();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+<meta charset="utf-8">
+	<title>Martingal</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probabilitas, proses stokastik, martingal, waktu henti, pertidaksamaan martingal, konvergensi martingal, martingal mundur">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<link rel="previous" href="../renewal/index.html">
+	<link rel="next" href="../markov/index.html">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="child"><a href="../foundations/index.html" title="Dasar-Dasar">0</a></li>
+		<li class="child"><a href="../prob/index.html" title="Ruang Probabilitas">1</a></li>
+		<li class="child"><a href="../dist/index.html" title="Distribusi">2</a></li>
+		<li class="child"><a href="../expect/index.html" title="Nilai Harapan">3</a></li>
+		<li class="child"><a href="../special/index.html" title="Distribusi Khusus">4</a></li>
+		<li class="child"><a href="../sample/index.html" title="Sampel Acak">5</a></li>
+		<li class="child"><a href="../point/index.html" title="Estimasi Titik">6</a></li>
+		<li class="child"><a href="../interval/index.html" title="Estimasi Himpunan">7</a></li>
+		<li class="child"><a href="../hypothesis/index.html" title="Pengujian Hipotesis">8</a></li>
+		<li class="child"><a href="../buffon/index.html" title="Model Geometrik">9</a></li>
+		<li class="child"><a href="../bernoulli/index.html" title="Percobaan Bernoulli">10</a></li>
+		<li class="child"><a href="../urn/index.html" title="Model Pengambilan Sampel Hingga">11</a></li>
+		<li class="child"><a href="../games/index.html" title="Permainan Peluang">12</a></li>
+		<li class="child"><a href="../poisson/index.html" title="Proses Poisson">13</a></li>
+		<li class="child"><a href="../renewal/index.html" title="Proses Pembaruan">14</a></li>
+		<li class="child"><a href="../markov/index.html" title="Proses Markov">15</a></li>
+		<li class="current">16</li>
+		<li class="child"><a href="../brown/index.html" title="Gerak Brown">17</a></li>
+	</ol>
+	<h1>16. Martingal</h1>
+</header>
+
+<h4 id="Summary">Ringkasan</h4>
+
+<p><dfn>Martingal</dfn>, beserta kerabatnya <dfn>submartingal</dfn> dan <dfn>supermartingal</dfn>, adalah proses stokastik bernilai riil yang merupakan generalisasi abstrak dari proses perjudian yang adil, menguntungkan, dan merugikan. Arti penting martingal jauh melampaui perjudian; bahkan, proses-proses acak ini termasuk yang terpenting dalam teori probabilitas, dengan jumlah dan ragam penerapan yang luar biasa.</p>
+
+<h4>Topik</h4>
+
+<ol>
+	<li><a href="Introduction.html">Pendahuluan</a></li>
+	<li><a href="Properties.html">Sifat dan Konstruksi</a></li>
+	<li><a href="Stop.html">Waktu Henti</a></li>
+	<li><a href="Inequalities.html">Pertidaksamaan</a></li>
+	<li><a href="Convergence.html">Konvergensi</a></li>
+	<li><a href="Backwards.html">Martingal Mundur</a></li>
+</ol>
+
+<h4 id="External">Sumber dan Referensi</h4>
+
+<ul>
+	<li><a href="http://www.google.com/search?q=Probability+and+Measure,+Billingsley" target="external" class="external">Probability and Measure</a>. Patrick Billingsley</li>
+	<li><a href="http://www.google.com/search?q=Theory+of+Probability,+de+Finetti" target="external" class="external">Theory of Probability</a>, Bruno de Finetti</li>
+	<li><a href="http://www.google.com/search?q=Stochastic+Processes,+Doob" class="external" target="external">Stochastic Processes</a>, Joseph Doob</li>
+	<li><a href="http://www.google.com/search?q=Classical+Potential+and+its+Probabilistic+Counterpart,+Doob" class="external" target="external">Classical Potential Theory and Its Probabilistic Counterpart</a>, Joseph Doob</li>
+	<li><a href="http://www.google.com/search?q=Probability:+Theory+and+Examples,+Durrett" target="external" class="external">Probability: Theory and Examples</a>. Richard Durrett</li>
+	<li><a href="http://www.google.com/search?q=A+First+Course+in+Stochastic+Processes,+Karlin,+Taylor" target="external" class="external">A First Course in Stochastic Processes</a>. Samuel Karlin dan Howard Taylor</li>
+	<li><a href="http://www.google.com/search?q=Stochastic+Processes,+Ross" target="external" class="external">Stochastic Processes</a>. Sheldon Ross</li>
+	<li><a href="http://www.google.com/search?q=Advanced+Probability,+Sousi" class="external" target="external">Advanced Probability</a>, Perla Sousi</li>
+</ul>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="child"><a href="../foundations/index.html" title="Dasar-Dasar">0</a></li>
+		<li class="child"><a href="../prob/index.html" title="Ruang Probabilitas">1</a></li>
+		<li class="child"><a href="../dist/index.html" title="Distribusi">2</a></li>
+		<li class="child"><a href="../expect/index.html" title="Nilai Harapan">3</a></li>
+		<li class="child"><a href="../special/index.html" title="Distribusi Khusus">4</a></li>
+		<li class="child"><a href="../sample/index.html" title="Sampel Acak">5</a></li>
+		<li class="child"><a href="../point/index.html" title="Estimasi Titik">6</a></li>
+		<li class="child"><a href="../interval/index.html" title="Estimasi Himpunan">7</a></li>
+		<li class="child"><a href="../hypothesis/index.html" title="Pengujian Hipotesis">8</a></li>
+		<li class="child"><a href="../buffon/index.html" title="Model Geometrik">9</a></li>
+		<li class="child"><a href="../bernoulli/index.html" title="Percobaan Bernoulli">10</a></li>
+		<li class="child"><a href="../urn/index.html" title="Model Pengambilan Sampel Hingga">11</a></li>
+		<li class="child"><a href="../games/index.html" title="Permainan Peluang">12</a></li>
+		<li class="child"><a href="../poisson/index.html" title="Proses Poisson">13</a></li>
+		<li class="child"><a href="../renewal/index.html" title="Proses Pembaruan">14</a></li>
+		<li class="child"><a href="../markov/index.html" title="Proses Markov">15</a></li>
+		<li class="current">16</li>
+		<li class="child"><a href="../brown/index.html" title="Gerak Brown">17</a></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Kumpulan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+---
+title: "Mode konvergensi dan pembanding LLN/CLT"
+lang: id-ID
+author:
+  - "Codex (materi asli, atas arahan pengguna)"
+authoring:
+  course_id: "o009"
+  unit_id: "o009-unit-convergence-modes"
+  lab_id: "o009-lab-convergence-modes"
+  matched_theory_id: "o009-theory-random-prob-convergence"
+  prerequisite_id: "resource.o006.c140.shared"
+  target_locale: "id-ID"
+  source_alias: "original-synthesis: convergence-modes-and-o006-comparison"
+  source_commit: "local-original-checkpoint-35"
+  source_slice_sha256: "not-applicable-original"
+  donor_license: "none"
+  adaptation_license: "CC-BY-4.0"
+  model: "OpenAI Codex gpt-5.6-sol, Ultra."
+---
+
+::: {#o009-lab-convergence-modes .lab}
+
+> **Asal dan lisensi.** Laboratorium ini adalah materi asli edisi ini (CC BY
+> 4.0). Ia memakai teori konvergensi dari unit *Random* yang sudah diterjemahkan,
+> sedangkan backend menautkan LLN/CLT O006/C140 sebagai prasyarat bersama;
+> tidak ada byte
+> donor O006 yang disalin. Kode memakai R dasar, luring, dan tidak mengklaim
+> dukungan dari penulis sumber mana pun. Provenans produksi:
+> **OpenAI Codex gpt-5.6-sol, Ultra.**
+
+## Tujuan
+
+Laboratorium ini membandingkan empat mode konvergensi—hampir pasti, dalam
+peluang, dalam distribusi, dan dalam $L^1$—dengan eksperimen yang ukurannya
+dapat diaudit. Untuk $U$ yang seragam pada $(0,1)$, contoh lonjakan langka
+$Y_n=n\mathbf 1_{\{U\le1/n\}}$ konvergen hampir pasti, dalam peluang, dan
+dalam distribusi ke nol, tetapi tidak dalam $L^1$: peluang kejadian tak nol
+menuju nol, sedangkan $\mathbb E|Y_n|=1$ untuk setiap $n$. Contoh indikator
+$X_n=\mathbf 1_{\{U\le1/n\}}$ juga konvergen hampir pasti dan dalam $L^1$.
+Baris terakhir membandingkan intuisi itu dengan LLN dan CLT O006: rata-rata
+Bernoulli berparameter $p=0{,}3$ mendekati $p$, sedangkan statistik
+terstandar memakai simpangan baku $\sqrt{p(1-p)}$ pada skala satu pengamatan,
+atau $\sqrt{p(1-p)/n}$ pada skala rata-rata sampel.
+
+## Eksperimen dan pembanding O006 {#o009-lab-convergence-modes-experiment}
+
+::: {#o009-exercise-convergence-modes-estimation .exercise}
+Jalankan kode dan baca tabel. Jelaskan mengapa baris 1 hanya merupakan satu
+lintasan, sedangkan `nilai` pada baris 2 dan 3 masing-masing menaksir peluang
+kejadian dan norma $L^1$. Untuk dua baris terakhir, hubungkan `nilai` dan
+`target` dengan LLN dan CLT O006/C140.
+:::
+
+Benih dan urutan keluaran dibekukan. Baris pertama memakai $U_0=0{,}37$ untuk satu
+lintasan; baris kedua dan ketiga memakai 10^6 realisasi independen.
+
+```{r o009_lab_convergence_modes, echo=TRUE}
+set.seed(20260829)
+n = 1000L
+u0 = 0.37
+x_indicator = as.numeric(u0 <= 1 / n)
+indicator_probability_target = 1 / n
+
+u = runif(1000000L)
+rare = n * (u <= 1 / n)
+rare_probability = mean(rare != 0)
+rare_l1 = mean(abs(rare))
+
+set.seed(20260830)
+sample_n = 10000L
+p = 0.3
+bernoulli = rbinom(sample_n, size=1L, prob=p)
+lln_mean = mean(bernoulli)
+lln_target = p
+clt_z = sqrt(sample_n) * (lln_mean - p) / sqrt(p * (1 - p))
+
+hasil = data.frame(
+  kasus = c(1, 2, 3, 4, 5),
+  n = c(n, n, n, sample_n, sample_n),
+  benih = c(20260829, 20260829, 20260829, 20260830, 20260830),
+  nilai = c(x_indicator, rare_probability, rare_l1, lln_mean, clt_z),
+  target = c(0, indicator_probability_target, 0, lln_target, 0),
+  galat_mutlak = c(abs(x_indicator), abs(rare_probability - indicator_probability_target),
+                   abs(rare_l1), abs(lln_mean - lln_target), abs(clt_z)),
+  skala_teori = c(indicator_probability_target, indicator_probability_target, 1,
+                  sqrt(p * (1 - p) / sample_n), 1),
+  stringsAsFactors = FALSE,
+  check.names = FALSE
+)
+hasil$nilai = sprintf("%.12f", hasil$nilai)
+hasil$target = sprintf("%.12f", hasil$target)
+hasil$galat_mutlak = sprintf("%.12f", hasil$galat_mutlak)
+hasil$skala_teori = sprintf("%.12f", hasil$skala_teori)
+write.csv(hasil, file="", row.names=FALSE, quote=FALSE)
+```
+
+<!-- O009_CONVERGENCE_MODES_EXECUTION_TABLE -->
+
+Baris 1 hanya memperlihatkan satu lintasan indikator. Baris 2 memperkirakan
+$\mathbb P(Y_n\ne0)=1/n$, sedangkan baris 3 memperkirakan
+$\mathbb E|Y_n|=1$. Jadi peluang dapat
+menghilang sementara norma L1 tetap, tanpa kontradiksi. Baris 4 adalah pembanding
+LLN O006; baris 5 memakai normalisasi CLT. Satu nilai statistik CLT bukan bukti
+kenormalan, melainkan pemeriksaan skala terhadap pusat asimtotik nol dari
+$N(0,1)$; nilai `target` pada baris 5 adalah pusat itu, bukan target konvergensi
+statistiknya ke nol. Gerbang
+numeriknya menetapkan toleransi absolut $2\times10^{-4}$ untuk peluang
+lonjakan, $0{,}08$ untuk momen $L^1$, $0{,}01$ untuk rata-rata LLN, dan
+$|z|\le3$ untuk pemeriksaan skala CLT.
+
+## Tambahan asli: dua besaran yang berbeda {#o009-mastery-convergence-modes}
+
+::: {#o009-mastery-convergence-modes-sequence .original-addition}
+::: {#o009-exercise-convergence-modes-mastery .exercise}
+Untuk $Y_n=n\mathbf 1_{\{U\le1/n\}}$, hitung
+$\mathbb P(|Y_n|>\varepsilon)$ untuk $0<\varepsilon<n$ dan
+$\mathbb E|Y_n|$.
+Putuskan mode konvergensi mana yang gagal, lalu jelaskan dua kolom tabel.
+:::
+::: {#o009-hint-convergence-modes-1 .hint}
+**Petunjuk 1.** Untuk $0<\varepsilon<n$, kejadian $|Y_n|>\varepsilon$ sama
+dengan $U\le1/n$.
+:::
+::: {#o009-hint-convergence-modes-2 .hint}
+**Petunjuk 2.** Pada kejadian itu $|Y_n|=n$; di luar kejadian nilainya nol.
+:::
+::: {#o009-answer-convergence-modes .answer}
+**Jawaban ringkas.** $\mathbb P(|Y_n|>\varepsilon)=1/n$ menuju nol, tetapi
+$\mathbb E|Y_n|=1$ untuk setiap $n$. Jadi konvergensi dalam peluang tidak
+memaksa konvergensi $L^1$.
+:::
+::: {#o009-solution-convergence-modes .solution}
+**Penyelesaian lengkap.** Karena $Y_n$ hanya bernilai $0$ atau $n$ dan
+$0<\varepsilon<n$, kejadian $\{|Y_n|>\varepsilon\}$ sama dengan
+$\{U\le1/n\}$; karena $U$ berdistribusi seragam, peluangnya $1/n$ dan menuju
+nol. Selanjutnya
+$\mathbb E|Y_n|=n\mathbb P(U\le1/n)=n(1/n)=1$, sehingga norma $L^1$ tidak
+menuju nol.
+Baris 2 dan 3 mengukur besaran berbeda: frekuensi kejadian versus tinggi
+lonjakan. Perbandingan LLN/CLT di atas tidak mengubah contoh ini.
+:::
+:::
+
+:::

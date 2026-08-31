@@ -64,6 +64,6 @@
       "timestamp",
       "status"
     ],
-    "line_ending": "CRLF"
+    "line_ending": "LF"
   }
 }

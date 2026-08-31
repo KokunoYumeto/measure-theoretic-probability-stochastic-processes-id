@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>Semigrup dan Generator</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/><script>window.MathJax = {tex: {macros: {Exp: "\\operatorname{Exp}", BB: "\\mathbb{B}", PP: "\\mathbb{P}", RR: "\\mathbb{R}", NN: "\\mathbb{N}", ZZ: "\\mathbb{Z}", EE: "\\mathbb{E}", dD: "\\mathcal{D}", fF: "\\mathcal{F}", lL: "\\mathcal{L}", linop: "\\mathcal{L}(\\mathbb{B})", linopell: "\\mathcal{L}(\\ell_1)", Binomial: "\\operatorname{Binomial}", Poisson: "\\operatorname{Poisson}"}}};</script><script id="MathJax-script" src="../MathJax/tex-svg.js"></script></head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Semigrup dan Generator</h1>
+</header><nav aria-label="Navigasi edisi"><a href="../../index.html">Beranda edisi</a></nav><aside class="component-attribution" id="quantecon-attribution"><strong>Asal komponen dan lisensi.</strong> Adaptasi bahasa Indonesia dari <cite>Continuous Time Markov Chains</cite> karya Thomas J. Sargent dan John Stachurski, sumber MyST QuantEcon pada komit <code>8b06e0aa5a438692445b2c896f9d238c5a7d5eb7</code>. Komponen ini dipertahankan di bawah CC BY-SA 4.0; perubahan berupa terjemahan dan perbaikan hilir dicatat di provenance. QuantEcon tidak mengesahkan edisi ini.<p class="model-provenance">Provenans produksi: OpenAI Codex gpt-5.6-sol, Ultra. Kredit penulis dan kontributor manusia tetap dipertahankan.</p></aside><main>
+<h2 id="semigrup-dan-generator">Semigrup dan Generator</h2>
+<h2 id="gambaran-umum">Gambaran umum</h2>
+<p>Dalam kuliah-kuliah sebelumnya kita telah melihat bahwa, dalam latar
+yang dibahas di sana, setiap matriks intensitas membangkitkan suatu
+semigrup Markov.</p>
+<p>Kita juga telah mengisyaratkan bahwa pasangan tersebut bersifat
+satu-ke-satu, dalam arti yang akan diperjelas.</p>
+<p>Untuk memperjelas gagasan ini, kita mulai dalam latar abstrak, dengan
+suatu masalah nilai awal yang sembarang.</p>
+<p>Dalam latar ini kita memperkenalkan semigrup operator umum beserta
+generatornya.</p>
+<p>Setelah itu, kita dapat kembali ke kasus Markov dan menjelaskan
+sepenuhnya hubungan antara matriks intensitas dan semigrup Markov.</p>
+<p>Materi di bawah ini relatif teknis. Sebagian besar kerumitannya
+timbul karena ruang keadaan dapat berukuran tak berhingga.</p>
+<p>Teknisitas semacam ini sulit dihindari karena begitu banyak rantai
+Markov yang menarik memang memiliki ruang keadaan tak berhingga.</p>
+<ul>
+<li>Contoh pertama kita—proses Poisson—memiliki ruang keadaan tak
+berhingga.</li>
+<li>Contoh lain adalah kajian antrean, yang sering kali tidak memiliki
+batas atas alami.<a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul>
+<p>Pembaca diasumsikan memiliki pengetahuan dasar tentang <a href="https://en.wikipedia.org/wiki/Banach_space">ruang Banach</a>.</p>
+<h2 id="motivasi">Motivasi</h2>
+<p>Teori umum semigrup operator kontinu dimotivasi oleh masalah
+penyelesaian ODE linear dalam ruang berdimensi tak berhingga.<a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Lebih khusus lagi, tantangannya adalah menyelesaikan masalah nilai
+awal seperti</p>
+<p><a id="equation-abscp"></a> <span class="math display">\[
+    x'_t = A x_t,
+    \quad x_0 \text{ diberikan}
+\]</span></p>
+<p>dengan</p>
+<ul>
+<li><span class="math inline">\(x_t\)</span> bernilai di suatu ruang
+Banach pada setiap waktu <span class="math inline">\(t\)</span>,</li>
+<li><span class="math inline">\(A\)</span> merupakan operator linear,
+dan</li>
+<li>turunan waktu <span class="math inline">\(x'_t\)</span> memakai
+definisi yang sesuai untuk ruang Banach.</li>
+</ul>
+<p>Masalah ini juga disebut “masalah Cauchy abstrak”.</p>
+<p>Mengapa kita perlu menyelesaikan masalah seperti ini?</p>
+<p>Salah satu contohnya berasal dari PDE.</p>
+<p>PDE memberi tahu kita bagaimana fungsi berubah seiring waktu, bermula
+dari deskripsi infinitesimal.</p>
+<p>Ketika <span class="math inline">\(x_t\)</span> merupakan suatu titik
+dalam ruang fungsi, masalah tersebut cocok dengan kerangka <a href="#equation-abscp">persamaan abscp</a>.</p>
+<p>Contoh lain berasal dari proses Markov. Seperti yang telah kita
+lihat, aliran distribusi sepanjang waktu dapat direpresentasikan sebagai
+ODE linear dalam ruang distribusi.</p>
+<p>Jika banyaknya keadaan tak berhingga, ruang distribusinya pun
+berdimensi tak berhingga.</p>
+<p>Ini merupakan versi lain dari <a href="#equation-abscp">persamaan
+abscp</a>; kita akan kembali kepadanya setelah membahas teori umum.</p>
+<p>Sebagai gambaran tingkat tinggi tentang hasil-hasil di bawah, solusi
+masalah Cauchy direpresentasikan sebagai lintasan <span class="math inline">\(t \mapsto U_t x_0\)</span> dari nilai awal <span class="math inline">\(x_0\)</span> di bawah suatu semigrup pemetaan
+<span class="math inline">\((U_t)\)</span>.</p>
+<p>Operator <span class="math inline">\(A\)</span> dalam <a href="#equation-abscp">persamaan abscp</a> disebut “generator” dari
+<span class="math inline">\((U_t)\)</span> dan merupakan deskripsi
+infinitesimalnya.</p>
+<blockquote>
+<p><strong>Catatan ruang lingkup hilir.</strong> Jika <span class="math inline">\(A\)</span> mungkin tak terbatas, lintasan <span class="math inline">\(U_tx_0\)</span> merupakan solusi klasik dari <a href="#equation-abscp">persamaan abscp</a> hanya di bawah syarat domain
+dan keteraturan yang sesuai—khususnya <span class="math inline">\(x_0\in
+D(A)\)</span>. Untuk <span class="math inline">\(x_0\)</span> umum,
+<span class="math inline">\(U_tx_0\)</span> ditafsirkan sebagai solusi
+ringan (<em>mild solution</em>). Dalam kasus UC yang dibahas di bawah,
+generatornya terbatas dan <span class="math inline">\(D(A)=\BB\)</span>,
+sehingga pembedaan ini tidak menimbulkan masalah.</p>
+</blockquote>
+<h2 id="pendahuluan-teknis">Pendahuluan teknis</h2>
+<p>Sepanjang kuliah ini, <span class="math inline">\((\BB, \| \cdot
+\|)\)</span> adalah ruang Banach.</p>
+<h3 id="ruang-operator-linear">Ruang Operator Linear</h3>
+<p>Ingat bahwa <strong>operator linear</strong> pada <span class="math inline">\(\BB\)</span> adalah pemetaan <span class="math inline">\(A\)</span> dari <span class="math inline">\(\BB\)</span> ke dirinya sendiri yang memenuhi</p>
+<p><span class="math display">\[
+    A(\alpha g + \beta h) = \alpha A g + \beta A h,
+    \quad
+    \forall \, g, h \in \BB, \;\; \alpha, \beta \in \RR
+\]</span></p>
+<p>Operator <span class="math inline">\(A\)</span> disebut
+<strong>terbatas</strong> jika</p>
+<p><a id="equation-norml"></a> <span class="math display">\[
+    \| A \| := \sup_{g \in \BB, \, \| g \| \leq 1} \| A g \| &lt; \infty
+\]</span></p>
+<p>Ini adalah definisi biasa bagi <a href="https://en.wikipedia.org/wiki/Bounded_operator">operator linear
+terbatas</a> pada ruang linear bernorma.</p>
+<p>Himpunan semua operator linear terbatas pada <span class="math inline">\(\BB\)</span> dinotasikan dengan <span class="math inline">\(\linop\)</span> dan merupakan ruang Banach.</p>
+<p>Penjumlahan dan perkalian skalar unsur-unsur <span class="math inline">\(\linop\)</span> didefinisikan dengan cara biasa.
+Jadi, untuk <span class="math inline">\(\alpha \in \RR\)</span>, <span class="math inline">\(A,B\in\linop\)</span>, dan <span class="math inline">\(g\in\BB\)</span>, berlaku</p>
+<p><span class="math display">\[
+    (A + B) g = Ag + Bg,
+    \quad (\alpha A) g = \alpha (A g)
+\]</span></p>
+<p>dan seterusnya.</p>
+<p>Kita menulis <span class="math inline">\(AB\)</span> untuk menyatakan
+komposisi operator <span class="math inline">\(A,B\in\linop\)</span>.</p>
+<p>Nilai yang didefinisikan dalam <a href="#equation-norml">persamaan
+norml</a> disebut <a href="https://en.wikipedia.org/wiki/Operator_norm"><strong>norma
+operator</strong></a> dari <span class="math inline">\(A\)</span> dan,
+seperti ditunjukkan notasinya, merupakan norma pada <span class="math inline">\(\linop\)</span>.</p>
+<p>Selain merupakan norma, norma operator memiliki sifat
+submultiplikatif <span class="math inline">\(\|AB\|\leq\|A\|\|B\|\)</span> untuk semua <span class="math inline">\(A,B\in\linop\)</span>.</p>
+<p>Misalkan <span class="math inline">\(I\)</span> adalah identitas
+dalam <span class="math inline">\(\linop\)</span>, sehingga <span class="math inline">\(Ig=g\)</span> untuk setiap <span class="math inline">\(g\in\BB\)</span>.</p>
+<p>(Sesungguhnya, <span class="math inline">\(\linop\)</span> adalah <a href="https://en.wikipedia.org/wiki/Banach_algebra">aljabar Banach
+unital</a> apabila perkalian diidentifikasi dengan komposisi operator
+dan <span class="math inline">\(I\)</span> dipakai sebagai unsur
+identitasnya.)</p>
+<h3 id="fungsi-eksponensial">Fungsi Eksponensial</h3>
+<p>Untuk <span class="math inline">\(A\in\linop\)</span>, eksponensial
+<span class="math inline">\(A\)</span> adalah unsur <span class="math inline">\(\linop\)</span> yang didefinisikan oleh</p>
+<p><a id="equation-opexpo"></a> <span class="math display">\[
+    e^A
+    = \sum_{k \geq 0} \frac{A^k}{k!}
+    = I + A + \frac{A^2}{2!} + \cdots
+\]</span></p>
+<p>Definisi ini sama dengan definisi eksponensial matriks. Fungsi
+eksponensial muncul secara alami sebagai solusi ODE dalam ruang Banach.
+Salah satu contohnya, seperti akan kita lihat, ialah aliran distribusi
+yang berkaitan dengan rantai Markov waktu kontinu.</p>
+<p>Pemetaan eksponensial memiliki sifat-sifat berikut:</p>
+<ul>
+<li>Untuk setiap <span class="math inline">\(A\in\linop\)</span>,
+operator <span class="math inline">\(e^A\)</span> merupakan unsur <span class="math inline">\(\linop\)</span> yang terdefinisi dengan baik dan
+<span class="math inline">\(\|e^A\|\leq e^{\|A\|}\)</span>.<a class="footnote-ref" href="#fn3" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
+<li><span class="math inline">\(e^0=I\)</span>, dengan <span class="math inline">\(0\)</span> unsur nol dalam <span class="math inline">\(\linop\)</span>.</li>
+<li>Jika <span class="math inline">\(A,B\in\linop\)</span> dan <span class="math inline">\(AB=BA\)</span>, maka <span class="math inline">\(e^{A+B}=e^Ae^B\)</span>.</li>
+<li>Jika <span class="math inline">\(A\in\linop\)</span>, maka <span class="math inline">\(e^A\)</span> dapat dibalik dan <span class="math inline">\((e^A)^{-1}=e^{-A}\)</span>.</li>
+</ul>
+<p>Fakta terakhir mudah diperiksa dari fakta-fakta sebelumnya.</p>
+<h3 id="kalkulus-operator">Kalkulus Operator</h3>
+<p>Tinjau fungsi</p>
+<p><span class="math display">\[
+    \RR_+ \ni t \mapsto U_t \in \linop
+\]</span></p>
+<p>yang dapat kita pandang sebagai lintasan waktu dalam <span class="math inline">\(\linop\)</span>, misalnya aliran operator
+Markov.</p>
+<p>Kita mengatakan bahwa fungsi ini <strong>terdiferensialkan di <span class="math inline">\(\tau\in\RR_+\)</span></strong> apabila terdapat
+unsur <span class="math inline">\(T\)</span> dari <span class="math inline">\(\linop\)</span> sedemikian sehingga</p>
+<p><a id="equation-devlim"></a> <span class="math display">\[
+    \frac{U_{\tau+h} - U_\tau}{h} \to T
+    \; \text{ ketika } h \to 0
+\]</span></p>
+<p>Dalam hal ini, <span class="math inline">\(T\)</span> disebut
+<strong>turunan</strong> fungsi <span class="math inline">\(t\mapsto
+U_t\)</span> di <span class="math inline">\(\tau\)</span>, dan kita
+menulis</p>
+<p><span class="math display">\[
+    T = U'_\tau
+    \; \text{ atau } \;
+    T = \frac{d}{dt} U_t \, \Big|_{t=\tau}.
+\]</span></p>
+<p>(Konvergensi operator berlangsung dalam norma operator. Jika <span class="math inline">\(\tau=0\)</span>, limit <span class="math inline">\(h\to0\)</span> dalam <a href="#equation-devlim">persamaan devlim</a> adalah limit kanan.)</p>
+<div class="qe-example" id="generators-prf-1">
+<p>Jika <span class="math inline">\(U_t=tV\)</span> untuk suatu <span class="math inline">\(V\in\linop\)</span> yang tetap, mudah dilihat
+bahwa <span class="math inline">\(V\)</span> adalah turunan <span class="math inline">\(t\mapsto U_t\)</span> pada setiap <span class="math inline">\(t\in\RR_+\)</span>.</p>
+</div>
+<div class="qe-example" id="generators-prf-2">
+<p>Dalam <a href="kolmogorov_fwd.html">pembahasan kita</a> mengenai
+persamaan Kolmogorov maju ketika <span class="math inline">\(S\)</span>
+berhingga, kita memperkenalkan turunan pemetaan <span class="math inline">\(t\mapsto P_t\)</span>, dengan setiap <span class="math inline">\(P_t\)</span> merupakan matriks pada <span class="math inline">\(S\)</span>.</p>
+<p>Turunan tersebut didefinisikan dengan menurunkan <span class="math inline">\(P_t\)</span> unsur demi unsur.</p>
+<p>Ini berimpit dengan definisi operator-teoretis dalam <a href="#equation-devlim">persamaan devlim</a> ketika <span class="math inline">\(S\)</span> berhingga. Dalam hal itu, ruang <span class="math inline">\(\lL(\ell_1(S))\)</span> yang terdiri atas semua
+operator linear terbatas pada <span class="math inline">\(\ell_1(S)\)</span> berdimensi berhingga, sehingga
+konvergensi titik demi titik dan konvergensi norma berimpit.</p>
+<blockquote>
+<p><strong>Catatan klarifikasi hilir.</strong> Sumber menulis <span class="math inline">\(\ell_1\)</span> tanpa menampilkan
+ketergantungannya pada <span class="math inline">\(S\)</span>. Ruang
+<span class="math inline">\(\ell_1\)</span> standar pada barisan tak
+berhingga bukan berdimensi berhingga; klaim di atas berlaku karena di
+sini yang dimaksud adalah <span class="math inline">\(\ell_1(S)\)</span>
+untuk himpunan keadaan berhingga <span class="math inline">\(S\)</span>.</p>
+</blockquote>
+</div>
+<p>Seperti pada kasus matriks dan skalar, kita memperoleh hasil
+berikut.</p>
+<div class="qe-lemma" id="diffexpmap">
+<p><strong>Keterdiferensialan Kurva Eksponensial</strong> Untuk setiap
+<span class="math inline">\(A\in\linop\)</span>, kurva eksponensial
+<span class="math inline">\(t\mapsto e^{tA}\)</span> terdiferensialkan
+di setiap titik dan</p>
+<p><a id="equation-expdiffer"></a> <span class="math display">\[
+    \frac{d}{dt} e^{tA} = e^{tA} A = A e^{tA}.
+\]</span></p>
+</div>
+<p>Pembuktiannya menjadi latihan yang telah dilengkapi solusi di
+bawah.</p>
+<h2 id="semigrup-dan-generator-1">Semigrup dan Generator</h2>
+<p>Untuk rantai Markov waktu kontinu dengan ruang keadaan berhingga
+<span class="math inline">\(S\)</span>, kita telah melihat bahwa
+semigrup Markov sering berbentuk <span class="math inline">\(P_t=e^{tQ}\)</span> bagi suatu matriks intensitas
+<span class="math inline">\(Q\)</span>.</p>
+<p>Bentuk ini ideal karena seluruh semigrup dicirikan secara sederhana
+oleh deskripsi infinitesimalnya, yaitu <span class="math inline">\(Q\)</span>.</p>
+<p>Ternyata, ketika <span class="math inline">\(S\)</span> berhingga,
+pernyataan ini selalu benar: jika <span class="math inline">\((P_t)\)</span> merupakan semigrup Markov, terdapat
+matriks intensitas <span class="math inline">\(Q\)</span> yang memenuhi
+<span class="math inline">\(P_t=e^{tQ}\)</span> untuk setiap <span class="math inline">\(t\)</span>.</p>
+<p>Selain itu, pernyataan tersebut tetap benar ketika <span class="math inline">\(S\)</span> tak berhingga, asalkan semigrupnya
+memenuhi beberapa pembatasan.</p>
+<blockquote>
+<p><strong>Catatan ruang lingkup hilir.</strong> Pernyataan ruang
+keadaan berhingga memakai pengertian semigrup Markov yang kontinu di
+waktu nol. Untuk ruang keadaan tak berhingga, matriks intensitas umum
+dapat menimbulkan ledakan, kehilangan massa, atau masalah ketunggalan;
+karena itu pembatasan yang disebut pada kalimat sebelumnya benar-benar
+diperlukan untuk memperoleh semigrup Markov yang konservatif
+(<em>honest</em>), dengan massa total tetap satu.</p>
+</blockquote>
+<p>Tujuan kita adalah merumuskan pernyataan-pernyataan ini secara tepat,
+mula-mula dalam latar abstrak lalu melalui spesialisasi.</p>
+<h3 id="semigrup-operator">Semigrup Operator</h3>
+<p>Misalkan <span class="math inline">\(U_t\)</span> merupakan unsur
+<span class="math inline">\(\linop\)</span> untuk setiap <span class="math inline">\(t\in\RR_+\)</span>.</p>
+<p>Kita mengatakan bahwa <span class="math inline">\((U_t)\)</span>
+adalah <strong>semigrup evolusi</strong> pada <span class="math inline">\(\BB\)</span> jika <span class="math inline">\(U_0=I\)</span> dan <span class="math inline">\(U_{s+t}=U_sU_t\)</span> untuk setiap <span class="math inline">\(s,t\geq0\)</span>.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Sumber menyebut semigrup
+evolusi “pada <span class="math inline">\(\linop\)</span>”. Keluarga
+tersebut terdiri atas operator dalam <span class="math inline">\(\linop\)</span>, tetapi bertindak pada ruang
+Banach <span class="math inline">\(\BB\)</span>; formulasi standar dan
+konsisten dengan definisi-definisi berikut adalah “semigrup pada <span class="math inline">\(\BB\)</span>”.</p>
+</blockquote>
+<p>Gagasannya ialah bahwa <span class="math inline">\((U_t)\)</span>
+menghasilkan lintasan dalam <span class="math inline">\(\BB\)</span>
+dari setiap titik awal <span class="math inline">\(g\in\BB\)</span>,
+sehingga <span class="math inline">\(U_tg\)</span> ditafsirkan sebagai
+letak keadaan setelah <span class="math inline">\(t\)</span> satuan
+waktu.</p>
+<p>Semigrup evolusi <span class="math inline">\((U_t)\)</span>
+disebut</p>
+<ul>
+<li><span class="math inline">\(C_0\)</span> <strong>semigrup</strong>
+pada <span class="math inline">\(\BB\)</span> jika, untuk setiap <span class="math inline">\(g\in\BB\)</span>, pemetaan <span class="math inline">\(t\mapsto U_tg\)</span> dari <span class="math inline">\(\RR_+\)</span> ke <span class="math inline">\(\BB\)</span> kontinu; dan</li>
+<li><strong>semigrup kontinu seragam</strong> pada <span class="math inline">\(\BB\)</span> jika pemetaan <span class="math inline">\(t\mapsto U_t\)</span> dari <span class="math inline">\(\RR_+\)</span> ke <span class="math inline">\(\linop\)</span> kontinu.</li>
+</ul>
+<p>Mengikuti istilah sumber <em>uniformly continuous</em>, selanjutnya
+kita mempertahankan singkatan UC untuk “kontinu seragam”.<a class="footnote-ref" href="#fn4" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<div class="qe-example" id="ecuc">
+<p><strong>Kurva eksponensial adalah semigrup UC</strong> Jika <span class="math inline">\(U_t=e^{tA}\)</span> untuk <span class="math inline">\(t\in\RR_+\)</span> dan <span class="math inline">\(A\in\linop\)</span>, maka <span class="math inline">\((U_t)\)</span> merupakan semigrup kontinu seragam
+pada <span class="math inline">\(\BB\)</span>.</p>
+</div>
+<p>Klaim bahwa <span class="math inline">\((U_t)\)</span> merupakan
+semigrup evolusi langsung mengikuti sifat-sifat fungsi eksponensial di
+atas.</p>
+<p>Kontinuitas dalam norma dapat dibuktikan dengan argumen yang serupa
+dengan argumen dalam pembuktian keterdiferensialan pada <a href="#diffexpmap">lemma keterdiferensialan kurva eksponensial</a>.</p>
+<p>Karena konvergensi norma pada <span class="math inline">\(\linop\)</span> menyiratkan konvergensi titik demi
+titik, setiap semigrup kontinu seragam merupakan semigrup <span class="math inline">\(C_0\)</span>.</p>
+<p>Kebalikannya tentu tidak benar—banyak semigrup <span class="math inline">\(C_0\)</span> penting yang tidak kontinu
+seragam.</p>
+<p>Bahkan, semigrup yang berkaitan dengan PDE, difusi, dan proses Markov
+lain pada ruang keadaan kontinu biasanya merupakan semigrup <span class="math inline">\(C_0\)</span> tetapi bukan semigrup kontinu
+seragam.</p>
+<p>Ada pula contoh penting semigrup Markov pada ruang keadaan diskret
+tak berhingga yang tidak kontinu seragam.</p>
+<p>Namun, kita akan segera melihat bahwa bagi sebagian besar rantai
+Markov waktu kontinu yang dipakai dalam penerapan, semigrupnya kontinu
+seragam.</p>
+<h3 id="generator">Generator</h3>
+<p>Tinjau rantai Markov waktu kontinu pada ruang keadaan berhingga
+dengan matriks intensitas <span class="math inline">\(Q\)</span>.</p>
+<p>Semigrup Markov <span class="math inline">\((P_t)\)</span> ditentukan
+sepenuhnya oleh deskripsi infinitesimal <span class="math inline">\(Q\)</span>, dalam arti bahwa</p>
+<ul>
+<li><span class="math inline">\(P_t=e^{tQ}\)</span> untuk setiap <span class="math inline">\(t\geq0\)</span>; dan, secara ekuivalen,</li>
+<li>persamaan maju dan mundur berlaku: <span class="math inline">\(P_t'=P_tQ=QP_t\)</span>.</li>
+</ul>
+<p>Karena <span class="math inline">\(P_0=I\)</span>, matriks <span class="math inline">\(Q\)</span> dapat diperoleh kembali dari semigrup
+melalui</p>
+<p><span class="math display">\[
+    Q = P'_0 = \lim_{h \downarrow 0} \frac{P_h - I}{h}.
+\]</span></p>
+<p>Dalam latar semigrup <span class="math inline">\(C_0\)</span> yang
+lebih abstrak, kita mengatakan bahwa <span class="math inline">\(Q\)</span> adalah “generator” semigrup <span class="math inline">\((P_t)\)</span>.</p>
+<p>Secara lebih umum, jika <span class="math inline">\((U_t)\)</span>
+merupakan semigrup <span class="math inline">\(C_0\)</span>,
+<strong>generator</strong> dari <span class="math inline">\((U_t)\)</span> adalah operator linear <span class="math inline">\(A:D(A)\subseteq\BB\to\BB\)</span> yang
+didefinisikan oleh</p>
+<p><a id="equation-defgenr"></a> <span class="math display">\[
+    A g = \lim_{h \downarrow 0} \frac{U_h g - g}{h}
+\]</span></p>
+<p>untuk semua <span class="math inline">\(g\in\BB\)</span> yang
+limitnya ada.</p>
+<p>Himpunan titik tempat limit tersebut ada—domain generator—dinotasikan
+dengan <span class="math inline">\(D(A)\)</span>.</p>
+<blockquote>
+<p><strong>Catatan klarifikasi hilir.</strong> Sumber mula-mula menyebut
+<span class="math inline">\(A\)</span> sebagai operator dari seluruh
+<span class="math inline">\(\BB\)</span> ke dirinya sendiri, lalu
+mendefinisikan <span class="math inline">\(D(A)\)</span> sebagai
+himpunan titik tempat limit ada. Penulisan <span class="math inline">\(A:D(A)\subseteq\BB\to\BB\)</span> di atas
+menyatakan tipe operator yang mungkin tak terbatas secara tepat.</p>
+</blockquote>
+<p>Pada tahap ini kita ingin menulis <a href="#equation-defgenr">persamaan defgenr</a> sebagai <span class="math inline">\(A=U'_0\)</span>, atau menyatakan <span class="math inline">\(U_t\)</span> sebagai <span class="math inline">\(e^{tA}\)</span>, analog dengan kasus Markov.</p>
+<p>Namun, ada beberapa masalah.</p>
+<p>Pertama, limit dalam <a href="#equation-defgenr">persamaan
+defgenr</a> dapat gagal ada untuk sebagian <span class="math inline">\(g\in\BB\)</span>.</p>
+<p>Memang, mengapa limit itu harus ada, sementara semigrup <span class="math inline">\(C_0\)</span> tidak disyaratkan
+terdiferensialkan?</p>
+<p>Kedua, sekalipun limitnya ada, operator linear <span class="math inline">\(A\)</span> dapat tak terbatas—yakni, bukan unsur
+<span class="math inline">\(\linop\)</span>—sehingga pernyataan seperti
+<span class="math inline">\(U_t=e^{tA}\)</span> menjadi bermasalah.</p>
+<p>Walaupun demikian, teori semigrup <span class="math inline">\(C_0\)</span> ternyata sangat kuat. Dengan sejumlah
+pekerjaan, masalah teknis tersebut dapat diatasi.<a class="footnote-ref" href="#fn5" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>Lebih baik lagi, untuk penerapan yang hendak kita tinjau, kita dapat
+berfokus pada semigrup UC, yang tidak menghadapi masalah-masalah
+tersebut.</p>
+<p>Bagian berikut memberikan rinciannya.</p>
+<h3 id="karakterisasi-semigrup-kontinu-seragam">Karakterisasi Semigrup
+Kontinu Seragam</h3>
+<p>Dalam <a href="#ecuc">contoh kurva eksponensial</a> kita melihat
+bahwa kurva eksponensial merupakan contoh semigrup UC.</p>
+<p>Teorema berikut memberi tahu kita bahwa tidak ada contoh lain.</p>
+<div class="qe-theorem" id="ucsgec">
+<p><strong>Semigrup UC adalah Kurva Eksponensial</strong> Jika <span class="math inline">\((U_t)\)</span> merupakan semigrup UC pada <span class="math inline">\(\BB\)</span>, terdapat <span class="math inline">\(A\in\linop\)</span> sedemikian sehingga <span class="math inline">\(U_t=e^{tA}\)</span> untuk setiap <span class="math inline">\(t\geq0\)</span>. Selain itu,</p>
+<ul>
+<li><span class="math inline">\(U_t\)</span> terdiferensialkan pada
+setiap <span class="math inline">\(t\geq0\)</span>,</li>
+<li><span class="math inline">\(A\)</span> adalah generator dari <span class="math inline">\((U_t)\)</span>, dan</li>
+<li><span class="math inline">\(U_t'=AU_t=U_tA\)</span> untuk setiap
+<span class="math inline">\(t\geq0\)</span>.</li>
+</ul>
+</div>
+<p>Tiga klaim terakhir dalam <a href="#ucsgec">teorema karakterisasi
+semigrup UC</a> langsung mengikuti klaim pertama.</p>
+<p>Pernyataan <span class="math inline">\(U_t'=AU_t=U_tA\)</span>
+merupakan generalisasi persamaan Kolmogorov maju dan mundur.</p>
+<p>Walaupun sedikit lebih rumit dalam latar Banach, pembuktian klaim
+pertama— adanya representasi eksponensial—merupakan perluasan langsung
+dari fakta bahwa setiap fungsi kontinu <span class="math inline">\(f\)</span> dari <span class="math inline">\(\RR_+\)</span> ke <span class="math inline">\(\RR\)</span> yang memenuhi</p>
+<ul>
+<li><span class="math inline">\(f(s)f(t)=f(s+t)\)</span> untuk setiap
+<span class="math inline">\(s,t\geq0\)</span>; dan</li>
+<li><span class="math inline">\(f(0)=1\)</span></li>
+</ul>
+<p>juga memenuhi <span class="math inline">\(f(t)=e^{ta}\)</span> untuk
+suatu <span class="math inline">\(a\in\RR\)</span> dan setiap <span class="math inline">\(t\geq0\)</span>.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Sumber menuliskan domain
+<span class="math inline">\(f\)</span> sebagai <span class="math inline">\(\RR\)</span>, tetapi hanya mengasumsikan persamaan
+fungsional untuk argumen tak negatif. Domain dan kesimpulan di atas
+dibatasi pada <span class="math inline">\(\RR_+\)</span>, tepat sesuai
+hipotesis yang dinyatakan.</p>
+</blockquote>
+<p>Kita membuktikan hal yang sangat serupa dalam <a href="memoryless.html#exp_unique">sifat tanpa ingatan fungsi
+eksponensial</a>, mengenai sifat tanpa ingatan fungsi eksponensial.</p>
+<p>Untuk pembahasan lebih lanjut tentang kasus skalar, lihat, misalnya,
+<cite>Prasanna K. Sahoo dan Palaniappan Kannappan, Introduction to
+Functional Equations (CRC Press, 2011)</cite>.</p>
+<p>Untuk pembuktian lengkap klaim pertama dalam <a href="#ucsgec">teorema karakterisasi semigrup UC</a>, dalam latar
+aljabar Banach, lihat, misalnya, Bab 7 dari <cite>Adam Bobrowski,
+Functional Analysis for Probability and Stochastic Processes: An
+Introduction (Cambridge University Press, 2005)</cite>.</p>
+<h2 id="latihan">Latihan</h2>
+<div class="exercise" id="generators-ex-1">
+<p>Buktikan bahwa <a href="#equation-expdiffer">persamaan expdiffer</a>
+berlaku untuk setiap <span class="math inline">\(A\in\linop\)</span>.</p>
+</div>
+<div class="solution" id="generators-solution-1">
+<p><strong>Solusi</strong> Untuk membuktikan kesamaan pertama, tetapkan
+<span class="math inline">\(t\in\RR_+\)</span> dan ambil <span class="math inline">\(h\neq0\)</span> dengan <span class="math inline">\(t+h\geq0\)</span>. Karena <span class="math inline">\(tA\)</span> dan <span class="math inline">\(hA\)</span> saling komutatif,</p>
+<p><span class="math display">\[
+e^{(t+h)A} - e^{tA} - h e^{tA} A
+= e^{tA} (e^{hA} - I - hA).
+\]</span></p>
+<p>Sifat submultiplikatif norma pada <span class="math inline">\(\linop\)</span> memberi</p>
+<p><span class="math display">\[
+\left\|
+\frac{e^{(t+h)A}-e^{tA}}{h}-e^{tA}A
+\right\|
+\leq
+\|e^{tA}\|\,
+\frac{\|e^{hA}-I-hA\|}{|h|}.
+\]</span></p>
+<p>Dari definisi eksponensial dan sifat submultiplikatif,</p>
+<p><span class="math display">\[
+\|e^{hA}-I-hA\|
+\leq \sum_{k\geq2}\frac{|h|^k\|A\|^k}{k!}
+=e^{|h|\|A\|}-1-|h|\|A\|
+=O(h^2)=o(|h|).
+\]</span></p>
+<p>Jadi ruas kanan menuju nol ketika <span class="math inline">\(h\to0\)</span>. Untuk <span class="math inline">\(t&gt;0\)</span> argumen ini mencakup kenaikan
+positif dan negatif; untuk <span class="math inline">\(t=0\)</span>
+limitnya memang limit kanan. Kita memperoleh kesamaan pertama dalam <a href="#equation-expdiffer">persamaan expdiffer</a>, yaitu</p>
+<p><span class="math display">\[
+\frac{d}{dt}e^{tA}=e^{tA}A.
+\]</span></p>
+<p>Karena <span class="math inline">\(A\)</span> komutatif dengan setiap
+pangkatnya sendiri, <span class="math inline">\(A\)</span> juga
+komutatif dengan <span class="math inline">\(e^{tA}\)</span>. Maka <span class="math inline">\(e^{tA}A=Ae^{tA}\)</span>, yang membuktikan
+kesamaan kedua.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Dalam dua tempat, solusi
+sumber menghilangkan faktor <span class="math inline">\(h\)</span>: ia
+menulis sisa dengan <span class="math inline">\(-e^{tA}A\)</span> dan
+<span class="math inline">\(-I-A\)</span>. Dengan bentuk itu sisanya
+tidak bernilai <span class="math inline">\(o(h)\)</span>. Faktor <span class="math inline">\(h\)</span>, estimasi deret, dan limit dari dua
+sisi pada titik interior dipulihkan di atas.</p>
+</blockquote>
+</div>
+<div class="exercise" id="generators-ex-2">
+<p>Dalam banyak buku, semigrup <span class="math inline">\(C_0\)</span>
+didefinisikan sebagai semigrup evolusi <span class="math inline">\((U_t)\)</span> sedemikian sehingga</p>
+<p><a id="equation-czsg2"></a> <span class="math display">\[
+U_t g \to g \text{ ketika } t \to 0 \text{ untuk setiap } g \in \BB.
+\]</span></p>
+<p>Tujuan kita adalah menunjukkan bahwa <a href="#equation-czsg2">persamaan czsg2</a> menyiratkan kontinuitas pada
+setiap titik <span class="math inline">\(t\)</span>, seperti dalam
+definisi yang kita gunakan di atas.</p>
+<p><a href="https://en.wikipedia.org/wiki/Uniform_boundedness_principle">Teorema
+Banach–Steinhaus</a> dapat dipakai untuk menunjukkan bahwa, bagi
+semigrup evolusi <span class="math inline">\((U_t)\)</span> yang
+memenuhi <a href="#equation-czsg2">persamaan czsg2</a>, terdapat
+konstanta berhingga <span class="math inline">\(\omega\)</span> dan
+<span class="math inline">\(M\)</span> sedemikian sehingga</p>
+<p><a id="equation-sgbound"></a> <span class="math display">\[
+\| U_t \| \leq e^{t\omega} M
+\quad \text{untuk setiap } \; t \geq 0.
+\]</span></p>
+<p>Gunakan fakta ini bersama <a href="#equation-czsg2">persamaan
+czsg2</a> untuk menunjukkan bahwa, bagi setiap <span class="math inline">\(g\in\BB\)</span>, pemetaan <span class="math inline">\(t\mapsto U_tg\)</span> kontinu pada semua <span class="math inline">\(t\)</span>.</p>
+</div>
+<div class="solution" id="generators-solution-2">
+<p><strong>Solusi</strong> Misalkan <span class="math inline">\((U_t)\)</span> merupakan semigrup evolusi yang
+memenuhi <a href="#equation-czsg2">persamaan czsg2</a>, dan misalkan
+<span class="math inline">\(\omega\)</span> serta <span class="math inline">\(M\)</span> seperti dalam <a href="#equation-sgbound">persamaan sgbound</a>.</p>
+<p>Pilih sembarang <span class="math inline">\(g\in\BB\)</span> dan
+<span class="math inline">\(t&gt;0\)</span>. Untuk <span class="math inline">\(h\downarrow0\)</span>, di satu sisi,</p>
+<p><span class="math display">\[
+U_{t+h}g=U_hU_tg\to U_tg
+\]</span></p>
+<p>menurut <a href="#equation-czsg2">persamaan czsg2</a>, yang
+diterapkan pada vektor tetap <span class="math inline">\(U_tg\)</span>.</p>
+<p>Di sisi lain, untuk <span class="math inline">\(0&lt;h&lt;t\)</span>,
+dari <a href="#equation-sgbound">persamaan sgbound</a> dan definisi
+norma operator,</p>
+<p><span class="math display">\[
+\| U_{t-h} g - U_t g\|
+= \|  U_{t-h} ( g - U_h g) \|
+\leq e^{(t-h)\omega} M \| g - U_h g\|
+\to 0.
+\]</span></p>
+<p>Jadi limit kanan dan limit kiri di <span class="math inline">\(t\)</span> sama dengan <span class="math inline">\(U_tg\)</span>. Pada <span class="math inline">\(t=0\)</span> hanya limit kanan yang relevan dan
+itulah <a href="#equation-czsg2">persamaan czsg2</a>. Karena setiap
+barisan <span class="math inline">\(t_n\to t\)</span> akhirnya dapat
+dipisahkan menjadi suku-suku dari kanan, dari kiri, dan yang sama dengan
+<span class="math inline">\(t\)</span>, kita memperoleh <span class="math inline">\(U_{t_n}g\to U_tg\)</span>. Dengan demikian <span class="math inline">\(t\mapsto U_tg\)</span> kontinu pada setiap <span class="math inline">\(t\in\RR_+\)</span>.</p>
+<blockquote>
+<p><strong>Catatan pelengkapan hilir.</strong> Solusi sumber menampilkan
+dua limit bagi <span class="math inline">\(h_n\downarrow0\)</span>,
+tetapi berhenti sebelum menghubungkannya secara eksplisit dengan barisan
+umum yang mendekati <span class="math inline">\(t\)</span>. Langkah
+sekuensial terakhir di atas menutup kesimpulan yang diminta.</p>
+</blockquote>
+</div>
+<div class="exercise" id="generators-ex-3">
+<p>Melanjutkan latihan sebelumnya, semigrup UC sering didefinisikan
+sebagai semigrup evolusi <span class="math inline">\((U_t)\)</span>
+sedemikian sehingga</p>
+<p><a id="equation-czsg3"></a> <span class="math display">\[
+\| U_t - I \| \to 0 \text{ ketika } t \to 0.
+\]</span></p>
+<p>Tunjukkan bahwa <a href="#equation-czsg3">persamaan czsg3</a>
+menyiratkan kontinuitas norma pada setiap titik <span class="math inline">\(t\)</span>, seperti dalam definisi yang kita
+gunakan di atas.</p>
+<p>Secara khusus, tunjukkan bahwa untuk setiap <span class="math inline">\(t_n\to t\)</span> berlaku <span class="math inline">\(\|U_{t_n}-U_t\|\to0\)</span> ketika <span class="math inline">\(n\to\infty\)</span>.</p>
+</div>
+<div class="solution" id="generators-solution-3">
+<p><strong>Solusi</strong> Solusinya serupa dengan solusi latihan
+sebelumnya.</p>
+<p>Perhatikan lebih dahulu bahwa <a href="#equation-czsg3">persamaan
+czsg3</a> menyiratkan <a href="#equation-czsg2">persamaan czsg2</a>,
+sebab</p>
+<p><span class="math display">\[
+\|U_tg-g\|\leq\|U_t-I\|\,\|g\|\to0.
+\]</span></p>
+<p>Karena itu, batas <a href="#equation-sgbound">persamaan sgbound</a>
+tersedia. Tetapkan <span class="math inline">\(t&gt;0\)</span>. Untuk
+<span class="math inline">\(h\downarrow0\)</span>, di satu sisi,</p>
+<p><span class="math display">\[
+\|U_{t+h}-U_t\|
+=\|(U_h-I)U_t\|
+\leq\|U_h-I\|\,\|U_t\|
+\to0.
+\]</span></p>
+<p>Di sisi lain, untuk <span class="math inline">\(0&lt;h&lt;t\)</span>,
+sifat submultiplikatif norma operator dan <a href="#equation-sgbound">persamaan sgbound</a> memberi</p>
+<p><span class="math display">\[
+\| U_{t-h} - U_t \|
+= \|  U_{t-h} ( I - U_h) \|
+\leq e^{(t-h)\omega} M  \| I - U_h \|
+\to0.
+\]</span></p>
+<p>Pada <span class="math inline">\(t=0\)</span>, <a href="#equation-czsg3">persamaan czsg3</a> sendiri memberi kontinuitas
+kanan. Dengan memisahkan sembarang barisan <span class="math inline">\(t_n\to t\)</span> menurut sisi pendekatannya
+seperti pada latihan sebelumnya, kita memperoleh <span class="math inline">\(\|U_{t_n}-U_t\|\to0\)</span>. Jadi <span class="math inline">\(t\mapsto U_t\)</span> kontinu sebagai pemetaan ke
+<span class="math inline">\(\linop\)</span>.</p>
+<blockquote>
+<p><strong>Catatan pelengkapan hilir.</strong> Solusi sumber hanya
+menulis kenaikan khusus <span class="math inline">\(h_n\downarrow0\)</span> dan memakai <a href="#equation-sgbound">persamaan sgbound</a> tanpa menyatakan mengapa
+batas itu tersedia. Implikasi <a href="#equation-czsg3">persamaan
+czsg3</a> <span class="math inline">\(\Rightarrow\)</span> <a href="#equation-czsg2">persamaan czsg2</a>, kedua limit satu sisi, dan
+reduksi barisan umum dinyatakan secara eksplisit di atas.</p>
+</blockquote>
+</div>
+<section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+<hr/>
+<ol>
+<li id="fn1"><p>Bahkan, salah satu perhatian utama dalam teori antrean
+adalah memastikan bahwa panjang antrean tidak meledak menuju tak
+berhingga. Masalah ini tidak dapat dikaji dengan benar kecuali ruang
+keadaannya boleh tak berhingga.<a class="footnote-back" href="#fnref1" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Pengantar yang sangat baik mengenai semigrup operator,
+beserta penerapannya pada PDE dan proses Markov, dapat ditemukan dalam
+<cite>David Applebaum, Semigroups of Linear Operators (Cambridge
+University Press, 2019)</cite>.<a class="footnote-back" href="#fnref2" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Konvergensi deret dalam <a href="#equation-opexpo">persamaan opexpo</a> mengikuti keterbatasan
+<span class="math inline">\(A\)</span> dan fakta bahwa <span class="math inline">\(\linop\)</span> merupakan ruang Banach.<a class="footnote-back" href="#fnref3" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Hati-hati: definisi semigrup UC mensyaratkan agar <span class="math inline">\(t\mapsto U_t\)</span> kontinu sebagai pemetaan ke
+<span class="math inline">\(\linop\)</span>, bukan agar pemetaan itu
+kontinu seragam dalam variabel waktu. Istilah UC muncul karena, bagi
+semigrup UC, definisi norma operator memberi <span class="math inline">\(\sup_{\|g\|\leq1}\|U_sg-U_tg\|\to0\)</span> ketika
+<span class="math inline">\(s\to t\)</span>.<a class="footnote-back" href="#fnref4" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Uraian yang sangat baik mengenai teori umum semigrup
+<span class="math inline">\(C_0\)</span> dapat ditemukan dalam
+<cite>Adam Bobrowski, Functional Analysis for Probability and Stochastic
+Processes: An Introduction (Cambridge University Press, 2005)</cite>.<a class="footnote-back" href="#fnref5" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</main><footer>Sumber resmi: https://github.com/QuantEcon/continuous_time_mcs — lisensi CC BY-SA 4.0.</footer></body>
+</html>

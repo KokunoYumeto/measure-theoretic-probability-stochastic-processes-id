@@ -43,6 +43,11 @@ main {
   margin-right: auto;
 }
 
+blockquote {
+  color: var(--o009-muted);
+  border-left-color: var(--o009-border);
+}
+
 a {
   color: var(--o009-accent);
   text-underline-offset: 0.14em;
@@ -73,7 +78,14 @@ summary:focus-visible {
 .exercise,
 .hint,
 .answer,
-.solution {
+.solution,
+.mastery-exercise,
+.mastery-hint,
+.mastery-answer,
+.mastery-solution,
+.assessment-problem,
+.mastery-bindings,
+.mastery-context {
   border: 1px solid var(--o009-border);
   border-radius: 0.45rem;
   padding: 0.85rem 1rem;
@@ -91,6 +103,27 @@ summary:focus-visible {
 
 details {
   margin-block: 0.6rem;
+}
+
+.mastery-reader,
+.assessment-reader {
+  width: 100%;
+}
+
+.mastery-reader > .mastery,
+.mastery-reader > .original-mastery,
+.mastery-reader > .original-mastery-set,
+.assessment-reader > .cumulative-assessment {
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+.mastery-reader details,
+.assessment-reader details {
+  border: 1px solid var(--o009-border);
+  border-radius: 0.45rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--o009-panel);
 }
 
 summary {
@@ -124,6 +157,12 @@ pre {
   border-radius: 0.35rem;
   background: #18232d;
   color: #f4f7f9;
+}
+
+pre code {
+  white-space: pre;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 table {
@@ -177,6 +216,15 @@ svg {
     padding-inline: 0.8rem;
   }
 
+  .math.display {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
   .unit li,
   mjx-container[display="true"] {
     max-width: 100%;
@@ -184,4 +232,15 @@ svg {
     overflow-y: hidden;
   }
 
+}
+
+@media print {
+  :root {
+    --o009-paper: #fff;
+    --o009-ink: #17212b;
+    --o009-muted: #4c5b67;
+    --o009-border: #b8c7d1;
+    --o009-accent: #174f78;
+    --o009-panel: #eef6fb;
+  }
 }

@@ -1,0 +1,254 @@
+{
+  "authority": {
+    "active_input_manifest_sha256_after": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "active_input_manifest_sha256_before": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "commit": "8b06e0aa5a438692445b2c896f9d238c5a7d5eb7",
+    "notebook_path": "authority\\quantecon\\notebook_snapshot\\continuous_time_mcs.notebooks-1e17c25c937f369544380f769eb9c1bc45d12d1a\\kolmogorov_bwd.ipynb",
+    "notebook_sha256": "67ca8e73f7fe2e579d2cc3d21e9e232d49ff66d1a2c29b76881fd3bd84c47db2",
+    "source_manifest_sha256_after": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_manifest_sha256_before": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_path": "authority\\quantecon\\source_snapshot\\continuous_time_mcs-8b06e0aa5a438692445b2c896f9d238c5a7d5eb7\\lectures\\kolmogorov_bwd.md",
+    "source_sha256": "ea2ada6e9eabe30fb2088d3e218076b4f949662649e2aef4b30c2cd59d090149",
+    "tree": "f0f11e3bbc6bd23d6e4a447a7e05c0aaf0f7209e"
+  },
+  "built_at_utc": "2026-08-24T06:34:38.198476+00:00",
+  "code_cells": [
+    {
+      "execution_source_sha256": "051b372d71f8347804f0474ac3ff09d1cc154765ef922dd4a6692ae0cde9fca9",
+      "index": 1,
+      "replay": {
+        "figures": [],
+        "index": 1,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "051b372d71f8347804f0474ac3ff09d1cc154765ef922dd4a6692ae0cde9fca9"
+    },
+    {
+      "execution_source_sha256": "6f0e0c5453b950e5facf7eb4467d3435718871d273fd4302a7bdeed1658fda3e",
+      "index": 2,
+      "replay": {
+        "figures": [],
+        "index": 2,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "6f0e0c5453b950e5facf7eb4467d3435718871d273fd4302a7bdeed1658fda3e"
+    },
+    {
+      "execution_source_sha256": "e26b232e4bbb6274dde076bcc87afbfe2ac63df21dedf27e720549f75e4f8693",
+      "index": 3,
+      "replay": {
+        "figures": [],
+        "index": 3,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "e26b232e4bbb6274dde076bcc87afbfe2ac63df21dedf27e720549f75e4f8693"
+    },
+    {
+      "execution_source_sha256": "beb126ce301a9b8a0ec68726b6f2f1700a00d0485911944312523c7260187dd7",
+      "index": 4,
+      "replay": {
+        "figures": [],
+        "index": 4,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "beb126ce301a9b8a0ec68726b6f2f1700a00d0485911944312523c7260187dd7"
+    },
+    {
+      "execution_source_sha256": "e4158620b6a9b29050c7c2f1e597f6afc922b883f0272939ab90e3cc5b75c27c",
+      "index": 5,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 17646,
+            "index": 1,
+            "sha256": "1e4b89eaa4d6c5c6a0cc0c43713ccabef998f903bbb862b8b4b5d189a2b0e1a8"
+          }
+        ],
+        "index": 5,
+        "stderr": "",
+        "stdout": "keadaan,probabilitas_empiris\n0,0.441390000000\n1,0.052450000000\n2,0.052620000000\n3,0.053180000000\n4,0.051620000000\n5,0.051860000000\n6,0.053140000000\n7,0.052510000000\n8,0.051370000000\n9,0.053080000000\n10,0.086780000000\n"
+      },
+      "source_sha256": "e4158620b6a9b29050c7c2f1e597f6afc922b883f0272939ab90e3cc5b75c27c"
+    },
+    {
+      "execution_source_sha256": "cc27e88d9d3a5f23111fc28c95a8a473bb6ff16ef603948eb2dac4363ce238b0",
+      "index": 6,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 15852,
+            "index": 1,
+            "sha256": "7d57c9f3687133e6082f3206649c93a2061b3d5d84533a534b820e5fe963347a"
+          }
+        ],
+        "index": 6,
+        "stderr": "",
+        "stdout": "keadaan,probabilitas_eksak\n0,0.439589806729\n1,0.053393021119\n2,0.053122384965\n3,0.052810891683\n4,0.052516360938\n5,0.052285046134\n6,0.052145773080\n7,0.052107847928\n8,0.052162447673\n9,0.052286743809\n10,0.087579675942\n"
+      },
+      "source_sha256": "cc27e88d9d3a5f23111fc28c95a8a473bb6ff16ef603948eb2dac4363ce238b0"
+    }
+  ],
+  "corrections": [
+    {
+      "description": "Bound the deterministic mathematical and simulation QA receipt at SHA-256 5f46f47a393b47ee26dd5e44c25440ca90812ee7dc30526fd0b43b5b1c4688a8.",
+      "id": "kolmogorov-bwd-numerical-qa-binding"
+    },
+    {
+      "description": "Corrected the false IID holding-time claim to conditional independence with state-dependent rates.",
+      "id": "kolmogorov-bwd-conditional-holding-times"
+    },
+    {
+      "description": "Distinguished state dependence in a time-homogeneous chain from genuinely time-varying intensities.",
+      "id": "kolmogorov-bwd-state-dependent-rates"
+    },
+    {
+      "description": "Allowed zero rates, infinite holding at an absorbing state, and an explicit m=0 uniformization branch.",
+      "id": "kolmogorov-bwd-zero-rate-absorbing-state"
+    },
+    {
+      "description": "Normalized the authority's plain P probability token to the declared PP macro.",
+      "id": "kolmogorov-bwd-probability-macro"
+    },
+    {
+      "description": "Restricted Q^k one = 0 to integer powers k at least one.",
+      "id": "kolmogorov-bwd-positive-powers"
+    },
+    {
+      "description": "Used b Binomial trials on states zero through b while retaining n=b+1 as the matrix dimension.",
+      "id": "kolmogorov-bwd-binomial-support"
+    },
+    {
+      "description": "Corrected the simulation comment so state zero uses replenishment rate gamma.",
+      "id": "kolmogorov-bwd-state-zero-rate"
+    },
+    {
+      "description": "Made simulation exhaustion raise an explicit RuntimeError.",
+      "id": "kolmogorov-bwd-max-iteration"
+    },
+    {
+      "description": "Seeded the Numba RNG inside the compiled entry point and proved exact double replay.",
+      "id": "kolmogorov-bwd-deterministic-numba-rng"
+    },
+    {
+      "description": "Defined T, n, and states locally in the first solution.",
+      "id": "kolmogorov-bwd-local-solution-state"
+    },
+    {
+      "description": "Restored the hat on the competing semigroup equation and restricted V_s to zero through t.",
+      "id": "kolmogorov-bwd-uniqueness-notation-domain"
+    },
+    {
+      "description": "Removed unused imports and runtime package installation from the translated executable surface.",
+      "id": "kolmogorov-bwd-unused-imports-offline"
+    },
+    {
+      "description": "Localized both plots and added exact numeric tables and meaningful Indonesian alternatives.",
+      "id": "kolmogorov-bwd-accessible-figures"
+    },
+    {
+      "description": "Preserved the four-fence exercise containing its nested code example and all three solution pairings.",
+      "id": "kolmogorov-bwd-fence-aware-parser"
+    },
+    {
+      "description": "Resolved local source roles and citations without leaving raw MyST in the reader.",
+      "id": "kolmogorov-bwd-myst-references"
+    },
+    {
+      "description": "Removed remote runtime and branding while preserving authorship, CC BY-SA 4.0, model provenance, and non-endorsement.",
+      "id": "quantecon-branding-runtime"
+    }
+  ],
+  "file_count": 8,
+  "files": [
+    {
+      "bytes": 17646,
+      "path": "assets/kolmogorov_bwd-cell-05-figure-01.png",
+      "sha256": "1e4b89eaa4d6c5c6a0cc0c43713ccabef998f903bbb862b8b4b5d189a2b0e1a8"
+    },
+    {
+      "bytes": 15852,
+      "path": "assets/kolmogorov_bwd-cell-06-figure-01.png",
+      "sha256": "7d57c9f3687133e6082f3206649c93a2061b3d5d84533a534b820e5fe963347a"
+    },
+    {
+      "bytes": 42699,
+      "path": "lectures/kolmogorov_bwd.html",
+      "sha256": "c2bc265d1c7706e58caf58594703a6ffe1d47b7840462240e21353b77f745561"
+    },
+    {
+      "bytes": 1704911,
+      "path": "MathJax/tex-svg.js",
+      "sha256": "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
+    },
+    {
+      "bytes": 28158,
+      "path": "notebooks/kolmogorov_bwd-authority.ipynb",
+      "sha256": "67ca8e73f7fe2e579d2cc3d21e9e232d49ff66d1a2c29b76881fd3bd84c47db2"
+    },
+    {
+      "bytes": 4538,
+      "path": "notebooks/kolmogorov_bwd-executed.ipynb",
+      "sha256": "d62d87133d2ddbd26baf7298f7bbe903fa8cdb11a86bccd02b4aee68364674a3"
+    },
+    {
+      "bytes": 3366,
+      "path": "reader.css",
+      "sha256": "820f354bd797c5b5cb0e34248bc82c9b835e0fafb66fed75145f7c8180fa997c"
+    },
+    {
+      "bytes": 23833,
+      "path": "source-kolmogorov_bwd.md",
+      "sha256": "da75cf5a8d92f9bab26df63232be8817913e5d77238b661cc12f230fe7c695ca"
+    }
+  ],
+  "manifest_sha256": "5d556f4e9fd2e4b4a7a3f7e409c6a5fb7551f8cb2c3f4901860db2b189ecaf70",
+  "replay_match": true,
+  "runtime": {
+    "bytes": 253256,
+    "lock_sha256": "7b7009aa8abf346cd7dec13c50f03f413471e7e0585ed23563685fd4b1f86210",
+    "path": "tmp\\quantecon-offline-replay\\Scripts\\python.exe",
+    "sha256": "0e818a1f9a0b8fbd4e7cc458a07cb7de2ea02ea326e387699a33b92f151242cd",
+    "version": "Python 3.13.9"
+  },
+  "schema": "o009.quantecon-component.v1",
+  "status": "complete-unit-local",
+  "target": {
+    "path": "source/quantecon/lectures/kolmogorov_bwd.md",
+    "sha256": "da75cf5a8d92f9bab26df63232be8817913e5d77238b661cc12f230fe7c695ca",
+    "title": "Persamaan Kolmogorov Mundur"
+  },
+  "topology": {
+    "code_cells": 6,
+    "equation_refs": [
+      "expoderiv",
+      "expsol",
+      "gdiff",
+      "kbinteg",
+      "kolbackeq",
+      "psolq",
+      "pt_first",
+      "pt_split"
+    ],
+    "exercises": 3,
+    "headings": 14,
+    "labels": [
+      "ejc_algo",
+      "jctosg",
+      "kolmogorov-bwd-1",
+      "kolmogorov-bwd-2",
+      "kolmogorov-bwd-3"
+    ],
+    "proof_directives": 6,
+    "solutions": 3,
+    "standalone_labels": [
+      "jumpchainalgo",
+      "sdji"
+    ]
+  },
+  "total_bytes": 1841003,
+  "unit_id": "unit.o009.quantecon.ctmc.kolmogorov-backward"
+}

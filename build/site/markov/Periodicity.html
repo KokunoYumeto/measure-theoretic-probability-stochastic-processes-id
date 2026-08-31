@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+<head>
+<meta charset="utf-8"/>
+<title>Periodisitas</title>
+<meta content="Kyle Siegrist" name="author"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="probabilitas, proses stokastik, rantai Markov, waktu diskret, periode, rantai periodik, rantai aperiodik, kelas siklik, kelas ekuivalensi" name="keywords"/>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="../Basic.js"></script>
+<script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/></head>
+<body>
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\( \newcommand{\cl}{\text{cl}} \)
+</div>
+<header>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="index.html">15. Proses Markov</a></li>
+<li class="child"><a aria-label="Bagian 1: Pendahuluan" href="General.html" title="Pendahuluan">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Potensial dan Generator" href="https://www.randomservices.org/random/markov/Potentials.html" title="Potensial dan Generator">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Rantai Waktu Diskret" href="Discrete.html" title="Rantai Waktu Diskret">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Keadaan Transien dan Rekuren" href="Recurrence.html" title="Keadaan Transien dan Rekuren">4</a></li>
+<li aria-current="page" aria-label="Bagian 5: Periodisitas (halaman saat ini)" class="current">5</li>
+<li class="child"><a aria-label="Bagian 6: Distribusi Invarian dan Limit" href="Limiting.html" title="Distribusi Invarian dan Limit">6</a></li>
+<li class="child"><a aria-label="Bagian 7: Pembalikan Waktu" href="https://www.randomservices.org/random/markov/TimeReversal.html" title="Pembalikan Waktu">7</a></li>
+<li class="child"><a aria-label="Bagian 8: Rantai Ehrenfest" href="https://www.randomservices.org/random/markov/Ehrenfest.html" title="Rantai Ehrenfest">8</a></li>
+<li class="child"><a aria-label="Bagian 9: Rantai Bernoulli–Laplace" href="https://www.randomservices.org/random/markov/BernoulliLaplace.html" title="Rantai Bernoulli–Laplace">9</a></li>
+<li class="child"><a aria-label="Bagian 10: Rantai Reliabilitas" href="https://www.randomservices.org/random/markov/Reliability.html" title="Rantai Reliabilitas">10</a></li>
+<li class="child"><a aria-label="Bagian 11: Rantai Percabangan Waktu Diskret" href="https://www.randomservices.org/random/markov/Branching.html" title="Rantai Percabangan Waktu Diskret">11</a></li>
+<li class="child"><a aria-label="Bagian 12: Rantai Antrean Waktu Diskret" href="https://www.randomservices.org/random/markov/Queuing.html" title="Rantai Antrean Waktu Diskret">12</a></li>
+<li class="child"><a aria-label="Bagian 13: Rantai Kelahiran–Kematian Waktu Diskret" href="https://www.randomservices.org/random/markov/BirthDeath.html" title="Rantai Kelahiran–Kematian Waktu Diskret">13</a></li>
+<li class="child"><a aria-label="Bagian 14: Gerak Acak pada Graf" href="https://www.randomservices.org/random/markov/WalkGraph.html" title="Gerak Acak pada Graf">14</a></li>
+<li class="child"><a aria-label="Bagian 15: Rantai Waktu Kontinu" href="https://www.randomservices.org/random/markov/Continuous.html" title="Rantai Waktu Kontinu">15</a></li>
+<li class="child"><a aria-label="Bagian 16: Matriks Transisi dan Potensial" href="https://www.randomservices.org/random/markov/Transition.html" title="Matriks Transisi dan Potensial">16</a></li>
+<li class="child"><a aria-label="Bagian 17: Matriks Potensial" href="https://www.randomservices.org/random/markov/Potentials2.html" title="Matriks Potensial">17</a></li>
+<li class="child"><a aria-label="Bagian 18: Distribusi Invarian dan Limit" href="https://www.randomservices.org/random/markov/Limiting2.html" title="Distribusi Invarian dan Limit">18</a></li>
+<li class="child"><a aria-label="Bagian 19: Pembalikan Waktu pada Rantai Waktu Kontinu" href="https://www.randomservices.org/random/markov/TimeReversal2.html" title="Pembalikan Waktu pada Rantai Waktu Kontinu">19</a></li>
+<li class="child"><a aria-label="Bagian 20: Rantai yang Disubordinasikan pada Proses Poisson" href="https://www.randomservices.org/random/markov/Poisson.html" title="Rantai yang Disubordinasikan pada Proses Poisson">20</a></li>
+<li class="child"><a aria-label="Bagian 21: Rantai Kelahiran–Kematian Waktu Kontinu" href="https://www.randomservices.org/random/markov/BirthDeath2.html" title="Rantai Kelahiran–Kematian Waktu Kontinu">21</a></li>
+<li class="child"><a aria-label="Bagian 22: Rantai Antrean Waktu Kontinu" href="https://www.randomservices.org/random/markov/Queuing2.html" title="Rantai Antrean Waktu Kontinu">22</a></li>
+<li class="child"><a aria-label="Bagian 23: Rantai Percabangan Waktu Kontinu" href="https://www.randomservices.org/random/markov/Branching2.html" title="Rantai Percabangan Waktu Kontinu">23</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+</ol>
+<h1>5. Periodisitas</h1>
+</header><aside class="component-attribution" id="o009-rights-random-markov-periodicity">
+<strong>Asal komponen.</strong> Terjemahan halaman <cite>Periodicity</cite>
+karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
+Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
+beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
+atribusi. <a href="https://www.randomservices.org/random/markov/Periodicity.html">Baca sumber resmi</a>.
+</aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="General.html">Proses Markov umum</a> · <a href="Discrete.html">Rantai Markov waktu diskret</a> · <a href="Recurrence.html">Keadaan transien dan rekuren</a> · <a href="Periodicity.html">Periodisitas</a> · <a href="Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="../brown/Standard.html">Gerak Brown standar</a> · <a href="../brown/Drift.html">Gerak Brown dengan hanyutan</a> · <a href="../brown/Bridge.html">Jembatan Brown</a> · <a href="../brown/Geometric.html">Gerak Brown geometrik</a> · <a href="../martingales/index.html">Ikhtisar martingal</a> · <a href="index.html">Ikhtisar proses Markov</a> · <a href="../brown/index.html">Ikhtisar gerak Brown</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="../labs/03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="../labs/04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a> · <a href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a></nav><main>
+<p>Suatu keadaan dalam rantai Markov waktu diskret bersifat periodik jika himpunan waktu kembali positifnya tidak kosong dan mempunyai faktor persekutuan terbesar yang lebih besar dari 1. Perilaku periodik mempersulit kajian perilaku limit rantai. Seperti yang akan kita lihat dalam bagian ini, perilaku periodik dapat dihilangkan dengan meninjau rantai \( d \)-langkah, dengan \( d \in \N_+ \) sebagai periodenya, tetapi hal ini harus dibayar dengan munculnya kelas-kelas komunikasi tambahan. Jadi, dalam arti tertentu, kita dapat menukar satu bentuk kerumitan dengan bentuk lainnya.</p>
+<h2 class="reader-level-2" id="bas">Teori Dasar</h2>
+<h3 class="reader-level-3" id="dfn">Definisi dan Hasil Dasar</h3>
+<p>Seperti biasa, titik awal kita adalah <a href="Discrete.html">rantai Markov waktu diskret</a> \( \bs{X} = (X_0, X_1, X_2, \ldots) \) (homogen terhadap waktu) dengan ruang keadaan (terhitung) \( S \) dan matriks probabilitas transisi \( P \).</p>
+<div class="unit" id="dfn1">
+<p class="dfn"><dfn>Periode</dfn> keadaan \( x \in S \) adalah
+	\[ d(x) = \gcd\{n \in \N_+: P^n(x, x) \gt 0 \} \]
+	dengan konvensi \(\gcd\varnothing=0\). Keadaan \(x\) dengan \(d(x)=0\) bukan keadaan periodik maupun aperiodik. Keadaan \( x \) bersifat <dfn>aperiodik</dfn> jika \( d(x) = 1 \) dan <dfn>periodik</dfn> jika \( d(x) \gt 1 \).</p>
+</div>
+<p>Jika \(d(x)\ge 1\), setiap waktu kembali positif ke \(x\) habis dibagi \(d(x)\), dan \(d(x)\) adalah faktor persekutuan terbesar semua waktu tersebut. Jika \(d(x)=0\), tidak ada waktu kembali positif ke \(x\). Hasil yang mungkin paling penting ialah bahwa periode, seperti <a href="Recurrence.html">status rekuren atau transien</a>, merupakan <dfn>sifat kelas</dfn> yang dimiliki bersama oleh semua keadaan dalam kelas ekuivalensi menurut <em>relasi komunikasi</em>.</p>
+<div class="unit" id="dfn2">
+<p class="math">Jika \( x \leftrightarrow y \), maka \( d(x) = d(y) \).</p>
+<details>
+<summary aria-label="Rincian: Definisi dan Hasil Dasar, butir 1">Rincian:</summary>
+<p>Misalkan \( x \leftrightarrow y \). Hasilnya langsung jika \( x = y \), sehingga kita mengasumsikan \( x \neq y \). Ingat bahwa terdapat \( j, \, k \in \N_+ \) sedemikian sehingga \( P^j(x, y) \gt 0 \) dan \( P^k(y, x) \gt 0 \). Namun, \( P^{j+k}(x, x) \ge P^j(x, y) P^k(y, x) \gt 0 \), sehingga \( d(x) \mid (j + k) \). Misalkan sekarang \( n \) adalah bilangan bulat positif dengan \( P^n(y, y) \gt 0 \). Maka \( P^{j+k+n}(x, x) \ge P^j(x, y) P^n(y, y) P^k(y, x) \gt 0 \), sehingga \( d(x) \mid (j + k + n) \). Dengan demikian, \( d(x) \mid n \). Berdasarkan definisi periode, \( d(x) \mid d(y) \). Dengan menukar peran \( x \) dan \( y \), kita juga memperoleh \( d(y) \mid d(x) \). Jadi, \( d(x) = d(y) \).</p>
+</details>
+</div>
+<p>Dengan demikian, definisi <dfn>periode</dfn>, <dfn>periodik</dfn>, dan <dfn>aperiodik</dfn> berlaku bagi kelas komunikasi maupun keadaan individual. Ketika rantai tak tereduksi, istilah-istilah ini dapat diterapkan pada keseluruhan rantai.</p>
+<div class="unit" id="dfn3">
+<p class="math">Misalkan \( x \in S \). Jika \( P(x, x) \gt 0 \), maka \( x \) (dan dengan demikian kelas komunikasi dari \( x \)) bersifat aperiodik.</p>
+<details>
+<summary aria-label="Rincian: Definisi dan Hasil Dasar, butir 2">Rincian:</summary>
+<p>Berdasarkan asumsi, \( 1 \in \{n \in \N_+: P^n(x, x) \gt 0\} \), sehingga faktor persekutuan terbesar himpunan ini adalah 1.</p>
+</details>
+</div>
+<p>Tentu saja, pernyataan sebaliknya tidak berlaku. Sebuah contoh penyangkal sederhana diberikan dalam <a class="ref" href="#fin1">contoh rantai tiga keadaan</a>.</p>
+<h3 class="reader-level-3" id="cyc">Kelas Siklik</h3>
+<p>Misalkan sekarang \( \bs{X} = (X_0, X_1, X_2, \ldots) \) tak tereduksi dan periodik dengan periode \( d \). Pembahasan berikut berlaku untuk rantai tak tereduksi. Untuk rantai tereduksi, argumen yang sama dapat diterapkan secara terpisah pada setiap kelas komunikasi tertutup yang tak tereduksi; pembatasan pada kelas yang tidak tertutup umumnya hanya menghasilkan matriks substokastik. Pemaparan akan menjadi lebih mudah dan jelas jika kita mengingat <a href="https://www.randomservices.org/random/foundations/Equivalence.html#con">relasi ekuivalensi kongruensi</a> modulo \( d \) pada \( \Z \), yang pada gilirannya didasarkan pada <a href="https://www.randomservices.org/random/foundations/Order.html#div">urutan parsial keterbagian</a>. Untuk \( n, \, m \in \Z \), \( n \equiv_d m \) jika dan hanya jika \( d \mid (n - m) \); secara ekuivalen, \( n - m \) merupakan kelipatan bulat dari \( d \); dan secara ekuivalen pula, \( m \) dan \( n \) memiliki sisa yang sama setelah dibagi dengan \( d \). Fakta dasar yang akan kita perlukan ialah bahwa \( \equiv_d \) dipertahankan dalam penjumlahan dan pengurangan. Artinya, jika \( m, \, n, \, p, \, q \in \Z \), \( m \equiv_d n \), dan \( p \equiv_d q \), maka \( m + p \equiv_d n + q \) dan \( m - p \equiv_d n - q \).</p>
+<p>Sekarang, tetapkan suatu keadaan acuan \( u \in S \), dan untuk \( k \in \{0, 1, \ldots, d - 1\} \), definisikan
+\[ A_k = \{x \in S: P^{n d + k}(u, x) \gt 0 \text{ untuk suatu } n \in \N\} \]
+Artinya, \( x \in A_k \) jika dan hanya jika terdapat \( m \in \N \) dengan \( m \equiv_d k \) dan \( P^m(u, x) \gt 0 \).</p>
+<div class="unit" id="cyc1">
+<p class="math">Misalkan \( x, \, y \in S \).</p>
+<ol class="sub">
+<li>Jika \( x \in A_j \) dan \( y \in A_k \) untuk \( j, \, k \in \{0, 1, \ldots, d - 1\} \), maka \( P^n(x, y) \gt 0 \) untuk suatu \( n \in \N \) dengan \( n \equiv_d k - j \).</li>
+<li>Sebaliknya, jika \( P^n(x, y) \gt 0 \) untuk suatu \( n \in \N \), maka terdapat \( j, \, k \in \{0, 1, \ldots, d - 1\} \) sedemikian sehingga \( x \in A_j \), \( y \in A_k \), dan \( n \equiv_d k - j \).</li>
+<li>Himpunan-himpunan \( (A_0, A_1, \ldots, A_{d-1}) \) mempartisi \( S \).</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Kelas Siklik">Rincian:</summary>
+<p>Pertama, misalkan \( x \in A_k \). Berdasarkan definisi, \( u \) dapat mencapai \( x \) dalam \( m \) langkah untuk suatu \( m \equiv_d k \). Karena rantai tak tereduksi, \( x \) dapat kembali ke \( u \), misalkan dalam \( p \) langkah. Dengan demikian, \( u \) dapat kembali ke \( u \) dalam \( m + p \) langkah. Namun, karena \( u \) berperiode \( d \), harus berlaku \( m + p \equiv_d 0\), sehingga \( p \equiv_d -k \).</p>
+<p>Selanjutnya, misalkan \( x \in A_j \) dan \( y \in A_k \). Kita mengetahui bahwa \( u \) dapat mencapai \( x \) dalam \( m \) langkah untuk suatu \( m \equiv_d j \), dan kini kita mengetahui bahwa \( y \) dapat mencapai \( u \) dalam \( p \) langkah untuk suatu \( p \equiv_d -k \). Karena rantai tak tereduksi, \( x \) dapat mencapai \( y \), misalkan dalam \( n \) langkah. Dengan demikian, \( u \) dapat kembali ke \( u \) dalam \( m + n + p \) langkah. Sekali lagi, karena \( u \) berperiode \( d \), berlaku \( m + n + p \equiv_d 0 \), sehingga \( n \equiv_d k - j \).</p>
+<p>Selanjutnya, perhatikan bahwa karena rantai tak tereduksi dan karena \(\{0, 1, \ldots, d - 1\}\) adalah himpunan semua sisa modulo \( d \), harus berlaku \( \bigcup_{i=0}^{d-1} A_i = S \). Misalkan \( x, y \in S \) dan \( P^n(x, y) \gt 0 \) untuk suatu \( n \in \N \). Maka \( x \in A_j \) dan \( y \in A_k \) untuk suatu \(j, \, k \in \{0, 1, \ldots, d - 1\}\). Berdasarkan argumen yang sama seperti pada paragraf sebelumnya, harus berlaku \( n \equiv_d k - j \).</p>
+<p>Yang tersisa hanyalah menunjukkan bahwa himpunan-himpunan tersebut saling lepas, dan pembuktiannya kembali menggunakan argumen yang sama. Misalkan \( x \in A_j \cap A_k \) untuk suatu \( j, \, k \in \{0, 1, \ldots, d - 1\} \). Maka \( u \) dapat mencapai \( x \) dalam \( m \) langkah untuk suatu \( m \equiv_d j \), dan \( x \) dapat mencapai \( u \) dalam \( n \) langkah untuk suatu \( n \equiv_d - k \). Dengan demikian, \( u \) dapat kembali ke \( u \) dalam \( m + n \) langkah. Karena rantai berperiode \( d \), berlaku \( m + n \equiv_d 0 \), sehingga \( j - k \equiv_d 0 \). Karena \( j, \, k \in \{0, 1, \ldots, d - 1\} \), diperoleh \( j = k \).</p>
+</details>
+</div>
+<div class="unit" id="cyc2">
+<p class="math">\( (A_0, A_1, \ldots, A_{d-1}) \) adalah kelas-kelas komunikasi bagi <em>relasi komunikasi</em> \( d \)-langkah \( \underset{d}{\leftrightarrow} \) yang mengatur rantai \( d \)-langkah \( (X_0, X_d, X_{2 d}, \ldots) \) dengan matriks transisi \( P^d \).</p>
+</div>
+<p>Himpunan-himpunan \( (A_0, A_1, \ldots, A_{d-1}) \) dikenal sebagai <dfn>kelas siklik</dfn>. Struktur dasar rantai ditampilkan dalam diagram keadaan di bawah ini:</p>
+<figure id="cyc3">
+<figcaption>Kelas-kelas siklik rantai berperiode \( d \)</figcaption>
+<img alt="Diagram siklus berarah A_0 ke A_1 hingga A_{d-1}, lalu kembali ke A_0" src="CyclicClasses.png"/>
+</figure>
+<h2 class="reader-level-2" id="exa">Contoh dan Kasus Khusus</h2>
+<h3 class="reader-level-3" id="fin">Rantai Markov Berhingga</h3>
+<div class="unit" id="fin1">
+<p class="math">Pertimbangkan rantai Markov dengan ruang keadaan \( S = \{a, b, c\} \) dan matriks transisi \( P \) berikut:</p>
+	\[ P = \left[\begin{matrix}
+		0 &amp; \frac{1}{3} &amp; \frac{2}{3} \\
+		0 &amp; 0 &amp; 1  \\
+		1 &amp; 0 &amp; 0 
+	\end{matrix}\right] \]
+	<ol class="sub">
+<li>Buatlah sketsa graf keadaannya dan tunjukkan bahwa rantai tersebut tak tereduksi. </li>
+<li>Tunjukkan bahwa rantai tersebut aperiodik.</li>
+<li>Perhatikan bahwa \( P(x, x) = 0 \) untuk semua \( x \in S \).</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Rantai Markov Berhingga, butir 1">Rincian:</summary>
+<ol class="sub">
+<li>Graf keadaan memiliki himpunan sisi \( E = \{(a, b), (a, c), (b, c), (c, a)\} \).</li>
+<li>Perhatikan bahwa \( P^2(a, a) \gt 0 \) dan \( P^3(a, a) \gt 0 \). Jadi, \( d(a) = 1 \) karena 2 dan 3 relatif prima. Karena rantai tak tereduksi, rantai tersebut aperiodik.</li>
+</ol>
+</details>
+</div>
+<div class="unit" id="fin3">
+<p class="math">Pertimbangkan rantai Markov dengan ruang keadaan \( S = \{1, 2, 3, 4, 5, 6, 7\} \) dan matriks transisi \( P \) berikut:</p>
+	\[ P = \left[\begin{matrix}
+		0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; 0 &amp; 0 \\
+		0 &amp; 0 &amp; \frac{1}{3} &amp; 0 &amp; \frac{2}{3} &amp; 0 &amp; 0 \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{3} &amp; \frac{2}{3} \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{3}{4} &amp; \frac{1}{4} \\
+		\frac{1}{2} &amp; \frac{1}{2} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; \frac{3}{4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0
+	\end{matrix}\right] \]
+	<ol class="sub">
+<li>Buatlah sketsa graf keadaannya dan tunjukkan bahwa rantai tersebut tak tereduksi. </li>
+<li>Tentukan periode \( d \).</li>
+<li>Tentukan \( P^d \).</li>
+<li>Identifikasi kelas-kelas sikliknya.</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Rantai Markov Berhingga, butir 2">Rincian:</summary>
+<ol class="sub">
+<li>
+<figure>
+<figcaption>Graf keadaan</figcaption>
+<img alt="Graf tiga lapis: 1 menuju 3, 4, dan 5; 2 menuju 3 dan 5; 3, 4, dan 5 masing-masing menuju 6 dan 7; 6 dan 7 masing-masing menuju 1 dan 2" src="State4.png" title="Diagram keadaan"/>
+</figure>
+<p>Graf menunjukkan busur langsung 1 ke 3, 4, dan 5; 2 ke 3 dan 5; masing-masing dari 3, 4, dan 5 ke 6 dan 7; serta masing-masing dari 6 dan 7 ke 1 dan 2. Melalui lapisan-lapisan itu, setiap keadaan dapat mencapai setiap keadaan lain, sehingga rantai ini tak tereduksi.</p>
+</li>
+<li>Periode 3</li>
+<li>\[
+P^3=\begin{bmatrix}
+\frac{71}{192}&amp;\frac{121}{192}&amp;0&amp;0&amp;0&amp;0&amp;0\\
+\frac{29}{72}&amp;\frac{43}{72}&amp;0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;\frac7{18}&amp;\frac1{12}&amp;\frac{19}{36}&amp;0&amp;0\\
+0&amp;0&amp;\frac{19}{48}&amp;\frac3{32}&amp;\frac{49}{96}&amp;0&amp;0\\
+0&amp;0&amp;\frac{13}{32}&amp;\frac7{64}&amp;\frac{31}{64}&amp;0&amp;0\\
+0&amp;0&amp;0&amp;0&amp;0&amp;\frac{157}{288}&amp;\frac{131}{288}\\
+0&amp;0&amp;0&amp;0&amp;0&amp;\frac{37}{64}&amp;\frac{27}{64}
+\end{bmatrix}.
+\]</li>
+<li>Kelas siklik: \( \{1, 2\} \), \( \{3, 4, 5\} \), \( \{6, 7\} \)</li>
+</ol>
+</details>
+</div>
+<h3 class="reader-level-3" id="spe">Model Khusus</h3>
+<div class="unit" id="spe1">
+<p class="math">Model-model khusus berikut dipelajari dalam bagian tersendiri:</p>
+<ol class="sub">
+<li><a href="https://www.randomservices.org/random/markov/Ehrenfest.html">Rantai Ehrenfest</a> dasar berperiode 2, sedangkan rantai Ehrenfest yang dimodifikasi bersifat aperiodik.</li>
+<li><a href="https://www.randomservices.org/random/markov/WalkGraph.html">Gerak acak sederhana pada \( \Z^k \), dengan \(k\in\N_+\)</a>, bersifat periodik dengan periode 2.</li>
+</ol>
+</div>
+</main><footer>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="index.html">15. Proses Markov</a></li>
+<li class="child"><a aria-label="Bagian 1: Pendahuluan" href="General.html" title="Pendahuluan">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Potensial dan Generator" href="https://www.randomservices.org/random/markov/Potentials.html" title="Potensial dan Generator">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Rantai Waktu Diskret" href="Discrete.html" title="Rantai Waktu Diskret">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Keadaan Transien dan Rekuren" href="Recurrence.html" title="Keadaan Transien dan Rekuren">4</a></li>
+<li aria-current="page" aria-label="Bagian 5: Periodisitas (halaman saat ini)" class="current">5</li>
+<li class="child"><a aria-label="Bagian 6: Distribusi Invarian dan Limit" href="Limiting.html" title="Distribusi Invarian dan Limit">6</a></li>
+<li class="child"><a aria-label="Bagian 7: Pembalikan Waktu" href="https://www.randomservices.org/random/markov/TimeReversal.html" title="Pembalikan Waktu">7</a></li>
+<li class="child"><a aria-label="Bagian 8: Rantai Ehrenfest" href="https://www.randomservices.org/random/markov/Ehrenfest.html" title="Rantai Ehrenfest">8</a></li>
+<li class="child"><a aria-label="Bagian 9: Rantai Bernoulli–Laplace" href="https://www.randomservices.org/random/markov/BernoulliLaplace.html" title="Rantai Bernoulli–Laplace">9</a></li>
+<li class="child"><a aria-label="Bagian 10: Rantai Reliabilitas" href="https://www.randomservices.org/random/markov/Reliability.html" title="Rantai Reliabilitas">10</a></li>
+<li class="child"><a aria-label="Bagian 11: Rantai Percabangan Waktu Diskret" href="https://www.randomservices.org/random/markov/Branching.html" title="Rantai Percabangan Waktu Diskret">11</a></li>
+<li class="child"><a aria-label="Bagian 12: Rantai Antrean Waktu Diskret" href="https://www.randomservices.org/random/markov/Queuing.html" title="Rantai Antrean Waktu Diskret">12</a></li>
+<li class="child"><a aria-label="Bagian 13: Rantai Kelahiran–Kematian Waktu Diskret" href="https://www.randomservices.org/random/markov/BirthDeath.html" title="Rantai Kelahiran–Kematian Waktu Diskret">13</a></li>
+<li class="child"><a aria-label="Bagian 14: Gerak Acak pada Graf" href="https://www.randomservices.org/random/markov/WalkGraph.html" title="Gerak Acak pada Graf">14</a></li>
+<li class="child"><a aria-label="Bagian 15: Rantai Waktu Kontinu" href="https://www.randomservices.org/random/markov/Continuous.html" title="Rantai Waktu Kontinu">15</a></li>
+<li class="child"><a aria-label="Bagian 16: Matriks Transisi dan Potensial" href="https://www.randomservices.org/random/markov/Transition.html" title="Matriks Transisi dan Potensial">16</a></li>
+<li class="child"><a aria-label="Bagian 17: Matriks Potensial" href="https://www.randomservices.org/random/markov/Potentials2.html" title="Matriks Potensial">17</a></li>
+<li class="child"><a aria-label="Bagian 18: Distribusi Invarian dan Limit" href="https://www.randomservices.org/random/markov/Limiting2.html" title="Distribusi Invarian dan Limit">18</a></li>
+<li class="child"><a aria-label="Bagian 19: Pembalikan Waktu pada Rantai Waktu Kontinu" href="https://www.randomservices.org/random/markov/TimeReversal2.html" title="Pembalikan Waktu pada Rantai Waktu Kontinu">19</a></li>
+<li class="child"><a aria-label="Bagian 20: Rantai yang Disubordinasikan pada Proses Poisson" href="https://www.randomservices.org/random/markov/Poisson.html" title="Rantai yang Disubordinasikan pada Proses Poisson">20</a></li>
+<li class="child"><a aria-label="Bagian 21: Rantai Kelahiran–Kematian Waktu Kontinu" href="https://www.randomservices.org/random/markov/BirthDeath2.html" title="Rantai Kelahiran–Kematian Waktu Kontinu">21</a></li>
+<li class="child"><a aria-label="Bagian 22: Rantai Antrean Waktu Kontinu" href="https://www.randomservices.org/random/markov/Queuing2.html" title="Rantai Antrean Waktu Kontinu">22</a></li>
+<li class="child"><a aria-label="Bagian 23: Rantai Percabangan Waktu Kontinu" href="https://www.randomservices.org/random/markov/Branching2.html" title="Rantai Percabangan Waktu Kontinu">23</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+</ol>
+<ul class="map">
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/data/index.html">Kumpulan Data</a></li>
+<li class="child"><a class="ancillary" href="https://www.randomservices.org/random/biographies/index.html"> Biografi</a></li>
+</ul>
+</footer>
+<script>getReferences();</script>
+</body>
+</html>

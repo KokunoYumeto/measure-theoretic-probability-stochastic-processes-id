@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>Proses Poisson</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/><script>window.MathJax = {tex: {macros: {Exp: "\\operatorname{Exp}", BB: "\\mathbb{B}", PP: "\\mathbb{P}", RR: "\\mathbb{R}", NN: "\\mathbb{N}", ZZ: "\\mathbb{Z}", EE: "\\mathbb{E}", dD: "\\mathcal{D}", fF: "\\mathcal{F}", lL: "\\mathcal{L}", linop: "\\mathcal{L}(\\mathbb{B})", linopell: "\\mathcal{L}(\\ell_1)", Binomial: "\\operatorname{Binomial}", Poisson: "\\operatorname{Poisson}"}}};</script><script id="MathJax-script" src="../MathJax/tex-svg.js"></script></head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Proses Poisson</h1>
+</header><nav aria-label="Navigasi edisi"><a href="../../index.html">Beranda edisi</a></nav><aside class="component-attribution" id="quantecon-attribution"><strong>Asal komponen dan lisensi.</strong> Adaptasi bahasa Indonesia dari <cite>Continuous Time Markov Chains</cite> karya Thomas J. Sargent dan John Stachurski, sumber MyST QuantEcon pada komit <code>8b06e0aa5a438692445b2c896f9d238c5a7d5eb7</code>. Komponen ini dipertahankan di bawah CC BY-SA 4.0; perubahan berupa terjemahan dan perbaikan hilir dicatat di provenance. QuantEcon tidak mengesahkan edisi ini.</aside><main>
+<h2 id="proses-poisson">Proses Poisson</h2>
+<p>Selain pustaka yang tersedia di Anaconda, kuliah ini memerlukan
+pustaka berikut:</p>
+<div class="code-cell" data-tags="hide-output" id="qe-cell-1">
+<pre><code class="language-python" data-cell-index="1"># Build luring hilir: perintah pemasangan paket dari sumber dihapus.</code></pre>
+</div>
+<h2 id="gambaran-umum">Gambaran umum</h2>
+<p>Proses penghitungan menghitung banyaknya “kedatangan” yang terjadi
+hingga waktu tertentu (misalnya, banyaknya pengunjung yang datang ke
+suatu situs web atau banyaknya pelanggan yang tiba di sebuah
+restoran).</p>
+<p>Proses penghitungan menjadi proses Poisson ketika interval waktu
+antara kedatangan saling IID dan berdistribusi eksponensial.</p>
+<p>Distribusi eksponensial dan proses Poisson memiliki hubungan yang
+mendalam dengan rantai Markov waktu kontinu.</p>
+<p>Sebagai contoh, proses Poisson adalah salah satu contoh nontrivial
+paling sederhana dari rantai Markov waktu kontinu.</p>
+<p>Selain itu, ketika rantai Markov waktu kontinu melompat di antara
+keadaan-keadaan, waktu antara lompatan tersebut <em>harus</em>
+berdistribusi eksponensial.</p>
+<p>Dalam membahas proses Poisson, kita akan menggunakan impor
+berikut:</p>
+<div class="code-cell" data-tags="" id="qe-cell-2">
+<pre><code class="language-python" data-cell-index="2">import numpy as np
+import matplotlib.pyplot as plt
+import quantecon as qe
+from numba import njit
+from scipy.special import factorial, binom</code></pre>
+</div>
+<h2 id="proses-penghitungan">Proses Penghitungan</h2>
+<p>Mari kita mulai dari kasus umum, yaitu proses penghitungan
+sembarang.</p>
+<h3 id="lompatan-dan-hitungan">Lompatan dan Hitungan</h3>
+<p>Misalkan <span class="math inline">\((J_k)\)</span> adalah barisan
+naik peubah acak tak-negatif yang memenuhi <span class="math inline">\(J_k \to \infty\)</span> dengan peluang satu.</p>
+<p>Sebagai contoh, <span class="math inline">\(J_k\)</span> dapat
+menyatakan waktu pelanggan ke-<span class="math inline">\(k\)</span>
+tiba di sebuah toko.</p>
+<p>Kemudian</p>
+<p><a id="equation-defcount"></a> <span class="math display">\[
+    N_t := \sum_{k \geq 0} k \mathbb{1} \{ J_k \leq t &lt; J_{k+1} \}
+\]</span></p>
+<p>adalah banyaknya pelanggan yang telah berkunjung hingga waktu <span class="math inline">\(t\)</span>.</p>
+<p>Gambar berikut mengilustrasikan definisi <span class="math inline">\(N_t\)</span> untuk suatu barisan lompatan tertentu
+<span class="math inline">\(\{J_k\}\)</span>.</p>
+<details class="code-cell" id="qe-cell-3">
+<summary aria-label="Tampilkan kode sel 1">Tampilkan kode sel 1</summary>
+<pre><code class="language-python" data-cell-index="3" data-tags="hide-input">Ks = 0, 1, 2, 3
+Js = 0, 0.8, 1.8, 2.1, 3
+n = len(Ks)
+
+fig, ax = plt.subplots()
+
+ax.plot(Js[:-1], Ks, 'o')
+ax.hlines(Ks, Js[:-1], Js[1:], label='$N_t$')
+ax.vlines(Js[:-1], (0, Ks[0], Ks[1], Ks[2]), Ks, alpha=0.25)
+
+ax.set(xticks=Js[:-1],
+       xticklabels=[f'$J_{k}$' for k in range(n)],
+       yticks=(0, 1, 2, 3),
+       xlabel='$t$')
+
+ax.legend(loc='lower right')
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-poisson-cell-03-figure-01"><img alt="Grafik proses penghitungan dengan lompatan pada waktu kedatangan." src="../assets/poisson-cell-03-figure-01.png"/><figcaption>Grafik proses penghitungan dengan lompatan pada waktu kedatangan.</figcaption></figure>
+</details>
+<p>Definisi alternatif yang ekuivalen adalah</p>
+<p><span class="math display">\[
+    N_t := \max \{k \geq 0 \,|\, J_k \leq t \}
+\]</span></p>
+<p>Sebagai fungsi dari <span class="math inline">\(t\)</span>, proses
+<span class="math inline">\(N_t\)</span> disebut <strong>proses
+penghitungan</strong>.</p>
+<p>Waktu lompatan <span class="math inline">\((J_k)\)</span>
+kadang-kadang disebut <strong>waktu kedatangan</strong>, sedangkan
+interval <span class="math inline">\(J_k - J_{k-1}\)</span> disebut
+<strong>waktu tunggu</strong> atau <strong>waktu tinggal</strong>.</p>
+<h3 id="waktu-tinggal-eksponensial">Waktu Tinggal Eksponensial</h3>
+<p>Proses Poisson adalah proses penghitungan dengan waktu tinggal
+eksponensial yang saling independen.</p>
+<p>Secara khusus, misalkan waktu kedatangan diberikan oleh <span class="math inline">\(J_0 = 0\)</span> dan</p>
+<p><span class="math display">\[
+    J_k := W_1 + \cdots + W_k
+\]</span></p>
+<p>dengan <span class="math inline">\((W_i)\)</span> IID eksponensial
+dengan suatu laju tetap <span class="math inline">\(\lambda\)</span>.</p>
+<p>Proses penghitungan <span class="math inline">\((N_t)\)</span> yang
+bersesuaian disebut <strong>proses Poisson</strong> dengan laju <span class="math inline">\(\lambda\)</span>.</p>
+<p>Alasan di balik nama tersebut adalah bahwa, untuk setiap <span class="math inline">\(t &gt; 0\)</span>, peubah acak <span class="math inline">\(N_t\)</span> berdistribusi Poisson dengan
+parameter <span class="math inline">\(t \lambda\)</span>.</p>
+<p>Dengan kata lain,</p>
+<p><a id="equation-poissondist"></a> <span class="math display">\[
+    \PP\{N_t = k\}
+    = e^{-t \lambda} \frac{(t \lambda)^k }{k!}
+    \qquad (k = 0, 1, \ldots)
+\]</span></p>
+<p>Sebagai contoh, karena <span class="math inline">\(N_t = 0\)</span>
+jika dan hanya jika <span class="math inline">\(W_1 &gt; t\)</span>,
+kita memiliki</p>
+<p><span class="math display">\[
+    \PP\{N_t =0\}
+    = \PP\{W_1 &gt; t\}
+    = e^{-t \lambda}
+\]</span></p>
+<p>dan ruas kanan tersebut sama dengan <a href="#equation-poissondist">persamaan poissondist</a> ketika <span class="math inline">\(k=0\)</span>.</p>
+<p>Hal ini memungkinkan pembuktian dengan induksi, yang memakan waktu
+tetapi tidak sulit — rinciannya dapat ditemukan pada <span class="math inline">\(\S29\)</span> dalam <cite>Howard
+(2017)</cite>.</p>
+<p>Cara lain untuk menunjukkan bahwa <span class="math inline">\(N_t\)</span> berdistribusi Poisson dengan
+parameter <span class="math inline">\(t\lambda\)</span> adalah dengan
+menggunakan <a href="memoryless.html#erlexp">teorema jumlah
+eksponensial</a>.</p>
+<p>Kita amati bahwa</p>
+<p><span class="math display">\[
+    \PP\{N_t \leq n\}
+    = \PP\{J_{n+1} &gt; t\}
+    = 1 - \PP\{J_{n+1} \leq t\}
+\]</span></p>
+<p>Dengan memasukkan bentuk CDF Erlang pada <a href="memoryless.html#equation-erlcdf">persamaan erlcdf</a> dengan bentuk <span class="math inline">\(n+1\)</span> dan laju <span class="math inline">\(\lambda\)</span>, kita memperoleh</p>
+<p><span class="math display">\[
+    \PP\{N_t \leq n\}
+    = \sum_{k=0}^{n} \frac{(t \lambda )^k}{k!} e^{-t \lambda}
+\]</span></p>
+<p>Ini adalah CDF (bernilai bilangan bulat) untuk distribusi Poisson
+dengan parameter <span class="math inline">\(t \lambda\)</span>.</p>
+<p>Salah satu latihan di akhir kuliah meminta Anda memverifikasi secara
+informal melalui simulasi bahwa <span class="math inline">\(N_t\)</span>
+adalah Poisson-<span class="math inline">\((t \lambda)\)</span>.</p>
+<p>Gambar berikut menunjukkan satu realisasi proses Poisson <span class="math inline">\((N_t)\)</span>, dengan lompatan pada setiap
+kedatangan baru.</p>
+<details class="code-cell" id="qe-cell-4">
+<summary aria-label="Tampilkan kode sel 2">Tampilkan kode sel 2</summary>
+<pre><code class="language-python" data-cell-index="4" data-tags="hide-input">np.random.seed(1234)
+T = 5
+Ws = np.random.exponential(size=T)
+Js = np.cumsum(Ws)
+Ys = np.arange(T)
+
+fig, ax = plt.subplots()
+
+ax.plot(np.insert(Js, 0, 0)[:-1], Ys, 'o')
+ax.hlines(Ys, np.insert(Js, 0, 0)[:-1], Js, label='$N_t$')
+ax.vlines(Js[:-1], Ys[:-1], Ys[1:], alpha=0.25)
+
+ax.set(xticks=[],
+       yticks=range(Ys.max()+1),
+       xlabel='time')
+
+ax.grid(lw=0.2)
+ax.legend(loc='lower right')
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-poisson-cell-04-figure-01"><img alt="Satu realisasi proses Poisson dengan lompatan pada setiap kedatangan." src="../assets/poisson-cell-04-figure-01.png"/><figcaption>Satu realisasi proses Poisson dengan lompatan pada setiap kedatangan.</figcaption></figure>
+</details>
+<h2 id="inkremen-stasioner-dan-independen">Inkremen Stasioner dan
+Independen</h2>
+<p>Salah satu ciri yang menentukan dari proses Poisson adalah bahwa
+proses ini memiliki inkremen yang stasioner dan independen.</p>
+<p>Hal ini disebabkan oleh sifat tanpa ingatan dari distribusi
+eksponensial.</p>
+<p>Artinya,</p>
+<ol type="1">
+<li>peubah-peubah <span class="math inline">\(\{N_{t_{i+1}} -
+N_{t_i}\}_{i \in I}\)</span> saling independen untuk setiap barisan
+hingga <span class="math inline">\((t_i)_{i \in I}\)</span> yang naik
+ketat, dan</li>
+<li>distribusi <span class="math inline">\(N_{t+h} - N_t\)</span>
+bergantung pada <span class="math inline">\(h\)</span>, tetapi tidak
+pada <span class="math inline">\(t\)</span>.</li>
+</ol>
+<p>Pembuktian terperinci dapat ditemukan pada Teorema 2.4.3 dalam
+<cite>Norris (1998)</cite>.</p>
+<p>Alih-alih mengulanginya, kita memberikan intuisi melalui suatu
+pendekatan diskret.</p>
+<p>Dalam pembahasan berikut, kita menggunakan fakta yang dikenal luas:
+jika <span class="math inline">\((\theta_n)\)</span> adalah barisan
+sedemikian sehingga <span class="math inline">\(n \theta_n\)</span>
+konvergen, maka</p>
+<p><a id="equation-binpois"></a> <span class="math display">\[
+    \text{Binomial}(n, \theta_n)
+    \approx
+    \text{Poisson}(n \theta_n)
+    \quad \text{untuk } n \text{ besar}
+\]</span></p>
+<p>(Latihan meminta Anda memeriksa klaim ini secara visual.)</p>
+<p>Sekarang kita kembali ke <a href="memoryless.html#geomtoexp">pembahasan sebelumnya</a>, tempat kita
+menghubungkan distribusi geometrik dengan distribusi eksponensial.</p>
+<p>Kita tetapkan <span class="math inline">\(h &gt; 0\)</span> kecil dan
+<span class="math inline">\(t_i := ih\)</span> untuk semua <span class="math inline">\(i \in \ZZ_+\)</span>.</p>
+<p>Misalkan <span class="math inline">\((V_i)\)</span> adalah peubah
+acak biner IID dengan <span class="math inline">\(\PP\{V_i = 1\} = h
+\lambda\)</span> untuk suatu <span class="math inline">\(\lambda &gt;
+0\)</span>.</p>
+<p>Menghubungkan dengan pembahasan sebelumnya,</p>
+<ul>
+<li>pada setiap <span class="math inline">\(t_i\)</span> sebuah toko
+dikunjungi oleh tepat nol atau satu pelanggan;</li>
+<li><span class="math inline">\(V_i = 1\)</span> berarti seorang
+pelanggan berkunjung pada waktu <span class="math inline">\(t_i\)</span>; dan</li>
+<li>kunjungan terjadi dengan peluang <span class="math inline">\(h
+\lambda\)</span>, yang sebanding dengan panjang interval antara
+titik-titik kisi.</li>
+</ul>
+<p>Kita telah mempelajari bahwa waktu tunggu hingga kunjungan pertama
+kira-kira berdistribusi eksponensial dengan laju <span class="math inline">\(\lambda\)</span>.</p>
+<p>Karena <span class="math inline">\((V_i)\)</span> IID, hal yang sama
+berlaku untuk waktu tunggu kedua dan seterusnya.</p>
+<p>Selain itu, waktu-waktu tunggu tersebut independen karena bergantung
+pada subhimpunan-subhimpunan terpisah dari <span class="math inline">\((V_i)\)</span>.</p>
+<p>Misalkan <span class="math inline">\(\hat N_t\)</span> menghitung
+banyaknya kunjungan hingga waktu <span class="math inline">\(t\)</span>,
+seperti ditunjukkan pada gambar berikut.</p>
+<p>(<span class="math inline">\(V_i = 1\)</span> ditunjukkan oleh garis
+vertikal pada <span class="math inline">\(t_i = i h\)</span>.)</p>
+<details class="code-cell" id="qe-cell-5">
+<summary aria-label="Tampilkan kode sel 3">Tampilkan kode sel 3</summary>
+<pre><code class="language-python" data-cell-index="5" data-tags="hide-input">fig, ax = plt.subplots()
+np.random.seed(1)
+T = 10
+p = 0.25
+B = np.random.uniform(size=T) &lt; p
+N = np.cumsum(B)
+m = N[-1]  # max of N
+
+t_grid = np.arange(T)
+t_ticks = [f'$t_{i}$' for i in t_grid]
+ax.set_yticks(range(m+1))
+ax.set_xticks(t_grid)
+ax.set_xticklabels(t_ticks, fontsize=12)
+
+ax.step(t_grid, np.insert(N, 0, 0)[:-1], label='$\hat N_t$')
+
+for i in t_grid:
+    if B[i]:
+        ax.vlines((i,), (0,), (m,), ls='--', lw=0.5)
+
+ax.legend(loc='center right')
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-poisson-cell-05-figure-01"><img alt="Ilustrasi pendekatan kisi untuk proses Poisson dengan kunjungan biner." src="../assets/poisson-cell-05-figure-01.png"/><figcaption>Ilustrasi pendekatan kisi untuk proses Poisson dengan kunjungan biner.</figcaption></figure>
+</details>
+<p>Kita mengharapkan dari pembahasan di atas bahwa <span class="math inline">\((\hat N_t)\)</span> mendekati proses Poisson.</p>
+<p>Intuisi ini benar karena, dengan menetapkan <span class="math inline">\(t\)</span>, mengambil <span class="math inline">\(k := \max\{i \in \ZZ_+ \,:, t_i \leq t\}\)</span>,
+dan menerapkan <a href="#equation-binpois">persamaan binpois</a>, kita
+memiliki</p>
+<p><span class="math display">\[
+    \hat N_t
+    = \sum_{i=1}^k V_i
+    \sim \text{Binomial}(k, h \lambda)
+    \approx
+    \text{Poisson}(k h \lambda )
+\]</span></p>
+<p>Dengan menggunakan fakta bahwa <span class="math inline">\(kh = t_k
+\approx t\)</span> ketika <span class="math inline">\(h \to 0\)</span>,
+kita melihat bahwa <span class="math inline">\(\hat N_t\)</span>
+kira-kira berdistribusi Poisson dengan parameter <span class="math inline">\(t\lambda\)</span>, seperti yang diharapkan.</p>
+<p>Konstruksi pendekatan proses Poisson ini membantu mengilustrasikan
+sifat inkremen stasioner dan independen.</p>
+<p>Sebagai contoh, jika kita menetapkan <span class="math inline">\(s,
+t\)</span>, maka <span class="math inline">\(\hat N_{s + t} - \hat
+N_s\)</span> adalah banyaknya kunjungan antara <span class="math inline">\(s\)</span> dan <span class="math inline">\(s+t\)</span>, sehingga</p>
+<p><span class="math display">\[
+    \hat N_{s+t} - \hat N_s
+    = \sum_i V_i \mathbb 1\{ s \leq t_i &lt; s + t \}
+\]</span></p>
+<p>Misalkan terdapat <span class="math inline">\(k\)</span> titik kisi
+antara <span class="math inline">\(s\)</span> dan <span class="math inline">\(s+t\)</span>, sehingga <span class="math inline">\(t \approx
+kh\)</span>.</p>
+<p>Maka</p>
+<p><span class="math display">\[
+    \hat N_{s+t} - \hat N_s
+    \sim \text{Binomial}(k, h \lambda )
+    \approx
+    \text{Poisson}(k h \lambda )
+    \approx \text{Poisson}(t\lambda)
+\]</span></p>
+<p>Hal ini mengilustrasikan gagasan bahwa, untuk proses Poisson <span class="math inline">\((N_t)\)</span>, kita memiliki</p>
+<p><span class="math display">\[
+   N_{s+t} - N_s
+   \sim  \text{Poisson}(t\lambda)
+\]</span></p>
+<p>Secara khusus, inkremen bersifat stasioner (distribusinya bergantung
+pada <span class="math inline">\(t\)</span>, tetapi tidak pada <span class="math inline">\(s\)</span>).</p>
+<p>Pendekatan ini juga mengilustrasikan independensi inkremen karena,
+dalam pendekatan tersebut, inkremen bergantung pada
+subhimpunan-subhimpunan terpisah dari <span class="math inline">\((V_i)\)</span>.</p>
+<h2 id="keunikan">Keunikan</h2>
+<p>Proses penghitungan lain apa yang memiliki inkremen stasioner dan
+independen?</p>
+<p>Jawabannya, secara mengejutkan, adalah tidak ada:</p>
+<div class="qe-theorem">
+<p><strong>Karakterisasi Proses Poisson</strong> Jika <span class="math inline">\((M_t)\)</span> adalah proses stokastik yang
+didukung pada <span class="math inline">\(\ZZ_+\)</span> dan dimulai
+dari 0, serta inkremennya stasioner dan independen, maka <span class="math inline">\((M_t)\)</span> adalah proses Poisson.</p>
+</div>
+<p>Secara khusus, terdapat <span class="math inline">\(\lambda &gt;
+0\)</span> sedemikian sehingga</p>
+<p><span class="math display">\[
+    M_{s + t} - M_s
+   \sim  \text{Poisson}(t\lambda)
+\]</span></p>
+<p>untuk setiap <span class="math inline">\(s, t\)</span>.</p>
+<p>Pembuktiannya serupa dengan pembuktian sebelumnya bahwa distribusi
+eksponensial adalah satu-satunya distribusi tanpa ingatan.</p>
+<p>Rinciannya dapat ditemukan pada Bagian 6.2 dalam <cite>Pardoux
+(2008)</cite> atau Teorema 2.4.3 dalam <cite>Norris (1998)</cite>.</p>
+<p><a id="restart_prop"></a></p>
+<h3 id="sifat-memulai-ulang">Sifat Memulai Ulang</h3>
+<p>Konsekuensi penting dari inkremen stasioner dan independen adalah
+sifat memulai ulang: ketika melakukan simulasi, kita dapat menghentikan
+dan memulai kembali proses Poisson dengan bebas pada waktu apa pun:</p>
+<div class="qe-theorem">
+<p><strong>Proses Poisson Dapat Dijeda dan Dimulai Ulang</strong> Jika
+<span class="math inline">\((N_t)\)</span> adalah proses Poisson, <span class="math inline">\(s &gt; 0\)</span>, dan <span class="math inline">\((M_t)\)</span> didefinisikan oleh <span class="math inline">\(M_t = N_{s+t} - N_s\)</span> untuk <span class="math inline">\(t \geq 0\)</span>, maka <span class="math inline">\((M_t)\)</span> adalah proses Poisson yang
+independen dari <span class="math inline">\((N_r)_{r \leq
+s}\)</span>.</p>
+</div>
+<div class="qe-proof">
+<p>Independensi <span class="math inline">\((M_t)\)</span> dan <span class="math inline">\((N_r)_{r \leq s}\)</span> mengikuti dari
+independensi inkremen <span class="math inline">\((N_t)\)</span>.</p>
+<p>Berdasarkan pernyataan keunikan di atas, kita dapat memverifikasi
+bahwa <span class="math inline">\((M_t)\)</span> adalah proses Poisson
+dengan menunjukkan bahwa <span class="math inline">\((M_t)\)</span>
+dimulai dari nol, bernilai di <span class="math inline">\(\ZZ_+\)</span>, dan memiliki inkremen stasioner
+serta independen.</p>
+<p>Jelas bahwa <span class="math inline">\((M_t)\)</span> dimulai dari
+nol dan bernilai di <span class="math inline">\(\ZZ_+\)</span>.</p>
+<p>Selain itu, jika kita mengambil <span class="math inline">\(t &lt;
+t'\)</span>, maka</p>
+<p><span class="math display">\[
+    M_{t'} - M_t = N_{s+t'} - N_{s + t}
+   \sim  \text{Poisson}((t' - t) \lambda)
+\]</span></p>
+<p>Jadi <span class="math inline">\((M_t)\)</span> memiliki inkremen
+stasioner dan, dengan menggunakan kembali hubungan <span class="math inline">\(M_{t'} - M_t = N_{s+t'} - N_{s +
+t}\)</span>, inkremennya juga independen.</p>
+<p>Kita menyimpulkan bahwa <span class="math inline">\((N_{s+t} -
+N_s)_{t \geq 0}\)</span> memang merupakan proses Poisson yang independen
+dari <span class="math inline">\((N_r)_{r \leq s}\)</span>.</p>
+</div>
+<h2 id="latihan">Latihan</h2>
+<div class="exercise" id="poisson-ex-1">
+<p>Tetapkan <span class="math inline">\(\lambda &gt; 0\)</span> dan
+bangkitkan <span class="math inline">\(\{W_i\}\)</span> sebagai peubah
+acak eksponensial IID dengan laju <span class="math inline">\(\lambda\)</span>.</p>
+<p>Tetapkan <span class="math inline">\(J_n := W_1 + \cdots +
+W_n\)</span> dengan <span class="math inline">\(J_0 = 0\)</span> dan
+<span class="math inline">\(N_t := \sum_{n \geq 0} n \mathbb 1\{ J_n
+\leq t &lt; J_{n+1} \}\)</span>.</p>
+<p>Berikan uji visual terhadap klaim bahwa <span class="math inline">\(N_t\)</span> berdistribusi Poisson dengan
+parameter <span class="math inline">\(t\lambda\)</span>.</p>
+<p>Lakukan ini dengan menetapkan <span class="math inline">\(t =
+T\)</span>, menghasilkan banyak pengambilan independen <span class="math inline">\(N_T\)</span>, lalu membandingkan distribusi
+empiris sampel tersebut dengan distribusi Poisson dengan parameter <span class="math inline">\(T \lambda\)</span>.</p>
+<p>Cobalah terlebih dahulu dengan <span class="math inline">\(\lambda =
+0.5\)</span> dan <span class="math inline">\(T=10\)</span>.</p>
+</div>
+<div class="solution" id="poisson-solution-1">
+<p><strong>Solusi</strong></p>
+<p>Berikut salah satu solusi.</p>
+<p>Gambar menunjukkan bahwa kecocokannya sudah baik dengan ukuran sampel
+yang moderat.</p>
+<p>Menambah ukuran sampel akan semakin memperbaiki kecocokan.</p>
+<div class="code-cell" data-tags="" id="qe-cell-6">
+<pre><code class="language-python" data-cell-index="6">λ = 0.5
+T = 10
+
+def poisson(k, r):
+    "Poisson pmf with rate r."
+    return np.exp(-r) * (r**k) / factorial(k)
+
+@njit
+def draw_Nt(max_iter=1e5):
+    J = 0
+    n = 0
+    while n &lt; max_iter:
+        W = np.random.exponential(scale=1/λ)
+        J += W
+        if J &gt; T:
+            return n
+        n += 1
+
+@njit
+def draw_Nt_sample(num_draws):
+    np.random.seed(1234)
+    draws = np.empty(num_draws)
+    for i in range(num_draws):
+        draws[i] = draw_Nt()
+    return draws
+
+
+sample_size = 10_000
+sample = draw_Nt_sample(sample_size)
+max_val = sample.max()
+vals = np.arange(0, max_val+1)
+
+fig, ax = plt.subplots()
+
+ax.plot(vals, [poisson(v, T * λ) for v in vals],
+    marker='o', label='poisson')
+ax.plot(vals, [np.mean(sample==v) for v in vals],
+    marker='o', label='empirical')
+
+ax.legend(fontsize=12)
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-poisson-cell-06-figure-01"><img alt="Perbandingan distribusi empiris dan Poisson untuk banyak pengambilan." src="../assets/poisson-cell-06-figure-01.png"/><figcaption>Perbandingan distribusi empiris dan Poisson untuk banyak pengambilan.</figcaption></figure>
+</div>
+</div>
+<div class="exercise" id="poisson-ex-2">
+<p>Dalam kuliah kita menggunakan fakta bahwa <span class="math inline">\(\Binomial(n, \theta) \approx
+\Poisson(n \theta)\)</span> ketika <span class="math inline">\(n\)</span> besar dan <span class="math inline">\(\theta\)</span> kecil.</p>
+<p>Selidiki hubungan ini dengan memplot distribusinya berdampingan.</p>
+<p>Bereksperimenlah dengan berbagai nilai <span class="math inline">\(n\)</span> dan <span class="math inline">\(\theta\)</span>.</p>
+</div>
+<div class="solution" id="poisson-solution-2">
+<p><strong>Solusi</strong></p>
+<p>Berikut salah satu solusi. Ini menunjukkan bahwa pendekatan tersebut
+baik ketika <span class="math inline">\(n\)</span> besar dan <span class="math inline">\(\theta\)</span> kecil.</p>
+<div class="code-cell" data-tags="" id="qe-cell-7">
+<pre><code class="language-python" data-cell-index="7">def binomial(k, n, p):
+    # Binomial(n, p) pmf evaluated at k
+    return binom(n, k) * p**k * (1-p)**(n-k)
+
+θ_vals = 0.5, 0.2, 0.1
+
+n_vals = 50, 75, 100
+
+fig, axes = plt.subplots(len(n_vals), 1, figsize=(6, 12))
+
+for n, θ, ax in zip(n_vals, θ_vals, axes.flatten()):
+
+    k_grid = np.arange(n)
+    binom_vals = [binomial(k, n, θ) for k in k_grid]
+    poisson_vals = [poisson(k, n * θ) for k in k_grid]
+    ax.plot(k_grid, binom_vals, 'o-', alpha=0.5, label='binomial')
+    ax.plot(k_grid, poisson_vals, 'o-', alpha=0.5, label='Poisson')
+    ax.set_title(f'$n={n}$ and $\\theta = {θ}$')
+    ax.legend(fontsize=12)
+
+fig.tight_layout()
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-poisson-cell-07-figure-01"><img alt="Perbandingan distribusi binomial dan Poisson untuk beberapa parameter." src="../assets/poisson-cell-07-figure-01.png"/><figcaption>Perbandingan distribusi binomial dan Poisson untuk beberapa parameter.</figcaption></figure>
+</div>
+</div>
+</main><footer>Sumber resmi: https://github.com/QuantEcon/continuous_time_mcs — lisensi CC BY-SA 4.0.</footer></body>
+</html>

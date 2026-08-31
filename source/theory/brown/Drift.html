@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+	<meta charset="utf-8">
+	<title>Gerak Brown dengan Hanyutan</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Brownian motion, normal distribution, drift paramater, scale parameter, transformation, strong Markov property, stopping time">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\( \newcommand{\P}{\mathbb{P}} \)
+	\( \newcommand{\E}{\mathbb{E}} \) 
+	\( \newcommand{\R}{\mathbb{R}} \) 
+	\( \newcommand{\N}{\mathbb{N}} \)
+	\( \newcommand{\Z}{\mathbb{Z}} \)
+	\( \newcommand{\bs}{\boldsymbol} \)
+	\( \newcommand{\cov}{\text{cov}} \)
+	\( \newcommand{\cor}{\text{cor}} \)
+	\( \newcommand{\var}{\text{var}} \)
+	\( \newcommand{\sd}{\text{sd}} \)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Gerak Brown</a></li>
+		<li class="child"><a href="Standard.html" title="Gerak Brown Standar">1</a></li>
+		<li class="current">2</li>
+		<li class="child"><a href="Bridge.html" title="Jembatan Brown">3</a></li>
+		<li class="child"><a href="Geometric.html" title="Gerak Brown Geometrik">4</a></li>
+		<li class="details"><button type="button" title="Perluas Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Perluas"></button></li>
+		<li class="details"><button type="button" title="Ciutkan Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Ciutkan"></button></li>
+	</ol>
+	<h2>2. Gerak Brown dengan Hanyutan dan Penskalaan</h2>
+</header>
+
+<h3>Teori Dasar</h3>
+
+<h4 id="def">Definisi</h4>
+
+<p>Kita mulai dengan asumsi-asumsi yang berlaku bagi <a href="Standard.html">gerak Brown standar</a>, kecuali bahwa kita melonggarkan batasan pada parameter-parameter distribusi normal.</p>
+
+<div class="unit" id="def1">
+	<p class="math">Misalkan \( \mu \in \R \) dan \( \sigma \in (0, \infty) \). <dfn>Gerak Brown</dfn> dengan parameter hanyutan \( \mu \) dan parameter skala \( \sigma \) adalah proses acak \(\bs{X} = \{X_t: t \in [0, \infty)\}\) dengan ruang keadaan \(\R\) yang memenuhi sifat-sifat berikut:</p>
+	<ol class="sub">
+		<li>\( X_0 = 0 \) (dengan probabilitas 1).</li>
+		<li>\( \bs{X} \) mempunyai inkremen stasioner. Artinya, untuk \( s, \, t \in [0, \infty) \) dengan \( s \lt t \), distribusi \( X_t - X_s \) sama dengan distribusi \( X_{t - s} \).</li>
+		<li>\( \bs{X} \) mempunyai inkremen independen. Artinya, untuk \( t_1, t_2, \ldots, t_n \in [0, \infty) \) dengan \( t_1 \lt t_2 \lt \cdots \lt t_n \), peubah-peubah acak \( X_{t_1}, X_{t_2} - X_{t_1}, \ldots, X_{t_n} - X_{t_{n-1}} \) saling bebas.</li>
+		<li>\( X_t \) berdistribusi normal dengan rataan \( \mu t \) dan varians \( \sigma^2 t \) untuk \( t \in [0, \infty) \).</li>
+		<li>Dengan probabilitas 1, \( t \mapsto X_t \) kontinu pada \( [0, \infty) \).</li>
+	</ol>
+</div>
+
+<p>Perhatikan bahwa kita tidak dapat menentukan parameter-parameter distribusi normal \(X_t\) secara sembarang. Kita tahu bahwa karena \(\bs{X}\) mempunyai <a href="../markov/General.html#inc">inkremen stasioner dan independen</a>, \(\E(X_t)\) dan \(\var(X_t)\) harus merupakan fungsi linear dari \( t \in [0, \infty) \). </p>
+
+<div class="unit" id="def2">
+	<p class="app">Buka simulasi <a href="JavaScript:openAncillary('../apps/DriftBrownianMotion.html')" class="ancillary">gerak Brown dengan hanyutan dan penskalaan</a>. Jalankan simulasi beberapa kali dalam modus satu langkah untuk berbagai nilai parameter. Amati perilaku lintasan sampelnya. Untuk nilai parameter tertentu, jalankan simulasi 1.000 kali dan bandingkan fungsi kepadatan dan momen empiris dengan fungsi kepadatan probabilitas dan momen yang sebenarnya. </p>
+</div>
+
+<p>Gerak Brown dengan hanyutan dan penskalaan mudah dikonstruksi dari gerak Brown standar, sehingga kita tidak perlu mencemaskan persoalan eksistensinya.</p>
+
+<div class="unit" id="def3">
+	<p class="math">Hubungan dengan gerak Brown standar.</p>
+	<ol class="sub">
+		<li>Misalkan \(\bs{Z} = \{Z_t: t \in [0, \infty)\}\) adalah gerak Brown standar, serta \(\mu \in \R\) dan \(\sigma \in (0, \infty)\). Misalkan \(X_t = \mu t + \sigma Z_t\) untuk \(t \in [0, \infty)\). Maka \(\bs{X} = \{X_t: t \in [0, \infty)\}\) adalah gerak Brown dengan parameter hanyutan \(\mu\) dan parameter skala \(\sigma\).</li>
+		<li>Sebaliknya, misalkan \(\bs{X} = \{X_t: t \in [0, \infty)\}\) adalah gerak Brown dengan parameter hanyutan \(\mu \in \R\) dan parameter skala \(\sigma \in (0, \infty)\). Misalkan \(Z_t = (X_t - \mu t) \big/ \sigma\) untuk \(t \in [0, \infty)\). Maka \(\bs{Z} = \{Z_t: t \in [0, \infty)\}\) adalah gerak Brown standar.</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Dengan mudah dapat ditunjukkan bahwa proses \(\bs{X}\) dan \(\bs{Z}\) memenuhi perangkat asumsi yang sesuai.</p>
+	</details>
+</div>
+
+<p>Dalam bentuk diferensial, bagian (a) dapat ditulis sebagai
+\[ d X_t = \mu \, dt + \sigma \, d Z_t, \; X_0 = 0 \]</p>
+
+<h4 id="dis">Distribusi Berdimensi Hingga</h4>
+
+<p>Misalkan \( \bs{X} = \{X_t: t \in [0, \infty)\} \) adalah gerak Brown dengan parameter hanyutan \(\mu \in \R\) dan parameter skala \(\sigma \in (0, \infty)\). Dari bagian (d) definisi <a href="#def1" class="ref"></a>, \( X_t \) mempunyai fungsi kepadatan probabilitas \( f_t \) yang diberikan oleh
+\[ f_t(x) = \frac{1}{\sigma \sqrt{2 \pi t}} \exp\left[-\frac{1}{2  \sigma^2 t} (x - \mu t)^2\right], \quad x \in \R \]
+Keluarga fungsi kepadatan ini menentukan distribusi berdimensi hingga dari \( \bs{X} \).</p>
+
+<div class="unit" id="dis1">
+	<p class="math">Jika \( t_1, t_2, \ldots, t_n \in (0, \infty) \) dengan \( 0 \lt t_1 \lt t_2 \cdots \lt t_n \), maka \( (X_{t_1}, X_{t_2}, \ldots, X_{t_n}) \) mempunyai fungsi kepadatan probabilitas \( f_{t_1, t_2, \ldots, t_n} \) yang diberikan oleh
+	\[ f_{t_1, t_2, \ldots, t_n}(x_1, x_2, \ldots, x_n) = f_{t_1}(x_1) f_{t_2 - t_1}(x_2 - x_1) \cdots f_{t_n - t_{n-1}}(x_n - x_{n-1}), \quad (x_1, x_2, \ldots, x_n) \in \R^n \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini berlaku karena \(\bs{X}\) mempunyai <a href="../markov/General.html#inc">inkremen stasioner dan independen</a>.</p>
+	</details>
+</div>
+
+<div class="unit" id="dis2">
+	<p class="math">\( \bs{X} \) adalah proses Gauss dengan fungsi rataan \( m \) dan fungsi kovarians \( c \) yang diberikan oleh</p>
+	<ol class="sub">
+		<li>\( m(t) = \mu t \) untuk \( t \in [0, \infty) \)</li>
+		<li>\( c(s, t) = \sigma^2 \min\{s, t\} \) untuk \( s, \, t \in [0, \infty) \).</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Fakta bahwa \(\bs{X}\) adalah proses Gauss mengikuti konstruksi \(X_t = \mu t + \sigma Z_t\) untuk \(t \in [0, \infty)\), dengan \(\bs{Z}\) merupakan gerak Brown standar. Kita tahu bahwa \(\bs{Z}\) adalah proses Gauss. Bentuk fungsi rataan dan kovarians mengikuti fakta bahwa \(\bs{X}\) mempunyai inkremen stasioner dan independen. Perhatikan bahwa \(\mu\) dan \(\sigma^2\) adalah rataan dan varians \(X_1\).</p>
+	</details>
+</div>
+
+<p>Fungsi korelasi tidak bergantung pada parameter-parameter tersebut sehingga sama dengan fungsi korelasi gerak Brown standar. Hal ini tidak mengherankan karena korelasi merupakan ukuran keterkaitan yang dibakukan.
+\[ \cor(X_s, X_t) \frac{\sigma^2 \min\{s, t\}}{\sigma s \sigma t} = \frac{\min\{s, t\}}{s t} = \sqrt{\frac{\min\{s, t\}}{\max\{s, t\}}}, \quad (s, t) \in [0, \infty)^2 \]</p>
+
+<h4 id="trn">Transformasi</h4>
+
+<p>Ada dua transformasi sederhana yang mempertahankan gerak Brown, tetapi mungkin mengubah parameter hanyutan dan skalanya. Titik awal kita adalah gerak Brown \( \bs{X} = \{X_t: t \in [0, \infty)\} \) dengan parameter hanyutan \( \mu \in \R \) dan parameter skala \( \sigma \in (0, \infty) \). Hasil pertama kita melibatkan penskalaan \( \bs{X} \) dalam waktu dan ruang (serta kemungkinan pencerminan terhadap titik asal ruang).</p>
+
+<div class="unit" id="trn1">
+	<p class="math">Misalkan \( a \in \R \setminus \{0\} \) dan \( b \in (0, \infty) \). Definisikan \( Y_t = a X_ {b t} \) untuk \( t \ge 0 \). Maka \( \bs{Y} = \{Y_t: t \ge 0\} \) juga merupakan gerak Brown dengan parameter hanyutan \( a b \mu \) dan parameter skala \(\left|a\right| \sqrt{b} \sigma \). </p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Jelas bahwa proses baru tersebut tetap merupakan proses Gauss. Fungsi rataannya adalah \( \E(Y_t) = a \E(X_{b t}) = a b \mu t \) untuk \( t \in [0, \infty) \). Fungsi kovariansnya adalah \( \cov(Y_s, Y_t) = a^2 \cov(X_{bs}, X_{bt}) = a^2 \sigma^2 \min\{b s,  b t\} = a^2 b \sigma^2 \min\{s, t\} \) untuk \( (s, t) \in [0, \infty)^2 \). Terakhir, karena \( \bs{X} \) kontinu, \( \bs{Y} \) juga kontinu.</p>
+	</details>
+</div>
+
+<p>Misalkan \( a \gt 0 \) dalam teorema sebelumnya, sehingga kita melakukan penskalaan dalam waktu dan ruang. Untuk mempertahankan parameter hanyutan semula \(\mu\), kita harus mempunyai \(a b = 1\) (jika \(\mu \ne 0\)). Untuk mempertahankan parameter skala semula \(\sigma\), kita harus mempunyai \( a \sqrt{b} = 1 \). Kedua syarat tersebut tidak dapat dipenuhi sekaligus kecuali jika \(\mu = 0\), yang menghasilkan sedikit perumuman atas salah satu hasil kita untuk gerak Brown standar:</p>
+
+<div class="unit" id="trn2">
+	<p class="math">Misalkan \(\bs{X}\) adalah gerak Brown dengan parameter hanyutan \(\mu = 0\) dan parameter skala \(\sigma > 0\). Misalkan pula \(c \gt 0 \) dan \(Y_t = \frac{1}{c} X_{c^2 t}\) untuk \(t \ge 0\). Maka \(\bs{Y} = \{Y_t: t \in [0, \infty)\}\) juga merupakan gerak Brown dengan parameter hanyutan 0 dan parameter skala \(\sigma\).</p>
+</div>
+
+<p>Hasil kita berikutnya berkaitan dengan sifat Markov, yang akan kita telaah secara lebih terperinci di bawah. Kita kembali ke kasus umum ketika \(\bs{X} = \{X_t: t \in [0, \infty)\}\) adalah gerak Brown dengan parameter hanyutan \(\mu \in \R\) dan parameter skala \(\sigma \in (0, \infty)\). Jika kita <q>memulai ulang</q> gerak Brown pada waktu tetap \( s \), lalu menggeser titik asal ke \( X_s \), kita memperoleh gerak Brown lain dengan parameter-parameter yang sama.</p>
+
+<div class="unit" id="trn3">
+	<p class="math">Tetapkan \( s \in [0, \infty) \) dan definisikan \( Y_t = X_{s + t} - X_s \) untuk \( t \ge 0 \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) juga merupakan gerak Brown dengan parameter hanyutan dan skala yang sama.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Jelas bahwa \( \bs{Y} \) juga merupakan proses Gauss. Selanjutnya, \( \E(Y_t) = \E(X_{s + t}) - \E(X_s) = \mu(s + t) - \mu s = \mu t  \) untuk \( t \in [0, \infty) \). Selain itu, jika \( r, \, t \in [0, \infty) \) dengan \( r \le t \), maka 
+		\begin{align}
+			\cov(Y_r, Y_t) &amp; = \cov(X_{s + r} - X_s, X_{s + t} - X_s) \\
+			&amp; = \cov(X_{s + r}, X_{s + t}) - \cov(X_{s + r}, X_s) - \cov(X_s, X_{s + t}) + \cov(X_s, X_s) \\
+			&amp; = \sigma^2 (s + r) - \sigma^2 s - \sigma^2 s + \sigma^2 s = \sigma^2 r
+		\end{align}
+		Terakhir, \( \bs{Y} \) kontinu karena kekontinuan \( \bs{X} \).</p>
+	</details>
+</div>
+
+<h4 id="mar">Sifat Markov dan Waktu Henti</h4>
+
+<p>Seperti biasa, kita mulai dengan gerak Brown \( \bs{X} = \{X_t: t \in [0, \infty)\} \) dengan parameter hanyutan \( \mu \) dan parameter skala \( \sigma \). Ingat kembali bahwa <a href="../markov/General.html">proses Markov</a> mempunyai sifat bahwa masa depan saling bebas dengan masa lalu apabila keadaan sekarang diketahui. Berkat sifat inkremen stasioner dan independen, gerak Brown mempunyai sifat ini. Sebagai catatan kecil, untuk memandang \( \bs{X} \) sebagai proses Markov, terkadang kita perlu melonggarkan Asumsi 1 dan membolehkan \( X_0 \) mempunyai nilai sembarang dalam \( \R \). Misalkan \( \mathscr{F}_t = \sigma\{X_s: 0 \le s \le t\} \), yaitu aljabar-sigma yang dibangkitkan oleh proses sampai waktu \( t \in [0, \infty) \). Keluarga aljabar-\(\sigma\) \(\mathfrak{F} = \{\mathscr{F}_t: t \in [0, \infty)\}\) dikenal sebagai suatu <a href="../prob/Stop.html">filtrasi</a>.</p>
+
+<div class="unit" id="mar1">
+	<p class="math">Gerak Brown merupakan proses Markov yang homogen terhadap waktu dengan kepadatan probabilitas transisi \( p \) yang diberikan oleh
+	\[ p_t(x, y) = f_t(y - x) =\frac{1}{\sigma \sqrt{2 \pi t}} \exp\left[-\frac{1}{2  \sigma^2 t} (y - x - \mu t)^2\right], \quad t \in (0, \infty); \; x, \, y \in \R \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Tetapkan \( s \in [0, \infty) \). Hasil ini mengikuti fakta bahwa proses \( \{X_{s+t} - X_s: t \in [0, \infty)\} \) merupakan gerak Brown standar lain, seperti ditunjukkan dalam <a href="#trn3" class="ref"></a>, dan saling bebas dengan \( \mathscr{F}_s \).
+	</details>
+</div>
+
+<div class="unit" id="mar2">
+	<p class="math">Kepadatan transisi \( p \) memenuhi <dfn>persamaan difusi</dfn> berikut. Yang pertama dikenal sebagai <dfn>persamaan maju</dfn> dan yang kedua sebagai <dfn>persamaan mundur</dfn>.</p>
+	\begin{align}
+		\frac{\partial}{\partial t} p_t(x, y) &amp; = -\mu \frac{\partial}{\partial y} p_t(x, y) + \frac{1}{2} \sigma^2 \frac{\partial^2}{ \partial y^2} p_t(x, y) \\
+		\frac{\partial}{\partial t} p_t(x, y) &amp; = \mu \frac{\partial}{\partial x} p_t(x, y) + \frac{1}{2} \sigma^2 \frac{\partial^2}{ \partial x^2} p_t(x, y)
+	\end{align}
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hasil-hasil ini mengikuti kalkulus standar.</p>
+	</details>
+</div>
+
+<p>Persamaan-persamaan tersebut disebut persamaan difusi karena turunan ruang dalam persamaan pertama diambil terhadap \( y \), yakni keadaan <em>maju</em> pada waktu \( t \), sedangkan turunan ruang dalam persamaan kedua diambil terhadap \( x \), yakni keadaan <em>mundur</em> pada waktu 0.</p>
+
+<p>Ingat kembali bahwa waktu acak \( \tau \) yang bernilai dalam \( [0, \infty] \) merupakan <dfn>waktu henti</dfn> terhadap proses \( \bs{X} \) apabila \( \{\tau \le t\} \in \mathscr{F}_t \) untuk setiap \( t \in [0, \infty) \). Aljabar-\( \sigma \) yang berkaitan dengan \( \tau \) adalah
+\[ \mathscr{F}_\tau = \left\{B \in \mathscr{F}:  B \cap \{\tau \le t\} \in \mathscr{F}_t \text{ for all } t \ge 0\right\} \]
+Lihat bagian tentang <a href="../prob/Stop.html">Filtrasi dan Waktu Henti</a> untuk informasi lebih lanjut mengenai filtrasi, waktu henti, dan aljabar-\(\sigma\) yang berkaitan dengan suatu waktu henti. Gerak Brown \( \bs{X} \) juga merupakan proses Markov kuat.</p>
+
+<div class="unit" id="mar3">
+	<p class="math">Misalkan \( \tau \) adalah waktu henti dan definisikan \( Y_t = X_{\tau + t} - X_\tau \) untuk \( t \in [0, \infty) \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) merupakan gerak Brown dengan parameter hanyutan dan skala yang sama, serta saling bebas dengan \( \mathscr{F}_\tau \).</p>
+</div>
+
+<!--
+<h3>Latihan Komputasi</h3>
+
+<div class="unit" id="exe1">
+<p class="math">Tentukan secara eksplisit fungsi kepadatan probabilitas, matriks kovarians, dan matriks korelasi dari \( (X_{0.5}, X_1, X_{2.3}) \).</p>
+</div>
+-->
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Gerak Brown</a></li>
+		<li class="child"><a href="Standard.html" title="Gerak Brown Standar">1</a></li>
+		<li class="current">2</li>
+		<li class="child"><a href="Bridge.html" title="Jembatan Brown">3</a></li>
+		<li class="child"><a href="Geometric.html" title="Gerak Brown Geometrik">4</a></li>
+		<li class="details"><button type="button" title="Perluas Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Perluas"></button></li>
+		<li class="details"><button type="button" title="Ciutkan Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Ciutkan"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Himpunan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

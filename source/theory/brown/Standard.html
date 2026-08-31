@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+<meta charset="utf-8">
+	<title>Gerak Brown Standar</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, stochastic process, Brownian motion, normal distribution, random walk, transformation, irregularity, strong Markov property, reflection principle, martingale, maximum, hitting time, arcsine distribution, law of the iterated logarithm">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+	<script src="../apps/Apps.js"></script>
+	<script src="../apps/Distributions.js"></script>
+	<script>
+		"use strict";
+		class BrownApp extends App {
+			constructor(name) {
+				super(name);
+			}
+			initialize() {
+				super.initialize();
+				const runButton = new RunButton(this.toolbar, this.name);
+				const stopButton = new StopButton(this.toolbar, this.name);
+				const resetButton = new ResetButton(this.toolbar, this.name);
+				this.graph = new Canvas(this.graphs, 200, 200, "Lintasan sampel");
+				this.dot = this.graph.makeDot();
+				this.graph.setBounds(-4, 4, -4, 4);
+				this.graph.makeAxis(-4, 0, 1, HOR);
+				this.graph.makeText("-4", -4, 0, BELOW);
+				this.graph.makeText("4", 4, 0, BELOW);
+				this.graph.makeAxis(0, -4, 1, VERT);
+				this.graph.makeText("-4", 0, -4, LEFT);
+				this.graph.makeText("4", 0, 4, LEFT);
+				this.dDist = new NormalDistribution(0, Math.sqrt(1 / 200));
+				this.reset();
+			}
+			reset() {
+				clearInterval(this.ID);
+				this.x = 0; this.y = 0;
+				this.graph.setDot(this.dot, this.x, this.y, 4, "red");
+			}
+			stop() {
+				clearInterval(this.ID);
+			}
+			run() {
+				this.ID = setInterval(this.takeStep.bind(this), 20);
+			}
+			takeStep () {
+				let dx = this.dDist.simulate(), dy = this.dDist.simulate();
+				this.x += dx; this.y += dy;
+				this.graph.setDot(this.dot, this.x, this.y, 4, "red");
+			}
+		}
+		const app = new BrownApp("app");
+	</script>
+</head>
+
+<body onload="app.initialize();">
+
+<div class="latex">
+	\( \newcommand{\P}{\mathbb{P}} \)
+	\( \newcommand{\E}{\mathbb{E}} \) 
+	\( \newcommand{\R}{\mathbb{R}} \) 
+	\( \newcommand{\N}{\mathbb{N}} \)
+	\( \newcommand{\Z}{\mathbb{Z}} \)
+	\( \newcommand{\D}{\mathbb{D}} \)
+	\( \newcommand{\bs}{\boldsymbol} \)
+	\( \newcommand{\cov}{\text{cov}} \)
+	\( \newcommand{\cor}{\text{cor}} \)
+	\( \newcommand{\var}{\text{var}} \)
+	\( \newcommand{\sd}{\text{sd}} \)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Gerak Brown</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Drift.html" title="Gerak Brown dengan Hanyutan">2</a></li>
+		<li class="child"><a href="Bridge.html" title="Jembatan Brown">3</a></li>
+		<li class="child"><a href="Geometric.html" title="Gerak Brown Geometrik">4</a></li>
+		<li class="details"><button type="button" title="Perluas Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Perluas"></button></li>
+		<li class="details"><button type="button" title="Ciutkan Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Ciutkan"></button></li>
+	</ol>
+	<h2>1. Gerak Brown Standar</h2>
+</header>
+
+<h3>Teori Dasar</h3>
+
+<h4 id="his">Sejarah</h4>
+
+<p>Pada tahun 1827, ahli botani <a href="JavaScript:openAncillary('../biographies/Brown.html')" class="ancillary">Robert Brown</a> mengamati bahwa partikel-partikel kecil dari serbuk sari, ketika tersuspensi di dalam air, bergerak terus-menerus tetapi sangat tersentak-sentak dan tak menentu. Pada <q>tahun ajaibnya</q>, 1905, <a href="JavaScript:openAncillary('../biographies/Einstein.html')" class="ancillary">Albert Einstein</a> menjelaskan perilaku tersebut secara fisik dengan menunjukkan bahwa partikel-partikel itu terus-menerus ditumbuk oleh molekul-molekul air; penjelasan ini turut memantapkan teori atom mengenai materi. Gerak Brown sebagai proses acak matematis pertama kali dikonstruksi secara ketat oleh <a href="JavaScript:openAncillary('../biographies/Wiener.html')" class="ancillary">Norbert Wiener</a> dalam serangkaian makalah yang dimulai pada tahun 1918. Karena itu, proses gerak Brown juga dikenal sebagai <dfn>proses Wiener</dfn>.</p>
+
+
+<div class="unit" id="his1">
+	<p class="app">Jalankan simulasi di bawah ini untuk memperoleh gambaran tentang apa yang mungkin diamati Brown melalui mikroskopnya.</p>
+	<div id="app" class="app"></div>
+</div>
+
+<p>Bersama <a href="../bernoulli/index.html">proses percobaan Bernoulli</a> dan <a href="../poisson/index.html">proses Poisson</a>, proses gerak Brown menempati peran sentral dalam probabilitas. Setiap proses tersebut didasarkan pada sekumpulan asumsi ideal yang menghasilkan teori matematika yang kaya. Dalam setiap kasus, proses itu juga digunakan sebagai unsur pembangun bagi sejumlah proses acak terkait yang sangat penting dalam beragam penerapan. Khususnya, gerak Brown dan proses-proses terkait digunakan dalam penerapan mulai dari fisika, statistika, hingga ekonomi.</p>
+
+<h4 id="def">Definisi</h4>
+
+<div class="unit" id="def1">
+	<p class="dfn"><dfn>Gerak Brown standar</dfn> adalah proses acak \( \bs{X} = \{X_t: t \in [0, \infty)\} \) dengan ruang keadaan \( \R \) yang memenuhi sifat-sifat berikut:</p>
+	<ol class="sub">
+		<li>\( X_0 = 0 \) (dengan probabilitas 1).</li>
+		<li>\( \bs{X} \) mempunyai inkremen stasioner. Artinya, untuk \( s, \; t \in [0, \infty) \) dengan \( s \lt t \), distribusi \( X_t - X_s \) sama dengan distribusi \( X_{t - s} \).</li>
+		<li>\( \bs{X} \) mempunyai inkremen independen. Artinya, untuk \( t_1, t_2, \ldots, t_n \in [0, \infty) \) dengan \( t_1 \lt t_2 \lt \cdots \lt t_n \), peubah acak \( X_{t_1}, X_{t_2} - X_{t_1}, \ldots, X_{t_n} - X_{t_{n-1}} \) saling bebas.</li>
+		<li>\( X_t \) berdistribusi normal dengan rataan 0 dan varians \( t \) untuk setiap \( t \in (0, \infty) \).</li>
+		<li>Dengan probabilitas 1, \( t \mapsto X_t \) kontinu pada \( [0, \infty) \).</li>
+	</ol>
+</div>
+
+<p>Untuk memahami asumsi-asumsi ini secara fisik, mari kita telaah satu demi satu.</p>
+
+<ol class="sub">
+	<li>Misalkan kita mengukur posisi sebuah partikel Brown dalam satu dimensi, mulai pada suatu waktu sembarang yang kita tetapkan sebagai \( t = 0 \), dengan posisi awal yang ditetapkan sebagai \( x = 0 \). Dengan konvensi ini, asumsi tersebut terpenuhi. Sesekali memang berguna untuk melonggarkan asumsi ini dan membolehkan \( X_0 \) bernilai lain.</li>
+	<li>Ini adalah pernyataan tentang <dfn>homogenitas waktu</dfn>: dinamika yang mendasari proses (yaitu dorongan molekul-molekul air terhadap partikel) tidak berubah seiring waktu, sehingga distribusi perpindahan partikel dalam selang waktu \( [s, t] \) hanya bergantung pada panjang selang waktu itu.</li>
+	<li>Ini adalah asumsi ideal yang kira-kira berlaku apabila selang waktunya besar dibandingkan dengan waktu yang sangat singkat di antara tumbukan partikel dengan molekul-molekul.</li>
+	<li>Ini adalah asumsi ideal lain yang didasarkan pada teorema limit pusat: posisi partikel pada waktu \( t \) merupakan hasil dari sangat banyak tumbukan, masing-masing memberikan sumbangan yang sangat kecil. Rataan yang bernilai 0 menyatakan <dfn>homogenitas ruang</dfn>: partikel tidak lebih atau kurang mungkin terdorong ke kanan daripada ke kiri. Selanjutnya, ingat bahwa asumsi <a href="../markov/General.html#inc">inkremen stasioner dan independen</a> berarti bahwa \( \var(X_t) = \sigma^2 t \) untuk suatu konstanta positif \( \sigma^2 \). Dengan mengubah skala waktu, kita dapat mengasumsikan \( \sigma^2 = 1 \), meskipun pada bagian berikutnya kita akan menelaah gerak Brown yang lebih umum <a href="Drift.html">dengan hanyutan dan penskalaan</a>. </li>
+	<li>Terakhir, kekontinuan lintasan sampel merupakan asumsi yang hakiki karena kita memodelkan posisi partikel fisik sebagai fungsi waktu.</li>
+</ol>
+
+<p>Tentu saja, pertanyaan pertama yang patut diajukan ialah apakah <em>ada</em> proses stokastik yang memenuhi definisi <a href="#def1" class="ref"></a>. Untungnya jawabannya ya, meskipun buktinya rumit.</p>
+
+<div class="unit" id="def2">
+	<p class="math">Terdapat ruang probabilitas \( (\Omega, \mathscr{F}, \P) \) dan proses stokastik \( \bs{X} = \{X_t: t \in [0, \infty)\} \) pada ruang probabilitas ini yang memenuhi asumsi-asumsi dalam definisi <a href="#def1" class="ref"></a>.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Asumsi-asumsi dalam definisi <a href="#def1" class="ref"></a> menghasilkan sekumpulan distribusi berdimensi hingga yang konsisten (yang diberikan dalam <a href="#dis1" class="ref"></a>). Karena itu, menurut <a href="../prob/Processes.html">teorema eksistensi Kolmogorov</a>, terdapat proses stokastik \( \bs{U} = \{U_t: t \in [0, \infty)\} \) yang mempunyai distribusi-distribusi berdimensi hingga tersebut. Akan tetapi, \( \bs{U} \) tidak mempunyai lintasan sampel kontinu; dari \( \bs{U} \), kita dapat mengonstruksi proses ekuivalen yang mempunyai lintasan sampel kontinu.</p>
+		<p>Pertama, <a href="../foundations/Sets.html#dyr">ingatlah</a> bahwa <dfn>rasional biner</dfn> (atau <dfn>rasional diadik</dfn>) dalam \( [0, \infty) \) adalah bilangan berbentuk \( k / 2^n \), dengan \( k, \, n \in \N \). Misalkan \( \D_+ \) menyatakan himpunan semua rasional biner dalam \( [0, \infty) \), dan ingat bahwa \( \D_+ \) terhitung tetapi juga <dfn>rapat</dfn> dalam \( [0, \infty) \) (artinya, jika \( t \in [0, \infty) \setminus \D_+ \), maka terdapat \( t_n \in \D_+ \) untuk \( n \in \N_+ \) sedemikian sehingga \( t_n \to t \) ketika \( n \to \infty \)).</p>
+		<p>Sekarang, untuk \( n \in \N_+ \), tetapkan \( X_n(t) = U_t \) apabila \( t \) adalah rasional biner berbentuk \( k \big/ 2^n \) untuk suatu \( k \in \N \). Jika \( t \) bukan rasional biner semacam itu, definisikan \( X_n(t) \) melalui interpolasi linear di antara dua rasional biner terdekat yang berbentuk demikian, masing-masing di satu sisi \( t \). Maka \( X_n(t) \to U(t) \) ketika \( n \to \infty \) untuk setiap \( t \in \D_+\), dan dengan probabilitas 1, konvergensinya seragam pada \( \D_+ \cap [0, T] \) untuk setiap \( T \gt 0 \). Selanjutnya diperoleh bahwa \( \bs{U} \) kontinu pada \( \D_+ \) dengan probabilitas 1.</p>
+		<p>Untuk langkah terakhir, tetapkan \( X_t = \lim_{s \to t, \; s \in \D_+} U_s \) untuk \( t \in [0, \infty) \). Limit tersebut ada karena \( \bs{U} \) kontinu pada \( \D_+ \) dengan probabilitas 1. Proses \( \bs{X} = \{X_t: t \in [0, \infty)\} \) kontinu pada \( [0, \infty) \) dengan probabilitas 1 dan mempunyai distribusi berdimensi hingga yang sama dengan \( \bs{U} \).</p>
+	</details>
+</div>
+
+<div class="unit" id="def3">
+	<p class="app">Jalankan simulasi <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">proses gerak Brown standar</a> beberapa kali dalam modus satu langkah. Amati perilaku kualitatif lintasan sampelnya. Jalankan simulasi 1.000 kali, lalu bandingkan fungsi kepadatan dan momen empiris \( X_t \) dengan fungsi kepadatan probabilitas dan momen yang sebenarnya.</p>
+</div>
+
+<h4 id="wlk">Gerak Brown sebagai Limit Gerak Acak</h4>
+
+<p>Dinamika dasar partikel Brown yang ditumbuk oleh molekul-molekul jelas mengisyaratkan gerak acak sebagai model yang mungkin, tetapi dengan langkah waktu dan lompatan ruang yang sangat kecil. Misalkan \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah <a href="../bernoulli/Walk.html">gerak acak sederhana simetris</a>. Jadi, \( X_n = \sum_{i=1}^n U_i \), dengan \( \bs{U} = (U_1, U_2, \ldots) \) suatu barisan peubah saling bebas yang memenuhi \( \P(U_i = 1) = \P(U_i = -1) = \frac{1}{2} \) untuk setiap \( i \in \N_+ \). Ingat bahwa \( \E(X_n) = 0 \) dan \( \var(X_n) = n \) untuk \( n \in \N \). Selain itu, karena \( \bs{X} \) adalah proses jumlah parsial yang berkaitan dengan barisan IID, \( \bs{X} \) mempunyai inkremen stasioner dan independen (tentu saja dalam waktu diskret). Terakhir, ingat bahwa menurut teorema limit pusat, \( X_n \big/ \sqrt{n} \) berkonvergensi ke distribusi normal standar ketika \( n \to \infty \). Sekarang, untuk \( h, d \in (0, \infty) \), proses waktu kontinu
+\[ \bs{X}_{h, d} = \left\{d X_{\lfloor t / h \rfloor}: t \in [0, \infty) \right\} \]
+merupakan proses lompatan dengan lompatan pada \( \{0, h, 2 h, \ldots\} \) dan besar lompatan \( \pm d \). Pada dasarnya kita ingin membiarkan \( h \downarrow 0 \) dan \( d \downarrow 0 \), tetapi keduanya tidak dapat dipilih secara sembarang. Perhatikan bahwa \( \E\left[X_{h, d}(t)\right] = 0 \), sedangkan \( \var\left[X_{h,d}(t)\right] = d^2 \lfloor t / h \rfloor \). Jadi, menurut teorema limit pusat, jika kita mengambil \( d = \sqrt{h} \), distribusi \( X_{h, d}(t) \) akan berkonvergensi ke distribusi normal dengan rataan 0 dan varians \( t \) ketika \( h \downarrow 0 \). Secara lebih umum, kita dapat berharap bahwa semua syarat dalam definisi <a href="#def1" class="ref"></a> dipenuhi oleh proses limit; jika demikian, kita memperoleh gerak Brown standar.</p>
+
+<div class="unit" id="wlk1">
+	<p class="app">Jalankan simulasi <a href="JavaScript:openAncillary('../apps/RandomWalk.html')" class="ancillary">proses gerak acak</a> untuk nilai \( n \) yang makin besar. Secara khusus, jalankan simulasi beberapa kali dengan \( n = 100 \). Bandingkan perilaku kualitatifnya dengan <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">proses gerak Brown standar</a>. Perhatikan bahwa penskalaan gerak acak dalam waktu dan ruang secara efektif dilakukan dengan menskalakan sumbu horizontal dan vertikal pada jendela grafik.</p>
+</div>
+
+<h4 id="dis">Distribusi Berdimensi Hingga</h4>
+
+<p>Misalkan \( \bs{X} = \{X_t: t \in [0, \infty)\} \) adalah gerak Brown standar. Dari bagian (d) definisi <a href="#def1" class="ref"></a>, \( X_t \) mempunyai fungsi kepadatan probabilitas \( f_t \) yang diberikan oleh
+\[ f_t(x) = \frac{1}{\sqrt{2 \pi t}} \exp\left(-\frac{x^2}{2 t}\right), \quad x \in \R \]
+Keluarga fungsi kepadatan ini menentukan distribusi berdimensi hingga dari \( \bs{X} \).</p>
+
+<div class="unit" id="dis1">
+	<p class="math">Jika \( t_1, t_2, \ldots, t_n \in (0, \infty) \) dengan \( 0 \lt t_1 \lt t_2 \cdots \lt t_n \), maka \( (X_{t_1}, X_{t_2}, \ldots, X_{t_n}) \) mempunyai fungsi kepadatan probabilitas \( f_{t_1, t_2, \ldots, t_n} \) yang diberikan oleh
+	\[ f_{t_1, t_2, \ldots, t_n}(x_1, x_2, \ldots, x_n) = f_{t_1}(x_1) f_{t_2 - t_1}(x_2 - x_1) \cdots f_{t_n - t_{n-1}}(x_n - x_{n-1}), \quad (x_1, x_2, \ldots, x_n) \in \R^n \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini berlaku karena \(\bs{X}\) mempunyai inkremen stasioner dan independen.</p>
+	</details>
+</div>
+
+<div class="unit" id="dis2">
+	<p class="math">\( \bs{X} \) adalah proses Gauss dengan fungsi rataan \( m(t) = 0 \) untuk \( t \in [0, \infty) \) dan fungsi kovarians \( c(s, t) = \min\{s, t\} \) untuk \( s, t \in [0, \infty) \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Fakta bahwa \(\bs{X}\) merupakan proses Gauss berlaku karena \(X_t\) berdistribusi normal untuk setiap \(t \in T\) dan \(\bs{X}\) mempunyai inkremen stasioner dan independen. Fungsi rataannya bernilai 0 berdasarkan asumsi. Untuk fungsi kovarians, misalkan \( s, \, t \in [0, \infty) \) dengan \( s \le t \). Karena \( X_s \) dan \( X_t - X_s \) saling bebas, kita memperoleh
+		\[ \cov(X_s, X_t) = \cov\left[X_s, X_s + (X_t - X_s)\right] = \var(X_s) + 0 = s \]</p>
+	</details>
+</div>
+
+<p>Ingat bahwa untuk proses Gauss, distribusi berdimensi hingga (normal multivariat) sepenuhnya ditentukan oleh fungsi rataan \( m \) dan fungsi kovarians \( c \). Dengan demikian, gerak Brown standar dicirikan sebagai proses Gauss kontinu dengan fungsi rataan dan kovarians dalam teorema terakhir. Perhatikan pula bahwa
+\[ \cor(X_s, X_t) = \frac{\min\{s, t\}}{\sqrt{s t}} = \sqrt{\frac{\min\{s, t\}}{\5\{s, t\}}}  ,\quad (s, t) \in [0, \infty)^2 \]
+Kita juga dapat memberikan momen-momen yang lebih tinggi dan <a href="../expect/Generating.html#mgf">fungsi pembangkit momen</a> untuk \( X_t \).</p>
+
+<div class="unit">
+	<p class="math">Untuk \( n \in \N \) dan \( t \in [0, \infty) \),</p>
+	<ol class="sub">
+		<li>\( \E\left(X_t^{2n}\right) = 1 \cdot 3 \cdots (2 n - 1) t^n = (2 n)! t^n \big/ (n! 2^n) \)</li>
+		<li>\( \E\left(X_t^{2n + 1}\right) = 0 \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Momen-momen ini mengikuti hasil standar karena \( X_t \) <a href="../special/Normal.html">berdistribusi normal</a> dengan rataan 0 dan varians \( t \).</p>
+	</details>
+</div>
+
+<div class="unit">
+	<p class="math">Untuk \( t \in [0, \infty) \), \( X_t \) mempunyai fungsi pembangkit momen yang diberikan oleh
+	\[ \E\left(e^{u X_t}\right) = e^{t u / 2}, \quad u \in \R \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Sekali lagi, ini adalah hasil standar untuk distribusi normal.</p>
+	</details>
+</div>
+
+<h4 id="trn">Transformasi Sederhana</h4>
+
+<p>Ada beberapa transformasi sederhana yang mempertahankan gerak Brown standar dan memberi kita wawasan tentang sejumlah sifatnya. Seperti biasa, titik tolak kita adalah gerak Brown standar \( \bs{X} = \{X_t: t \in [0, \infty)\} \). Hasil pertama menyatakan bahwa pencerminan lintasan \( \bs{X} \) terhadap garis \( x = 0 \) menghasilkan gerak Brown standar lain.</p>
+
+<div class="unit" id="trn1">
+	<p class="math">Misalkan \( Y_t = -X_t \) untuk \( t \ge 0 \). Maka \( \bs{Y} = \{Y_t: t \ge 0\} \) juga merupakan gerak Brown standar.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Jelas bahwa proses baru tersebut tetap merupakan proses Gauss, dengan fungsi rataan \( \E(-X_t) = -\E(X_t) = 0 \) untuk \( t \in [0, \infty) \) dan fungsi kovarians \( \cov(-X_s, -X_t) = \cov(X_s, X_t) = \min\{s, t\} \) untuk \( (s, t) \in [0, \infty)^2 \). Terakhir, karena \( \bs{X} \) kontinu, \( \bs{Y} \) juga kontinu.</p>
+	</details>
+</div>
+
+<p>Hasil berikut berkaitan dengan sifat Markov, yang akan kita telaah lebih terperinci di bawah. Jika kita <q>memulai ulang</q> gerak Brown pada waktu tetap \( s \) dan menggeser titik asal ke \( X_s \), kita memperoleh gerak Brown standar lain. Ini berarti bahwa gerak Brown bersifat <dfn>homogen baik dalam waktu maupun ruang</dfn>.</p>
+
+<div class="unit" id="trn2">
+	<p class="math">Tetapkan \( s \in [0, \infty) \) dan definisikan \( Y_t = X_{s + t} - X_s \) untuk \( t \ge 0 \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) juga merupakan gerak Brown standar.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Karena \( \bs{X} \) mempunyai inkremen stasioner dan independen, proses \( \bs{Y} \) ekuivalen dalam distribusi dengan \( \bs{X} \). Jelas pula bahwa \(\bs{Y} \) kontinu karena \( \bs{X} \) kontinu.</p>
+	</details>
+</div>
+
+<p>Hasil berikut merupakan pembalikan waktu sederhana. Namun, untuk menyatakannya, kita perlu membatasi parameter waktu pada selang terbatas berbentuk \( [0, T] \), dengan \( T \gt 0 \). Titik ujung atas \( T \) kadang-kadang disebut <dfn>cakrawala waktu hingga</dfn>. Perhatikan bahwa \( \{X_t: t \in [0, T]\} \) tetap memenuhi definisi <a href="#def1" class="ref"></a>, tetapi parameter waktunya dibatasi pada \( [0, T] \).</p>
+
+<div class="unit" id="trn3">
+	<p class="math">Definisikan \( Y_t = X_{T - t} - X_T \) untuk \( 0 \le t \le T \). Maka \( \bs{Y} = \left\{Y_t: t \in [0, T]\right\} \) juga merupakan gerak Brown standar pada \( [0, T] \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>\( \bs{Y} \) adalah proses Gauss karena kombinasi linear hingga dari peubah-peubah dalam proses ini dapat direduksi menjadi kombinasi linear hingga dari peubah-peubah dalam \( \bs{X} \). Selanjutnya, \( \E(Y_t) = \E(X_{T - t}) - \E(X_T) = 0 \). Berikutnya, jika \( s, \; t \in [0, T] \) dengan \( s \le t \), maka 
+		\begin{align}
+			\cov(Y_s, Y_t) &amp; = \cov(X_{T - s} - X_T, X_{T-t} - X_t) = \cov(X_{T-s}, X_{T-t}) - \cov(X_{T-s}, X_T) - \cov(X_T, X_{T-t}) + \cov(X_T, X_t) \\
+			&amp; = (T - t) - (T - s) - (T - t) + T = s 
+		\end{align}
+		Terakhir, \( t \mapsto Y_t \) kontinu pada \( [0, T] \) dengan probabilitas 1 karena \( t \mapsto X_t \) kontinu pada \( [0, T] \) dengan probabilitas 1.</p>
+	</details>
+</div>
+
+<p>Transformasi berikut melibatkan penskalaan \( \bs{X} \) dalam waktu maupun ruang dan dikenal sebagai <dfn>keserupaan diri</dfn>.</p>
+
+<div class="unit" id="trn5">
+	<p class="math">Misalkan \( a \in (0, \infty) \) dan definisikan \( Y_t = \frac{1}{a} X_{a ^2 t} \) untuk \( t \ge 0 \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) juga merupakan gerak Brown standar.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Sekali lagi, \( \bs{Y} \) merupakan proses Gauss karena kombinasi linear hingga dari peubah-peubah dalam \(\bs{Y}\) dapat direduksi menjadi kombinasi linear hingga dari peubah-peubah dalam \(\bs{X}\). Selanjutnya, \( \E(Y_t) = a \E(X_{a^2 t}) = 0 \) untuk \( t \gt 0 \), dan untuk \( s, \, t \gt 0 \) dengan \( s \lt t \),
+		\[ \cov(Y_s, Y_t) = \cov\left(\frac{1}{a} X_{a^2 s}, \frac{1}{a} X_{a^2 t}\right) = \frac{1}{a^2} \cov\left(X_{a^2 s}, X_{a^2 t}\right) = \frac{1}{a^2} a^2 s = s \]
+		Terakhir, \( \bs{Y} \) merupakan proses kontinu karena \( \bs{X} \) kontinu.</p>
+	</details>
+</div>
+
+<p>Perhatikan bahwa grafik \( \bs{Y} \) dapat diperoleh dari grafik \( \bs{X} \) dengan menskalakan sumbu waktu \( t \) sebesar faktor \( a^2 \) dan sumbu ruang \( x \) sebesar faktor \( a \). Keharusan bahwa faktor skala waktu merupakan kuadrat faktor skala ruang jelas berkaitan dengan gerak Brown sebagai limit gerak acak. Perhatikan pula bahwa transformasi ini sama artinya dengan <q>memperbesar atau memperkecil</q> grafik \( \bs{X} \). Karena grafik tidak berubah oleh transformasi ini, gerak Brown memiliki sifat fraktal yang serupa diri. Hal ini juga mengisyaratkan bahwa meskipun kontinu, \( t \mapsto X_t \) sangat tidak teratur. Kita menelaahnya pada subbagian berikut.</p>
+
+<p>Transformasi terakhir kita disebut <dfn>inversi waktu</dfn>.</p>
+
+<div class="unit" id="trn4">
+	<p class="math">Misalkan \( Y_0 = 0 \) dan \( Y_t = t X_{1/t} \) untuk \( t \gt 0 \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) juga merupakan gerak Brown standar.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Jelas bahwa \( \bs{Y} \) adalah proses Gauss karena kombinasi linear hingga dari peubah-peubah dalam \(\bs{Y}\) dapat direduksi menjadi kombinasi linear hingga dari peubah-peubah dalam \(\bs{X}\). Selanjutnya, \( \E(Y_t) = t \E(X_{1/t}) = 0 \) untuk \( t \gt 0 \), dan untuk \( s, \, t \gt 0 \) dengan \( s \lt t \),
+		\[ \cov\left(Y_s, Y_t\right) = \cov\left(s X_{1/s}, t X_{1/t}\right) = s t \, \cov\left(X_{1/s}, X_{1/t}\right) = s t \frac{1}{t} = s \]
+		Karena \( t \mapsto X_t \) kontinu pada \( [0, \infty) \) dengan probabilitas 1, \( t \mapsto Y_t \) kontinu pada \( (0, \infty) \) dengan probabilitas 1. Jadi, tinggal membuktikan kekontinuan pada \( t = 0 \). Dengan demikian, kita perlu menunjukkan bahwa dengan probabilitas 1, \( t X_{1/t} \to 0 \) ketika \( t \downarrow 0 \), atau secara ekuivalen, \( X_s / s \to 0 \) ketika \( s \uparrow \infty \). Namun, pernyataan terakhir ini berlaku menurut hukum logaritma berulang <a href="#lil1" class="ref"></a> yang diberikan di bawah.</p>
+	</details>
+</div>
+
+<h4 id="irr">Ketakteraturan</h4>
+
+<p>Definisi <a href="#def1" class="ref"></a> mengisyaratkan bahwa gerak Brown standar \( \bs{X} = \{X_t: t \in [0, \infty)\} \) tidak mungkin merupakan fungsi mulus yang terdiferensialkan. Tinjau hasil bagi selisih yang biasa pada \( t \), 
+\[ \frac{X_{t+h} - X_t}{h} \]
+Menurut sifat inkremen stasioner, jika \( h \gt 0 \), pembilangnya mempunyai distribusi yang sama dengan \( X_h \); sedangkan jika \( h \lt 0 \), pembilangnya mempunyai distribusi yang sama dengan \( -X_{-h} \), yang pada gilirannya mempunyai distribusi yang sama dengan \( X_{-h} \). Jadi, dalam kedua kasus, hasil bagi selisih mempunyai distribusi yang sama dengan \( X_{\left|h\right|} \big/ h \), dan peubah ini berdistribusi normal dengan rataan 0 dan varians \( \left|h\right| \big/ h^2 = 1 \big/ \left|h\right| \). Dengan demikian, varians hasil bagi selisih divergen menuju \( \infty \) ketika \( h \to 0\), sehingga hasil bagi selisih bahkan tidak berkonvergensi dalam distribusi, yakni bentuk konvergensi yang paling lemah.</p> 
+
+<p>Teorema <a href="#trn5" class="ref"></a> juga mengisyaratkan bahwa gerak Brown tidak mungkin terdiferensialkan. Makna intuitif dari <em>terdiferensialkan</em> pada \( t \) adalah bahwa fungsi tersebut <em>linear secara lokal</em> pada \( t \)&mdash;ketika kita memperbesar tampilan, grafik di dekat \( t \) mulai menyerupai garis (yang kemiringannya tentu saja merupakan turunan). Namun, ketika kita memperbesar gerak Brown (dalam arti transformasi tadi), tampilannya selalu sama dan khususnya tetap sama bergeriginya. Secara lebih formal, jika \( \bs{X} \) terdiferensialkan pada \( t \), proses hasil transformasi \( \bs{Y} \) juga demikian, dan aturan rantai memberikan \( Y^\prime(t) = a X^\prime(a^2 t) \). Akan tetapi, \( \bs{Y} \) juga merupakan gerak Brown standar untuk setiap \( a \gt 0 \), sehingga jelas ada sesuatu yang keliru. Meskipun tidak ketat, contoh-contoh ini memotivasi teorema berikut:</p>
+
+<div class="unit" id="irr1">
+	<p class="math">Dengan probabilitas 1, \( \bs{X} \) tidak terdiferensialkan di mana pun pada \( [0, \infty) \).</p>
+</div>
+
+<div class="unit" id="irr2">
+	<p class="app">Jalankan simulasi <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">proses gerak Brown standar</a>. Amati kekontinuan sekaligus bentuk lintasan sampelnya yang sangat bergerigi. Tentu saja, simulasi tidak dapat merepresentasikan gerak Brown dengan kesetiaan penuh.</p>
+</div>
+
+<p>Teorema-teorema berikut memberikan ukuran yang lebih tepat bagi ketakteraturan gerak Brown standar.</p>
+
+<div class="unit" id="irr3">
+	<p class="math">Gerak Brown standar \( \bs{X} \) mempunyai <a href="../foundations/Metric.html#hol">eksponen H&ouml;lder</a> \( \frac{1}{2} \). Artinya, \( \bs{X} \) kontinu H&ouml;lder dengan eksponen \( \alpha \) untuk setiap \( \alpha \lt \frac{1}{2} \), tetapi tidak kontinu H&ouml;lder dengan eksponen \( \alpha \) untuk \( \alpha \gt \frac{1}{2} \) mana pun.</p>
+</div>
+
+<p>Khususnya, \( \bs{X} \) tidak kontinu Lipschitz, dan hal ini kembali menunjukkan bahwa proses tersebut tidak terdiferensialkan. Hasil berikut menyatakan bahwa dalam hal dimensi Hausdorff, grafik gerak Brown standar berada tepat di antara kurva sederhana (dimensi 1) dan bidang (dimensi 2).</p>
+
+<div class="unit" id="irr4">
+	<p class="math">Grafik gerak Brown standar mempunyai dimensi Hausdorff \( \frac{3}{2} \).</p>
+</div>
+
+<p>Petunjuk lain tentang ketakteraturan gerak Brown ialah bahwa variasi totalnya tak hingga pada setiap selang yang panjangnya positif.</p>
+
+<div class="unit" id="irr5">
+	<p class="math">Misalkan \( a, \, b \in \R \) dengan \( a \lt b \). Maka variasi total \( \bs{X} \) pada \( [a, b] \) adalah \( \infty \).</p>
+</div>
+
+<h4 id="mar">Sifat Markov dan Waktu Henti</h4>
+
+<p>Seperti biasa, kita mulai dengan gerak Brown standar \( \bs{X} = \{X_t: t \in [0, \infty)\} \). Ingat bahwa <a href="../markov/General.html">proses Markov</a> mempunyai sifat bahwa masa depan saling bebas dengan masa lalu apabila keadaan sekarang diketahui. Berkat sifat inkremen stasioner dan independen, gerak Brown mempunyai sifat ini. Sebagai catatan kecil, untuk memandang \( \bs{X} \) sebagai proses Markov, terkadang kita perlu melonggarkan Asumsi 1 dan membolehkan \( X_0 \) mempunyai nilai sembarang dalam \( \R \). Misalkan \( \mathscr{F}_t = \sigma\{X_s: 0 \le s \le t\} \), yaitu aljabar-sigma yang dibangkitkan oleh proses sampai waktu \( t \in [0, \infty) \). Keluarga aljabar-\(\sigma\) \(\mathfrak{F} = \{\mathscr{F}_t: t \in [0, \infty)\}\) dikenal sebagai suatu <a href="../prob/Stop.html">filtrasi</a>.</p>
+
+<div class="unit" id="mar1">
+	<p class="math">Gerak Brown standar adalah proses Markov yang homogen terhadap waktu dengan kepadatan probabilitas transisi \( p \) yang diberikan oleh
+	\[ p_t(x, y) = f_t(y - x) = \frac{1}{\sqrt{2 \pi t}} \exp\left[-\frac{(y - x)^2}{2 t} \right], \quad t \in (0, \infty); \; x, \, y \in \R \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Tetapkan \( s \in [0, \infty) \). Teorema ini mengikuti fakta bahwa proses \( \{X_{s+t} - X_s: t \in [0, \infty)\} \) merupakan gerak Brown standar lain, seperti ditunjukkan dalam <a href="#trn2" class="ref"></a>, dan saling bebas dengan \( \mathscr{F}
+	</details>
+</div>
+
+<div class="unit" id="mar2">
+	<p class="math">Kepadatan transisi \( p \) memenuhi <dfn>persamaan difusi</dfn> berikut. Yang pertama dikenal sebagai <dfn>persamaan maju</dfn> dan yang kedua sebagai <dfn>persamaan mundur</dfn>.
+	\begin{align}
+		\frac{\partial}{\partial t} p_t(x, y) &amp; = \frac{1}{2} \frac{\partial^2}{ \partial y^2} p_t(x, y) \\
+		\frac{\partial}{\partial t} p_t(x, y) &amp; = \frac{1}{2} \frac{\partial^2}{ \partial x^2} p_t(x, y)
+	\end{align}</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hasil-hasil ini mengikuti kalkulus standar.</p>
+	</details>
+</div>
+
+<p>Persamaan-persamaan tersebut disebut persamaan difusi karena turunan ruang dalam persamaan pertama diambil terhadap \( y \), yakni keadaan <em>maju</em> pada waktu \( t \), sedangkan turunan ruang dalam persamaan kedua diambil terhadap \( x \), yakni keadaan <em>mundur</em> pada waktu 0.</p>
+
+<p>Ingat bahwa waktu acak \( \tau \) yang bernilai dalam \( [0, \infty] \) merupakan <dfn>waktu henti</dfn> terhadap proses \( \bs{X} = \{X_t: t \in [0, \infty)\} \) apabila \( \{\tau \le t\} \in \mathscr{F}_t \) untuk setiap \( t \in [0, \infty) \). Secara informal, kita dapat menentukan apakah \( \tau \le t \) atau tidak dengan mengamati proses sampai waktu \( t \). Satu kasus khusus yang penting adalah waktu pertama ketika gerak Brown mencapai suatu keadaan tertentu. Jadi, untuk \(x \in \R\), misalkan \(\tau_x = \inf\{t \in [0, \infty): X_t = x\}\). Waktu acak \(\tau_x\) merupakan waktu henti.</p>
+
+<p>Untuk waktu henti \( \tau \), kita memerlukan aljabar-\( \sigma \) dari kejadian-kejadian yang dapat didefinisikan berdasarkan proses sampai waktu acak \( \tau \), analog dengan \( \mathscr{F}_t \), yaitu aljabar-\( \sigma \) dari kejadian-kejadian yang dapat didefinisikan berdasarkan proses sampai waktu tetap \( t \). Definisi yang sesuai adalah
+\[ \mathscr{F}_\tau = \{B \in \mathscr{F}:  B \cap \{\tau \le t\} \in \mathscr{F}_t \text{ untuk setiap } t \ge 0\} \]
+Lihat bagian tentang <a href="../prob/Stop.html">Filtrasi dan Waktu Henti</a> untuk informasi lebih lanjut mengenai filtrasi, waktu henti, dan aljabar-\(\sigma\) yang berkaitan dengan suatu waktu henti. </p>
+
+<p><dfn>Sifat Markov kuat</dfn> adalah sifat Markov yang diperumum untuk waktu henti. Gerak Brown standar \( \bs{X} \) juga merupakan proses Markov kuat. Cara terbaik untuk menyatakannya adalah melalui perumuman <a href="#trn2" class="ref"></a>.</p>
+
+<div class="unit" id="mar3">
+	<p class="math">Misalkan \( \tau \) adalah waktu henti dan definisikan \( Y_t = X_{\tau + t} - X_\tau \) untuk \( t \in [0, \infty) \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) merupakan gerak Brown standar dan saling bebas dengan \( \mathscr{F}_\tau \).</p>
+</div>
+
+<h4 id="ref">Prinsip Refleksi</h4>
+
+<p>Banyak sifat menarik gerak Brown dapat diperoleh dari gagasan cerdik yang dikenal sebagai <dfn>prinsip refleksi</dfn>. Seperti biasa, kita mulai dengan gerak Brown standar \( \bs{X} = \{X_t: t \in [0, \infty) \} \). Misalkan \( \tau \) adalah waktu henti untuk \( \bs{X} \). Definisikan 
+\[ W_t = \begin{cases} X_t, &amp; 0 \le t \lt \tau \\ 2 X_\tau - X_t, &amp; \tau \le t \lt \infty \end{cases} \]
+Jadi, grafik \( \bs{W} = \{W_t: t \in [0, \infty)\} \) dapat diperoleh dari grafik \( \bs{X} \) dengan mencerminkannya terhadap garis \( x = X_\tau \) setelah waktu \( \tau \). Khususnya, jika waktu henti \( \tau \) adalah \( \tau_a \), yaitu waktu pertama ketika proses mencapai keadaan tertentu \( a \gt 0 \), grafik \( \bs{W} \) diperoleh dari grafik \( \bs{X} \) dengan mencerminkannya terhadap garis \( x = a \) setelah waktu \( \tau_a \).</p>
+
+<div class="unit" id="ref1">
+	<p class="app">Buka simulasi <a href="JavaScript:openAncillary('../apps/ReflectedBrownianMotion.html')" class="ancillary">gerak Brown tercermin</a>. Aplikasi ini menampilkan proses \( \bs{W} \) yang bersesuaian dengan waktu henti \( \tau_a \), yaitu waktu kunjungan pertama ke keadaan positif \( a \). Jalankan simulasi dalam modus satu langkah sampai proses tercermin muncul beberapa kali. Pastikan Anda memahami cara kerja proses \( \bs{W} \).</p>
+</div>
+
+<div class="unit" id="ref2">
+	<p class="math">Proses tercermin \(\bs{W} = \{W_t: t \in [0, \infty)\}\) juga merupakan gerak Brown standar.</p>
+</div>
+
+<div class="unit" id="ref3">
+	<p class="app">Jalankan simulasi <a href="JavaScript:openAncillary('../apps/ReflectedBrownianMotion.html')" class="ancillary">proses gerak Brown tercermin</a> sebanyak 1.000 kali. Bandingkan fungsi kepadatan dan momen empiris \( W_t \) dengan fungsi kepadatan probabilitas dan momen yang sebenarnya.</p>
+</div>
+
+<h4 id="mrt">Martingal</h4>
+
+<p>Seperti biasa, misalkan \( \bs{X} = \{X_t: t \in [0, \infty)\} \) adalah gerak Brown standar, dan misalkan \( \mathscr{F}_t = \sigma\{X_s: 0 \le s \le t\} \) untuk \( t \in [0, \infty) \), sehingga \( \mathfrak{F} = \{\mathscr{F}_t: t \in [0, \infty)\} \) merupakan filtrasi alami bagi \( \bs{X} \). Ada beberapa <a href="../martingales/index.html">martingal</a> penting yang berkaitan dengan \( \bs{X} \). Kita akan menelaah dua di antaranya pada bagian ini dan yang lain pada bagian-bagian selanjutnya. Hasil pertama kita menyatakan bahwa \( \bs{X} \) sendiri adalah martingal, semata-mata karena mempunyai inkremen stasioner dan independen serta rataan 0.</p>
+
+<div class="unit" id="mrt1">
+	<p class="math">\( \bs{X} \) adalah martingal terhadap \( \mathfrak{F} \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Sekali lagi, hal ini berlaku bagi setiap proses yang mempunyai inkremen stasioner dan independen serta rataan 0, tetapi demi kelengkapan kita tetap memberikan buktinya. Misalkan \( s, \, t \in [0, \infty) \) dengan \( s \lt t \). Karena \( X_s \) terukur terhadap \( \mathscr{F}_s \) dan \( X_t - X_s \) saling bebas dengan \( \mathscr{F}_s \), kita memperoleh
+		\[ \E\left(X_t \mid \mathscr{F}_s\right) = \E\left[X_s + (X_t - X_s) \mid \mathscr{F}_s\right] = X_s + \E(X_t - X_s) = X_s\]</p>
+	</details>
+</div>
+
+<p>Martingal berikut sedikit lebih menarik.</p>
+
+<div class="unit" id="mrt2">
+	<p class="math">Misalkan \( Y_t = X_t^2 - t \) untuk \( t \in [0, \infty) \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) adalah martingal terhadap \( \mathfrak{F} \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan \( s, \, t \in [0, \infty) \) dengan \( s \lt t \). Maka
+		\[ Y_t = X_t^2 - t = \left[X_s + (X_t - X_s)\right]^2 - t = X_s^2 + 2 X_s (X_t - X_s) + (X_t - X_s)^2 - t \]
+		Karena \( X_s \) terukur terhadap \( \mathscr{F}_s \) dan \( X_t - X_s \) saling bebas dengan \( \mathscr{F}_s \), kita memperoleh
+		\[ \E\left(Y_t \mid \mathscr{F}_s\right) = X_s^2 + 2 X_s \E(X_t - X_s) + \E\left[(X_t - X_s)\right]^2 - t \]
+		Namun, \( \E(X_t - X_s) = 0 \) dan \( \E\left[(X_t - X_s)^2\right] = \var(X_t - X_s) = t - s \), sehingga \( \E\left(Y_t \mid \mathscr{F}_s\right) = X_s^2 - s = Y_s \).</p>
+	</details>
+</div>
+
+<h4 id="5">Maksimum dan Waktu Pencapaian</h4>
+
+<p>Seperti biasa, kita mulai dengan gerak Brown standar \( \bs{X} = \{X_t: t \in [0, \infty) \} \). Untuk \( y \in [0, \infty) \), ingat bahwa \( \tau_y = \min\{t \ge 0: X_t = y\} \) adalah waktu pertama proses mencapai keadaan \( y \). Tentu saja, \( \tau_0 = 0 \). Untuk \( t \in [0, \infty) \), misalkan \( Y_t = \5\{X_s: 0 \le s \le t\} \), yaitu nilai maksimum \( \bs{X} \) pada selang \( [0, t] \). Perhatikan bahwa \( Y_t \) terdefinisi dengan baik berkat kekontinuan \( \bs{X} \), dan tentu saja \( Y_0 = 0 \). Dengan demikian, kita mempunyai dua proses stokastik baru: \( \{\tau_y: y \in [0, \infty)\} \) dan \( \{Y_t: t \in [0, \infty)\} \). Keduanya mempunyai himpunan indeks \( [0, \infty) \) dan (seperti yang akan kita lihat) ruang keadaan \( [0, \infty) \). Selain itu, kedua proses tersebut saling invers dalam suatu arti:</p>
+
+<div class="unit" id="max1">
+	<p class="math">Untuk \( t, \; y \in (0, \infty) \), \( \tau_y \le t \) jika dan hanya jika \( Y_t \ge y \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Karena gerak Brown standar bermula dari 0 dan kontinu, kedua kejadian itu sama-sama berarti bahwa proses mencapai keadaan \( y \) dalam selang \( [0, t] \).</p>
+	</details>
+</div>
+
+<p>Jadi, jika kita dapat menghitung distribusi \( Y_t \) untuk setiap \( t \in (0, \infty) \), kita dapat menghitung distribusi \( \tau_y \) untuk setiap \( y \in (0, \infty) \), dan sebaliknya.</p>
+
+<div class="unit" id="max2">
+	<p class="math">Untuk \( y \gt 0 \), \( \tau_y \) mempunyai distribusi yang sama dengan \( y^2 \big/ Z^2 \), dengan \( Z \) suatu peubah normal standar. Fungsi kepadatan probabilitas \( g_y \) diberikan oleh
+	\[ g_y(t) = \frac{y}{\sqrt{2 \pi t^3}} \exp\left(-\frac{y^2}{2 t}\right), \quad t \in (0, \infty) \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan \( t \gt 0 \). Dari <a href="#max1" class="ref"></a>, perhatikan bahwa \( X_t \ge y \implies Y_t \ge y \implies \tau_y \le t \). Karena itu,
+		\[ \P(X_t \ge y) = \P(X_t \ge y, \tau_y \le t) = \P(X_t \ge y \mid \tau_y \le t) \P(\tau_y \le t) \]
+		Namun, berdasarkan sifat Markov kuat <a href="#mar3" class="ref"></a>, \( s \mapsto X(\tau_y + s) - y \) merupakan gerak Brown standar lain. Jadi, \( \P(X_t \ge y \mid \tau_y \le t) = \frac{1}{2} \). Oleh karena itu,
+		\[ \P(\tau_y \le t) = 2 \P(X_t \ge y) = \frac{2}{\sqrt{2 \pi t}} \int_y^\infty e^{-x^2 / 2 t} \, dx = \frac{2}{\sqrt{2 \pi}} \int_{y/\sqrt{t}}^\infty e^{-z^2/2} \, dz \]
+		Integral kedua diperoleh dari integral pertama melalui substitusi \( z = x \big/ \sqrt{t} \). Kita dapat mengenali integral ini sebagai \( \P\left(y^2 \big/ Z^2 \le t\right) \), dengan \( Z \) berdistribusi normal standar. Menurunkan integral terhadap \( t \) menghasilkan fungsi kepadatan probabilitas.</p>
+	</details>
+</div>
+
+<p>Distribusi \( \tau_y \) adalah <dfn>distribusi L&eacute;vy</dfn> dengan parameter skala \( y^2 \), yang dinamai menurut matematikawan Prancis <a href="JavaScript:openAncillary('../biographies/Levy.html')" class="ancillary">Paul L&eacute;vy</a>. <a href="../special/Levy.html">Distribusi L&eacute;vy</a> dipelajari secara lebih terperinci dalam bab tentang <a href="../special/index.html">distribusi khusus</a>.</p>
+
+<div class="unit" id="max3">
+	<p class="app">Buka kembali simulasi <a href="JavaScript:openAncillary('../apps/ReflectedBrownianMotion.html')" class="ancillary">gerak Brown tercermin</a>. Amati bentuk dan letak fungsi kepadatan probabilitas \( \tau \), yaitu waktu pencapaian keadaan 1. Jalankan simulasi beberapa kali dalam modus satu langkah. Kemudian jalankan percobaan 1.000 kali dan bandingkan fungsi kepadatan empiris dengan fungsi kepadatan probabilitas.</p>
+</div>
+
+<div class="unit" id="max4">
+	<p class="app">Buka <a href="JavaScript:openAncillary('../apps/SpecialSimulator.html')" class="ancillary">simulator distribusi khusus</a> dan pilih distribusi L&eacute;vy. Ubah-ubah parameternya dan amati bentuk serta letak fungsi kepadatan probabilitas. Untuk nilai parameter tertentu, jalankan simulasi 1.000 kali dan bandingkan fungsi kepadatan empiris dengan fungsi kepadatan probabilitas.</p>
+</div>
+
+<div class="unit" id="max5">
+	<p class="math">Gerak Brown standar bersifat <dfn>rekuren</dfn>. Artinya, \( \P(\tau_y \lt \infty) = 1 \) untuk setiap \( y \in \R \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan terlebih dahulu \( y \gt 0 \). Dari bukti <a href="#max3" class="ref"></a>,
+		\[ \P(\tau_y \lt \infty) = \lim_{t \to \infty} \P(\tau_y \le t) = \frac{2}{\sqrt{2 \pi}} \int_0^\infty e^{-z^2 / 2} \, dz = 1 \]
+		Perhatikan bahwa integral di atas ekuivalen dengan integral fungsi kepadatan probabilitas normal standar pada \( \R \). Khususnya, fungsi \( g_y \) yang diberikan di atas memang merupakan fungsi kepadatan probabilitas yang sah. Jika \( y \lt 0 \), maka berdasarkan simetri, \( \tau_y \) mempunyai distribusi yang sama dengan \( \tau_{-y} \), sehingga \( \P(\tau_y \lt \infty) = 1 \). Secara trivial, \( \tau_0 = 0 \).</p>
+	</details>
+</div>
+
+<p>Jadi, untuk setiap \( y \in \R \), \( \bs{X} \) pada akhirnya mencapai \( y \) dengan probabilitas 1. Sebenarnya, kita dapat mengatakan lebih banyak:</p>
+
+<div class="unit" id="max6">
+	<p class="math">Dengan probabilitas 1, \( \bs{X} \) mengunjungi setiap titik dalam \( \R \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Berdasarkan kekontinuan, jika \( \bs{X} \) mencapai \( y \gt 0 \), maka \( \bs{X} \) mengunjungi setiap titik dalam \( [0, y] \). Berdasarkan simetri, pernyataan serupa berlaku untuk \( y \lt 0\). Jadi, kejadian bahwa \( \bs{X} \) mengunjungi setiap titik dalam \( \R \) adalah \( \bigcap_{n=1}^\infty \left(\{\tau_n \lt \infty\} \cap \{\tau_{-n} \lt \infty\}\right) \). Irisan terhitung dari kejadian-kejadian yang masing-masing berprobabilitas 1 tetap berprobabilitas 1.</p>
+	</details>
+</div>
+
+<p>Di sisi lain,</p>
+
+<div class="unit" id="max7">
+	<p class="math">Gerak Brown standar bersifat <dfn>rekuren nol</dfn>. Artinya, \( \E(\tau_y) = \infty \) untuk setiap \( y \in \R \setminus \{0\} \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Berdasarkan simetri, cukup meninjau \( y \gt 0 \). Dari <a href="#max2" class="ref"></a>,
+		\[ \E(\tau_y) = \int_0^\infty \P(\tau_y \gt t) \, dt = \frac{2}{\sqrt{2 \pi}} \int_0^\infty \int_0^{y / \sqrt{t}} e^{-z^2 / 2} \, dz \, dt \]
+		Mengubah urutan integrasi memberikan
+		\[ \E(\tau_y) = \frac{2}{\sqrt{2 \pi}} \int_0^\infty \int_0^{y^2/z^2} e^{-z^2 / 2} \, dt \, dz = \frac{2 y^2}{\sqrt{2 \pi}} \int_0^\infty \frac{1}{z^2} e^{-z^2 / 2} \, dz\]
+		Berikutnya, kita memperoleh batas bawah bagi integral terakhir dengan mengintegralkan pada selang \( [0, 1] \) dan memperhatikan bahwa \( e^{-z^2 / 2} \ge e^{-1/2} \) pada selang ini. Jadi,
+		\[ \E(\tau_y) \ge \frac{2 y^2 e^{-1/2}}{\sqrt{2 \pi}} \int_0^1 \frac{1}{z^2} \, dz = \infty \]</p>
+	</details>
+</div>
+
+<div class="unit" id="max8">
+	<p class="math">Proses \( \{\tau_x: x \in [0, \infty)\} \) mempunyai inkremen stasioner dan independen.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Bukti ini bertumpu pada homogenitas waktu dan ruang gerak Brown serta sifat Markov kuat. Misalkan \( x, \; y \in [0, \infty) \) dengan \( x \lt y \). Berdasarkan kekontinuan, \( \bs{X} \) harus mencapai \( x \) sebelum mencapai \( y \). Jadi, \( \tau_y = \tau_x + (\tau_y - \tau_x) \). Namun, \( \tau_y - \tau_x \) adalah waktu pencapaian \( y - x \) bagi proses \( t \mapsto X(\tau_x + t) - x \), dan seperti ditunjukkan dalam <a href="#mar3" class="ref"></a>, proses ini juga merupakan gerak Brown standar yang saling bebas dengan \( \mathscr{F}(\tau_x) \). Oleh karena itu, \( \tau_y - \tau_x \) saling bebas dengan \( \mathscr{F}(\tau_x) \) dan mempunyai distribusi yang sama dengan \( \tau_{y-x} \).</p>
+	</details>
+</div>
+
+<div class="unit" id="max9">
+	<p class="math">Keluarga fungsi kepadatan probabilitas \( \{g_x: x \in (0, \infty)\} \) tertutup terhadap konvolusi. Artinya, \( g_x * g_y = g_{x+y} \) untuk \( x, \, y \in (0, \infty) \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini langsung mengikuti <a href="#max8" class="ref"></a>. Bukti langsungnya merupakan latihan yang menarik.</p>
+	</details>
+</div>
+
+<p>Sekarang kita beralih ke proses maksimal \( \{Y_t: t \in [0, \infty)\} \), yaitu <q>invers</q> dari proses pencapaian \( \{\tau_y: y \in [0, \infty)\} \).</p>
+
+<div class="unit" id="max10">
+	<p class="math">Untuk \( t \gt 0 \), \( Y_t \) mempunyai distribusi yang sama dengan \( \left|X_t\right| \), yang dikenal sebagai <dfn>distribusi setengah-normal</dfn> dengan parameter skala \( t \). Fungsi kepadatan probabilitasnya adalah </p>
+	\[ h_t(y) = \sqrt{\frac{2}{\pi t}} \exp\left(-\frac{y^2}{2 t}\right), \quad y \in [0, \infty) \]
+	<details>
+		<summary>Rincian:</summary>
+		<p>Dari <a href="#max1" class="ref"></a> dan <a href="#max2" class="ref"></a>, \( \P(Y_t \ge y) = \P(\tau_y \le t) = 2 \P(X_t \ge y) = \P\left(\left|X_t\right| \ge y\right) \) untuk \( y \ge 0 \). Menurut definisi, \( \left|X_t\right| \) berdistribusi setengah-normal dengan parameter \( t \). Khususnya,
+		\[ \P(Y_t \ge y) = \frac{2}{\sqrt{2 \pi t}} \int_y^\infty e^{-x^2 / 2 t} \, dx \]
+		Mengambil negatif turunan integral di atas terhadap \( y \) menghasilkan fungsi kepadatan probabilitas.</p>
+	</details>
+</div>
+
+<p>Distribusi setengah-normal merupakan kasus khusus <a href="../special/FoldedNormal.html">distribusi normal terlipat</a>, yang dipelajari secara lebih terperinci dalam bab tentang <a href="../special/index.html">distribusi khusus</a>.</p>
+
+<div class="unit" id="max11">
+	<p class="math">Untuk \( t \ge 0 \), rataan dan varians \( Y_t \) adalah</p>
+	<ol class="sub">
+		<li>\( \E(Y_t) = \sqrt{\frac{2 t} {\pi}} \)</li>
+		<li>\( \var(Y_t) = t \left(1 - \frac{2}{\pi}\right) \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hasil-hasil ini mengikuti hasil standar bagi <a href="../special/FoldedNormal.html">distribusi setengah-normal</a>.</p>
+	</details>
+</div>
+
+<div class="unit" id="max12">
+	<p class="app">Dalam <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">simulasi gerak Brown standar</a>, pilih nilai maksimum. Ubah-ubah parameter \( t \), lalu amati bentuk fungsi kepadatan probabilitas serta letak dan ukuran batang rataan-simpangan baku. Jalankan simulasi 1.000 kali dan bandingkan fungsi kepadatan dan momen empiris dengan fungsi kepadatan probabilitas dan momen yang sebenarnya.</p>
+</div>
+
+<div class="unit" id="max13">
+	<p class="app">Buka <a href="JavaScript:openAncillary('../apps/SpecialSimulator.html')" class="ancillary">simulator distribusi khusus</a> dan pilih distribusi normal terlipat. Ubah-ubah parameternya, lalu amati bentuk dan letak fungsi kepadatan probabilitas serta ukuran dan letak batang rataan-simpangan baku. Untuk nilai parameter tertentu, jalankan simulasi 1.000 kali dan bandingkan fungsi kepadatan dan momen empiris dengan fungsi kepadatan dan momen yang sebenarnya.</p>
+</div>
+
+<h4 id="arc">Nol dan Hukum Arksinus</h4>
+
+<p>Seperti biasa, kita mulai dengan gerak Brown standar \( \bs{X} = \{X_t: t \in [0, \infty)\} \). Penelaahan titik-titik nol \( \bs{X} \) menghasilkan sejumlah hukum probabilitas yang disebut <dfn>hukum arksinus</dfn> karena, seperti yang mungkin kita duga, probabilitas dan distribusinya melibatkan fungsi arksinus.</p>
+
+<div class="unit" id="arc1">
+	<p class="math">Untuk \( s, \; t \in [0, \infty) \) dengan \( s \lt t \), misalkan \( E(s, t) \) adalah kejadian bahwa \( \bs{X} \) mempunyai nol dalam selang waktu \( (s, t) \). Artinya, \( \E(s, t) = \{X_u = 0 \text{ untuk suatu } u \in (s, t)\} \). Maka
+	\[ \P\left[E(s, t)\right] = 1 - \frac{2}{\pi} \arcsin\left(\sqrt{\frac{s}{t}}\right) \]</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Pengondisian pada \( X_s \) dan penggunaan simetri memberikan
+		\[ \P\left[E(s, t)\right] = \int_{-\infty}^\infty \P\left[E(s, t) \mid X_s = x\right] f_s(x) \, dx = 2 \int_{-\infty}^0 \P\left[E(s, t) \mid X_s = x\right] f_s(x) \, dx \]
+		Namun, berdasarkan homogenitas waktu dan ruang \( \bs{X} \), perhatikan bahwa untuk \( x \gt 0 \), \( \P\left[E(s, t) \mid X_s = -x\right] = \P(\tau_x \lt t - s) \). Artinya, proses yang berada pada keadaan \( -x \) pada waktu \( s \) dan mencapai 0 sebelum waktu \( t \) sama dengan proses yang berada pada keadaan 0 pada waktu 0 dan mencapai keadaan \( x \) sebelum waktu \( t - s \). Karena itu,
+		\[ \P\left[E(s, t)\right] = \int_0^\infty \int_0^{t-s} g_x(u) f_s(-x) \, du \, dx \]
+		dengan \( g_x \) fungsi kepadatan probabilitas \( \tau_x \) dari <a href="#max2" class="ref"></a>. Substitusi memberikan
+		\[ \P\left[E(s, t)\right] = \frac{1}{\pi \sqrt{s}} \int_0^{t-s} u^{-3/2} \int_0^\infty x \exp\left[-\frac{1}{2} x^2 \left(\frac{u + s}{u s} \right) \right] \, dx \, du = \frac{\sqrt{s}}{\pi} \int_0^{t-s} \frac{1}{(u + s) \sqrt{u}} \, du\]
+		Terakhir, substitusi \( v = \sqrt{u / s} \) pada integral terakhir memberikan
+		\[ \P\left[E(s, t)\right] = \frac{2}{\pi} \int_0^{\sqrt{t/s - 1}} \frac{1}{v^2 + 1} \, dv = \frac{2}{\pi} \arctan \left(\sqrt{\frac{t}{s} - 1}\right) = 1 - \frac{2}{\pi} \arcsin\left(\sqrt{\frac{s}{t}} \right) \]</p>
+	</details>
+</div>
+
+<p>Khususnya, \( \P\left[E(0, t)\right] = 1 \) untuk setiap \( t \gt 0 \), sehingga dengan probabilitas 1, \( \bs{X} \) mempunyai nol dalam \( (0, t) \). Sebenarnya, kita dapat mengatakan sedikit lebih banyak:</p>
+
+<div class="unit" id="arc2">
+	<p class="math">Untuk \( t \gt 0 \), \( \bs{X} \) mempunyai tak hingga banyak nol dalam \( (0, t) \) dengan probabilitas 1.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Kejadian bahwa \( \bs{X} \) mempunyai tak hingga banyak nol dalam \( (0, t) \) adalah \( \bigcap_{n=1}^\infty E(0, t / n) \). Irisan terhitung dari kejadian-kejadian yang masing-masing berprobabilitas 1 tetap berprobabilitas 1.</p>
+	</details>
+</div>
+
+<p>Teorema <a href="#arc2" class="ref"></a> merupakan bukti tambahan mengenai perilaku gerak Brown yang sangat aneh dan tidak teratur. Perhatikan pula bahwa \( \P\left[E(s, t)\right] \) hanya bergantung pada rasio \( s / t \). Jadi, \( \P\left[E(s, t)\right] = \P\left[E(1 / t, 1 / s)\right]\) dan \(\P\left[E(s, t)\right] = \P\left[E(c s, c t)\right] \) untuk setiap \( c \gt 0 \). Sebagai contoh, probabilitas adanya setidaknya satu nol dalam selang \( (2, 5) \) sama dengan probabilitas adanya setidaknya satu nol dalam \( (1/5, 1/2) \), sama dengan probabilitas adanya setidaknya satu nol dalam \( (6, 15) \), dan sama dengan probabilitas adanya setidaknya satu nol dalam \( (200, 500) \).</p>
+
+<div class="unit" id="arc3">
+	<p class="math">Untuk \( t \gt 0 \), misalkan \( Z_t \) menyatakan waktu nol terakhir \( \bs{X} \) sebelum waktu \( t \). Artinya, \( Z_t = \max\left\{s \in [0, t]: X_s = 0\right\} \). Maka \( Z_t \) mempunyai <dfn>distribusi arksinus</dfn> dengan parameter \( t \). Fungsi distribusi \( H_t \) dan fungsi kepadatan probabilitas \( h_t \) diberikan oleh
+	\begin{align}
+		H_t(s) &amp; = \frac{2}{\pi} \arcsin\left(\sqrt{\frac{s}{t}}\right), \quad  0 \le s \le t \\
+		h_t(s) &amp; =  \frac{1}{\pi \sqrt{s (t - s)}}, \quad 0 \lt s \lt t
+	\end{align}</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Untuk \( 0 \le s \lt t \), kejadian \( Z_t \le s \) sama dengan \( \lef[E(s, t)\right]^c \), yaitu tidak adanya nol dalam selang \( (s, t) \). Karena itu, rumus untuk \( H_t \) mengikuti <a href="#arc1" class="ref"></a>. Menurunkan \( H_t \) dan menyederhanakannya menghasilkan rumus untuk \( h_t \).</p>
+	</details>
+</div>
+
+<p>Fungsi kepadatan \( Z_t \) berbentuk huruf \( u \) dan simetris terhadap titik tengah \( t / 2 \), sehingga titik-titik dengan kepadatan terbesar berada di dekat kedua titik ujung 0 dan \( t \); hasil ini awalnya terasa mengejutkan. <a href="../special/Arcsine.html">Distribusi arksinus</a> dipelajari secara lebih terperinci dalam bab tentang <a href="../special/index.html">distribusi khusus</a>.</p>
+
+<div class="unit" id="arc4">
+	<p class="math">Rataan dan varians \( Z_t \) adalah</p>
+	<ol class="sub">
+		<li>\( \E(Z_t) = t / 2 \)</li>
+		<li>\( \E(Z_t) = t^2 / 8 \)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Ini merupakan hasil standar bagi distribusi arksinus. Fakta bahwa rataannya adalah titik tengah \(t/2\) tentu juga mengikuti simetri.</p>
+	</details>
+</div>
+
+<div class="unit" id="arc5">
+	<p class="app">Dalam simulasi <a href="JavaScript:openAncillary('../apps/BrownianMotion.html')" class="ancillary">gerak Brown standar</a>, pilih peubah nol terakhir. Ubah-ubah parameter \( t \), lalu amati bentuk fungsi kepadatan probabilitas serta ukuran dan letak batang rataan-simpangan baku. Untuk nilai \( t \) tertentu, jalankan simulasi beberapa kali dalam modus satu langkah dan amati posisi nol terakhir. Terakhir, jalankan simulasi 1.000 kali dan bandingkan fungsi kepadatan dan momen empiris dengan fungsi kepadatan probabilitas dan momen yang sebenarnya.</p>
+</div>
+
+<div class="unit" id="arc6">
+	<p class="app">Buka <a href="JavaScript:openAncillary('../apps/SpecialSimulator.html')" class="ancillary">simulator distribusi khusus</a> dan pilih distribusi arksinus. Ubah-ubah parameternya, lalu amati bentuk dan letak fungsi kepadatan probabilitas serta ukuran dan letak batang rataan-simpangan baku. Untuk nilai parameter tertentu, jalankan simulasi 1.000 kali dan bandingkan fungsi kepadatan dan momen empiris dengan fungsi kepadatan dan momen yang sebenarnya.</p>
+</div>
+
+<p>Sekarang misalkan \( Z = \{t \in [0, \infty): X_t = 0\} \) menyatakan himpunan nol dari \( \bs{X} \), sehingga \( Z \) merupakan subhimpunan acak dari \( [0, \infty) \). Teorema di bawah memberikan beberapa sifat aneh himpunan acak \( Z \), tetapi untuk memahaminya kita perlu meninjau beberapa definisi. <dfn>Himpunan tidak rapat di mana pun</dfn> adalah himpunan yang penutupannya mempunyai interior kosong. <dfn>Himpunan sempurna</dfn> adalah himpunan tanpa titik terisolasi. Seperti biasa, kita menggunakan \( \lambda \) untuk menyatakan ukuran Lebesgue pada \( \R \).</p>
+
+<div class="unit">
+	<p class="math">Dengan probabilitas 1,</p>
+	<ol class="sub">
+		<li>\( Z \) tertutup.</li>
+		<li>\( \lambda(Z) = 0 \)</li>
+		<li>\( Z \) tidak rapat di mana pun.</li>
+		<li>\( Z \) sempurna.</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Perhatikan bahwa \( Z\) adalah prapeta himpunan tertutup \( \{0\} \) di bawah fungsi \( t \mapsto X_t \). Karena fungsi ini kontinu dengan probabilitas 1, \( Z \) tertutup dengan probabilitas 1.</li>
+			<li>Untuk setiap \( t \in (0, \infty) \), perhatikan bahwa \( \P(t \in Z) = \P(X_t = 0) = 0 \) karena \( X_t \) mempunyai distribusi kontinu. Dengan menggunakan <a href="../foundations/Properties.html#fub">teorema Fubini</a>,
+			\[ \E\left[\lambda(Z)\right] = \E \left[\int_0^\infty \bs{1}_Z(t) \, d\lambda(t)\right] = \int_0^\infty \E\left[\bs{1}_Z(t)\right] \, d\lambda(t) = 0 \]
+			dan karena itu \( \P\left[\lambda(Z) = 0\right] = 1 \),</li>
+			<li>Karena \( Z \) tertutup dan mempunyai ukuran Lebesgue 0, interiornya kosong (semua pernyataan ini berlaku dengan probabilitas 1).</li>
+			<li>Misalkan \( s \in Z \). Maka, berdasarkan <a href="#trn1" class="ref"></a>, \( t \mapsto X_{s + t} \) juga merupakan gerak Brown standar. Namun, menurut <a href="#arc2" class="ref"></a>, dengan probabilitas 1, \( \bs{X} \) mempunyai nol dalam selang \( (s, s + 1 / n) \) untuk setiap \( n \in \N_+ \). Jadi, \( s \) bukan titik terisolasi dari \( Z \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Teorema berikut memberikan sifat yang lebih mendalam dari \( Z \). Dimensi Hausdorff \( Z \) berada di tengah-tengah antara dimensi sebuah titik (dimensi 0) dan dimensi sebuah garis (dimensi 1).</p>
+
+<div class="unit">
+	<p class="math">\( Z \) mempunyai dimensi Hausdorff \(\frac{1}{2}\).</p>
+</div>
+
+<h4 id="lil">Hukum Logaritma Berulang</h4>
+
+<p>Seperti biasa, misalkan \( \bs{X} = \{X_t: t \in [0, \infty)\} \) adalah gerak Brown standar. Berdasarkan definisi, kita tahu bahwa \( X_t \) berdistribusi normal dengan rataan 0 dan simpangan baku \( \sqrt{t} \), sehingga fungsi \( x = \sqrt{t} \) memberi gambaran tentang pertumbuhan proses seiring waktu. Laju pertumbuhan yang tepat diberikan oleh <dfn>hukum logaritma berulang</dfn> yang terkenal.</p>
+
+<div class="unit" id="lil1">
+	<p class="math">Dengan probabilitas 1,
+	\[ \limsup_{t \to \infty} \frac{X_t}{\sqrt{2 t \ln \ln t}} = 1 \]</p>
+</div>
+
+<h3>Latihan Komputasi</h3>
+
+<p>Dalam latihan berikut, \( \bs{X} = \{X_t: t \in [0, \infty)\} \) adalah proses gerak Brown standar.</p>
+
+<div class="unit">
+	<p class="math">Tentukan secara eksplisit fungsi kepadatan probabilitas, matriks kovarians, dan matriks korelasi dari \( (X_{0.5}, X_1, X_{2.3}) \).</p>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Gerak Brown</a></li>
+		<li class="current">1</li>
+		<li class="child"><a href="Drift.html" title="Gerak Brown dengan Hanyutan">2</a></li>
+		<li class="child"><a href="Bridge.html" title="Jembatan Brown">3</a></li>
+		<li class="child"><a href="Geometric.html" title="Gerak Brown Geometrik">4</a></li>
+		<li class="details"><button type="button" title="Perluas Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Perluas"></button></li>
+		<li class="details"><button type="button" title="Ciutkan Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Ciutkan"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Himpunan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

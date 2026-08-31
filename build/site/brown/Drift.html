@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+<head>
+<meta charset="utf-8"/>
+<title>Gerak Brown dengan Hanyutan</title>
+<meta content="Kyle Siegrist" name="author"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="probability, stochastic process, Brownian motion, normal distribution, drift paramater, scale parameter, transformation, strong Markov property, stopping time" name="keywords"/>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="../Basic.js"></script>
+<script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/></head>
+<body>
+<div class="latex">
+	\( \newcommand{\P}{\mathbb{P}} \)
+	\( \newcommand{\E}{\mathbb{E}} \) 
+	\( \newcommand{\R}{\mathbb{R}} \) 
+	\( \newcommand{\N}{\mathbb{N}} \)
+	\( \newcommand{\Z}{\mathbb{Z}} \)
+	\( \newcommand{\bs}{\boldsymbol} \)
+	\( \newcommand{\cov}{\text{cov}} \)
+	\( \newcommand{\cor}{\text{cor}} \)
+	\( \newcommand{\var}{\text{var}} \)
+	\( \newcommand{\sd}{\text{sd}} \)
+</div>
+<header>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="index.html">16. Gerak Brown</a></li>
+<li class="child"><a aria-label="Bagian 1: Gerak Brown Standar" href="Standard.html" title="Gerak Brown Standar">1</a></li>
+<li aria-current="page" aria-label="Bagian 2: Gerak Brown dengan Hanyutan dan Penskalaan (halaman saat ini)" class="current">2</li>
+<li class="child"><a aria-label="Bagian 3: Jembatan Brown" href="Bridge.html" title="Jembatan Brown">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Gerak Brown Geometrik" href="Geometric.html" title="Gerak Brown Geometrik">4</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
+</ol>
+<h1>2. Gerak Brown dengan Hanyutan dan Penskalaan</h1>
+</header><aside class="component-attribution" id="o009-rights-random-brown-drift">
+<strong>Asal komponen.</strong> Terjemahan halaman <cite>Brownian Motion with Drift</cite>
+karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
+Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
+beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
+atribusi. <a href="https://www.randomservices.org/random/brown/Drift.html">Baca sumber resmi</a>.
+</aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../markov/Recurrence.html">Keadaan transien dan rekuren</a> · <a href="../markov/Periodicity.html">Periodisitas</a> · <a href="../markov/Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="Standard.html">Gerak Brown standar</a> · <a href="Drift.html">Gerak Brown dengan hanyutan</a> · <a href="Bridge.html">Jembatan Brown</a> · <a href="Geometric.html">Gerak Brown geometrik</a> · <a href="../martingales/index.html">Ikhtisar martingal</a> · <a href="../markov/index.html">Ikhtisar proses Markov</a> · <a href="index.html">Ikhtisar gerak Brown</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="../labs/03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="../labs/04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a> · <a href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a></nav><main>
+<h2 class="reader-level-2">Teori Dasar</h2>
+<h3 class="reader-level-3" id="def">Definisi</h3>
+<p>Kita mulai dengan asumsi-asumsi yang berlaku bagi <a href="Standard.html">gerak Brown standar</a>, kecuali bahwa kita melonggarkan batasan pada parameter-parameter distribusi normal.</p>
+<div class="unit" id="def1">
+<p class="math">Misalkan \( \mu \in \R \) dan \( \sigma \in (0, \infty) \). <dfn>Gerak Brown</dfn> dengan parameter hanyutan \( \mu \) dan parameter skala \( \sigma \) adalah proses acak \(\bs{X} = \{X_t: t \in [0, \infty)\}\) dengan ruang keadaan \(\R\) yang memenuhi sifat-sifat berikut:</p>
+<ol class="sub">
+<li>\( X_0 = 0 \) (dengan probabilitas 1).</li>
+<li>\( \bs{X} \) mempunyai inkremen stasioner. Artinya, untuk \( s, \, t \in [0, \infty) \) dengan \( s \lt t \), distribusi \( X_t - X_s \) sama dengan distribusi \( X_{t - s} \).</li>
+<li>\( \bs{X} \) mempunyai inkremen independen. Artinya, untuk \( t_1, t_2, \ldots, t_n \in [0, \infty) \) dengan \( t_1 \lt t_2 \lt \cdots \lt t_n \), peubah-peubah acak \( X_{t_1}, X_{t_2} - X_{t_1}, \ldots, X_{t_n} - X_{t_{n-1}} \) saling bebas.</li>
+<li>\( X_t \) berdistribusi normal dengan rataan \( \mu t \) dan varians \( \sigma^2 t \) untuk \( t \in [0, \infty) \).</li>
+<li>Dengan probabilitas 1, \( t \mapsto X_t \) kontinu pada \( [0, \infty) \).</li>
+</ol>
+</div><aside class="reader-note reader-correction" id="brown-drift-downstream-corrections">
+<strong>Catatan koreksi hilir.</strong> Terjemahan sumber mempertahankan struktur
+dan permukaan matematika halaman beku. Lapisan pembaca ini menyatakan domain
+kepadatan, memperbaiki urutan waktu dan rumus korelasi, membatasi klaim
+penskalaan nontrivial, membedakan proses yang dimulai ulang dari gerak Brown
+standar, serta melengkapi ruang probabilitas, filtrasi, keterhinggaan waktu
+henti, dan sketsa bukti sifat Markov kuat. Laboratorium luring dan rangkaian
+latihan bersolusi diberi tanda terpisah sebagai karya asli edisi CC BY 4.0.
+</aside><section class="reader-original-lab" id="brown-drift-offline-lab">
+<style>
+#brown-drift-offline-lab fieldset { border: 1px solid #777; margin: 1rem 0; padding: 1rem; }
+#brown-drift-offline-lab .brown-drift-fields { display: grid; gap: .65rem; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+#brown-drift-offline-lab label { display: grid; gap: .2rem; height: auto; margin-left: 0; }
+#brown-drift-offline-lab input { box-sizing: border-box; font: inherit; height: 2.4rem; margin-left: 0; max-width: none; padding: .25rem; width: 100%; }
+#brown-drift-offline-lab .brown-drift-actions { align-items: center; display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+#brown-drift-offline-lab button { font: inherit; height: auto; margin-left: 0; padding: .45rem .75rem; }
+#brown-drift-chart { background: #fff; border: 1px solid #777; display: block; height: auto; max-width: 100%; }
+#brown-drift-offline-lab .brown-drift-frame { fill: #fff; stroke: #777; }
+#brown-drift-offline-lab .brown-drift-axis { stroke: #999; stroke-width: 1; }
+#brown-drift-offline-lab .brown-drift-path { fill: none; stroke: #2457a7; stroke-width: 2; }
+#brown-drift-offline-lab .brown-drift-bar { fill: #8baee5; stroke: #31598d; stroke-width: .5; }
+#brown-drift-offline-lab .brown-drift-density { fill: none; stroke: #9a2e65; stroke-width: 2; }
+#brown-drift-offline-lab .brown-drift-title { font-size: 14px; font-weight: 700; }
+#brown-drift-offline-lab table { border-collapse: collapse; margin: 1rem 0; width: 100%; }
+#brown-drift-offline-lab th, #brown-drift-offline-lab td { border: 1px solid #777; padding: .4rem; text-align: right; }
+#brown-drift-offline-lab th:first-child { text-align: left; }
+@media print { #brown-drift-offline-lab fieldset, #brown-drift-offline-lab .brown-drift-actions { display: none; } }
+</style>
+<p class="reader-note-title"><strong>Laboratorium luring: pengaruh hanyutan dan skala</strong></p>
+<p><strong>Status dan lisensi.</strong> Laboratorium deterministik ini merupakan
+karya asli edisi, berfungsi tanpa jaringan, dan dilisensikan CC BY 4.0. Ia
+melengkapi—bukan menggantikan—<a href="https://www.randomservices.org/random/apps/DriftBrownianMotion.html">aplikasi resmi daring Random</a>.</p>
+<p>Ubah parameter, jalankan simulasi, lalu bandingkan histogram nilai akhir
+dengan kepadatan normal teoretis serta rataan dan varians empiris dengan
+\( \E(X_T)=\mu T \) dan \( \var(X_T)=\sigma^2T \). Benih yang sama selalu
+menghasilkan keluaran yang sama.</p>
+<fieldset>
+<legend>Parameter simulasi</legend>
+<div class="brown-drift-fields">
+<label for="brown-drift-mu">Hanyutan μ<input id="brown-drift-mu" max="20" min="-20" step="0.1" type="number" value="0.4"/></label>
+<label for="brown-drift-sigma">Skala σ<input id="brown-drift-sigma" max="20" min="0.1" step="0.1" type="number" value="1.2"/></label>
+<label for="brown-drift-horizon">Horizon T<input id="brown-drift-horizon" max="20" min="0.1" step="0.1" type="number" value="1"/></label>
+<label for="brown-drift-steps">Banyak langkah<input id="brown-drift-steps" max="2000" min="20" step="1" type="number" value="200"/></label>
+<label for="brown-drift-repetitions">Banyak replikasi<input id="brown-drift-repetitions" max="5000" min="10" step="10" type="number" value="1000"/></label>
+<label for="brown-drift-seed">Benih deterministik<input id="brown-drift-seed" max="4294967295" min="1" step="1" type="number" value="20260825"/></label>
+</div>
+<div class="brown-drift-actions"><button id="brown-drift-run" type="button">Jalankan simulasi</button><button id="brown-drift-reset" type="button">Pulihkan parameter</button></div>
+</fieldset>
+<p aria-live="polite" id="brown-drift-status">Simulator sedang disiapkan.</p>
+<svg aria-labelledby="brown-drift-chart-title brown-drift-chart-description" id="brown-drift-chart" role="img" viewbox="0 0 750 350">
+<title id="brown-drift-chart-title">Lintasan dan distribusi akhir gerak Brown dengan hanyutan</title>
+<desc id="brown-drift-chart-description">Grafik akan diperbarui setelah simulasi dijalankan.</desc>
+</svg>
+<table>
+<caption>Perbandingan momen nilai akhir \(X_T\)</caption>
+<thead><tr><th scope="col">Momen</th><th scope="col">Teoretis</th><th scope="col">Empiris</th></tr></thead>
+<tbody>
+<tr><th scope="row">Rataan</th><td id="brown-drift-theoretical-mean">—</td><td id="brown-drift-empirical-mean">—</td></tr>
+<tr><th scope="row">Varians</th><td id="brown-drift-theoretical-variance">—</td><td id="brown-drift-empirical-variance">—</td></tr>
+</tbody>
+</table>
+<noscript>JavaScript diperlukan untuk menjalankan simulasi. Rumus teoretis dan latihan bersolusi di bawah tetap dapat dibaca tanpa JavaScript.</noscript>
+<script src="../apps/brown-drift-offline.js"></script>
+</section>
+<p>Perhatikan bahwa kita tidak dapat menentukan parameter-parameter distribusi normal \(X_t\) secara sembarang. Kita tahu bahwa karena \(\bs{X}\) mempunyai <a href="../markov/General.html#inc">inkremen stasioner dan independen</a>, \(\E(X_t)\) dan \(\var(X_t)\) harus merupakan fungsi linear dari \( t \in [0, \infty) \). </p>
+<div class="unit" id="def2">
+<p class="app">Buka simulasi <a class="ancillary" href="https://www.randomservices.org/random/apps/DriftBrownianMotion.html">aplikasi resmi daring gerak Brown dengan hanyutan dan penskalaan</a>. Jalankan simulasi beberapa kali dalam modus satu langkah untuk berbagai nilai parameter. Amati perilaku lintasan sampelnya. Untuk nilai parameter tertentu, jalankan simulasi 1.000 kali dan bandingkan fungsi kepadatan dan momen empiris dengan fungsi kepadatan probabilitas dan momen yang sebenarnya. </p>
+</div>
+<p>Gerak Brown dengan hanyutan dan penskalaan mudah dikonstruksi dari gerak Brown standar, sehingga kita tidak perlu mencemaskan persoalan eksistensinya.</p>
+<div class="unit" id="def3">
+<p class="math">Hubungan dengan gerak Brown standar.</p>
+<ol class="sub">
+<li>Misalkan \(\bs{Z} = \{Z_t: t \in [0, \infty)\}\) adalah gerak Brown standar, serta \(\mu \in \R\) dan \(\sigma \in (0, \infty)\). Misalkan \(X_t = \mu t + \sigma Z_t\) untuk \(t \in [0, \infty)\). Maka \(\bs{X} = \{X_t: t \in [0, \infty)\}\) adalah gerak Brown dengan parameter hanyutan \(\mu\) dan parameter skala \(\sigma\).</li>
+<li>Sebaliknya, misalkan \(\bs{X} = \{X_t: t \in [0, \infty)\}\) adalah gerak Brown dengan parameter hanyutan \(\mu \in \R\) dan parameter skala \(\sigma \in (0, \infty)\). Misalkan \(Z_t = (X_t - \mu t) \big/ \sigma\) untuk \(t \in [0, \infty)\). Maka \(\bs{Z} = \{Z_t: t \in [0, \infty)\}\) adalah gerak Brown standar.</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Definisi">Rincian:</summary>
+<p>Dengan mudah dapat ditunjukkan bahwa proses \(\bs{X}\) dan \(\bs{Z}\) memenuhi perangkat asumsi yang sesuai.</p>
+</details>
+</div>
+<p>Dalam bentuk diferensial, bagian (a) dapat ditulis sebagai
+\[ d X_t = \mu \, dt + \sigma \, d Z_t, \; X_0 = 0 \]</p>
+<h3 class="reader-level-3" id="dis">Distribusi Berdimensi Hingga</h3>
+<p>Misalkan \( \bs{X} = \{X_t: t \in [0, \infty)\} \) adalah gerak Brown dengan parameter hanyutan \(\mu \in \R\) dan parameter skala \(\sigma \in (0, \infty)\). Dari bagian (d) definisi <a class="ref" href="#def1"></a>, untuk \(t \in (0,\infty)\), \( X_t \) mempunyai fungsi kepadatan probabilitas \( f_t \) yang diberikan oleh
+\[ f_t(x) = \frac{1}{\sigma \sqrt{2 \pi t}} \exp\left[-\frac{1}{2  \sigma^2 t} (x - \mu t)^2\right], \quad x \in \R \]
+Pada \(t=0\), distribusinya adalah massa titik di 0. Keluarga kepadatan satu-waktu tersebut, bersama sifat inkremen stasioner dan independen, menentukan distribusi berdimensi hingga dari \( \bs{X} \).</p>
+<div class="unit" id="dis1">
+<p class="math">Jika \( t_1, t_2, \ldots, t_n \in (0, \infty) \) dengan \( 0 \lt t_1 \lt t_2 \lt \cdots \lt t_n \), maka \( (X_{t_1}, X_{t_2}, \ldots, X_{t_n}) \) mempunyai fungsi kepadatan probabilitas \( f_{t_1, t_2, \ldots, t_n} \) yang diberikan oleh
+	\[ f_{t_1, t_2, \ldots, t_n}(x_1, x_2, \ldots, x_n) = f_{t_1}(x_1) f_{t_2 - t_1}(x_2 - x_1) \cdots f_{t_n - t_{n-1}}(x_n - x_{n-1}), \quad (x_1, x_2, \ldots, x_n) \in \R^n \]</p>
+<details>
+<summary aria-label="Rincian: Distribusi Berdimensi Hingga, butir 1">Rincian:</summary>
+<p>Hal ini berlaku karena \(\bs{X}\) mempunyai <a href="../markov/General.html#inc">inkremen stasioner dan independen</a>.</p>
+</details>
+</div><aside class="reader-original-solution" id="brown-drift-mastery">
+<p class="reader-note-title"><strong>Latihan penguasaan asli edisi</strong></p>
+<p><strong>Status dan lisensi.</strong> Soal, petunjuk, dan solusi berikut merupakan
+karya asli edisi ini, dilisensikan CC BY 4.0, dan bukan bagian dari halaman Random.</p>
+<p id="brown-drift-mastery-exercise"><strong>Soal.</strong> Untuk gerak Brown dengan
+hanyutan \(\mu\) dan skala \(\sigma\), tentukan vektor rataan, fungsi kepadatan
+gabungan, matriks kovarians, dan matriks korelasi
+\((X_{1/2},X_1,X_{5/2})\). Tentukan pula distribusi bersyarat
+\(X_{5/2}\mid X_1=x_2\).</p>
+<details id="brown-drift-mastery-hint">
+<summary aria-label="Petunjuk: Distribusi Berdimensi Hingga, butir 2">Petunjuk</summary>
+<p>Gunakan inkremen independen pada selang dengan panjang
+\(1/2,1/2,3/2\), lalu gunakan \(\cov(X_s,X_t)=\sigma^2\min\{s,t\}\).</p>
+</details>
+<details id="brown-drift-mastery-solution">
+<summary aria-label="Jawaban dan solusi: Distribusi Berdimensi Hingga, butir 3">Jawaban dan solusi</summary>
+<p>Vektor rataannya adalah
+\[ \mu\left(\frac12,1,\frac52\right). \]
+Dengan \(x=(x_1,x_2,x_3)\in\R^3\), kepadatan gabungannya ialah
+\[ f_{1/2}(x_1)f_{1/2}(x_2-x_1)f_{3/2}(x_3-x_2) \]
+atau, secara eksplisit,
+\[ \frac{1}{(2\pi)^{3/2}\sigma^3\sqrt{3/8}}
+\exp\!\left[-\frac{1}{2\sigma^2}\left(
+\frac{(x_1-\mu/2)^2}{1/2}
++\frac{(x_2-x_1-\mu/2)^2}{1/2}
++\frac{(x_3-x_2-3\mu/2)^2}{3/2}
+\right)\right]. \]</p>
+<p>Matriks kovarians dan korelasinya adalah
+\[ \Sigma=\sigma^2\begin{pmatrix}
+1/2&amp;1/2&amp;1/2\\
+1/2&amp;1&amp;1\\
+1/2&amp;1&amp;5/2
+\end{pmatrix},\qquad
+R=\begin{pmatrix}
+1&amp;1/\sqrt2&amp;1/\sqrt5\\
+1/\sqrt2&amp;1&amp;\sqrt{2/5}\\
+1/\sqrt5&amp;\sqrt{2/5}&amp;1
+\end{pmatrix}. \]</p>
+<p>Karena inkremen setelah waktu 1 saling bebas dengan masa lalu,
+\[ X_{5/2}\mid X_1=x_2\sim
+N\!\left(x_2+\frac32\mu,\frac32\sigma^2\right). \]</p>
+</details>
+</aside>
+<div class="unit" id="dis2">
+<p class="math">\( \bs{X} \) adalah proses Gauss dengan fungsi rataan \( m \) dan fungsi kovarians \( c \) yang diberikan oleh</p>
+<ol class="sub">
+<li>\( m(t) = \mu t \) untuk \( t \in [0, \infty) \)</li>
+<li>\( c(s, t) = \sigma^2 \min\{s, t\} \) untuk \( s, \, t \in [0, \infty) \).</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Distribusi Berdimensi Hingga, butir 4">Rincian:</summary>
+<p>Fakta bahwa \(\bs{X}\) adalah proses Gauss mengikuti konstruksi \(X_t = \mu t + \sigma Z_t\) untuk \(t \in [0, \infty)\), dengan \(\bs{Z}\) merupakan gerak Brown standar. Kita tahu bahwa \(\bs{Z}\) adalah proses Gauss. Bentuk fungsi rataan dan kovarians mengikuti fakta bahwa \(\bs{X}\) mempunyai inkremen stasioner dan independen. Perhatikan bahwa \(\mu\) dan \(\sigma^2\) adalah rataan dan varians \(X_1\).</p>
+</details>
+</div>
+<p>Fungsi korelasi tidak bergantung pada parameter-parameter tersebut sehingga sama dengan fungsi korelasi gerak Brown standar. Hal ini tidak mengherankan karena korelasi merupakan ukuran keterkaitan yang dibakukan.
+\[ \cor(X_s, X_t) = \frac{\sigma^2 \min\{s, t\}}{\sigma\sqrt{s}\,\sigma\sqrt{t}} = \frac{\min\{s, t\}}{\sqrt{s t}} = \sqrt{\frac{\min\{s, t\}}{\max\{s, t\}}}, \quad (s, t) \in (0, \infty)^2 \]</p>
+<h3 class="reader-level-3" id="trn">Transformasi</h3>
+<p>Ada dua transformasi sederhana yang mempertahankan gerak Brown, tetapi mungkin mengubah parameter hanyutan dan skalanya. Titik awal kita adalah gerak Brown \( \bs{X} = \{X_t: t \in [0, \infty)\} \) dengan parameter hanyutan \( \mu \in \R \) dan parameter skala \( \sigma \in (0, \infty) \). Hasil pertama kita melibatkan penskalaan \( \bs{X} \) dalam waktu dan ruang (serta kemungkinan pencerminan terhadap titik asal ruang).</p>
+<div class="unit" id="trn1">
+<p class="math">Misalkan \( a \in \R \setminus \{0\} \) dan \( b \in (0, \infty) \). Definisikan \( Y_t = a X_ {b t} \) untuk \( t \ge 0 \). Maka \( \bs{Y} = \{Y_t: t \ge 0\} \) juga merupakan gerak Brown dengan parameter hanyutan \( a b \mu \) dan parameter skala \(\left|a\right| \sqrt{b} \sigma \). </p>
+<details>
+<summary aria-label="Rincian: Transformasi, butir 1">Rincian:</summary>
+<p>Jelas bahwa proses baru tersebut tetap merupakan proses Gauss. Fungsi rataannya adalah \( \E(Y_t) = a \E(X_{b t}) = a b \mu t \) untuk \( t \in [0, \infty) \). Fungsi kovariansnya adalah \( \cov(Y_s, Y_t) = a^2 \cov(X_{bs}, X_{bt}) = a^2 \sigma^2 \min\{b s,  b t\} = a^2 b \sigma^2 \min\{s, t\} \) untuk \( (s, t) \in [0, \infty)^2 \). Terakhir, karena \( \bs{X} \) kontinu, \( \bs{Y} \) juga kontinu.</p>
+</details>
+</div>
+<p>Misalkan \( a \gt 0 \) dalam teorema sebelumnya, sehingga kita melakukan penskalaan dalam waktu dan ruang. Untuk mempertahankan parameter hanyutan semula \(\mu\), kita harus mempunyai \(a b = 1\) (jika \(\mu \ne 0\)). Untuk mempertahankan parameter skala semula \(\sigma\), kita harus mempunyai \( a \sqrt{b} = 1 \). Jika \(\mu \ne 0\), kedua syarat tersebut memaksa \(a=b=1\), sehingga tidak ada penskalaan nontrivial yang mempertahankan kedua parameter. Jika \(\mu = 0\), kita memperoleh keluarga penskalaan nontrivial berikut, yang sedikit memperumum salah satu hasil untuk gerak Brown standar:</p>
+<div class="unit" id="trn2">
+<p class="math">Misalkan \(\bs{X}\) adalah gerak Brown dengan parameter hanyutan \(\mu = 0\) dan parameter skala \(\sigma &gt; 0\). Misalkan pula \(c \gt 0 \) dan \(Y_t = \frac{1}{c} X_{c^2 t}\) untuk \(t \ge 0\). Maka \(\bs{Y} = \{Y_t: t \in [0, \infty)\}\) juga merupakan gerak Brown dengan parameter hanyutan 0 dan parameter skala \(\sigma\).</p>
+</div>
+<p>Hasil kita berikutnya berkaitan dengan sifat Markov, yang akan kita telaah secara lebih terperinci di bawah. Kita kembali ke kasus umum ketika \(\bs{X} = \{X_t: t \in [0, \infty)\}\) adalah gerak Brown dengan parameter hanyutan \(\mu \in \R\) dan parameter skala \(\sigma \in (0, \infty)\). Jika kita <q>memulai ulang</q> gerak Brown pada waktu tetap \( s \), lalu menggeser titik asal ke \( X_s \), kita memperoleh gerak Brown lain dengan parameter-parameter yang sama.</p>
+<div class="unit" id="trn3">
+<p class="math">Tetapkan \( s \in [0, \infty) \) dan definisikan \( Y_t = X_{s + t} - X_s \) untuk \( t \ge 0 \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) juga merupakan gerak Brown dengan parameter hanyutan dan skala yang sama.</p>
+<details>
+<summary aria-label="Rincian: Transformasi, butir 2">Rincian:</summary>
+<p>Jelas bahwa \( \bs{Y} \) juga merupakan proses Gauss. Selanjutnya, \( \E(Y_t) = \E(X_{s + t}) - \E(X_s) = \mu(s + t) - \mu s = \mu t  \) untuk \( t \in [0, \infty) \). Selain itu, jika \( r, \, t \in [0, \infty) \) dengan \( r \le t \), maka 
+		\begin{align}
+			\cov(Y_r, Y_t) &amp; = \cov(X_{s + r} - X_s, X_{s + t} - X_s) \\
+			&amp; = \cov(X_{s + r}, X_{s + t}) - \cov(X_{s + r}, X_s) - \cov(X_s, X_{s + t}) + \cov(X_s, X_s) \\
+			&amp; = \sigma^2 (s + r) - \sigma^2 s - \sigma^2 s + \sigma^2 s = \sigma^2 r
+		\end{align}
+		Terakhir, \( \bs{Y} \) kontinu karena kekontinuan \( \bs{X} \).</p>
+</details>
+</div>
+<h3 class="reader-level-3" id="mar">Sifat Markov dan Waktu Henti</h3>
+<p>Seperti biasa, kita mulai dengan gerak Brown \( \bs{X} = \{X_t: t \in [0, \infty)\} \) dengan parameter hanyutan \( \mu \) dan parameter skala \( \sigma \). Ingat kembali bahwa <a href="../markov/General.html">proses Markov</a> mempunyai sifat bahwa masa depan saling bebas dengan masa lalu apabila keadaan sekarang diketahui. Berkat sifat inkremen stasioner dan independen, gerak Brown mempunyai sifat ini. Proses dengan \(X_0=0\) sudah bersifat Markov. Untuk membentuk keluarga hukum Markov yang diindeks oleh keadaan awal, kita juga mempertimbangkan versi dengan \(X_0=x\in\R\); bila keadaan awal diacak, hukum awalnya ditetapkan dan diambil independen dari inkremen berikutnya. Misalkan \( \mathscr{F}_t = \sigma\{X_s: 0 \le s \le t\} \), yaitu aljabar-sigma yang dibangkitkan oleh proses sampai waktu \( t \in [0, \infty) \). Keluarga aljabar-\(\sigma\) \(\mathfrak{F} = \{\mathscr{F}_t: t \in [0, \infty)\}\) dikenal sebagai suatu <a href="../prob/Stop.html">filtrasi</a>.</p>
+<div class="unit" id="mar1">
+<p class="math">Gerak Brown merupakan proses Markov yang homogen terhadap waktu dengan kepadatan probabilitas transisi \( p \) yang diberikan oleh
+	\[ p_t(x, y) = f_t(y - x) =\frac{1}{\sigma \sqrt{2 \pi t}} \exp\left[-\frac{1}{2  \sigma^2 t} (y - x - \mu t)^2\right], \quad t \in (0, \infty); \; x, \, y \in \R \]</p>
+<details>
+<summary aria-label="Rincian: Sifat Markov dan Waktu Henti, butir 1">Rincian:</summary>
+<p>Tetapkan \( s \in [0, \infty) \). Hasil ini mengikuti fakta bahwa proses \( \{X_{s+t} - X_s: t \in [0, \infty)\} \) merupakan gerak Brown lain dengan parameter hanyutan dan skala yang sama, seperti ditunjukkan dalam <a class="ref" href="#trn3"></a>, dan saling bebas dengan \( \mathscr{F}_s \).
+	</p></details>
+</div>
+<div class="unit" id="mar2">
+<p class="math">Kepadatan transisi \( p \) memenuhi <dfn>persamaan difusi</dfn> berikut. Yang pertama dikenal sebagai <dfn>persamaan maju</dfn> dan yang kedua sebagai <dfn>persamaan mundur</dfn>.</p>
+	\begin{align}
+		\frac{\partial}{\partial t} p_t(x, y) &amp; = -\mu \frac{\partial}{\partial y} p_t(x, y) + \frac{1}{2} \sigma^2 \frac{\partial^2}{ \partial y^2} p_t(x, y) \\
+		\frac{\partial}{\partial t} p_t(x, y) &amp; = \mu \frac{\partial}{\partial x} p_t(x, y) + \frac{1}{2} \sigma^2 \frac{\partial^2}{ \partial x^2} p_t(x, y)
+	\end{align}
+	<details>
+<summary aria-label="Rincian: Sifat Markov dan Waktu Henti, butir 2">Rincian:</summary>
+<p>Hasil-hasil ini mengikuti kalkulus standar.</p>
+</details>
+</div>
+<p>Persamaan-persamaan tersebut disebut persamaan difusi karena turunan ruang dalam persamaan pertama diambil terhadap \( y \), yakni keadaan <em>maju</em> pada waktu \( t \), sedangkan turunan ruang dalam persamaan kedua diambil terhadap \( x \), yakni keadaan <em>mundur</em> pada waktu 0.</p>
+<p>Ingat kembali bahwa waktu acak \( \tau \) yang bernilai dalam \( [0, \infty] \) merupakan <dfn>waktu henti</dfn> terhadap proses \( \bs{X} \) apabila \( \{\tau \le t\} \in \mathscr{F}_t \) untuk setiap \( t \in [0, \infty) \). Dengan aljabar-\(\sigma\) ambien \(\mathscr F_\infty=\sigma(\bigcup_{t\ge0}\mathscr F_t)\), aljabar-\( \sigma \) yang berkaitan dengan \( \tau \) adalah
+\[ \mathscr{F}_\tau = \left\{B \in \mathscr{F}_\infty: B \cap \{\tau \le t\} \in \mathscr{F}_t \text{ untuk setiap } t \ge 0\right\}. \]
+Lihat bagian tentang <a href="../prob/Stop.html">Filtrasi dan Waktu Henti</a> untuk informasi lebih lanjut. Pernyataan yang melibatkan \(X_\tau\) di bawah mensyaratkan \(\P(\tau\lt\infty)=1\). Dengan filtrasi natural yang telah dilengkapi dan dibuat kontinu kanan, gerak Brown \( \bs{X} \) juga merupakan proses Markov kuat.</p>
+<div class="unit" id="mar3">
+<p class="math">Pada ruang probabilitas terfilter dengan filtrasi natural yang telah dilengkapi dan dibuat kontinu kanan, misalkan \( \tau \) adalah waktu henti dengan \(\P(\tau\lt\infty)=1\), dan definisikan \( Y_t = X_{\tau + t} - X_\tau \) untuk \( t \in [0, \infty) \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) merupakan gerak Brown dengan parameter hanyutan dan skala yang sama, serta saling bebas dengan \( \mathscr{F}_\tau \).</p>
+<details id="brown-drift-strong-markov-proof"><summary aria-label="Sketsa bukti yang dilengkapi: Sifat Markov dan Waktu Henti, butir 3">Sketsa bukti yang dilengkapi:</summary><p>Untuk waktu henti yang mengambil berhingga banyak nilai pada kisi, kondisikan pada setiap kejadian \(\{\tau=t_k\}\) dan gunakan inkremen stasioner serta independen. Untuk waktu henti umum yang hingga hampir pasti, gunakan pendekatan kisi dari atas \(\tau_n=2^{-n}\lceil2^n\tau\rceil\downarrow\tau\). Kekontinuan lintasan memberi konvergensi proses yang dimulai ulang, sedangkan kekontinuan kanan dan kelengkapan filtrasi memindahkan sifat kebebasan dari \(\mathscr F_{\tau_n}\) ke \(\mathscr F_\tau\). Distribusi berdimensi hingga hasil limit dan kekontinuan lintasannya kemudian memberi gerak Brown dengan parameter yang sama.</p></details>
+</div>
+<!--
+<h3>Latihan Komputasi</h3>
+
+<div class="unit" id="exe1">
+<p class="math">Tentukan secara eksplisit fungsi kepadatan probabilitas, matriks kovarians, dan matriks korelasi dari \( (X_{0.5}, X_1, X_{2.3}) \).</p>
+</div>
+-->
+</main><footer>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="index.html">16. Gerak Brown</a></li>
+<li class="child"><a aria-label="Bagian 1: Gerak Brown Standar" href="Standard.html" title="Gerak Brown Standar">1</a></li>
+<li aria-current="page" aria-label="Bagian 2: Gerak Brown dengan Hanyutan dan Penskalaan (halaman saat ini)" class="current">2</li>
+<li class="child"><a aria-label="Bagian 3: Jembatan Brown" href="Bridge.html" title="Jembatan Brown">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Gerak Brown Geometrik" href="Geometric.html" title="Gerak Brown Geometrik">4</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
+</ol>
+<ul class="map">
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/data/index.html">Himpunan Data</a></li>
+<li class="child"><a class="ancillary" href="https://www.randomservices.org/random/biographies/index.html"> Biografi</a></li>
+</ul>
+</footer>
+<script>getReferences();</script>
+</body>
+</html>

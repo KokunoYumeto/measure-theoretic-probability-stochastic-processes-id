@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Latihan penguasaan konvergensi dan teorema limit: butir 03–04</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="01-konvergensi-01-02.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="01-konvergensi-01-02.html">Unit sebelumnya</a></nav><main class="mastery-reader">
+
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#latihan-penguasaan-konvergensi-dan-teorema-limit-butir-0304" id="toc-latihan-penguasaan-konvergensi-dan-teorema-limit-butir-0304">Latihan
+penguasaan konvergensi dan teorema limit: butir 03–04</a>
+<ul>
+<li><a href="#metode-delta-orde-kedua-dan-ketergantungan-pada-limit" id="toc-metode-delta-orde-kedua-dan-ketergantungan-pada-limit">03.
+Metode delta orde kedua dan ketergantungan pada limit</a>
+<ul>
+<li><a href="#soal" id="toc-soal">Soal</a></li>
+<li><a href="#petunjuk-01" id="toc-petunjuk-01">Petunjuk 01</a></li>
+<li><a href="#petunjuk-02" id="toc-petunjuk-02">Petunjuk 02</a></li>
+<li><a href="#petunjuk-03" id="toc-petunjuk-03">Petunjuk 03</a></li>
+<li><a href="#jawaban-singkat" id="toc-jawaban-singkat">Jawaban
+singkat</a></li>
+<li><a href="#penyelesaian" id="toc-penyelesaian">Penyelesaian</a></li>
+</ul></li>
+<li><a href="#diagram-fase-lonjakan-langka-dan-konvergensi-momen" id="toc-diagram-fase-lonjakan-langka-dan-konvergensi-momen">04. Diagram
+fase lonjakan langka dan konvergensi momen</a>
+<ul>
+<li><a href="#soal-1" id="toc-soal-1">Soal</a></li>
+<li><a href="#petunjuk-01-1" id="toc-petunjuk-01-1">Petunjuk 01</a></li>
+<li><a href="#petunjuk-02-1" id="toc-petunjuk-02-1">Petunjuk 02</a></li>
+<li><a href="#jawaban-singkat-1" id="toc-jawaban-singkat-1">Jawaban
+singkat</a></li>
+<li><a href="#penyelesaian-1" id="toc-penyelesaian-1">Penyelesaian</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="latihan-penguasaan-konvergensi-dan-teorema-limit-butir-0304">Latihan
+penguasaan konvergensi dan teorema limit: butir 03–04</h1>
+<div class="mastery-item" data-category-item="03" data-outcome-ids="outcome.o009.convergence.03.second-order-delta-method" data-prerequisite-ids="theory.o009.dist.convergence.fundamental-limit-theorems theory.o009.prob.convergence.random-variables" data-rights-id="rights.o009.mastery.convergence.03.cc-by-4.0" id="mastery.o009.convergence.03">
+<h2 id="metode-delta-orde-kedua-dan-ketergantungan-pada-limit">03.
+Metode delta orde kedua dan ketergantungan pada limit</h2>
+<p><strong>Ikatan prasyarat.</strong> <a href="../dist/Convergence.html"><code>theory.o009.dist.convergence.fundamental-limit-theorems</code></a>
+dan <a href="../prob/Convergence.html#lim"><code>theory.o009.prob.convergence.random-variables</code></a>
+(teorema limit pusat, konvergensi dalam distribusi, pemetaan kontinu,
+dan teorema Slutsky).</p>
+<p><strong>Ikatan capaian.</strong>
+<code>outcome.o009.convergence.03.second-order-delta-method</code>:
+menerapkan ekspansi Taylor stokastik pada titik dengan turunan pertama
+nol, memilih skala orde kedua yang tepat, dan mengidentifikasi
+ketergantungan koordinat limit.</p>
+<div class="mastery-exercise" id="mastery.o009.convergence.03.exercise">
+<h3 id="soal">Soal</h3>
+<p>Misalkan <span class="math inline">\(X_1,X_2,\ldots\)</span> iid
+dengan <span class="math inline">\(\mathbb E[X_1]=\mu\)</span> dan <span class="math inline">\(\operatorname{Var}(X_1)=\sigma^2\in(0,\infty)\)</span>,
+serta tuliskan <span class="math inline">\(\overline
+X_n=n^{-1}\sum_{k=1}^nX_k\)</span>. Misalkan <span class="math inline">\(g:\mathbb R\to\mathbb R\)</span> dua kali
+terdiferensialkan pada suatu lingkungan terbuka dari <span class="math inline">\(\mu\)</span>, dengan</p>
+<p><span class="math display">\[
+g'(\mu)=0
+\qquad\text{dan}\qquad
+g''(\mu)\ne0.
+\]</span></p>
+<p>Definisikan</p>
+<p><span class="math display">\[
+T_n=\sqrt n\,(\overline X_n-\mu),
+\qquad
+Q_n=n\{g(\overline X_n)-g(\mu)\}.
+\]</span></p>
+<ol type="1">
+<li><p>Buktikan bahwa <span class="math inline">\(T_n\Rightarrow\sigma
+Z\)</span> untuk <span class="math inline">\(Z\sim\mathcal
+N(0,1)\)</span> dan bahwa <span class="math inline">\((T_n)\)</span>
+terbatas dalam probabilitas.</p></li>
+<li><p>Buktikan limit gabungan metode delta orde kedua</p>
+<p><span class="math display">\[
+(T_n,Q_n)
+\ \xRightarrow[n\to\infty]{}\
+\left(\sigma Z,\frac{g''(\mu)\sigma^2}{2}Z^2\right).
+\]</span></p></li>
+<li><p>Identifikasi hukum marginal koordinat kedua. Tunjukkan bahwa
+kedua koordinat limit memiliki kovarians nol tetapi tidak independen.
+Jelaskan pula mengapa skala <span class="math inline">\(\sqrt n\)</span>
+yang biasa pada metode delta orde pertama menghasilkan limit degenerat
+bagi <span class="math inline">\(g(\overline X_n)-g(\mu)\)</span>,
+sedangkan skala <span class="math inline">\(n\)</span> menghasilkan
+limit tak degenerat.</p></li>
+</ol>
+</div>
+<details class="hint" id="mastery.o009.convergence.03.hint.01"><summary aria-label="Petunjuk: mastery.o009.convergence.03.hint.01">Petunjuk</summary>
+<h3 id="petunjuk-01">Petunjuk 01</h3>
+<p>Terapkan teorema limit pusat pada <span class="math inline">\(T_n\)</span>. Ingat bahwa setiap barisan yang
+konvergen dalam distribusi terbatas dalam probabilitas; akibatnya <span class="math inline">\(T_n=O_{\mathbb P}(1)\)</span> dan <span class="math inline">\(\overline X_n-\mu=T_n/\sqrt n\to0\)</span> dalam
+probabilitas.</p>
+</details>
+<details class="hint" id="mastery.o009.convergence.03.hint.02"><summary aria-label="Petunjuk: mastery.o009.convergence.03.hint.02">Petunjuk</summary>
+<h3 id="petunjuk-02">Petunjuk 02</h3>
+<p>Gunakan bentuk Peano dari ekspansi Taylor:</p>
+<p><span class="math display">\[
+g(\mu+h)-g(\mu)
+=\frac{g''(\mu)}2h^2+h^2r(h),
+\qquad r(h)\to0\quad(h\to0).
+\]</span></p>
+<p>Setelah mengambil <span class="math inline">\(h=\overline
+X_n-\mu\)</span>, tunjukkan bahwa <span class="math inline">\(T_n^2r(\overline X_n-\mu)=o_{\mathbb
+P}(1)\)</span>.</p>
+</details>
+<details class="hint" id="mastery.o009.convergence.03.hint.03"><summary aria-label="Petunjuk: mastery.o009.convergence.03.hint.03">Petunjuk</summary>
+<h3 id="petunjuk-03">Petunjuk 03</h3>
+<p>Gunakan pemetaan kontinu pada <span class="math inline">\(x\mapsto(x,g''(\mu)x^2/2)\)</span> dan
+kemudian Slutsky. Jika limit pertama dinotasikan <span class="math inline">\(U=\sigma Z\)</span>, periksa identitas <span class="math inline">\(V=g''(\mu)U^2/2\)</span> untuk limit
+kedua. Bandingkan identitas ini dengan <span class="math inline">\(\mathbb E[Z^3]=0\)</span>.</p>
+</details>
+<div class="mastery-answer" id="mastery.o009.convergence.03.answer">
+<h3 id="jawaban-singkat">Jawaban singkat</h3>
+<p>Teorema limit pusat memberi <span class="math inline">\(T_n\Rightarrow\sigma Z\)</span> dan <span class="math inline">\(T_n=O_{\mathbb P}(1)\)</span>. Ekspansi Taylor
+orde kedua menghasilkan</p>
+<p><span class="math display">\[
+Q_n=\frac{g''(\mu)}2T_n^2+o_{\mathbb P}(1),
+\]</span></p>
+<p>sehingga</p>
+<p><span class="math display">\[
+(T_n,Q_n)\Rightarrow
+\left(\sigma Z,\frac{g''(\mu)\sigma^2}{2}Z^2\right).
+\]</span></p>
+<p>Koordinat kedua berdistribusi <span class="math inline">\(\{g''(\mu)\sigma^2/2\}\chi_1^2\)</span>.
+Kedua koordinat limit berkovarians nol, tetapi tidak independen karena
+koordinat kedua adalah fungsi kuadrat tak konstan dari koordinat
+pertama. Pada skala <span class="math inline">\(\sqrt n\)</span>
+transformasi itu menuju nol dalam probabilitas; skala <span class="math inline">\(n\)</span> mempertahankan suku kuadrat pertama
+yang tidak lenyap.</p>
+</div>
+<details class="solution" id="mastery.o009.convergence.03.solution"><summary aria-label="Penyelesaian lengkap: mastery.o009.convergence.03.solution">Penyelesaian lengkap</summary>
+<h3 id="penyelesaian">Penyelesaian</h3>
+<p>Karena <span class="math inline">\(X_k\)</span> iid dengan rataan
+<span class="math inline">\(\mu\)</span> dan varians hingga positif,
+teorema limit pusat memberi</p>
+<p><span class="math display">\[
+T_n=\frac{\sum_{k=1}^n(X_k-\mu)}{\sqrt n}
+\Rightarrow\sigma Z,
+\qquad Z\sim\mathcal N(0,1).
+\]</span></p>
+<p>Konvergensi dalam distribusi menyiratkan keterbatasan dalam
+probabilitas, jadi <span class="math inline">\(T_n=O_{\mathbb
+P}(1)\)</span>. Karena <span class="math inline">\(n^{-1/2}\to0\)</span>, diperoleh</p>
+<p><span class="math display">\[
+\overline X_n-\mu=\frac{T_n}{\sqrt n}
+\longrightarrow0
+\quad\text{dalam probabilitas}.
+\]</span></p>
+<p>Asumsi diferensiabilitas orde dua di <span class="math inline">\(\mu\)</span> dan <span class="math inline">\(g'(\mu)=0\)</span> memberikan ekspansi Taylor
+dalam bentuk Peano</p>
+<p><span class="math display">\[
+g(\mu+h)-g(\mu)
+=\frac{g''(\mu)}2h^2+h^2r(h),
+\qquad r(h)\longrightarrow0
+\quad(h\to0).
+\]</span></p>
+<p>Dengan <span class="math inline">\(h=\overline X_n-\mu\)</span>,
+kalikan kedua ruas dengan <span class="math inline">\(n\)</span> untuk
+memperoleh</p>
+<p><span class="math display">\[
+Q_n
+=\frac{g''(\mu)}2T_n^2
++T_n^2r(\overline X_n-\mu).
+\]</span></p>
+<p>Karena <span class="math inline">\(\overline X_n-\mu\to0\)</span>
+dalam probabilitas dan <span class="math inline">\(r(h)\to0\)</span>,
+pemetaan kontinu lokal memberi <span class="math inline">\(r(\overline
+X_n-\mu)=o_{\mathbb P}(1)\)</span>. Selanjutnya <span class="math inline">\(T_n^2=O_{\mathbb P}(1)\)</span>, dan hasil kali
+suatu <span class="math inline">\(O_{\mathbb P}(1)\)</span> dengan suatu
+<span class="math inline">\(o_{\mathbb P}(1)\)</span> adalah <span class="math inline">\(o_{\mathbb P}(1)\)</span>. Dengan demikian,</p>
+<p><span class="math display">\[
+Q_n=\frac{g''(\mu)}2T_n^2+o_{\mathbb P}(1).
+\]</span></p>
+<p>Teorema pemetaan kontinu memberi</p>
+<p><span class="math display">\[
+\left(T_n,\frac{g''(\mu)}2T_n^2\right)
+\Rightarrow
+\left(\sigma Z,\frac{g''(\mu)\sigma^2}{2}Z^2\right).
+\]</span></p>
+<p>Menambahkan sisa <span class="math inline">\(o_{\mathbb
+P}(1)\)</span> pada koordinat kedua dan menerapkan Slutsky membuktikan
+limit gabungan yang diminta.</p>
+<p>Tuliskan</p>
+<p><span class="math display">\[
+U=\sigma Z,
+\qquad
+V=\frac{g''(\mu)\sigma^2}{2}Z^2.
+\]</span></p>
+<p>Karena <span class="math inline">\(Z^2\sim\chi_1^2\)</span>,
+diperoleh <span class="math inline">\(V\overset
+d=\{g''(\mu)\sigma^2/2\}\chi_1^2\)</span>; bila <span class="math inline">\(g''(\mu)&lt;0\)</span>, ini adalah
+kelipatan negatif dari peubah khi-kuadrat. Selain itu,</p>
+<p><span class="math display">\[
+\operatorname{Cov}(U,V)
+=\mathbb E[UV]-\mathbb E[U]\mathbb E[V]
+=\frac{g''(\mu)\sigma^3}{2}\mathbb E[Z^3]
+=0.
+\]</span></p>
+<p>Namun, <span class="math inline">\(V=g''(\mu)U^2/2\)</span>.
+Jadi <span class="math inline">\(V\)</span> adalah fungsi terukur tak
+konstan dari <span class="math inline">\(U\)</span> dan bersifat
+nondegenerat karena <span class="math inline">\(g''(\mu)\ne0\)</span> dan <span class="math inline">\(\sigma&gt;0\)</span>. Jika <span class="math inline">\(U\)</span> dan <span class="math inline">\(V\)</span> independen, maka <span class="math inline">\(V\)</span>, yang terukur terhadap <span class="math inline">\(U\)</span>, harus independen dari dirinya sendiri
+dan karenanya degenerat; ini kontradiksi. Jadi kovarians nol di sini
+tidak menyiratkan independensi.</p>
+<p>Akhirnya, dari representasi <span class="math inline">\(Q_n=O_{\mathbb P}(1)\)</span> diperoleh</p>
+<p><span class="math display">\[
+\sqrt n\{g(\overline X_n)-g(\mu)\}
+=\frac{Q_n}{\sqrt n}
+\longrightarrow0
+\quad\text{dalam probabilitas}.
+\]</span></p>
+<p>Skala metode delta orde pertama menjadi degenerat karena koefisien
+linear <span class="math inline">\(g'(\mu)\)</span> nol. Skala <span class="math inline">\(n\)</span> justru mempertahankan suku kuadrat,
+yang berlimit pada kelipatan tak nol dari <span class="math inline">\(Z^2\)</span>.</p>
+</details>
+<p><strong>Hak dan provenans.</strong>
+<code>rights.o009.mastery.convergence.03.cc-by-4.0</code>: soal,
+petunjuk, jawaban, dan penyelesaian ini merupakan materi asli, bukan
+salinan atau adaptasi latihan pada halaman teori yang diikat. Atribusi:
+“Codex (penulisan materi asli atas arahan pengguna), 2026”. Materi
+dilisensikan di bawah <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International</a>.</p>
+</div>
+<div class="mastery-item" data-category-item="04" data-outcome-ids="outcome.o009.convergence.04.rare-spike-phase-diagram" data-prerequisite-ids="theory.o009.prob.convergence.random-variables theory.o009.expect.uniform-integrability.convergence" data-rights-id="rights.o009.mastery.convergence.04.cc-by-4.0" id="mastery.o009.convergence.04">
+<h2 id="diagram-fase-lonjakan-langka-dan-konvergensi-momen">04. Diagram
+fase lonjakan langka dan konvergensi momen</h2>
+<p><strong>Ikatan prasyarat.</strong> <a href="../prob/Convergence.html#lim"><code>theory.o009.prob.convergence.random-variables</code></a>
+dan <a href="../expect/Uniform.html#con"><code>theory.o009.expect.uniform-integrability.convergence</code></a>
+(konvergensi hampir pasti, dalam probabilitas, dan keterintegralan
+seragam).</p>
+<p><strong>Ikatan capaian.</strong>
+<code>outcome.o009.convergence.04.rare-spike-phase-diagram</code>:
+menentukan ambang eksak bagi konvergensi <span class="math inline">\(L^p\)</span>, keterbatasan momen, dan
+keterintegralan seragam, serta mendiagnosis kegagalan pertukaran limit
+dengan ekspektasi.</p>
+<div class="mastery-exercise" id="mastery.o009.convergence.04.exercise">
+<h3 id="soal-1">Soal</h3>
+<p>Pada ruang probabilitas yang memuat <span class="math inline">\(U\sim\operatorname{Unif}(0,1)\)</span>, ambil
+<span class="math inline">\(\alpha,\beta&gt;0\)</span> dan
+definisikan</p>
+<p><span class="math display">\[
+X_n=n^\alpha\mathbf 1_{\{U\le n^{-\beta}\}},
+\qquad n\ge1.
+\]</span></p>
+<p>Untuk suatu <span class="math inline">\(p&gt;0\)</span> yang
+tetap:</p>
+<ol type="1">
+<li>buktikan bahwa <span class="math inline">\(X_n\to0\)</span> hampir
+pasti, dan simpulkan konvergensi dalam probabilitas serta dalam
+distribusi;</li>
+<li>tentukan syarat perlu dan cukup pada <span class="math inline">\((\alpha,\beta,p)\)</span> untuk <span class="math inline">\(X_n\to0\)</span> dalam <span class="math inline">\(L^p\)</span>;</li>
+<li>tentukan syarat perlu dan cukup agar <span class="math inline">\(\sup_n\mathbb E|X_n|^p&lt;\infty\)</span>;</li>
+<li>tentukan syarat perlu dan cukup agar keluarga <span class="math inline">\((|X_n|^p)_{n\ge1}\)</span> terintegralkan
+seragam.</li>
+</ol>
+<p>Terakhir, jelaskan apa yang terjadi pada garis batas <span class="math inline">\(\alpha p=\beta\)</span> dan mengapa kasus itu
+menghalangi penarikan kesimpulan konvergensi momen hanya dari
+konvergensi hampir pasti dan keterbatasan momen.</p>
+</div>
+<details class="hint" id="mastery.o009.convergence.04.hint.01"><summary aria-label="Petunjuk: mastery.o009.convergence.04.hint.01">Petunjuk</summary>
+<h3 id="petunjuk-01-1">Petunjuk 01</h3>
+<p>Untuk setiap <span class="math inline">\(U&gt;0\)</span>, ketaksamaan
+<span class="math inline">\(U\le n^{-\beta}\)</span> akhirnya gagal. Di
+sisi lain, hitung tepat</p>
+<p><span class="math display">\[
+\mathbb P(X_n\ne0)
+\quad\text{dan}\quad
+\mathbb E|X_n|^p.
+\]</span></p>
+<p>Pangkat tunggal <span class="math inline">\(\alpha p-\beta\)</span>
+membagi seluruh ruang parameter menjadi tiga rezim.</p>
+</details>
+<details class="hint" id="mastery.o009.convergence.04.hint.02"><summary aria-label="Petunjuk: mastery.o009.convergence.04.hint.02">Petunjuk</summary>
+<h3 id="petunjuk-02-1">Petunjuk 02</h3>
+<p>Tuliskan <span class="math inline">\(W_n=|X_n|^p\)</span>. Untuk
+<span class="math inline">\(K&gt;0\)</span>, tidak diperlukan suatu
+teorema abstrak; ekor keterintegralan seragam dapat dihitung persis:</p>
+<p><span class="math display">\[
+\mathbb E[W_n\mathbf1_{\{W_n&gt;K\}}]
+=n^{\alpha p-\beta}\mathbf1_{\{n^{\alpha p}&gt;K\}}.
+\]</span></p>
+<p>Ambil supremum terhadap <span class="math inline">\(n\)</span>, lalu
+biarkan <span class="math inline">\(K\to\infty\)</span>.</p>
+</details>
+<div class="mastery-answer" id="mastery.o009.convergence.04.answer">
+<h3 id="jawaban-singkat-1">Jawaban singkat</h3>
+<p>Selalu berlaku <span class="math inline">\(X_n\to0\)</span> hampir
+pasti, dalam probabilitas, dan dalam distribusi. Selanjutnya,</p>
+<p><span class="math display">\[
+X_n\to0\text{ dalam }L^p
+\iff \alpha p&lt;\beta,
+\]</span></p>
+<p><span class="math display">\[
+\sup_n\mathbb E|X_n|^p&lt;\infty
+\iff \alpha p\le\beta,
+\]</span></p>
+<p>dan</p>
+<p><span class="math display">\[
+(|X_n|^p)_{n\ge1}\text{ terintegralkan seragam}
+\iff \alpha p&lt;\beta.
+\]</span></p>
+<p>Pada batas <span class="math inline">\(\alpha p=\beta\)</span>, momen
+ke-<span class="math inline">\(p\)</span> selalu sama dengan <span class="math inline">\(1\)</span>, tetapi <span class="math inline">\(X_n\to0\)</span> hampir pasti; keluarga momen itu
+terbatas namun tidak terintegralkan seragam.</p>
+</div>
+<details class="solution" id="mastery.o009.convergence.04.solution"><summary aria-label="Penyelesaian lengkap: mastery.o009.convergence.04.solution">Penyelesaian lengkap</summary>
+<h3 id="penyelesaian-1">Penyelesaian</h3>
+<p>Jika <span class="math inline">\(U&gt;0\)</span>, pilih <span class="math inline">\(n_0\)</span> sedemikian sehingga <span class="math inline">\(n^{-\beta}&lt;U\)</span> untuk semua <span class="math inline">\(n\ge n_0\)</span>. Maka <span class="math inline">\(X_n=0\)</span> untuk semua <span class="math inline">\(n\ge n_0\)</span>. Karena <span class="math inline">\(\mathbb P(U&gt;0)=1\)</span>, diperoleh <span class="math inline">\(X_n\to0\)</span> hampir pasti. Konvergensi hampir
+pasti menyiratkan konvergensi dalam probabilitas, kemudian konvergensi
+dalam distribusi. Secara langsung, untuk setiap <span class="math inline">\(\varepsilon&gt;0\)</span> dan semua <span class="math inline">\(n\)</span> yang cukup besar sehingga <span class="math inline">\(n^\alpha&gt;\varepsilon\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P(|X_n|&gt;\varepsilon)
+=\mathbb P(U\le n^{-\beta})
+=n^{-\beta}\longrightarrow0.
+\]</span></p>
+<p>Untuk momen ke-<span class="math inline">\(p\)</span> diperoleh
+identitas eksak</p>
+<p><span class="math display">\[
+\mathbb E|X_n|^p
+=n^{\alpha p}\mathbb P(U\le n^{-\beta})
+=n^{\alpha p-\beta}.
+\]</span></p>
+<p>Karena limitnya nol tepat ketika <span class="math inline">\(\alpha
+p-\beta&lt;0\)</span>, maka <span class="math inline">\(X_n\to0\)</span>
+dalam <span class="math inline">\(L^p\)</span> tepat ketika <span class="math inline">\(\alpha p&lt;\beta\)</span>. Barisan momen tersebut
+terbatas tepat ketika eksponennya tidak positif, yakni ketika <span class="math inline">\(\alpha p\le\beta\)</span>.</p>
+<p>Tinggal memeriksa keterintegralan seragam. Tetapkan <span class="math inline">\(W_n=|X_n|^p=n^{\alpha p}\mathbf1_{\{U\le
+n^{-\beta}\}}\)</span>. Untuk setiap <span class="math inline">\(K&gt;0\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E[W_n\mathbf1_{\{W_n&gt;K\}}]
+=n^{\alpha p-\beta}\mathbf1_{\{n^{\alpha p}&gt;K\}}.
+\]</span></p>
+<p>Tuliskan <span class="math inline">\(\delta=\alpha p-\beta\)</span>.
+Jika <span class="math inline">\(\delta&lt;0\)</span>, maka</p>
+<p><span class="math display">\[
+\sup_{n\ge1}\mathbb E[W_n\mathbf1_{\{W_n&gt;K\}}]
+=\sup_{n&gt;K^{1/(\alpha p)}}n^\delta
+\longrightarrow0
+\qquad (K\to\infty),
+\]</span></p>
+<p>karena untuk pangkat negatif supremum dicapai pada bilangan bulat
+terkecil di atas ambang, yang menuju tak hingga bersama <span class="math inline">\(K\)</span>. Jadi <span class="math inline">\((W_n)\)</span> terintegralkan seragam.</p>
+<p>Jika <span class="math inline">\(\delta=0\)</span>, untuk setiap
+<span class="math inline">\(K\)</span> dapat dipilih <span class="math inline">\(n\)</span> dengan <span class="math inline">\(n^{\alpha p}&gt;K\)</span>, dan ekspektasi ekornya
+sama dengan <span class="math inline">\(1\)</span>. Jika <span class="math inline">\(\delta&gt;0\)</span>, ekspektasi ekor bahkan tak
+terbatas ketika <span class="math inline">\(n\to\infty\)</span>. Dengan
+demikian, <span class="math inline">\((|X_n|^p)\)</span> terintegralkan
+seragam tepat ketika <span class="math inline">\(\alpha
+p&lt;\beta\)</span>.</p>
+<p>Pada garis batas <span class="math inline">\(\alpha p=\beta\)</span>,
+lonjakan setinggi <span class="math inline">\(n^\alpha\)</span> terjadi
+pada kejadian berpeluang <span class="math inline">\(n^{-\beta}\)</span>. Peluang itu menghilang,
+tetapi tinggi dan kelangkaannya berimbang sehingga <span class="math inline">\(\mathbb E|X_n|^p=1\)</span> untuk setiap <span class="math inline">\(n\)</span>. Inilah mekanisme hilangnya massa ke
+ekor: konvergensi hampir pasti dan keterbatasan momen ke-<span class="math inline">\(p\)</span> tidak cukup untuk menukar limit dengan
+ekspektasi. Keterintegralan seragam adalah kendali ekor yang hilang pada
+batas tersebut.</p>
+</details>
+<p><strong>Hak dan provenans.</strong>
+<code>rights.o009.mastery.convergence.04.cc-by-4.0</code>: soal,
+petunjuk, jawaban, dan penyelesaian ini merupakan materi asli, bukan
+salinan atau adaptasi latihan pada halaman teori yang diikat. Atribusi:
+“Codex (penulisan materi asli atas arahan pengguna), 2026”. Materi
+dilisensikan di bawah <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International</a>.</p>
+</div>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

@@ -10,7 +10,7 @@
 <link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
 <script src="../Basic.js"></script>
 <script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
-<link href="../reader.css" rel="stylesheet"/></head>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/></head>
 <body>
 <div class="latex">
 	\(\newcommand{\P}{\mathbb{P}}\)
@@ -48,7 +48,7 @@ Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
 beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="https://www.randomservices.org/random/prob/Processes.html">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="Convergence.html">Konvergensi</a> · <a href="Probability2.html">Probabilitas ditinjau kembali</a> · <a href="Processes.html">Proses stokastik</a> · <a href="Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Ekspektasi bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav><main>
+<a href="Convergence.html">Konvergensi</a> · <a href="Probability2.html">Probabilitas ditinjau kembali</a> · <a href="Processes.html">Proses stokastik</a> · <a href="Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../markov/Recurrence.html">Keadaan transien dan rekuren</a> · <a href="../markov/Periodicity.html">Periodisitas</a> · <a href="../markov/Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="../brown/Standard.html">Gerak Brown standar</a> · <a href="../brown/Drift.html">Gerak Brown dengan hanyutan</a> · <a href="../brown/Bridge.html">Jembatan Brown</a> · <a href="../brown/Geometric.html">Gerak Brown geometrik</a> · <a href="../martingales/index.html">Ikhtisar martingal</a> · <a href="../markov/index.html">Ikhtisar proses Markov</a> · <a href="../brown/index.html">Ikhtisar gerak Brown</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="../labs/03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="../labs/04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a> · <a href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a></nav><main>
 <h2 class="reader-level-2">Pendahuluan</h2>
 <p>Bagian ini memerlukan teori ukuran, jadi Anda mungkin perlu meninjau kembali bab tentang <a href="https://www.randomservices.org/random/foundations/index.html">landasan</a>, khususnya bagian tentang <a href="https://www.randomservices.org/random/foundations/Topology.html">topologi</a>, <a href="https://www.randomservices.org/random/foundations/Measurable.html">ruang terukur</a>, dan <a href="https://www.randomservices.org/random/foundations/Measure.html">ukuran positif</a>. Pertama, ingat bahwa sebuah himpunan \( E \) hampir selalu dilengkapi dengan aljabar-\( \sigma \) \( \ms E \) yang terdiri atas himpunan-himpunan bagian yang diperbolehkan, sehingga \( (E, \ms E) \) merupakan ruang terukur. Biasanya, \( E \) memiliki topologi dan \( \ms E \) merupakan aljabar-\( \sigma \) Borel yang bersesuaian, yaitu aljabar-\( \sigma \) yang dibangkitkan oleh topologi tersebut. Jika \( E \) terhitung, kita hampir selalu mengambil \( \ms E \) sebagai koleksi semua himpunan bagian dari \( E \), dan dalam hal ini \( (E, \ms E) \) adalah <dfn>ruang diskret</dfn>. Kasus umum lainnya adalah ketika \( E \) merupakan himpunan bagian terukur dari \( \R^n \) untuk suatu \( n \in \N \); dalam hal ini \( \ms E \) adalah koleksi himpunan bagian terukur dari \( E \). Jika \( (E_1, \ms E_1), \, (E_2, \ms E_2), \ldots, (E_n, \ms E_n) \) adalah ruang-ruang terukur untuk suatu \( n \in \N_+ \), maka produk Kartesius \( E_1 \times E_2 \times \cdots \times E_n \) dilengkapi dengan aljabar-\( \sigma \) produk \( \ms E_1 \times \ms E_2 \times \cdots \times \ms E_n \). Sebagai kasus khusus, pangkat Kartesius \( E^n \) dilengkapi dengan aljabar-\( \sigma \) pangkat \( \ms E^n \) yang bersesuaian.</p>
 <p>Setelah uraian pendahuluan ini, misalkan \( (\Omega, \ms F, \P) \) adalah sebuah <a href="Probability2.html">ruang probabilitas</a>, dengan \( \Omega \) sebagai himpunan hasil, \( \ms F \) sebagai aljabar-\( \sigma \) kejadian, dan \( \P \) sebagai ukuran probabilitas pada ruang sampel \( (\Omega, \ms F) \). Misalkan pula bahwa \( (S, \ms S) \) dan \( (T, \ms T) \) adalah ruang terukur. Berikut adalah definisi utama kita:</p>
@@ -219,11 +219,11 @@ terakhir, jika \( n \gt 1 \), misalkan \( \bs t_- \) menyatakan vektor \( (t_1, 
 <div class="unit">
 <p class="math">Proses acak yang berkaitan dengan <a href="https://www.randomservices.org/random/poisson/index.html">model Poisson</a> mencakup</p>
 <ol class="sub">
-<li>Barisan <a href="https://www.randomservices.org/random/poisson/Exponential.html">waktu antar-kedatangan</a></li>
+<li>Barisan <a href="https://www.randomservices.org/random/poisson/Exponential.html">waktu antarkedatangan</a></li>
 <li>Barisan <a href="https://www.randomservices.org/random/poisson/Gamma.html">waktu kedatangan</a></li>
-<li>Proses pencacahan pada \( [0, \infty) \), baik dalam <a href="https://www.randomservices.org/random/poisson/Poisson.html">kasus homogen</a> maupun <a href="https://www.randomservices.org/random/poisson/Nonhomogeneous.html">kasus tak homogen</a>.</li>
+<li>Proses penghitungan pada \( [0, \infty) \), baik dalam <a href="https://www.randomservices.org/random/poisson/Poisson.html">kasus homogen</a> maupun <a href="https://www.randomservices.org/random/poisson/Nonhomogeneous.html">kasus tak homogen</a>.</li>
 <li><a href="https://www.randomservices.org/random/poisson/Compound.html">Proses Poisson majemuk</a>.</li>
-<li><a href="https://www.randomservices.org/random/poisson/General.html">Proses pencacahan pada ruang ukuran umum</a></li>
+<li><a href="../poisson/General.html">Proses penghitungan pada ruang ukuran umum</a></li>
 </ol>
 <details>
 <summary aria-label="Rincian: Penerapan, butir 2">Rincian:</summary>
@@ -233,12 +233,12 @@ terakhir, jika \( n \gt 1 \), misalkan \( \bs t_- \) menyatakan vektor \( (t_1, 
 <div class="unit">
 <p class="math">Proses acak yang berkaitan dengan <a href="https://www.randomservices.org/random/renewal/index.html">teori pembaruan</a> mencakup</p>
 <ol class="sub">
-<li>Barisan waktu antar-kedatangan</li>
+<li>Barisan waktu antarkedatangan</li>
 <li>Barisan waktu kedatangan</li>
-<li>Proses pencacahan pada \( [0, \infty) \)</li>
+<li>Proses penghitungan pada \( [0, \infty) \)</li>
 </ol>
 </div>
-<p><a href="https://www.randomservices.org/random/markov/index.html">Proses Markov</a> merupakan keluarga proses acak yang sangat penting, demikian pula proses-proses yang berkaitan dengan <a href="https://www.randomservices.org/random/brown/index.html">gerak Brown</a>.</p>
+<p><a href="../markov/index.html">Proses Markov</a> merupakan keluarga proses acak yang sangat penting, demikian pula proses-proses yang berkaitan dengan <a href="../brown/index.html">gerak Brown</a>.</p>
 </main><footer>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>

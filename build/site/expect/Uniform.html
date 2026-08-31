@@ -2,7 +2,7 @@
 <html lang="id-ID">
 <head>
 <meta charset="utf-8"/>
-<title>Variabel Terintegralkan Seragam</title>
+<title>Peubah Terintegralkan Seragam</title>
 <meta content="Kyle Siegrist" name="author"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="probabilitas, statistika, nilai harapan, ruang vektor, terintegralkan seragam, aljabar-sigma" name="keywords"/>
@@ -10,7 +10,7 @@
 <link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
 <script src="../Basic.js"></script>
 <script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
-<link href="../reader.css" rel="stylesheet"/></head>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/></head>
 <body>
 <div class="latex">
 	\(\newcommand{\var}{\text{var}}\) 
@@ -38,13 +38,13 @@
 <li class="child"><a aria-label="Bagian 8: Matriks Nilai Harapan dan Kovarians" href="https://www.randomservices.org/random/expect/Matrices.html" title="Matriks Nilai Harapan dan Kovarians">8</a></li>
 <li class="child"><a aria-label="Bagian 9: Nilai Harapan sebagai Integral" href="https://www.randomservices.org/random/expect/Integral.html" title="Nilai Harapan sebagai Integral">9</a></li>
 <li class="child"><a aria-label="Bagian 10: Meninjau Kembali Nilai Harapan Bersyarat" href="Conditional2.html" title="Meninjau Kembali Nilai Harapan Bersyarat">10</a></li>
-<li class="child"><a aria-label="Bagian 11: Ruang Vektor Variabel Acak" href="https://www.randomservices.org/random/expect/Spaces.html" title="Ruang Vektor Variabel Acak">11</a></li>
-<li aria-current="page" aria-label="Bagian 12: Variabel Terintegralkan Seragam (halaman saat ini)" class="current">12</li>
+<li class="child"><a aria-label="Bagian 11: Ruang Vektor Peubah Acak" href="https://www.randomservices.org/random/expect/Spaces.html" title="Ruang Vektor Peubah Acak">11</a></li>
+<li aria-current="page" aria-label="Bagian 12: Peubah Terintegralkan Seragam (halaman saat ini)" class="current">12</li>
 <li class="child"><a aria-label="Bagian 13: Kernel dan Operator" href="Kernels.html" title="Kernel dan Operator">13</a></li>
 <li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
 <li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
 </ol>
-<h1>12. Variabel Terintegralkan Seragam</h1>
+<h1>12. Peubah Terintegralkan Seragam</h1>
 </header><aside class="component-attribution" id="o009-rights-random-uniform-integrability">
 <strong>Asal komponen.</strong> Terjemahan halaman <cite>Uniformly Integrable Variables</cite>
 karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
@@ -52,15 +52,15 @@ Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
 beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="https://www.randomservices.org/random/expect/Uniform.html">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="Conditional2.html">Ekspektasi bersyarat</a> · <a href="Uniform.html">Peubah terintegralkan seragam</a> · <a href="Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav><main>
-<p>Dua modus konvergensi terpenting dalam teori probabilitas ialah <a href="../prob/Convergence.html">konvergensi dengan probabilitas 1</a> dan <a href="https://www.randomservices.org/random/expect/Spaces.html#con">konvergensi dalam rataan</a>. Seperti telah kita catat beberapa kali, tidak satu pun dari kedua modus konvergensi ini mengakibatkan yang lain. Namun, jika kita memberlakukan suatu syarat tambahan pada barisan variabel tersebut, konvergensi dalam probabilitas mengakibatkan konvergensi dalam rataan. Bagian singkat ini bertujuan menyelidiki syarat tambahan yang diperlukan itu. Bagian ini sangat penting bagi teori <a href="https://www.randomservices.org/random/martingales/index.html">martingal</a>.</p>
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="Conditional2.html">Nilai harapan bersyarat</a> · <a href="Uniform.html">Peubah terintegralkan seragam</a> · <a href="Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../markov/Recurrence.html">Keadaan transien dan rekuren</a> · <a href="../markov/Periodicity.html">Periodisitas</a> · <a href="../markov/Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="../brown/Standard.html">Gerak Brown standar</a> · <a href="../brown/Drift.html">Gerak Brown dengan hanyutan</a> · <a href="../brown/Bridge.html">Jembatan Brown</a> · <a href="../brown/Geometric.html">Gerak Brown geometrik</a> · <a href="../martingales/index.html">Ikhtisar martingal</a> · <a href="../markov/index.html">Ikhtisar proses Markov</a> · <a href="../brown/index.html">Ikhtisar gerak Brown</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="../labs/03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="../labs/04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a> · <a href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a></nav><main>
+<p>Dua modus konvergensi terpenting dalam teori probabilitas ialah <a href="../prob/Convergence.html">konvergensi dengan probabilitas 1</a> dan <a href="https://www.randomservices.org/random/expect/Spaces.html#con">konvergensi dalam rataan</a>. Seperti telah kita catat beberapa kali, tidak satu pun dari kedua modus konvergensi ini mengakibatkan yang lain. Namun, jika kita memberlakukan suatu syarat tambahan pada barisan peubah tersebut, konvergensi dalam probabilitas mengakibatkan konvergensi dalam rataan. Bagian singkat ini bertujuan menyelidiki syarat tambahan yang diperlukan itu. Bagian ini sangat penting bagi teori <a href="../martingales/index.html">martingal</a>.</p>
 <h2 class="reader-level-2">Teori Dasar</h2>
-<p>Seperti biasa, titik awal kita adalah sebuah <a href="https://www.randomservices.org/random/prob/Experiments.html">percobaan acak</a> yang dimodelkan oleh suatu <a href="../prob/Probability2.html">ruang probabilitas</a> \( (\Omega, \mathscr{F}, \P) \), sehingga \( \Omega \) adalah himpunan hasil, \( \mathscr{F} \) adalah \( \sigma \)-aljabar kejadian, dan \( \P \) adalah ukuran probabilitas pada ruang sampel \( (\Omega, \mathscr F) \). Dalam bagian ini, semua variabel acak yang disebutkan dianggap bernilai real, kecuali dinyatakan lain. Selanjutnya, ingatlah bahwa untuk \( k \in [1, \infty) \), \( \mathscr{L}_k \) adalah <a href="https://www.randomservices.org/random/expect/Spaces.html">ruang vektor</a> variabel acak \( X \) dengan \( \E(|X|^k) \lt \infty \), yang dilengkapi norma \( \|X\|_k = \left[\E(X^k)\right]^{1/k} \). Khususnya, \( X \in \mathscr{L}_1 \) hanya berarti bahwa \( \E(|X|) \lt \infty \), sehingga \( \E(X) \) ada sebagai bilangan real. Terakhir, ingatlah notasi berikut bagi <a href="https://www.randomservices.org/random/expect/Properties.html">nilai harapan</a> variabel acak \(X\) pada suatu kejadian \(A\), tentu saja dengan anggapan bahwa nilai harapan tersebut bermakna:
+<p>Seperti biasa, titik awal kita adalah sebuah <a href="https://www.randomservices.org/random/prob/Experiments.html">percobaan acak</a> yang dimodelkan oleh suatu <a href="../prob/Probability2.html">ruang probabilitas</a> \( (\Omega, \mathscr{F}, \P) \), sehingga \( \Omega \) adalah himpunan hasil, \( \mathscr{F} \) adalah \( \sigma \)-aljabar kejadian, dan \( \P \) adalah ukuran probabilitas pada ruang sampel \( (\Omega, \mathscr F) \). Dalam bagian ini, semua peubah acak yang disebutkan dianggap bernilai real, kecuali dinyatakan lain. Selanjutnya, ingatlah bahwa untuk \( k \in [1, \infty) \), \( \mathscr{L}_k \) adalah <a href="https://www.randomservices.org/random/expect/Spaces.html">ruang vektor</a> peubah acak \( X \) dengan \( \E(|X|^k) \lt \infty \), yang dilengkapi norma \( \|X\|_k = \left[\E(X^k)\right]^{1/k} \). Khususnya, \( X \in \mathscr{L}_1 \) hanya berarti bahwa \( \E(|X|) \lt \infty \), sehingga \( \E(X) \) ada sebagai bilangan real. Terakhir, ingatlah notasi berikut bagi <a href="https://www.randomservices.org/random/expect/Properties.html">nilai harapan</a> peubah acak \(X\) pada suatu kejadian \(A\), tentu saja dengan anggapan bahwa nilai harapan tersebut bermakna:
 \[ \E(X; A) = \E(X \bs{1}_A) = \int_A X \, d\P \]</p>
 <h3 class="reader-level-3">Definisi</h3>
 <p>Hasil berikut memotivasi definisi utama dalam bagian ini.</p>
 <div class="unit" id="dfn1">
-<p class="math">Jika \( X \) adalah variabel acak, maka \( \E(|X|) \lt \infty \) jika dan hanya jika \( \E(|X|; |X| \ge x) \to 0 \) ketika \( x \to \infty \).</p>
+<p class="math">Jika \( X \) adalah peubah acak, maka \( \E(|X|) \lt \infty \) jika dan hanya jika \( \E(|X|; |X| \ge x) \to 0 \) ketika \( x \to \infty \).</p>
 <details>
 <summary aria-label="Rincian: Definisi">Rincian:</summary>
 <p>Perhatikan bahwa \( |X| \bs{1}(|X| \le x) \) taknegatif, naik terhadap \( x \in [0, \infty) \), dan \( |X| \bs{1}(|X| \le x) \to |X| \) ketika \( x \to \infty \). Dari teorema konvergensi monoton, \( \E(|X|; |X| \le x) \to \E(|X|) \) ketika \( x \to \infty \). Di sisi lain,
@@ -68,14 +68,14 @@ atribusi. <a href="https://www.randomservices.org/random/expect/Uniform.html">Ba
 		Jika \( \E(|X|) \lt \infty \), pengambilan limit pada persamaan yang ditampilkan menunjukkan bahwa \( \E(|X|: |X| \gt x) \to 0 \) ketika \( x \to \infty \). Di sisi lain, \( \E(|X|; |X| \le x) \le x \). Jadi, jika \( \E(|X|) = \infty \), maka \( \E(|X|; |X| \gt x) = \infty \) untuk setiap \( x \in [0, \infty) \).</p>
 </details>
 </div>
-<p>Sekarang, andaikan \( X_i \) adalah variabel acak untuk setiap \( i \) dalam himpunan indeks takkosong \( I \) (yang tidak harus terhitung). Definisi penting dalam bagian ini mensyaratkan agar konvergensi pada teorema sebelumnya berlaku secara <em>seragam</em> untuk koleksi variabel acak \( \bs X = \{X_i: i \in I\} \).</p>
+<p>Sekarang, andaikan \( X_i \) adalah peubah acak untuk setiap \( i \) dalam himpunan indeks takkosong \( I \) (yang tidak harus terhitung). Definisi penting dalam bagian ini mensyaratkan agar konvergensi pada teorema sebelumnya berlaku secara <em>seragam</em> untuk koleksi peubah acak \( \bs X = \{X_i: i \in I\} \).</p>
 <div class="unit" id="dfn2">
 <p class="dfn">Koleksi \( \bs X = \{X_i: i \in I\} \) disebut <dfn>terintegralkan seragam</dfn> jika untuk setiap \( \epsilon \gt 0 \) terdapat \( x \gt 0 \) sedemikian sehingga untuk semua \( i \in I \),
 	\[ \E(|X_i|; |X_i| \gt x) \lt \epsilon \]
 	Secara ekuivalen, \( \E(|X_i|; |X_i| \gt x) \to 0 \) ketika \( x \to \infty \), secara seragam terhadap \( i \in I \).</p>
 </div>
 <h3 class="reader-level-3">Sifat</h3>
-<p>Pembahasan berikut berpusat pada syarat-syarat yang menjamin bahwa koleksi variabel acak \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam. Berikut adalah karakterisasi yang ekuivalen:</p>
+<p>Pembahasan berikut berpusat pada syarat-syarat yang menjamin bahwa koleksi peubah acak \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam. Berikut adalah karakterisasi yang ekuivalen:</p>
 <div class="unit" id="prp1">
 <p class="math">Koleksi \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam jika dan hanya jika syarat-syarat berikut terpenuhi:</p>
 <ol class="sub">
@@ -93,17 +93,17 @@ atribusi. <a href="https://www.randomservices.org/random/expect/Uniform.html">Ba
 		Pilih \( x \gt 0 \) sedemikian sehingga \( c / x \lt \delta \), sehingga \(\P(|X_i| \gt x) \lt \delta\) untuk setiap \( i \in I \). Maka, untuk setiap \( j \in I \), \( \E(|X_i|; |X_j| \gt x) \lt \epsilon \) untuk semua \( i \in I \), dan khususnya, \( \E(|X_i|; |X_i| \gt x) \lt \epsilon \) untuk semua \( i \in I \). Jadi, \( \bs X \) terintegralkan seragam.</p>
 </details>
 </div>
-<p>Syarat (a) berarti bahwa \( \bs X \) terbatas (dalam norma) sebagai subhimpunan ruang vektor \( \mathscr{L}_1 \). Secara langsung, koleksi <em>hingga</em> dari variabel acak yang terintegralkan mutlak adalah terintegralkan seragam.</p>
+<p>Syarat (a) berarti bahwa \( \bs X \) terbatas (dalam norma) sebagai subhimpunan ruang vektor \( \mathscr{L}_1 \). Secara langsung, koleksi <em>hingga</em> dari peubah acak yang terintegralkan mutlak adalah terintegralkan seragam.</p>
 <div class="unit">
 <p class="math">Andaikan \( I \) hingga dan \( \E(|X_i|) \lt \infty \) untuk setiap \( i \in I \). Maka \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam. </p>
 </div>
-<p>Subhimpunan dari suatu himpunan variabel yang terintegralkan seragam juga terintegralkan seragam.</p>
+<p>Subhimpunan dari suatu himpunan peubah yang terintegralkan seragam juga terintegralkan seragam.</p>
 <div class="unit">
 <p class="math">Jika \( \{X_i: i \in I\} \) terintegralkan seragam dan \( J \) adalah subhimpunan takkosong dari \( I \), maka \( \{X_j: j \in J\} \) terintegralkan seragam.</p>
 </div>
-<p>Jika nilai mutlak variabel-variabel dalam koleksi didominasi oleh suatu variabel acak dengan rataan hingga, maka koleksi tersebut terintegralkan seragam.</p>
+<p>Jika nilai mutlak peubah-peubah dalam koleksi didominasi oleh suatu peubah acak dengan rataan hingga, maka koleksi tersebut terintegralkan seragam.</p>
 <div class="unit">
-<p class="math">Andaikan \( Y \) adalah variabel acak taknegatif dengan \( \E(Y) \lt \infty \) dan \( |X_i| \le Y \) untuk setiap \( i \in I \). Maka \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam.</p>
+<p class="math">Andaikan \( Y \) adalah peubah acak taknegatif dengan \( \E(Y) \lt \infty \) dan \( |X_i| \le Y \) untuk setiap \( i \in I \). Maka \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam.</p>
 <details>
 <summary aria-label="Rincian: Sifat, butir 2">Rincian:</summary>
 <p>Jelas bahwa \( \E(|X_i|; |X_i| \gt x) \le E(Y; Y \gt x) \) untuk \( x \in [0, \infty) \) dan untuk semua \( i \in I \). Ruas kanan tidak bergantung pada \( i \in I \), dan berdasarkan <a class="ref" href="#dfn1"></a>, ruas tersebut konvergen ke 0 ketika \( x \to \infty \). Jadi, \( \bs X \) terintegralkan seragam.</p>
@@ -111,9 +111,9 @@ atribusi. <a href="https://www.randomservices.org/random/expect/Uniform.html">Ba
 </div>
 <p>Hasil berikut lebih umum, tetapi pada dasarnya pembuktian yang sama berlaku.</p>
 <div class="unit">
-<p class="math">Andaikan \( \bs Y = \{Y_j: j \in J\} \) terintegralkan seragam, dan \( \bs X = \{X_i: i \in I\} \) adalah himpunan variabel dengan sifat bahwa untuk setiap \( i \in I \), terdapat \( j \in J \) sedemikian sehingga \( |X_i| \le |Y_j| \). Maka \( \bs X \) terintegralkan seragam.</p>
+<p class="math">Andaikan \( \bs Y = \{Y_j: j \in J\} \) terintegralkan seragam, dan \( \bs X = \{X_i: i \in I\} \) adalah himpunan peubah dengan sifat bahwa untuk setiap \( i \in I \), terdapat \( j \in J \) sedemikian sehingga \( |X_i| \le |Y_j| \). Maka \( \bs X \) terintegralkan seragam.</p>
 </div>
-<p>Sebagai akibat sederhana, jika nilai mutlak variabel-variabel tersebut terbatas, maka koleksinya terintegralkan seragam.</p>
+<p>Sebagai akibat sederhana, jika nilai mutlak peubah-peubah tersebut terbatas, maka koleksinya terintegralkan seragam.</p>
 <div class="unit">
 <p class="math">Jika terdapat \( c \gt 0 \) sedemikian sehingga \( |X_i| \le c \) untuk semua \( i \in I \), maka \( \bs X = \{X_i: i \in I\} \) terintegralkan seragam.</p>
 </div>
@@ -153,19 +153,19 @@ atribusi. <a href="https://www.randomservices.org/random/expect/Uniform.html">Ba
 </div>
 <p>Akibat berikut sederhana, tetapi akan kita perlukan dalam pembahasan konvergensi di bawah.</p>
 <div class="unit" id="prp2">
-<p class="math">Andaikan \( \{X_i: i \in I\} \) terintegralkan seragam dan \( X \) adalah variabel acak dengan \( \E(|X|) \lt \infty \). Maka \( \{X_i - X: i \in I\} \) terintegralkan seragam.</p>
+<p class="math">Andaikan \( \{X_i: i \in I\} \) terintegralkan seragam dan \( X \) adalah peubah acak dengan \( \E(|X|) \lt \infty \). Maka \( \{X_i - X: i \in I\} \) terintegralkan seragam.</p>
 <details>
 <summary aria-label="Rincian: Sifat, butir 5">Rincian:</summary>
 <p>Ambil \( Y_i = X \) untuk setiap \( i \in I \). Maka \( \{Y_i: i \in I\} \) terintegralkan seragam, sehingga hasilnya mengikuti dari <a class="ref" href="#add"></a>.</p>
 </details>
 </div>
 <h3 class="reader-level-3" id="con">Konvergensi</h3>
-<p>Sekarang kita sampai pada hasil-hasil utama dan alasan mula-mula mendefinisikan keterintegralan seragam. Untuk menyiapkan notasi, andaikan \( X_n \) adalah variabel acak untuk \( n \in \N_+ \), dan \( X \) adalah variabel acak. Kita tahu bahwa jika \( X_n \to X \) ketika \( n \to \infty \) <a href="https://www.randomservices.org/random/expect/Spaces.html#con">dalam rataan</a>, maka \( X_n \to X \) ketika \( n \to \infty \) <a href="../prob/Convergence.html#lim">dalam probabilitas</a>. Kebalikannya juga benar jika dan hanya jika barisan tersebut terintegralkan seragam. Berikut adalah separuh yang pertama:</p>
+<p>Sekarang kita sampai pada hasil-hasil utama dan alasan mula-mula mendefinisikan keterintegralan seragam. Untuk menyiapkan notasi, andaikan \( X_n \) adalah peubah acak untuk \( n \in \N_+ \), dan \( X \) adalah peubah acak. Kita tahu bahwa jika \( X_n \to X \) ketika \( n \to \infty \) <a href="https://www.randomservices.org/random/expect/Spaces.html#con">dalam rataan</a>, maka \( X_n \to X \) ketika \( n \to \infty \) <a href="../prob/Convergence.html#lim">dalam probabilitas</a>. Kebalikannya juga benar jika dan hanya jika barisan tersebut terintegralkan seragam. Berikut adalah separuh yang pertama:</p>
 <div class="unit" id="con1">
 <p class="math">Jika \( X_n \to X \) ketika \( n \to \infty \) dalam rataan, maka \( \{X_n: n \in \N\} \) terintegralkan seragam.</p>
 <details>
 <summary aria-label="Rincian: Konvergensi, butir 1">Rincian:</summary>
-<p>Hipotesis tersebut berarti bahwa \( X_n \to X \) ketika \( n \to \infty \) dalam ruang vektor \( \mathscr{L}_1 \). Dengan kata lain, \( \E(|X_n|) \lt \infty \) untuk \( n \in \N_+ \), \( \E(|X|) \lt \infty \), dan \( E(|X_n - X|) \to 0 \) ketika \( n \to \infty \). Dari bagian mengenai <a href="https://www.randomservices.org/random/expect/Spaces.html">ruang vektor</a> variabel acak, kita tahu bahwa hal ini mengakibatkan \( \E(|X_n|) \to \E(|X|) \) ketika \( n \to \infty \), sehingga \( \E(|X_n|) \) terbatas terhadap \( n \in \N \). Ambil \( \epsilon \gt 0 \). Maka terdapat \( N \in \N_+ \) sedemikian sehingga jika \( n \gt N \), maka \( \E(|X_n - X|) \lt \epsilon/2 \). Karena semua variabel kita berada dalam \( \mathscr{L}_1 \), untuk setiap \( n \in \N_+ \), terdapat \( \delta_n \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta_n \), maka \( \E(|X_n - X|; A) \lt \epsilon / 2 \). Demikian pula, terdapat \( \delta_0 \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta_0 \), maka \( \E(|X|; A) \lt \epsilon / 2 \). Ambil \( \delta = \min\{\delta_n: n \in \{0, 1, \ldots, N\}\} \), sehingga \( \delta \gt 0 \). Jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta \), maka
+<p>Hipotesis tersebut berarti bahwa \( X_n \to X \) ketika \( n \to \infty \) dalam ruang vektor \( \mathscr{L}_1 \). Dengan kata lain, \( \E(|X_n|) \lt \infty \) untuk \( n \in \N_+ \), \( \E(|X|) \lt \infty \), dan \( E(|X_n - X|) \to 0 \) ketika \( n \to \infty \). Dari bagian mengenai <a href="https://www.randomservices.org/random/expect/Spaces.html">ruang vektor</a> peubah acak, kita tahu bahwa hal ini mengakibatkan \( \E(|X_n|) \to \E(|X|) \) ketika \( n \to \infty \), sehingga \( \E(|X_n|) \) terbatas terhadap \( n \in \N \). Ambil \( \epsilon \gt 0 \). Maka terdapat \( N \in \N_+ \) sedemikian sehingga jika \( n \gt N \), maka \( \E(|X_n - X|) \lt \epsilon/2 \). Karena semua peubah kita berada dalam \( \mathscr{L}_1 \), untuk setiap \( n \in \N_+ \), terdapat \( \delta_n \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta_n \), maka \( \E(|X_n - X|; A) \lt \epsilon / 2 \). Demikian pula, terdapat \( \delta_0 \gt 0 \) sedemikian sehingga jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta_0 \), maka \( \E(|X|; A) \lt \epsilon / 2 \). Ambil \( \delta = \min\{\delta_n: n \in \{0, 1, \ldots, N\}\} \), sehingga \( \delta \gt 0 \). Jika \( A \in \mathscr{F} \) dan \( \P(A) \lt \delta \), maka
 		\[\E(|X_n|; A) = \E(|X_n - X + X|; A) \le \E(|X_n - X|; A) + \E(|X|; A), \quad n \in \N_+\]
 		Jika \( n \le N \), maka \( \E(|X_n - X|; A) \le \epsilon / 2 \), sebab \( \delta \le \delta_n \). Jika \( n \gt N \), maka \( \E(|X_n - X|; A) \le \E(|X_n - X|) \lt \epsilon / 2 \). Untuk semua \( n \), \( E(|X|; A) \lt \epsilon / 2 \), sebab \( \delta \le \delta_0 \). Jadi, untuk semua \( n \in \N_+ \), \( \E(|X_n|: A) \lt \epsilon \), sehingga \( \{X_n: n \in \N_+\} \) terintegralkan seragam.</p>
 </details>
@@ -201,9 +201,9 @@ atribusi. <a href="https://www.randomservices.org/random/expect/Uniform.html">Ba
 </details>
 </div>
 <p>Berdasarkan bagian (b), \( \E(|X_n|; |X_n| \gt x) \) tidak konvergen ke 0 ketika \( x \to \infty \) secara seragam terhadap \( n \in \N_+ \), sehingga \( \bs X = \{X_n: n \in \N_+\} \) tidak terintegralkan seragam.</p>
-<p>Contoh berikut memberikan penerapan penting bagi <a href="Conditional2.html">nilai harapan bersyarat</a>. Ingatlah bahwa jika \( X \) adalah variabel acak dengan \( \E(|X|) \lt \infty \) dan \( \ms{G} \) adalah sub-\( \sigma \)-aljabar dari \( \ms{F} \), maka \( \E(X \mid \mathscr{G}) \) adalah nilai harapan \( X \) dengan informasi dalam \( \mathscr{G} \) diketahui, dan dalam arti tertentu merupakan variabel acak terukur-\( \mathscr{G} \) yang paling dekat dengan \( X \). Bahkan, jika \( X \in \ms{L}_2(\ms{F}) \), maka \( \E(X \mid \ms{G}) \) adalah proyeksi \( X \) pada \( \ms{L}_2(\ms{G}) \).</p>
+<p>Contoh berikut memberikan penerapan penting bagi <a href="Conditional2.html">nilai harapan bersyarat</a>. Ingatlah bahwa jika \( X \) adalah peubah acak dengan \( \E(|X|) \lt \infty \) dan \( \ms{G} \) adalah sub-\( \sigma \)-aljabar dari \( \ms{F} \), maka \( \E(X \mid \mathscr{G}) \) adalah nilai harapan \( X \) dengan informasi dalam \( \mathscr{G} \) diketahui, dan dalam arti tertentu merupakan peubah acak terukur-\( \mathscr{G} \) yang paling dekat dengan \( X \). Bahkan, jika \( X \in \ms{L}_2(\ms{F}) \), maka \( \E(X \mid \ms{G}) \) adalah proyeksi \( X \) pada \( \ms{L}_2(\ms{G}) \).</p>
 <div class="unit" id="exe2">
-<p class="math">Andaikan \(\{X_i: i \in I\}\) adalah koleksi variabel acak terintegralkan seragam yang didefinisikan pada ruang probabilitas \((\Omega, \ms F, \P)\). Maka koleksi berikut juga terintegralkan seragam:
+<p class="math">Andaikan \(\{X_i: i \in I\}\) adalah koleksi peubah acak terintegralkan seragam yang didefinisikan pada ruang probabilitas \((\Omega, \ms F, \P)\). Maka koleksi berikut juga terintegralkan seragam:
 	\[ \{\E(X_i \mid \ms G): i \in I, \ms G \text{ is a sub } \sigma \text{-algebra of } \ms F\} \]
 	<details>
 <summary aria-label="Rincian: Contoh, butir 2">Rincian:</summary>
@@ -214,7 +214,7 @@ atribusi. <a href="https://www.randomservices.org/random/expect/Uniform.html">Ba
 		</p>
 </details>
 </p></div>
-<p>Sebagai akibat yang sederhana tetapi penting, jika \(X\) adalah variabel acak dengan \(\E(|X|) \lt \infty \), maka koleksi nilai harapan bersyarat dari \(X\)
+<p>Sebagai akibat yang sederhana tetapi penting, jika \(X\) adalah peubah acak dengan \(\E(|X|) \lt \infty \), maka koleksi nilai harapan bersyarat dari \(X\)
 \[ \{\E(X \mid \ms G): \ms G \text{ is a sub } \sigma \text{-algebra of }\ms F \} \]
 terintegralkan seragam. Nilai-nilai harapan bersyarat tersebut berkisar dari \( \E(X) \), ketika \( \mathscr{G} = \{\Omega, \emptyset\} \), hingga \( X \) sendiri, ketika \( \mathscr{G} = \mathscr{F} \).</p>
 </main><footer>
@@ -231,8 +231,8 @@ terintegralkan seragam. Nilai-nilai harapan bersyarat tersebut berkisar dari \( 
 <li class="child"><a aria-label="Bagian 8: Matriks Nilai Harapan dan Kovarians" href="https://www.randomservices.org/random/expect/Matrices.html" title="Matriks Nilai Harapan dan Kovarians">8</a></li>
 <li class="child"><a aria-label="Bagian 9: Nilai Harapan sebagai Integral" href="https://www.randomservices.org/random/expect/Integral.html" title="Nilai Harapan sebagai Integral">9</a></li>
 <li class="child"><a aria-label="Bagian 10: Meninjau Kembali Nilai Harapan Bersyarat" href="Conditional2.html" title="Meninjau Kembali Nilai Harapan Bersyarat">10</a></li>
-<li class="child"><a aria-label="Bagian 11: Ruang Vektor Variabel Acak" href="https://www.randomservices.org/random/expect/Spaces.html" title="Ruang Vektor Variabel Acak">11</a></li>
-<li aria-current="page" aria-label="Bagian 12: Variabel Terintegralkan Seragam (halaman saat ini)" class="current">12</li>
+<li class="child"><a aria-label="Bagian 11: Ruang Vektor Peubah Acak" href="https://www.randomservices.org/random/expect/Spaces.html" title="Ruang Vektor Peubah Acak">11</a></li>
+<li aria-current="page" aria-label="Bagian 12: Peubah Terintegralkan Seragam (halaman saat ini)" class="current">12</li>
 <li class="child"><a aria-label="Bagian 13: Kernel dan Operator" href="Kernels.html" title="Kernel dan Operator">13</a></li> <li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
 <li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
 </ol>

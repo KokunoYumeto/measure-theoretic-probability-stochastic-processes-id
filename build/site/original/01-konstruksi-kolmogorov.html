@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Konstruksi Kolmogorov dan proses kanonik</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../brown/Geometric.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="../brown/Geometric.html">Unit Random sebelumnya</a></nav>
+
+<nav aria-label="Daftar isi" id="TOC" role="doc-toc">
+<ul>
+<li><a href="#konstruksi-kolmogorov-dan-proses-kanonik" id="toc-konstruksi-kolmogorov-dan-proses-kanonik">Konstruksi Kolmogorov
+dan proses kanonik</a>
+<ul>
+<li><a href="#tujuan-dan-prasyarat" id="toc-tujuan-dan-prasyarat">Tujuan
+dan prasyarat</a></li>
+<li><a href="#ruang-lintasan-produk" id="toc-ruang-lintasan-produk">Ruang lintasan produk</a></li>
+<li><a href="#konsistensi-proyektif" id="toc-konsistensi-proyektif">Konsistensi proyektif</a></li>
+<li><a href="#teorema-perluasan-kolmogorov" id="toc-teorema-perluasan-kolmogorov">Teorema perluasan
+Kolmogorov</a></li>
+<li><a href="#lingkup-bukti" id="toc-lingkup-bukti">Lingkup bukti</a>
+<ul>
+<li><a href="#representasi-silinder-yang-sama" id="toc-representasi-silinder-yang-sama">Representasi silinder yang
+sama</a></li>
+<li><a href="#keberadaan-bagian-yang-benar-benar-memakai-teorema" id="toc-keberadaan-bagian-yang-benar-benar-memakai-teorema">Keberadaan:
+bagian yang benar-benar memakai teorema</a></li>
+<li><a href="#keunikan-pada-sigma-aljabar-produk" id="toc-keunikan-pada-sigma-aljabar-produk">Keunikan pada sigma-aljabar
+produk</a></li>
+</ul></li>
+<li><a href="#proses-koordinat-kanonik" id="toc-proses-koordinat-kanonik">Proses koordinat kanonik</a></li>
+<li><a href="#contoh-keluarga-markov" id="toc-contoh-keluarga-markov">Contoh keluarga Markov</a></li>
+<li><a href="#contoh-keluarga-gaussian" id="toc-contoh-keluarga-gaussian">Contoh keluarga Gaussian</a></li>
+<li><a href="#audit-hipotesis-dan-bukan-klaim" id="toc-audit-hipotesis-dan-bukan-klaim">Audit hipotesis dan bukan
+klaim</a></li>
+<li><a href="#latihan-penguasaan" id="toc-latihan-penguasaan">Latihan
+penguasaan</a></li>
+<li><a href="#hak-dan-provenans" id="toc-hak-dan-provenans">Hak dan
+provenans</a></li>
+</ul></li>
+</ul>
+</nav>
+<main class="original-bridge" id="unit.o009.original.bridge.kolmogorov-canonical-process">
+<h1 id="konstruksi-kolmogorov-dan-proses-kanonik">Konstruksi Kolmogorov
+dan proses kanonik</h1>
+<section class="bridge-section" id="tujuan-dan-prasyarat">
+<h2>Tujuan dan prasyarat</h2>
+<p>Sebuah proses stokastik sering diperkenalkan melalui hukum-hukum
+berdimensi hingga: kita menentukan distribusi bersama pada setiap
+kumpulan waktu yang hingga, lalu berharap semuanya berasal dari satu
+proses. Harapan itu perlu sebuah teorema. Unit ini mengisi langkah dari
+keluarga hukum yang konsisten menuju ukuran peluang pada ruang lintasan
+mentah, kemudian menuju proses koordinat kanonik.</p>
+<p>Setelah menyelesaikan unit ini, pembaca mampu:</p>
+<ol type="1">
+<li>mengaudit hipotesis teorema perluasan Kolmogorov dan membedakan
+kesimpulan sebenarnya dari klaim tambahan tentang lintasan; dan</li>
+<li>membangun proses koordinat kanonik dari hukum-hukum berdimensi
+hingga yang konsisten secara proyektif.</li>
+</ol>
+<p>Prasyaratnya ialah pembahasan <a href="../prob/Probability2.html">ruang produk peluang dan ruang
+kanonik</a>, <a href="../prob/Processes.html">proses stokastik dan
+distribusi berdimensi hingga</a>, serta, untuk contoh Markov, <a href="../quantecon/lectures/markov_prop.html">sifat Markov dan kernel
+transisi</a>. Kita tidak mengulang pembuktian produk koordinat yang
+saling bebas, definisi dasar proses stokastik, ataupun teori rantai
+Markov waktu kontinu. Fokusnya lebih sempit: apa tepatnya yang harus
+konsisten, ukuran pada ruang mana yang dihasilkan, dan apa yang belum
+dihasilkan oleh teorema tersebut.</p>
+<p>Secara operasional, konstruksi ini memisahkan tiga pertanyaan yang
+mudah tercampur. Pertama, apakah rumus-rumus hingga benar-benar saling
+cocok ketika koordinat dihapus atau diurutkan ulang? Kedua, apakah
+kecocokan itu melahirkan ukuran yang aditif terhitung pada ruang produk?
+Ketiga, apakah ukuran tersebut memiliki lintasan dengan keteraturan yang
+diinginkan? Konsistensi proyektif menjawab pertanyaan pertama, teorema
+perluasan dengan hipotesisnya menjawab pertanyaan kedua, sedangkan
+pertanyaan ketiga tetap memerlukan teorema lain. Pemisahan ini menjadi
+pola audit yang akan dipakai sepanjang unit.</p>
+</section>
+<section class="bridge-section" id="ruang-lintasan-produk">
+<h2>Ruang lintasan produk</h2>
+<p>Biarkan <span class="math inline">\(T\)</span> menjadi himpunan
+indeks sebarang. Unsur <span class="math inline">\(T\)</span> dapat
+berupa waktu, lokasi, atau label lain; pada tahap ini kita bahkan tidak
+memerlukan urutan atau topologi pada <span class="math inline">\(T\)</span>. Biarkan <span class="math inline">\((S,\mathcal S)\)</span> menjadi ruang terukur
+dengan <span class="math inline">\(S\)</span> tak kosong. Ruang lintasan
+mentah adalah</p>
+<p><span class="math display">\[
+\Omega=S^T=\{\omega:T\to S\}.
+\]</span></p>
+<p>Untuk <span class="math inline">\(t\in T\)</span>, proyeksi koordinat
+didefinisikan oleh</p>
+<p><span class="math display">\[
+\pi_t(\omega)=\omega(t).
+\]</span></p>
+<p>Jika <span class="math inline">\(J\subset T\)</span> hingga, tulis
+<span class="math inline">\(S^J\)</span> untuk himpunan semua fungsi
+<span class="math inline">\(J\to S\)</span> dan definisikan proyeksi
+hingga</p>
+<p><span class="math display">\[
+\pi_J:S^T\longrightarrow S^J,
+\qquad
+\pi_J(\omega)=\omega|_J.
+\]</span></p>
+<p>Pada <span class="math inline">\(S^J\)</span> kita memakai
+sigma-aljabar produk hingga <span class="math inline">\(\mathcal
+S^{\otimes J}\)</span>. Untuk <span class="math inline">\(A\in\mathcal
+S^{\otimes J}\)</span>, himpunan</p>
+<p><span class="math display">\[
+C(J,A)=\pi_J^{-1}(A)
+\]</span></p>
+<p>disebut <em>himpunan silinder</em>. Keanggotaannya hanya diperiksa
+melalui sejumlah hingga koordinat dalam <span class="math inline">\(J\)</span>. Sigma-aljabar yang relevan bagi
+konstruksi ini adalah</p>
+<p><span class="math display">\[
+\mathcal F^0
+=\sigma(\pi_t:t\in T)
+=\sigma\!\left\{\pi_J^{-1}(A):
+J\subset T\text{ hingga},\ A\in\mathcal S^{\otimes J}\right\}
+=\mathcal S^{\otimes T}.
+\]</span></p>
+<p>Notasi terakhir, <span class="math inline">\(\mathcal S^{\otimes
+T}\)</span>, <strong>didefinisikan</strong> sebagai sigma-aljabar produk
+yang dibangkitkan proyeksi koordinat. Ini penting ketika <span class="math inline">\(T\)</span> tak terhitung: kita tidak sedang
+memakai semua bagian dari <span class="math inline">\(S^T\)</span>, dan
+kita tidak diam-diam memilih sigma-aljabar yang lebih besar. Keunikan
+ukuran yang dibuktikan nanti juga hanya merupakan keunikan pada <span class="math inline">\(\mathcal F^0\)</span>.</p>
+<p>Silinder menerjemahkan pengamatan yang benar-benar berdimensi hingga.
+Sebagai contoh, pernyataan bahwa lintasan berada dalam himpunan tertentu
+pada tiga waktu hanya bergantung pada proyeksi ke tiga koordinat itu.
+Komplemen, gabungan hingga, dan irisan hingga dari silinder dapat
+ditulis lagi sebagai silinder setelah semua koordinat yang terlibat
+digabungkan. Jadi silinder membentuk aljabar kejadian dasar, walaupun
+belum tertutup terhadap seluruh operasi terhitung.</p>
+<p>Ada satu fakta lingkup yang berguna ketika <span class="math inline">\(T\)</span> tak terhitung: setiap kejadian dalam
+<span class="math inline">\(\mathcal F^0\)</span> bergantung pada paling
+banyak terhitung banyak koordinat. Untuk melihatnya, kumpulkan semua
+kejadian yang keanggotaannya ditentukan oleh suatu himpunan koordinat
+terhitung. Kelas ini memuat setiap silinder dan tertutup terhadap
+komplemen serta gabungan terhitung, karena gabungan terhitung dari
+himpunan koordinat terhitung tetap terhitung. Maka kelas itu memuat
+sigma-aljabar yang dibangkitkan silinder. Fakta ini tidak mengubah ruang
+lintasan menjadi terhitung; fakta ini hanya membatasi berapa banyak
+koordinat yang dapat dibaca oleh satu kejadian terukur produk.</p>
+</section>
+<section class="bridge-section" id="konsistensi-proyektif">
+<h2>Konsistensi proyektif</h2>
+<p>Misalkan untuk setiap <span class="math inline">\(J\subset T\)</span>
+yang hingga diberikan ukuran peluang <span class="math inline">\(\mu_J\)</span> pada <span class="math inline">\((S^J,\mathcal S^{\otimes J})\)</span>. Apabila
+<span class="math inline">\(K\subset J\)</span>, definisikan</p>
+<p><span class="math display">\[
+p_{J,K}:S^J\longrightarrow S^K,
+\qquad
+p_{J,K}(x)=x|_K.
+\]</span></p>
+<p>Keluarga <span class="math inline">\(\{\mu_J\}\)</span> disebut
+<strong>konsisten secara proyektif</strong> apabila</p>
+<p><span class="math display">\[
+\mu_J\circ p_{J,K}^{-1}=\mu_K
+\qquad\text{untuk setiap }K\subset J\subset T
+\text{ yang hingga}.
+\tag{1}
+\]</span></p>
+<p>Artinya, jika sebuah vektor acak pada koordinat <span class="math inline">\(J\)</span> dibuang semua koordinatnya di luar
+<span class="math inline">\(K\)</span>, hukum marginal yang tersisa
+harus tepat <span class="math inline">\(\mu_K\)</span>. Kita mengindeks
+hukum dengan <em>himpunan berlabel</em> <span class="math inline">\(J\)</span>, bukan dengan daftar berurutan. Karena
+itu, dua pengurutan dari anggota <span class="math inline">\(J\)</span>
+hanyalah dua cara menuliskan unsur yang sama dari <span class="math inline">\(S^J\)</span>; perubahan urutan diterjemahkan oleh
+peta permutasi koordinat. Dengan konvensi ini, syarat permutasi dan
+syarat marginal yang biasa ditulis terpisah untuk tupel berurutan
+sama-sama tercakup oleh (1): pelabelan menangani permutasi, sedangkan
+<span class="math inline">\(p_{J,K}\)</span> menangani penghapusan
+koordinat.</p>
+<p>Syarat (1) perlu. Jika suatu ukuran <span class="math inline">\(\mu\)</span> pada <span class="math inline">\((S^T,\mathcal F^0)\)</span> memang memiliki
+marginal <span class="math inline">\(\mu_J=\mu\circ\pi_J^{-1}\)</span>,
+maka identitas <span class="math inline">\(\pi_K=p_{J,K}\circ\pi_J\)</span> langsung
+memberikan</p>
+<p><span class="math display">\[
+\mu_J\circ p_{J,K}^{-1}
+=\mu\circ\pi_J^{-1}\circ p_{J,K}^{-1}
+=\mu\circ\pi_K^{-1}
+=\mu_K.
+\]</span></p>
+<p>Pertanyaan yang lebih dalam adalah apakah syarat yang perlu ini juga
+cukup. Jawabannya ya di bawah hipotesis keteraturan yang eksplisit
+berikut.</p>
+<p>Pada himpunan persegi panjang terukur, syarat tersebut sangat
+konkret. Jika <span class="math inline">\(J=\{t_1,\ldots,t_n\}\)</span>
+dan <span class="math inline">\(A=A_1\times\cdots\times A_n\)</span>,
+penghapusan beberapa waktu harus menghasilkan peluang yang sama dengan
+hukum yang sejak awal diberi pada waktu-waktu yang tersisa. Namun
+pemeriksaan hanya pada rumus kepadatan atau momen tidak selalu cukup:
+konsistensi merupakan kesamaan ukuran pada seluruh <span class="math inline">\(\mathcal S^{\otimes K}\)</span>. Karena itu,
+contoh Markov dan Gaussian di bawah memverifikasi identitas marginal
+pada tingkat hukum, bukan sekadar kecocokan beberapa statistik.</p>
+</section>
+<section class="bridge-section" id="teorema-perluasan-kolmogorov">
+<h2>Teorema perluasan Kolmogorov</h2>
+<blockquote>
+<p><strong>Teorema (perluasan Kolmogorov, bentuk ruang Borel
+standar).</strong> Misalkan <span class="math inline">\((S,\mathcal
+S)\)</span> adalah ruang Borel standar dan <span class="math inline">\(T\)</span> adalah himpunan sebarang. Untuk setiap
+himpunan hingga <span class="math inline">\(J\subset T\)</span>,
+misalkan <span class="math inline">\(\mu_J\)</span> merupakan ukuran
+peluang pada <span class="math inline">\((S^J,\mathcal S^{\otimes
+J})\)</span>. Jika keluarga <span class="math inline">\(\{\mu_J\}\)</span> konsisten secara proyektif,
+maka terdapat tepat satu ukuran peluang <span class="math inline">\(\mu\)</span> pada <span class="math inline">\((S^T,\mathcal S^{\otimes T})\)</span> sedemikian
+sehingga <span class="math display">\[
+\mu\circ\pi_J^{-1}=\mu_J
+\qquad\text{untuk setiap }J\subset T\text{ yang hingga}.
+\]</span></p>
+</blockquote>
+<p>Ruang Borel standar adalah ruang terukur yang isomorfik secara
+terukur dengan suatu himpunan Borel dalam ruang Polish. Kelas ini
+mencakup ruang keadaan yang paling sering dipakai, seperti himpunan
+hingga atau terhitung dengan sigma-aljabar diskret, <span class="math inline">\(\mathbb R^d\)</span> dengan sigma-aljabar
+Borelnya, serta ruang Polish beserta sigma-aljabar Borelnya. Hipotesis
+Borel standar di sini merupakan hipotesis <strong>cukup</strong> yang
+jelas dan dapat diaudit; pernyataan ini tidak mengklaim bahwa hipotesis
+tersebut perlu dalam setiap versi teorema perluasan.</p>
+<p>Keteraturan ditempatkan pada ruang keadaan, bukan pada himpunan
+indeks. Teorema tidak meminta <span class="math inline">\(T\)</span>
+terhitung, berurutan, atau bertopologi. Sebaliknya, struktur Borel
+standar pada <span class="math inline">\(S\)</span> memastikan bahwa
+masalah proyektif tidak kehilangan keteraturan ukuran ketika jumlah
+koordinat bertambah. Ini juga menjelaskan mengapa urutan waktu,
+semigrup, atau kovarians bukan bagian dari pernyataan abstrak: semua
+struktur tersebut masuk melalui keluarga <span class="math inline">\(\{\mu_J\}\)</span> pada penerapan tertentu.</p>
+</section>
+<section class="bridge-section" id="lingkup-bukti">
+<h2>Lingkup bukti</h2>
+<p>Ada tiga bagian yang perlu dibedakan. Kita membuktikan bahwa nilai
+yang hendak diberikan pada silinder tidak bergantung pada
+representasinya, menguraikan dengan jujur tempat teorema perluasan
+dipakai untuk keberadaan, lalu membuktikan keunikan pada sigma-aljabar
+produk.</p>
+<h3 id="representasi-silinder-yang-sama">Representasi silinder yang
+sama</h3>
+<p>Secara alami kita ingin menetapkan</p>
+<p><span class="math display">\[
+q\bigl(\pi_J^{-1}(A)\bigr)=\mu_J(A).
+\tag{2}
+\]</span></p>
+<p>Namun satu silinder dapat mempunyai dua representasi. Misalkan</p>
+<p><span class="math display">\[
+\pi_J^{-1}(A)=\pi_K^{-1}(B),
+\qquad
+A\in\mathcal S^{\otimes J},\quad
+B\in\mathcal S^{\otimes K}.
+\tag{3}
+\]</span></p>
+<p>Ambil <span class="math inline">\(L=J\cup K\)</span>. Pada ruang
+bersama <span class="math inline">\(S^L\)</span>, bentuk dua
+pengangkatan</p>
+<p><span class="math display">\[
+A_L=p_{L,J}^{-1}(A),
+\qquad
+B_L=p_{L,K}^{-1}(B).
+\]</span></p>
+<p>Kita klaim <span class="math inline">\(A_L=B_L\)</span>. Pilih satu
+titik tetap <span class="math inline">\(s_0\in S\)</span>. Setiap <span class="math inline">\(x\in S^L\)</span> dapat diperluas menjadi <span class="math inline">\(\omega\in S^T\)</span> dengan menetapkan <span class="math inline">\(\omega|_L=x\)</span> dan <span class="math inline">\(\omega(t)=s_0\)</span> untuk <span class="math inline">\(t\notin L\)</span>. Karena <span class="math inline">\(\pi_J=p_{L,J}\circ\pi_L\)</span> dan <span class="math inline">\(\pi_K=p_{L,K}\circ\pi_L\)</span>, persamaan (3)
+mengatakan</p>
+<p><span class="math display">\[
+x\in A_L
+\iff \omega\in\pi_J^{-1}(A)
+\iff \omega\in\pi_K^{-1}(B)
+\iff x\in B_L.
+\]</span></p>
+<p>Jadi kedua himpunan terangkat sama. Konsistensi proyektif kemudian
+memberi</p>
+<p><span class="math display">\[
+\mu_J(A)
+=\mu_L\bigl(p_{L,J}^{-1}(A)\bigr)
+=\mu_L\bigl(p_{L,K}^{-1}(B)\bigr)
+=\mu_K(B).
+\tag{4}
+\]</span></p>
+<p>Dengan demikian, (2) terdefinisi dengan baik. Argumen ini juga
+menunjukkan mengapa konsistensi harus diperiksa pada ruang koordinat
+bersama, bukan hanya dengan membandingkan rumus yang kebetulan tampak
+serupa.</p>
+<h3 id="keberadaan-bagian-yang-benar-benar-memakai-teorema">Keberadaan:
+bagian yang benar-benar memakai teorema</h3>
+<p>Konsistensi membuat nilai silinder pada (2) kompatibel dan aditif
+untuk pembagian hingga yang tetap bergantung pada sejumlah hingga
+koordinat. Akan tetapi, <strong>aditivitas hingga bukan aditivitas
+terhitung</strong>. Jadi kita tidak boleh menyebut (2) sebagai ukuran
+peluang pada <span class="math inline">\(\mathcal F^0\)</span> hanya
+karena semua marginal berhingga saling cocok.</p>
+<p>Pada titik inilah teorema batas proyektif Kolmogorov untuk ruang
+Borel standar dipakai. Dalam pembuktian lengkap teorema tersebut,
+keteraturan Borel standar menyediakan kendali yang diperlukan agar
+sistem ukuran pada ruang koordinat hingga menghasilkan ukuran yang
+aditif terhitung. Salah satu peta jalan pembuktiannya ialah pertama
+menangani himpunan koordinat terhitung melalui ukuran-ukuran proyektif
+yang konsisten dan keteraturan ruang keadaan, lalu memakai fakta bahwa
+setiap kejadian dalam sigma-aljabar produk dibangun dari paling banyak
+terhitung banyak koordinat. Teorema itu menghasilkan ukuran <span class="math inline">\(\mu\)</span> pada <span class="math inline">\(\mathcal F^0\)</span> yang nilainya pada setiap
+silinder ialah (2). Unit ini menggunakan hasil keberadaan tersebut; unit
+ini tidak menyamarkan langkah aditivitas terhitung sebagai akibat
+otomatis dari konsistensi hingga dan tidak mengulang teori umum
+perluasan ukuran.</p>
+<p>Peta jalan itu dapat dibuat lebih konkret tanpa mengulang seluruh
+teorema. Untuk setiap himpunan koordinat terhitung <span class="math inline">\(I\subset T\)</span>, teorema pada produk terhitung
+memberi ukuran <span class="math inline">\(\mu_I\)</span> yang mempunyai
+marginal yang ditentukan. Jika suatu kejadian <span class="math inline">\(E\in\mathcal F^0\)</span> ditentukan oleh
+koordinat dalam <span class="math inline">\(I\)</span>, nilainya dibaca
+dari <span class="math inline">\(\mu_I\)</span>. Apabila <span class="math inline">\(E\)</span> juga mempunyai representasi melalui
+himpunan terhitung <span class="math inline">\(K\)</span>, kedua nilai
+dibandingkan di ruang bersama <span class="math inline">\(S^{I\cup
+K}\)</span>; konsistensi marginal di ruang itu membuat hasilnya sama.
+Untuk memeriksa aditivitas terhitung suatu barisan kejadian, gabungkan
+semua himpunan koordinat yang menopang kejadian-kejadian tersebut.
+Gabungan itu masih terhitung, sehingga seluruh pemeriksaan berlangsung
+di bawah satu ukuran <span class="math inline">\(\mu_L\)</span> yang
+sudah aditif terhitung. Inilah mekanisme yang menjelaskan mengapa
+pengurangan ke koordinat terhitung sah, sekaligus mengapa keteraturan
+ruang keadaan tetap diperlukan pada langkah perluasan terhitung.</p>
+<p>Dengan kata lain, pembuktian representasi silinder di atas hanya
+memastikan bahwa kandidat nilai <span class="math inline">\(q(C)\)</span> tidak ambigu. Teorema batas
+proyektif itulah yang memastikan bahwa apabila silinder-silinder disusun
+dalam barisan yang melibatkan makin banyak koordinat, nilai kandidat itu
+tetap memenuhi syarat limit yang diperlukan oleh ukuran peluang. Setelah
+teorema diterapkan, kita boleh memakai semua operasi terhitung dalam
+<span class="math inline">\(\mathcal F^0\)</span> secara sah. Tanpa
+langkah tersebut, yang tersedia baru data hingga yang kompatibel, bukan
+ruang peluang proses yang sudah dibangun.</p>
+<h3 id="keunikan-pada-sigma-aljabar-produk">Keunikan pada sigma-aljabar
+produk</h3>
+<p>Misalkan <span class="math inline">\(\mu\)</span> dan <span class="math inline">\(\nu\)</span> adalah dua ukuran peluang pada <span class="math inline">\((S^T,\mathcal F^0)\)</span> dengan marginal hingga
+yang sama. Kelas semua silinder</p>
+<p><span class="math display">\[
+\mathcal C
+=\{\pi_J^{-1}(A):J\subset T\text{ hingga},
+A\in\mathcal S^{\otimes J}\}
+\]</span></p>
+<p>adalah suatu sistem-<span class="math inline">\(\pi\)</span>. Memang,
+jika dua silinder masing-masing bergantung pada <span class="math inline">\(J\)</span> dan <span class="math inline">\(K\)</span>, irisan keduanya dapat ditulis sebagai
+silinder pada <span class="math inline">\(L=J\cup K\)</span>. Selain
+itu, <span class="math inline">\(\Omega\in\mathcal C\)</span> dan <span class="math inline">\(\sigma(\mathcal C)=\mathcal F^0\)</span>.</p>
+<p>Kesamaan marginal memastikan <span class="math inline">\(\mu\)</span>
+dan <span class="math inline">\(\nu\)</span> sepakat pada setiap anggota
+<span class="math inline">\(\mathcal C\)</span>; pembuktian representasi
+bersama sebelumnya menjamin bahwa pernyataan ini tidak bergantung pada
+cara silinder ditulis. Langkah berikut harus memperluas kesepakatan dari
+pengamatan hingga ke semua kejadian yang dibangun melalui operasi
+terhitung. Inilah fungsi argumen kelas monoton, dan bukan suatu asumsi
+tambahan tentang topologi lintasan.</p>
+<p>Bentuk kelas</p>
+<p><span class="math display">\[
+\mathcal D=\{E\in\mathcal F^0:\mu(E)=\nu(E)\}.
+\]</span></p>
+<p>Karena <span class="math inline">\(\mu\)</span> dan <span class="math inline">\(\nu\)</span> adalah ukuran peluang, <span class="math inline">\(\mathcal D\)</span> memuat <span class="math inline">\(\Omega\)</span>, tertutup terhadap komplemen
+relatif, dan tertutup terhadap gabungan terhitung dari himpunan-himpunan
+saling lepas. Jadi <span class="math inline">\(\mathcal D\)</span>
+merupakan sistem Dynkin. Kedua ukuran mempunyai marginal yang sama,
+sehingga <span class="math inline">\(\mathcal C\subset\mathcal
+D\)</span>. Teorema sistem-<span class="math inline">\(\pi\)</span>–<span class="math inline">\(\lambda\)</span>—bentuk indikator dari teorema
+kelas monoton—memberikan</p>
+<p><span class="math display">\[
+\mathcal F^0=\sigma(\mathcal C)\subset\mathcal D.
+\]</span></p>
+<p>Akibatnya <span class="math inline">\(\mu(E)=\nu(E)\)</span> untuk
+setiap <span class="math inline">\(E\in\mathcal F^0\)</span>. Inilah
+seluruh lingkup klaim keunikan: kesamaan pada sigma-aljabar produk yang
+dibangkitkan silinder, bukan pada sigma-aljabar lebih besar yang tidak
+disebutkan.</p>
+</section>
+<section class="bridge-section" id="proses-koordinat-kanonik">
+<h2>Proses koordinat kanonik</h2>
+<p>Setelah teorema menghasilkan <span class="math inline">\(\mu\)</span>, tetapkan pada <span class="math inline">\((\Omega,\mathcal F^0,\mu)=(S^T,\mathcal S^{\otimes
+T},\mu)\)</span></p>
+<p><span class="math display">\[
+X_t(\omega)=\omega(t)=\pi_t(\omega),
+\qquad t\in T.
+\]</span></p>
+<p>Untuk <span class="math inline">\(B\in\mathcal S\)</span>,</p>
+<p><span class="math display">\[
+X_t^{-1}(B)=\pi_t^{-1}(B)\in\mathcal F^0,
+\]</span></p>
+<p>sehingga setiap <span class="math inline">\(X_t\)</span> terukur.
+Jika <span class="math inline">\(J\subset T\)</span> hingga, peta vektor
+<span class="math inline">\((X_t)_{t\in J}\)</span> persis <span class="math inline">\(\pi_J\)</span>. Oleh karena itu, untuk setiap
+<span class="math inline">\(A\in\mathcal S^{\otimes J}\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P\bigl((X_t)_{t\in J}\in A\bigr)
+=\mu(\pi_J^{-1}(A))
+=\mu_J(A).
+\]</span></p>
+<p>Jadi hukum berdimensi hingga proses koordinat kanonik tepat keluarga
+yang diberikan. Ini juga membuktikan klaim koordinat dan distribusi
+berdimensi hingga tanpa memilih versi proses di ruang peluang lain.</p>
+<p>Konstruksi kanonik juga merangkum setiap realisasi lain. Misalkan
+pada ruang peluang <span class="math inline">\((\Omega',\mathcal
+A,\mathbb P')\)</span> sudah ada keluarga peubah acak <span class="math inline">\(Y_t\)</span> dengan hukum-hukum hingga <span class="math inline">\(\mu_J\)</span>. Peta lintasan</p>
+<p><span class="math display">\[
+\Phi:\Omega'\longrightarrow S^T,
+\qquad
+\Phi(\omega')=(Y_t(\omega'))_{t\in T},
+\]</span></p>
+<p>terukur terhadap <span class="math inline">\(\mathcal F^0\)</span>:
+prabayangan setiap silinder adalah kejadian yang ditentukan oleh vektor
+hingga <span class="math inline">\((Y_t)_{t\in J}\)</span>. Ukuran
+dorong <span class="math inline">\(\mathbb P'\circ\Phi^{-1}\)</span>
+memiliki marginal <span class="math inline">\(\mu_J\)</span>, sehingga
+keunikan memberikan <span class="math inline">\(\mathbb
+P'\circ\Phi^{-1}=\mu\)</span>. Jadi hukum pada ruang kanonik
+menyimpan tepat informasi distribusional dari setiap realisasi tersebut.
+Argumen ini tidak mengatakan bahwa peta evaluasi bersama <span class="math inline">\((t,\omega')\mapsto Y_t(\omega')\)</span>
+terukur dan tidak menyamakan lintasan dua realisasi di luar kesamaan
+hukumnya.</p>
+<p>Jika <span class="math inline">\(T\)</span> terurut, kita boleh
+membentuk filtrasi kanonik mentah</p>
+<p><span class="math display">\[
+\mathcal F_t^0=\sigma(X_s:s\le t).
+\]</span></p>
+<p>Filtrasi ini belum dilengkapi oleh himpunan nol dan belum dibuat
+kontinu kanan. Pelengkapan serta augmentasi biasa bergantung pada hukum
+<span class="math inline">\(\mu\)</span> dan konvensi waktu yang
+dipilih; keduanya bukan bagian dari konstruksi Kolmogorov mentah.</p>
+</section>
+<section class="bridge-section" id="contoh-keluarga-markov">
+<h2>Contoh keluarga Markov</h2>
+<p>Misalkan <span class="math inline">\((S,\mathcal S)\)</span> Borel
+standar, waktu <span class="math inline">\(T\subset[0,\infty)\)</span>
+memuat <span class="math inline">\(0\)</span>, <span class="math inline">\(\eta\)</span> adalah hukum awal, dan <span class="math inline">\(P_{s,t}(x,\mathrm dy)\)</span> adalah keluarga
+kernel transisi terukur untuk <span class="math inline">\(s\le
+t\)</span>. Anggap <span class="math inline">\(P_{t,t}(x,\cdot)=\delta_x\)</span> dan hukum
+komposisi Chapman–Kolmogorov berlaku:</p>
+<p><span class="math display">\[
+P_{r,t}(x,A)
+=\int_S P_{r,s}(x,\mathrm dy)P_{s,t}(y,A),
+\qquad r\le s\le t.
+\tag{5}
+\]</span></p>
+<p>Tulis <span class="math inline">\(\eta_t(A)=\int_S\eta(\mathrm
+dx)P_{0,t}(x,A)\)</span>. Untuk himpunan waktu <span class="math inline">\(J=\{t_1&lt;\cdots&lt;t_n\}\)</span>, definisikan
+hukum hingga melalui</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\mu_J(\mathrm dx_1\cdots\mathrm dx_n)\\
+&amp;\quad=\eta_{t_1}(\mathrm dx_1)
+P_{t_1,t_2}(x_1,\mathrm dx_2)\cdots
+P_{t_{n-1},t_n}(x_{n-1},\mathrm dx_n).
+\end{aligned}
+\tag{6}
+\]</span></p>
+<p>Secara lebih eksplisit, untuk persegi panjang <span class="math inline">\(A_1\times\cdots\times A_n\)</span>, ruas kanan (6)
+berarti integral berulang</p>
+<p><span class="math display">\[
+\int_{A_1}\eta_{t_1}(\mathrm dx_1)
+\int_{A_2}P_{t_1,t_2}(x_1,\mathrm dx_2)\cdots
+\int_{A_n}P_{t_{n-1},t_n}(x_{n-1},\mathrm dx_n).
+\]</span></p>
+<p>Keterukuran kernel memastikan bahwa setiap integral luar terdefinisi.
+Bentuk ini lalu menentukan satu ukuran peluang pada sigma-aljabar produk
+hingga, bukan hanya pada persegi panjang. Urutan waktu dipakai untuk
+memfaktorkan hukum; indeks hukum itu sendiri tetap himpunan berlabel
+<span class="math inline">\(J\)</span>, sehingga hasil akhir tidak
+bergantung pada cara kita menuliskan daftar yang sama.</p>
+<p>Menghapus koordinat terakhir berarti mengintegralkan <span class="math inline">\(P_{t_{n-1},t_n}(x_{n-1},\mathrm dx_n)\)</span>
+atas seluruh <span class="math inline">\(S\)</span>; hasilnya satu,
+karena kernel tersebut merupakan ukuran peluang. Menghapus koordinat
+interior <span class="math inline">\(t_i\)</span> menggabungkan dua
+kernel yang bersebelahan, dan (5) mengganti integralnya dengan <span class="math inline">\(P_{t_{i-1},t_{i+1}}\)</span>. Menghapus koordinat
+pertama memakai <span class="math inline">\(\eta_{t_1}P_{t_1,t_2}=\eta_{t_2}\)</span>.
+Penghapusan berulang menangani setiap <span class="math inline">\(K\subset J\)</span>, sehingga keluarga (6)
+konsisten secara proyektif.</p>
+<p>Teorema perluasan kini menghasilkan hukum pada ruang mentah <span class="math inline">\(S^T\)</span> dan proses koordinat dengan
+hukum-hukum (6). Kesimpulannya hanya itu. Untuk teori rantai Markov
+waktu kontinu, generator, dan semigrup, lihat unit <a href="../quantecon/lectures/markov_prop.html">QuantEcon</a>. Jika teori
+tersebut memakai ruang lintasan kontinu kanan yang lebih sempit,
+diperlukan argumen tambahan untuk menunjukkan bahwa hukum mentah
+berkonsentrasi di sana atau untuk membangun ukuran langsung pada ruang
+yang lebih sempit tersebut.</p>
+</section>
+<section class="bridge-section" id="contoh-keluarga-gaussian">
+<h2>Contoh keluarga Gaussian</h2>
+<p>Ambil <span class="math inline">\(S=\mathbb R\)</span> dengan
+sigma-aljabar Borel. Misalkan <span class="math inline">\(m:T\to\mathbb
+R\)</span> dan <span class="math inline">\(K:T\times T\to\mathbb
+R\)</span> memenuhi <span class="math inline">\(K(s,t)=K(t,s)\)</span>
+serta bersifat semidefinit positif: untuk setiap <span class="math inline">\(t_1,\ldots,t_n\in T\)</span> dan <span class="math inline">\(a_1,\ldots,a_n\in\mathbb R\)</span>,</p>
+<p><span class="math display">\[
+\sum_{i=1}^n\sum_{j=1}^n a_i a_jK(t_i,t_j)\ge0.
+\tag{7}
+\]</span></p>
+<p>Untuk <span class="math inline">\(J=\{t_1,\ldots,t_n\}\)</span>,
+tetapkan <span class="math inline">\(m_J=(m(t_i))_{i=1}^n\)</span> dan
+<span class="math inline">\(K_J=(K(t_i,t_j))_{i,j=1}^n\)</span>. Ada
+hukum Gaussian multivariat <span class="math inline">\(\mu_J=\mathcal
+N(m_J,K_J)\)</span>, termasuk ketika <span class="math inline">\(K_J\)</span> singular. Sebagai contoh, hukum
+singular dapat dipahami melalui fungsi karakteristik</p>
+<p><span class="math display">\[
+u\longmapsto
+\exp\!\left(iu^\mathsf Tm_J-\tfrac12u^\mathsf TK_Ju\right),
+\]</span></p>
+<p>yang tetap sah untuk matriks kovarians semidefinit positif.</p>
+<p>Singularitas berarti sebagian kombinasi linear koordinat mempunyai
+varians nol dan karena itu memenuhi hubungan deterministik di bawah
+hukum tersebut. Hal ini tidak merusak ukuran peluang: ukuran Gaussian
+hanya terkonsentrasi pada subruang afin yang dimensinya lebih kecil.
+Karena proyeksi linear dari Gaussian—singular ataupun tak singular—tetap
+Gaussian, pengambilan marginal tidak memerlukan invers matriks kovarians
+ataupun kepadatan terhadap ukuran Lebesgue. Inilah alasan formulasi
+semidefinit positif, bukan definit positif, merupakan formulasi yang
+tepat bagi keluarga hingga.</p>
+<p>Marginal sebuah vektor Gaussian pada subhimpunan koordinat tetap
+Gaussian; vektor rataan dan matriks kovariansnya menjadi subvektor dan
+submatriks yang bersesuaian. Maka untuk <span class="math inline">\(K_0\subset J\)</span> berlaku <span class="math inline">\(\mu_J\circ p_{J,K_0}^{-1}=\mu_{K_0}\)</span>.
+Teorema Kolmogorov menghasilkan proses Gaussian kanonik dengan fungsi
+rataan <span class="math inline">\(m\)</span> dan fungsi kovarians <span class="math inline">\(K\)</span>. Pemilihan <span class="math inline">\(K(s,t)=\min(s,t)\)</span> terkait dengan
+pembahasan <a href="../brown/Standard.html">gerak Brown standar</a>,
+tetapi konstruksi di sini sendiri tidak membuktikan lintasan kontinu,
+sifat Markov, atau sifat lintasan Brown lainnya.</p>
+</section>
+<section class="bridge-section" id="audit-hipotesis-dan-bukan-klaim">
+<h2>Audit hipotesis dan bukan klaim</h2>
+<p>Empat batas berikut mencegah teorema perluasan dipakai melampaui
+isinya.</p>
+<ol type="1">
+<li><strong>Borel standar adalah hipotesis cukup yang
+dinyatakan.</strong> Kita tidak mengasumsikan bahwa keluarga konsisten
+pada ruang terukur sebarang selalu dapat diperluas. Ada versi teorema
+dengan hipotesis lain, tetapi versi itulah yang harus dinyatakan dan
+dibuktikan jika hendak dipakai.</li>
+<li><strong>Ukuran hidup pada sigma-aljabar produk.</strong> Untuk <span class="math inline">\(T\)</span> tak terhitung, <span class="math inline">\(\mathcal S^{\otimes T}\)</span> dapat lebih kecil
+daripada sigma-aljabar lain yang muncul dari suatu topologi pada <span class="math inline">\(S^T\)</span>, apalagi daripada himpunan semua
+bagiannya. Keunikan pada silinder tidak menentukan nilai kejadian di
+luar <span class="math inline">\(\mathcal S^{\otimes T}\)</span>.</li>
+<li><strong>Ruang lintasan mentah bukan ruang lintasan teratur.</strong>
+Konstruksi pada <span class="math inline">\(S^T\)</span> tidak dengan
+sendirinya memberi ukuran pada <span class="math inline">\(C(T,S)\)</span>, <span class="math inline">\(D(T,S)\)</span>, atau kelas lintasan kontinu
+kanan. Untuk berpindah ke kelas tersebut perlu dibuktikan keterukuran
+kelasnya dan konsentrasi ukuran, atau digunakan teorema konstruksi lain.
+Hukum berdimensi hingga saja tidak menyertakan keteraturan
+lintasan.</li>
+<li><strong>Keterukuran setiap koordinat bukan keterukuran
+bersama.</strong> Kita telah membuktikan bahwa <span class="math inline">\(\omega\mapsto X_t(\omega)\)</span> terukur untuk
+setiap <span class="math inline">\(t\)</span> tetap. Itu tidak otomatis
+membuktikan bahwa <span class="math inline">\((t,\omega)\mapsto
+X_t(\omega)\)</span> terukur terhadap sigma-aljabar produk pada <span class="math inline">\(T\times\Omega\)</span>. Keterukuran bersama,
+modifikasi proses, dan ekuivalensi lintasan memerlukan pembahasan
+penghubung tersendiri.</li>
+</ol>
+<p>Dengan batas-batas ini, perluasan Kolmogorov melakukan satu pekerjaan
+yang sangat kuat tetapi spesifik: mengubah hukum berdimensi hingga yang
+konsisten menjadi satu hukum pada ruang koordinat mentah, lalu
+menyediakan realisasi kanonik melalui proyeksi koordinat.</p>
+<p>Karena itu, setiap penerapan sebaiknya meninggalkan jejak audit yang
+menyebut ruang keadaan, sigma-aljabar hasil, keluarga marginal, dan
+teorema tambahan apa pun yang dipakai untuk keteraturan lintasan.
+Menuliskan keempat unsur itu mencegah kesimpulan sah tentang hukum
+koordinat berubah tanpa disadari menjadi klaim yang lebih kuat tentang
+geometri lintasan.</p>
+</section>
+<section class="bridge-section" id="latihan-penguasaan">
+<h2>Latihan penguasaan</h2>
+<div class="mastery-sequence" id="unit.o009.original.mastery.process-construction.01">
+<div class="exercise" id="unit.o009.original.mastery.process-construction.01.exercise">
+<h3 id="latihan-1-satu-silinder-dua-representasi">Latihan 1 — satu
+silinder, dua representasi</h3>
+<p>Misalkan <span class="math inline">\(J,K\subset T\)</span> hingga,
+<span class="math inline">\(A\in\mathcal S^{\otimes J}\)</span>, <span class="math inline">\(B\in\mathcal S^{\otimes K}\)</span>, dan <span class="math inline">\(\pi_J^{-1}(A)=\pi_K^{-1}(B)\)</span>.</p>
+<ol type="1">
+<li>Dengan <span class="math inline">\(L=J\cup K\)</span>, buktikan
+bahwa <span class="math inline">\(p_{L,J}^{-1}(A)=p_{L,K}^{-1}(B)\)</span> di <span class="math inline">\(S^L\)</span>.</li>
+<li>Buktikan bahwa penetapan peluang silinder tidak bergantung pada
+representasinya, yaitu <span class="math inline">\(\mu_J(A)=\mu_K(B)\)</span>.</li>
+<li>Gunakan bentuk silinder untuk membuktikan bahwa setiap koordinat
+<span class="math inline">\(X_t(\omega)=\omega(t)\)</span> terukur pada
+<span class="math inline">\(\mathcal F^0\)</span>.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.process-construction.01.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 1">Petunjuk 1 untuk Latihan 1</summary>
+<p><strong>Petunjuk 1.</strong> Pindahkan kedua representasi ke ruang
+koordinat bersama <span class="math inline">\(S^L\)</span>. Untuk
+membandingkan keanggotaan titik <span class="math inline">\(x\in
+S^L\)</span>, perpanjang <span class="math inline">\(x\)</span> menjadi
+sebuah lintasan <span class="math inline">\(\omega\in S^T\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.process-construction.01.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 1">Petunjuk 2 untuk Latihan 1</summary>
+<p><strong>Petunjuk 2.</strong> Setelah kedua himpunan terangkat
+terbukti sama, terapkan konsistensi proyektif sekali dari <span class="math inline">\(L\)</span> ke <span class="math inline">\(J\)</span> dan sekali dari <span class="math inline">\(L\)</span> ke <span class="math inline">\(K\)</span>. Untuk keterukuran koordinat, hitung
+prabayangan <span class="math inline">\(X_t^{-1}(D)\)</span> bagi <span class="math inline">\(D\in\mathcal S\)</span>.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.process-construction.01.answer">
+<p><strong>Jawaban ringkas.</strong> Kedua himpunan yang diangkat ke
+<span class="math inline">\(S^L\)</span> sama, sehingga</p>
+<p><span class="math display">\[
+\mu_J(A)=\mu_L(p_{L,J}^{-1}A)
+=\mu_L(p_{L,K}^{-1}B)=\mu_K(B).
+\]</span></p>
+<p>Selain itu, <span class="math inline">\(X_t^{-1}(D)=\pi_{\{t\}}^{-1}(D)\)</span> adalah
+silinder dan karena itu berada dalam <span class="math inline">\(\mathcal F^0\)</span>.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.process-construction.01.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 1">Penyelesaian lengkap untuk Latihan 1</summary>
+<p><strong>Penyelesaian lengkap.</strong> Pilih <span class="math inline">\(s_0\in S\)</span>. Untuk <span class="math inline">\(x\in S^L\)</span>, definisikan <span class="math inline">\(\omega_x\in S^T\)</span> dengan <span class="math inline">\(\omega_x|_L=x\)</span> dan <span class="math inline">\(\omega_x(t)=s_0\)</span> di luar <span class="math inline">\(L\)</span>. Karena kedua silinder pada soal
+sama,</p>
+<p><span class="math display">\[
+\begin{aligned}
+x\in p_{L,J}^{-1}(A)
+&amp;\iff \pi_J(\omega_x)\in A\\
+&amp;\iff \omega_x\in\pi_J^{-1}(A)\\
+&amp;\iff \omega_x\in\pi_K^{-1}(B)\\
+&amp;\iff \pi_K(\omega_x)\in B\\
+&amp;\iff x\in p_{L,K}^{-1}(B).
+\end{aligned}
+\]</span></p>
+<p>Kesetaraan berlaku untuk setiap <span class="math inline">\(x\)</span>, jadi kedua himpunan terangkat sama.
+Konsistensi proyektif memberikan</p>
+<p><span class="math display">\[
+\mu_J(A)=\mu_L(p_{L,J}^{-1}A)
+=\mu_L(p_{L,K}^{-1}B)=\mu_K(B).
+\]</span></p>
+<p>Dengan demikian peluang silinder terdefinisi baik, meskipun satu
+silinder ditulis memakai dua himpunan koordinat berbeda. Terakhir, bagi
+<span class="math inline">\(D\in\mathcal S\)</span>,</p>
+<p><span class="math display">\[
+X_t^{-1}(D)
+=\{\omega:\omega(t)\in D\}
+=\pi_{\{t\}}^{-1}(D)\in\mathcal F^0.
+\]</span></p>
+<p>Karena ini berlaku untuk setiap <span class="math inline">\(D\in\mathcal S\)</span>, peta <span class="math inline">\(X_t\)</span> terukur.</p>
+</details>
+</div>
+<div class="mastery-sequence" id="unit.o009.original.mastery.process-construction.02">
+<div class="exercise" id="unit.o009.original.mastery.process-construction.02.exercise">
+<h3 id="latihan-2-konsistensi-hukum-markov">Latihan 2 — konsistensi
+hukum Markov</h3>
+<p>Misalkan <span class="math inline">\(S=\{0,1\}\)</span>, <span class="math inline">\(\eta\)</span> suatu hukum awal, dan rantai Markov
+homogen mempunyai matriks transisi</p>
+<p><span class="math display">\[
+P=\begin{pmatrix}3/4&amp;1/4\\[2pt]1/2&amp;1/2\end{pmatrix}.
+\]</span></p>
+<ol type="1">
+<li>Tuliskan hukum bersama tiga waktu <span class="math inline">\((X_0,X_1,X_2)\)</span>.</li>
+<li>Jumlahkan keadaan interior <span class="math inline">\(X_1\)</span>
+dan tunjukkan bahwa marginal <span class="math inline">\((X_0,X_2)\)</span> memakai matriks dua-langkah
+<span class="math inline">\(P^2\)</span>.</li>
+<li>Periksa dengan aritmetika rasional nilai <span class="math inline">\(P^2\)</span>, jelaskan penghapusan koordinat
+ujung, lalu simpulkan konsistensi semua hukum waktu hingga dan terapkan
+teorema perluasan Kolmogorov.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.process-construction.02.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 2">Petunjuk 1 untuk Latihan 2</summary>
+<p><strong>Petunjuk 1.</strong> Untuk <span class="math inline">\(i,j,k\in S\)</span>, hukum tiga waktunya adalah
+<span class="math inline">\(\eta_iP_{ij}P_{jk}\)</span>. Ketika <span class="math inline">\(j\)</span> dijumlahkan, pisahkan dua faktor kernel
+yang bersebelahan.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.process-construction.02.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 2">Petunjuk 2 untuk Latihan 2</summary>
+<p><strong>Petunjuk 2.</strong> Gunakan hukum komposisi <span class="math inline">\(\sum_jP_{ij}P_{jk}=(P^2)_{ik}\)</span>. Menghapus
+koordinat terakhir memakai jumlah baris satu, sedangkan penghapusan
+berulang menangani subhimpunan waktu sebarang.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.process-construction.02.answer">
+<p><strong>Jawaban ringkas.</strong> Hukum tiga waktunya <span class="math inline">\(\mu_{\{0,1,2\}}(i,j,k)=\eta_iP_{ij}P_{jk}\)</span>.
+Chapman–Kolmogorov tepat memberi identitas marginal yang hilang, dan</p>
+<p><span class="math display">\[
+P^2=\begin{pmatrix}11/16&amp;5/16\\[2pt]5/8&amp;3/8\end{pmatrix}.
+\]</span></p>
+<p>Karena setiap penghapusan koordinat mempertahankan hukum yang
+ditentukan, keluarganya konsisten dan menghasilkan hukum kanonik pada
+<span class="math inline">\(S^{\mathbb N_0}\)</span>.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.process-construction.02.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 2">Penyelesaian lengkap untuk Latihan 2</summary>
+<p><strong>Penyelesaian lengkap.</strong> Dengan menulis <span class="math inline">\(\eta_i=\eta(\{i\})\)</span> dan <span class="math inline">\(P_{ij}=P(i,\{j\})\)</span>, sifat Markov
+memberi</p>
+<p><span class="math display">\[
+\mathbb P(X_0=i,X_1=j,X_2=k)=\eta_iP_{ij}P_{jk}.
+\]</span></p>
+<p>Jika koordinat interior dijumlahkan, diperoleh</p>
+<p><span class="math display">\[
+\sum_{j\in S}\eta_iP_{ij}P_{jk}
+=\eta_i\sum_{j\in S}P_{ij}P_{jk}
+=\eta_i(P^2)_{ik}.
+\]</span></p>
+<p>Jadi hukum marginal <span class="math inline">\((X_0,X_2)\)</span>
+memakai kernel dua-langkah; identitas ini persis hukum
+Chapman–Kolmogorov. Perhitungan rasional menghasilkan</p>
+<p><span class="math display">\[
+\begin{aligned}
+(P^2)_{00}&amp;=\frac34\frac34+\frac14\frac12
+=\frac9{16}+\frac2{16}=\frac{11}{16},\\
+(P^2)_{01}&amp;=\frac34\frac14+\frac14\frac12
+=\frac3{16}+\frac2{16}=\frac5{16},\\
+(P^2)_{10}&amp;=\frac12\frac34+\frac12\frac12
+=\frac38+\frac14=\frac58,\\
+(P^2)_{11}&amp;=\frac12\frac14+\frac12\frac12
+=\frac18+\frac14=\frac38.
+\end{aligned}
+\]</span></p>
+<p>Maka, tepat seperti yang harus diperiksa,</p>
+<p><span class="math display">\[
+P^2=
+\begin{pmatrix}
+11/16&amp;5/16\\[2pt]
+5/8&amp;3/8
+\end{pmatrix}.
+\]</span></p>
+<p>Menghapus <span class="math inline">\(X_2\)</span> dari hukum tiga
+waktu memberi</p>
+<p><span class="math display">\[
+\sum_k\eta_iP_{ij}P_{jk}
+=\eta_iP_{ij}\sum_kP_{jk}
+=\eta_iP_{ij},
+\]</span></p>
+<p>karena setiap baris <span class="math inline">\(P\)</span> berjumlah
+satu. Menghapus <span class="math inline">\(X_0\)</span> memberi <span class="math inline">\(\sum_i\eta_iP_{ij}P_{jk}=(\eta
+P)_jP_{jk}\)</span>, yaitu hukum dua waktu dengan distribusi awal pada
+waktu <span class="math inline">\(1\)</span>. Untuk kumpulan waktu yang
+lebih panjang, koordinat ujung dihapus dengan normalisasi kernel,
+sedangkan koordinat interior dihapus dengan komposisi kernel.
+Penghapusan berulang membuktikan konsistensi untuk setiap pasangan
+himpunan waktu hingga <span class="math inline">\(K\subset
+J\)</span>.</p>
+<p>Ruang keadaan hingga adalah Borel standar. Karena itu, teorema
+perluasan Kolmogorov memberikan ukuran peluang unik pada <span class="math inline">\((S^{\mathbb N_0},\mathcal S^{\otimes\mathbb
+N_0})\)</span> dengan semua hukum hingga tersebut. Proyeksi koordinat di
+ruang ini membentuk rantai Markov kanonik. Penerapan teorema ini belum
+menambahkan struktur lintasan apa pun di luar koordinat diskret
+tersebut.</p>
+</details>
+</div>
+<div class="mastery-sequence" id="unit.o009.original.mastery.process-construction.03">
+<div class="exercise" id="unit.o009.original.mastery.process-construction.03.exercise">
+<h3 id="latihan-3-keluarga-gaussian-kanonik">Latihan 3 — keluarga
+Gaussian kanonik</h3>
+<p>Untuk <span class="math inline">\(T\subset\mathbb R\)</span>,
+definisikan</p>
+<p><span class="math display">\[
+K(s,t)=1+st.
+\]</span></p>
+<ol type="1">
+<li>Buktikan bahwa <span class="math inline">\(K\)</span> simetris dan
+semidefinit positif.</li>
+<li>Untuk setiap <span class="math inline">\(J=\{t_1,\ldots,t_n\}\subset
+T\)</span> yang hingga, definisikan hukum Gaussian berataan nol dan
+berkovarians <span class="math inline">\(K_J=(1+t_it_j)_{i,j}\)</span>.
+Buktikan keluarga hukum ini konsisten, termasuk saat <span class="math inline">\(K_J\)</span> singular.</li>
+<li>Terapkan teorema perluasan Kolmogorov dan nyatakan dengan tepat apa
+yang dapat—dan tidak dapat—disimpulkan tentang proses kanoniknya.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.process-construction.03.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 3">Petunjuk 1 untuk Latihan 3</summary>
+<p><strong>Petunjuk 1.</strong> Untuk skalar <span class="math inline">\(a_1,\ldots,a_n\)</span>, tulis ulang bentuk
+kuadratnya sebagai</p>
+<p><span class="math display">\[
+\left(\sum_i a_i\right)^2
++\left(\sum_i a_it_i\right)^2.
+\]</span></p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.process-construction.03.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 3">Petunjuk 2 untuk Latihan 3</summary>
+<p><strong>Petunjuk 2.</strong> Marginal dari Gaussian multivariat
+diperoleh dengan mengambil subvektor rataan dan submatriks kovarians.
+Fakta ini tetap berlaku untuk Gaussian singular; gunakan fungsi
+karakteristik jika diperlukan.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.process-construction.03.answer">
+<p><strong>Jawaban ringkas.</strong> Identitas bentuk kuadrat
+menunjukkan bahwa <span class="math inline">\(K\)</span> positif
+semidefinit. Marginal Gaussian pada koordinat <span class="math inline">\(K_0\subset J\)</span> mempunyai kovarians <span class="math inline">\((1+st)_{s,t\in K_0}\)</span>, sehingga keluarga
+konsisten. Teorema Kolmogorov menghasilkan proses koordinat Gaussian
+kanonik berataan nol dan berkovarians <span class="math inline">\(K\)</span> pada sigma-aljabar produk; tahap ini
+tidak menyimpulkan kontinuitas atau keteraturan lintasan lainnya.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.process-construction.03.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 3">Penyelesaian lengkap untuk Latihan 3</summary>
+<p><strong>Penyelesaian lengkap.</strong> Simetri langsung mengikuti
+<span class="math inline">\(1+st=1+ts\)</span>. Untuk <span class="math inline">\(t_1,\ldots,t_n\in T\)</span> dan <span class="math inline">\(a_1,\ldots,a_n\in\mathbb R\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum_{i,j=1}^na_ia_jK(t_i,t_j)
+&amp;=\sum_{i,j=1}^na_ia_j(1+t_it_j)\\
+&amp;=\left(\sum_{i=1}^na_i\right)^2
++\left(\sum_{i=1}^na_it_i\right)^2
+\ge0.
+\end{aligned}
+\]</span></p>
+<p>Jadi setiap matriks <span class="math inline">\(K_J=(1+t_it_j)_{i,j}\)</span> simetris dan
+semidefinit positif. Karena itu terdapat hukum Gaussian multivariat
+<span class="math inline">\(\mu_J=\mathcal N(0,K_J)\)</span>. Matriks
+ini dapat singular—misalnya, untuk banyak titik peringkatnya tidak
+melebihi dua—tetapi singularitas tidak menggagalkan keberadaan ukuran
+Gaussian. Fungsi karakteristiknya tetap</p>
+<p><span class="math display">\[
+\varphi_J(u)=\exp\!\left(-\tfrac12u^\mathsf TK_Ju\right).
+\]</span></p>
+<p>Ambil <span class="math inline">\(K_0\subset J\)</span> dan
+proyeksikan vektor ke koordinat dalam <span class="math inline">\(K_0\)</span>. Fungsi karakteristik marginal
+diperoleh dengan memberi nilai nol pada komponen <span class="math inline">\(u\)</span> di luar <span class="math inline">\(K_0\)</span>. Hasilnya</p>
+<p><span class="math display">\[
+u_0\longmapsto
+\exp\!\left(-\tfrac12u_0^\mathsf TK_{K_0}u_0\right),
+\]</span></p>
+<p>yang merupakan fungsi karakteristik <span class="math inline">\(\mathcal N(0,K_{K_0})\)</span>. Maka <span class="math inline">\(\mu_J\circ p_{J,K_0}^{-1}=\mu_{K_0}\)</span>
+bahkan ketika kovariansnya singular.</p>
+<p>Karena <span class="math inline">\(\mathbb R\)</span> dengan
+sigma-aljabar Borel adalah ruang Borel standar, teorema perluasan
+memberikan ukuran unik pada <span class="math inline">\((\mathbb
+R^T,\mathcal B(\mathbb R)^{\otimes T})\)</span>. Proses koordinat <span class="math inline">\(X_t(\omega)=\omega(t)\)</span> di bawah ukuran itu
+adalah Gaussian, berataan nol, dan memenuhi</p>
+<p><span class="math display">\[
+\operatorname{Cov}(X_s,X_t)=1+st.
+\]</span></p>
+<p>Konstruksi ini menetapkan semua hukum berdimensi hingga. Konstruksi
+ini saja tidak membuktikan bahwa lintasan <span class="math inline">\(t\mapsto X_t(\omega)\)</span> kontinu, kontinu
+kanan, terukur bersama, atau memiliki keteraturan lain. Setiap klaim
+semacam itu memerlukan argumen tambahan di luar teorema perluasan yang
+dipakai di sini.</p>
+</details>
+</div>
+</section>
+<section class="bridge-section" id="hak-dan-provenans">
+<h2>Hak dan provenans</h2>
+<p>Seluruh unit asli ini—termasuk uraian, teorema sebagaimana dirumuskan
+di sini, tiga latihan, enam petunjuk progresif, tiga jawaban ringkas,
+dan tiga penyelesaian lengkap—dilepas dengan lisensi <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International</a> di bawah pengenal hak
+<code>rights.o009.original.bridge.kolmogorov.cc-by-4.0</code>.</p>
+<p>Unit ini ditulis sebagai jembatan mandiri untuk menghubungkan materi
+Random tentang <a href="../prob/Probability2.html">ruang produk</a> dan
+<a href="../prob/Processes.html">distribusi berdimensi hingga</a> dengan
+materi QuantEcon tentang <a href="../quantecon/lectures/markov_prop.html">proses Markov waktu
+kontinu</a>. Teksnya bukan bagian dari sumber-sumber donor tersebut dan
+tidak mengubah lisensi apa pun yang berlaku pada sumber donor. Catatan
+audit mengenai hipotesis ruang keadaan, lingkup langkah keberadaan, dan
+perbedaan antara ruang lintasan mentah dan kelas lintasan kontinu kanan
+merupakan koreksi hilir; byte sumber donor tetap dipertahankan tanpa
+perubahan.</p>
+<p>Pengungkapan produksi: <strong>OpenAI Codex gpt-5.6-sol,
+Ultra.</strong> Materi ini dibuat atas arahan pengguna. Random dan
+QuantEcon tidak mendukung, mengesahkan, atau mensponsori unit ini;
+penyebutan dan pranala hanya menyatakan hubungan kurikuler serta
+provenans intelektual yang relevan.</p>
+</section>
+</main>
+</body>
+</html>

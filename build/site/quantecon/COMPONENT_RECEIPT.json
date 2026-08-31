@@ -1,0 +1,197 @@
+{
+  "authority": {
+    "active_input_manifest_sha256_after": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "active_input_manifest_sha256_before": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "commit": "8b06e0aa5a438692445b2c896f9d238c5a7d5eb7",
+    "notebook_path": "authority\\quantecon\\notebook_snapshot\\continuous_time_mcs.notebooks-1e17c25c937f369544380f769eb9c1bc45d12d1a\\memoryless.ipynb",
+    "notebook_sha256": "1d74c6f1631d78e6ffb546914f103703cb1f0a41408f71e3898254cba8cd2ce7",
+    "source_manifest_sha256_after": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_manifest_sha256_before": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_path": "authority\\quantecon\\source_snapshot\\continuous_time_mcs-8b06e0aa5a438692445b2c896f9d238c5a7d5eb7\\lectures\\memoryless.md",
+    "source_sha256": "45b5d8a5bd991b32420268a61c6be2fb3e32d12eb50f3fd57ce724d065325de8",
+    "tree": "f0f11e3bbc6bd23d6e4a447a7e05c0aaf0f7209e"
+  },
+  "built_at_utc": "2026-08-24T06:34:18.348311+00:00",
+  "code_cells": [
+    {
+      "execution_source_sha256": "3b5055509a42069a0ca0515b9feff6d3ff6cecf9678c27f7480146e2c16dd72e",
+      "index": 1,
+      "replay": {
+        "figures": [],
+        "index": 1,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "c18d8d19d04280516dbaa4fcf818d5c05656b4c8539e7c68449e3eed34df1b4b"
+    },
+    {
+      "execution_source_sha256": "1b8407af16385907a560a2d14957042a2feddc84fc0afd3ade4b59820af5c5e1",
+      "index": 2,
+      "replay": {
+        "figures": [],
+        "index": 2,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "1b8407af16385907a560a2d14957042a2feddc84fc0afd3ade4b59820af5c5e1"
+    },
+    {
+      "execution_source_sha256": "12751ab9f31ac56dc058bc297e89d9eb348de3c82d57b538d8574e7a2029bd15",
+      "index": 3,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 26848,
+            "index": 1,
+            "sha256": "a15ed232495f1c3238de68aa169746a91e2e51230f930800fd80d78a08ef586a"
+          }
+        ],
+        "index": 3,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "12751ab9f31ac56dc058bc297e89d9eb348de3c82d57b538d8574e7a2029bd15"
+    },
+    {
+      "execution_source_sha256": "a11f4cc1404d2fc047028ad8fce798f9ddee1a0bf2d997663cc4a96a50324ced",
+      "index": 4,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 22871,
+            "index": 1,
+            "sha256": "411363d32be92f36f11633115ba7f614ee7e0d4c22a5cd8a3603898faf48ad48"
+          }
+        ],
+        "index": 4,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "6263ce914922289fe798cf4ad01e9bfdf3ab6cca8fdf5a92aeb9e79f1aa9619c"
+    },
+    {
+      "execution_source_sha256": "7b240699c685b437a279d62236ce9427ba967087b011d0db848fd186045df772",
+      "index": 5,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 21880,
+            "index": 1,
+            "sha256": "aa5b8258eae3c9895ea3875aa65126847be75942e89dd3600b1efad6242104af"
+          }
+        ],
+        "index": 5,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "7b240699c685b437a279d62236ce9427ba967087b011d0db848fd186045df772"
+    }
+  ],
+  "corrections": [
+    {
+      "description": "Corrected the donor solution's invalid s-t branch to the mathematically valid t <= s / t > s piecewise proof; formulas outside this bounded solution body remain exact.",
+      "id": "memoryless-ex-1-solution-branch"
+    },
+    {
+      "description": "Removed only `!pip install quantecon` in downstream execution/render copy; frozen source remains unchanged.",
+      "id": "quantecon-offline-install"
+    },
+    {
+      "description": "Added meaningful Indonesian alternatives to generated computational figures.",
+      "id": "quantecon-accessibility-alt"
+    },
+    {
+      "description": "Removed remote theme/analytics/launch runtime while retaining author, source, license, and non-endorsement attribution.",
+      "id": "quantecon-branding-runtime"
+    }
+  ],
+  "file_count": 9,
+  "files": [
+    {
+      "bytes": 26848,
+      "path": "assets/memoryless-cell-03-figure-01.png",
+      "sha256": "a15ed232495f1c3238de68aa169746a91e2e51230f930800fd80d78a08ef586a"
+    },
+    {
+      "bytes": 22871,
+      "path": "assets/memoryless-cell-04-figure-01.png",
+      "sha256": "411363d32be92f36f11633115ba7f614ee7e0d4c22a5cd8a3603898faf48ad48"
+    },
+    {
+      "bytes": 21880,
+      "path": "assets/memoryless-cell-05-figure-01.png",
+      "sha256": "aa5b8258eae3c9895ea3875aa65126847be75942e89dd3600b1efad6242104af"
+    },
+    {
+      "bytes": 27572,
+      "path": "lectures/memoryless.html",
+      "sha256": "5bf5c4d8719ce581ea8c35c79e56102f1641ce7dfc322dc83b54c6755f5797b0"
+    },
+    {
+      "bytes": 1704911,
+      "path": "MathJax/tex-svg.js",
+      "sha256": "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
+    },
+    {
+      "bytes": 21124,
+      "path": "notebooks/memoryless-authority.ipynb",
+      "sha256": "1d74c6f1631d78e6ffb546914f103703cb1f0a41408f71e3898254cba8cd2ce7"
+    },
+    {
+      "bytes": 2906,
+      "path": "notebooks/memoryless-executed.ipynb",
+      "sha256": "ca5f1ccd777b7275f066e8f1008fbd35733075ed51b13f95f47617b81d959c54"
+    },
+    {
+      "bytes": 3366,
+      "path": "reader.css",
+      "sha256": "820f354bd797c5b5cb0e34248bc82c9b835e0fafb66fed75145f7c8180fa997c"
+    },
+    {
+      "bytes": 14327,
+      "path": "source-memoryless.md",
+      "sha256": "10ad2d5959aa0baca7a0472d06c0a3242e5a863cd49e88caa2884e1715043faa"
+    }
+  ],
+  "manifest_sha256": "5a7253744a0247edd613f2bdf90c6d342f20c346dd03c388f00fba724eb5c41d",
+  "replay_match": true,
+  "runtime": {
+    "bytes": 253256,
+    "lock_sha256": "7b7009aa8abf346cd7dec13c50f03f413471e7e0585ed23563685fd4b1f86210",
+    "path": "tmp\\quantecon-offline-replay\\Scripts\\python.exe",
+    "sha256": "0e818a1f9a0b8fbd4e7cc458a07cb7de2ea02ea326e387699a33b92f151242cd",
+    "version": "Python 3.13.9"
+  },
+  "schema": "o009.quantecon-component.v1",
+  "status": "complete-first-unit",
+  "target": {
+    "path": "source/quantecon/lectures/memoryless.md",
+    "sha256": "10ad2d5959aa0baca7a0472d06c0a3242e5a863cd49e88caa2884e1715043faa",
+    "title": "Distribusi Tanpa Ingatan"
+  },
+  "topology": {
+    "code_cells": 5,
+    "equation_refs": [
+      "geodist",
+      "implex",
+      "memexpo",
+      "memgeo"
+    ],
+    "exercises": 2,
+    "headings": 10,
+    "labels": [
+      "erlexp",
+      "exp_unique",
+      "memoryless-ex-1",
+      "memoryless-ex-2"
+    ],
+    "proof_directives": 3,
+    "solutions": 2,
+    "standalone_labels": [
+      "fail_mem",
+      "geomtoexp"
+    ]
+  },
+  "total_bytes": 1845805,
+  "unit_id": "unit.o009.quantecon.ctmc.memoryless-distributions"
+}

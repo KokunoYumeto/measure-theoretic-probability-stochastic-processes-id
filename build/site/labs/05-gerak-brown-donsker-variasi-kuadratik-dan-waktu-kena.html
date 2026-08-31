@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (materi asli, atas arahan pengguna)" name="author"/>
+<title>Gerak Brown: Donsker, variasi kuadratik, dan waktu kena</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Gerak Brown: Donsker, variasi kuadratik, dan waktu
+kena</h1>
+<p class="author">Codex (materi asli, atas arahan pengguna)</p>
+</header><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../markov/Recurrence.html">Keadaan transien dan rekuren</a> · <a href="../markov/Periodicity.html">Periodisitas</a> · <a href="../markov/Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="../brown/Standard.html">Gerak Brown standar</a> · <a href="../brown/Drift.html">Gerak Brown dengan hanyutan</a> · <a href="../brown/Bridge.html">Jembatan Brown</a> · <a href="../brown/Geometric.html">Gerak Brown geometrik</a> · <a href="../martingales/index.html">Ikhtisar martingal</a> · <a href="../markov/index.html">Ikhtisar proses Markov</a> · <a href="../brown/index.html">Ikhtisar gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a> · <a href="01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a></nav><main>
+<div class="lab" id="o009-lab-brownian-diagnostics">
+<blockquote>
+<p><strong>Asal konsep, hak, dan batasan.</strong> Laboratorium ini
+adalah tulisan baru dalam bahasa Indonesia. Satu-satunya ketergantungan
+teorinya ialah halaman resmi <em>Random</em> karya Kyle Siegrist tentang
+<a href="../brown/Standard.html">gerak Brown standar</a>, yang mencakup
+penskalaan gerak acak, ketakteraturan lintasan, prinsip pencerminan, dan
+waktu kena. Berkas saksi halaman itu dibekukan di
+<code>authority/random</code> dengan SHA-256 yang dicatat pada metadata
+di atas. Tidak ada byte HTML sumber yang disalin ke dalam Rmd ini.
+Sumber resmi mempertahankan dua saksi lisensi yang berbeda (CC BY 2.0
+pada <code>index.html</code> dan CC BY 1.0 pada
+<code>Credits.html</code>); saksi itu tidak digabungkan atau diganti.
+Seluruh teks, kode R basis, tabel, latihan, petunjuk, jawaban, dan
+penyelesaian asli pada berkas ini dilepas dengan <strong>CC BY
+4.0</strong>. Materi asli ini dihasilkan oleh <strong>OpenAI Codex
+gpt-5.6-sol, Ultra.</strong>, atas arahan pengguna. Edisi independen ini
+tidak didukung atau disahkan oleh Kyle Siegrist, Random, ataupun penulis
+sumber.</p>
+</blockquote>
+<blockquote>
+<p><strong>Prasyarat bersama.</strong> Langkah limit-normal di bawah
+memakai teorema limit pusat dari jalur O006/C140 sebagai prasyarat
+bersama. Laboratorium ini hanya menautkan dependensi itu; tidak ada byte
+O006 yang disalin atau diterbitkan ulang di sini.</p>
+</blockquote>
+<h2 id="o009-brownian-diagnostics-goals">Tujuan dan objek diskret</h2>
+<p>Misalkan <span class="math inline">\(\xi_1,\xi_2,\ldots\)</span>
+saling bebas dengan <span class="math inline">\(\mathbb
+P(\xi_j=1)=\mathbb P(\xi_j=-1)=1/2\)</span>, dan tetapkan <span class="math inline">\(S_k=\sum_{j=1}^k\xi_j\)</span>. Untuk setiap <span class="math inline">\(n\)</span>, interpolan linear terskala <span class="math inline">\(W_n\in C[0,1]\)</span> didefinisikan oleh</p>
+<p><span class="math display">\[
+W_n(t)=\frac{1}{\sqrt n}\left[
+S_{\lfloor nt\rfloor}+(nt-\lfloor nt\rfloor)
+\xi_{\lfloor nt\rfloor+1}
+\right],
+\]</span></p>
+<p>dengan suku interpolasi diambil nol pada <span class="math inline">\(t=1\)</span>. Teorema Donsker menyatakan <span class="math inline">\(W_n\Rightarrow B\)</span> dalam <span class="math inline">\(C[0,1]\)</span> dengan topologi seragam, dengan
+<span class="math inline">\(B\)</span> gerak Brown standar. Tanda <span class="math inline">\(\Rightarrow\)</span> berarti <strong>konvergensi
+dalam distribusi</strong>, bukan konvergensi lintasan demi lintasan dari
+satu keluaran acak.</p>
+<p>Kita mengaudit dua konsekuensi yang dapat dihitung tanpa galat Monte
+Carlo. Untuk <span class="math inline">\(x=1\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P\{W_n(1)\le x\}
+=\mathbb P\left\{\operatorname{Bin}(n,1/2)
+\le\left\lfloor\frac{n+x\sqrt n}{2}\right\rfloor\right\}
+\longrightarrow \Phi(x).
+\]</span></p>
+<p>Untuk <span class="math inline">\(M_n=\max_{0\le k\le n}S_k\)</span>
+dan bilangan bulat <span class="math inline">\(m&gt;0\)</span>, prinsip
+pencerminan diskret memberi</p>
+<p><span class="math display">\[
+\mathbb P(M_n\ge m)
+=\mathbb P(S_n\ge m)+\mathbb P(S_n\ge m+1).
+\]</span></p>
+<p>Dengan <span class="math inline">\(m=\sqrt n\)</span> pada empat
+nilai <span class="math inline">\(n\)</span> yang dipilih, ruas kiri
+mengaudit peluang lintasan terskala menyentuh aras <span class="math inline">\(1\)</span> sebelum waktu <span class="math inline">\(1\)</span>. Limit Brown dari prinsip pencerminan
+ialah</p>
+<p><span class="math display">\[
+\mathbb P\left(\sup_{0\le t\le1}B_t\ge1\right)
+=2\{1-\Phi(1)\}.
+\]</span></p>
+<p>Audit ini mendukung dua fungsional kontinu Donsker pada titik
+kontinuitas distribusinya; satu tabel hingga tidak dengan sendirinya
+membuktikan teorema fungsional.</p>
+<h2 id="o009-brownian-partition-order">Dua urutan partisi yang tidak
+boleh dicampur</h2>
+<p>Pada partisi alami <span class="math inline">\(\Pi_n=\{k/n:0\le k\le
+n\}\)</span>, setiap inkremen <span class="math inline">\(W_n\)</span>
+bernilai <span class="math inline">\(\pm n^{-1/2}\)</span>. Karena itu,
+untuk <strong>setiap</strong> lintasan,</p>
+<p><span class="math display">\[
+Q(W_n;\Pi_n)=\sum_{k=1}^n(\Delta W_{n,k})^2=1,
+\qquad
+V(W_n;\Pi_n)=\sum_{k=1}^n|\Delta W_{n,k}|=\sqrt n.
+\]</span></p>
+<p>Hasil pertama menyerupai variasi kuadratik <span class="math inline">\([B]_1=1\)</span>, sedangkan hasil kedua menuju tak
+hingga, konsisten dengan variasi total lintasan Brown yang tak hingga
+hampir pasti. Namun, ada peringatan penting. Jika <span class="math inline">\(n\)</span> ditahan tetap dan setiap ruas linear
+pada <span class="math inline">\(\Pi_n\)</span> dibagi menjadi <span class="math inline">\(r\)</span> ruas yang sama, maka</p>
+<p><span class="math display">\[
+Q(W_n;\Pi_{n,r})=\frac1r\longrightarrow0
+\quad\text{ketika }r\to\infty.
+\]</span></p>
+<p>Tidak ada kontradiksi. Pada partisi alami, lintasan aproksimasi
+<strong>dan</strong> partisinya berubah bersama ketika <span class="math inline">\(n\to\infty\)</span>. Pada refinemen pralimit
+tetap, kita hanya memperhalus satu fungsi linear sepotong, yang memang
+mempunyai variasi kuadratik nol sepanjang refinemen semacam itu. Urutan
+kedua operasi limit tersebut berbeda.</p>
+<h2 id="o009-brownian-exact-audit">Audit eksak dengan R basis</h2>
+<p>Kode berikut tidak memakai generator bilangan acak atau paket
+tambahan. <code>pbinom</code> menjumlahkan peluang binomial hingga
+secara numerik, sedangkan <code>pnorm</code> menghitung target Gaussian
+dan Brown. Nilai emas dibekukan agar pelaksanaan ulang mendeteksi
+perubahan rumus, ambang kisi, atau pembulatan.</p>
+<div class="exercise" id="o009-exercise-brownian-diagnostics">
+<p>Jalankan kode, lalu kerjakan keempat bagian berikut.</p>
+<ol type="1">
+<li>Turunkan ambang binomial pada kolom <code>k_endpoint</code>, dan
+jelaskan mengapa <code>cdf_endpoint_eksak</code> menuju <span class="math inline">\(\Phi(1)\)</span> meskipun galat kisi tidak monoton
+untuk semua pilihan <span class="math inline">\(n\)</span>.</li>
+<li>Buktikan langsung bahwa <code>qv_mesh_alami=1</code> dan
+<code>variasi_total=sqrt(n)</code> untuk setiap lintasan gerak acak
+terskala.</li>
+<li>Untuk <span class="math inline">\(r=8\)</span>, turunkan
+<code>qv_refinemen_pralimit=1/8</code>; jelaskan mengapa limit saat
+<span class="math inline">\(r\to\infty\)</span> tidak menyangkal <span class="math inline">\([B]_1=1\)</span>.</li>
+<li>Gunakan pencerminan lintasan sesudah sentuhan pertama aras <span class="math inline">\(m\)</span> untuk menurunkan rumus dua ekor bagi
+<code>prob_kena_eksak</code>, lalu bandingkan empat barisnya dengan
+<span class="math inline">\(2\{1-\Phi(1)\}\)</span>.</li>
+</ol>
+</div>
+<div class="sourceCode" id="o009_lab_brownian_diagnostics"><pre class="sourceCode r"><code class="sourceCode r"><span id="o009_lab_brownian_diagnostics-1"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-1" tabindex="-1"></a>ns <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">64</span><span class="dt">L</span>, <span class="dv">256</span><span class="dt">L</span>, <span class="dv">1024</span><span class="dt">L</span>, <span class="dv">4096</span><span class="dt">L</span>)</span>
+<span id="o009_lab_brownian_diagnostics-2"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-2" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="o009_lab_brownian_diagnostics-3"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-3" tabindex="-1"></a>a <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="o009_lab_brownian_diagnostics-4"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-4" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">8</span><span class="dt">L</span></span>
+<span id="o009_lab_brownian_diagnostics-5"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-5" tabindex="-1"></a>tolerance <span class="ot">=</span> <span class="fl">1e-12</span></span>
+<span id="o009_lab_brownian_diagnostics-6"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-6" tabindex="-1"></a></span>
+<span id="o009_lab_brownian_diagnostics-7"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-7" tabindex="-1"></a><span class="co"># Distribusi titik akhir: W_n(1)=(2 K_n-n)/sqrt(n), K_n~Bin(n,1/2).</span></span>
+<span id="o009_lab_brownian_diagnostics-8"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-8" tabindex="-1"></a>k_endpoint <span class="ot">=</span> <span class="fu">floor</span>((ns <span class="sc">+</span> x <span class="sc">*</span> <span class="fu">sqrt</span>(ns)) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="o009_lab_brownian_diagnostics-9"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-9" tabindex="-1"></a>endpoint_cdf <span class="ot">=</span> <span class="fu">pbinom</span>(k_endpoint, <span class="at">size=</span>ns, <span class="at">prob=</span><span class="fl">0.5</span>)</span>
+<span id="o009_lab_brownian_diagnostics-10"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-10" tabindex="-1"></a>normal_target <span class="ot">=</span> <span class="fu">pnorm</span>(x)</span>
+<span id="o009_lab_brownian_diagnostics-11"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-11" tabindex="-1"></a></span>
+<span id="o009_lab_brownian_diagnostics-12"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-12" tabindex="-1"></a><span class="co"># Prinsip pencerminan diskret:</span></span>
+<span id="o009_lab_brownian_diagnostics-13"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-13" tabindex="-1"></a><span class="co"># P(M_n &gt;= m)=P(S_n &gt;= m)+P(S_n &gt;= m+1).</span></span>
+<span id="o009_lab_brownian_diagnostics-14"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-14" tabindex="-1"></a>m <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="fu">ceiling</span>(a <span class="sc">*</span> <span class="fu">sqrt</span>(ns)))</span>
+<span id="o009_lab_brownian_diagnostics-15"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-15" tabindex="-1"></a>k_ge_m <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="fu">ceiling</span>((ns <span class="sc">+</span> m) <span class="sc">/</span> <span class="dv">2</span>))</span>
+<span id="o009_lab_brownian_diagnostics-16"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-16" tabindex="-1"></a>k_ge_m_plus_1 <span class="ot">=</span> <span class="fu">as.integer</span>(<span class="fu">ceiling</span>((ns <span class="sc">+</span> m <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>))</span>
+<span id="o009_lab_brownian_diagnostics-17"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-17" tabindex="-1"></a>hit_probability <span class="ot">=</span></span>
+<span id="o009_lab_brownian_diagnostics-18"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-18" tabindex="-1"></a>  <span class="fu">pbinom</span>(k_ge_m <span class="sc">-</span> <span class="dv">1</span><span class="dt">L</span>, <span class="at">size=</span>ns, <span class="at">prob=</span><span class="fl">0.5</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="o009_lab_brownian_diagnostics-19"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-19" tabindex="-1"></a>  <span class="fu">pbinom</span>(k_ge_m_plus_1 <span class="sc">-</span> <span class="dv">1</span><span class="dt">L</span>, <span class="at">size=</span>ns, <span class="at">prob=</span><span class="fl">0.5</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="o009_lab_brownian_diagnostics-20"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-20" tabindex="-1"></a>brown_hit_target <span class="ot">=</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span>a)</span>
+<span id="o009_lab_brownian_diagnostics-21"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-21" tabindex="-1"></a></span>
+<span id="o009_lab_brownian_diagnostics-22"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-22" tabindex="-1"></a><span class="co"># Besaran ini eksak lintasan demi lintasan pada mesh alami.</span></span>
+<span id="o009_lab_brownian_diagnostics-23"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-23" tabindex="-1"></a>qv_natural <span class="ot">=</span> ns <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(ns))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="o009_lab_brownian_diagnostics-24"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-24" tabindex="-1"></a>total_variation <span class="ot">=</span> ns <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(ns))</span>
+<span id="o009_lab_brownian_diagnostics-25"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-25" tabindex="-1"></a>qv_fixed_refinement <span class="ot">=</span> qv_natural <span class="sc">/</span> r</span>
+<span id="o009_lab_brownian_diagnostics-26"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-26" tabindex="-1"></a></span>
+<span id="o009_lab_brownian_diagnostics-27"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-27" tabindex="-1"></a><span class="co"># Nilai emas independen dari RNG dan platform pada toleransi yang dicatat.</span></span>
+<span id="o009_lab_brownian_diagnostics-28"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-28" tabindex="-1"></a>gold_endpoint <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="o009_lab_brownian_diagnostics-29"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-29" tabindex="-1"></a>  <span class="fl">0.869782261712</span>, <span class="fl">0.856005356734</span>,</span>
+<span id="o009_lab_brownian_diagnostics-30"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-30" tabindex="-1"></a>  <span class="fl">0.848789424921</span>, <span class="fl">0.845096155857</span></span>
+<span id="o009_lab_brownian_diagnostics-31"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-31" tabindex="-1"></a>)</span>
+<span id="o009_lab_brownian_diagnostics-32"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-32" tabindex="-1"></a>gold_hit <span class="ot">=</span> <span class="fu">c</span>(</span>
+<span id="o009_lab_brownian_diagnostics-33"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-33" tabindex="-1"></a>  <span class="fl">0.321084135685</span>, <span class="fl">0.318255270999</span>,</span>
+<span id="o009_lab_brownian_diagnostics-34"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-34" tabindex="-1"></a>  <span class="fl">0.317546780410</span>, <span class="fl">0.317369581063</span></span>
+<span id="o009_lab_brownian_diagnostics-35"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-35" tabindex="-1"></a>)</span>
+<span id="o009_lab_brownian_diagnostics-36"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-36" tabindex="-1"></a>gold_normal_target <span class="ot">=</span> <span class="fl">0.841344746069</span></span>
+<span id="o009_lab_brownian_diagnostics-37"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-37" tabindex="-1"></a>gold_brown_hit_target <span class="ot">=</span> <span class="fl">0.317310507863</span></span>
+<span id="o009_lab_brownian_diagnostics-38"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-38" tabindex="-1"></a></span>
+<span id="o009_lab_brownian_diagnostics-39"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-39" tabindex="-1"></a>row_error <span class="ot">=</span> <span class="fu">pmax</span>(</span>
+<span id="o009_lab_brownian_diagnostics-40"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-40" tabindex="-1"></a>  <span class="fu">abs</span>(endpoint_cdf <span class="sc">-</span> gold_endpoint),</span>
+<span id="o009_lab_brownian_diagnostics-41"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-41" tabindex="-1"></a>  <span class="fu">abs</span>(hit_probability <span class="sc">-</span> gold_hit),</span>
+<span id="o009_lab_brownian_diagnostics-42"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-42" tabindex="-1"></a>  <span class="fu">abs</span>(qv_natural <span class="sc">-</span> <span class="dv">1</span>),</span>
+<span id="o009_lab_brownian_diagnostics-43"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-43" tabindex="-1"></a>  <span class="fu">abs</span>(qv_fixed_refinement <span class="sc">-</span> <span class="dv">1</span> <span class="sc">/</span> r),</span>
+<span id="o009_lab_brownian_diagnostics-44"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-44" tabindex="-1"></a>  <span class="fu">abs</span>(total_variation <span class="sc">-</span> <span class="fu">sqrt</span>(ns))</span>
+<span id="o009_lab_brownian_diagnostics-45"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-45" tabindex="-1"></a>)</span>
+<span id="o009_lab_brownian_diagnostics-46"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-46" tabindex="-1"></a>global_error <span class="ot">=</span> <span class="fu">max</span>(</span>
+<span id="o009_lab_brownian_diagnostics-47"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-47" tabindex="-1"></a>  row_error,</span>
+<span id="o009_lab_brownian_diagnostics-48"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-48" tabindex="-1"></a>  <span class="fu">abs</span>(normal_target <span class="sc">-</span> gold_normal_target),</span>
+<span id="o009_lab_brownian_diagnostics-49"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-49" tabindex="-1"></a>  <span class="fu">abs</span>(brown_hit_target <span class="sc">-</span> gold_brown_hit_target)</span>
+<span id="o009_lab_brownian_diagnostics-50"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-50" tabindex="-1"></a>)</span>
+<span id="o009_lab_brownian_diagnostics-51"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-51" tabindex="-1"></a>status <span class="ot">=</span> <span class="fu">ifelse</span>(row_error <span class="sc">&lt;=</span> tolerance <span class="sc">&amp;</span> global_error <span class="sc">&lt;=</span> tolerance,</span>
+<span id="o009_lab_brownian_diagnostics-52"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-52" tabindex="-1"></a>                <span class="st">"PASS"</span>, <span class="st">"FAIL"</span>)</span>
+<span id="o009_lab_brownian_diagnostics-53"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-53" tabindex="-1"></a></span>
+<span id="o009_lab_brownian_diagnostics-54"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-54" tabindex="-1"></a>hasil <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="o009_lab_brownian_diagnostics-55"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-55" tabindex="-1"></a>  <span class="at">n=</span>ns,</span>
+<span id="o009_lab_brownian_diagnostics-56"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-56" tabindex="-1"></a>  <span class="at">k_endpoint=</span>k_endpoint,</span>
+<span id="o009_lab_brownian_diagnostics-57"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-57" tabindex="-1"></a>  <span class="at">ambang_kena=</span>m,</span>
+<span id="o009_lab_brownian_diagnostics-58"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-58" tabindex="-1"></a>  <span class="at">cdf_endpoint_eksak=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, endpoint_cdf),</span>
+<span id="o009_lab_brownian_diagnostics-59"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-59" tabindex="-1"></a>  <span class="at">target_normal=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, normal_target),</span>
+<span id="o009_lab_brownian_diagnostics-60"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-60" tabindex="-1"></a>  <span class="at">galat_cdf=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, <span class="fu">abs</span>(endpoint_cdf <span class="sc">-</span> normal_target)),</span>
+<span id="o009_lab_brownian_diagnostics-61"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-61" tabindex="-1"></a>  <span class="at">prob_kena_eksak=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, hit_probability),</span>
+<span id="o009_lab_brownian_diagnostics-62"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-62" tabindex="-1"></a>  <span class="at">target_brown=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, brown_hit_target),</span>
+<span id="o009_lab_brownian_diagnostics-63"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-63" tabindex="-1"></a>  <span class="at">galat_kena=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, <span class="fu">abs</span>(hit_probability <span class="sc">-</span> brown_hit_target)),</span>
+<span id="o009_lab_brownian_diagnostics-64"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-64" tabindex="-1"></a>  <span class="at">qv_mesh_alami=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, qv_natural),</span>
+<span id="o009_lab_brownian_diagnostics-65"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-65" tabindex="-1"></a>  <span class="at">qv_refinemen_pralimit=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, qv_fixed_refinement),</span>
+<span id="o009_lab_brownian_diagnostics-66"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-66" tabindex="-1"></a>  <span class="at">variasi_total=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, total_variation),</span>
+<span id="o009_lab_brownian_diagnostics-67"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-67" tabindex="-1"></a>  <span class="at">refinemen_r=</span>r,</span>
+<span id="o009_lab_brownian_diagnostics-68"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-68" tabindex="-1"></a>  <span class="at">toleransi=</span><span class="fu">sprintf</span>(<span class="st">"%.12e"</span>, tolerance),</span>
+<span id="o009_lab_brownian_diagnostics-69"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-69" tabindex="-1"></a>  <span class="at">status=</span>status,</span>
+<span id="o009_lab_brownian_diagnostics-70"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-70" tabindex="-1"></a>  <span class="at">stringsAsFactors=</span><span class="cn">FALSE</span></span>
+<span id="o009_lab_brownian_diagnostics-71"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-71" tabindex="-1"></a>)</span>
+<span id="o009_lab_brownian_diagnostics-72"><a aria-hidden="true" href="#o009_lab_brownian_diagnostics-72" tabindex="-1"></a><span class="fu">write.csv</span>(hasil, <span class="at">file=</span><span class="st">""</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>, <span class="at">quote=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<table id="o009-results-brownian-diagnostics" style="width:100%;">
+<colgroup>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+<col style="width: 6%"/>
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">k titik akhir</th>
+<th style="text-align: right;">ambang kena</th>
+<th style="text-align: right;">CDF titik akhir eksak</th>
+<th style="text-align: right;">target normal</th>
+<th style="text-align: right;">galat CDF</th>
+<th style="text-align: right;">peluang kena eksak</th>
+<th style="text-align: right;">target Brown</th>
+<th style="text-align: right;">galat kena</th>
+<th style="text-align: right;">QV mesh alami</th>
+<th style="text-align: right;">QV refinemen pralimit</th>
+<th style="text-align: right;">variasi total</th>
+<th style="text-align: right;">refinemen r</th>
+<th style="text-align: right;">toleransi</th>
+<th style="text-align: right;">status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.869782261712</td>
+<td style="text-align: right;">0.841344746069</td>
+<td style="text-align: right;">0.028437515643</td>
+<td style="text-align: right;">0.321084135685</td>
+<td style="text-align: right;">0.317310507863</td>
+<td style="text-align: right;">0.003773627822</td>
+<td style="text-align: right;">1.000000000000</td>
+<td style="text-align: right;">0.125000000000</td>
+<td style="text-align: right;">8.000000000000</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1.000000000000e-12</td>
+<td style="text-align: right;">PASS</td>
+</tr>
+<tr>
+<td style="text-align: right;">256</td>
+<td style="text-align: right;">136</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0.856005356734</td>
+<td style="text-align: right;">0.841344746069</td>
+<td style="text-align: right;">0.014660610666</td>
+<td style="text-align: right;">0.318255270999</td>
+<td style="text-align: right;">0.317310507863</td>
+<td style="text-align: right;">0.000944763136</td>
+<td style="text-align: right;">1.000000000000</td>
+<td style="text-align: right;">0.125000000000</td>
+<td style="text-align: right;">16.000000000000</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1.000000000000e-12</td>
+<td style="text-align: right;">PASS</td>
+</tr>
+<tr>
+<td style="text-align: right;">1024</td>
+<td style="text-align: right;">528</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">0.848789424921</td>
+<td style="text-align: right;">0.841344746069</td>
+<td style="text-align: right;">0.007444678852</td>
+<td style="text-align: right;">0.317546780410</td>
+<td style="text-align: right;">0.317310507863</td>
+<td style="text-align: right;">0.000236272547</td>
+<td style="text-align: right;">1.000000000000</td>
+<td style="text-align: right;">0.125000000000</td>
+<td style="text-align: right;">32.000000000000</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1.000000000000e-12</td>
+<td style="text-align: right;">PASS</td>
+</tr>
+<tr>
+<td style="text-align: right;">4096</td>
+<td style="text-align: right;">2080</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">0.845096155857</td>
+<td style="text-align: right;">0.841344746069</td>
+<td style="text-align: right;">0.003751409788</td>
+<td style="text-align: right;">0.317369581063</td>
+<td style="text-align: right;">0.317310507863</td>
+<td style="text-align: right;">0.000059073200</td>
+<td style="text-align: right;">1.000000000000</td>
+<td style="text-align: right;">0.125000000000</td>
+<td style="text-align: right;">64.000000000000</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1.000000000000e-12</td>
+<td style="text-align: right;">PASS</td>
+</tr>
+</tbody>
+</table>
+<p>Target numeriknya adalah <span class="math inline">\(\Phi(1)=0{,}841344746069\)</span> dan <span class="math inline">\(2\{1-\Phi(1)\}=0{,}317310507863\)</span>. Peluang
+titik akhir mendekati target lebih lambat karena massa pada satu titik
+kisi ikut masuk ke CDF; ini bukan galat simulasi. Diagnostik waktu kena
+jauh lebih dekat pada empat ukuran ini, tetapi tetap merupakan peluang
+gerak acak diskret, bukan peluang Brown yang disisipkan ke kolom
+data.</p>
+<div class="hint" id="o009-hint-brownian-diagnostics-1">
+<p><strong>Petunjuk 1.</strong> Tulis <span class="math inline">\(S_n=2K_n-n\)</span>, dengan <span class="math inline">\(K_n\sim\operatorname{Bin}(n,1/2)\)</span>.
+Ketaksamaan <span class="math inline">\(S_n/\sqrt n\le1\)</span> menjadi
+<span class="math inline">\(K_n\le\lfloor(n+\sqrt n)/2\rfloor\)</span>;
+<code>pbinom</code> memakai ambang inklusif ini.</p>
+</div>
+<div class="hint" id="o009-hint-brownian-diagnostics-2">
+<p><strong>Petunjuk 2.</strong> Pada mesh alami terdapat tepat <span class="math inline">\(n\)</span> inkremen, masing-masing bernilai mutlak
+<span class="math inline">\(n^{-1/2}\)</span>. Pada refinemen <span class="math inline">\(r\)</span>, setiap inkremen linear itu diganti
+oleh <span class="math inline">\(r\)</span> inkremen bernilai <span class="math inline">\(\pm(r\sqrt n)^{-1}\)</span>.</p>
+</div>
+<div class="hint" id="o009-hint-brownian-diagnostics-3">
+<p><strong>Petunjuk 3.</strong> Pisahkan kejadian <span class="math inline">\(\{M_n\ge m\}\)</span> menurut nilai terminal.
+Lintasan yang berakhir di bawah <span class="math inline">\(m\)</span>
+dipantulkan setelah kunjungan pertama ke <span class="math inline">\(m\)</span>; hasilnya berakhir ketat di atas <span class="math inline">\(m\)</span>. Perhatikan paritas melalui dua ambang
+<code>k_ge_m</code> dan <code>k_ge_m_plus_1</code>.</p>
+</div>
+<div class="answer" id="o009-answer-brownian-diagnostics">
+<p><strong>Jawaban ringkas.</strong> Karena <span class="math inline">\(S_n=2K_n-n\)</span>, CDF titik akhir adalah CDF
+binomial pada <code>k_endpoint</code> dan mendekati <span class="math inline">\(\Phi(1)\)</span>. Pada mesh alami, <span class="math inline">\(Q=n(n^{-1/2})^2=1\)</span> dan <span class="math inline">\(V=n n^{-1/2}=\sqrt n\)</span>; setelah setiap ruas
+linear dibagi delapan, <span class="math inline">\(Q=1/8\)</span>.
+Refinemen satu interpolan tetap menuju nol, sedangkan variasi kuadratik
+Brown muncul pada limit stokastik dengan mesh alami yang berubah bersama
+<span class="math inline">\(n\)</span>. Pencerminan memberi <span class="math inline">\(\mathbb P(M_n\ge m)=\mathbb P(S_n\ge m)+\mathbb
+P(S_n\ge m+1)\)</span>, dan empat peluang eksak mendekati <span class="math inline">\(2\{1-\Phi(1)\}\)</span> seperti pada tabel.</p>
+</div>
+<div class="solution" id="o009-solution-brownian-diagnostics">
+<p><strong>Penyelesaian lengkap.</strong> Jika <span class="math inline">\(K_n\)</span> menghitung banyaknya inkremen <span class="math inline">\(+1\)</span>, maka <span class="math inline">\(S_n=K_n-(n-K_n)=2K_n-n\)</span>. Oleh sebab
+itu,</p>
+<p><span class="math display">\[
+\frac{S_n}{\sqrt n}\le1
+\iff
+K_n\le\left\lfloor\frac{n+\sqrt n}{2}\right\rfloor.
+\]</span></p>
+<p>Ini tepat argumen yang diberikan kepada <code>pbinom</code>. Teorema
+limit pusat memberi <span class="math inline">\(S_n/\sqrt n\Rightarrow
+N(0,1)\)</span>, dan karena <span class="math inline">\(1\)</span>
+merupakan titik kontinuitas CDF normal, peluangnya menuju <span class="math inline">\(\Phi(1)\)</span>. Selisih yang tersisa pada tabel
+ialah efek kisi binomial yang sah, bukan ketidakpastian Monte Carlo.</p>
+<p>Pada <span class="math inline">\(\Pi_n\)</span>, semua <span class="math inline">\(n\)</span> inkremen interpolan bernilai <span class="math inline">\(\xi_k/\sqrt n\)</span>. Maka</p>
+<p><span class="math display">\[
+Q(W_n;\Pi_n)=\sum_{k=1}^n\frac{\xi_k^2}{n}=1,
+\qquad
+V(W_n;\Pi_n)=\sum_{k=1}^n\frac{|\xi_k|}{\sqrt n}=\sqrt n.
+\]</span></p>
+<p>Jika satu ruas linear dibagi menjadi <span class="math inline">\(r\)</span> bagian, besar setiap inkremen baru
+adalah <span class="math inline">\(1/(r\sqrt n)\)</span>. Terdapat <span class="math inline">\(nr\)</span> inkremen, sehingga</p>
+<p><span class="math display">\[
+Q(W_n;\Pi_{n,r})=nr\frac{1}{r^2n}=\frac1r,
+\qquad
+V(W_n;\Pi_{n,r})=nr\frac{1}{r\sqrt n}=\sqrt n.
+\]</span></p>
+<p>Jadi, untuk <span class="math inline">\(n\)</span> tetap, <span class="math inline">\(Q\to0\)</span> ketika <span class="math inline">\(r\to\infty\)</span> karena <span class="math inline">\(W_n\)</span> adalah fungsi linear sepotong.
+Pernyataan <span class="math inline">\([B]_1=1\)</span> meninjau
+lintasan Brown dan urutan partisinya setelah limit proses; menukar kedua
+operasi ini tidak sah.</p>
+<p>Terakhir, ambil lintasan dengan <span class="math inline">\(M_n\ge
+m\)</span>. Jika <span class="math inline">\(S_n\ge m\)</span>, lintasan
+sudah terhitung pada ekor pertama. Jika <span class="math inline">\(S_n&lt;m\)</span>, pantulkan semua inkremen
+sesudah waktu pertama lintasan mencapai <span class="math inline">\(m\)</span>. Transformasi ini bijektif menuju
+lintasan dengan <span class="math inline">\(S_n&gt;m\)</span>,
+sehingga</p>
+<p><span class="math display">\[
+\mathbb P(M_n\ge m)
+=\mathbb P(S_n\ge m)+\mathbb P(S_n&gt;m)
+=\mathbb P(S_n\ge m)+\mathbb P(S_n\ge m+1).
+\]</span></p>
+<p>Kedua ekor dihitung oleh <code>pbinom(..., lower.tail=FALSE)</code>
+dengan ambang bilangan bulat dan paritas yang sesuai. Untuk <span class="math inline">\(m=\sqrt n\)</span>, peluang berturut- turut ialah
+0,321084135685; 0,318255270999; 0,317546780410; dan 0,317369581063.
+Fungsional maksimum kontinu terhadap norma seragam, dan distribusi
+maksimum Brown tidak mempunyai atom pada aras <span class="math inline">\(1\)</span>; teorema pemetaan kontinu untuk Donsker
+lalu memberi limit <span class="math inline">\(2\{1-\Phi(1)\}=0{,}317310507863\)</span>.</p>
+</div>
+</div>
+</main></body>
+</html>

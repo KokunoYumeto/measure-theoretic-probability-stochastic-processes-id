@@ -17,7 +17,6 @@ import sys
 import tempfile
 import urllib.parse
 from copy import deepcopy
-from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
 
@@ -26,6 +25,9 @@ from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
 AUTH_RANDOM = ROOT / "authority" / "random"
+REPRODUCIBLE_BUILD_TIMESTAMP = (
+    ROOT / "00_control" / "REPRODUCIBLE_BUILD_TIMESTAMP_UTC.txt"
+)
 LAB_SPECS = (
     {
         "source": ROOT / "source" / "labs" / "01-konvergensi-monte-carlo.Rmd",
@@ -156,10 +158,420 @@ LAB_SPECS = (
             },
         ),
     },
+    {
+        "source": ROOT / "source" / "labs" / "03-konvergensi-mode-dan-lln-clt.Rmd",
+        "output": Path("labs/03-konvergensi-mode-dan-lln-clt.html"),
+        "chunk_id": "o009_lab_convergence_modes",
+        "placeholder": "<!-- O009_CONVERGENCE_MODES_EXECUTION_TABLE -->",
+        "expected_fields": (
+            "kasus",
+            "n",
+            "benih",
+            "nilai",
+            "target",
+            "galat_mutlak",
+            "skala_teori",
+        ),
+        "table_headers": (
+            "kasus",
+            "n",
+            "benih",
+            "nilai",
+            "target",
+            "galat mutlak",
+            "skala teori",
+        ),
+        "table_id": "o009-results-convergence-modes",
+        "required_code": "set.seed(20260829)",
+        "nav_label": "Laboratorium mode konvergensi",
+        "front_matter": {
+            "title": "Mode konvergensi dan pembanding LLN/CLT",
+            "lang": "id-ID",
+            "course_id": "o009",
+            "unit_id": "o009-unit-convergence-modes",
+            "lab_id": "o009-lab-convergence-modes",
+            "matched_theory_id": "o009-theory-random-prob-convergence",
+            "prerequisite_id": "resource.o006.c140.shared",
+            "target_locale": "id-ID",
+            "source_alias": "original-synthesis: convergence-modes-and-o006-comparison",
+            "source_commit": "local-original-checkpoint-35",
+            "source_slice_sha256": "not-applicable-original",
+            "donor_license": "none",
+            "adaptation_license": "CC-BY-4.0",
+            "model": "OpenAI Codex gpt-5.6-sol, Ultra.",
+        },
+        "golden_rows": (
+            {
+                "kasus": "1",
+                "n": "1000",
+                "benih": "20260829",
+                "nilai": "0.000000000000",
+                "target": "0.000000000000",
+                "galat_mutlak": "0.000000000000",
+                "skala_teori": "0.001000000000",
+            },
+            {
+                "kasus": "2",
+                "n": "1000",
+                "benih": "20260829",
+                "nilai": "0.001040000000",
+                "target": "0.001000000000",
+                "galat_mutlak": "0.000040000000",
+                "skala_teori": "0.001000000000",
+            },
+            {
+                "kasus": "3",
+                "n": "1000",
+                "benih": "20260829",
+                "nilai": "1.040000000000",
+                "target": "0.000000000000",
+                "galat_mutlak": "1.040000000000",
+                "skala_teori": "1.000000000000",
+            },
+            {
+                "kasus": "4",
+                "n": "10000",
+                "benih": "20260830",
+                "nilai": "0.297000000000",
+                "target": "0.300000000000",
+                "galat_mutlak": "0.003000000000",
+                "skala_teori": "0.004582575695",
+            },
+            {
+                "kasus": "5",
+                "n": "10000",
+                "benih": "20260830",
+                "nilai": "-0.654653670708",
+                "target": "0.000000000000",
+                "galat_mutlak": "0.654653670708",
+                "skala_teori": "1.000000000000",
+            },
+        ),
+    },
+    {
+        "source": (
+            ROOT
+            / "source"
+            / "labs"
+            / "04-nilai-harapan-bersyarat-martingal.Rmd"
+        ),
+        "output": Path("labs/04-nilai-harapan-bersyarat-martingal.html"),
+        "chunk_id": "o009_lab_conditional_martingale",
+        "placeholder": "<!-- O009_CONDITIONAL_MARTINGALE_EXECUTION_TABLE -->",
+        "expected_fields": (
+            "seed",
+            "ruang_hingga",
+            "E_X",
+            "galat_bersyarat",
+            "galat_menara",
+            "galat_martingal",
+            "rerata_S_tau_b",
+            "target_E_S_tau_b",
+            "cap_tau_plus",
+            "laju_kena_batas",
+            "target_laju",
+            "rerata_S_tau_plus_terpotong",
+            "target_E_S_tau_plus_terpotong",
+            "rerata_S_hanya_yang_kena",
+            "target_S_tau_plus",
+            "celah_naif",
+            "toleransi",
+            "status",
+        ),
+        "nonnumeric_fields": ("ruang_hingga", "status"),
+        "table_headers": (
+            "benih",
+            "ruang hingga",
+            "E[X]",
+            "galat bersyarat",
+            "galat menara",
+            "galat martingal",
+            "rerata S_tau_b",
+            "target E[S_tau_b]",
+            "cap tau_+",
+            "laju kena batas",
+            "target laju",
+            "rerata S_(tau_+ terpotong)",
+            "target E[S_(tau_+ terpotong)]",
+            "rerata S hanya yang kena",
+            "target S_tau_+",
+            "celah naif",
+            "toleransi",
+            "status",
+        ),
+        "table_id": "o009-results-conditional-martingale",
+        "required_code": "set.seed(20260829)",
+        "nav_label": "Laboratorium martingal dan waktu henti",
+        "front_matter": {
+            "title": (
+                "Nilai harapan bersyarat, filtrasi, dan penghentian opsional"
+            ),
+            "lang": "id-ID",
+            "course_id": "o009",
+            "unit_id": "o009-unit-conditional-martingale-lab",
+            "lab_id": "o009-lab-conditional-martingale",
+            "matched_theory_id": "o009-theory-random-conditional-martingale",
+            "target_locale": "id-ID",
+            "source_alias": (
+                "Random:expect/Conditional2.html;prob/Stop.html;"
+                "martingales/Properties.html;martingales/Stop.html"
+            ),
+            "source_authority": "authority/random/RANDOM_AUTHORITY_RECEIPT.json",
+            "source_authority_sha256": (
+                "ea3786a05f3a1ccf444818f17516ce85065c76759bfc8071d43fd8a98c643eb4"
+            ),
+            "source_relation": (
+                "original diagnostic informed by the cited theory pages; "
+                "no source HTML bytes are copied"
+            ),
+            "adaptation_license": "CC-BY-4.0",
+            "model_provenance": "OpenAI Codex gpt-5.6-sol, Ultra.",
+            "non_endorsement": (
+                "Edisi independen; tidak didukung atau disahkan oleh Kyle "
+                "Siegrist, Random, atau penulis sumber."
+            ),
+        },
+        "golden_rows": (
+            {
+                "seed": "20260829",
+                "ruang_hingga": "Omega_3 dan Omega_12",
+                "E_X": "3.000000000000",
+                "galat_bersyarat": "0.000000000000",
+                "galat_menara": "0.000000000000",
+                "galat_martingal": "0.000000000000",
+                "rerata_S_tau_b": "0.000000000000",
+                "target_E_S_tau_b": "0.000000000000",
+                "cap_tau_plus": "12",
+                "laju_kena_batas": "0.774414062500",
+                "target_laju": "0.774414062500",
+                "rerata_S_tau_plus_terpotong": "0.000000000000",
+                "target_E_S_tau_plus_terpotong": "0.000000000000",
+                "rerata_S_hanya_yang_kena": "1.000000000000",
+                "target_S_tau_plus": "1.000000000000",
+                "celah_naif": "1.000000000000",
+                "toleransi": "1.000000000000e-12",
+                "status": "PASS",
+            },
+        ),
+    },
+    {
+        "source": (
+            ROOT
+            / "source"
+            / "labs"
+            / "05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.Rmd"
+        ),
+        "output": Path(
+            "labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html"
+        ),
+        "chunk_id": "o009_lab_brownian_diagnostics",
+        "placeholder": "<!-- O009_BROWNIAN_EXECUTION_TABLE -->",
+        "expected_fields": (
+            "n",
+            "k_endpoint",
+            "ambang_kena",
+            "cdf_endpoint_eksak",
+            "target_normal",
+            "galat_cdf",
+            "prob_kena_eksak",
+            "target_brown",
+            "galat_kena",
+            "qv_mesh_alami",
+            "qv_refinemen_pralimit",
+            "variasi_total",
+            "refinemen_r",
+            "toleransi",
+            "status",
+        ),
+        "nonnumeric_fields": ("status",),
+        "table_headers": (
+            "n",
+            "k titik akhir",
+            "ambang kena",
+            "CDF titik akhir eksak",
+            "target normal",
+            "galat CDF",
+            "peluang kena eksak",
+            "target Brown",
+            "galat kena",
+            "QV mesh alami",
+            "QV refinemen pralimit",
+            "variasi total",
+            "refinemen r",
+            "toleransi",
+            "status",
+        ),
+        "table_id": "o009-results-brownian-diagnostics",
+        "required_code": "ns = c(64L, 256L, 1024L, 4096L)",
+        "nav_label": "Laboratorium diagnostik gerak Brown",
+        "front_matter": {
+            "title": "Gerak Brown: Donsker, variasi kuadratik, dan waktu kena",
+            "lang": "id-ID",
+            "course_id": "o009",
+            "unit_id": "o009-unit-brownian-diagnostics-lab",
+            "lab_id": "o009-lab-brownian-diagnostics",
+            "matched_theory_id": "o009-theory-random-brown-standard",
+            "prerequisite_id": "resource.o006.c140.shared",
+            "target_locale": "id-ID",
+            "source_alias": "Random:brown/Standard.html",
+            "source_authority": "authority/random/RANDOM_AUTHORITY_RECEIPT.json",
+            "source_authority_sha256": (
+                "ea3786a05f3a1ccf444818f17516ce85065c76759bfc8071d43fd8a98c643eb4"
+            ),
+            "source_page_sha256": (
+                "brown/Standard.html="
+                "3693677d4d4c75e7888f806a027fa25020babeb80c720bbb77ad6fd0c639276b"
+            ),
+            "source_license_witness": (
+                "CC-BY-2.0 and CC-BY-1.0 witnesses are retained separately "
+                "in RANDOM_AUTHORITY_RECEIPT.json"
+            ),
+            "source_relation": (
+                "wholly original diagnostic informed by the cited Random "
+                "theory page and the shared O006/C140 CLT prerequisite; no "
+                "Random HTML or O006 bytes are copied"
+            ),
+            "adaptation_license": "CC-BY-4.0",
+            "model_provenance": "OpenAI Codex gpt-5.6-sol, Ultra.",
+            "non_endorsement": (
+                "Edisi independen; tidak didukung atau disahkan oleh Kyle "
+                "Siegrist, Random, atau penulis sumber."
+            ),
+        },
+        "required_witnesses": (
+            'prerequisite_id: "resource.o006.c140.shared"',
+            "Tidak ada byte HTML sumber yang disalin ke",
+            "tidak ada byte O006 yang disalin atau diterbitkan",
+        ),
+        "golden_rows": (
+            {
+                "n": "64",
+                "k_endpoint": "36",
+                "ambang_kena": "8",
+                "cdf_endpoint_eksak": "0.869782261712",
+                "target_normal": "0.841344746069",
+                "galat_cdf": "0.028437515643",
+                "prob_kena_eksak": "0.321084135685",
+                "target_brown": "0.317310507863",
+                "galat_kena": "0.003773627822",
+                "qv_mesh_alami": "1.000000000000",
+                "qv_refinemen_pralimit": "0.125000000000",
+                "variasi_total": "8.000000000000",
+                "refinemen_r": "8",
+                "toleransi": "1.000000000000e-12",
+                "status": "PASS",
+            },
+            {
+                "n": "256",
+                "k_endpoint": "136",
+                "ambang_kena": "16",
+                "cdf_endpoint_eksak": "0.856005356734",
+                "target_normal": "0.841344746069",
+                "galat_cdf": "0.014660610666",
+                "prob_kena_eksak": "0.318255270999",
+                "target_brown": "0.317310507863",
+                "galat_kena": "0.000944763136",
+                "qv_mesh_alami": "1.000000000000",
+                "qv_refinemen_pralimit": "0.125000000000",
+                "variasi_total": "16.000000000000",
+                "refinemen_r": "8",
+                "toleransi": "1.000000000000e-12",
+                "status": "PASS",
+            },
+            {
+                "n": "1024",
+                "k_endpoint": "528",
+                "ambang_kena": "32",
+                "cdf_endpoint_eksak": "0.848789424921",
+                "target_normal": "0.841344746069",
+                "galat_cdf": "0.007444678852",
+                "prob_kena_eksak": "0.317546780410",
+                "target_brown": "0.317310507863",
+                "galat_kena": "0.000236272547",
+                "qv_mesh_alami": "1.000000000000",
+                "qv_refinemen_pralimit": "0.125000000000",
+                "variasi_total": "32.000000000000",
+                "refinemen_r": "8",
+                "toleransi": "1.000000000000e-12",
+                "status": "PASS",
+            },
+            {
+                "n": "4096",
+                "k_endpoint": "2080",
+                "ambang_kena": "64",
+                "cdf_endpoint_eksak": "0.845096155857",
+                "target_normal": "0.841344746069",
+                "galat_cdf": "0.003751409788",
+                "prob_kena_eksak": "0.317369581063",
+                "target_brown": "0.317310507863",
+                "galat_kena": "0.000059073200",
+                "qv_mesh_alami": "1.000000000000",
+                "qv_refinemen_pralimit": "0.125000000000",
+                "variasi_total": "64.000000000000",
+                "refinemen_r": "8",
+                "toleransi": "1.000000000000e-12",
+                "status": "PASS",
+            },
+        ),
+    },
 )
 LAB_SOURCE = LAB_SPECS[0]["source"]
 SOURCE_INDEX = ROOT / "source" / "index.md"
 SOURCE_CSS = ROOT / "source" / "reader.css"
+SOURCE_TWO_STATE_APP = ROOT / "source" / "apps" / "two-state.html"
+SUPPLEMENT_SPECS = (
+    ("mastery/01-konvergensi-01-02.md", "mastery/01-konvergensi-01-02.html", "Penguasaan konvergensi 01–02", "mastery"),
+    ("mastery/02-konvergensi-03-04.md", "mastery/02-konvergensi-03-04.html", "Penguasaan konvergensi 03–04", "mastery"),
+    ("mastery/03-konvergensi-05.md", "mastery/03-konvergensi-05.html", "Penguasaan konvergensi 05", "mastery"),
+    ("mastery/04-bersyarat-kernel-01-02.md", "mastery/04-bersyarat-kernel-01-02.html", "Penguasaan nilai harapan bersyarat dan kernel 01–02", "mastery"),
+    ("mastery/05-bersyarat-kernel-03.md", "mastery/05-bersyarat-kernel-03.html", "Penguasaan nilai harapan bersyarat dan kernel 03", "mastery"),
+    ("mastery/06-martingal-01-02.md", "mastery/06-martingal-01-02.html", "Penguasaan martingal 01–02", "mastery"),
+    ("mastery/07-martingal-03-04.md", "mastery/07-martingal-03-04.html", "Penguasaan martingal 03–04", "mastery"),
+    ("mastery/08-martingal-05.md", "mastery/08-martingal-05.html", "Penguasaan martingal 05", "mastery"),
+    ("mastery/09-poisson-konstruksi-01.md", "mastery/09-poisson-konstruksi-01.html", "Penguasaan konstruksi Poisson", "mastery"),
+    ("mastery/10-brown-01.md", "mastery/10-brown-01.html", "Penguasaan gerak Brown 01", "mastery"),
+    ("mastery/11-brown-02.md", "mastery/11-brown-02.html", "Penguasaan gerak Brown 02", "mastery"),
+    ("mastery/12-brown-03-04.md", "mastery/12-brown-03-04.html", "Penguasaan gerak Brown 03–04", "mastery"),
+    ("mastery/13-brown-05-06.md", "mastery/13-brown-05-06.html", "Penguasaan gerak Brown 05–06", "mastery"),
+    ("mastery/14-brown-07.md", "mastery/14-brown-07.html", "Penguasaan gerak Brown 07", "mastery"),
+    ("assessments/01-formulir-kumulatif-a.md", "assessments/01-formulir-kumulatif-a.html", "Penilaian kumulatif — Formulir A", "assessment"),
+    ("assessments/02-formulir-kumulatif-b.md", "assessments/02-formulir-kumulatif-b.html", "Penilaian kumulatif — Formulir B", "assessment"),
+)
+QUANTECON_COMPONENT_ROOT = ROOT / "build" / "components" / "quantecon_memoryless"
+QUANTECON_POISSON_COMPONENT_ROOT = ROOT / "build" / "components" / "quantecon_poisson"
+QUANTECON_MARKOV_PROP_COMPONENT_ROOT = ROOT / "build" / "components" / "quantecon_markov_prop"
+QUANTECON_KOLMOGOROV_BWD_COMPONENT_ROOT = ROOT / "build" / "components" / "quantecon_kolmogorov_bwd"
+QUANTECON_KOLMOGOROV_FWD_COMPONENT_ROOT = ROOT / "build" / "components" / "quantecon_kolmogorov_fwd"
+QUANTECON_KOLMOGOROV_FWD_TARGET = (
+    ROOT / "source" / "quantecon" / "lectures" / "kolmogorov_fwd.md"
+)
+QUANTECON_KOLMOGOROV_FWD_NUMERICAL_QA = (
+    ROOT / "qa" / "QUANTECON_KOLMOGOROV_FWD_NUMERICAL_QA.json"
+)
+QUANTECON_GENERATORS_COMPONENT_ROOT = (
+    ROOT / "build" / "components" / "quantecon_generators"
+)
+QUANTECON_GENERATORS_TARGET = (
+    ROOT / "source" / "quantecon" / "lectures" / "generators.md"
+)
+QUANTECON_UC_MC_SEMIGROUPS_COMPONENT_ROOT = (
+    ROOT / "build" / "components" / "quantecon_uc_mc_semigroups"
+)
+QUANTECON_UC_MC_SEMIGROUPS_TARGET = (
+    ROOT / "source" / "quantecon" / "lectures" / "uc_mc_semigroups.md"
+)
+QUANTECON_UC_MC_SEMIGROUPS_NUMERICAL_QA = (
+    ROOT / "qa" / "QUANTECON_UC_MC_SEMIGROUPS_NUMERICAL_QA.json"
+)
+QUANTECON_ERGODICITY_COMPONENT_ROOT = (
+    ROOT / "build" / "components" / "quantecon_ergodicity"
+)
+QUANTECON_ERGODICITY_TARGET = (
+    ROOT / "source" / "quantecon" / "lectures" / "ergodicity.md"
+)
+QUANTECON_ERGODICITY_NUMERICAL_QA = (
+    ROOT / "qa" / "QUANTECON_ERGODICITY_NUMERICAL_QA.json"
+)
 SITE = ROOT / "build" / "site"
 R_SCRIPT = ROOT / "tools" / "R-4.6.1" / "bin" / "Rscript.exe"
 PANDOC = "pandoc"
@@ -1546,7 +1958,7 @@ untuk setiap \(s,t\in T\) dan \(A\in\mathscr S\). Rumus untuk setiap keadaan \(x
 	Maka \( P_t \) adalah kernel probabilitas pada \( (S, \mathscr{S}) \), yang dikenal sebagai <dfn>kernel transisi</dfn> dari \( \bs{X} \) untuk waktu \( t \).</p>
 <details>
 <summary>Rincian:</summary>
-<p>Tetapkan \( t \in T \). Keterukuran \( x \mapsto \P(X_t \in A \mid X_0 = x) \) untuk \( A \in \mathscr{S} \) sudah tercakup dalam definisi probabilitas bersyarat. Selain itu, tentu saja, \( A \mapsto \P(X_t \in A \mid X_0 = x) \) merupakan ukuran probabilitas pada \( \mathscr{S} \) untuk \( x \in S \). Secara umum, distribusi bersyarat satu variabel acak, dengan syarat nilai variabel acak lain, mendefinisikan kernel probabilitas.</p>
+<p>Tetapkan \( t \in T \). Keterukuran \( x \mapsto \P(X_t \in A \mid X_0 = x) \) untuk \( A \in \mathscr{S} \) sudah tercakup dalam definisi probabilitas bersyarat. Selain itu, tentu saja, \( A \mapsto \P(X_t \in A \mid X_0 = x) \) merupakan ukuran probabilitas pada \( \mathscr{S} \) untuk \( x \in S \). Secara umum, distribusi bersyarat satu peubah acak, dengan syarat nilai peubah acak lain, mendefinisikan kernel probabilitas.</p>
 </details>
 </div>''',
         "new": r'''<div class="unit" id="trn1">
@@ -1667,7 +2079,7 @@ Penggunaan keluarga \((\P_x)_{x\in S}\) menghindari pengondisian titik demi titi
     {
         "id": "random-clock-kernel-and-markov-proof",
         "old": r'''<div class="unit" id="enl1">
-<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov takhomogen dengan ruang keadaan \( (S, \mathscr{S}) \). Misalkan pula bahwa \( \tau \) adalah variabel acak yang mengambil nilai dalam \( T \), independen dari \( \bs{X} \). Misalkan \( \tau_t = \tau + t \) dan \( Y_t = \left(X_{\tau_t}, \tau_t\right) \) untuk \( t \in T \). Maka \( \bs{Y} = \{Y_t: t \in T\} \) adalah proses Markov homogen dengan ruang keadaan \( (S \times T, \mathscr{S} \otimes \mathscr{T}) \). Untuk \( t \in T \), kernel transisi \( P_t \) diberikan oleh
+<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov takhomogen dengan ruang keadaan \( (S, \mathscr{S}) \). Misalkan pula bahwa \( \tau \) adalah peubah acak yang mengambil nilai dalam \( T \), independen dari \( \bs{X} \). Misalkan \( \tau_t = \tau + t \) dan \( Y_t = \left(X_{\tau_t}, \tau_t\right) \) untuk \( t \in T \). Maka \( \bs{Y} = \{Y_t: t \in T\} \) adalah proses Markov homogen dengan ruang keadaan \( (S \times T, \mathscr{S} \otimes \mathscr{T}) \). Untuk \( t \in T \), kernel transisi \( P_t \) diberikan oleh
 	\[ P_t[(x, r), A \times B] = \P(X_{r+t} \in A \mid X_r = x) \bs{1}(r + t \in B), \quad (x, r) \in S \times T, \, A \times B \in \mathscr{S} \otimes \mathscr{T} \]</p>
 <details>
 <summary>Rincian:</summary>
@@ -1836,7 +2248,7 @@ Ruas kanan hanya bergantung pada keadaan diperluas \(Y_s\), sehingga membuktikan
     },
     {
         "id": "gaussian-semigroup-kernel-notation",
-        "old": r"Kita hanya perlu menunjukkan bahwa \( \{g_t: t \in [0, \infty)\} \) memenuhi sifat semigrup dan bahwa hasil kontinuitas berlaku. Namun, kita sudah mengetahui bahwa jika \( U, \, V \) adalah variabel independen yang masing-masing berdistribusi normal",
+        "old": r"Kita hanya perlu menunjukkan bahwa \( \{g_t: t \in [0, \infty)\} \) memenuhi sifat semigrup dan bahwa hasil kontinuitas berlaku. Namun, kita sudah mengetahui bahwa jika \( U, \, V \) adalah peubah independen yang masing-masing berdistribusi normal",
         "new": r"Kita hanya perlu menunjukkan bahwa \(\{P_t:t\in[0,\infty)\}\) memenuhi sifat semigrup dan kontinuitas Feller. Untuk bagian kepadatan pada waktu positif, jika \(U,V\) independen dan masing-masing berdistribusi normal",
         "description": "State the time-zero semigroup in terms of kernels; only positive-time Gaussian members have Lebesgue densities.",
     },
@@ -2375,6 +2787,1951 @@ R_\alpha=
     },
 )
 
+MARKOV_RECURRENCE_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "all-state-markov-family",
+        "old": r"""Jadi, berdasarkan definisi,""" + " \n" + r"""\[ P(x, y) = \P(X_{n+1} = y \mid X_n = x) \]
+untuk \( x, \, y \in S \) dan \( n \in \N \).""",
+        "new": r"""Untuk membahas semua keadaan—termasuk keadaan yang mungkin berpeluang nol di bawah \(\P\)—pilih keluarga hukum Markov \((\P_x)_{x\in S}\) dengan \(\P_x(X_0=x)=1\), dan tulis \(\E_x\) untuk nilai harapannya. Tetapkan
+\[
+P(x,y)=\P_x(X_1=y),\qquad
+P^n(x,y)=\P_x(X_n=y),\qquad x,y\in S,\ n\in\N.
+\]
+Pada halaman ini, ungkapan \(\P(\,cdot\mid X_0=x)\) dan \(\E(\,cdot\mid X_0=x)\) selanjutnya merupakan notasi singkat untuk \(\P_x\) dan \(\E_x\).""",
+        "description": "Bind every state, including null states under an ambient law, to a consistent all-state Markov family.",
+    },
+    {
+        "id": "hitting-event-empty-intersection",
+        "old": r"""\[ \{\tau_A = n\} = \{X_1 \notin A, \ldots, X_{n-1} \notin A, X_n \in A\} \]""",
+        "new": r"""\[
+\{\tau_A=n\}
+=\bigcap_{j=1}^{n-1}\{X_j\notin A\}\cap\{X_n\in A\},
+\qquad n\in\N_+,
+\]
+dengan konvensi bahwa irisan kosong sama dengan \(\Omega\).""",
+        "description": "State the first-positive hitting event for n=1 without a nonexistent list of prior coordinates.",
+    },
+    {
+        "id": "first-hit-convolution-proof",
+        "old": r"""<p>Hasil ini diperoleh dengan mengondisikan pada \( \tau_y \). Jika rantai dimulai pada keadaan \( x \), rantai berada pada keadaan \( y \) pada waktu \( n \) jika dan hanya jika rantai mencapai \( y \) untuk pertama kalinya pada suatu waktu sebelumnya \( k \), lalu kembali ke \( y \) dalam \( n - k \) langkah sisanya. Secara lebih formal,
+		\[ P^n(x, y) = \P(X_n = y \mid X_0 = x) = \sum_{k=0}^\infty \P(X_n = y \mid \tau_y = k, X_0 = x) \P(\tau_y = k \mid X_0 = x) \]
+		Namun, kejadian \( \tau_y = k \) menyiratkan \( X_k = y \) dan termasuk dalam \( \mathscr{F}_k \). Karena itu, berdasarkan sifat Markov,
+		\[ \P(X_n = y \mid \tau_y = k, X_0 = x) = \P(X_n = y \mid X_k = y, \tau_y = k, X_0 = x) = \P(X_n = y \mid X_k = y) = P^k(x, y) \]
+		Tentu saja, berdasarkan definisi, \( \P(\tau_y = k \mid X_0 = x) = H_k(x, y) \), sehingga hasilnya diperoleh melalui substitusi.</p>""",
+        "new": r"""<p>Untuk \(n\in\N_+\), kejadian-kejadian \(\{\tau_y=k,X_n=y\}\), \(1\le k\le n\), mempartisi \(\{X_n=y\}\). Karena \(\tau_y\) adalah waktu henti dan \(X_{\tau_y}=y\) pada \(\{\tau_y&lt;\infty\}\), sifat Markov kuat pada \(\tau_y\) memberikan
+\[
+\begin{aligned}
+P^n(x,y)
+&amp;=\P_x(X_n=y)\\
+&amp;=\sum_{k=1}^{n}\P_x(X_n=y,\tau_y=k)\\
+&amp;=\sum_{k=1}^{n}
+   \E_x\!\left[\bs{1}_{\{\tau_y=k\}}
+   P^{n-k}(X_{\tau_y},y)\right]\\
+&amp;=\sum_{k=1}^{n}H_k(x,y)P^{n-k}(y,y).
+\end{aligned}
+\]
+Inilah identitas yang dinyatakan di atas.</p>""",
+        "description": "Use the finite first-hit partition and the strong Markov factor P^(n-k)(y,y), replacing the source's wrong range and transition term.",
+    },
+    {
+        "id": "first-hit-convolution-statement-reflow",
+        "old": r"""\[ P^n(x, y) = \sum_{k=1}^n H_k(x, y) P^{n-k}(y, y),  \quad n \in \N_+ \]""",
+        "new": r"""\[
+\begin{gathered}
+P^n(x,y)=\sum_{k=1}^{n}H_k(x,y)P^{n-k}(y,y),\\
+n\in\N_+.
+\end{gathered}
+\]""",
+        "description": "Reflow the first-hit convolution statement into two readable narrow-screen lines.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "hitting-set-nonempty-domain",
+        "old": r"""<p class="math">Misalkan \( x \in S \) dan \( A \subseteq S \). Maka</p>""",
+        "new": r"""<p class="math">Misalkan \(x\in S\) dan \(A\subseteq S\) tak kosong. Maka</p>""",
+        "description": "Keep the hitting-set domain consistent with the preceding definition.",
+    },
+    {
+        "id": "hitting-first-step-proof",
+        "old": r"""<ol class="sub">
+<li>Jika rantai dimulai pada keadaan \( x \), rantai pertama kali mencapai \( A \) pada waktu \( n + 1 \) jika dan hanya jika rantai berpindah ke suatu keadaan \( y \notin A \) pada waktu 1, lalu dari keadaan \( y \) pertama kali mencapai \( A \) dalam \( n \) langkah.
+			\[ H_{n+1}(x, A) = \P(\tau_A = n + 1 \mid X_0 = x) = \sum_{y \in S} \P(\tau_A = n + 1 \mid X_0 = x, X_1 = y) \P(X_1 = y \mid X_0 = x) \]
+			Namun, \( \P(\tau_A = n + 1 \mid X_0 = x, X_1 = y) = 0 \) untuk \( y \in A \). Berdasarkan sifat Markov dan sifat homogen terhadap waktu, \( \P(\tau_A = n + 1 \mid X_0 = x,  X_1 = y) = \P(\tau_A = n \mid X_0 = y) = H_n(x, A) \) untuk \( y \notin A \). Tentu saja, \( \P(X_1 = y \mid X_0 = x) = P(x, y) \). Jadi, hasilnya diperoleh melalui substitusi.</li>
+<li>Jika rantai dimulai pada keadaan \( x \), rantai pada akhirnya mencapai \( A \) jika dan hanya jika rantai mencapai \( A \) pada langkah pertama, atau berpindah ke suatu keadaan lain \( y \notin A \) pada langkah pertama, lalu pada akhirnya mencapai \( A \) dari \( y \).
+			\[ H(x, A) = \P(\tau_A \lt \infty \mid X_0 = x) = \sum_{y \in S} \P(\tau_A \lt \infty \mid X_1 =y, X_0 = x) \P(X_1 = y \mid X_0 = x)\]
+			Namun, \( \P(\tau_A \lt \infty \mid X_1 = y, X_0 = x) = 1\) untuk \( y \in A \). Berdasarkan sifat Markov dan sifat homogen terhadap waktu, \(\P(\tau_A \lt \infty \mid X_1 = y, X_0 = x) =  \P(\tau_A \lt \infty \mid X_0 = y) = H(y, A) \) untuk \( y \notin A \). Dengan melakukan substitusi, diperoleh
+			\[ H(x, A) = \sum_{y \in A} P(x, y) + \sum_{y \notin A} P(x, y) H(y, A) = P(x, A) + \sum_{y \notin A} P(x, y) H(y, A) \]</li>
+</ol>""",
+        "new": r"""<ol class="sub">
+<li>Untuk \(n\in\N_+\), dekomposisi menurut keadaan pada waktu 1 dan sifat Markov memberikan
+\[
+\begin{aligned}
+H_{n+1}(x,A)
+&amp;=\sum_{y\notin A}\P_x(\tau_A=n+1,X_1=y)\\
+&amp;=\sum_{y\notin A}P(x,y)\P_y(\tau_A=n)\\
+&amp;=\sum_{y\notin A}P(x,y)H_n(y,A).
+\end{aligned}
+\]
+Argumen ini berlaku untuk setiap keadaan karena memakai keluarga \((\P_x)_{x\in S}\), bukan pengondisian pada kejadian nol.</li>
+<li>Pisahkan kemungkinan \(X_1\in A\) dari kemungkinan \(X_1=y\notin A\). Sifat Markov memberikan
+\[
+\begin{aligned}
+H(x,A)
+&amp;=\P_x(X_1\in A)
+ +\sum_{y\notin A}\P_x(X_1=y)\P_y(\tau_A&lt;\infty)\\
+&amp;=P(x,A)+\sum_{y\notin A}P(x,y)H(y,A).
+\end{aligned}
+\]</li>
+</ol>""",
+        "description": "Replace null-event conditioning and the erroneous H_n(x,A) substitution by the all-state first-step identities.",
+    },
+    {
+        "id": "green-kernel-all-state-reflow",
+        "old": r"""\[ G(x, A) = \E \left(\sum_{n=1}^\infty \bs{1}(X_n \in A) \biggm| X_0 = x\right) = \sum_{n=1}^\infty \P(X_n \in A \mid X_0 = x) = \sum_{n=1}^\infty P^n(x, A) \]""",
+        "new": r"""\[
+\begin{aligned}
+G(x,A)
+&amp;=\E_x\!\left[\sum_{n=1}^{\infty}\bs1(X_n\in A)\right]\\
+&amp;=\sum_{n=1}^{\infty}\P_x(X_n\in A)
+=\sum_{n=1}^{\infty}P^n(x,A).
+\end{aligned}
+\]""",
+        "description": "Express the Green kernel under the all-state law and reflow its monotone-sum identity.",
+    },
+    {
+        "id": "transient-visit-distribution-reference",
+        "old": r"""dengan menggunakan <a class="ref" href="#pot2"></a> dan deret geometri""",
+        "new": r"""dengan menggunakan <a class="ref" href="#pot2">distribusi banyaknya kunjungan</a> dan deret geometri""",
+        "description": "Supply visible text for the transient visit-distribution reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "transient-geometric-sum-reflow",
+        "old": r"""\[\P(N_y \in \N_+ \mid X_0 = x) = \sum_{n=1}^\infty \P(N_y = n \mid X_0 = x) = H(x, y) [1 - H(y, y)] \sum_{n=1}^\infty [H(y, y)]^{n-1} = H(x, y)\]""",
+        "new": r"""\[
+\begin{aligned}
+\P_x(N_y\in\N_+)
+&amp;=\sum_{n=1}^{\infty}\P_x(N_y=n)\\
+&amp;=H(x,y)[1-H(y,y)]
+  \sum_{n=1}^{\infty}[H(y,y)]^{n-1}\\
+&amp;=H(x,y).
+\end{aligned}
+\]""",
+        "description": "Reflow the geometric-series calculation and use the all-state law.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "recurrent-visit-mass",
+        "old": r"""<li>Jika \( y \) rekuren, \( H(y, y) = 1 \), sehingga dari <a class="ref" href="#pot2"></a>, \( \P(N_y = n \mid X_0 = x) = 0 \) untuk semua \( n \in \N_+ \). Karena itu, \( \P(N_y = \infty \mid X_0 = x) = 1 - \P(N_y = 0 \mid X_0 = x) = 1 - H(x, y) \).</li>""",
+        "new": r"""<li>Jika \(y\) rekuren, \(H(y,y)=1\), sehingga dari <a class="ref" href="#pot2">distribusi banyaknya kunjungan</a>, \(\P_x(N_y=n)=0\) untuk semua \(n\in\N_+\). Karena itu,
+\[
+\P_x(N_y=\infty)=1-\P_x(N_y=0)=H(x,y).
+\]</li>""",
+        "description": "Correct the recurrent-state mass at infinity from 1-H(x,y) to H(x,y), and expose its supporting reference.",
+    },
+    {
+        "id": "recurrent-self-visit-reference",
+        "old": r"""<li>Dari <a class="ref" href="#pot4"></a>, \( \P(N_y = n \mid X_0 = y) = 0 \) untuk semua \( n \in \N \), sehingga \( \P(N_y = \infty \mid X_0 = y) = 1 \).</li>""",
+        "new": r"""<li>Dari <a class="ref" href="#pot2">distribusi banyaknya kunjungan</a>, \(\P_y(N_y=n)=0\) untuk semua \(n\in\N\), sehingga \(\P_y(N_y=\infty)=1\).</li>""",
+        "description": "Cite the visit-distribution result rather than the transient-state theorem, and use the all-state law.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "hitting-accessibility-reference",
+        "old": r"""<a class="ref" href="#hit2"></a> diperoleh bahwa""",
+        "new": r"""<a class="ref" href="#hit2">kriteria pencapaian melalui pangkat transisi</a> diperoleh bahwa""",
+        "description": "Supply visible text for the accessibility criterion reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "transitivity-natural-number-symbol",
+        "old": r"""\( j, \, k \in N \)""",
+        "new": r"""\(j,k\in\N\)""",
+        "description": "Use the declared natural-number macro in the transitivity proof.",
+    },
+    {
+        "id": "restricted-path-edge-cases",
+        "old": r"""\[ P_A^n(x, y) = \P(X_1 \in A, \ldots, X_{n-1} \in A, X_n = y \mid X_0 = x) \]
+besaran tersebut adalah probabilitas berpindah dari \( x \) ke \( y \) dalam \( n \) langkah sambil tetap berada di \( A \) sepanjang waktu.""",
+        "new": r"""\[
+P_A^0(x,y)=\bs1(x=y),
+\]
+sedangkan, untuk \(n\in\N_+\),
+\[
+P_A^n(x,y)
+=\P_x\!\left(
+\bigcap_{j=1}^{n-1}\{X_j\in A\}\cap\{X_n=y\}
+\right),
+\]
+dengan irisan kosong sama dengan \(\Omega\). Besaran kedua adalah probabilitas berpindah dari \(x\) ke \(y\) dalam \(n\) langkah sambil tetap berada di \(A\) sepanjang waktu.""",
+        "description": "Separate the n=0 identity and state the restricted-path event for n>=1 with the empty-intersection convention.",
+    },
+    {
+        "id": "irreducible-singleton-closures",
+        "old": r"""\( \cl(y) = A \) untuk setiap \( y \in A \), dan khususnya \( \cl(x) = A \)""",
+        "new": r"""\(\cl(\{y\})=A\) untuk setiap \(y\in A\), dan khususnya \(\cl(\{x\})=A\)""",
+        "description": "Apply the closure operator to singleton sets rather than bare states.",
+    },
+    {
+        "id": "recurrent-class-property-reference",
+        "old": r"""Dari <a class="ref" href="#cls1"></a>, perhatikan bahwa""",
+        "new": r"""Dari <a class="ref" href="#cls1">teorema ketercapaian dari keadaan rekuren</a>, perhatikan bahwa""",
+        "description": "Supply visible text for the recurrent class-property reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "finite-irreducible-class-references",
+        "old": r"""Perhatikan bahwa \( A \) adalah kelas komunikasi berdasarkan <a class="ref" href="#rel10"></a>, dan \( A \) memiliki keadaan rekuren berdasarkan <a class="ref" href="#cls3"></a>.""",
+        "new": r"""Perhatikan bahwa \(A\) adalah kelas komunikasi berdasarkan <a class="ref" href="#rel10">teorema himpunan tak tereduksi</a>, dan \(A\) memiliki keadaan rekuren berdasarkan <a class="ref" href="#cls3">teorema himpunan berhingga tertutup</a>.""",
+        "description": "Supply visible text for both references in the finite irreducible-class proof.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "finite-staying-event-domain",
+        "old": r"""<p class="math">Misalkan \( A \) adalah himpunan bagian sejati dari \( S \). Maka</p>
+<ol class="sub">
+<li>\(P_A^n(x, A) = \P(X_1 \in A, X_2 \in A, \ldots, X_n \in A \mid X_0 = x) \) untuk \( x \in A \)</li>
+<li>\( \lim_{n \to \infty} P_A^n(x, A) = \P(X_1 \in A, X_2 \in A \ldots \mid X_0 = x) \) untuk \( x \in A \)</li>
+</ol>""",
+        "new": r"""<p class="math">Misalkan \(A\) adalah himpunan bagian sejati dari \(S\). Maka</p>
+<ol class="sub">
+<li>\(P_A^n(x,A)=\P_x(X_1\in A,\ldots,X_n\in A)\) untuk \(x\in A\) dan \(n\in\N_+\).</li>
+<li>\(\displaystyle\lim_{n\to\infty}P_A^n(x,A)=\P_x(X_1\in A,X_2\in A,\ldots)\) untuk \(x\in A\).</li>
+</ol>""",
+        "description": "Give the finite staying formula its positive-time domain, restore the missing comma, and use the all-state law.",
+    },
+    {
+        "id": "zero-one-reference",
+        "old": r"""Pencirian dalam <a class="ref" href="#tst2"></a> menyiratkan""",
+        "new": r"""Pencirian dalam <a class="ref" href="#tst2">teorema fungsi bertahan terbesar</a> menyiratkan""",
+        "description": "Supply visible text for the zero-one characterization reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "classification-reference",
+        "old": r"""rekuren berdasarkan <a class="ref" href="#tst4"></a>.""",
+        "new": r"""rekuren berdasarkan <a class="ref" href="#tst4">uji klasifikasi melalui fungsi bertahan</a>.""",
+        "description": "Supply visible text for the recurrence-classification reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "green-to-hitting-reference",
+        "old": r"""menghitung \( H_B \) menggunakan <a class="ref" href="#pot4"></a>.""",
+        "new": r"""menghitung \(H_B\) menggunakan <a class="ref" href="#pot4">hubungan Green–pencapaian bagi keadaan transien</a>.""",
+        "description": "Supply visible text for the Green-to-hitting conversion reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "hitting-computation-references",
+        "old": r"""Latihan <a class="ref" href="#com3"></a> memadai jika kita telah menghitung \( G_B \) (misalnya dengan menggunakan latihan <a class="ref" href="#com1"></a>).""",
+        "new": r"""Rumus <a class="ref" href="#com3">pencapaian kelas rekuren</a> memadai jika kita telah menghitung \(G_B\) (misalnya dengan menggunakan <a class="ref" href="#com1">persamaan matriks Green transien</a>).""",
+        "description": "Supply visible, semantically accurate text for both computational cross-references.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "finite-hitting-solution-reference",
+        "old": r"""diperoleh dari latihan <a class="ref" href="#com1"></a>.""",
+        "new": r"""diperoleh dari <a class="ref" href="#com1">persamaan matriks Green transien</a>.""",
+        "description": "Supply visible text for the finite hitting-system reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "hitting-event-tex-localization",
+        "old": r"""\{\tau_y \lt \infty\} = \{X_k = y \text{ for some } k \in \N_+\}""",
+        "new": r"""\{\tau_y&lt;\infty\}=\{X_k=y\text{ untuk suatu }k\in\N_+\}""",
+        "description": "Localize the English prose retained inside the source TeX.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "closure-tex-localization",
+        "old": r"""\cl(A) = \{y \in S: x \to y \text{ for some } x \in A\}""",
+        "new": r"""\cl(A)=\{y\in S:x\to y\text{ untuk suatu }x\in A\}""",
+        "description": "Localize the English prose retained inside the closure formula.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "finite-example-transition-row",
+        "old": r"""\frac{1}{2} &amp; \frac{2}{3} &amp; 0 &amp; 0 \\""",
+        "new": r"""\frac{1}{3} &amp; \frac{2}{3} &amp; 0 &amp; 0 \\""",
+        "description": "Restore the stochastic first row (1/3,2/3,0,0), witnessed by the July 2009 official UAH print capture; the current 1/2 entry makes the row sum 7/6.",
+    },
+    {
+        "id": "finite-example-1-green-matrix-reflow",
+        "old": r"""\( G = \left[ \begin{matrix}
+				\infty &amp; \infty &amp; 0 &amp; 0 \\
+				\infty &amp; \infty &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; \infty &amp; 0 \\
+				\infty &amp; \infty &amp; \infty &amp; \frac{1}{3}
+			\end{matrix} \right] \)""",
+        "new": r"""\[
+G=\begin{bmatrix}
+\infty&amp;\infty&amp;0&amp;0\\
+\infty&amp;\infty&amp;0&amp;0\\
+0&amp;0&amp;\infty&amp;0\\
+\infty&amp;\infty&amp;\infty&amp;\frac13
+\end{bmatrix}.
+\]""",
+        "description": "Promote the first worked Green matrix to a readable, bounded display.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "finite-example-1-hitting-matrix-reflow",
+        "old": r"""\( H = \left[ \begin{matrix}
+				1 &amp; 1 &amp; 0 &amp; 0 \\
+				1 &amp; 1 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 1 &amp; 0 \\
+				\frac{2}{3} &amp; \frac{2}{3} &amp; \frac{1}{3} &amp; \frac{1}{4}
+			\end{matrix} \right] \)""",
+        "new": r"""\[
+H=\begin{bmatrix}
+1&amp;1&amp;0&amp;0\\
+1&amp;1&amp;0&amp;0\\
+0&amp;0&amp;1&amp;0\\
+\frac23&amp;\frac23&amp;\frac13&amp;\frac14
+\end{bmatrix}.
+\]""",
+        "description": "Promote the first worked hitting matrix to a readable, bounded display.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "finite-example-2-green-matrix-reflow",
+        "old": r"""\( G = \left[ \begin{matrix}
+				\infty &amp; 0 &amp; \infty &amp; 0 &amp; \infty &amp; 0 \\
+				\infty &amp; \frac{1}{2} &amp; \infty &amp; \infty &amp; \infty &amp; 2 \\
+				\infty &amp; 0 &amp; \infty &amp; 0 &amp; \infty &amp; 0 \\
+				0 &amp; 0 &amp; 0 &amp; \infty &amp; 0 &amp; 0 \\
+				\infty &amp; 0 &amp; \infty &amp; 0 &amp; \infty &amp; 0 \\
+""" + "\t\t\t\t" + r"""\infty &amp; \frac{1}{2} &amp; \infty &amp; \infty &amp; \infty &amp; 1""" + " \n\t\t\t" + r"""\end{matrix} \right] \)""",
+        "new": r"""\[
+G=\begin{bmatrix}
+\infty&amp;0&amp;\infty&amp;0&amp;\infty&amp;0\\
+\infty&amp;\frac12&amp;\infty&amp;\infty&amp;\infty&amp;2\\
+\infty&amp;0&amp;\infty&amp;0&amp;\infty&amp;0\\
+0&amp;0&amp;0&amp;\infty&amp;0&amp;0\\
+\infty&amp;0&amp;\infty&amp;0&amp;\infty&amp;0\\
+\infty&amp;\frac12&amp;\infty&amp;\infty&amp;\infty&amp;1
+\end{bmatrix}.
+\]""",
+        "description": "Promote the second worked Green matrix to a readable, bounded display.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "finite-example-2-hitting-matrix-reflow",
+        "old": r"""\( H = \left[ \begin{matrix}
+				1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+				\frac{1}{2} &amp; \frac{1}{3} &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; 1 \\
+				1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+				0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+				1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+""" + "\t\t\t\t" + r"""\frac{1}{2} &amp; \frac{1}{3} &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; \frac{1}{2} &amp; \frac{1}{2}""" + " \n\t\t\t" + r"""\end{matrix} \right] \)""",
+        "new": r"""\[
+H=\begin{bmatrix}
+1&amp;0&amp;1&amp;0&amp;1&amp;0\\
+\frac12&amp;\frac13&amp;\frac12&amp;\frac12&amp;\frac12&amp;1\\
+1&amp;0&amp;1&amp;0&amp;1&amp;0\\
+0&amp;0&amp;0&amp;1&amp;0&amp;0\\
+1&amp;0&amp;1&amp;0&amp;1&amp;0\\
+\frac12&amp;\frac13&amp;\frac12&amp;\frac12&amp;\frac12&amp;\frac12
+\end{bmatrix}.
+\]""",
+        "description": "Promote the second worked hitting matrix to a readable, bounded display.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "finite-example-3-green-matrix-reflow",
+        "old": r"""\( G = \left[ \begin{matrix}
+				\infty &amp; \infty &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				\infty &amp; \infty &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				\infty &amp; \infty &amp; \frac{7}{5} &amp; \frac{4}{5} &amp; \infty &amp; \infty \\
+				\infty &amp; \infty &amp; \frac{4}{5} &amp; \frac{3}{5} &amp; \infty &amp; \infty \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; \infty &amp; \infty \\
+""" + "\t\t\t\t" + r"""0 &amp; 0 &amp; 0 &amp; 0 &amp; \infty &amp; \infty""" + " \n\t\t\t" + r"""\end{matrix} \right] \)""",
+        "new": r"""\[
+G=\begin{bmatrix}
+\infty&amp;\infty&amp;0&amp;0&amp;0&amp;0\\
+\infty&amp;\infty&amp;0&amp;0&amp;0&amp;0\\
+\infty&amp;\infty&amp;\frac75&amp;\frac45&amp;\infty&amp;\infty\\
+\infty&amp;\infty&amp;\frac45&amp;\frac35&amp;\infty&amp;\infty\\
+0&amp;0&amp;0&amp;0&amp;\infty&amp;\infty\\
+0&amp;0&amp;0&amp;0&amp;\infty&amp;\infty
+\end{bmatrix}.
+\]""",
+        "description": "Promote the third worked Green matrix to a readable, bounded display.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "finite-example-3-hitting-matrix-reflow",
+        "old": r"""\( H = \left[ \begin{matrix}
+				1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				\frac{4}{5} &amp; \frac{4}{5} &amp; \frac{7}{12} &amp; \frac{1}{2} &amp; \frac{1}{5} &amp; \frac{1}{5} \\
+				\frac{3}{5} &amp; \frac{3}{5} &amp; \frac{1}{3} &amp; \frac{3}{8} &amp; \frac{2}{5} &amp; \frac{2}{5} \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1 \\
+""" + "\t\t\t\t" + r"""0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 1""" + " \n\t\t\t" + r"""\end{matrix} \right] \)""",
+        "new": r"""\[
+H=\begin{bmatrix}
+1&amp;1&amp;0&amp;0&amp;0&amp;0\\
+1&amp;1&amp;0&amp;0&amp;0&amp;0\\
+\frac45&amp;\frac45&amp;\frac7{12}&amp;\frac12&amp;\frac15&amp;\frac15\\
+\frac35&amp;\frac35&amp;\frac13&amp;\frac38&amp;\frac25&amp;\frac25\\
+0&amp;0&amp;0&amp;0&amp;1&amp;1\\
+0&amp;0&amp;0&amp;0&amp;1&amp;1
+\end{bmatrix}.
+\]""",
+        "description": "Promote the third worked hitting matrix to a readable, bounded display.",
+        "change_kind": "deterministic-output",
+    },
+)
+
+MARKOV_PERIODICITY_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "periodicity-opening-nonempty-return-set",
+        "old": r"Suatu keadaan dalam rantai Markov waktu diskret bersifat periodik jika rantai hanya dapat kembali ke keadaan tersebut pada kelipatan suatu bilangan bulat yang lebih besar dari 1.",
+        "new": r"Suatu keadaan dalam rantai Markov waktu diskret bersifat periodik jika himpunan waktu kembali positifnya tidak kosong dan mempunyai faktor persekutuan terbesar yang lebih besar dari 1.",
+        "description": "Avoid classifying a state with no possible positive return as periodic by vacuous divisibility.",
+    },
+    {
+        "id": "empty-return-set-period-convention",
+        "old": r"""<p class="dfn"><dfn>Periode</dfn> keadaan \( x \in S \) adalah
+	\[ d(x) = \gcd\{n \in \N_+: P^n(x, x) \gt 0 \} \]
+	Keadaan \( x \) bersifat <dfn>aperiodik</dfn> jika \( d(x) = 1 \) dan <dfn>periodik</dfn> jika \( d(x) \gt 1 \).</p>""",
+        "new": r"""<p class="dfn"><dfn>Periode</dfn> keadaan \( x \in S \) adalah
+	\[ d(x) = \gcd\{n \in \N_+: P^n(x, x) \gt 0 \} \]
+	dengan konvensi \(\gcd\varnothing=0\). Keadaan \(x\) dengan \(d(x)=0\) bukan keadaan periodik maupun aperiodik. Keadaan \( x \) bersifat <dfn>aperiodik</dfn> jika \( d(x) = 1 \) dan <dfn>periodik</dfn> jika \( d(x) \gt 1 \).</p>""",
+        "description": "Define the empty-return-set case instead of leaving the period undefined for a legitimate transient state.",
+    },
+    {
+        "id": "period-class-proof-divisibility-direction",
+        "old": r"Berdasarkan definisi periode, \( d(y) \mid d(x) \). Dengan menukar peran \( x \) dan \( y \), kita juga memperoleh \( d(x) \mid d(y) \).",
+        "new": r"Berdasarkan definisi periode, \( d(x) \mid d(y) \). Dengan menukar peran \( x \) dan \( y \), kita juga memperoleh \( d(y) \mid d(x) \).",
+        "description": "Repair both reversed divisibility conclusions in the class-property proof.",
+    },
+    {
+        "id": "period-explanation-empty-return-case",
+        "old": r"Jadi, jika dimulai dari \( x \), rantai hanya dapat kembali ke \( x \) pada kelipatan periode \( d \), dan \( d \) adalah bilangan bulat terbesar dengan sifat tersebut.",
+        "new": r"Jika \(d(x)\ge 1\), setiap waktu kembali positif ke \(x\) habis dibagi \(d(x)\), dan \(d(x)\) adalah faktor persekutuan terbesar semua waktu tersebut. Jika \(d(x)=0\), tidak ada waktu kembali positif ke \(x\).",
+        "description": "State the gcd property only for nonempty return-time sets and handle d=0 separately.",
+    },
+    {
+        "id": "closed-class-restriction-scope",
+        "old": r"Kita tidak kehilangan keumuman dengan mengasumsikan bahwa rantai tak tereduksi, sebab jika tidak demikian, kita cukup membatasi perhatian pada salah satu kelas komunikasi yang tak tereduksi.",
+        "new": r"Pembahasan berikut berlaku untuk rantai tak tereduksi. Untuk rantai tereduksi, argumen yang sama dapat diterapkan secara terpisah pada setiap kelas komunikasi tertutup yang tak tereduksi; pembatasan pada kelas yang tidak tertutup umumnya hanya menghasilkan matriks substokastik.",
+        "description": "Limit the restriction claim to closed irreducible classes, whose restrictions remain Markov chains.",
+    },
+    {
+        "id": "explicit-cyclic-introduction-paragraph-close",
+        "old": r"""m - p \equiv_d n - q \).
+
+</p><p>Sekarang""",
+        "new": r"""m - p \equiv_d n - q \).</p>
+<p>Sekarang""",
+        "description": "Repair the omitted paragraph close before parser-dependent downstream transformations.",
+    },
+    {
+        "id": "cyclic-definition-quantifier-localization",
+        "old": r"\text{ for some } n \in \N",
+        "new": r"\text{ untuk suatu } n \in \N",
+        "description": "Localize reader-facing prose embedded in the cyclic-class display.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "cyclic-residue-set-punctuation",
+        "old": r"\{0, 1, \ldots d - 1\}",
+        "new": r"\{0, 1, \ldots, d - 1\}",
+        "description": "Restore the missing separator in the finite residue set.",
+    },
+    {
+        "id": "cyclic-partition-index",
+        "old": r"\( (A_0, A_1, \ldots, A_{k-1}) \) mempartisi \( S \)",
+        "new": r"\( (A_0, A_1, \ldots, A_{d-1}) \) mempartisi \( S \)",
+        "description": "Use the chain period d, not the preceding local index k, in the cyclic partition.",
+    },
+    {
+        "id": "cyclic-forward-step-domain-and-punctuation",
+        "old": r"maka \( P^n(x, y) \gt 0 \) untuk suatu \( n \equiv_d k - j \)</li>",
+        "new": r"maka \( P^n(x, y) \gt 0 \) untuk suatu \( n \in \N \) dengan \( n \equiv_d k - j \).</li>",
+        "description": "State the step-count domain explicitly and complete the first cyclic-class assertion.",
+    },
+    {
+        "id": "cyclic-proof-finite-residue-bound",
+        "old": r"\(j, \, k \in \{0, 1, \ldots\}\)",
+        "new": r"\(j, \, k \in \{0, 1, \ldots, d - 1\}\)",
+        "description": "Bound both cyclic-class indices by the complete residue system modulo d.",
+    },
+    {
+        "id": "cyclic-proof-congruence-punctuation",
+        "old": r"sehingga \( n \equiv_d k - j \)</p>",
+        "new": r"sehingga \( n \equiv_d k - j \).</p>",
+        "description": "Complete the cyclic-class proof sentence.",
+    },
+    {
+        "id": "visible-finite-example-reference",
+        "old": r'<a class="ref" href="#fin1"></a>',
+        "new": r'<a class="ref" href="#fin1">contoh rantai tiga keadaan</a>',
+        "description": "Supply visible Indonesian text for the JavaScript-generated empty reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "cyclic-classes-image-description",
+        "old": r'alt="Kelas-kelas siklik suatu rantai periodik" src="CyclicClasses.png"',
+        "new": r'alt="Diagram siklus berarah A_0 ke A_1 hingga A_{d-1}, lalu kembali ke A_0" src="CyclicClasses.png"',
+        "description": "Describe the information carried by the cyclic-class diagram rather than repeat its caption.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "finite-seven-state-graph-text-alternative",
+        "old": r"""<img alt="Graf keadaan untuk rantai tujuh keadaan" src="State4.png" title="Diagram keadaan"/>
+</figure>
+</li>""",
+        "new": r"""<img alt="Graf tiga lapis: 1 menuju 3, 4, dan 5; 2 menuju 3 dan 5; 3, 4, dan 5 masing-masing menuju 6 dan 7; 6 dan 7 masing-masing menuju 1 dan 2" src="State4.png" title="Diagram keadaan"/>
+</figure>
+<p>Graf menunjukkan busur langsung 1 ke 3, 4, dan 5; 2 ke 3 dan 5; masing-masing dari 3, 4, dan 5 ke 6 dan 7; serta masing-masing dari 6 dan 7 ke 1 dan 2. Melalui lapisan-lapisan itu, setiap keadaan dapat mencapai setiap keadaan lain, sehingga rantai ini tak tereduksi.</p>
+</li>""",
+        "description": "Add a complete textual alternative and explicit irreducibility argument for the state graph.",
+        "change_kind": "original-addition",
+    },
+    {
+        "id": "finite-seven-state-cube-repair-and-reflow",
+        "old": r"""<li>\( P^3 = \left[ \begin{matrix}
+				\frac{71}{192} &amp; \frac{121}{192} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				\frac{29}{72} &amp; \frac{43}{72} &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; \frac{7}{18} &amp; \frac{1}{12} &amp; \frac{19}{36} &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; \frac{19}{48} &amp; \frac{3}{32} &amp; \frac{49}{96} &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; \frac{13}{32} &amp; \frac{7}{64} &amp; \frac{31}{64} &amp; 0 &amp; 0 \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{157}{299} &amp; \frac{131}{288} \\
+				0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{37}{64} &amp; \frac{27}{64}
+			\end{matrix} \right] \)</li>""",
+        "new": r"""<li>\[
+P^3=\begin{bmatrix}
+\frac{71}{192}&amp;\frac{121}{192}&amp;0&amp;0&amp;0&amp;0&amp;0\\
+\frac{29}{72}&amp;\frac{43}{72}&amp;0&amp;0&amp;0&amp;0&amp;0\\
+0&amp;0&amp;\frac7{18}&amp;\frac1{12}&amp;\frac{19}{36}&amp;0&amp;0\\
+0&amp;0&amp;\frac{19}{48}&amp;\frac3{32}&amp;\frac{49}{96}&amp;0&amp;0\\
+0&amp;0&amp;\frac{13}{32}&amp;\frac7{64}&amp;\frac{31}{64}&amp;0&amp;0\\
+0&amp;0&amp;0&amp;0&amp;0&amp;\frac{157}{288}&amp;\frac{131}{288}\\
+0&amp;0&amp;0&amp;0&amp;0&amp;\frac{37}{64}&amp;\frac{27}{64}
+\end{bmatrix}.
+\]</li>""",
+        "description": "Correct 157/299 to 157/288 and promote the seven-state cube to a bounded display for mobile reflow.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "simple-random-walk-dimension-domain",
+        "old": r'<li><a href="https://www.randomservices.org/random/markov/WalkGraph.html">Gerak acak sederhana pada \( \Z^k \)</a> bersifat periodik dengan periode 2,</li>',
+        "new": r'<li><a href="https://www.randomservices.org/random/markov/WalkGraph.html">Gerak acak sederhana pada \( \Z^k \), dengan \(k\in\N_+\)</a>, bersifat periodik dengan periode 2.</li>',
+        "description": "State the positive-integer dimension domain and finish the sentence.",
+    },
+)
+
+MARKOV_LIMITING_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "localize-limit-tex-prose",
+        "old": r"\text{ as }",
+        "new": r"\text{ saat }",
+        "matches": 9,
+        "description": "Localize all nine serialized reader-facing limit qualifiers embedded in preserved TeX.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "localize-universal-state-tex-prose",
+        "old": r"\text{ for every }",
+        "new": r"\text{ untuk setiap }",
+        "description": "Localize the reader-facing universal quantifier embedded in preserved TeX.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "proper-delayed-renewal-assumption",
+        "old": r"""<li>Jika \( x \ne y \), tetapi \( x \to y \), kunjungan-kunjungan berturut-turut ke \( y \) membentuk <a href="https://www.randomservices.org/random/renewal/Delayed.html">proses pembaruan tertunda</a>.</li>""",
+        "new": r"""<li>Jika \( x \ne y \) dan \( H(x,y)=1 \), kunjungan-kunjungan berturut-turut ke \( y \) membentuk <a href="https://www.randomservices.org/random/renewal/Delayed.html">proses pembaruan tertunda</a>. Jika hanya \(x\to y\), pernyataan tersebut berlaku setelah pengondisian pada \(\{\tau_y\lt\infty\}\).</li>""",
+        "description": "Require an almost-sure first hit for a proper delayed renewal process, or condition explicitly on the first hit.",
+    },
+    {
+        "id": "proper-delayed-renewal-proof",
+        "old": r"""<li>Jika \( x \ne y \), tetapi \( x \to y \), maka jika \( X_0 = x \) diketahui, barisan \( \left(\tau_{y,1}, \tau_{y,2}, \ldots\right) \) adalah barisan waktu kedatangan suatu proses pembaruan tertunda. Berdasarkan argumen yang sama seperti pada (a), waktu antarkedatangan \( \tau_{y,n+1} - \tau_{y,n} \) untuk \( n \in \N \) independen secara bersyarat jika \( X_0 = x \) diketahui, dan semuanya kecuali \( \tau_{y,1} \) memiliki distribusi yang sama.</li>""",
+        "new": r"""<li>Jika \( x \ne y \) dan \(H(x,y)=1\), maka jika \( X_0 = x \) diketahui, barisan \( \left(\tau_{y,1}, \tau_{y,2}, \ldots\right) \) adalah barisan waktu kedatangan suatu proses pembaruan tertunda. Berdasarkan argumen yang sama seperti pada (a), waktu antarkedatangan \( \tau_{y,n+1} - \tau_{y,n} \) untuk \( n \in \N \) independen secara bersyarat jika \( X_0 = x \) diketahui, dan semuanya kecuali \( \tau_{y,1} \) memiliki distribusi yang sama. Jika hanya \(x\to y\), klaim ini berlaku bersyarat pada \(\tau_y\lt\infty\); tanpa pengondisian, \(\tau_{y,1}=\infty\) dengan probabilitas \(1-H(x,y)\).</li>""",
+        "description": "Close the defective-first-delay gap in the embedded-renewal proof.",
+    },
+    {
+        "id": "visit-frequency-null-recurrence-theorem",
+        "old": r"""<p class="math">Jika \( x, \, y \in S \) dan \( y \) rekuren, maka
+	\[ \P\left( \frac{1}{n} N_{n,y} \to \frac{1}{\mu(y)} \text{ saat } n \to \infty \biggm| X_0 = x \right) = H(x, y) \]</p>""",
+        "new": r"""<p class="math">Jika \( x, \, y \in S \) dan \( y \) rekuren, maka, dengan konvensi \(1/\infty=0\),
+	\[ \P\left( \frac{N_{y,n}}{n} \to \frac{\bs{1}(\tau_y \lt \infty)}{\mu(y)} \text{ saat } n \to \infty \biggm| X_0 = x \right) = 1 \]
+	Jadi, jika \(\mu(y)\lt\infty\), probabilitas bahwa \(N_{y,n}/n\to1/\mu(y)\) adalah \(H(x,y)\); jika \(\mu(y)=\infty\), probabilitas limit tersebut adalah 1.</p>""",
+        "description": "Repair the reversed visit-count indices and the false null-recurrent probability claim.",
+    },
+    {
+        "id": "cesaro-renewal-proof-conditioning",
+        "old": r"""<p>Hasil ini mengikuti <a href="https://www.randomservices.org/random/renewal/LimitTheorems.html#ele">teorema pembaruan elementer</a> untuk proses pembaruan.</p>""",
+        "new": r"""<p>Jika \(H(x,y)=0\), kedua ruas limit bernilai 0. Jika \(H(x,y)\gt0\), kondisikan pada \(\tau_y\lt\infty\), gunakan sifat Markov kuat pada \(\tau_y\), lalu terapkan <a href="https://www.randomservices.org/random/renewal/LimitTheorems.html#ele">teorema pembaruan elementer</a> pada proses pembaruan setelah kunjungan pertama. Mengalikan limit bersyarat itu dengan \(H(x,y)\) memberi hasil yang dinyatakan.</p>""",
+        "description": "Justify the Cesaro limit when the first hitting delay is defective.",
+    },
+    {
+        "id": "aperiodic-renewal-proof-conditioning",
+        "old": r"""<p>Hasil ini mengikuti <a href="https://www.randomservices.org/random/renewal/LimitTheorems.html#ren">teorema pembaruan</a> untuk proses pembaruan.</p>""",
+        "new": r"""<p>Jika \(H(x,y)=0\), kedua ruas limit bernilai 0. Jika \(H(x,y)\gt0\), kondisikan pada \(\tau_y\lt\infty\), gunakan sifat Markov kuat pada \(\tau_y\), lalu terapkan <a href="https://www.randomservices.org/random/renewal/LimitTheorems.html#ren">teorema pembaruan</a> pada proses pembaruan setelah kunjungan pertama. Aperiodisitas \(y\) meniadakan osilasi kisi, dan faktor \(H(x,y)\) berasal dari peluang kunjungan pertama.</p>""",
+        "description": "Justify the pointwise renewal limit when the first hitting delay is defective.",
+    },
+    {
+        "id": "positive-recurrence-averaged-index",
+        "old": r"""\[ \frac{G_n(y, y)}{n } - \frac{G_{i+j}(y, y)}{n} \ge P^j(y, x) \frac{G_n(x, x)}{n} P^i(x, y)\]""",
+        "new": r"""\[ \frac{G_{n+i+j}(y, y)-G_{i+j}(y, y)}{n} \ge P^j(y, x) \frac{G_n(x, x)}{n} P^i(x, y) \]""",
+        "description": "Use the correctly shifted Green-function numerator after averaging the transition inequality.",
+    },
+    {
+        "id": "invariant-density-cesaro-reference",
+        "old": r"""Dengan mengambil \( n \to \infty \) dan menggunakan <a class="ref" href="#lim3"></a>, diperoleh \( \sum_{y \in A} f(y) \le 1 \).""",
+        "new": r"""Dengan mengambil \( n \to \infty \) dan menggunakan <a class="ref" href="#lim2">hasil limit Cesàro</a>, diperoleh \( \sum_{y \in A} f(y) \le 1 \).""",
+        "description": "Cite the Cesaro transition limit, which does not require aperiodicity, instead of the pointwise limit.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "zero-mixture-weight-case",
+        "old": r"""Misalkan \( p_i = \sum_{x \in A_i} f(x) \), yaitu konstanta normalisasi bagi \( f \) yang dibatasi pada \( A_i \). Berdasarkan ketunggalan, pembatasan \( f / p_i \) pada \( A_i \) harus sama dengan \( f_i \), sehingga \( f \) berbentuk seperti yang diberikan dalam teorema.""",
+        "new": r"""Misalkan \( p_i = \sum_{x \in A_i} f(x) \). Jika \(p_i=0\), karena \(f\ge0\), maka \(f(x)=0\) untuk setiap \(x\in A_i\). Jika \(p_i\gt0\), \(p_i\) adalah konstanta normalisasi bagi \( f \) yang dibatasi pada \( A_i \), dan berdasarkan ketunggalan pembatasan \( f / p_i \) pada \( A_i \) sama dengan \( f_i \). Jadi, dalam kedua kasus, \(f(x)=p_i f_i(x)\) pada \(A_i\), sehingga \( f \) berbentuk seperti yang diberikan dalam teorema.""",
+        "description": "Handle zero class weights before dividing by the normalization constant.",
+    },
+    {
+        "id": "green-matrix-subscript-spacing",
+        "old": r"\( g G_ n / n = g \)",
+        "new": r"\( g G_n / n = g \)",
+        "description": "Repair the broken Green-matrix subscript.",
+    },
+    {
+        "id": "finite-example-3-return-time",
+        "old": r"\( \mu = \left(\frac{19}{2}, \infty, \frac{19}{8}, 1, \frac{19}{8}, \infty\right) \)",
+        "new": r"\( \mu = \left(\frac{19}{2}, \infty, \frac{19}{8}, 1, \frac{19}{9}, \infty\right) \)",
+        "description": "Use the reciprocal of f(5)=9/19 for the fifth state's mean return time.",
+    },
+    {
+        "id": "finite-example-4-missing-absorption-mass",
+        "old": r"""\frac{4}{15} &amp; \frac{8}{15} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\""",
+        "new": r"""\frac{4}{15} &amp; \frac{8}{15} &amp; 0 &amp; 0 &amp; \frac{1}{10} &amp; \frac{1}{10} \\""",
+        "description": "Restore the omitted absorption probabilities into states 5 and 6 in the third limiting row.",
+    },
+    {
+        "id": "finite-example-5-return-vector-comma",
+        "old": r"\frac{1}{300} \frac{1}{333}",
+        "new": r"\frac{1}{300}, \frac{1}{333}",
+        "description": "Restore the missing separator between the fifth and sixth mean return times.",
+    },
+    {
+        "id": "finite-example-5-limit-3n-normalizer",
+        "old": r"\( P^{3 n} \to \frac{1}{585}",
+        "new": r"\( P^{3 n} \to \frac{1}{595}",
+        "description": "Normalize the 3n subsequential limit by the verified cyclic-class numerator sum 595.",
+    },
+    {
+        "id": "finite-example-5-limit-3n-plus-1-normalizer",
+        "old": r"\( P^{3 n + 1} \to \frac{1}{585}",
+        "new": r"\( P^{3 n + 1} \to \frac{1}{595}",
+        "description": "Normalize the 3n+1 subsequential limit by the verified cyclic-class numerator sum 595.",
+    },
+    {
+        "id": "finite-example-5-limit-3n-plus-2-normalizer",
+        "old": r"\( P^{3 n + 2} \to \frac{1}{585}",
+        "new": r"\( P^{3 n + 2} \to \frac{1}{595}",
+        "description": "Normalize the 3n+2 subsequential limit by the verified cyclic-class numerator sum 595.",
+    },
+    {
+        "id": "cyclic-classes-image-description",
+        "old": r'alt="Kelas-kelas siklik suatu rantai periodik" src="CyclicClasses.png"',
+        "new": r'alt="Diagram siklus berarah A_0 ke A_1 hingga A_{d-1}, lalu kembali ke A_0" src="CyclicClasses.png"',
+        "description": "Describe the cyclic transition pattern instead of repeating the caption.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "finite-example-2-state-graph-and-loop-note",
+        "old": r"""<img alt="Graf keadaan untuk contoh berhingga pertama" src="State1.png"/>
+</figure>
+</li>""",
+        "new": r"""<img alt="Graf berarah: a menuju a dengan bobot 1/3 dan b dengan 2/3; b menuju a dengan 1; c menyerap; d menuju a, b, c, dan d masing-masing dengan 1/4" src="State1.png"/>
+</figure>
+<p class="reader-correction"><strong>Catatan koreksi diagram:</strong> matriks \(P\) juga memuat gelang \(d\to d\) berbobot \(1/4\); gelang tersebut tidak tergambar pada berkas sumber.</p>
+</li>""",
+        "description": "Supply a complete text alternative and disclose the source figure's omitted d-to-d self-loop.",
+        "change_kind": "original-addition",
+    },
+    {
+        "id": "finite-example-3-state-graph-description",
+        "old": r'alt="Graf keadaan untuk contoh berhingga kedua" src="State2.png"',
+        "new": r'alt="Graf berarah: 1 menuju 3 dan 5; 2 menuju 6; 3 menuju 1, 3, dan 5; 4 menyerap; 5 menuju 3 dan 5; 6 menuju 2, 3, 4, dan 6, dengan bobot sesuai matriks P" src="State2.png"',
+        "description": "Replace the generic graph alternative with its edge structure.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "finite-example-4-state-graph-description",
+        "old": r'alt="Graf keadaan untuk contoh berhingga ketiga" src="State3.png"',
+        "new": r'alt="Graf berarah: kelas tertutup 1–2 dan 5–6; keadaan 3 menuju 1, 3, dan 4; keadaan 4 menuju 1, 3, 4, dan 6, dengan bobot sesuai matriks P" src="State3.png"',
+        "description": "Replace the generic graph alternative with its closed classes and transient edges.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "finite-example-5-state-graph-description",
+        "old": r'alt="Graf keadaan untuk contoh berhingga keempat" src="State4.png"',
+        "new": r'alt="Graf tiga lapis: 1 menuju 3, 4, dan 5; 2 menuju 3 dan 5; 3, 4, dan 5 masing-masing menuju 6 dan 7; 6 dan 7 masing-masing menuju 1 dan 2" src="State4.png"',
+        "description": "Replace the generic graph alternative with the complete directed edge structure.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-reference-lim1",
+        "old": r'<a class="ref" href="#lim1"></a>',
+        "new": r'<a class="ref" href="#lim1">hasil frekuensi kunjungan</a>',
+        "description": "Supply static visible text for the first JavaScript-generated reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-references-lim2",
+        "old": r'<a class="ref" href="#lim2"></a>',
+        "new": r'<a class="ref" href="#lim2">hasil limit Cesàro</a>',
+        "matches": 3,
+        "description": "Supply static visible text for all three remaining Cesaro-limit references.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-reference-lim3",
+        "old": r'<a class="ref" href="#lim3"></a>',
+        "new": r'<a class="ref" href="#lim3">hasil limit aperiodik</a>',
+        "description": "Supply static visible text for the remaining pointwise-limit reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-reference-pos4",
+        "old": r'<a class="ref" href="#pos4"></a>',
+        "new": r'<a class="ref" href="#pos4">hasil kelas tertutup berhingga</a>',
+        "description": "Supply static visible text for the positive-recurrence reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-reference-pos5",
+        "old": r'<a class="ref" href="#pos5"></a>',
+        "new": r'<a class="ref" href="#pos5">hasil kelas rekuren</a>',
+        "description": "Supply static visible text for the recurrent-class reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-reference-lim5",
+        "old": r'<a class="ref" href="#lim5"></a>',
+        "new": r'<a class="ref" href="#lim5">klasifikasi limit sebelumnya</a>',
+        "description": "Supply static visible text for the limiting-classification reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "visible-reference-rev2",
+        "old": r'<a class="ref" href="#rev2"></a>',
+        "new": r'<a class="ref" href="#rev2">hasil limit periodik</a>',
+        "description": "Supply static visible text for the periodic-limit reference.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "offline-two-state-simulator-link",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/TwoState.html">rantai dua-keadaan</a>',
+        "new": r'<a class="ancillary" href="../apps/two-state.html">rantai dua-keadaan</a>',
+        "description": "Route the exercise to the deterministic, accessible, offline Indonesian simulator.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "post-ergodic-definition-paragraph",
+        "old": r"""</div>
+
+Dalam kasus ergodik, seperti akan kita lihat, \( X_n \) memiliki distribusi limit ketika \( n \to \infty \) yang tidak bergantung pada distribusi awal.
+
+""",
+        "new": r"""</div>
+<p>Dalam kasus ergodik, seperti akan kita lihat, \( X_n \) memiliki distribusi limit ketika \( n \to \infty \) yang tidak bergantung pada distribusi awal.</p>
+""",
+        "description": "Wrap the orphan post-definition sentence in a semantic paragraph.",
+        "change_kind": "deterministic-output",
+    },
+    {
+        "id": "special-model-list-close",
+        "old": r"</ol></div>",
+        "new": "</ol>\n</div>",
+        "description": "Make the source parser's repair of the missing special-model list close explicit in output.",
+        "change_kind": "deterministic-output",
+    },
+)
+
+POISSON_GENERAL_READER_NOTES = (
+    {
+        "after_heading": "Teori Dasar",
+        "html": r"""<aside class="reader-note reader-correction" id="poisson-general-downstream-corrections">
+<strong>Catatan koreksi hilir.</strong> Pembaca ini memperbaiki simbol domain
+yang tidak terdefinisi, nomor bagian, hipotesis ukuran hingga untuk momen dan
+distribusi bersyarat, urutan parameter pada penipisan, kejadian pengondisian,
+domain perhitungan, argumen penandaan berdimensi hingga, dan indeks pada bukti
+superposisi, sifat inkremen proses tak homogen, serta simbol ruang dan rumus
+norma Euklides. Istilah massa probabilitas diskret, normalisasi ukuran proses
+tak homogen, dan asumsi geometri satu latihan juga diperjelas. Terjemahan
+sumber tetap mempertahankan permukaan matematika beku; setiap perubahan
+pembaca dicatat terpisah dalam backend dan manifes QA.
+</aside>""",
+    },
+)
+
+POISSON_GENERAL_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "poisson-general-set-domain",
+        "old": r"\(A \subseteq D\)",
+        "new": r"\(A \in \mathscr{S},\ \mu(A) \lt \infty\)",
+        "description": "Replace the undefined set D by the finite-measure condition required for finite moments of N(A).",
+    },
+    {
+        "id": "poisson-general-heading-number",
+        "old": r"<h2>6. Proses Poisson pada Ruang Umum</h2>",
+        "new": r"<h2>8. Proses Poisson pada Ruang Umum</h2>",
+        "description": "Align the copied source heading number with current navigation item 8.",
+    },
+    {
+        "id": "poisson-general-single-point-finite-measure",
+        "old": r"""<p class="math">Jika diketahui bahwa \(A \in \mathscr{S}\) memuat tepat satu titik acak, maka posisi \(X\) dari titik tersebut berdistribusi seragam pada \(A\).</p>""",
+        "new": r"""<p class="math">Misalkan \(A \in \mathscr{S}\) dan \(0 \lt \mu(A) \lt \infty\). Jika diketahui bahwa \(A\) memuat tepat satu titik acak, maka posisi \(X\) dari titik tersebut berdistribusi seragam pada \(A\), yaitu menurut ukuran probabilitas \(\mu(\,\cdot\,\cap A)/\mu(A)\).</p>""",
+        "description": "State the finite-positive-measure hypothesis required by the conditional uniform law.",
+    },
+    {
+        "id": "poisson-general-binomial-finite-measure",
+        "old": r"""<p class="math">Misalkan \(A, \, B \in \mathscr{S}\) dan \(B \subseteq A\). Untuk \( n \in \N_+ \), distribusi bersyarat \(N(B)\) jika \(N(A) = n\) diketahui adalah <a href="https://www.randomservices.org/random/bernoulli/Binomial.html">distribusi binomial</a> dengan parameter banyak percobaan \(n\) dan parameter sukses \(p = \mu(B) \big/ \mu(A)\).</p>""",
+        "new": r"""<p class="math">Misalkan \(A, \, B \in \mathscr{S}\), \(B \subseteq A\), dan \(0 \lt \mu(A) \lt \infty\). Untuk \( n \in \N_+ \), distribusi bersyarat \(N(B)\) jika \(N(A) = n\) diketahui adalah <a href="https://www.randomservices.org/random/bernoulli/Binomial.html">distribusi binomial</a> dengan parameter banyak percobaan \(n\) dan parameter sukses \(p = \mu(B) \big/ \mu(A)\).</p>""",
+        "description": "State the finite-positive-measure hypothesis needed to define the conditional binomial parameter.",
+    },
+    {
+        "id": "poisson-general-multinomial-finite-measure",
+        "old": r"""<p class="math">Secara lebih umum, misalkan \(A \in \mathscr{S}\) dan \(A\) dipartisi menjadi \(k\) himpunan bagian \((B_1, B_2, \ldots, B_k)\) dalam \( \mathscr{S} \). Maka, distribusi bersyarat \(\left(N(B_1), N(B_2), \ldots, N(B_k)\right)\) jika \(N(A) = n\) diketahui adalah <a href="https://www.randomservices.org/random/bernoulli/Multinomial.html">distribusi multinomial</a> dengan parameter \(n\) dan \((p_1, p_2, \ldots p_k)\), dengan \(p_i = \mu(B_i) \big/ \mu(A)\) untuk \(i \in \{1, 2, \ldots, k\}\).</p>""",
+        "new": r"""<p class="math">Secara lebih umum, misalkan \(A \in \mathscr{S}\), \(0 \lt \mu(A) \lt \infty\), dan \(A\) dipartisi menjadi \(k \in \N_+\) himpunan bagian \((B_1, B_2, \ldots, B_k)\) dalam \( \mathscr{S} \). Untuk \(n \in \N_+\), distribusi bersyarat \(\left(N(B_1), N(B_2), \ldots, N(B_k)\right)\) jika \(N(A) = n\) diketahui adalah <a href="https://www.randomservices.org/random/bernoulli/Multinomial.html">distribusi multinomial</a> dengan parameter \(n\) dan \((p_1, p_2, \ldots p_k)\), dengan \(p_i = \mu(B_i) \big/ \mu(A)\) untuk \(i \in \{1, 2, \ldots, k\}\).</p>""",
+        "description": "State the finite-positive-measure and integer-domain hypotheses for the conditional multinomial law.",
+    },
+    {
+        "id": "poisson-count-pmf-terminology",
+        "old": r"""Perhatikan lokasi dan bentuk fungsi kepadatan probabilitas \(N\). Untuk nilai parameter yang dipilih, jalankan simulasi 1000 kali dan bandingkan fungsi kepadatan empiris dengan fungsi kepadatan probabilitas yang sebenarnya.""",
+        "new": r"""Perhatikan lokasi dan bentuk fungsi massa probabilitas \(N\). Untuk nilai parameter yang dipilih, jalankan simulasi 1000 kali dan bandingkan frekuensi relatif empiris dengan fungsi massa probabilitas teoretis.""",
+        "description": "Use probability-mass terminology for the discrete Poisson count shown by the simulator.",
+    },
+    {
+        "id": "thinning-rate-order",
+        "old": r"""dengan parameter kerapatan masing-masing \( p r \) dan \( (1 - p) r \)""",
+        "new": r"""dengan parameter kerapatan masing-masing \( (1 - p) r \) dan \( p r \)""",
+        "description": "Assign rate (1-p)r to type 0 and pr to type 1.",
+    },
+    {
+        "id": "thinning-conditioning-event",
+        "old": r"\mid N_0(A) = j + k",
+        "new": r"\mid N(A) = j + k",
+        "description": "Condition the binomial split on the total count rather than the type-0 count.",
+    },
+    {
+        "id": "thinning-finite-measure-proof-domain",
+        "old": r"""Buktinya serupa dengan bukti bagi proses Poisson pada \( [0, \infty) \). Untuk \(j, \; k \in \N\),""",
+        "new": r"""Buktinya serupa dengan bukti bagi proses Poisson pada \( [0, \infty) \). Tetapkan \(A \in \mathscr{S}\) dengan \(\mu(A) \lt \infty\). Untuk \(j, \; k \in \N\),""",
+        "description": "Restrict the displayed finite-parameter Poisson factorization to a finite-measure set.",
+    },
+    {
+        "id": "thinning-proof-rate-labels",
+        "old": r"""\( N_0(A) \) mempunyai distribusi Poisson dengan parameter \( p \mu(A) \), \( N_1(A) \) mempunyai distribusi Poisson dengan parameter \( (1 - p) \mu(A) \)""",
+        "new": r"""\( N_0(A) \) mempunyai distribusi Poisson dengan parameter \( (1 - p) r \mu(A) \), \( N_1(A) \) mempunyai distribusi Poisson dengan parameter \( p r \mu(A) \)""",
+        "description": "Restore the density factor r and associate each marked process with the correct rate.",
+    },
+    {
+        "id": "thinning-process-independence-argument",
+        "old": r"""Maka, \( \{N_0(A_i): i \in I\} \) dan \( \{N_1(A_i): i \in I\} \) masing-masing merupakan himpunan peubah acak independen, dan kedua himpunan itu saling independen.""",
+        "new": r"""Untuk membuktikan independensi kedua ukuran acak, terapkan perhitungan penandaan yang sama secara bersama pada setiap keluarga berhingga himpunan dengan ukuran \(\mu\) berhingga, setelah keluarga itu diuraikan menjadi atom-atom saling lepas. Fungsi massa gabungannya memfaktor menurut tipe dan atom; karena itu \( \{N_0(A_i): i \in I\} \) dan \( \{N_1(A_i): i \in I\} \) masing-masing merupakan himpunan peubah acak independen, dan kedua proses itu saling independen. Himpunan \(A\) dengan \(\mu(A)=\infty\) mengikuti konvensi cacah degenerat pada halaman ini.""",
+        "description": "Upgrade the single-set calculation to the finite-dimensional marking argument required for process independence.",
+    },
+    {
+        "id": "superposition-process-index",
+        "old": r"\( N = N_1 + N_2 \)",
+        "new": r"\( N = N_0 + N_1 \)",
+        "description": "Use the two processes introduced in the superposition theorem.",
+    },
+    {
+        "id": "superposition-count-index",
+        "old": r"\( N(A) = N_1(A) + N_2(A) \)",
+        "new": r"\( N(A) = N_0(A) + N_1(A) \)",
+        "description": "Use the introduced process indices in the setwise count identity.",
+    },
+    {
+        "id": "superposition-index-set",
+        "old": r"\( i \in \{1, 2\} \)",
+        "new": r"\( i \in \{0, 1\} \)",
+        "description": "Quantify over the introduced process indices 0 and 1.",
+    },
+    {
+        "id": "superposition-finite-infinite-measure-proof",
+        "old": r"""Jadi, untuk \( A \in \mathscr{S} \), \( N(A) = N_0(A) + N_1(A) \). Namun, \( N_i(A) \) mempunyai distribusi Poisson dengan parameter \( r_i \mu(A) \) untuk \( i \in \{0, 1\} \), dan peubah-peubah tersebut independen, sehingga \( N(A) \) mempunyai distribusi Poisson dengan parameter \( r_0 \mu(A) + r_1 \mu(A) = (r_0 + r_1)\mu(A) \).""",
+        "new": r"""Jika \( A \in \mathscr{S} \) dan \(\mu(A) \lt \infty\), maka \( N(A) = N_0(A) + N_1(A) \). Karena \( N_i(A) \) mempunyai distribusi Poisson dengan parameter \( r_i \mu(A) \) untuk \( i \in \{0, 1\} \), dan peubah-peubah tersebut independen, konvolusi Poisson memberi distribusi Poisson bagi \( N(A) \) dengan parameter \( r_0 \mu(A) + r_1 \mu(A) = (r_0 + r_1)\mu(A) \). Jika \(\mu(A)=\infty\), kesimpulan cacah mengikuti konvensi degenerat pada halaman ini; independensi inkremen untuk keluarga himpunan saling lepas mengikuti dengan menerapkan argumen ini pada setiap subkeluarga berhingga yang semua himpunannya mempunyai ukuran \(\mu\) berhingga.""",
+        "description": "Separate the finite-parameter Poisson convolution from the page's infinite-measure convention.",
+    },
+    {
+        "id": "nonhomogeneous-independent-increments",
+        "old": r"""\( N \) mempunyai inkremen stasioner, dan""",
+        "new": r"""\( N \) mempunyai inkremen independen, dan""",
+        "description": "A non-homogeneous Poisson process has independent but generally non-stationary increments.",
+    },
+    {
+        "id": "nonhomogeneous-unit-density",
+        "old": r"""<p class="math">Proses Poisson tak homogen pada \( [0, \infty) \) dengan fungsi laju \( r \) adalah proses Poisson pada \( [0, \infty) \) terhadap ukuran \( m \).</p>""",
+        "new": r"""<p class="math">Proses Poisson tak homogen pada \( [0, \infty) \) dengan fungsi laju \( r \) adalah proses Poisson pada \( [0, \infty) \) dengan parameter kerapatan 1 terhadap ukuran \( m \).</p>""",
+        "description": "State the unit density relative to the mean measure m, avoiding a second unstated intensity factor.",
+    },
+    {
+        "id": "euclidean-space-symbol",
+        "old": r"\( \R_d \)",
+        "new": r"\( \R^d \)",
+        "description": "Use the declared d-dimensional Euclidean-space symbol.",
+    },
+    {
+        "id": "euclidean-norm-definition",
+        "old": r"""\[ \|\bs{x}\|_d = \left(x_1^d + x_2^d \cdots + x_d^d\right)^{1/d}, \quad \bs{x} = (x_1, x_2, \ldots, x_d) \in \R^d \]""",
+        "new": r"""\[ \|\bs{x}\|_2 = \left(x_1^2 + x_2^2 + \cdots + x_d^2\right)^{1/2}, \quad \bs{x} = (x_1, x_2, \ldots, x_d) \in \R^d \]""",
+        "description": "Replace the malformed dimension-dependent expression by the Euclidean 2-norm.",
+    },
+    {
+        "id": "euclidean-ball-norm",
+        "old": r"\|\bs{x}\|_d \le t",
+        "new": r"\|\bs{x}\|_2 \le t",
+        "description": "Use the corrected Euclidean norm in the ball definition.",
+    },
+    {
+        "id": "poisson2d-explicit-online-source",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/Poisson2D.html">proses Poisson dua dimensi</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/Poisson2D.html">aplikasi resmi daring proses Poisson dua dimensi</a>',
+        "matches": 2,
+        "description": "Make both retained external interactive surfaces explicit instead of implying offline inclusion.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "exercise4-contained-circle-assumption",
+        "old": r"""Tentukan probabilitas bahwa cacat tersebut berada dalam daerah lingkaran pada bahan itu dengan jari-jari \(\frac{1}{4}\) meter.""",
+        "new": r"""Tentukan probabilitas bahwa cacat tersebut berada dalam daerah lingkaran berjari-jari \(\frac{1}{4}\) meter yang seluruhnya terletak di dalam lembaran bahan itu.""",
+        "description": "State the containment assumption required for the displayed area-ratio answer.",
+    },
+)
+
+BROWN_STANDARD_READER_NOTES = (
+    {
+        "after_heading": "Teori Dasar",
+        "html": r"""<aside class="reader-note reader-correction" id="brown-standard-downstream-corrections">
+<strong>Catatan koreksi hilir.</strong> Terjemahan sumber mempertahankan struktur
+dan permukaan matematika halaman beku. Lapisan pembaca ini memperbaiki salah
+cetak simbol dan rujukan, melengkapi bukti yang terpotong, menyatakan domain
+dan syarat filtrasi yang diperlukan, memperbaiki pembuktian kontinuitas dan
+kesempurnaan himpunan nol, serta memberi lingkup hampir pasti pada hasil
+regularitas. Hasil ketakterdiferensialan, dimensi Hausdorff, dan hukum
+logaritma berulang tetap ditandai sebagai hasil lanjut yang dinyatakan tanpa
+bukti lengkap pada sumber. Satu simulator gerak Brown pada halaman ini bekerja
+secara luring; dua belas tautan simulator Random lainnya diberi label jelas
+sebagai aplikasi resmi daring.
+</aside>""",
+    },
+    {
+        "after_heading": "Latihan Komputasi",
+        "html": r"""<aside class="reader-original-solution" id="brown-standard-exercise-solution">
+<details>
+<summary>Jawaban dan solusi</summary>
+<p><strong>Status.</strong> Halaman sumber tidak menyediakan jawaban untuk latihan
+ini. Penutupan berikut merupakan solusi asli edisi ini, dilisensikan CC BY 4.0,
+dan bukan bagian dari halaman Random.</p>
+<p>Vektor inkremen
+\[ \left(X_{0.5},\;X_1-X_{0.5},\;X_{2.3}-X_1\right) \]
+terdiri atas peubah normal yang saling bebas dengan varians berturut-turut
+\(\frac12,\frac12,\frac{13}{10}\). Jadi, untuk
+\(x=(x_1,x_2,x_3)\in\R^3\), fungsi kepadatannya ialah
+\[ f(x)=\frac{1}{(2\pi)^{3/2}\sqrt{13/40}}
+\exp\!\left[-\frac12\left(\frac{x_1^2}{1/2}
++\frac{(x_2-x_1)^2}{1/2}
++\frac{(x_3-x_2)^2}{13/10}\right)\right]. \]</p>
+<p>Karena \(\cov(X_s,X_t)=\min\{s,t\}\), matriks kovarians dan
+korelasinya adalah
+\[ \Sigma=\begin{pmatrix}
+1/2 &amp; 1/2 &amp; 1/2\\
+1/2 &amp; 1 &amp; 1\\
+1/2 &amp; 1 &amp; 23/10
+\end{pmatrix},\qquad
+R=\begin{pmatrix}
+1 &amp; 1/\sqrt2 &amp; \sqrt{5/23}\\
+1/\sqrt2 &amp; 1 &amp; \sqrt{10/23}\\
+\sqrt{5/23} &amp; \sqrt{10/23} &amp; 1
+\end{pmatrix}. \]</p>
+</details>
+</aside>""",
+    },
+)
+
+BROWN_STANDARD_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "offline-simulator-accessible-controls",
+        "old": r"""const runButton = new RunButton(this.toolbar, this.name);
+				const stopButton = new StopButton(this.toolbar, this.name);
+				const resetButton = new ResetButton(this.toolbar, this.name);
+				this.graph = new Canvas(this.graphs, 200, 200, "Lintasan sampel");""",
+        "new": r"""const runButton = new RunButton(this.toolbar, this.name);
+				const stopButton = new StopButton(this.toolbar, this.name);
+				const resetButton = new ResetButton(this.toolbar, this.name);
+				for (const [control, label] of [[runButton, "Jalankan"], [stopButton, "Hentikan"], [resetButton, "Atur ulang"]]) {
+					control.button.title = label;
+					control.button.setAttribute("aria-label", label);
+					const icon = control.button.querySelector("svg");
+					if (icon) icon.setAttribute("aria-hidden", "true");
+				}
+				this.graph = new Canvas(this.graphs, 200, 200, "Lintasan sampel");
+				this.graph.svg.setAttribute("role", "img");
+				this.graph.svg.setAttribute("aria-label", "Lintasan sampel gerak Brown yang disimulasikan");""",
+        "description": "Localize the offline simulator controls and expose the generated SVG graph to assistive technology.",
+        "change_kind": "accessibility-localization",
+    },
+    {
+        "id": "continuous-version-proof",
+        "old": r"""<p>Asumsi-asumsi dalam definisi <a class="ref" href="#def1"></a> menghasilkan sekumpulan distribusi berdimensi hingga yang konsisten (yang diberikan dalam <a class="ref" href="#dis1"></a>). Karena itu, menurut <a href="../prob/Processes.html">teorema eksistensi Kolmogorov</a>, terdapat proses stokastik \( \bs{U} = \{U_t: t \in [0, \infty)\} \) yang mempunyai distribusi-distribusi berdimensi hingga tersebut. Akan tetapi, \( \bs{U} \) tidak mempunyai lintasan sampel kontinu; dari \( \bs{U} \), kita dapat mengonstruksi proses ekuivalen yang mempunyai lintasan sampel kontinu.</p>
+<p>Pertama, <a href="https://www.randomservices.org/random/foundations/Sets.html#dyr">ingatlah</a> bahwa <dfn>rasional biner</dfn> (atau <dfn>rasional diadik</dfn>) dalam \( [0, \infty) \) adalah bilangan berbentuk \( k / 2^n \), dengan \( k, \, n \in \N \). Misalkan \( \D_+ \) menyatakan himpunan semua rasional biner dalam \( [0, \infty) \), dan ingat bahwa \( \D_+ \) terhitung tetapi juga <dfn>rapat</dfn> dalam \( [0, \infty) \) (artinya, jika \( t \in [0, \infty) \setminus \D_+ \), maka terdapat \( t_n \in \D_+ \) untuk \( n \in \N_+ \) sedemikian sehingga \( t_n \to t \) ketika \( n \to \infty \)).</p>
+<p>Sekarang, untuk \( n \in \N_+ \), tetapkan \( X_n(t) = U_t \) apabila \( t \) adalah rasional biner berbentuk \( k \big/ 2^n \) untuk suatu \( k \in \N \). Jika \( t \) bukan rasional biner semacam itu, definisikan \( X_n(t) \) melalui interpolasi linear di antara dua rasional biner terdekat yang berbentuk demikian, masing-masing di satu sisi \( t \). Maka \( X_n(t) \to U(t) \) ketika \( n \to \infty \) untuk setiap \( t \in \D_+\), dan dengan probabilitas 1, konvergensinya seragam pada \( \D_+ \cap [0, T] \) untuk setiap \( T \gt 0 \). Selanjutnya diperoleh bahwa \( \bs{U} \) kontinu pada \( \D_+ \) dengan probabilitas 1.</p>
+<p>Untuk langkah terakhir, tetapkan \( X_t = \lim_{s \to t, \; s \in \D_+} U_s \) untuk \( t \in [0, \infty) \). Limit tersebut ada karena \( \bs{U} \) kontinu pada \( \D_+ \) dengan probabilitas 1. Proses \( \bs{X} = \{X_t: t \in [0, \infty)\} \) kontinu pada \( [0, \infty) \) dengan probabilitas 1 dan mempunyai distribusi berdimensi hingga yang sama dengan \( \bs{U} \).</p>""",
+        "new": r"""<p>Asumsi-asumsi dalam definisi <a class="ref" href="#def1"></a> menentukan keluarga distribusi berdimensi hingga yang konsisten, sebagaimana diberikan dalam <a class="ref" href="#dis1"></a>. Teorema ekstensi Kolmogorov karena itu menghasilkan proses stokastik \(\bs{U}=\{U_t:t\in[0,\infty)\}\) dengan distribusi berdimensi hingga tersebut. Teorema ekstensi itu sendiri belum menjamin kontinuitas lintasan sampel; yang diperlukan ialah modifikasi kontinu dari \(\bs{U}\).</p>
+<p>Untuk \(0\le s\lt t\), inkremen \(U_t-U_s\) berdistribusi normal dengan rataan 0 dan varians \(t-s\), sehingga
+\[ \E\!\left(\lvert U_t-U_s\rvert^4\right)=3(t-s)^2. \]
+Kriteria kontinuitas Kolmogorov kemudian memberikan modifikasi \(\bs{X}\) yang lintasan sampelnya kontinu—bahkan kontinu Hölder lokal dengan setiap eksponen \(\alpha\lt\tfrac14\)—pada setiap selang terbatas \([0,T]\), dengan probabilitas 1. Dengan mengambil irisan atas \(T\in\N_+\), lintasan \(\bs{X}\) kontinu pada seluruh \([0,\infty)\) dengan probabilitas 1. Karena modifikasi mempunyai distribusi berdimensi hingga yang sama dengan \(\bs{U}\), proses \(\bs{X}\) memenuhi semua syarat dalam definisi <a class="ref" href="#def1"></a>.</p>""",
+        "description": "Replace the unsupported claim about the canonical version and the incomplete dyadic sketch by the standard fourth-moment continuity argument.",
+    },
+    {
+        "id": "finite-dimensional-time-order",
+        "old": r"0 \lt t_1 \lt t_2 \cdots \lt t_n",
+        "new": r"0 \lt t_1 \lt t_2 \lt \cdots \lt t_n",
+        "description": "Restore the missing inequality sign in the ordered time tuple.",
+    },
+    {
+        "id": "gaussian-process-time-domain",
+        "old": r"\(t \in T\)",
+        "new": r"\(t \in [0, \infty)\)",
+        "description": "Replace the undefined time set T by this page's declared index set.",
+    },
+    {
+        "id": "brownian-correlation-max-domain",
+        "old": r"""\[ \cor(X_s, X_t) = \frac{\min\{s, t\}}{\sqrt{s t}} = \sqrt{\frac{\min\{s, t\}}{\5\{s, t\}}}  ,\quad (s, t) \in [0, \infty)^2 \]""",
+        "new": r"""\[ \cor(X_s, X_t) = \frac{\min\{s, t\}}{\sqrt{s t}} = \sqrt{\frac{\min\{s, t\}}{\max\{s, t\}}}, \quad (s, t) \in (0, \infty)^2 \]""",
+        "description": "Restore max and exclude zero times, where correlation is undefined.",
+    },
+    {
+        "id": "normal-mgf-square",
+        "old": r"e^{t u / 2}",
+        "new": r"e^{t u^2 / 2}",
+        "description": "Restore the square in the centered normal moment-generating function.",
+    },
+    {
+        "id": "time-reversal-covariance",
+        "old": r"""\cov(X_{T - s} - X_T, X_{T-t} - X_t) = \cov(X_{T-s}, X_{T-t}) - \cov(X_{T-s}, X_T) - \cov(X_T, X_{T-t}) + \cov(X_T, X_t)""",
+        "new": r"""\cov(X_{T - s} - X_T, X_{T-t} - X_T) = \cov(X_{T-s}, X_{T-t}) - \cov(X_{T-s}, X_T) - \cov(X_T, X_{T-t}) + \cov(X_T, X_T)""",
+        "description": "Use X_T in both centered variables and in the final covariance term.",
+    },
+    {
+        "id": "brownian-scaling-mean",
+        "old": r"\( \E(Y_t) = a \E(X_{a^2 t}) = 0 \)",
+        "new": r"\( \E(Y_t) = a^{-1} \E(X_{a^2 t}) = 0 \)",
+        "description": "Use the reciprocal spatial scale in the transformed mean.",
+    },
+    {
+        "id": "self-similarity-law-not-path",
+        "old": r"""Karena grafik tidak berubah oleh transformasi ini, gerak Brown memiliki sifat fraktal yang serupa diri.""",
+        "new": r"""Karena hukum proses—bukan setiap grafik individual—tetap sama di bawah transformasi ini, gerak Brown memiliki sifat fraktal yang serupa diri secara distribusional.""",
+        "description": "State scaling invariance in distribution rather than pathwise invariance.",
+    },
+    {
+        "id": "holder-exponent-scope-endpoint",
+        "old": r"""<p class="math">Gerak Brown standar \( \bs{X} \) mempunyai <a href="https://www.randomservices.org/random/foundations/Metric.html#hol">eksponen Hölder</a> \( \frac{1}{2} \). Artinya, \( \bs{X} \) kontinu Hölder dengan eksponen \( \alpha \) untuk setiap \( \alpha \lt \frac{1}{2} \), tetapi tidak kontinu Hölder dengan eksponen \( \alpha \) untuk \( \alpha \gt \frac{1}{2} \) mana pun.</p>""",
+        "new": r"""<p class="math">Dengan probabilitas 1, pada setiap selang waktu terbatas, lintasan gerak Brown standar \(\bs{X}\) kontinu Hölder dengan setiap eksponen \(\alpha\) yang memenuhi \(0\lt\alpha\lt\frac12\), tetapi tidak kontinu Hölder dengan eksponen \(\alpha\ge\frac12\) pada selang mana pun yang panjangnya positif. Jadi, eksponen Hölder—sebagai supremum eksponen yang berlaku—adalah \(\frac12\), meskipun nilai batas itu tidak tercapai.</p>""",
+        "description": "Add the almost-sure local scope and exclude the unattained alpha=1/2 endpoint.",
+    },
+    {
+        "id": "brownian-graph-dimension-scope",
+        "old": r"""<p class="math">Grafik gerak Brown standar mempunyai dimensi Hausdorff \( \frac{3}{2} \).</p>""",
+        "new": r"""<p class="math">Dengan probabilitas 1, grafik gerak Brown standar mempunyai dimensi Hausdorff \(\frac32\).</p>""",
+        "description": "State the almost-sure scope of the Hausdorff-dimension theorem.",
+    },
+    {
+        "id": "brownian-total-variation-domain-scope",
+        "old": r"""<p class="math">Misalkan \( a, \, b \in \R \) dengan \( a \lt b \). Maka variasi total \( \bs{X} \) pada \( [a, b] \) adalah \( \infty \).</p>""",
+        "new": r"""<p class="math">Dengan probabilitas 1, untuk setiap \(0\le a\lt b\lt\infty\), variasi total \(\bs{X}\) pada \([a,b]\) adalah \(\infty\).</p>""",
+        "description": "Restrict the theorem to the process time domain and state its almost-sure scope.",
+    },
+    {
+        "id": "markov-proof-truncated-filtration",
+        "old": r"""<p>Tetapkan \( s \in [0, \infty) \). Teorema ini mengikuti fakta bahwa proses \( \{X_{s+t} - X_s: t \in [0, \infty)\} \) merupakan gerak Brown standar lain, seperti ditunjukkan dalam <a class="ref" href="#trn2"></a>, dan saling bebas dengan \( \mathscr{F}
+	</p>""",
+        "new": r"""<p>Tetapkan \(s\in[0,\infty)\). Teorema ini mengikuti fakta bahwa proses \(\{X_{s+t}-X_s:t\in[0,\infty)\}\) merupakan gerak Brown standar lain, seperti ditunjukkan dalam <a class="ref" href="#trn2"></a>, dan saling bebas dengan \(\mathscr F_s\).</p>""",
+        "description": "Complete the source-truncated Markov proof and close its TeX surface.",
+    },
+    {
+        "id": "strong-markov-filtration-scope",
+        "old": r"""<p><dfn>Sifat Markov kuat</dfn> adalah sifat Markov yang diperumum untuk waktu henti. Gerak Brown standar \( \bs{X} \) juga merupakan proses Markov kuat. Cara terbaik untuk menyatakannya adalah melalui perumuman <a class="ref" href="#trn2"></a>.</p>""",
+        "new": r"""<p><dfn>Sifat Markov kuat</dfn> adalah sifat Markov yang diperumum untuk waktu henti. Mulai dari sini, \(\mathfrak F=\{\mathscr F_t:t\ge0\}\) menyatakan filtrasi alami gerak Brown yang telah dilengkapi dan dibuat kontinu dari kanan, yaitu filtrasi Brown biasa. Dengan konvensi ini, sifat Markov kuat dapat dinyatakan sebagai perumuman <a class="ref" href="#trn2"></a>.</p>""",
+        "description": "State the usual augmented right-continuous Brownian filtration required by the strong Markov theorem.",
+    },
+    {
+        "id": "strong-markov-finite-stopping-time",
+        "old": r"""<p class="math">Misalkan \( \tau \) adalah waktu henti dan definisikan \( Y_t = X_{\tau + t} - X_\tau \) untuk \( t \in [0, \infty) \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) merupakan gerak Brown standar dan saling bebas dengan \( \mathscr{F}_\tau \).</p>""",
+        "new": r"""<p class="math">Misalkan \(\tau\) adalah waktu henti terhadap \(\mathfrak F\) dan \(\P(\tau\lt\infty)=1\). Definisikan \(Y_t=X_{\tau+t}-X_\tau\) untuk \(t\in[0,\infty)\). Maka \(\bs Y=\{Y_t:t\in[0,\infty)\}\) merupakan gerak Brown standar dan saling bebas dengan \(\mathscr F_\tau\).</p>""",
+        "description": "Require an almost-surely finite stopping time so X_tau is defined.",
+    },
+    {
+        "id": "conditional-second-moment-square",
+        "old": r"\E\left[(X_t - X_s)\right]^2",
+        "new": r"\E\left[(X_t - X_s)^2\right]",
+        "description": "Put the square inside the conditional second-moment expectation.",
+    },
+    {
+        "id": "hitting-time-and-running-maximum-definition",
+        "old": r"""Untuk \( y \in [0, \infty) \), ingat bahwa \( \tau_y = \min\{t \ge 0: X_t = y\} \) adalah waktu pertama proses mencapai keadaan \( y \). Tentu saja, \( \tau_0 = 0 \). Untuk \( t \in [0, \infty) \), misalkan \( Y_t = \5\{X_s: 0 \le s \le t\} \), yaitu nilai maksimum \( \bs{X} \) pada selang \( [0, t] \).""",
+        "new": r"""Untuk \(y\in[0,\infty)\), ingat bahwa \(\tau_y=\inf\{t\ge0:X_t=y\}\), dengan konvensi \(\inf\varnothing=\infty\), adalah waktu pertama proses mencapai keadaan \(y\). Tentu saja, \(\tau_0=0\). Untuk \(t\in[0,\infty)\), misalkan \(Y_t=\max\{X_s:0\le s\le t\}\), yaitu nilai maksimum \(\bs{X}\) pada selang \([0,t]\).""",
+        "description": "Use an extended hitting-time definition and restore the maximum operator.",
+    },
+    {
+        "id": "recurrence-proof-reference",
+        "old": r'<a class="ref" href="#max3"></a>',
+        "new": r'<a class="ref" href="#max2"></a>',
+        "description": "Point the recurrence proof to the hitting-time distribution theorem rather than an app prompt.",
+    },
+    {
+        "id": "hitting-filtration-subscript",
+        "old": r"\( \mathscr{F}(\tau_x) \)",
+        "new": r"\( \mathscr{F}_{\tau_x} \)",
+        "matches": 2,
+        "description": "Use the stopped sigma-algebra notation defined earlier on the page.",
+    },
+    {
+        "id": "half-normal-scale-parameter",
+        "old": r"distribusi setengah-normal</dfn> dengan parameter skala \( t \)",
+        "new": r"distribusi setengah-normal</dfn> dengan parameter skala \( \sqrt{t} \)",
+        "description": "Use the standard-deviation scale parameter rather than the variance.",
+    },
+    {
+        "id": "half-normal-scale-proof",
+        "old": r"\( \left|X_t\right| \) berdistribusi setengah-normal dengan parameter \( t \)",
+        "new": r"\( \left|X_t\right| \) berdistribusi setengah-normal dengan parameter skala \( \sqrt{t} \)",
+        "description": "Keep the half-normal parameterization consistent in the proof.",
+    },
+    {
+        "id": "hitting-reflection-finite-stopping-scope",
+        "old": r"""Namun, berdasarkan sifat Markov kuat <a class="ref" href="#mar3"></a>, \( s \mapsto X(\tau_y + s) - y \) merupakan gerak Brown standar lain. Jadi, \( \P(X_t \ge y \mid \tau_y \le t) = \frac{1}{2} \). Oleh karena itu,""",
+        "new": r"""Terapkan sifat Markov kuat <a class="ref" href="#mar3"></a> pada waktu henti terbatas \(\sigma=\tau_y\wedge t\). Pada kejadian \(\{\tau_y\lt t\}\), proses setelah \(\tau_y\) bermula dari \(y\), saling bebas dengan masa lalu, dan mempunyai inkremen normal yang simetris. Selain itu, \(\P(\tau_y=t)\le\P(X_t=y)=0\). Karena itu, \(\P(X_t\ge y\mid\tau_y\le t)=\frac12\). Oleh karena itu,""",
+        "description": "Avoid circularly assuming that tau_y is finite before recurrence has been proved by stopping at tau_y wedge t.",
+    },
+    {
+        "id": "arcsine-zero-event-proof",
+        "old": r"""<p class="math">Untuk \( s, \; t \in [0, \infty) \) dengan \( s \lt t \), misalkan \( E(s, t) \) adalah kejadian bahwa \( \bs{X} \) mempunyai nol dalam selang waktu \( (s, t) \). Artinya, \( \E(s, t) = \{X_u = 0 \text{ untuk suatu } u \in (s, t)\} \). Maka
+	\[ \P\left[E(s, t)\right] = 1 - \frac{2}{\pi} \arcsin\left(\sqrt{\frac{s}{t}}\right) \]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Pengondisian pada \( X_s \) dan penggunaan simetri memberikan
+		\[ \P\left[E(s, t)\right] = \int_{-\infty}^\infty \P\left[E(s, t) \mid X_s = x\right] f_s(x) \, dx = 2 \int_{-\infty}^0 \P\left[E(s, t) \mid X_s = x\right] f_s(x) \, dx \]
+		Namun, berdasarkan homogenitas waktu dan ruang \( \bs{X} \), perhatikan bahwa untuk \( x \gt 0 \), \( \P\left[E(s, t) \mid X_s = -x\right] = \P(\tau_x \lt t - s) \). Artinya, proses yang berada pada keadaan \( -x \) pada waktu \( s \) dan mencapai 0 sebelum waktu \( t \) sama dengan proses yang berada pada keadaan 0 pada waktu 0 dan mencapai keadaan \( x \) sebelum waktu \( t - s \). Karena itu,
+		\[ \P\left[E(s, t)\right] = \int_0^\infty \int_0^{t-s} g_x(u) f_s(-x) \, du \, dx \]
+		dengan \( g_x \) fungsi kepadatan probabilitas \( \tau_x \) dari <a class="ref" href="#max2"></a>. Substitusi memberikan
+		\[ \P\left[E(s, t)\right] = \frac{1}{\pi \sqrt{s}} \int_0^{t-s} u^{-3/2} \int_0^\infty x \exp\left[-\frac{1}{2} x^2 \left(\frac{u + s}{u s} \right) \right] \, dx \, du = \frac{\sqrt{s}}{\pi} \int_0^{t-s} \frac{1}{(u + s) \sqrt{u}} \, du\]
+		Terakhir, substitusi \( v = \sqrt{u / s} \) pada integral terakhir memberikan
+		\[ \P\left[E(s, t)\right] = \frac{2}{\pi} \int_0^{\sqrt{t/s - 1}} \frac{1}{v^2 + 1} \, dv = \frac{2}{\pi} \arctan \left(\sqrt{\frac{t}{s} - 1}\right) = 1 - \frac{2}{\pi} \arcsin\left(\sqrt{\frac{s}{t}} \right) \]</p>
+</details>""",
+        "new": r"""<p class="math">Untuk \(0\le s\lt t\), misalkan \(E(s,t)\) adalah kejadian bahwa \(\bs X\) mempunyai nol dalam selang waktu \((s,t)\), yaitu
+\[ E(s,t)=\{X_u=0\text{ untuk suatu }u\in(s,t)\}. \]
+Maka
+\[ \P[E(s,t)]=1-\frac{2}{\pi}\arcsin\!\left(\sqrt{\frac{s}{t}}\right). \]</p>
+<details>
+<summary>Rincian:</summary>
+<p>Anggap terlebih dahulu \(0\lt s\lt t\). Dengan mengondisikan pada \(X_s\) dan menggunakan simetri,
+\[ \P[E(s,t)]=2\int_{-\infty}^{0}\P[E(s,t)\mid X_s=x]f_s(x)\,dx. \]
+Berdasarkan homogenitas waktu dan ruang, untuk \(x\gt0\),
+\[ \P[E(s,t)\mid X_s=-x]=\P(\tau_x\lt t-s). \]
+Karena itu,
+\[ \P[E(s,t)]=2\int_0^\infty\int_0^{t-s}g_x(u)f_s(-x)\,du\,dx. \]
+Dengan menyubstitusikan kepadatan \(g_x\) dan \(f_s\), diperoleh
+\[ \P[E(s,t)]=\frac{1}{\pi\sqrt{s}}\int_0^{t-s}u^{-3/2}\int_0^\infty x\exp\!\left[-\frac{x^2}{2}\left(\frac{u+s}{us}\right)\right]dx\,du
+=\frac{\sqrt{s}}{\pi}\int_0^{t-s}\frac{du}{(u+s)\sqrt{u}}. \]
+Substitusi \(v=\sqrt{u/s}\) memberikan
+\[ \P[E(s,t)]=\frac{2}{\pi}\arctan\!\sqrt{\frac{t}{s}-1}
+=1-\frac{2}{\pi}\arcsin\!\sqrt{\frac{s}{t}}. \]
+Untuk \(s=0\), ambil \(s_n\downarrow0\). Karena \(E(s_n,t)\uparrow E(0,t)\), kontinuitas probabilitas dari bawah memberikan \(\P[E(0,t)]=1\), sesuai dengan rumus yang sama.</p>
+</details>""",
+        "description": "Use the event symbol E, restore the factor two, keep f_0 out of the proof, and handle s=0 by monotone continuity.",
+    },
+    {
+        "id": "arcsine-complement-delimiter",
+        "old": r"\( \lef[E(s, t)\right]^c \)",
+        "new": r"\( \left[E(s, t)\right]^c \)",
+        "description": "Repair the malformed left delimiter in the complement event.",
+    },
+    {
+        "id": "last-zero-event-endpoint",
+        "old": r"""<p>Untuk \( 0 \le s \lt t \), kejadian \( Z_t \le s \) sama dengan \( \left[E(s, t)\right]^c \), yaitu tidak adanya nol dalam selang \( (s, t) \). Karena itu, rumus untuk \( H_t \) mengikuti <a class="ref" href="#arc1"></a>. Menurunkan \( H_t \) dan menyederhanakannya menghasilkan rumus untuk \( h_t \).</p>""",
+        "new": r"""<p>Untuk \(0\le s\lt t\), kejadian \(\{Z_t\le s\}\) berarti tidak ada nol dalam \((s,t]\). Karena \(\P(X_t=0)=0\), probabilitas kejadian ini sama dengan \(\P\!\left(\left[E(s,t)\right]^c\right)\). Karena itu, rumus untuk \(H_t\) mengikuti <a class="ref" href="#arc1"></a>. Menurunkan \(H_t\) dan menyederhanakannya menghasilkan rumus untuk \(h_t\).</p>""",
+        "description": "Use the exact half-open last-zero event and only identify its probability with the open-interval complement.",
+    },
+    {
+        "id": "arcsine-variance-label",
+        "old": r"\( \E(Z_t) = t^2 / 8 \)",
+        "new": r"\( \var(Z_t) = t^2 / 8 \)",
+        "description": "Label the second arcsine moment as variance.",
+    },
+    {
+        "id": "zero-set-perfect-proof",
+        "old": r"""<li>Misalkan \( s \in Z \). Maka, berdasarkan <a class="ref" href="#trn1"></a>, \( t \mapsto X_{s + t} \) juga merupakan gerak Brown standar. Namun, menurut <a class="ref" href="#arc2"></a>, dengan probabilitas 1, \( \bs{X} \) mempunyai nol dalam selang \( (s, s + 1 / n) \) untuk setiap \( n \in \N_+ \). Jadi, \( s \) bukan titik terisolasi dari \( Z \).</li>""",
+        "new": r"""<li>Untuk setiap \(q\in\mathbb Q\cap[0,\infty)\), definisikan waktu henti \(\sigma_q=\inf\{t\ge q:X_t=0\}\). Menurut <a class="ref" href="#arc1"></a>, dengan membiarkan \(t\to\infty\), diperoleh \(\P(\sigma_q\lt\infty)=1\). Karena itu sifat Markov kuat dapat diterapkan pada \(\sigma_q\), dan \(u\mapsto X_{\sigma_q+u}-X_{\sigma_q}\) merupakan gerak Brown standar. Menurut <a class="ref" href="#arc2"></a>, proses ini mempunyai nol dalam \((0,1/n)\) untuk setiap \(n\in\N_+\), dengan probabilitas 1. Karena pasangan \((q,n)\) yang digunakan terhitung, pernyataan tersebut berlaku serentak untuk semuanya di luar satu himpunan nol. Jika suatu \(s\gt0\) merupakan titik nol terisolasi, pilih rasional \(q\lt s\) sedemikian sehingga tidak ada nol dalam \([q,s)\); maka \(\sigma_q=s\), bertentangan dengan adanya nol segera di sebelah kanan \(s\). Titik 0 juga bukan titik terisolasi menurut <a class="ref" href="#arc2"></a>. Jadi \(Z\) tidak mempunyai titik terisolasi; bersama ketertutupannya, hal ini membuktikan bahwa \(Z\) sempurna dengan probabilitas 1.</li>""",
+        "description": "Replace the invalid random-time shift argument by a countable stopping-time/strong-Markov proof.",
+    },
+    {
+        "id": "zero-set-dimension-scope",
+        "old": r"""<p class="math">\( Z \) mempunyai dimensi Hausdorff \(\frac{1}{2}\).</p>""",
+        "new": r"""<p class="math">Dengan probabilitas 1, \(Z\) mempunyai dimensi Hausdorff \(\frac12\).</p>""",
+        "description": "State the almost-sure scope of the zero-set dimension theorem.",
+    },
+    {
+        "id": "iterated-logarithm-two-sided",
+        "old": r"""<p class="math">Dengan probabilitas 1,
+	\[ \limsup_{t \to \infty} \frac{X_t}{\sqrt{2 t \ln \ln t}} = 1 \]</p>""",
+        "new": r"""<p class="math">Dengan probabilitas 1,
+\begin{align}
+\limsup_{t\to\infty}\frac{X_t}{\sqrt{2t\ln\ln t}} &amp;=1,\\
+\liminf_{t\to\infty}\frac{X_t}{\sqrt{2t\ln\ln t}} &amp;=-1.
+\end{align}</p>
+<details id="lil1-consequence">
+<summary>Konsekuensi</summary>
+<p>Kedua batas tersebut khususnya menyiratkan \(X_t/t\to0\) ketika \(t\to\infty\). Inilah batas dua sisi yang digunakan untuk membuktikan kontinuitas transformasi inversi waktu pada \(t=0\).</p>
+</details>""",
+        "description": "Give the two-sided LIL and make explicit the consequence used earlier by time inversion.",
+    },
+    {
+        "id": "brownian-motion-apps-explicit-online",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/BrownianMotion.html">proses gerak Brown standar</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/BrownianMotion.html">simulator resmi daring gerak Brown standar</a>',
+        "matches": 3,
+        "description": "Label all three retained process prompts as official online simulators.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "random-walk-app-explicit-online",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/RandomWalk.html">proses gerak acak</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/RandomWalk.html">simulator resmi daring gerak acak</a>',
+        "description": "Label the retained random-walk prompt as an official online simulator.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "reflected-brownian-apps-explicit-online",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/ReflectedBrownianMotion.html">gerak Brown tercermin</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/ReflectedBrownianMotion.html">simulator resmi daring gerak Brown tercermin</a>',
+        "matches": 2,
+        "description": "Label both retained reflected-Brownian prompts as official online simulators.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "reflected-brownian-process-app-explicit-online",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/ReflectedBrownianMotion.html">proses gerak Brown tercermin</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/ReflectedBrownianMotion.html">simulator resmi daring gerak Brown tercermin</a>',
+        "description": "Label the retained reflected-process prompt as an official online simulator.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "special-distribution-apps-explicit-online",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/SpecialSimulator.html">simulator distribusi khusus</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/SpecialSimulator.html">simulator resmi daring distribusi khusus</a>',
+        "matches": 3,
+        "description": "Label all three retained special-distribution prompts as official online simulators.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "brownian-simulation-app-explicit-online",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/BrownianMotion.html">simulasi gerak Brown standar</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/BrownianMotion.html">simulator resmi daring gerak Brown standar</a>',
+        "description": "Label the retained running-maximum prompt as an official online simulator.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "brownian-zero-app-explicit-online",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/BrownianMotion.html">gerak Brown standar</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/BrownianMotion.html">simulator resmi daring gerak Brown standar</a>',
+        "description": "Label the retained last-zero prompt as an official online simulator.",
+        "change_kind": "source-link-repair",
+    },
+)
+
+BROWN_DRIFT_READER_NOTES = (
+    {
+        "after_heading": "Definisi",
+        "html": r"""<section class="reader-original-lab" id="brown-drift-offline-lab">
+<style>
+#brown-drift-offline-lab fieldset { border: 1px solid #777; margin: 1rem 0; padding: 1rem; }
+#brown-drift-offline-lab .brown-drift-fields { display: grid; gap: .65rem; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+#brown-drift-offline-lab label { display: grid; gap: .2rem; height: auto; margin-left: 0; }
+#brown-drift-offline-lab input { box-sizing: border-box; font: inherit; height: 2.4rem; margin-left: 0; max-width: none; padding: .25rem; width: 100%; }
+#brown-drift-offline-lab .brown-drift-actions { align-items: center; display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+#brown-drift-offline-lab button { font: inherit; height: auto; margin-left: 0; padding: .45rem .75rem; }
+#brown-drift-chart { background: #fff; border: 1px solid #777; display: block; height: auto; max-width: 100%; }
+#brown-drift-offline-lab .brown-drift-frame { fill: #fff; stroke: #777; }
+#brown-drift-offline-lab .brown-drift-axis { stroke: #999; stroke-width: 1; }
+#brown-drift-offline-lab .brown-drift-path { fill: none; stroke: #2457a7; stroke-width: 2; }
+#brown-drift-offline-lab .brown-drift-bar { fill: #8baee5; stroke: #31598d; stroke-width: .5; }
+#brown-drift-offline-lab .brown-drift-density { fill: none; stroke: #9a2e65; stroke-width: 2; }
+#brown-drift-offline-lab .brown-drift-title { font-size: 14px; font-weight: 700; }
+#brown-drift-offline-lab table { border-collapse: collapse; margin: 1rem 0; width: 100%; }
+#brown-drift-offline-lab th, #brown-drift-offline-lab td { border: 1px solid #777; padding: .4rem; text-align: right; }
+#brown-drift-offline-lab th:first-child { text-align: left; }
+@media print { #brown-drift-offline-lab fieldset, #brown-drift-offline-lab .brown-drift-actions { display: none; } }
+</style>
+<p class="reader-note-title"><strong>Laboratorium luring: pengaruh hanyutan dan skala</strong></p>
+<p><strong>Status dan lisensi.</strong> Laboratorium deterministik ini merupakan
+karya asli edisi, berfungsi tanpa jaringan, dan dilisensikan CC BY 4.0. Ia
+melengkapi—bukan menggantikan—<a href="https://www.randomservices.org/random/apps/DriftBrownianMotion.html">aplikasi resmi daring Random</a>.</p>
+<p>Ubah parameter, jalankan simulasi, lalu bandingkan histogram nilai akhir
+dengan kepadatan normal teoretis serta rataan dan varians empiris dengan
+\( \E(X_T)=\mu T \) dan \( \var(X_T)=\sigma^2T \). Benih yang sama selalu
+menghasilkan keluaran yang sama.</p>
+<fieldset>
+<legend>Parameter simulasi</legend>
+<div class="brown-drift-fields">
+<label for="brown-drift-mu">Hanyutan μ<input id="brown-drift-mu" max="20" min="-20" step="0.1" type="number" value="0.4"/></label>
+<label for="brown-drift-sigma">Skala σ<input id="brown-drift-sigma" max="20" min="0.1" step="0.1" type="number" value="1.2"/></label>
+<label for="brown-drift-horizon">Horizon T<input id="brown-drift-horizon" max="20" min="0.1" step="0.1" type="number" value="1"/></label>
+<label for="brown-drift-steps">Banyak langkah<input id="brown-drift-steps" max="2000" min="20" step="1" type="number" value="200"/></label>
+<label for="brown-drift-repetitions">Banyak replikasi<input id="brown-drift-repetitions" max="5000" min="10" step="10" type="number" value="1000"/></label>
+<label for="brown-drift-seed">Benih deterministik<input id="brown-drift-seed" max="4294967295" min="1" step="1" type="number" value="20260825"/></label>
+</div>
+<div class="brown-drift-actions"><button id="brown-drift-run" type="button">Jalankan simulasi</button><button id="brown-drift-reset" type="button">Pulihkan parameter</button></div>
+</fieldset>
+<p aria-live="polite" id="brown-drift-status">Simulator sedang disiapkan.</p>
+<svg aria-labelledby="brown-drift-chart-title brown-drift-chart-description" id="brown-drift-chart" role="img" viewBox="0 0 750 350">
+<title id="brown-drift-chart-title">Lintasan dan distribusi akhir gerak Brown dengan hanyutan</title>
+<desc id="brown-drift-chart-description">Grafik akan diperbarui setelah simulasi dijalankan.</desc>
+</svg>
+<table>
+<caption>Perbandingan momen nilai akhir \(X_T\)</caption>
+<thead><tr><th scope="col">Momen</th><th scope="col">Teoretis</th><th scope="col">Empiris</th></tr></thead>
+<tbody>
+<tr><th scope="row">Rataan</th><td id="brown-drift-theoretical-mean">—</td><td id="brown-drift-empirical-mean">—</td></tr>
+<tr><th scope="row">Varians</th><td id="brown-drift-theoretical-variance">—</td><td id="brown-drift-empirical-variance">—</td></tr>
+</tbody>
+</table>
+<noscript>JavaScript diperlukan untuk menjalankan simulasi. Rumus teoretis dan latihan bersolusi di bawah tetap dapat dibaca tanpa JavaScript.</noscript>
+<script src="../apps/brown-drift-offline.js"></script>
+</section>""",
+        "id": "brown-drift-offline-lab",
+        "description": "Add a deterministic, accessible, offline simulation and nonvisual moment table for Brownian motion with drift.",
+    },
+    {
+        "after_heading": "Teori Dasar",
+        "html": r"""<aside class="reader-note reader-correction" id="brown-drift-downstream-corrections">
+<strong>Catatan koreksi hilir.</strong> Terjemahan sumber mempertahankan struktur
+dan permukaan matematika halaman beku. Lapisan pembaca ini menyatakan domain
+kepadatan, memperbaiki urutan waktu dan rumus korelasi, membatasi klaim
+penskalaan nontrivial, membedakan proses yang dimulai ulang dari gerak Brown
+standar, serta melengkapi ruang probabilitas, filtrasi, keterhinggaan waktu
+henti, dan sketsa bukti sifat Markov kuat. Laboratorium luring dan rangkaian
+latihan bersolusi diberi tanda terpisah sebagai karya asli edisi CC BY 4.0.
+</aside>""",
+        "id": "brown-drift-downstream-corrections",
+        "description": "Disclose the guarded mathematical repairs and separately licensed reader additions.",
+    },
+    {
+        "after_heading": "Distribusi Berdimensi Hingga",
+        "html": r"""<aside class="reader-original-solution" id="brown-drift-mastery">
+<p class="reader-note-title"><strong>Latihan penguasaan asli edisi</strong></p>
+<p><strong>Status dan lisensi.</strong> Soal, petunjuk, dan solusi berikut merupakan
+karya asli edisi ini, dilisensikan CC BY 4.0, dan bukan bagian dari halaman Random.</p>
+<p id="brown-drift-mastery-exercise"><strong>Soal.</strong> Untuk gerak Brown dengan
+hanyutan \(\mu\) dan skala \(\sigma\), tentukan vektor rataan, fungsi kepadatan
+gabungan, matriks kovarians, dan matriks korelasi
+\((X_{1/2},X_1,X_{5/2})\). Tentukan pula distribusi bersyarat
+\(X_{5/2}\mid X_1=x_2\).</p>
+<details id="brown-drift-mastery-hint">
+<summary>Petunjuk</summary>
+<p>Gunakan inkremen independen pada selang dengan panjang
+\(1/2,1/2,3/2\), lalu gunakan \(\cov(X_s,X_t)=\sigma^2\min\{s,t\}\).</p>
+</details>
+<details id="brown-drift-mastery-solution">
+<summary>Jawaban dan solusi</summary>
+<p>Vektor rataannya adalah
+\[ \mu\left(\frac12,1,\frac52\right). \]
+Dengan \(x=(x_1,x_2,x_3)\in\R^3\), kepadatan gabungannya ialah
+\[ f_{1/2}(x_1)f_{1/2}(x_2-x_1)f_{3/2}(x_3-x_2) \]
+atau, secara eksplisit,
+\[ \frac{1}{(2\pi)^{3/2}\sigma^3\sqrt{3/8}}
+\exp\!\left[-\frac{1}{2\sigma^2}\left(
+\frac{(x_1-\mu/2)^2}{1/2}
++\frac{(x_2-x_1-\mu/2)^2}{1/2}
++\frac{(x_3-x_2-3\mu/2)^2}{3/2}
+\right)\right]. \]</p>
+<p>Matriks kovarians dan korelasinya adalah
+\[ \Sigma=\sigma^2\begin{pmatrix}
+1/2&amp;1/2&amp;1/2\\
+1/2&amp;1&amp;1\\
+1/2&amp;1&amp;5/2
+\end{pmatrix},\qquad
+R=\begin{pmatrix}
+1&amp;1/\sqrt2&amp;1/\sqrt5\\
+1/\sqrt2&amp;1&amp;\sqrt{2/5}\\
+1/\sqrt5&amp;\sqrt{2/5}&amp;1
+\end{pmatrix}. \]</p>
+<p>Karena inkremen setelah waktu 1 saling bebas dengan masa lalu,
+\[ X_{5/2}\mid X_1=x_2\sim
+N\!\left(x_2+\frac32\mu,\frac32\sigma^2\right). \]</p>
+</details>
+</aside>""",
+        "id": "brown-drift-mastery",
+        "description": "Add a complete CC BY 4.0 mastery exercise, hint, and solution for the joint Gaussian laws.",
+    },
+)
+
+BROWN_DRIFT_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "explicit-online-app",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/DriftBrownianMotion.html">gerak Brown dengan hanyutan dan penskalaan</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/DriftBrownianMotion.html">aplikasi resmi daring gerak Brown dengan hanyutan dan penskalaan</a>',
+        "description": "Label the retained Random simulation link as an official online surface.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "marginal-density-and-fdd-scope",
+        "old": r"""<p>Misalkan \( \bs{X} = \{X_t: t \in [0, \infty)\} \) adalah gerak Brown dengan parameter hanyutan \(\mu \in \R\) dan parameter skala \(\sigma \in (0, \infty)\). Dari bagian (d) definisi <a class="ref" href="#def1"></a>, \( X_t \) mempunyai fungsi kepadatan probabilitas \( f_t \) yang diberikan oleh
+\[ f_t(x) = \frac{1}{\sigma \sqrt{2 \pi t}} \exp\left[-\frac{1}{2  \sigma^2 t} (x - \mu t)^2\right], \quad x \in \R \]
+Keluarga fungsi kepadatan ini menentukan distribusi berdimensi hingga dari \( \bs{X} \).</p>""",
+        "new": r"""<p>Misalkan \( \bs{X} = \{X_t: t \in [0, \infty)\} \) adalah gerak Brown dengan parameter hanyutan \(\mu \in \R\) dan parameter skala \(\sigma \in (0, \infty)\). Dari bagian (d) definisi <a class="ref" href="#def1"></a>, untuk \(t \in (0,\infty)\), \( X_t \) mempunyai fungsi kepadatan probabilitas \( f_t \) yang diberikan oleh
+\[ f_t(x) = \frac{1}{\sigma \sqrt{2 \pi t}} \exp\left[-\frac{1}{2  \sigma^2 t} (x - \mu t)^2\right], \quad x \in \R \]
+Pada \(t=0\), distribusinya adalah massa titik di 0. Keluarga kepadatan satu-waktu tersebut, bersama sifat inkremen stasioner dan independen, menentukan distribusi berdimensi hingga dari \( \bs{X} \).</p>""",
+        "description": "Restrict the displayed density to positive time and state the increment assumption needed for finite-dimensional laws.",
+    },
+    {
+        "id": "finite-dimensional-time-order",
+        "old": r"\( 0 \lt t_1 \lt t_2 \cdots \lt t_n \)",
+        "new": r"\( 0 \lt t_1 \lt t_2 \lt \cdots \lt t_n \)",
+        "description": "Restore the missing comparison sign in the ordered time sequence.",
+    },
+    {
+        "id": "brown-drift-correlation",
+        "old": r"""<p>Fungsi korelasi tidak bergantung pada parameter-parameter tersebut sehingga sama dengan fungsi korelasi gerak Brown standar. Hal ini tidak mengherankan karena korelasi merupakan ukuran keterkaitan yang dibakukan.
+\[ \cor(X_s, X_t) \frac{\sigma^2 \min\{s, t\}}{\sigma s \sigma t} = \frac{\min\{s, t\}}{s t} = \sqrt{\frac{\min\{s, t\}}{\max\{s, t\}}}, \quad (s, t) \in [0, \infty)^2 \]</p>""",
+        "new": r"""<p>Fungsi korelasi tidak bergantung pada parameter-parameter tersebut sehingga sama dengan fungsi korelasi gerak Brown standar. Hal ini tidak mengherankan karena korelasi merupakan ukuran keterkaitan yang dibakukan.
+\[ \cor(X_s, X_t) = \frac{\sigma^2 \min\{s, t\}}{\sigma\sqrt{s}\,\sigma\sqrt{t}} = \frac{\min\{s, t\}}{\sqrt{s t}} = \sqrt{\frac{\min\{s, t\}}{\max\{s, t\}}}, \quad (s, t) \in (0, \infty)^2 \]</p>""",
+        "description": "Repair the missing equality, standard-deviation denominator, intermediate expression, and positive-time domain.",
+    },
+    {
+        "id": "nontrivial-scaling-qualification",
+        "old": r"""Kedua syarat tersebut tidak dapat dipenuhi sekaligus kecuali jika \(\mu = 0\), yang menghasilkan sedikit perumuman atas salah satu hasil kita untuk gerak Brown standar:""",
+        "new": r"""Jika \(\mu \ne 0\), kedua syarat tersebut memaksa \(a=b=1\), sehingga tidak ada penskalaan nontrivial yang mempertahankan kedua parameter. Jika \(\mu = 0\), kita memperoleh keluarga penskalaan nontrivial berikut, yang sedikit memperumum salah satu hasil untuk gerak Brown standar:""",
+        "description": "Exclude the identity transformation from the claimed impossibility and state the intended nontrivial result.",
+    },
+    {
+        "id": "markov-initial-law-clarification",
+        "old": r"""Sebagai catatan kecil, untuk memandang \( \bs{X} \) sebagai proses Markov, terkadang kita perlu melonggarkan Asumsi 1 dan membolehkan \( X_0 \) mempunyai nilai sembarang dalam \( \R \).""",
+        "new": r"""Proses dengan \(X_0=0\) sudah bersifat Markov. Untuk membentuk keluarga hukum Markov yang diindeks oleh keadaan awal, kita juga mempertimbangkan versi dengan \(X_0=x\in\R\); bila keadaan awal diacak, hukum awalnya ditetapkan dan diambil independen dari inkremen berikutnya.""",
+        "description": "Distinguish the Markov property from the optional family of laws indexed by initial state.",
+    },
+    {
+        "id": "restarted-process-parameters",
+        "old": r"""merupakan gerak Brown standar lain, seperti ditunjukkan dalam""",
+        "new": r"""merupakan gerak Brown lain dengan parameter hanyutan dan skala yang sama, seperti ditunjukkan dalam""",
+        "description": "Do not call the restarted drifted and scaled process standard Brownian motion.",
+    },
+    {
+        "id": "stopping-sigma-algebra-and-finiteness",
+        "old": r"""<p>Ingat kembali bahwa waktu acak \( \tau \) yang bernilai dalam \( [0, \infty] \) merupakan <dfn>waktu henti</dfn> terhadap proses \( \bs{X} \) apabila \( \{\tau \le t\} \in \mathscr{F}_t \) untuk setiap \( t \in [0, \infty) \). Aljabar-\( \sigma \) yang berkaitan dengan \( \tau \) adalah
+\[ \mathscr{F}_\tau = \left\{B \in \mathscr{F}:  B \cap \{\tau \le t\} \in \mathscr{F}_t \text{ for all } t \ge 0\right\} \]
+Lihat bagian tentang <a href="../prob/Stop.html">Filtrasi dan Waktu Henti</a> untuk informasi lebih lanjut mengenai filtrasi, waktu henti, dan aljabar-\(\sigma\) yang berkaitan dengan suatu waktu henti. Gerak Brown \( \bs{X} \) juga merupakan proses Markov kuat.</p>""",
+        "new": r"""<p>Ingat kembali bahwa waktu acak \( \tau \) yang bernilai dalam \( [0, \infty] \) merupakan <dfn>waktu henti</dfn> terhadap proses \( \bs{X} \) apabila \( \{\tau \le t\} \in \mathscr{F}_t \) untuk setiap \( t \in [0, \infty) \). Dengan aljabar-\(\sigma\) ambien \(\mathscr F_\infty=\sigma(\bigcup_{t\ge0}\mathscr F_t)\), aljabar-\( \sigma \) yang berkaitan dengan \( \tau \) adalah
+\[ \mathscr{F}_\tau = \left\{B \in \mathscr{F}_\infty: B \cap \{\tau \le t\} \in \mathscr{F}_t \text{ untuk setiap } t \ge 0\right\}. \]
+Lihat bagian tentang <a href="../prob/Stop.html">Filtrasi dan Waktu Henti</a> untuk informasi lebih lanjut. Pernyataan yang melibatkan \(X_\tau\) di bawah mensyaratkan \(\P(\tau\lt\infty)=1\). Dengan filtrasi natural yang telah dilengkapi dan dibuat kontinu kanan, gerak Brown \( \bs{X} \) juga merupakan proses Markov kuat.</p>""",
+        "description": "Define the ambient sigma-algebra, localize the quantified text, require finite stopped values, and state the usual filtration conditions.",
+    },
+    {
+        "id": "strong-markov-filtration-proof",
+        "old": r"""<p class="math">Misalkan \( \tau \) adalah waktu henti dan definisikan \( Y_t = X_{\tau + t} - X_\tau \) untuk \( t \in [0, \infty) \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) merupakan gerak Brown dengan parameter hanyutan dan skala yang sama, serta saling bebas dengan \( \mathscr{F}_\tau \).</p>""",
+        "new": r"""<p class="math">Pada ruang probabilitas terfilter dengan filtrasi natural yang telah dilengkapi dan dibuat kontinu kanan, misalkan \( \tau \) adalah waktu henti dengan \(\P(\tau\lt\infty)=1\), dan definisikan \( Y_t = X_{\tau + t} - X_\tau \) untuk \( t \in [0, \infty) \). Maka \( \bs{Y} = \{Y_t: t \in [0, \infty)\} \) merupakan gerak Brown dengan parameter hanyutan dan skala yang sama, serta saling bebas dengan \( \mathscr{F}_\tau \).</p>
+<details id="brown-drift-strong-markov-proof"><summary>Sketsa bukti yang dilengkapi:</summary><p>Untuk waktu henti yang mengambil berhingga banyak nilai pada kisi, kondisikan pada setiap kejadian \(\{\tau=t_k\}\) dan gunakan inkremen stasioner serta independen. Untuk waktu henti umum yang hingga hampir pasti, gunakan pendekatan kisi dari atas \(\tau_n=2^{-n}\lceil2^n\tau\rceil\downarrow\tau\). Kekontinuan lintasan memberi konvergensi proses yang dimulai ulang, sedangkan kekontinuan kanan dan kelengkapan filtrasi memindahkan sifat kebebasan dari \(\mathscr F_{\tau_n}\) ke \(\mathscr F_\tau\). Distribusi berdimensi hingga hasil limit dan kekontinuan lintasannya kemudian memberi gerak Brown dengan parameter yang sama.</p></details>""",
+        "description": "State the strong Markov theorem under the usual filtration and finite-stopping assumptions and supply the missing proof route.",
+    },
+)
+
+BROWN_BRIDGE_READER_NOTES = (
+    {
+        "after_heading": "Definisi dan Konstruksi",
+        "html": r"""<section class="reader-original-lab" id="brown-bridge-offline-lab">
+<style>
+#brown-bridge-offline-lab fieldset { border: 1px solid #777; margin: 1rem 0; padding: 1rem; }
+#brown-bridge-offline-lab .brown-bridge-fields { display: grid; gap: .65rem; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+#brown-bridge-offline-lab label { display: grid; gap: .2rem; height: auto; margin-left: 0; }
+#brown-bridge-offline-lab input { box-sizing: border-box; font: inherit; height: 2.4rem; margin-left: 0; max-width: none; padding: .25rem; width: 100%; }
+#brown-bridge-offline-lab .brown-bridge-actions { align-items: center; display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+#brown-bridge-offline-lab button { font: inherit; height: auto; margin-left: 0; padding: .45rem .75rem; }
+#brown-bridge-chart { background: #fff; border: 1px solid #777; display: block; height: auto; max-width: 100%; }
+#brown-bridge-offline-lab .brown-bridge-frame { fill: #fff; stroke: #777; }
+#brown-bridge-offline-lab .brown-bridge-axis { stroke: #999; stroke-width: 1; }
+#brown-bridge-offline-lab .brown-bridge-observation { stroke: #b56b00; stroke-dasharray: 5 4; stroke-width: 1.5; }
+#brown-bridge-offline-lab .brown-bridge-path { fill: none; stroke: #2457a7; stroke-width: 2; }
+#brown-bridge-offline-lab .brown-bridge-bar { fill: #8baee5; stroke: #31598d; stroke-width: .5; }
+#brown-bridge-offline-lab .brown-bridge-density { fill: none; stroke: #9a2e65; stroke-width: 2; }
+#brown-bridge-offline-lab .brown-bridge-title { font-size: 14px; font-weight: 700; }
+#brown-bridge-offline-lab table { border-collapse: collapse; margin: 1rem 0; width: 100%; }
+#brown-bridge-offline-lab th, #brown-bridge-offline-lab td { border: 1px solid #777; padding: .4rem; text-align: right; }
+#brown-bridge-offline-lab th:first-child { text-align: left; }
+@media print { #brown-bridge-offline-lab fieldset, #brown-bridge-offline-lab .brown-bridge-actions { display: none; } }
+</style>
+<p class="reader-note-title"><strong>Laboratorium luring: lintasan dan distribusi jembatan Brown</strong></p>
+<p><strong>Status dan lisensi.</strong> Laboratorium deterministik ini merupakan
+karya asli edisi, berfungsi tanpa jaringan, dan dilisensikan CC BY 4.0. Ia
+melengkapi—bukan menggantikan—<a href="https://www.randomservices.org/random/apps/BrownianBridge.html">aplikasi resmi daring Random</a>.</p>
+<p>Ubah waktu pengamatan \(t\), lalu bandingkan histogram simulasi dengan
+\(N(0,t(1-t))\). Benih yang sama selalu menghasilkan keluaran yang sama;
+grafik, deskripsi nonvisual, dan tabel momen diperbarui bersama.</p>
+<fieldset>
+<legend>Parameter simulasi</legend>
+<div class="brown-bridge-fields">
+<label for="brown-bridge-observation">Waktu pengamatan t<input id="brown-bridge-observation" max="0.99" min="0.01" step="0.01" type="number" value="0.5"/></label>
+<label for="brown-bridge-steps">Banyak langkah lintasan<input id="brown-bridge-steps" max="2000" min="20" step="1" type="number" value="200"/></label>
+<label for="brown-bridge-repetitions">Banyak replikasi<input id="brown-bridge-repetitions" max="5000" min="10" step="10" type="number" value="1000"/></label>
+<label for="brown-bridge-seed">Benih deterministik<input id="brown-bridge-seed" max="4294967295" min="1" step="1" type="number" value="20260825"/></label>
+</div>
+<div class="brown-bridge-actions"><button id="brown-bridge-run" type="button">Jalankan simulasi</button><button id="brown-bridge-reset" type="button">Pulihkan parameter</button></div>
+</fieldset>
+<p aria-live="polite" id="brown-bridge-status">Simulator sedang disiapkan.</p>
+<svg aria-labelledby="brown-bridge-chart-title brown-bridge-chart-description" id="brown-bridge-chart" role="img" viewBox="0 0 750 350">
+<title id="brown-bridge-chart-title">Lintasan dan distribusi jembatan Brown</title>
+<desc id="brown-bridge-chart-description">Grafik akan diperbarui setelah simulasi dijalankan.</desc>
+</svg>
+<table>
+<caption>Perbandingan momen (X_t)</caption>
+<thead><tr><th scope="col">Momen</th><th scope="col">Teoretis</th><th scope="col">Empiris</th></tr></thead>
+<tbody>
+<tr><th scope="row">Rataan</th><td id="brown-bridge-theoretical-mean">—</td><td id="brown-bridge-empirical-mean">—</td></tr>
+<tr><th scope="row">Varians</th><td id="brown-bridge-theoretical-variance">—</td><td id="brown-bridge-empirical-variance">—</td></tr>
+</tbody>
+</table>
+<noscript>JavaScript diperlukan untuk menjalankan simulasi. Rumus teoretis dan latihan bersolusi di bawah tetap dapat dibaca tanpa JavaScript.</noscript>
+<script src="../apps/brown-bridge-offline.js"></script>
+</section>""",
+        "id": "brown-bridge-offline-lab",
+        "description": "Add a deterministic, accessible, offline Brownian-bridge path and marginal-distribution laboratory.",
+    },
+    {
+        "after_heading": "Teori Dasar",
+        "html": r"""<aside class="reader-note reader-correction" id="brown-bridge-downstream-corrections">
+<strong>Catatan koreksi hilir.</strong> Terjemahan sumber mempertahankan struktur,
+ID, dan permukaan matematika halaman beku. Lapisan pembaca ini memperbaiki
+nomor judul lokal, notasi nilai harapan, dua domain waktu, penafsiran
+pengondisian pada kejadian nol, domain integral stokastik, tanda drift dalam
+SDE, jenis konsistensi fungsi distribusi empiris, dan satu koma kovarians.
+Laboratorium luring dan latihan bersolusi diberi tanda terpisah sebagai karya
+asli edisi CC BY 4.0.
+</aside>""",
+        "id": "brown-bridge-downstream-corrections",
+        "description": "Disclose guarded mathematical repairs and separately licensed reader additions.",
+    },
+    {
+        "after_heading": "Fungsi Distribusi Empiris",
+        "html": r"""<aside class="reader-original-solution" id="brown-bridge-mastery">
+<p class="reader-note-title"><strong>Jembatan proses dan latihan penguasaan asli edisi</strong></p>
+<p><strong>Status dan lisensi.</strong> Catatan, soal, petunjuk, dan solusi berikut
+merupakan karya asli edisi ini, dilisensikan CC BY 4.0, dan bukan bagian dari
+halaman Random.</p>
+<p id="brown-bridge-process-limit-warning"><strong>Batas klaim.</strong> Kesamaan
+fungsi kovarians saja belum membuktikan konvergensi proses empiris ke jembatan
+Brown. Teorema Donsker memerlukan konvergensi berdimensi hingga dan keketatan
+dalam ruang fungsi yang ditentukan. Hasil titik-demi-titik pada halaman sumber
+tidak diam-diam dinaikkan menjadi teorema limit fungsional.</p>
+<p id="brown-bridge-mastery-exercise"><strong>Soal.</strong> Misalkan
+\(\bs X\) adalah jembatan Brown standar dan \(0\lt s\lt t\lt1\). Tentukan
+distribusi bersyarat \(X_t\mid X_s=x\), lalu tafsirkan rataan bersyaratnya.</p>
+<details id="brown-bridge-mastery-hint"><summary>Petunjuk</summary><p>Gunakan
+normalitas bersama, \(\var(X_u)=u(1-u)\), dan
+\(\cov(X_s,X_t)=s(1-t)\) untuk \(s\lt t\).</p></details>
+<details id="brown-bridge-mastery-solution"><summary>Solusi lengkap</summary><p>
+Untuk pasangan normal bersama, rataan bersyarat adalah
+\[\frac{\cov(X_t,X_s)}{\var(X_s)}x
+=\frac{s(1-t)}{s(1-s)}x=\frac{1-t}{1-s}x,\]
+sedangkan varians bersyaratnya adalah
+\[t(1-t)-\frac{s^2(1-t)^2}{s(1-s)}
+=\frac{(t-s)(1-t)}{1-s}.\]
+Jadi
+\[X_t\mid X_s=x\sim N\!\left(\frac{1-t}{1-s}x,
+\frac{(t-s)(1-t)}{1-s}\right).\]
+Rataannya menginterpolasi secara linear dari nilai \(x\) pada waktu \(s\)
+menuju tambatan 0 pada waktu 1.</p></details>
+</aside>""",
+        "id": "brown-bridge-mastery",
+        "description": "Add an explicit process-level convergence boundary and a fully solved conditional-law mastery problem.",
+    },
+)
+
+BROWN_BRIDGE_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "local-section-number",
+        "old": r"<h2>5. Jembatan Brown</h2>",
+        "new": r"<h2>3. Jembatan Brown</h2>",
+        "description": "Align the page heading with the source navigation position three.",
+    },
+    {
+        "id": "explicit-online-apps",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/BrownianBridge.html">proses jembatan Brown</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/BrownianBridge.html">aplikasi resmi daring proses jembatan Brown</a>',
+        "matches": 2,
+        "description": "Label both retained Random simulation links as official online surfaces.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "expectation-macro",
+        "old": r"\( E(X_t) = \E(Z_t) - t \E(Z_1) = 0 \)",
+        "new": r"\( \E(X_t) = \E(Z_t) - t \E(Z_1) = 0 \)",
+        "description": "Restore the edition's expectation macro in the first construction proof.",
+    },
+    {
+        "id": "time-change-expectation-domain",
+        "old": r"Untuk \( t \in [0, 1] \),",
+        "new": r"Untuk \( t \in [0, 1) \),",
+        "description": "Exclude the endpoint where the displayed time change is undefined.",
+    },
+    {
+        "id": "time-change-endpoint-mean",
+        "old": r"\[ \E(X_t) = (1 - t) \E\left[Z\left(\frac{t}{1 - t}\right)\right] = 0 \]",
+        "new": r"\[ \E(X_t) = (1 - t) \E\left[Z\left(\frac{t}{1 - t}\right)\right] = 0 \]<br/>Untuk \(t=1\), \(\E(X_1)=0\) berdasarkan definisi.",
+        "description": "Handle the endpoint mean separately through the defined value X_1=0.",
+    },
+    {
+        "id": "time-change-tab-normalization",
+        "old": "\\frac{t}{1 - \tt}",
+        "new": r"\frac{t}{1 - t}",
+        "description": "Normalize a frozen source tab inside the TeX denominator only in the reader layer.",
+    },
+    {
+        "id": "inverse-time-change-domain",
+        "old": r"Jika \( s, \, t \in [0, 1] \) dengan \( s \lt t \), maka \( s \big/ (1 + s) \lt t \big/ (1 + t) \)",
+        "new": r"Jika \( s, \, t \in [0, \infty) \) dengan \( s \lt t \), maka \( s \big/ (1 + s) \lt t \big/ (1 + t) \)",
+        "description": "Use the full nonnegative-time domain of the constructed Brownian motion.",
+    },
+    {
+        "id": "regular-conditional-law",
+        "old": r"Maka, jika dikondisikan pada \( X_1 = 0 \), proses \( \{X_t: t \in [0, 1]\} \) adalah proses jembatan Brown.",
+        "new": r"Maka, dalam arti hukum kondisional reguler jika diketahui \( X_1 = 0 \), proses \( \{X_t: t \in [0, 1]\} \) mempunyai hukum jembatan Brown. Penafsiran ini diperlukan karena \(\P(X_1=0)=0\); versi kontinu hukum tersebut dapat direalisasikan melalui konstruksi pada Teorema 2.",
+        "description": "Interpret conditioning on the probability-zero endpoint through a regular conditional law.",
+    },
+    {
+        "id": "stochastic-integral-domain",
+        "old": r"Misalkan \( s, \, t \in [0, 1] \) dengan \( s \le t \). Maka",
+        "new": r"Misalkan \( s, \, t \in [0, 1) \) dengan \( s \le t \). Maka",
+        "description": "Keep the displayed stochastic integrals away from their singular endpoint; the endpoint follows by continuous extension.",
+    },
+    {
+        "id": "stochastic-integral-endpoint-covariance",
+        "old": r"= (1 - t)s \]</li>",
+        "new": r"= (1 - t)s \]<br/>Untuk \(t=1\), kovarians bernilai 0 karena \(X_1=0\) menurut definisi.</li>",
+        "description": "Handle the endpoint separately after the open-domain stochastic-integral calculation.",
+    },
+    {
+        "id": "stochastic-differential-sign",
+        "old": r"\[ d X_t = \frac{X_t}{1 - t} \, dt  + dZ_t, \; X_0 = 0 \]",
+        "new": r"\[ d X_t = -\frac{X_t}{1 - t} \, dt + dZ_t, \quad t \in [0,1), \; X_0 = 0. \]",
+        "description": "Apply the product rule to restore the negative bridge drift and its open endpoint domain.",
+    },
+    {
+        "id": "edf-consistency-mode",
+        "old": r"\( \var\left[F_n(t)\right] = F(t)\left[1 - F(t)\right] \big/ n \), sehingga \( F_n(t) \) adalah penduga konsisten bagi \( F(t) \).",
+        "new": r"\( \var\left[F_n(t)\right] = F(t)\left[1 - F(t)\right] \big/ n \); bersama ketakbiasan, hal ini memberi konsistensi kuadrat-rataan, dan karenanya konsistensi dalam probabilitas, bagi \( F(t) \).",
+        "description": "State the mode of consistency actually implied by the displayed variance and unbiasedness.",
+    },
+    {
+        "id": "edf-covariance-comma",
+        "old": r"\cov\left[\bs{1}(T_i \le s) \bs{1}(T_j \le t)\right]",
+        "new": r"\cov\left[\bs{1}(T_i \le s), \bs{1}(T_j \le t)\right]",
+        "description": "Restore the missing separator between the two covariance arguments.",
+    },
+)
+
+BROWN_GEOMETRIC_READER_NOTES = (
+    {
+        "after_heading": "Definisi",
+        "html": r"""<section class="reader-original-lab" id="geometric-brownian-offline-lab">
+<style>
+#geometric-brownian-offline-lab fieldset { border: 1px solid #777; margin: 1rem 0; padding: 1rem; }
+#geometric-brownian-offline-lab .geometric-brownian-fields { display: grid; gap: .65rem; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+#geometric-brownian-offline-lab label { display: grid; gap: .2rem; height: auto; margin-left: 0; }
+#geometric-brownian-offline-lab input { box-sizing: border-box; font: inherit; height: 2.4rem; margin-left: 0; max-width: none; padding: .25rem; width: 100%; }
+#geometric-brownian-offline-lab .geometric-brownian-actions { align-items: center; display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+#geometric-brownian-offline-lab button { font: inherit; height: auto; margin-left: 0; padding: .45rem .75rem; }
+#geometric-brownian-chart { background: #fff; border: 1px solid #777; display: block; height: auto; max-width: 100%; }
+#geometric-brownian-offline-lab .geometric-brownian-frame { fill: #fff; stroke: #777; }
+#geometric-brownian-offline-lab .geometric-brownian-initial { stroke: #b56b00; stroke-dasharray: 1 3; stroke-width: 1.5; }
+#geometric-brownian-offline-lab .geometric-brownian-path { fill: none; stroke: #2457a7; stroke-width: 2; }
+#geometric-brownian-offline-lab .geometric-brownian-mean { fill: none; stroke: #137333; stroke-dasharray: 10 4; stroke-width: 1.8; }
+#geometric-brownian-offline-lab .geometric-brownian-median { fill: none; stroke: #8a4d00; stroke-dasharray: 3 3; stroke-width: 1.6; }
+#geometric-brownian-offline-lab .geometric-brownian-bar { fill: #8baee5; stroke: #31598d; stroke-width: .5; }
+#geometric-brownian-offline-lab .geometric-brownian-density { fill: none; stroke: #9a2e65; stroke-width: 2; }
+#geometric-brownian-offline-lab .geometric-brownian-title { font-size: 14px; font-weight: 700; }
+#geometric-brownian-offline-lab .geometric-brownian-legend { font-size: 11px; }
+#geometric-brownian-offline-lab table { border-collapse: collapse; margin: 1rem 0; width: 100%; }
+#geometric-brownian-offline-lab th, #geometric-brownian-offline-lab td { border: 1px solid #777; padding: .4rem; text-align: right; }
+#geometric-brownian-offline-lab th:first-child { text-align: left; }
+@media print { #geometric-brownian-offline-lab fieldset, #geometric-brownian-offline-lab .geometric-brownian-actions { display: none; } }
+</style>
+<p class="reader-note-title"><strong>Laboratorium luring: lintasan dan distribusi gerak Brown geometrik</strong></p>
+<p><strong>Status dan lisensi.</strong> Laboratorium deterministik ini merupakan
+karya asli edisi, berfungsi tanpa jaringan, dan dilisensikan CC BY 4.0. Ia
+melengkapi—bukan menggantikan—<a href="https://www.randomservices.org/random/apps/GeometricBrownianMotion.html">aplikasi resmi daring Random</a>.</p>
+<p>Ubah nilai awal \(x_0\), hanyutan \(\mu\), volatilitas \(\sigma\), dan horizon
+\(T\). Simulator menggunakan solusi eksak pada kisi waktu, lalu membandingkan
+histogram \(X_T\) dengan kepadatan lognormal teoretis. Benih yang sama selalu
+menghasilkan keluaran yang sama.</p>
+<fieldset>
+<legend>Parameter simulasi</legend>
+<div class="geometric-brownian-fields">
+<label for="geometric-brownian-x0">Nilai awal x₀<input id="geometric-brownian-x0" max="1000000" min="0.0001" step="0.1" type="number" value="1"/></label>
+<label for="geometric-brownian-mu">Hanyutan μ<input id="geometric-brownian-mu" max="2" min="-2" step="0.05" type="number" value="0.1"/></label>
+<label for="geometric-brownian-sigma">Volatilitas σ<input id="geometric-brownian-sigma" max="2" min="0.01" step="0.05" type="number" value="0.4"/></label>
+<label for="geometric-brownian-horizon">Horizon T<input id="geometric-brownian-horizon" max="4" min="0.01" step="0.1" type="number" value="1"/></label>
+<label for="geometric-brownian-steps">Banyak langkah<input id="geometric-brownian-steps" max="1000" min="20" step="1" type="number" value="200"/></label>
+<label for="geometric-brownian-repetitions">Banyak replikasi<input id="geometric-brownian-repetitions" max="2000" min="10" step="10" type="number" value="1000"/></label>
+<label for="geometric-brownian-seed">Benih deterministik<input id="geometric-brownian-seed" max="4294967295" min="1" step="1" type="number" value="20260826"/></label>
+</div>
+<div class="geometric-brownian-actions"><button id="geometric-brownian-run" type="button">Jalankan simulasi</button><button id="geometric-brownian-reset" type="button">Pulihkan parameter</button></div>
+</fieldset>
+<p aria-live="polite" id="geometric-brownian-status">Simulator sedang disiapkan.</p>
+<svg aria-labelledby="geometric-brownian-chart-title geometric-brownian-chart-description" id="geometric-brownian-chart" role="img" viewBox="0 0 750 350">
+<title id="geometric-brownian-chart-title">Lintasan dan distribusi akhir gerak Brown geometrik</title>
+<desc id="geometric-brownian-chart-description">Grafik akan diperbarui setelah simulasi dijalankan.</desc>
+</svg>
+<table>
+<caption>Perbandingan ringkasan distribusi nilai akhir \(X_T\)</caption>
+<thead><tr><th scope="col">Ringkasan</th><th scope="col">Teoretis</th><th scope="col">Empiris</th></tr></thead>
+<tbody>
+<tr><th scope="row">Rataan</th><td id="geometric-brownian-theoretical-mean">—</td><td id="geometric-brownian-empirical-mean">—</td></tr>
+<tr><th scope="row">Median</th><td id="geometric-brownian-theoretical-median">—</td><td id="geometric-brownian-empirical-median">—</td></tr>
+<tr><th scope="row">Varians</th><td id="geometric-brownian-theoretical-variance">—</td><td id="geometric-brownian-empirical-variance">—</td></tr>
+<tr><th scope="row">Peluang \(X_T\gt x_0\)</th><td id="geometric-brownian-theoretical-probability">—</td><td id="geometric-brownian-empirical-probability">—</td></tr>
+</tbody>
+</table>
+<noscript>JavaScript diperlukan untuk menjalankan simulasi. Rumus teoretis dan latihan bersolusi di bawah tetap dapat dibaca tanpa JavaScript.</noscript>
+<script src="../apps/geometric-brownian-offline.js"></script>
+</section>""",
+        "id": "geometric-brownian-offline-lab",
+        "description": "Add a deterministic, accessible, offline exact-solution path and lognormal-distribution laboratory.",
+    },
+    {
+        "after_heading": "Teori Dasar",
+        "html": r"""<aside class="reader-note reader-correction" id="geometric-brownian-downstream-corrections">
+<strong>Catatan koreksi hilir.</strong> Terjemahan sumber mempertahankan struktur,
+ID, dan permukaan matematika halaman beku. Lapisan pembaca ini memperbaiki
+penomoran judul ke urutan pembaca lokal, tipe media ikon, label aplikasi daring, notasi kepadatan,
+titik belok lognormal, domain fungsi distribusi, syarat orde momen positif,
+bukti kasus batas asimtotik, urutan ID, dan syarat keterintegralan dalam bukti
+martingal. Laboratorium luring dan latihan bersolusi diberi tanda terpisah
+sebagai karya asli edisi CC BY 4.0.
+</aside>""",
+        "id": "geometric-brownian-downstream-corrections",
+        "description": "Disclose guarded mathematical repairs and separately licensed reader additions.",
+    },
+    {
+        "after_heading": "Sifat",
+        "html": r"""<aside class="reader-original-solution" id="geometric-brownian-mastery">
+<p class="reader-note-title"><strong>Latihan penguasaan asli edisi</strong></p>
+<p><strong>Status dan lisensi.</strong> Soal, petunjuk, dan solusi berikut merupakan
+karya asli edisi ini, dilisensikan CC BY 4.0, dan bukan bagian dari halaman Random.</p>
+<p id="geometric-brownian-mastery-exercise"><strong>Soal.</strong> Misalkan
+\(\bs X\) adalah gerak Brown geometrik dengan parameter \(\mu,\sigma\), dimulai
+dari \(x_0\gt0\), dan \(0\le s\lt t\). Dengan
+\(\mathscr F_s=\sigma\{Z_u:0\le u\le s\}\), tentukan hukum bersyarat \(X_t\)
+jika \(\mathscr F_s\) diketahui, lalu hitung rataan dan varians bersyaratnya. Tunjukkan
+bahwa proses terdiskonto \(M_t=e^{-\mu t}X_t\) merupakan martingal.</p>
+<details id="geometric-brownian-mastery-hint"><summary>Petunjuk</summary><p>Tulis
+\(X_t=X_s\exp[(\mu-\sigma^2/2)(t-s)+\sigma(Z_t-Z_s)]\) dan gunakan kebebasan
+inkremen \(Z_t-Z_s\) dari \(\mathscr F_s\).</p></details>
+<details id="geometric-brownian-mastery-solution"><summary>Solusi lengkap</summary><p>
+Dengan \(\Delta=t-s\), rasio \(X_t/X_s\), jika \(\mathscr F_s\) diketahui,
+berdistribusi lognormal dengan parameter lokasi log
+\((\mu-\sigma^2/2)\Delta\) dan parameter skala log \(\sigma\sqrt{\Delta}\).
+Karena itu
+\[\E(X_t\mid\mathscr F_s)=X_s e^{\mu\Delta},\qquad
+\var(X_t\mid\mathscr F_s)=X_s^2e^{2\mu\Delta}\bigl(e^{\sigma^2\Delta}-1\bigr).\]
+Selanjutnya,
+\[\E(M_t\mid\mathscr F_s)=e^{-\mu t}\E(X_t\mid\mathscr F_s)
+=e^{-\mu s}X_s=M_s.\]
+Setiap \(M_t\) terintegralkan karena \(\E(M_t)=x_0\), sehingga identitas
+bersyarat tersebut membuktikan sifat martingal.</p></details>
+</aside>""",
+        "id": "geometric-brownian-mastery",
+        "description": "Add a complete conditional-law and discounted-martingale mastery exercise, hint, and solution.",
+    },
+)
+
+BROWN_GEOMETRIC_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+    {
+        "id": "local-section-number",
+        "old": r"<h2>6. Gerak Brown Geometrik</h2>",
+        "new": r"<h2>4. Gerak Brown Geometrik</h2>",
+        "description": "Align the page heading with the source navigation position four.",
+    },
+    {
+        "id": "explicit-online-apps",
+        "old": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/GeometricBrownianMotion.html">gerak Brown geometrik</a>',
+        "new": r'<a class="ancillary" href="https://www.randomservices.org/random/apps/GeometricBrownianMotion.html">aplikasi resmi daring gerak Brown geometrik</a>',
+        "matches": 4,
+        "description": "Label all four retained Random simulation links as official online surfaces.",
+        "change_kind": "source-link-repair",
+    },
+    {
+        "id": "density-mode-subscript",
+        "old": r"<li>\( f \) meningkat lalu menurun,",
+        "new": r"<li>\( f_t \) meningkat lalu menurun,",
+        "description": "Use the defined time-indexed density in the mode statement.",
+    },
+    {
+        "id": "density-inflection-subscript",
+        "old": r"<li>\( f \) mula-mula cekung ke atas,",
+        "new": r"<li>\( f_t \) mula-mula cekung ke atas,",
+        "description": "Use the defined time-indexed density in the inflection statement.",
+    },
+    {
+        "id": "lognormal-inflection-center",
+        "old": r"\exp\left[(\mu - \sigma^2) t \pm \frac{1}{2} \sigma \sqrt{\sigma^2 t^2 + 4 t}\right]",
+        "new": r"\exp\left[(\mu - 2\sigma^2) t \pm \frac{1}{2} \sigma \sqrt{\sigma^2 t^2 + 4 t}\right]",
+        "description": "Restore the correct center of the two lognormal density inflection points.",
+    },
+    {
+        "id": "cdf-nonpositive-domain",
+        "old": r"dengan \( \Phi \) adalah fungsi distribusi normal standar.</p>",
+        "new": r"dengan \( \Phi \) adalah fungsi distribusi normal standar; untuk \(x \le 0\), \(F_t(x)=0\).</p>",
+        "description": "Complete the lognormal CDF on the nonpositive half-line.",
+    },
+    {
+        "id": "quantile-unit-id",
+        "old": r'<div class="unit" id="dist4">',
+        "new": r'<div class="unit" id="dst4">',
+        "description": "Repair the distribution-unit ID sequence.",
+    },
+    {
+        "id": "positive-moment-order",
+        "old": r"<p>Ditinjau dari orde momen \( n \), suku dominan di dalam eksponensial adalah \( \sigma^2 n^2 / 2 \). Jika \( n \gt 1 - 2 \mu / \sigma^2 \), maka \( n \mu + \frac{\sigma^2}{2}(n^2 - n) \gt 0 \), sehingga \( \E(X_t^n) \to \infty \) ketika \( t \to \infty \). Rataan dan varians mudah diperoleh dari hasil momen umum tersebut.</p>",
+        "new": r"<p>Untuk orde momen positif \(n\in\N_+\), suku dominan di dalam tanda kurung siku pada eksponen adalah \( \sigma^2 n^2 / 2 \). Jika \( n \gt 1 - 2 \mu / \sigma^2 \), maka \( n \mu + \frac{\sigma^2}{2}(n^2 - n) \gt 0 \), sehingga \( \E(X_t^n) \to \infty \) ketika \( t \to \infty \). Pembatasan \(n\gt0\) diperlukan karena momen orde nol selalu bernilai 1. Rataan dan varians mudah diperoleh dari hasil momen umum tersebut.</p>",
+        "description": "Exclude the zero-order moment from the divergence implication.",
+    },
+    {
+        "id": "asymptotic-equality-case",
+        "old": r"""<p>Hasil-hasil ini mengikuti <a href="Standard.html#lil">hukum logaritma berulang</a>. Secara asimtotik, suku \( \left(\mu - \sigma^2 / 2\right) t \) mendominasi suku \( \sigma Z_t \) ketika \( t \to \infty \).</p>""",
+        "new": r"""<p>Jika \(\mu\ne\sigma^2/2\), hasilnya mengikuti fakta bahwa \(\log(X_t)/t=\mu-\sigma^2/2+\sigma Z_t/t\to\mu-\sigma^2/2\) hampir pasti. Pada kasus batas \(\mu=\sigma^2/2\), <a href="Standard.html#lil">hukum logaritma berulang</a> memberi \(\limsup_{t\to\infty}Z_t=\infty\) dan \(\liminf_{t\to\infty}Z_t=-\infty\) hampir pasti; jadi \(\limsup_{t\to\infty}X_t=\infty\), \(\liminf_{t\to\infty}X_t=0\), dan \(X_t\) tidak mempunyai limit.</p>""",
+        "description": "Prove the equality case separately instead of invoking linear dominance where the linear term vanishes.",
+    },
+    {
+        "id": "mean-standard-deviation-spacing",
+        "old": r"rataan\( \pm \)simpangan baku",
+        "new": r"rataan \( \pm \) simpangan baku",
+        "description": "Restore spaces around the inline plus-or-minus expression.",
+    },
+    {
+        "id": "final-property-id",
+        "old": r"""<div class="unit">
+<p class="math">Jika \( \mu = 0 \),""",
+        "new": r"""<div class="unit" id="prp2">
+<p class="math">Jika \( \mu = 0 \),""",
+        "description": "Give the final property unit a stable local ID.",
+    },
+    {
+        "id": "stochastic-integral-square-integrability",
+        "old": r"Proses yang berkaitan dengan integral stokastik selalu merupakan martingal, dengan asumsi-asumsi lazim pada proses integrannya (yang dipenuhi di sini).</p>",
+        "new": r"Selain itu, \(\E(X_s^2)=e^{\sigma^2s}\), sehingga untuk setiap \(t\lt\infty\), \[\E\!\left(\int_0^t \sigma^2X_s^2\,ds\right)=\sigma^2\int_0^t e^{\sigma^2s}\,ds\lt\infty.\] Karena integrannya teradaptasi dan terintegralkan kuadrat pada setiap horizon hingga, integral stokastik tersebut merupakan martingal kuadrat-terintegralkan.</p>",
+        "description": "Replace a vague appeal to usual assumptions with the exact square-integrability check.",
+    },
+)
+
+MARTINGALES_INDEX_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+)
+
+MARKOV_INDEX_READER_NOTES = (
+    {
+        "after_selector": "#sum + p",
+        "html": r'''<aside class="scope-note" id="markov-index-edition-scope">
+<strong>Batas edisi.</strong> Ikhtisar sumber mencantumkan seluruh bab Markov
+di situs Random. Edisi D30 ini memuat secara lokal halaman teori Markov umum,
+rantai waktu diskret, rekurensi, periodisitas, dan distribusi invarian/limit.
+Blok waktu kontinu, Poisson, generator, semigrup, dan ergodisitas disediakan
+oleh komponen QuantEcon yang lengkap; halaman Random lain pada daftar di bawah
+tetap berupa rujukan daring dan tidak dinyatakan telah diterjemahkan.
+</aside>''',
+    },
+)
+
+MARKOV_INDEX_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+)
+
+BROWN_INDEX_READER_NOTES = (
+    {
+        "after_selector": "#sum + p",
+        "html": r'''<aside class="scope-note" id="brown-index-edition-scope">
+<strong>Batas edisi.</strong> Pembaca ini memuat empat halaman sumber yang
+tersedia: gerak Brown standar, gerak Brown dengan hanyutan dan penskalaan,
+jembatan Brown, dan gerak Brown geometrik. Judul integral stokastik, rumus Itô,
+dan teorema representasi yang hanya muncul sebagai komentar pada ikhtisar
+sumber bukan halaman tersedia dan tidak dinyatakan sebagai unit terjemahan.
+</aside>''',
+    },
+)
+
+BROWN_INDEX_READER_CORRECTIONS = (
+    {
+        "id": "favicon-svg-mime",
+        "old": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg"/>',
+        "new": r'<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>',
+        "description": "Use the registered SVG media type for the local favicon.",
+    },
+)
+
 THEORY_UNITS = (
     {
         "rel": "prob/Convergence.html",
@@ -2475,7 +4832,7 @@ THEORY_UNITS = (
         "rel": "expect/Conditional2.html",
         "authority_sha256": "98307993d76941808cc87b7d28dfd8b2e24325913471b07c3a350a52a54c87c2",
         "source_title": "Conditional Expected Value Revisited",
-        "nav_label": "Ekspektasi bersyarat",
+        "nav_label": "Nilai harapan bersyarat",
         "rights_id": "o009-rights-random-conditional-expectation",
         "fragment_corrections": {},
         "forbidden": (
@@ -2741,13 +5098,848 @@ THEORY_UNITS = (
             "Details:",
         ),
     },
+    {
+        "rel": "markov/Recurrence.html",
+        "authority_sha256": "24edb8bd0237b0e3abd7beeae48596f35421c9aa35653c6845cfaebb223c5535",
+        "source_title": "Transience and Recurrence",
+        "nav_label": "Keadaan transien dan rekuren",
+        "rights_id": "o009-rights-random-markov-recurrence",
+        "fragment_corrections": {},
+        "reader_corrections": MARKOV_RECURRENCE_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Transience and Recurrence",
+            "Basic Theory",
+            "Hitting Times and Probabilities",
+            "Counting Variables and Potentials",
+            "Relations",
+            "Transient and Recurrent Classes",
+            "Staying Probabilities and a Classification Test",
+            "Computing Hitting Probabilities and Potentials",
+            "Examples and Applications",
+            "Finite Chains",
+            "Special Models",
+            "Details:",
+            "Example:",
+        ),
+    },
+    {
+        "rel": "markov/Periodicity.html",
+        "authority_sha256": "6311c165cff1538b2b8da7ff2f5b6d243b86cb6f1e7cb423a2712c3a7689f9b3",
+        "source_title": "Periodicity",
+        "nav_label": "Periodisitas",
+        "rights_id": "o009-rights-random-markov-periodicity",
+        "fragment_corrections": {},
+        "reader_corrections": MARKOV_PERIODICITY_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Periodicity",
+            "Basic Theory",
+            "Definitions and Basic Results",
+            "The Cyclic Classes",
+            "Examples and Special Cases",
+            "Finite Chains",
+            "Special Models",
+            "Details:",
+        ),
+    },
+    {
+        "rel": "markov/Limiting.html",
+        "authority_sha256": "d4719c5e1cb9ad3be4fbf84c8dd849390f7d1ad15ced112f6312be83e5545680",
+        "source_title": "Stationary and Limiting Distributions",
+        "nav_label": "Distribusi invarian dan limit",
+        "rights_id": "o009-rights-random-markov-limiting",
+        "fragment_corrections": {},
+        "reader_corrections": MARKOV_LIMITING_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Stationary and Limiting Distributions",
+            "Basic Theory",
+            "The Embedded Renewal Process",
+            "Limiting Behavior",
+            "Positive and Null Recurrence",
+            "Limiting  Behavior, Revisited",
+            "Invariant Distributions",
+            "Invariant Measures",
+            "Examples and Applications",
+            "Finite Chains",
+            "Special Models",
+            "State graph",
+            "Details:",
+            "Open the simulation",
+            "Markov Processes",
+            "Data Sets",
+            "Biographies",
+        ),
+    },
+    {
+        "rel": "poisson/General.html",
+        "authority_sha256": "cdc957a1fb433c343ee4654af5350259baf15fcc37acbb4acf2c5a50077b6567",
+        "source_title": "General Poisson Processes",
+        "nav_label": "Proses Poisson pada ruang umum",
+        "rights_id": "o009-rights-random-poisson-general",
+        "fragment_corrections": {},
+        "reader_notes": POISSON_GENERAL_READER_NOTES,
+        "reader_corrections": POISSON_GENERAL_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "General Poisson Processes",
+            "Basic Theory",
+            "The Process",
+            "The Distribution of the Random Points",
+            "Thinning and Combining",
+            "Applications and Special Cases",
+            "Non-homogeneous Poisson Processes",
+            "Nearest Points",
+            "Computational Exercises",
+            "Details:",
+            "Data Sets",
+            "Biographies",
+        ),
+    },
+    {
+        "rel": "brown/Standard.html",
+        "authority_sha256": "442b4dacc55ce0ffc49fff5093ee2ad5adb75d337d45908e5e0df1448d84ebd8",
+        "source_title": "Standard Brownian Motion",
+        "nav_label": "Gerak Brown standar",
+        "rights_id": "o009-rights-random-brown-standard",
+        "fragment_corrections": {},
+        "reader_notes": BROWN_STANDARD_READER_NOTES,
+        "reader_corrections": BROWN_STANDARD_READER_CORRECTIONS,
+        "tex_validation": "delimiter-token-stream-with-authority-unclosed-inline-witness",
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Standard Brownian Motion",
+            "Basic Theory",
+            "History",
+            "Definition",
+            "Brownian Motion as a Limit of Random Walks",
+            "Finite Dimensional Distributions",
+            "Simple Transformations",
+            "Irregularity",
+            "The Markov Property and Stopping Times",
+            "The Reflection Principle",
+            "Martingales",
+            "Maximums and Hitting Times",
+            "Zeros and Arcsine Laws",
+            "The Law of the Iterated Logarithm",
+            "Computational Exercises",
+            "Details:",
+            "Data Sets",
+            "Biographies",
+        ),
+    },
+    {
+        "rel": "brown/Drift.html",
+        "authority_sha256": "f1603646520d3c83fa986e6b0be7bcac6862d7443e57d0a28264534da3dc70d5",
+        "source_title": "Brownian Motion with Drift",
+        "nav_label": "Gerak Brown dengan hanyutan",
+        "rights_id": "o009-rights-random-brown-drift",
+        "fragment_corrections": {},
+        "reader_notes": BROWN_DRIFT_READER_NOTES,
+        "reader_corrections": BROWN_DRIFT_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Brownian Motion with Drift",
+            "Basic Theory",
+            "Definition",
+            "Finite Dimensional Distributions",
+            "Transformations",
+            "The Markov Property and Stopping Times",
+            "Computational Exercises",
+            "Details:",
+            "Data Sets",
+            "Biographies",
+        ),
+    },
+    {
+        "rel": "brown/Bridge.html",
+        "authority_sha256": "62e8b18c32f191f801e4cb9be3ee0db3fb658329d937b0807c6d8b8d7b37410e",
+        "source_title": "The Brownian Bridge",
+        "nav_label": "Jembatan Brown",
+        "rights_id": "o009-rights-random-brown-bridge",
+        "fragment_corrections": {},
+        "reader_notes": BROWN_BRIDGE_READER_NOTES,
+        "reader_corrections": BROWN_BRIDGE_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "The Brownian Bridge",
+            "Basic Theory",
+            "Definition and Constructions",
+            "The General Brownian Bridge",
+            "Applications",
+            "The Empirical Distribution Function",
+            "Details:",
+            "Data Sets",
+            "Biographies",
+        ),
+    },
+    {
+        "rel": "brown/Geometric.html",
+        "authority_sha256": "4a6c1fa4c4d1cd7d646f700d438201af2b75fead1f094ecb4720d2831343f6ce",
+        "source_title": "Geometric Brownian Motion",
+        "nav_label": "Gerak Brown geometrik",
+        "rights_id": "o009-rights-random-brown-geometric",
+        "fragment_corrections": {},
+        "reader_notes": BROWN_GEOMETRIC_READER_NOTES,
+        "reader_corrections": BROWN_GEOMETRIC_READER_CORRECTIONS,
+        "forbidden": (
+            "Expand Details",
+            "Contract Details",
+            "Geometric Brownian Motion",
+            "Basic Theory",
+            "Definition",
+            "Distributions",
+            "Moments",
+            "Properties",
+            "Details:",
+            "Data Sets",
+            "Biographies",
+        ),
+    },
+    {
+        "rel": "martingales/index.html",
+        "authority_sha256": "92b98c9e04ad843647041974d54ba6557aedf51d393ff540af4f27a868aa791e",
+        "source_title": "Martingales",
+        "nav_label": "Ikhtisar martingal",
+        "rights_id": "o009-rights-random-martingales-index",
+        "unit_kind": "overview",
+        "fragment_corrections": {},
+        "metadata_href_corrections": {
+            "../renewal/index.html": "../markov/index.html",
+            "../markov/index.html": "../brown/index.html",
+        },
+        "reader_corrections": MARTINGALES_INDEX_READER_CORRECTIONS,
+        "forbidden": (
+            "Summary",
+            "Topics",
+            "Properties and Constructions",
+            "Stopping Times",
+            "Backwards Martingales",
+            "Data Sets",
+            "Biographies",
+        ),
+    },
+    {
+        "rel": "markov/index.html",
+        "authority_sha256": "18dfcf15b97a2af7d90404e879376234865bfb40985deb4d6e50b9778f5f7660",
+        "source_title": "Markov Processes",
+        "nav_label": "Ikhtisar proses Markov",
+        "rights_id": "o009-rights-random-markov-index",
+        "unit_kind": "overview",
+        "fragment_corrections": {},
+        "metadata_href_corrections": {
+            "../brown/index.html": "../martingales/index.html",
+        },
+        "reader_notes": MARKOV_INDEX_READER_NOTES,
+        "reader_corrections": MARKOV_INDEX_READER_CORRECTIONS,
+        "forbidden": (
+            "Summary",
+            "Special Discrete-Time Chains",
+            "Special Continuous-Time Chains",
+            "Two-State, Discrete-Time Chain",
+            "Success-Runs Chain",
+            "Remaining-Life Chain",
+            "Data Sets",
+            "Biographies",
+        ),
+    },
+    {
+        "rel": "brown/index.html",
+        "authority_sha256": "c471c5a1b2bd85731eded48e1ba7a0337c1b752b56fcadde87e213eacf2a7b4a",
+        "source_title": "Brownian Motion",
+        "nav_label": "Ikhtisar gerak Brown",
+        "rights_id": "o009-rights-random-brown-index",
+        "unit_kind": "overview",
+        "fragment_corrections": {
+            "JavaScript:openAncillary('../apps/.html../apps/AbsoluteBrownianMotion.html')": "https://www.randomservices.org/random/apps/AbsoluteBrownianMotion.html",
+        },
+        "metadata_href_corrections": {
+            "../Markov/index.html": "../martingales/index.html",
+        },
+        "reader_notes": BROWN_INDEX_READER_NOTES,
+        "reader_corrections": BROWN_INDEX_READER_CORRECTIONS,
+        "forbidden": (
+            "Summary",
+            "Basic Topics",
+            "Special Processes",
+            "Absolute Brownian Motion",
+            "Reflected Brownian Motion",
+            "Integrated Brownian Motion",
+            "Two-Dimensional Brownian Motion",
+            "Hitting Time Experiment",
+            "Data Sets",
+            "Biographies",
+        ),
+    },
+)
+ORIGINAL_BRIDGE_SPECS = (
+    {
+        "source": ROOT / "source" / "original" / "01-konstruksi-kolmogorov.md",
+        "output": Path("original/01-konstruksi-kolmogorov.html"),
+        "title": "Konstruksi Kolmogorov dan proses kanonik",
+        "unit_id": "unit.o009.original.bridge.kolmogorov-canonical-process",
+        "rights_id": "rights.o009.original.bridge.kolmogorov.cc-by-4.0",
+        "previous_output": Path("brown/Geometric.html"),
+        "previous_label": "Unit Random sebelumnya",
+        "source_bytes": 34418,
+        "source_sha256": "bf37d6b746e617b5010a96be0c105e7f4ecd33e39a22b6a0f0528cd6b48cd164",
+        "required_witnesses": (
+            'title: "Konstruksi Kolmogorov dan proses kanonik"',
+            "lang: id-ID",
+            'unit_id: "unit.o009.original.bridge.kolmogorov-canonical-process"',
+            'rights_id: "rights.o009.original.bridge.kolmogorov.cc-by-4.0"',
+            'license: "CC-BY-4.0"',
+            'model_disclosure: "OpenAI Codex gpt-5.6-sol, Ultra."',
+            "ruang Borel standar",
+            "konsisten secara proyektif",
+            r"\mathcal S^{\otimes T}",
+            "Keunikan pada sigma-aljabar produk",
+            "../prob/Probability2.html",
+            "../prob/Processes.html",
+            "../quantecon/lectures/markov_prop.html",
+            "../brown/Standard.html",
+            "tidak mengubah lisensi apa pun",
+            "tidak mendukung, mengesahkan, atau",
+            "OpenAI Codex gpt-5.6-sol, Ultra.",
+        ),
+        "expected_class_counts": {
+            "original-bridge": 1,
+            "bridge-section": 11,
+            "mastery-sequence": 3,
+            "exercise": 3,
+            "hint": 6,
+            "answer": 3,
+            "solution": 3,
+        },
+        "disclosure_count": 9,
+        "mastery_counts": {
+            "exercises": 3,
+            "hints": 6,
+            "answers": 3,
+            "solutions": 3,
+        },
+        "built_rights_witnesses": (
+            "rights.o009.original.bridge.kolmogorov.cc-by-4.0",
+            "Creative Commons Attribution 4.0 International",
+            "OpenAI Codex gpt-5.6-sol, Ultra.",
+            "tidak mengubah lisensi apa pun",
+            "tidak mendukung, mengesahkan, atau mensponsori",
+        ),
+        "word_bounds": (3000, 4500),
+        "stable_ids": (
+            "unit.o009.original.bridge.kolmogorov-canonical-process",
+            "tujuan-dan-prasyarat",
+            "ruang-lintasan-produk",
+            "konsistensi-proyektif",
+            "teorema-perluasan-kolmogorov",
+            "lingkup-bukti",
+            "proses-koordinat-kanonik",
+            "contoh-keluarga-markov",
+            "contoh-keluarga-gaussian",
+            "audit-hipotesis-dan-bukan-klaim",
+            "latihan-penguasaan",
+            "unit.o009.original.mastery.process-construction.01",
+            "unit.o009.original.mastery.process-construction.01.exercise",
+            "unit.o009.original.mastery.process-construction.01.hint.01",
+            "unit.o009.original.mastery.process-construction.01.hint.02",
+            "unit.o009.original.mastery.process-construction.01.answer",
+            "unit.o009.original.mastery.process-construction.01.solution",
+            "unit.o009.original.mastery.process-construction.02",
+            "unit.o009.original.mastery.process-construction.02.exercise",
+            "unit.o009.original.mastery.process-construction.02.hint.01",
+            "unit.o009.original.mastery.process-construction.02.hint.02",
+            "unit.o009.original.mastery.process-construction.02.answer",
+            "unit.o009.original.mastery.process-construction.02.solution",
+            "unit.o009.original.mastery.process-construction.03",
+            "unit.o009.original.mastery.process-construction.03.exercise",
+            "unit.o009.original.mastery.process-construction.03.hint.01",
+            "unit.o009.original.mastery.process-construction.03.hint.02",
+            "unit.o009.original.mastery.process-construction.03.answer",
+            "unit.o009.original.mastery.process-construction.03.solution",
+            "hak-dan-provenans",
+        ),
+        "disclosures": (
+            (
+                "unit.o009.original.mastery.process-construction.01.hint.01",
+                "Petunjuk 1 untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.process-construction.01.hint.02",
+                "Petunjuk 2 untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.process-construction.01.solution",
+                "Penyelesaian lengkap untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.process-construction.02.hint.01",
+                "Petunjuk 1 untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.process-construction.02.hint.02",
+                "Petunjuk 2 untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.process-construction.02.solution",
+                "Penyelesaian lengkap untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.process-construction.03.hint.01",
+                "Petunjuk 1 untuk Latihan 3",
+            ),
+            (
+                "unit.o009.original.mastery.process-construction.03.hint.02",
+                "Petunjuk 2 untuk Latihan 3",
+            ),
+            (
+                "unit.o009.original.mastery.process-construction.03.solution",
+                "Penyelesaian lengkap untuk Latihan 3",
+            ),
+        ),
+    },
+    {
+        "source": (
+            ROOT
+            / "source"
+            / "original"
+            / "02-keterukuran-proses-dan-hukum-lintasan.md"
+        ),
+        "output": Path("original/02-keterukuran-proses-dan-hukum-lintasan.html"),
+        "title": "Keterukuran proses dan hukum lintasan",
+        "unit_id": "unit.o009.original.bridge.process-measurability-path-law",
+        "rights_id": (
+            "rights.o009.original.bridge.process-measurability-path-law.cc-by-4.0"
+        ),
+        "previous_output": Path("original/01-konstruksi-kolmogorov.html"),
+        "previous_label": "Jembatan asli sebelumnya",
+        "source_bytes": 29971,
+        "source_sha256": "f14bd9e7ad6a80079eb40609dd97f9768e08fae5bc638e9d5939666f53ad0acb",
+        "required_witnesses": (
+            'title: "Keterukuran proses dan hukum lintasan"',
+            "lang: id-ID",
+            'unit_id: "unit.o009.original.bridge.process-measurability-path-law"',
+            (
+                'rights_id: "rights.o009.original.bridge.'
+                'process-measurability-path-law.cc-by-4.0"'
+            ),
+            'license: "CC-BY-4.0"',
+            'model_disclosure: "OpenAI Codex gpt-5.6-sol, Ultra."',
+            "keterukuran bersama",
+            "distribusi berdimensi hingga",
+            "hukum lintasan mentah",
+            r"\mathcal T\otimes\mathcal A",
+            r"Setiap $E\in\mathcal S^{\otimes T}$ bergantung pada paling banyak terhitung",
+            "01-konstruksi-kolmogorov.html",
+            "../prob/Probability2.html",
+            "../prob/Processes.html",
+            "melisensikan ulang komponen mereka",
+            "tidak didukung atau disahkan",
+            "OpenAI Codex gpt-5.6-sol, Ultra.",
+        ),
+        "expected_class_counts": {
+            "original-bridge": 1,
+            "bridge-section": 10,
+            "mastery-sequence": 3,
+            "exercise": 3,
+            "hint": 6,
+            "answer": 3,
+            "solution": 3,
+        },
+        "disclosure_count": 9,
+        "mastery_counts": {
+            "exercises": 3,
+            "hints": 6,
+            "answers": 3,
+            "solutions": 3,
+        },
+        "built_rights_witnesses": (
+            (
+                "rights.o009.original.bridge."
+                "process-measurability-path-law.cc-by-4.0"
+            ),
+            "CC BY 4.0",
+            "OpenAI Codex gpt-5.6-sol, Ultra.",
+            "melisensikan ulang komponen mereka",
+            "tidak didukung atau disahkan",
+        ),
+        "word_bounds": (2500, 4000),
+        "stable_ids": (
+            "unit.o009.original.bridge.process-measurability-path-law",
+            "tujuan-dan-empat-lapis-objek",
+            "peta-lintasan-mentah",
+            "keterukuran-bersama",
+            "fdd-dan-hukum-lintasan-mentah",
+            "sifat-lintasan-di-ruang-mentah",
+            "hukum-pada-ruang-lintasan-kontinu",
+            "modifikasi-dan-ketakterbedaan",
+            "audit-klaim-lintasan",
+            "latihan-penguasaan-keterukuran",
+            "unit.o009.original.mastery.measurability-path-law.01",
+            "unit.o009.original.mastery.measurability-path-law.01.exercise",
+            "unit.o009.original.mastery.measurability-path-law.01.hint.01",
+            "unit.o009.original.mastery.measurability-path-law.01.hint.02",
+            "unit.o009.original.mastery.measurability-path-law.01.answer",
+            "unit.o009.original.mastery.measurability-path-law.01.solution",
+            "unit.o009.original.mastery.measurability-path-law.02",
+            "unit.o009.original.mastery.measurability-path-law.02.exercise",
+            "unit.o009.original.mastery.measurability-path-law.02.hint.01",
+            "unit.o009.original.mastery.measurability-path-law.02.hint.02",
+            "unit.o009.original.mastery.measurability-path-law.02.answer",
+            "unit.o009.original.mastery.measurability-path-law.02.solution",
+            "unit.o009.original.mastery.measurability-path-law.03",
+            "unit.o009.original.mastery.measurability-path-law.03.exercise",
+            "unit.o009.original.mastery.measurability-path-law.03.hint.01",
+            "unit.o009.original.mastery.measurability-path-law.03.hint.02",
+            "unit.o009.original.mastery.measurability-path-law.03.answer",
+            "unit.o009.original.mastery.measurability-path-law.03.solution",
+            "hak-dan-provenans-keterukuran",
+        ),
+        "disclosures": (
+            (
+                "unit.o009.original.mastery.measurability-path-law.01.hint.01",
+                "Petunjuk 1 untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.measurability-path-law.01.hint.02",
+                "Petunjuk 2 untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.measurability-path-law.01.solution",
+                "Penyelesaian lengkap untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.measurability-path-law.02.hint.01",
+                "Petunjuk 1 untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.measurability-path-law.02.hint.02",
+                "Petunjuk 2 untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.measurability-path-law.02.solution",
+                "Penyelesaian lengkap untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.measurability-path-law.03.hint.01",
+                "Petunjuk 1 untuk Latihan 3",
+            ),
+            (
+                "unit.o009.original.mastery.measurability-path-law.03.hint.02",
+                "Petunjuk 2 untuk Latihan 3",
+            ),
+            (
+                "unit.o009.original.mastery.measurability-path-law.03.solution",
+                "Penyelesaian lengkap untuk Latihan 3",
+            ),
+        ),
+    },
+    {
+        "source": (
+            ROOT
+            / "source"
+            / "original"
+            / "03-probabilitas-bersyarat-reguler.md"
+        ),
+        "output": Path("original/03-probabilitas-bersyarat-reguler.html"),
+        "title": "Distribusi bersyarat reguler dan disiplin versi",
+        "unit_id": "unit.o009.original.bridge.regular-conditional-probability",
+        "rights_id": (
+            "rights.o009.original.bridge.regular-conditional-probability.cc-by-4.0"
+        ),
+        "previous_output": Path(
+            "original/02-keterukuran-proses-dan-hukum-lintasan.html"
+        ),
+        "previous_label": "Jembatan asli sebelumnya",
+        "source_bytes": 34016,
+        "source_sha256": "d24d06e9c5e60c2d0a70ee0ff00fd0e2e7687e12a12404b6f7e903af76ccbe44",
+        "required_witnesses": (
+            'title: "Distribusi bersyarat reguler dan disiplin versi"',
+            "lang: id-ID",
+            (
+                'unit_id: "unit.o009.original.bridge.'
+                'regular-conditional-probability"'
+            ),
+            (
+                'rights_id: "rights.o009.original.bridge.'
+                'regular-conditional-probability.cc-by-4.0"'
+            ),
+            'license: "CC-BY-4.0"',
+            'model_disclosure: "OpenAI Codex gpt-5.6-sol, Ultra."',
+            "ruang Borel standar",
+            "kelas penentu terhitung",
+            "disintegrasi",
+            "nilai pengondisian yang bermassa nol",
+            "../expect/Conditional2.html",
+            "../expect/Kernels.html",
+            "01-konstruksi-kolmogorov.html",
+            "02-keterukuran-proses-dan-hukum-lintasan.html",
+            "tidak melisensikan ulang Random Services",
+            "tidak didukung atau disahkan",
+            "OpenAI Codex gpt-5.6-sol, Ultra.",
+        ),
+        "expected_class_counts": {
+            "original-bridge": 1,
+            "bridge-section": 11,
+            "mastery-sequence": 3,
+            "exercise": 3,
+            "hint": 6,
+            "answer": 3,
+            "solution": 3,
+        },
+        "disclosure_count": 9,
+        "mastery_counts": {
+            "exercises": 3,
+            "hints": 6,
+            "answers": 3,
+            "solutions": 3,
+        },
+        "built_rights_witnesses": (
+            (
+                "rights.o009.original.bridge."
+                "regular-conditional-probability.cc-by-4.0"
+            ),
+            "CC BY 4.0",
+            "OpenAI Codex gpt-5.6-sol, Ultra.",
+            "tidak melisensikan ulang Random Services",
+            "tidak didukung atau disahkan",
+        ),
+        "word_bounds": (2800, 3800),
+        "stable_ids": (
+            "unit.o009.original.bridge.regular-conditional-probability",
+            "tujuan-dan-kesenjangan-versi",
+            "dari-nilai-harapan-ke-kernel",
+            "keberadaan-pada-sasaran-borel-standar",
+            "kelas-penentu-dan-versi-serentak",
+            "pengondisian-pada-peubah-acak",
+            "rumus-disintegrasi-dan-kepadatan",
+            "nilai-pada-titik-pengondisian-nol",
+            "probabilitas-bersyarat-seluruh-eksperimen",
+            "audit-klaim-probabilitas-bersyarat",
+            "latihan-penguasaan-probabilitas-bersyarat-reguler",
+            "unit.o009.original.mastery.regular-conditional-probability.01",
+            "unit.o009.original.mastery.regular-conditional-probability.01.exercise",
+            "unit.o009.original.mastery.regular-conditional-probability.01.hint.01",
+            "unit.o009.original.mastery.regular-conditional-probability.01.hint.02",
+            "unit.o009.original.mastery.regular-conditional-probability.01.answer",
+            "unit.o009.original.mastery.regular-conditional-probability.01.solution",
+            "unit.o009.original.mastery.regular-conditional-probability.02",
+            "unit.o009.original.mastery.regular-conditional-probability.02.exercise",
+            "unit.o009.original.mastery.regular-conditional-probability.02.hint.01",
+            "unit.o009.original.mastery.regular-conditional-probability.02.hint.02",
+            "unit.o009.original.mastery.regular-conditional-probability.02.answer",
+            "unit.o009.original.mastery.regular-conditional-probability.02.solution",
+            "unit.o009.original.mastery.regular-conditional-probability.03",
+            "unit.o009.original.mastery.regular-conditional-probability.03.exercise",
+            "unit.o009.original.mastery.regular-conditional-probability.03.hint.01",
+            "unit.o009.original.mastery.regular-conditional-probability.03.hint.02",
+            "unit.o009.original.mastery.regular-conditional-probability.03.answer",
+            "unit.o009.original.mastery.regular-conditional-probability.03.solution",
+            "hak-dan-provenans-probabilitas-bersyarat",
+        ),
+        "disclosures": (
+            (
+                "unit.o009.original.mastery.regular-conditional-probability.01.hint.01",
+                "Petunjuk 1 untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.regular-conditional-probability.01.hint.02",
+                "Petunjuk 2 untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.regular-conditional-probability.01.solution",
+                "Penyelesaian lengkap untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.regular-conditional-probability.02.hint.01",
+                "Petunjuk 1 untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.regular-conditional-probability.02.hint.02",
+                "Petunjuk 2 untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.regular-conditional-probability.02.solution",
+                "Penyelesaian lengkap untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.regular-conditional-probability.03.hint.01",
+                "Petunjuk 1 untuk Latihan 3",
+            ),
+            (
+                "unit.o009.original.mastery.regular-conditional-probability.03.hint.02",
+                "Petunjuk 2 untuk Latihan 3",
+            ),
+            (
+                "unit.o009.original.mastery.regular-conditional-probability.03.solution",
+                "Penyelesaian lengkap untuk Latihan 3",
+            ),
+        ),
+    },
+    {
+        "source": (
+            ROOT
+            / "source"
+            / "original"
+            / "04-audit-hipotesis-proses-stokastik.md"
+        ),
+        "output": Path("original/04-audit-hipotesis-proses-stokastik.html"),
+        "title": "Audit hipotesis untuk proses stokastik",
+        "unit_id": "unit.o009.original.bridge.hypothesis-audits",
+        "rights_id": (
+            "rights.o009.original.bridge.hypothesis-audits.cc-by-4.0"
+        ),
+        "previous_output": Path(
+            "original/03-probabilitas-bersyarat-reguler.html"
+        ),
+        "previous_label": "Jembatan asli sebelumnya",
+        "source_bytes": 39925,
+        "source_sha256": "be6de4f7b2fc63bbfee8be51b3dd8ac733edff5d58374c7a71891d0ab20d4bfd",
+        "required_witnesses": (
+            'title: "Audit hipotesis untuk proses stokastik"',
+            "lang: id-ID",
+            'unit_id: "unit.o009.original.bridge.hypothesis-audits"',
+            (
+                'rights_id: "rights.o009.original.bridge.'
+                'hypothesis-audits.cc-by-4.0"'
+            ),
+            'license: "CC-BY-4.0"',
+            'model_disclosure: "OpenAI Codex gpt-5.6-sol, Ultra."',
+            "lima kotak",
+            "Klaim uji",
+            "keterintegralan seragam",
+            "waktu henti berhingga hampir pasti belum cukup",
+            "M_t=2N_t",
+            "keketatan",
+            "../expect/Uniform.html#con",
+            "../expect/Conditional2.html#bay",
+            "../martingales/Stop.html#stp3",
+            "../quantecon/lectures/ergodicity.html#uniirr",
+            "../quantecon/lectures/poisson.html#keunikan",
+            "../brown/Standard.html#wlk",
+            (
+                "correction.o009.random.martingales.stop."
+                "optional-stopping-missing-variables"
+            ),
+            "tidak mereproduksi prosa donor secara",
+            "tidak didukung atau disahkan",
+            "OpenAI Codex gpt-5.6-sol, Ultra.",
+        ),
+        "expected_class_counts": {
+            "original-bridge": 1,
+            "bridge-section": 10,
+            "mastery-sequence": 3,
+            "exercise": 3,
+            "hint": 6,
+            "answer": 3,
+            "solution": 3,
+        },
+        "disclosure_count": 9,
+        "mastery_counts": {
+            "exercises": 3,
+            "hints": 6,
+            "answers": 3,
+            "solutions": 3,
+        },
+        "built_rights_witnesses": (
+            "rights.o009.original.bridge.hypothesis-audits.cc-by-4.0",
+            "CC BY 4.0",
+            "OpenAI Codex gpt-5.6-sol, Ultra.",
+            "tidak mereproduksi prosa donor secara",
+            "tidak didukung atau disahkan",
+        ),
+        "word_bounds": (3500, 4300),
+        "stable_ids": (
+            "unit.o009.original.bridge.hypothesis-audits",
+            "tujuan-dan-protokol-audit-hipotesis",
+            "audit-konvergensi-dan-integrabilitas",
+            "audit-pengondisian-dan-kernel",
+            "audit-martingal-dan-waktu-henti",
+            "audit-markov-dan-ctmc",
+            "audit-poisson-dan-konstruksi-proses",
+            "audit-brown-dan-hukum-lintasan",
+            "matriks-perbaikan-klaim",
+            "latihan-penguasaan-audit-hipotesis",
+            "unit.o009.original.mastery.hypothesis-audits.01",
+            "unit.o009.original.mastery.hypothesis-audits.01.exercise",
+            "unit.o009.original.mastery.hypothesis-audits.01.hint.01",
+            "unit.o009.original.mastery.hypothesis-audits.01.hint.02",
+            "unit.o009.original.mastery.hypothesis-audits.01.answer",
+            "unit.o009.original.mastery.hypothesis-audits.01.solution",
+            "unit.o009.original.mastery.hypothesis-audits.02",
+            "unit.o009.original.mastery.hypothesis-audits.02.exercise",
+            "unit.o009.original.mastery.hypothesis-audits.02.hint.01",
+            "unit.o009.original.mastery.hypothesis-audits.02.hint.02",
+            "unit.o009.original.mastery.hypothesis-audits.02.answer",
+            "unit.o009.original.mastery.hypothesis-audits.02.solution",
+            "unit.o009.original.mastery.hypothesis-audits.03",
+            "unit.o009.original.mastery.hypothesis-audits.03.exercise",
+            "unit.o009.original.mastery.hypothesis-audits.03.hint.01",
+            "unit.o009.original.mastery.hypothesis-audits.03.hint.02",
+            "unit.o009.original.mastery.hypothesis-audits.03.answer",
+            "unit.o009.original.mastery.hypothesis-audits.03.solution",
+            "hak-dan-provenans-audit-hipotesis",
+        ),
+        "disclosures": (
+            (
+                "unit.o009.original.mastery.hypothesis-audits.01.hint.01",
+                "Petunjuk 1 untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.hypothesis-audits.01.hint.02",
+                "Petunjuk 2 untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.hypothesis-audits.01.solution",
+                "Penyelesaian lengkap untuk Latihan 1",
+            ),
+            (
+                "unit.o009.original.mastery.hypothesis-audits.02.hint.01",
+                "Petunjuk 1 untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.hypothesis-audits.02.hint.02",
+                "Petunjuk 2 untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.hypothesis-audits.02.solution",
+                "Penyelesaian lengkap untuk Latihan 2",
+            ),
+            (
+                "unit.o009.original.mastery.hypothesis-audits.03.hint.01",
+                "Petunjuk 1 untuk Latihan 3",
+            ),
+            (
+                "unit.o009.original.mastery.hypothesis-audits.03.hint.02",
+                "Petunjuk 2 untuk Latihan 3",
+            ),
+            (
+                "unit.o009.original.mastery.hypothesis-audits.03.solution",
+                "Penyelesaian lengkap untuk Latihan 3",
+            ),
+        ),
+    },
 )
 MATH_SURFACE_RE = re.compile(
     r"\\\(.*?\\\)|\\\[.*?\\\]|"
     r"\\begin\{(?P<environment>[A-Za-z]+\*?)\}.*?\\end\{(?P=environment)\}",
     re.DOTALL,
 )
+TEX_DELIMITER_TOKEN_RE = re.compile(
+    r"\\\(|\\\)|\\\[|\\\]|\\begin\{[A-Za-z]+\*?\}|\\end\{[A-Za-z]+\*?\}"
+)
 CSS_URL_RE = re.compile(r"url\(\s*(['\"]?)([^)'\"]+)\1\s*\)", re.I)
+FENCED_DIV_OPEN_RE = re.compile(
+    r"^::: \{#(?P<id>\S+)(?P<classes>(?:\s+\.[A-Za-z0-9_-]+)+)\}\s*$",
+    re.MULTILINE,
+)
 PLACEHOLDER = str(LAB_SPECS[0]["placeholder"])
 
 
@@ -2821,6 +6013,16 @@ def validate_lab_specs() -> None:
                     f"lab front matter differs for {spec['chunk_id']}:{key}: "
                     f"{metadata.get(str(key))!r}"
                 )
+        missing_witnesses = [
+            str(witness)
+            for witness in spec.get("required_witnesses", ())
+            if str(witness) not in text
+        ]
+        if missing_witnesses:
+            raise RuntimeError(
+                f"lab rights/dependency disclosure differs for "
+                f"{spec['chunk_id']}: {missing_witnesses!r}"
+            )
         if text.count(str(spec["placeholder"])) != 1:
             raise RuntimeError(f"lab placeholder is not exact-once: {spec['chunk_id']}")
         if len(lab_chunk_re(spec).findall(text)) != 1:
@@ -2946,10 +6148,31 @@ def validate_theory_unit(unit: dict[str, object]) -> None:
             )
     if target.html is None or target.html.get("lang") != "id-ID":
         raise RuntimeError(f"translated theory must declare lang=id-ID: {unit['rel']}")
-    source_math = [match.group(0) for match in MATH_SURFACE_RE.finditer(source_text)]
-    target_math = [match.group(0) for match in MATH_SURFACE_RE.finditer(target_text)]
-    if source_math != target_math:
-        raise RuntimeError(f"translated theory TeX surface differs: {unit['rel']}")
+    tex_validation = str(unit.get("tex_validation", "complete-surface-sequence"))
+    if tex_validation == "complete-surface-sequence":
+        source_math = [match.group(0) for match in MATH_SURFACE_RE.finditer(source_text)]
+        target_math = [match.group(0) for match in MATH_SURFACE_RE.finditer(target_text)]
+        if source_math != target_math:
+            raise RuntimeError(f"translated theory TeX surface differs: {unit['rel']}")
+    elif tex_validation == "delimiter-token-stream-with-authority-unclosed-inline-witness":
+        source_tokens = TEX_DELIMITER_TOKEN_RE.findall(source_text)
+        target_tokens = TEX_DELIMITER_TOKEN_RE.findall(target_text)
+        if source_tokens != target_tokens or len(source_tokens) != 1157:
+            raise RuntimeError(
+                f"translated theory TeX delimiter stream differs: {unit['rel']}"
+            )
+        if (
+            source_text.count(r"\(") - source_text.count(r"\)") != 1
+            or target_text.count(r"\(") - target_text.count(r"\)") != 1
+            or source_text.count(r"\( \mathscr{F}" + "\n\t</details>") != 1
+            or target_text.count(r"\( \mathscr{F}" + "\n\t</details>") != 1
+        ):
+            raise RuntimeError(
+                "translated theory no longer preserves the frozen unclosed-TeX "
+                f"witness: {unit['rel']}"
+            )
+    else:
+        raise RuntimeError(f"unknown TeX validation mode: {tex_validation}")
     ids = [str(tag["id"]) for tag in target.select("[id]")]
     if len(ids) != len(set(ids)):
         raise RuntimeError(f"duplicate id in translated theory: {unit['rel']}")
@@ -2965,6 +6188,107 @@ def validate_theory_unit(unit: dict[str, object]) -> None:
 def validate_theory_translation() -> None:
     for unit in THEORY_UNITS:
         validate_theory_unit(unit)
+
+
+def original_bridge_word_count(text: str) -> int:
+    """Count Indonesian prose while excluding front matter and TeX surfaces."""
+    prose = re.sub(r"\A---\n.*?\n---\n", "", text, flags=re.DOTALL)
+    prose = re.sub(r"\$\$.*?\$\$", " ", prose, flags=re.DOTALL)
+    prose = re.sub(r"\$[^$\n]*\$", " ", prose)
+    prose = re.sub(r"\[([^]]+)\]\([^)]+\)", r"\1", prose)
+    return len(
+        re.findall(
+            r"\b[^\W\d_][^\W_]*(?:[-’'][^\W\d_][^\W_]*)*\b",
+            prose,
+        )
+    )
+
+
+def validate_original_bridge_specs() -> None:
+    """Bind each original bridge to its admitted bytes, IDs, scope, and rights."""
+    if len(THEORY_UNITS) != 27:
+        raise RuntimeError("the canonical Random theory tuple must remain exactly 27 pages")
+    if len(ORIGINAL_BRIDGE_SPECS) != 4:
+        raise RuntimeError("the current reader boundary must declare exactly four original bridges")
+    source_root = (ROOT / "source" / "original").resolve()
+    seen_outputs: set[str] = set()
+    for spec in ORIGINAL_BRIDGE_SPECS:
+        source = Path(spec["source"])
+        data = require_file(source)
+        try:
+            source.resolve().relative_to(source_root)
+        except ValueError as exc:
+            raise RuntimeError(f"original bridge source escapes source/original: {source}") from exc
+        output = Path(spec["output"])
+        output_key = output.as_posix()
+        if (
+            output.is_absolute()
+            or ".." in output.parts
+            or output.suffix != ".html"
+            or output.parts[:1] != ("original",)
+        ):
+            raise RuntimeError(f"unsafe original bridge output path: {output}")
+        if output_key in seen_outputs:
+            raise RuntimeError(f"duplicate original bridge output: {output}")
+        seen_outputs.add(output_key)
+        if len(data) != int(spec["source_bytes"]):
+            raise RuntimeError(f"original bridge source byte count differs: {source}")
+        if sha256(data) != str(spec["source_sha256"]):
+            raise RuntimeError(f"original bridge source SHA-256 differs: {source}")
+        if b"\r" in data or not data.endswith(b"\n"):
+            raise RuntimeError(f"original bridge source must use LF with a final LF: {source}")
+        try:
+            text = data.decode("utf-8", errors="strict")
+        except UnicodeDecodeError as exc:
+            raise RuntimeError(f"original bridge source is not strict UTF-8: {source}") from exc
+        required_witnesses = tuple(str(item) for item in spec["required_witnesses"])
+        missing = [witness for witness in required_witnesses if witness not in text]
+        if missing:
+            raise RuntimeError(f"original bridge source witnesses missing: {missing}")
+        opening_matches = list(FENCED_DIV_OPEN_RE.finditer(text))
+        stable_ids = tuple(match.group("id") for match in opening_matches)
+        expected_ids = tuple(str(item) for item in spec["stable_ids"])
+        if stable_ids != expected_ids or len(stable_ids) != len(set(stable_ids)):
+            raise RuntimeError("original bridge stable fenced-div ID order differs")
+        class_counts: dict[str, int] = {}
+        for match in opening_matches:
+            for token in match.group("classes").split():
+                class_name = token.removeprefix(".")
+                class_counts[class_name] = class_counts.get(class_name, 0) + 1
+        expected_class_counts = {
+            str(key): int(value)
+            for key, value in dict(spec["expected_class_counts"]).items()
+        }
+        if class_counts != expected_class_counts:
+            raise RuntimeError(
+                f"original bridge fenced-div class census differs: {class_counts}"
+            )
+        disclosure_ids = tuple(str(item[0]) for item in spec["disclosures"])
+        disclosure_count = int(spec["disclosure_count"])
+        if (
+            len(disclosure_ids) != disclosure_count
+            or len(disclosure_ids) != len(set(disclosure_ids))
+        ):
+            raise RuntimeError(
+                "original bridge disclosure declarations differ from the exact "
+                f"per-spec count: expected={disclosure_count} actual={len(disclosure_ids)}"
+            )
+        expected_disclosure_ids = tuple(
+            stable_id
+            for stable_id in expected_ids
+            if stable_id.endswith((".hint.01", ".hint.02", ".solution"))
+        )
+        if disclosure_ids != expected_disclosure_ids:
+            raise RuntimeError("original bridge disclosure order differs from stable source order")
+        if len(re.findall(r"^#\s+", text, flags=re.MULTILINE)) != 1:
+            raise RuntimeError("original bridge source must contain exactly one authored H1")
+        word_count = original_bridge_word_count(text)
+        word_min, word_max = (int(value) for value in spec["word_bounds"])
+        if not word_min <= word_count <= word_max:
+            raise RuntimeError(
+                "original bridge prose extent is outside its per-spec bounds "
+                f"{word_min:,}–{word_max:,}: {word_count}"
+            )
 
 
 def lab_chunk_re(spec: dict[str, object]) -> re.Pattern[str]:
@@ -3025,8 +6349,11 @@ def extract_and_run_lab(
             f"R deterministic result differs for {spec['chunk_id']}: "
             f"expected={golden_rows!r} actual={rows!r}"
         )
+    nonnumeric_fields = set(spec.get("nonnumeric_fields", ()))
     for row in rows:
         for key in expected_fields:
+            if key in nonnumeric_fields:
+                continue
             try:
                 value = float(row[key])
             except ValueError as exc:
@@ -3071,6 +6398,139 @@ def extract_and_run_lab(
             raise RuntimeError("Markov finite-horizon ordering is inconsistent")
         if not math.isclose(absolute_error, abs(estimate - exact_horizon), abs_tol=5e-13):
             raise RuntimeError("Markov absolute error is inconsistent")
+    elif spec["chunk_id"] == "o009_lab_convergence_modes":
+        if [row["kasus"] for row in rows] != ["1", "2", "3", "4", "5"]:
+            raise RuntimeError("convergence-mode lab case sequence mismatch")
+        if [row["benih"] for row in rows] != [
+            "20260829",
+            "20260829",
+            "20260829",
+            "20260830",
+            "20260830",
+        ]:
+            raise RuntimeError("convergence-mode lab seed sequence mismatch")
+        values = [float(row["nilai"]) for row in rows]
+        targets = [float(row["target"]) for row in rows]
+        errors = [float(row["galat_mutlak"]) for row in rows]
+        scales = [float(row["skala_teori"]) for row in rows]
+        if values[0] != 0 or targets[0] != 0 or errors[0] != 0:
+            raise RuntimeError("fixed-path almost-sure indicator witness differs")
+        if not math.isclose(targets[1], 0.001, abs_tol=5e-13):
+            raise RuntimeError("rare-event probability target differs")
+        if abs(values[1] - targets[1]) > 2e-4:
+            raise RuntimeError("rare-event probability tolerance failed")
+        if abs(values[2] - 1.0) > 0.08 or not math.isclose(scales[2], 1.0):
+            raise RuntimeError("rare-spike L1 failure witness tolerance failed")
+        if not math.isclose(targets[3], 0.3, abs_tol=5e-13):
+            raise RuntimeError("LLN analytic target differs")
+        if abs(values[3] - targets[3]) > 0.01:
+            raise RuntimeError("LLN numerical tolerance failed")
+        if abs(values[4]) > 3.0 or not math.isclose(scales[4], 1.0):
+            raise RuntimeError("CLT standardized-scale diagnostic failed")
+        if any(
+            not math.isclose(error, abs(value - target), abs_tol=5e-13)
+            for value, target, error in zip(values, targets, errors, strict=True)
+        ):
+            raise RuntimeError("convergence-mode absolute-error column differs")
+    elif spec["chunk_id"] == "o009_lab_conditional_martingale":
+        if len(rows) != 1:
+            raise RuntimeError(
+                "conditional-martingale lab must emit exactly one result row"
+            )
+        row = rows[0]
+        if (
+            row["seed"] != "20260829"
+            or row["ruang_hingga"] != "Omega_3 dan Omega_12"
+            or row["cap_tau_plus"] != "12"
+            or row["status"] != "PASS"
+        ):
+            raise RuntimeError(
+                "conditional-martingale execution identity differs"
+            )
+        tolerance = float(row["toleransi"])
+        if not math.isclose(tolerance, 1e-12, rel_tol=0, abs_tol=1e-24):
+            raise RuntimeError("conditional-martingale tolerance differs")
+        zero_fields = (
+            "galat_bersyarat",
+            "galat_menara",
+            "galat_martingal",
+            "rerata_S_tau_b",
+            "target_E_S_tau_b",
+            "rerata_S_tau_plus_terpotong",
+            "target_E_S_tau_plus_terpotong",
+        )
+        if any(abs(float(row[key])) > tolerance for key in zero_fields):
+            raise RuntimeError(
+                "conditional/martingale/bounded-stop exact-enumeration gate failed"
+            )
+        if not math.isclose(float(row["E_X"]), 3.0, abs_tol=tolerance):
+            raise RuntimeError("conditional-martingale E[X] target differs")
+        exact_hit_rate = 3172 / 4096
+        if not math.isclose(
+            float(row["laju_kena_batas"]), exact_hit_rate, abs_tol=5e-13
+        ) or not math.isclose(
+            float(row["target_laju"]), exact_hit_rate, abs_tol=5e-13
+        ):
+            raise RuntimeError("optional-stopping finite-cap hit rate differs")
+        if (
+            not math.isclose(
+                float(row["rerata_S_hanya_yang_kena"]), 1.0, abs_tol=tolerance
+            )
+            or not math.isclose(
+                float(row["target_S_tau_plus"]), 1.0, abs_tol=tolerance
+            )
+            or not math.isclose(
+                float(row["celah_naif"]), 1.0, abs_tol=tolerance
+            )
+        ):
+            raise RuntimeError(
+                "optional-stopping censoring diagnostic differs"
+            )
+    elif spec["chunk_id"] == "o009_lab_brownian_diagnostics":
+        if len(rows) != 4 or any(len(row) != 15 for row in rows):
+            raise RuntimeError(
+                "Brownian diagnostic table must have dimensions 4 by 15"
+            )
+        if [row["n"] for row in rows] != ["64", "256", "1024", "4096"]:
+            raise RuntimeError("Brownian diagnostic n sequence differs")
+        if [row["k_endpoint"] for row in rows] != ["36", "136", "528", "2080"]:
+            raise RuntimeError("Brownian endpoint lattice sequence differs")
+        if [row["ambang_kena"] for row in rows] != ["8", "16", "32", "64"]:
+            raise RuntimeError("Brownian hitting-threshold sequence differs")
+        if any(row["refinemen_r"] != "8" for row in rows):
+            raise RuntimeError("Brownian fixed-refinement factor differs")
+        if any(row["status"] != "PASS" for row in rows):
+            raise RuntimeError("Brownian diagnostic status differs")
+        tolerances = [float(row["toleransi"]) for row in rows]
+        if any(
+            not math.isclose(value, 1e-12, rel_tol=0, abs_tol=1e-24)
+            for value in tolerances
+        ):
+            raise RuntimeError("Brownian diagnostic tolerance differs")
+        for row in rows:
+            n = int(row["n"])
+            cdf = float(row["cdf_endpoint_eksak"])
+            normal_target = float(row["target_normal"])
+            hit = float(row["prob_kena_eksak"])
+            brown_target = float(row["target_brown"])
+            if not math.isclose(
+                float(row["galat_cdf"]), abs(cdf - normal_target), abs_tol=5e-13
+            ):
+                raise RuntimeError("Brownian endpoint-CDF error identity differs")
+            if not math.isclose(
+                float(row["galat_kena"]), abs(hit - brown_target), abs_tol=5e-13
+            ):
+                raise RuntimeError("Brownian hitting-probability error identity differs")
+            if not math.isclose(float(row["qv_mesh_alami"]), 1.0, abs_tol=5e-13):
+                raise RuntimeError("Brownian natural-mesh quadratic variation differs")
+            if not math.isclose(
+                float(row["qv_refinemen_pralimit"]), 1 / 8, abs_tol=5e-13
+            ):
+                raise RuntimeError("Brownian prelimit-refinement quadratic variation differs")
+            if not math.isclose(
+                float(row["variasi_total"]), math.sqrt(n), abs_tol=5e-13
+            ):
+                raise RuntimeError("Brownian natural-mesh total variation differs")
     else:
         raise RuntimeError(f"no result validator for lab: {spec['chunk_id']}")
     return text, rows
@@ -3115,6 +6575,12 @@ def lab_navigation(spec: dict[str, object]) -> list[tuple[str, str]]:
             str(unit["nav_label"]),
         )
         for unit in THEORY_UNITS
+    )
+    links.append(
+        (
+            os.path.relpath(Path("quantecon/lectures/memoryless.html"), current.parent).replace(os.sep, "/"),
+            "QuantEcon: distribusi tanpa ingatan",
+        )
     )
     links.extend(
         (
@@ -3192,21 +6658,39 @@ def build_theory_unit(stage: Path, unit: dict[str, object]) -> None:
     soup = BeautifulSoup(require_file(target_path).decode("utf-8"), "lxml")
     mathjax = soup.find("script", id="MathJax-script")
     if mathjax is None:
-        raise RuntimeError("MathJax script marker missing")
-    mathjax["src"] = "../MathJax/tex-svg.js"
+        if MATH_SURFACE_RE.search(require_file(target_path).decode("utf-8")):
+            raise RuntimeError("MathJax script marker missing on a mathematical page")
+    else:
+        mathjax["src"] = "../MathJax/tex-svg.js"
     extra_css = soup.new_tag("link", rel="stylesheet", href="../reader.css")
     soup.head.append(extra_css)
     local_pages = {
         urllib.parse.urljoin(RANDOM_BASE_URL, Path(str(item["rel"])).as_posix()): Path(str(item["rel"]))
         for item in THEORY_UNITS
     }
+    metadata_href_corrections = {
+        str(old): str(new)
+        for old, new in dict(unit.get("metadata_href_corrections", {})).items()
+    }
     for metadata_link in soup.select("link[href]"):
         rel_values = {str(value).lower() for value in (metadata_link.get("rel") or [])}
         if rel_values & {"stylesheet", "icon"}:
             continue
         href = str(metadata_link.get("href", ""))
-        if href and not urllib.parse.urlparse(href).scheme:
-            metadata_link["href"] = urllib.parse.urljoin(base_url, href)
+        if not href or urllib.parse.urlparse(href).scheme:
+            continue
+        href = metadata_href_corrections.get(href, href)
+        resolved = urllib.parse.urljoin(base_url, href)
+        resolved_page = urllib.parse.urlunparse(
+            urllib.parse.urlparse(resolved)._replace(fragment="")
+        )
+        if resolved_page in local_pages:
+            local_target = local_pages[resolved_page]
+            metadata_link["href"] = os.path.relpath(
+                local_target, rel.parent
+            ).replace(os.sep, "/")
+        else:
+            metadata_link["href"] = resolved
     for anchor in soup.select("a[href]"):
         href = str(anchor.get("href", ""))
         corrections = dict(unit["fragment_corrections"])
@@ -3229,19 +6713,28 @@ def build_theory_unit(stage: Path, unit: dict[str, object]) -> None:
         else:
             anchor["href"] = resolved
     for note in tuple(unit.get("reader_notes", ())):
-        heading_text = str(note["after_heading"])
-        headings = [
-            heading
-            for heading in soup.find_all(("h3", "h4"))
-            if heading.get_text(" ", strip=True) == heading_text
-        ]
-        if len(headings) != 1:
-            raise RuntimeError(
-                f"reader-note heading mismatch in {unit['rel']}: {heading_text!r}"
-            )
-        anchor_unit = headings[0].find_next("div", class_="unit")
-        if anchor_unit is None:
-            raise RuntimeError(f"reader-note insertion unit missing in {unit['rel']}")
+        if "after_selector" in note:
+            selector = str(note["after_selector"])
+            anchors = soup.select(selector)
+            if len(anchors) != 1:
+                raise RuntimeError(
+                    f"reader-note selector mismatch in {unit['rel']}: {selector!r}"
+                )
+            anchor_unit = anchors[0]
+        else:
+            heading_text = str(note["after_heading"])
+            headings = [
+                heading
+                for heading in soup.find_all(("h3", "h4"))
+                if heading.get_text(" ", strip=True) == heading_text
+            ]
+            if len(headings) != 1:
+                raise RuntimeError(
+                    f"reader-note heading mismatch in {unit['rel']}: {heading_text!r}"
+                )
+            anchor_unit = headings[0].find_next("div", class_="unit")
+            if anchor_unit is None:
+                raise RuntimeError(f"reader-note insertion unit missing in {unit['rel']}")
         note_soup = BeautifulSoup(str(note["html"]), "lxml")
         if note_soup.body is None or len(note_soup.body.contents) != 1:
             raise RuntimeError(f"reader-note payload is not one element in {unit['rel']}")
@@ -3259,6 +6752,10 @@ def build_theory_unit(stage: Path, unit: dict[str, object]) -> None:
             f'<a href="{os.path.relpath(Path(lab_spec["output"]), rel.parent).replace(os.sep, "/")}">'
             f'{lab_spec["nav_label"]}</a>'
         )
+    edition_links.append(
+        f'<a href="{os.path.relpath(Path("quantecon/lectures/memoryless.html"), rel.parent).replace(os.sep, "/")}">'
+        "QuantEcon: distribusi tanpa ingatan</a>"
+    )
     index_href = os.path.relpath(Path("index.html"), rel.parent).replace(os.sep, "/")
     attribution = BeautifulSoup(
         f"""<aside class="component-attribution" id="{rights_id}">
@@ -3284,15 +6781,23 @@ atribusi. <a href="{official_url}">Baca sumber resmi</a>.
     for correction in tuple(unit.get("reader_corrections", ())):
         old = str(correction["old"])
         new = str(correction["new"])
-        if rendered.count(old) != 1:
+        expected_matches = int(correction.get("matches", 1))
+        actual_matches = rendered.count(old)
+        if expected_matches < 1:
+            raise RuntimeError(
+                f"reader correction {correction['id']} has an invalid expected match count"
+            )
+        if actual_matches != expected_matches:
             raise RuntimeError(
                 f"reader correction {correction['id']} matched "
-                f"{rendered.count(old)} times in {unit['rel']}"
+                f"{actual_matches} times rather than {expected_matches} in {unit['rel']}"
             )
-        rendered = rendered.replace(old, new, 1)
+        rendered = rendered.replace(old, new, expected_matches)
     reader_soup = BeautifulSoup(rendered, "lxml")
     reader_header = reader_soup.find("header")
-    page_heading = reader_header.find("h2") if reader_header is not None else None
+    page_heading = (
+        reader_header.find(("h1", "h2")) if reader_header is not None else None
+    )
     if page_heading is None:
         raise RuntimeError(f"theory page heading missing in {unit['rel']}")
     page_heading.name = "h1"
@@ -3345,7 +6850,10 @@ atribusi. <a href="{official_url}">Baca sumber resmi</a>.
             if context_totals[context] > 1
             else ""
         )
-        summary["aria-label"] = f"Rincian: {context}{suffix}"
+        visible_label = summary.get_text(" ", strip=True).rstrip(":")
+        if not visible_label:
+            visible_label = "Rincian"
+        summary["aria-label"] = f"{visible_label}: {context}{suffix}"
     edition_nav = reader_soup.find("nav", attrs={"aria-label": "Navigasi edisi"})
     footer = reader_soup.find("footer")
     if edition_nav is None or footer is None:
@@ -3375,7 +6883,7 @@ def run_pandoc(source: Path, output: Path, css: str, mathjax: str | None = None)
         pandoc_command,
         str(source),
         "--standalone",
-        "--from=markdown+fenced_divs+fenced_code_attributes+yaml_metadata_block",
+        "--from=markdown+fenced_divs+fenced_code_attributes+yaml_metadata_block+tex_math_single_backslash",
         "--to=html5",
         f"--css={css}",
         "--toc",
@@ -3399,10 +6907,316 @@ def run_pandoc(source: Path, output: Path, css: str, mathjax: str | None = None)
     output.write_text(rendered, encoding="utf-8", newline="\n")
 
 
+def decorate_original_bridge_output(output: Path, spec: dict[str, object]) -> None:
+    """Expose original hints/solutions as native disclosures and bind landmarks."""
+    soup = BeautifulSoup(require_file(output).decode("utf-8"), "lxml")
+    if soup.head is None or soup.body is None:
+        raise RuntimeError(f"Pandoc original bridge lacks document landmarks: {output}")
+    generated_header = soup.find("header", id="title-block-header")
+    if generated_header is None or len(generated_header.find_all("h1")) != 1:
+        raise RuntimeError("Pandoc original bridge generated title is not exact-once")
+    generated_header.decompose()
+    root = soup.find(id=str(spec["unit_id"]))
+    if root is None or root.name != "div" or "original-bridge" not in root.get("class", []):
+        raise RuntimeError("original bridge root div is missing or malformed")
+    root.name = "main"
+    toc = soup.find("nav", id="TOC")
+    if toc is not None:
+        toc["aria-label"] = "Daftar isi"
+    output_rel = Path(spec["output"])
+    home_href = os.path.relpath(Path("index.html"), output_rel.parent).replace(os.sep, "/")
+    previous_href = os.path.relpath(
+        Path(spec["previous_output"]), output_rel.parent
+    ).replace(os.sep, "/")
+    previous_label = str(spec["previous_label"])
+    nav_fragment = BeautifulSoup(
+        '<nav aria-label="Navigasi edisi">'
+        f'<a href="{html.escape(home_href, quote=True)}">Beranda edisi</a> · '
+        f'<a href="{html.escape(previous_href, quote=True)}">'
+        f'{html.escape(previous_label)}</a>'
+        "</nav>",
+        "lxml",
+    )
+    edition_nav = nav_fragment.find("nav")
+    if edition_nav is None:
+        raise RuntimeError("failed to construct original bridge navigation")
+    soup.body.insert(0, edition_nav)
+    previous_link = soup.new_tag(
+        "link", attrs={"rel": "prev", "href": previous_href}
+    )
+    soup.head.append(previous_link)
+    for disclosure_id, label in spec["disclosures"]:
+        disclosure = soup.find(id=str(disclosure_id))
+        if disclosure is None or disclosure.name != "div":
+            raise RuntimeError(f"original bridge disclosure div missing: {disclosure_id}")
+        details = soup.new_tag("details")
+        details.attrs = deepcopy(disclosure.attrs)
+        summary = soup.new_tag("summary")
+        summary["aria-label"] = str(label)
+        summary.string = str(label)
+        details.append(summary)
+        for child in list(disclosure.contents):
+            details.append(child.extract())
+        disclosure.replace_with(details)
+    if len(soup.find_all("h1")) != 1 or len(soup.find_all("main")) != 1:
+        raise RuntimeError("original bridge must render with exactly one H1 and one main")
+    disclosure_count = int(spec["disclosure_count"])
+    if len(soup.find_all("details")) != disclosure_count:
+        raise RuntimeError(
+            "original bridge disclosure render count differs: "
+            f"expected={disclosure_count} actual={len(soup.find_all('details'))}"
+        )
+    output.write_text(str(soup), encoding="utf-8", newline="\n")
+
+
+def build_original_bridges(stage: Path) -> None:
+    for spec in ORIGINAL_BRIDGE_SPECS:
+        output = stage / Path(spec["output"])
+        output.parent.mkdir(parents=True, exist_ok=True)
+        run_pandoc(
+            Path(spec["source"]),
+            output,
+            "../reader.css",
+            "../MathJax/tex-svg.js",
+        )
+        decorate_original_bridge_output(output, spec)
+
+
+def supplement_receipt_units(site: Path) -> list[dict[str, object]]:
+    """Bind every authored mastery and assessment source to its reader page."""
+    units: list[dict[str, object]] = []
+    for source_rel, output_rel, label, kind in SUPPLEMENT_SPECS:
+        source = ROOT / "source" / source_rel
+        output = site / output_rel
+        units.append(
+            {
+                "source": f"source/{source_rel}",
+                "output": output_rel,
+                "label": label,
+                "kind": kind,
+                "source_sha256": sha256(require_file(source)),
+                "target_sha256": sha256(require_file(output)),
+            }
+        )
+    return units
+
+
+def _disclose_heading_section(soup: BeautifulSoup, heading: object) -> None:
+    """Turn one heading-led hint/solution section into a native disclosure."""
+    stable_id = str(heading.get("id", ""))
+    details = soup.new_tag("details", id=stable_id)
+    hint_id = any(token in stable_id for token in (".hint.", "-hint-", "-petunjuk-"))
+    details["class"] = ["hint" if hint_id else "solution"]
+    summary = soup.new_tag("summary")
+    label = heading.get_text(" ", strip=True)
+    summary.string = label
+    summary["aria-label"] = f"{label}: {stable_id}" if stable_id else label
+    details.append(summary)
+    node = heading.next_sibling
+    while node is not None:
+        following = node.next_sibling
+        if getattr(node, "name", None) in {"h1", "h2", "h3", "h4"}:
+            break
+        details.append(node.extract())
+        node = following
+    heading.replace_with(details)
+
+
+def decorate_supplement_output(
+    output: Path, previous_output: str, kind: str
+) -> None:
+    """Give authored mastery/assessment pages one consistent accessible shell."""
+    soup = BeautifulSoup(require_file(output).decode("utf-8"), "lxml")
+    if soup.head is None or soup.body is None:
+        raise RuntimeError(f"Pandoc supplement lacks document landmarks: {output}")
+    if soup.html is None:
+        raise RuntimeError(f"Pandoc supplement lacks html root: {output}")
+    soup.html["lang"] = "id-ID"
+    generated_header = soup.find("header", id="title-block-header")
+    generated_title = None
+    if generated_header is not None:
+        generated_heading = generated_header.find("h1")
+        if generated_heading is not None:
+            generated_title = generated_heading.get_text(" ", strip=True)
+        generated_header.decompose()
+    headings = soup.find_all("h1")
+    if not headings and generated_title:
+        synthesized_heading = soup.new_tag("h1")
+        synthesized_heading.string = generated_title
+        soup.body.insert(0, synthesized_heading)
+        headings = [synthesized_heading]
+    if len(headings) != 1:
+        raise RuntimeError(f"supplement must contain exactly one H1: {output}")
+
+    for disclosure in list(
+        soup.select("div.hint, div.solution, div.mastery-hint, div.mastery-solution")
+    ):
+        details = soup.new_tag("details")
+        details.attrs = deepcopy(disclosure.attrs)
+        classes = set(str(value) for value in details.get("class", []))
+        is_hint = bool(classes & {"hint", "mastery-hint"})
+        details["class"] = ["hint" if is_hint else "solution"]
+        label = "Petunjuk" if is_hint else "Penyelesaian lengkap"
+        summary = soup.new_tag("summary")
+        summary.string = label
+        disclosure_key = str(details.get("id", "")).strip()
+        if not disclosure_key:
+            disclosure_key = f"{kind}-{len(soup.find_all('details')) + 1}"
+        summary["aria-label"] = f"{label}: {disclosure_key}"
+        details.append(summary)
+        for child in list(disclosure.contents):
+            details.append(child.extract())
+        disclosure.replace_with(details)
+
+    heading_disclosures = [
+        heading
+        for heading in soup.find_all(("h2", "h3", "h4"))
+        if any(
+            token in str(heading.get("id", ""))
+            for token in (".hint.", "-hint-", "-petunjuk-")
+        )
+        or str(heading.get("id", "")).endswith((".solution", "-solution", "-solusi"))
+    ]
+    for heading in heading_disclosures:
+        _disclose_heading_section(soup, heading)
+
+    for anchor in list(soup.find_all("a", id=True)):
+        stable_id = str(anchor.get("id", ""))
+        if not (
+            any(token in stable_id for token in ("-hint-", "-petunjuk-"))
+            or stable_id.endswith(("-solution", "-solusi"))
+        ):
+            continue
+        marker = anchor
+        if (
+            anchor.parent is not None
+            and anchor.parent.name == "p"
+            and not anchor.parent.get_text(" ", strip=True)
+        ):
+            marker = anchor.parent
+        heading = marker.find_next_sibling(("h2", "h3", "h4"))
+        if heading is None or heading.find_previous_sibling() is not marker:
+            continue
+        generated_id = str(heading.get("id", ""))
+        if generated_id and generated_id != stable_id:
+            for link in soup.select(f'a[href="#{generated_id}"]'):
+                link["href"] = f"#{stable_id}"
+        heading["id"] = stable_id
+        marker.decompose()
+        _disclose_heading_section(soup, heading)
+
+    for anchor in soup.select("a[href]"):
+        href = str(anchor.get("href", ""))
+        if href.startswith("../theory/"):
+            anchor["href"] = "../" + href[len("../theory/") :]
+
+    main = soup.new_tag("main")
+    main["class"] = ["mastery-reader" if kind == "mastery" else "assessment-reader"]
+    for child in list(soup.body.contents):
+        main.append(child.extract())
+    provenance = soup.new_tag("aside")
+    provenance["class"] = ["component-attribution", "model-provenance"]
+    provenance.string = (
+        "Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex "
+        "gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap "
+        "dipertahankan pada unit masing-masing."
+    )
+    main.append(provenance)
+    soup.body.append(main)
+
+    output_rel = output.relative_to(output.parents[1])
+    home_href = os.path.relpath(Path("index.html"), output_rel.parent).replace(os.sep, "/")
+    previous_href = os.path.relpath(Path(previous_output), output_rel.parent).replace(os.sep, "/")
+    nav_fragment = BeautifulSoup(
+        '<nav aria-label="Navigasi edisi">'
+        f'<a href="{html.escape(home_href, quote=True)}">Beranda edisi</a> · '
+        f'<a href="{html.escape(previous_href, quote=True)}">Unit sebelumnya</a>'
+        "</nav>",
+        "lxml",
+    )
+    soup.body.insert(0, nav_fragment.find("nav"))
+    soup.head.append(
+        soup.new_tag("link", attrs={"rel": "prev", "href": previous_href})
+    )
+    output.write_text(str(soup), encoding="utf-8", newline="\n")
+
+
+def build_supplements(stage: Path) -> None:
+    previous_output = "labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html"
+    for source_rel, output_rel, _label, kind in SUPPLEMENT_SPECS:
+        source = ROOT / "source" / source_rel
+        output = stage / output_rel
+        output.parent.mkdir(parents=True, exist_ok=True)
+        run_pandoc(source, output, "../reader.css", "../MathJax/tex-svg.js")
+        decorate_supplement_output(output, previous_output, kind)
+        previous_output = output_rel
+
+
+def verify_supplement_outputs(site: Path) -> None:
+    seen_ids: set[str] = set()
+    for source_rel, output_rel, _label, kind in SUPPLEMENT_SPECS:
+        source = ROOT / "source" / source_rel
+        output = site / output_rel
+        source_text = require_file(source).decode("utf-8")
+        soup = BeautifulSoup(require_file(output).decode("utf-8"), "lxml")
+        if len(soup.find_all("main")) != 1 or len(soup.find_all("h1")) != 1:
+            raise RuntimeError(f"supplement landmarks differ: {output_rel}")
+        expected_class = "mastery-reader" if kind == "mastery" else "assessment-reader"
+        if soup.find("main", class_=expected_class) is None:
+            raise RuntimeError(f"supplement reader class differs: {output_rel}")
+        if soup.find("header", id="title-block-header") is not None:
+            raise RuntimeError(f"supplement retained duplicate title: {output_rel}")
+        ids = [str(node["id"]) for node in soup.select("[id]")]
+        if len(ids) != len(set(ids)):
+            raise RuntimeError(f"duplicate stable IDs in supplement: {output_rel}")
+        explicit_source_ids = set(
+            re.findall(r"\{#([A-Za-z0-9][A-Za-z0-9._:-]*)", source_text)
+        ) | set(
+            re.findall(
+                r'<a\s+id=["\']([A-Za-z0-9][A-Za-z0-9._:-]*)["\']',
+                source_text,
+                re.IGNORECASE,
+            )
+        )
+        missing_explicit = sorted(item for item in explicit_source_ids if ids.count(item) != 1)
+        if missing_explicit:
+            raise RuntimeError(
+                f"supplement explicit stable-ID preservation differs: {output_rel}: {missing_explicit}"
+            )
+        collisions = sorted(seen_ids.intersection(explicit_source_ids))
+        if collisions:
+            raise RuntimeError(f"cross-supplement stable-ID collision: {collisions}")
+        seen_ids.update(explicit_source_ids)
+        if soup.select("div.hint, div.solution, div.mastery-hint, div.mastery-solution"):
+            raise RuntimeError(f"supplement left hint/solution divs undisclosed: {output_rel}")
+        if not soup.find_all("details"):
+            raise RuntimeError(f"supplement has no accessible disclosures: {output_rel}")
+        if soup.select('a[href^="../theory/"]'):
+            raise RuntimeError(f"supplement retained unresolved theory prefix: {output_rel}")
+        visible = re.sub(r"\s+", " ", " ".join(soup.stripped_strings)).strip()
+        if "CC BY 4.0" not in visible or "OpenAI Codex gpt-5.6-sol, Ultra." not in visible:
+            raise RuntimeError(f"supplement rights/model witness missing: {output_rel}")
+        if "TTP" in source_text or "Translation and Transcription Project" in source_text:
+            raise RuntimeError(f"forbidden umbrella prose in supplement: {source_rel}")
+
+
 def copy_assets(stage: Path) -> None:
     mappings = {
         AUTH_RANDOM / "static" / "Screen.css": stage / "Screen.css",
         AUTH_RANDOM / "static" / "Basic.js": stage / "Basic.js",
+        AUTH_RANDOM / "static" / "apps" / "Apps.js": stage / "apps" / "Apps.js",
+        AUTH_RANDOM / "static" / "apps" / "Distributions.js": (
+            stage / "apps" / "Distributions.js"
+        ),
+        ROOT / "source" / "original" / "brown-drift-offline.js": (
+            stage / "apps" / "brown-drift-offline.js"
+        ),
+        ROOT / "source" / "original" / "brown-bridge-offline.js": (
+            stage / "apps" / "brown-bridge-offline.js"
+        ),
+        ROOT / "source" / "original" / "geometric-brownian-offline.js": (
+            stage / "apps" / "geometric-brownian-offline.js"
+        ),
         AUTH_RANDOM / "static" / "icons" / "Icon.svg": stage / "icons" / "Icon.svg",
         AUTH_RANDOM / "static" / "icons" / "DieBlue5.svg": stage / "icons" / "DieBlue5.svg",
         AUTH_RANDOM / "static" / "icons" / "DieGreen5.svg": stage / "icons" / "DieGreen5.svg",
@@ -3430,12 +7244,37 @@ def copy_assets(stage: Path) -> None:
         AUTH_RANDOM / "static" / "martingales" / "PositivePart.png": (
             stage / "martingales" / "PositivePart.png"
         ),
+        AUTH_RANDOM / "static" / "markov" / "Visits.png": (
+            stage / "markov" / "Visits.png"
+        ),
+        AUTH_RANDOM / "static" / "markov" / "Partition.png": (
+            stage / "markov" / "Partition.png"
+        ),
+        AUTH_RANDOM / "static" / "markov" / "Classes.png": (
+            stage / "markov" / "Classes.png"
+        ),
+        AUTH_RANDOM / "static" / "markov" / "State1.png": (
+            stage / "markov" / "State1.png"
+        ),
+        AUTH_RANDOM / "static" / "markov" / "State2.png": (
+            stage / "markov" / "State2.png"
+        ),
+        AUTH_RANDOM / "static" / "markov" / "State3.png": (
+            stage / "markov" / "State3.png"
+        ),
+        AUTH_RANDOM / "static" / "markov" / "CyclicClasses.png": (
+            stage / "markov" / "CyclicClasses.png"
+        ),
+        AUTH_RANDOM / "static" / "markov" / "State4.png": (
+            stage / "markov" / "State4.png"
+        ),
         AUTH_RANDOM / "shared" / "MathJax" / "tex-svg.js": stage / "MathJax" / "tex-svg.js",
         AUTH_RANDOM / "shared" / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js": (
             stage / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js"
         ),
         AUTH_RANDOM / "shared" / "MathJax" / "LICENSE": stage / "licenses" / "MathJax-Apache-2.0.txt",
         SOURCE_CSS: stage / "reader.css",
+        SOURCE_TWO_STATE_APP: stage / "apps" / "two-state.html",
     }
     if sha256(require_file(AUTH_RANDOM / "shared" / "MathJax" / "tex-svg.js")) != MATHJAX_SHA256:
         raise RuntimeError("MathJax hash changed")
@@ -3445,6 +7284,943 @@ def copy_assets(stage: Path) -> None:
     for source, target in mappings.items():
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(source, target)
+
+
+def copy_quantecon_component(stage: Path) -> dict[str, object]:
+    """Admit the separately verified first QuantEcon unit into the aggregate site.
+
+    QuantEcon remains outside ``THEORY_UNITS``.  Its self-contained component
+    closure is copied only after the component receipt/manifest has been
+    checked, so the aggregate build cannot silently consume a partial page.
+    """
+    root = QUANTECON_COMPONENT_ROOT
+    receipt_path = root / "COMPONENT_RECEIPT.json"
+    manifest_path = root / "COMPONENT_MANIFEST.tsv"
+    receipt = json.loads(require_file(receipt_path).decode("utf-8"))
+    if receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon component receipt schema differs")
+    if receipt.get("unit_id") != "unit.o009.quantecon.ctmc.memoryless-distributions":
+        raise RuntimeError("QuantEcon component unit identity differs")
+    listed: list[dict[str, str]] = []
+    with manifest_path.open("r", encoding="utf-8", newline="") as stream:
+        listed = list(csv.DictReader(stream, delimiter="\t"))
+    for row in listed:
+        relative = Path(str(row["path"]))
+        if relative.is_absolute() or any(part in {"", ".", ".."} for part in relative.parts):
+            raise RuntimeError(f"unsafe QuantEcon component manifest path: {relative}")
+        source = root / relative
+        data = require_file(source)
+        if int(row["bytes"]) != len(data) or str(row["sha256"]) != sha256(data):
+            raise RuntimeError(f"QuantEcon component manifest mismatch: {relative}")
+    if receipt.get("manifest_sha256") != sha256(require_file(manifest_path)):
+        raise RuntimeError("QuantEcon component receipt does not bind its manifest")
+    target = stage / "quantecon"
+    if target.exists():
+        if target.is_symlink():
+            raise RuntimeError("refusing to replace linked aggregate QuantEcon directory")
+        shutil.rmtree(target)
+    # ``components/`` is reserved for namespaced companion controls (such as
+    # the separately built Poisson unit) and may remain from a prior failed
+    # aggregate staging attempt; the memoryless component does not own it.
+    shutil.copytree(root, target, symlinks=False, ignore=shutil.ignore_patterns("components"))
+    return {
+        "unit_id": str(receipt["unit_id"]),
+        "source_path": str(receipt["target"]["path"]),
+        "target_sha256": str(receipt["target"]["sha256"]),
+        "component_manifest_sha256": sha256(require_file(manifest_path)),
+        "component_receipt_sha256": sha256(require_file(receipt_path)),
+        "file_count": int(receipt["file_count"]),
+        "total_bytes": int(receipt["total_bytes"]),
+    }
+
+
+def copy_quantecon_poisson_component(stage: Path) -> dict[str, object]:
+    """Merge the separately verified Poisson unit into the QuantEcon closure.
+
+    The component manifest and receipt are retained under a namespaced control
+    directory because the memoryless component already owns the root-level
+    control filenames.  Content files are merged only when any shared CSS or
+    MathJax bytes are identical; a differing collision is a hard failure.
+    """
+    root = QUANTECON_POISSON_COMPONENT_ROOT
+    receipt_path = root / "COMPONENT_RECEIPT.json"
+    manifest_path = root / "COMPONENT_MANIFEST.tsv"
+    receipt = json.loads(require_file(receipt_path).decode("utf-8"))
+    if receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon Poisson component receipt schema differs")
+    if receipt.get("unit_id") != "unit.o009.quantecon.ctmc.poisson-processes":
+        raise RuntimeError("QuantEcon Poisson component unit identity differs")
+    with manifest_path.open("r", encoding="utf-8", newline="") as stream:
+        listed = list(csv.DictReader(stream, delimiter="\t"))
+    for row in listed:
+        relative = Path(str(row["path"]))
+        if relative.is_absolute() or any(part in {"", ".", ".."} for part in relative.parts):
+            raise RuntimeError(f"unsafe QuantEcon Poisson manifest path: {relative}")
+        source = root / relative
+        data = require_file(source)
+        if int(row["bytes"]) != len(data) or str(row["sha256"]) != sha256(data):
+            raise RuntimeError(f"QuantEcon Poisson component manifest mismatch: {relative}")
+    if receipt.get("manifest_sha256") != sha256(require_file(manifest_path)):
+        raise RuntimeError("QuantEcon Poisson component receipt does not bind its manifest")
+    target = stage / "quantecon"
+    target.mkdir(parents=True, exist_ok=True)
+    for source in sorted((path for path in root.rglob("*") if path.is_file()), key=lambda path: path.relative_to(root).as_posix().casefold()):
+        relative = source.relative_to(root)
+        if relative.name in {"COMPONENT_MANIFEST.tsv", "COMPONENT_RECEIPT.json"}:
+            destination = target / "components" / "poisson" / relative.name
+        else:
+            destination = target / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        data = require_file(source)
+        if destination.exists():
+            if destination.is_symlink() or require_file(destination) != data:
+                raise RuntimeError(f"conflicting QuantEcon component collision: {destination}")
+        else:
+            destination.write_bytes(data)
+    return {
+        "unit_id": str(receipt["unit_id"]),
+        "source_path": str(receipt["target"]["path"]),
+        "target_sha256": str(receipt["target"]["sha256"]),
+        "component_manifest_sha256": sha256(require_file(manifest_path)),
+        "component_receipt_sha256": sha256(require_file(receipt_path)),
+        "file_count": int(receipt["file_count"]),
+        "total_bytes": int(receipt["total_bytes"]),
+    }
+
+
+def copy_quantecon_markov_prop_component(stage: Path) -> dict[str, object]:
+    """Merge the verified Markov-property unit into the QuantEcon closure.
+
+    The lecture remains beside the preceding QuantEcon lectures.  Component-
+    local assets, notebooks, source, and controls are namespaced under
+    ``components/markov_prop``; only the shared CSS and MathJax runtime may
+    collide, and then only when their bytes are identical.
+    """
+    root = QUANTECON_MARKOV_PROP_COMPONENT_ROOT
+    receipt_path = root / "COMPONENT_RECEIPT.json"
+    manifest_path = root / "COMPONENT_MANIFEST.tsv"
+    receipt = json.loads(require_file(receipt_path).decode("utf-8"))
+    if receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon Markov-property component receipt schema differs")
+    if receipt.get("unit_id") != "unit.o009.quantecon.ctmc.markov-property":
+        raise RuntimeError("QuantEcon Markov-property component unit identity differs")
+    if receipt.get("target", {}).get("path") != "source/quantecon/lectures/markov_prop.md":
+        raise RuntimeError("QuantEcon Markov-property component target path differs")
+    with manifest_path.open("r", encoding="utf-8", newline="") as stream:
+        listed = list(csv.DictReader(stream, delimiter="\t"))
+    manifest_paths: set[Path] = set()
+    for row in listed:
+        relative = Path(str(row["path"]))
+        if relative.is_absolute() or any(part in {"", ".", ".."} for part in relative.parts):
+            raise RuntimeError(f"unsafe QuantEcon Markov-property manifest path: {relative}")
+        if relative in manifest_paths:
+            raise RuntimeError(f"duplicate QuantEcon Markov-property manifest path: {relative}")
+        manifest_paths.add(relative)
+        source = root / relative
+        data = require_file(source)
+        if int(row["bytes"]) != len(data) or str(row["sha256"]) != sha256(data):
+            raise RuntimeError(f"QuantEcon Markov-property component manifest mismatch: {relative}")
+    lecture_relative = Path("lectures/markov_prop.html")
+    if lecture_relative not in manifest_paths:
+        raise RuntimeError("QuantEcon Markov-property lecture is absent from its manifest")
+    if receipt.get("manifest_sha256") != sha256(require_file(manifest_path)):
+        raise RuntimeError("QuantEcon Markov-property component receipt does not bind its manifest")
+    if int(receipt.get("file_count", -1)) != len(listed):
+        raise RuntimeError("QuantEcon Markov-property component file count differs")
+    if int(receipt.get("total_bytes", -1)) != sum(int(row["bytes"]) for row in listed):
+        raise RuntimeError("QuantEcon Markov-property component byte count differs")
+    actual_paths = {
+        path.relative_to(root)
+        for path in root.rglob("*")
+        if path.is_file()
+    }
+    expected_paths = manifest_paths | {
+        Path("COMPONENT_MANIFEST.tsv"),
+        Path("COMPONENT_RECEIPT.json"),
+    }
+    if actual_paths != expected_paths:
+        raise RuntimeError(
+            "QuantEcon Markov-property component inventory differs: "
+            f"missing={sorted(str(path) for path in expected_paths - actual_paths)}; "
+            f"unexpected={sorted(str(path) for path in actual_paths - expected_paths)}"
+        )
+
+    target = stage / "quantecon"
+    lane = target / "components" / "markov_prop"
+    target.mkdir(parents=True, exist_ok=True)
+    for source in sorted(
+        (path for path in root.rglob("*") if path.is_file()),
+        key=lambda path: path.relative_to(root).as_posix().casefold(),
+    ):
+        relative = source.relative_to(root)
+        if relative == lecture_relative:
+            destination = target / relative
+        elif relative == Path("reader.css") or relative.parts[0] == "MathJax":
+            destination = target / relative
+        else:
+            destination = lane / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        data = require_file(source)
+        if destination.exists():
+            if destination.is_symlink() or require_file(destination) != data:
+                raise RuntimeError(f"conflicting QuantEcon component collision: {destination}")
+        else:
+            destination.write_bytes(data)
+
+    lecture_path = target / lecture_relative
+    lecture_text = require_file(lecture_path).decode("utf-8")
+    local_lane_ref = re.compile(
+        r'(?P<prefix>\b(?:href|src)=["\'])\.\./(?P<directory>assets|notebooks)/'
+    )
+    lecture_text, rewritten = local_lane_ref.subn(
+        r'\g<prefix>../components/markov_prop/\g<directory>/',
+        lecture_text,
+    )
+    if rewritten == 0:
+        raise RuntimeError("QuantEcon Markov-property lecture has no component-local references")
+    if local_lane_ref.search(lecture_text):
+        raise RuntimeError("QuantEcon Markov-property component-local reference rewrite failed")
+    lecture_path.write_text(lecture_text, encoding="utf-8", newline="\n")
+    return {
+        "unit_id": str(receipt["unit_id"]),
+        "source_path": str(receipt["target"]["path"]),
+        "target_sha256": str(receipt["target"]["sha256"]),
+        "component_manifest_sha256": sha256(require_file(manifest_path)),
+        "component_receipt_sha256": sha256(require_file(receipt_path)),
+        "file_count": int(receipt["file_count"]),
+        "total_bytes": int(receipt["total_bytes"]),
+    }
+
+
+def copy_quantecon_kolmogorov_bwd_component(stage: Path) -> dict[str, object]:
+    """Merge the verified backward-equation unit into the QuantEcon closure."""
+    root = QUANTECON_KOLMOGOROV_BWD_COMPONENT_ROOT
+    receipt_path = root / "COMPONENT_RECEIPT.json"
+    manifest_path = root / "COMPONENT_MANIFEST.tsv"
+    receipt = json.loads(require_file(receipt_path).decode("utf-8"))
+    if receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon backward-equation component receipt schema differs")
+    if receipt.get("unit_id") != "unit.o009.quantecon.ctmc.kolmogorov-backward":
+        raise RuntimeError("QuantEcon backward-equation component unit identity differs")
+    if receipt.get("target", {}).get("path") != "source/quantecon/lectures/kolmogorov_bwd.md":
+        raise RuntimeError("QuantEcon backward-equation component target path differs")
+    with manifest_path.open("r", encoding="utf-8", newline="") as stream:
+        listed = list(csv.DictReader(stream, delimiter="\t"))
+    manifest_paths: set[Path] = set()
+    for row in listed:
+        relative = Path(str(row["path"]))
+        if relative.is_absolute() or any(part in {"", ".", ".."} for part in relative.parts):
+            raise RuntimeError(f"unsafe QuantEcon backward-equation manifest path: {relative}")
+        if relative in manifest_paths:
+            raise RuntimeError(f"duplicate QuantEcon backward-equation manifest path: {relative}")
+        manifest_paths.add(relative)
+        data = require_file(root / relative)
+        if int(row["bytes"]) != len(data) or str(row["sha256"]) != sha256(data):
+            raise RuntimeError(f"QuantEcon backward-equation component manifest mismatch: {relative}")
+    lecture_relative = Path("lectures/kolmogorov_bwd.html")
+    if lecture_relative not in manifest_paths:
+        raise RuntimeError("QuantEcon backward-equation lecture is absent from its manifest")
+    if receipt.get("manifest_sha256") != sha256(require_file(manifest_path)):
+        raise RuntimeError("QuantEcon backward-equation component receipt does not bind its manifest")
+    if int(receipt.get("file_count", -1)) != len(listed):
+        raise RuntimeError("QuantEcon backward-equation component file count differs")
+    if int(receipt.get("total_bytes", -1)) != sum(int(row["bytes"]) for row in listed):
+        raise RuntimeError("QuantEcon backward-equation component byte count differs")
+    actual_paths = {
+        path.relative_to(root)
+        for path in root.rglob("*")
+        if path.is_file()
+    }
+    expected_paths = manifest_paths | {
+        Path("COMPONENT_MANIFEST.tsv"),
+        Path("COMPONENT_RECEIPT.json"),
+    }
+    if actual_paths != expected_paths:
+        raise RuntimeError(
+            "QuantEcon backward-equation component inventory differs: "
+            f"missing={sorted(str(path) for path in expected_paths - actual_paths)}; "
+            f"unexpected={sorted(str(path) for path in actual_paths - expected_paths)}"
+        )
+
+    target = stage / "quantecon"
+    lane = target / "components" / "kolmogorov_bwd"
+    target.mkdir(parents=True, exist_ok=True)
+    for source in sorted(
+        (path for path in root.rglob("*") if path.is_file()),
+        key=lambda path: path.relative_to(root).as_posix().casefold(),
+    ):
+        relative = source.relative_to(root)
+        if relative == lecture_relative:
+            destination = target / relative
+        elif relative == Path("reader.css") or relative.parts[0] == "MathJax":
+            destination = target / relative
+        else:
+            destination = lane / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        data = require_file(source)
+        if destination.exists():
+            if destination.is_symlink() or require_file(destination) != data:
+                raise RuntimeError(f"conflicting QuantEcon component collision: {destination}")
+        else:
+            destination.write_bytes(data)
+
+    lecture_path = target / lecture_relative
+    lecture_text = require_file(lecture_path).decode("utf-8")
+    local_lane_ref = re.compile(
+        r'(?P<prefix>\b(?:href|src)=["\'])\.\./(?P<directory>assets|notebooks)/'
+    )
+    lecture_text, rewritten = local_lane_ref.subn(
+        r'\g<prefix>../components/kolmogorov_bwd/\g<directory>/',
+        lecture_text,
+    )
+    if rewritten == 0:
+        raise RuntimeError("QuantEcon backward-equation lecture has no component-local references")
+    if local_lane_ref.search(lecture_text):
+        raise RuntimeError("QuantEcon backward-equation component-local reference rewrite failed")
+    lecture_path.write_text(lecture_text, encoding="utf-8", newline="\n")
+    return {
+        "unit_id": str(receipt["unit_id"]),
+        "source_path": str(receipt["target"]["path"]),
+        "target_sha256": str(receipt["target"]["sha256"]),
+        "component_manifest_sha256": sha256(require_file(manifest_path)),
+        "component_receipt_sha256": sha256(require_file(receipt_path)),
+        "file_count": int(receipt["file_count"]),
+        "total_bytes": int(receipt["total_bytes"]),
+    }
+
+
+def validate_quantecon_kolmogorov_fwd_live_bindings(
+    receipt: dict[str, object],
+) -> tuple[str, str]:
+    target_sha = sha256(require_file(QUANTECON_KOLMOGOROV_FWD_TARGET))
+    target = receipt.get("target")
+    if not isinstance(target, dict) or target.get("path") != (
+        "source/quantecon/lectures/kolmogorov_fwd.md"
+    ):
+        raise RuntimeError("QuantEcon forward-equation component target path differs")
+    if target.get("sha256") != target_sha:
+        raise RuntimeError(
+            "QuantEcon forward-equation component is stale against the live target: "
+            f"receipt={target.get('sha256')} current={target_sha}"
+        )
+
+    numerical_bytes = require_file(QUANTECON_KOLMOGOROV_FWD_NUMERICAL_QA)
+    numerical_sha = sha256(numerical_bytes)
+    try:
+        numerical = json.loads(numerical_bytes.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise RuntimeError("QuantEcon forward-equation numerical QA is invalid") from exc
+    if not isinstance(numerical, dict) or numerical.get("status") != "pass":
+        raise RuntimeError("QuantEcon forward-equation numerical QA has not passed")
+    numerical_target = numerical.get("target")
+    if not isinstance(numerical_target, dict) or numerical_target != {
+        "path": "source/quantecon/lectures/kolmogorov_fwd.md",
+        "bytes": len(require_file(QUANTECON_KOLMOGOROV_FWD_TARGET)),
+        "sha256": target_sha,
+    }:
+        raise RuntimeError(
+            "QuantEcon forward-equation numerical QA is stale against the live target"
+        )
+    expected_numerical = {
+        "path": "qa/QUANTECON_KOLMOGOROV_FWD_NUMERICAL_QA.json",
+        "status": "pass",
+        "sha256": numerical_sha,
+    }
+    if receipt.get("numerical_qa") != expected_numerical:
+        raise RuntimeError(
+            "QuantEcon forward-equation component receipt is stale against the live numerical QA"
+        )
+    return target_sha, numerical_sha
+
+
+def copy_quantecon_kolmogorov_fwd_component(stage: Path) -> dict[str, object]:
+    """Merge the verified forward-equation unit into the QuantEcon closure."""
+    root = QUANTECON_KOLMOGOROV_FWD_COMPONENT_ROOT
+    receipt_path = root / "COMPONENT_RECEIPT.json"
+    manifest_path = root / "COMPONENT_MANIFEST.tsv"
+    receipt = json.loads(require_file(receipt_path).decode("utf-8"))
+    if receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon forward-equation component receipt schema differs")
+    if receipt.get("unit_id") != "unit.o009.quantecon.ctmc.kolmogorov-forward":
+        raise RuntimeError("QuantEcon forward-equation component unit identity differs")
+    target_sha, numerical_qa_sha = validate_quantecon_kolmogorov_fwd_live_bindings(
+        receipt
+    )
+    with manifest_path.open("r", encoding="utf-8", newline="") as stream:
+        listed = list(csv.DictReader(stream, delimiter="\t"))
+    manifest_paths: set[Path] = set()
+    for row in listed:
+        relative = Path(str(row["path"]))
+        if relative.is_absolute() or any(part in {"", ".", ".."} for part in relative.parts):
+            raise RuntimeError(f"unsafe QuantEcon forward-equation manifest path: {relative}")
+        if relative in manifest_paths:
+            raise RuntimeError(f"duplicate QuantEcon forward-equation manifest path: {relative}")
+        manifest_paths.add(relative)
+        data = require_file(root / relative)
+        if int(row["bytes"]) != len(data) or str(row["sha256"]) != sha256(data):
+            raise RuntimeError(f"QuantEcon forward-equation component manifest mismatch: {relative}")
+    lecture_relative = Path("lectures/kolmogorov_fwd.html")
+    if lecture_relative not in manifest_paths:
+        raise RuntimeError("QuantEcon forward-equation lecture is absent from its manifest")
+    required_component_assets = {
+        Path("assets/kolmogorov_fwd-source-flow.png"),
+        Path("assets/kolmogorov_fwd-cell-04-data.csv"),
+        Path("assets/kolmogorov_fwd-cell-06-data.csv"),
+    }
+    if not required_component_assets.issubset(manifest_paths):
+        raise RuntimeError(
+            "QuantEcon forward-equation accessibility closure is incomplete: "
+            f"{sorted(str(path) for path in required_component_assets - manifest_paths)}"
+        )
+    if receipt.get("manifest_sha256") != sha256(require_file(manifest_path)):
+        raise RuntimeError("QuantEcon forward-equation component receipt does not bind its manifest")
+    if int(receipt.get("file_count", -1)) != len(listed):
+        raise RuntimeError("QuantEcon forward-equation component file count differs")
+    if int(receipt.get("total_bytes", -1)) != sum(int(row["bytes"]) for row in listed):
+        raise RuntimeError("QuantEcon forward-equation component byte count differs")
+    actual_paths = {
+        path.relative_to(root)
+        for path in root.rglob("*")
+        if path.is_file()
+    }
+    expected_paths = manifest_paths | {
+        Path("COMPONENT_MANIFEST.tsv"),
+        Path("COMPONENT_RECEIPT.json"),
+    }
+    if actual_paths != expected_paths:
+        raise RuntimeError(
+            "QuantEcon forward-equation component inventory differs: "
+            f"missing={sorted(str(path) for path in expected_paths - actual_paths)}; "
+            f"unexpected={sorted(str(path) for path in actual_paths - expected_paths)}"
+        )
+
+    target = stage / "quantecon"
+    lane = target / "components" / "kolmogorov_fwd"
+    target.mkdir(parents=True, exist_ok=True)
+    for source in sorted(
+        (path for path in root.rglob("*") if path.is_file()),
+        key=lambda path: path.relative_to(root).as_posix().casefold(),
+    ):
+        relative = source.relative_to(root)
+        if relative == lecture_relative:
+            destination = target / relative
+        elif relative == Path("reader.css") or relative.parts[0] == "MathJax":
+            destination = target / relative
+        else:
+            destination = lane / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        data = require_file(source)
+        if destination.exists():
+            if destination.is_symlink() or require_file(destination) != data:
+                raise RuntimeError(f"conflicting QuantEcon component collision: {destination}")
+        else:
+            destination.write_bytes(data)
+
+    lecture_path = target / lecture_relative
+    lecture_text = require_file(lecture_path).decode("utf-8")
+    local_lane_ref = re.compile(
+        r'(?P<prefix>\b(?:href|src)=["\'])\.\./(?P<directory>assets|notebooks)/'
+    )
+    lecture_text, rewritten = local_lane_ref.subn(
+        r'\g<prefix>../components/kolmogorov_fwd/\g<directory>/',
+        lecture_text,
+    )
+    if rewritten < 5:
+        raise RuntimeError(
+            "QuantEcon forward-equation lecture lost component-local source, "
+            "notebook, figure, or CSV references"
+        )
+    if local_lane_ref.search(lecture_text):
+        raise RuntimeError("QuantEcon forward-equation component-local reference rewrite failed")
+    lecture_path.write_text(lecture_text, encoding="utf-8", newline="\n")
+    return {
+        "unit_id": str(receipt["unit_id"]),
+        "source_path": str(receipt["target"]["path"]),
+        "target_sha256": target_sha,
+        "numerical_qa_sha256": numerical_qa_sha,
+        "component_manifest_sha256": sha256(require_file(manifest_path)),
+        "component_receipt_sha256": sha256(require_file(receipt_path)),
+        "file_count": int(receipt["file_count"]),
+        "total_bytes": int(receipt["total_bytes"]),
+    }
+
+
+def validate_quantecon_generators_live_binding(
+    receipt: dict[str, object],
+) -> str:
+    """Bind the zero-code generators component to the exact live translation."""
+    target_sha = sha256(require_file(QUANTECON_GENERATORS_TARGET))
+    target = receipt.get("target")
+    if not isinstance(target, dict) or target.get("path") != (
+        "source/quantecon/lectures/generators.md"
+    ):
+        raise RuntimeError("QuantEcon generators component target path differs")
+    if target.get("sha256") != target_sha:
+        raise RuntimeError(
+            "QuantEcon generators component is stale against the live target: "
+            f"receipt={target.get('sha256')} current={target_sha}"
+        )
+    topology = receipt.get("topology")
+    if not isinstance(topology, dict) or {
+        key: int(topology.get(key, -1))
+        for key in ("exercises", "solutions", "code_cells")
+    } != {"exercises": 3, "solutions": 3, "code_cells": 0}:
+        raise RuntimeError("QuantEcon generators topology differs")
+    closure = receipt.get("unit_closure")
+    if not isinstance(closure, dict) or any(
+        int(closure.get(key, -1)) != expected
+        for key, expected in {
+            "target_markdown_bytes": len(require_file(QUANTECON_GENERATORS_TARGET)),
+            "target_code_cells": 0,
+            "unit_source_assets": 0,
+            "unit_generated_media": 0,
+        }.items()
+    ):
+        raise RuntimeError("QuantEcon generators zero-code/source closure differs")
+    if closure.get("target_markdown_sha256") != target_sha:
+        raise RuntimeError("QuantEcon generators unit closure is stale")
+    authority = receipt.get("authority")
+    if not isinstance(authority, dict) or not authority.get("notebook_sha256"):
+        raise RuntimeError("QuantEcon generators authority notebook witness is absent")
+    return target_sha
+
+
+def copy_quantecon_generators_component(stage: Path) -> dict[str, object]:
+    """Merge the verified semigroups/generators unit into the reader closure."""
+    root = QUANTECON_GENERATORS_COMPONENT_ROOT
+    receipt_path = root / "COMPONENT_RECEIPT.json"
+    manifest_path = root / "COMPONENT_MANIFEST.tsv"
+    receipt = json.loads(require_file(receipt_path).decode("utf-8"))
+    if receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon generators component receipt schema differs")
+    if receipt.get("unit_id") != "unit.o009.quantecon.ctmc.generators":
+        raise RuntimeError("QuantEcon generators component unit identity differs")
+    target_sha = validate_quantecon_generators_live_binding(receipt)
+    with manifest_path.open("r", encoding="utf-8", newline="") as stream:
+        listed = list(csv.DictReader(stream, delimiter="\t"))
+    manifest_paths: set[Path] = set()
+    for row in listed:
+        relative = Path(str(row["path"]))
+        if relative.is_absolute() or any(part in {"", ".", ".."} for part in relative.parts):
+            raise RuntimeError(f"unsafe QuantEcon generators manifest path: {relative}")
+        if relative in manifest_paths:
+            raise RuntimeError(f"duplicate QuantEcon generators manifest path: {relative}")
+        manifest_paths.add(relative)
+        data = require_file(root / relative)
+        if int(row["bytes"]) != len(data) or str(row["sha256"]) != sha256(data):
+            raise RuntimeError(f"QuantEcon generators component manifest mismatch: {relative}")
+    lecture_relative = Path("lectures/generators.html")
+    required_closure = {
+        lecture_relative,
+        Path("notebooks/generators-authority.ipynb"),
+        Path("notebooks/generators-executed.ipynb"),
+        Path("source-generators.md"),
+        Path("reader.css"),
+        Path("MathJax/tex-svg.js"),
+    }
+    if manifest_paths != required_closure:
+        raise RuntimeError(
+            "QuantEcon generators component closure differs: "
+            f"missing={sorted(str(path) for path in required_closure - manifest_paths)}; "
+            f"unexpected={sorted(str(path) for path in manifest_paths - required_closure)}"
+        )
+    if receipt.get("manifest_sha256") != sha256(require_file(manifest_path)):
+        raise RuntimeError("QuantEcon generators component receipt does not bind its manifest")
+    if int(receipt.get("file_count", -1)) != len(listed):
+        raise RuntimeError("QuantEcon generators component file count differs")
+    if int(receipt.get("total_bytes", -1)) != sum(int(row["bytes"]) for row in listed):
+        raise RuntimeError("QuantEcon generators component byte count differs")
+    actual_paths = {
+        path.relative_to(root)
+        for path in root.rglob("*")
+        if path.is_file()
+    }
+    expected_paths = manifest_paths | {
+        Path("COMPONENT_MANIFEST.tsv"),
+        Path("COMPONENT_RECEIPT.json"),
+    }
+    if actual_paths != expected_paths:
+        raise RuntimeError(
+            "QuantEcon generators component inventory differs: "
+            f"missing={sorted(str(path) for path in expected_paths - actual_paths)}; "
+            f"unexpected={sorted(str(path) for path in actual_paths - expected_paths)}"
+        )
+
+    target = stage / "quantecon"
+    lane = target / "components" / "generators"
+    target.mkdir(parents=True, exist_ok=True)
+    for source in sorted(
+        (path for path in root.rglob("*") if path.is_file()),
+        key=lambda path: path.relative_to(root).as_posix().casefold(),
+    ):
+        relative = source.relative_to(root)
+        if relative == lecture_relative:
+            destination = target / relative
+        elif relative == Path("reader.css") or relative.parts[0] == "MathJax":
+            destination = target / relative
+        else:
+            destination = lane / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        data = require_file(source)
+        if destination.exists():
+            if destination.is_symlink() or require_file(destination) != data:
+                raise RuntimeError(f"conflicting QuantEcon component collision: {destination}")
+        else:
+            destination.write_bytes(data)
+
+    lecture_text = require_file(target / lecture_relative).decode("utf-8")
+    forbidden_component_local = re.compile(
+        r'\b(?:href|src)=["\']\.\./(?:assets|notebooks)/'
+    )
+    if forbidden_component_local.search(lecture_text):
+        raise RuntimeError(
+            "zero-code QuantEcon generators lecture unexpectedly links component-local files"
+        )
+    return {
+        "unit_id": str(receipt["unit_id"]),
+        "source_path": str(receipt["target"]["path"]),
+        "target_sha256": target_sha,
+        "component_manifest_sha256": sha256(require_file(manifest_path)),
+        "component_receipt_sha256": sha256(require_file(receipt_path)),
+        "file_count": int(receipt["file_count"]),
+        "total_bytes": int(receipt["total_bytes"]),
+    }
+
+
+def validate_quantecon_uc_mc_semigroups_live_bindings(
+    receipt: dict[str, object],
+) -> tuple[str, str]:
+    """Bind the zero-code UC Markov unit and its numerical QA to live bytes."""
+    target_sha = sha256(require_file(QUANTECON_UC_MC_SEMIGROUPS_TARGET))
+    target = receipt.get("target")
+    if not isinstance(target, dict) or target.get("path") != (
+        "source/quantecon/lectures/uc_mc_semigroups.md"
+    ):
+        raise RuntimeError("QuantEcon UC Markov component target path differs")
+    if target.get("sha256") != target_sha:
+        raise RuntimeError(
+            "QuantEcon UC Markov component is stale against the live target: "
+            f"receipt={target.get('sha256')} current={target_sha}"
+        )
+    topology = receipt.get("topology")
+    if not isinstance(topology, dict) or {
+        key: int(topology.get(key, -1))
+        for key in ("headings", "exercises", "solutions", "code_cells")
+    } != {"headings": 13, "exercises": 5, "solutions": 5, "code_cells": 0}:
+        raise RuntimeError("QuantEcon UC Markov topology differs")
+    closure = receipt.get("unit_closure")
+    if not isinstance(closure, dict) or any(
+        int(closure.get(key, -1)) != expected
+        for key, expected in {
+            "authority_markdown_bytes": 18_234,
+            "authority_notebook_bytes": 29_169,
+            "authority_notebook_cells": 34,
+            "authority_code_cells": 0,
+            "target_markdown_bytes": len(require_file(QUANTECON_UC_MC_SEMIGROUPS_TARGET)),
+            "target_code_cells": 0,
+            "unit_source_assets": 0,
+            "unit_generated_media": 0,
+        }.items()
+    ):
+        raise RuntimeError("QuantEcon UC Markov zero-code/source closure differs")
+    if closure.get("target_markdown_sha256") != target_sha:
+        raise RuntimeError("QuantEcon UC Markov unit closure is stale")
+    authority = receipt.get("authority")
+    if (
+        not isinstance(authority, dict)
+        or authority.get("source_sha256")
+        != "cb5e67bc9a614a0169ba9b9bee479a0060b88401e0a7442154242af7bffd9b69"
+        or authority.get("notebook_sha256")
+        != "fd772f3a052aa9bba611bc5d419858256f1f390459e5c6cd681b6b9ebb58f9ef"
+    ):
+        raise RuntimeError("QuantEcon UC Markov authority binding differs")
+    numerical = receipt.get("numerical_qa")
+    if not isinstance(numerical, dict) or numerical.get("path") != (
+        "qa/QUANTECON_UC_MC_SEMIGROUPS_NUMERICAL_QA.json"
+    ) or numerical.get("status") != "pass":
+        raise RuntimeError("QuantEcon UC Markov numerical-QA receipt differs")
+    numerical_sha = sha256(require_file(QUANTECON_UC_MC_SEMIGROUPS_NUMERICAL_QA))
+    if numerical.get("sha256") != numerical_sha:
+        raise RuntimeError("QuantEcon UC Markov numerical-QA hash differs")
+    numerical_receipt = json.loads(
+        require_file(QUANTECON_UC_MC_SEMIGROUPS_NUMERICAL_QA).decode("utf-8")
+    )
+    if (
+        numerical_receipt.get("status") != "pass"
+        or numerical_receipt.get("target", {}).get("sha256") != target_sha
+        or numerical_receipt.get("authority", {}).get("sha256")
+        != authority.get("source_sha256")
+    ):
+        raise RuntimeError("QuantEcon UC Markov numerical-QA live binding differs")
+    return target_sha, numerical_sha
+
+
+def copy_quantecon_uc_mc_semigroups_component(stage: Path) -> dict[str, object]:
+    """Merge the verified UC Markov semigroup unit into the reader closure."""
+    root = QUANTECON_UC_MC_SEMIGROUPS_COMPONENT_ROOT
+    receipt_path = root / "COMPONENT_RECEIPT.json"
+    manifest_path = root / "COMPONENT_MANIFEST.tsv"
+    receipt = json.loads(require_file(receipt_path).decode("utf-8"))
+    if receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon UC Markov component receipt schema differs")
+    if receipt.get("unit_id") != (
+        "unit.o009.quantecon.ctmc.uniformly-continuous-markov-semigroups"
+    ):
+        raise RuntimeError("QuantEcon UC Markov component unit identity differs")
+    target_sha, numerical_qa_sha = validate_quantecon_uc_mc_semigroups_live_bindings(
+        receipt
+    )
+    with manifest_path.open("r", encoding="utf-8", newline="") as stream:
+        listed = list(csv.DictReader(stream, delimiter="\t"))
+    manifest_paths: set[Path] = set()
+    for row in listed:
+        relative = Path(str(row["path"]))
+        if relative.is_absolute() or any(part in {"", ".", ".."} for part in relative.parts):
+            raise RuntimeError(f"unsafe QuantEcon UC Markov manifest path: {relative}")
+        if relative in manifest_paths:
+            raise RuntimeError(f"duplicate QuantEcon UC Markov manifest path: {relative}")
+        manifest_paths.add(relative)
+        data = require_file(root / relative)
+        if int(row["bytes"]) != len(data) or str(row["sha256"]) != sha256(data):
+            raise RuntimeError(f"QuantEcon UC Markov component manifest mismatch: {relative}")
+    lecture_relative = Path("lectures/uc_mc_semigroups.html")
+    required_closure = {
+        lecture_relative,
+        Path("notebooks/uc_mc_semigroups-authority.ipynb"),
+        Path("notebooks/uc_mc_semigroups-executed.ipynb"),
+        Path("source-uc_mc_semigroups.md"),
+        Path("reader.css"),
+        Path("MathJax/tex-svg.js"),
+    }
+    if manifest_paths != required_closure:
+        raise RuntimeError(
+            "QuantEcon UC Markov component closure differs: "
+            f"missing={sorted(str(path) for path in required_closure - manifest_paths)}; "
+            f"unexpected={sorted(str(path) for path in manifest_paths - required_closure)}"
+        )
+    if receipt.get("manifest_sha256") != sha256(require_file(manifest_path)):
+        raise RuntimeError("QuantEcon UC Markov receipt does not bind its manifest")
+    if int(receipt.get("file_count", -1)) != len(listed):
+        raise RuntimeError("QuantEcon UC Markov component file count differs")
+    if int(receipt.get("total_bytes", -1)) != sum(int(row["bytes"]) for row in listed):
+        raise RuntimeError("QuantEcon UC Markov component byte count differs")
+    actual_paths = {
+        path.relative_to(root)
+        for path in root.rglob("*")
+        if path.is_file()
+    }
+    expected_paths = manifest_paths | {
+        Path("COMPONENT_MANIFEST.tsv"),
+        Path("COMPONENT_RECEIPT.json"),
+    }
+    if actual_paths != expected_paths:
+        raise RuntimeError(
+            "QuantEcon UC Markov component inventory differs: "
+            f"missing={sorted(str(path) for path in expected_paths - actual_paths)}; "
+            f"unexpected={sorted(str(path) for path in actual_paths - expected_paths)}"
+        )
+
+    target = stage / "quantecon"
+    lane = target / "components" / "uc_mc_semigroups"
+    target.mkdir(parents=True, exist_ok=True)
+    for source in sorted(
+        (path for path in root.rglob("*") if path.is_file()),
+        key=lambda path: path.relative_to(root).as_posix().casefold(),
+    ):
+        relative = source.relative_to(root)
+        if relative == lecture_relative:
+            destination = target / relative
+        elif relative == Path("reader.css") or relative.parts[0] == "MathJax":
+            destination = target / relative
+        else:
+            destination = lane / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        data = require_file(source)
+        if destination.exists():
+            if destination.is_symlink() or require_file(destination) != data:
+                raise RuntimeError(f"conflicting QuantEcon component collision: {destination}")
+        else:
+            destination.write_bytes(data)
+
+    lecture_text = require_file(target / lecture_relative).decode("utf-8")
+    forbidden_component_local = re.compile(
+        r'\b(?:href|src)=["\']\.\./(?:assets|notebooks)/'
+    )
+    if forbidden_component_local.search(lecture_text):
+        raise RuntimeError(
+            "zero-code QuantEcon UC Markov lecture unexpectedly links component-local files"
+        )
+    return {
+        "unit_id": str(receipt["unit_id"]),
+        "source_path": str(receipt["target"]["path"]),
+        "target_sha256": target_sha,
+        "numerical_qa_sha256": numerical_qa_sha,
+        "component_manifest_sha256": sha256(require_file(manifest_path)),
+        "component_receipt_sha256": sha256(require_file(receipt_path)),
+        "file_count": int(receipt["file_count"]),
+        "total_bytes": int(receipt["total_bytes"]),
+    }
+
+
+def validate_quantecon_ergodicity_live_bindings(
+    receipt: dict[str, object],
+) -> tuple[str, str]:
+    """Bind the final executable QuantEcon unit and numerical QA to live bytes."""
+    target_bytes = require_file(QUANTECON_ERGODICITY_TARGET)
+    target_sha = sha256(target_bytes)
+    target = receipt.get("target")
+    if not isinstance(target, dict) or target.get("path") != (
+        "source/quantecon/lectures/ergodicity.md"
+    ):
+        raise RuntimeError("QuantEcon ergodicity component target path differs")
+    if target.get("sha256") != target_sha:
+        raise RuntimeError(
+            "QuantEcon ergodicity component is stale against the live target: "
+            f"receipt={target.get('sha256')} current={target_sha}"
+        )
+    topology = receipt.get("topology")
+    if not isinstance(topology, dict) or {
+        key: int(topology.get(key, -1))
+        for key in ("exercises", "solutions", "code_cells")
+    } != {"exercises": 3, "solutions": 3, "code_cells": 4}:
+        raise RuntimeError("QuantEcon ergodicity topology differs")
+    authority = receipt.get("authority")
+    if (
+        not isinstance(authority, dict)
+        or authority.get("source_sha256")
+        != "01c8f94e8016119107d6a3c14e688a0c1ed71690f678a2ae252703f7abccba84"
+        or authority.get("notebook_sha256")
+        != "e9daac187c07d8ba4d63cb43df2bb1874afa69a6095f91dd9f14a27c674fa881"
+    ):
+        raise RuntimeError("QuantEcon ergodicity authority binding differs")
+    numerical_bytes = require_file(QUANTECON_ERGODICITY_NUMERICAL_QA)
+    numerical_sha = sha256(numerical_bytes)
+    numerical = json.loads(numerical_bytes.decode("utf-8"))
+    if (
+        not isinstance(numerical, dict)
+        or numerical.get("status") != "pass"
+        or numerical.get("target", {}).get("sha256") != target_sha
+    ):
+        raise RuntimeError("QuantEcon ergodicity numerical QA is stale or failed")
+    numerical_binding = receipt.get("numerical_qa")
+    if (
+        not isinstance(numerical_binding, dict)
+        or numerical_binding.get("path") != "qa/QUANTECON_ERGODICITY_NUMERICAL_QA.json"
+        or numerical_binding.get("status") != "pass"
+        or numerical_binding.get("sha256") != numerical_sha
+    ):
+        raise RuntimeError("QuantEcon ergodicity numerical-QA receipt differs")
+    if receipt.get("replay_match") is not True:
+        raise RuntimeError("QuantEcon ergodicity two-pass replay is not exact")
+    return target_sha, numerical_sha
+
+
+def copy_quantecon_ergodicity_component(stage: Path) -> dict[str, object]:
+    """Merge the verified stationarity/ergodicity unit into the reader closure."""
+    root = QUANTECON_ERGODICITY_COMPONENT_ROOT
+    receipt_path = root / "COMPONENT_RECEIPT.json"
+    manifest_path = root / "COMPONENT_MANIFEST.tsv"
+    receipt = json.loads(require_file(receipt_path).decode("utf-8"))
+    if receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon ergodicity component receipt schema differs")
+    if receipt.get("unit_id") != "unit.o009.quantecon.ctmc.stationarity-ergodicity":
+        raise RuntimeError("QuantEcon ergodicity component unit identity differs")
+    target_sha, numerical_qa_sha = validate_quantecon_ergodicity_live_bindings(receipt)
+    with manifest_path.open("r", encoding="utf-8", newline="") as stream:
+        listed = list(csv.DictReader(stream, delimiter="\t"))
+    manifest_paths: set[Path] = set()
+    for row in listed:
+        relative = Path(str(row["path"]))
+        if relative.is_absolute() or any(part in {"", ".", ".."} for part in relative.parts):
+            raise RuntimeError(f"unsafe QuantEcon ergodicity manifest path: {relative}")
+        if relative in manifest_paths:
+            raise RuntimeError(f"duplicate QuantEcon ergodicity manifest path: {relative}")
+        manifest_paths.add(relative)
+        data = require_file(root / relative)
+        if int(row["bytes"]) != len(data) or str(row["sha256"]) != sha256(data):
+            raise RuntimeError(f"QuantEcon ergodicity manifest mismatch: {relative}")
+    lecture_relative = Path("lectures/ergodicity.html")
+    required_closure = {
+        lecture_relative,
+        Path("notebooks/ergodicity-authority.ipynb"),
+        Path("notebooks/ergodicity-executed.ipynb"),
+        Path("source-ergodicity.md"),
+        Path("assets/ergodicity-cell-04-figure-01.png"),
+        Path("reader.css"),
+        Path("MathJax/tex-svg.js"),
+    }
+    if manifest_paths != required_closure:
+        raise RuntimeError(
+            "QuantEcon ergodicity component closure differs: "
+            f"missing={sorted(str(path) for path in required_closure - manifest_paths)}; "
+            f"unexpected={sorted(str(path) for path in manifest_paths - required_closure)}"
+        )
+    if receipt.get("manifest_sha256") != sha256(require_file(manifest_path)):
+        raise RuntimeError("QuantEcon ergodicity receipt does not bind its manifest")
+    if int(receipt.get("file_count", -1)) != len(listed):
+        raise RuntimeError("QuantEcon ergodicity component file count differs")
+    if int(receipt.get("total_bytes", -1)) != sum(int(row["bytes"]) for row in listed):
+        raise RuntimeError("QuantEcon ergodicity component byte count differs")
+    actual_paths = {
+        path.relative_to(root)
+        for path in root.rglob("*")
+        if path.is_file()
+    }
+    expected_paths = manifest_paths | {
+        Path("COMPONENT_MANIFEST.tsv"),
+        Path("COMPONENT_RECEIPT.json"),
+    }
+    if actual_paths != expected_paths:
+        raise RuntimeError(
+            "QuantEcon ergodicity component inventory differs: "
+            f"missing={sorted(str(path) for path in expected_paths - actual_paths)}; "
+            f"unexpected={sorted(str(path) for path in actual_paths - expected_paths)}"
+        )
+
+    target = stage / "quantecon"
+    lane = target / "components" / "ergodicity"
+    target.mkdir(parents=True, exist_ok=True)
+    for source in sorted(
+        (path for path in root.rglob("*") if path.is_file()),
+        key=lambda path: path.relative_to(root).as_posix().casefold(),
+    ):
+        relative = source.relative_to(root)
+        if relative == lecture_relative:
+            destination = target / relative
+        elif relative == Path("reader.css") or relative.parts[0] == "MathJax":
+            destination = target / relative
+        else:
+            destination = lane / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        data = require_file(source)
+        if destination.exists():
+            if destination.is_symlink() or require_file(destination) != data:
+                raise RuntimeError(f"conflicting QuantEcon component collision: {destination}")
+        else:
+            destination.write_bytes(data)
+
+    lecture_path = target / lecture_relative
+    lecture_text = require_file(lecture_path).decode("utf-8")
+    local_lane_ref = re.compile(
+        r'(?P<prefix>\b(?:href|src)=["\'])\.\./(?P<directory>assets|notebooks)/'
+    )
+    lecture_text, rewritten = local_lane_ref.subn(
+        r'\g<prefix>../components/ergodicity/\g<directory>/',
+        lecture_text,
+    )
+    if rewritten == 0 or local_lane_ref.search(lecture_text):
+        raise RuntimeError("QuantEcon ergodicity component-local reference rewrite failed")
+    lecture_path.write_text(lecture_text, encoding="utf-8", newline="\n")
+    return {
+        "unit_id": str(receipt["unit_id"]),
+        "source_path": str(receipt["target"]["path"]),
+        "target_sha256": target_sha,
+        "numerical_qa_sha256": numerical_qa_sha,
+        "component_manifest_sha256": sha256(require_file(manifest_path)),
+        "component_receipt_sha256": sha256(require_file(receipt_path)),
+        "file_count": int(receipt["file_count"]),
+        "total_bytes": int(receipt["total_bytes"]),
+    }
 
 
 def site_rows(site: Path) -> list[dict[str, object]]:
@@ -3471,7 +8247,91 @@ def site_rows(site: Path) -> list[dict[str, object]]:
     return rows
 
 
-def write_manifest(site: Path, lab_results: list[dict[str, object]]) -> None:
+def shared_reader_stylesheet(site: Path) -> bytes:
+    root_css = require_file(site / "reader.css")
+    quantecon_css = require_file(site / "quantecon" / "reader.css")
+    if quantecon_css != root_css:
+        raise RuntimeError(
+            "root and QuantEcon reader.css bytes differ; one shared cache key is unsafe"
+        )
+    return root_css
+
+
+def synchronize_shared_reader_stylesheet(site: Path) -> None:
+    """Apply the edition's validated shared CSS after donor-component admission."""
+    root_css = require_file(site / "reader.css")
+    quantecon_css = site / "quantecon" / "reader.css"
+    if not quantecon_css.is_file() or quantecon_css.is_symlink():
+        raise RuntimeError("QuantEcon shared reader stylesheet target is missing or unsafe")
+    quantecon_css.write_bytes(root_css)
+
+
+def version_reader_stylesheet_links(site: Path) -> None:
+    """Cache-bust the shared stylesheet after every staged HTML build."""
+    digest = sha256(shared_reader_stylesheet(site))[:12]
+    pattern = re.compile(
+        r'(?P<prefix>href=["\'])(?P<path>[^"\']*reader\.css)(?P<suffix>["\'])'
+    )
+    rewritten_total = 0
+    for path in sorted(site.rglob("*.html"), key=lambda item: item.as_posix().casefold()):
+        text = require_file(path).decode("utf-8")
+        updated, rewritten = pattern.subn(
+            lambda match: (
+                f"{match.group('prefix')}{match.group('path')}?v={digest}"
+                f"{match.group('suffix')}"
+            ),
+            text,
+        )
+        if rewritten:
+            path.write_text(updated, encoding="utf-8", newline="\n")
+            rewritten_total += rewritten
+    if rewritten_total == 0:
+        raise RuntimeError("reader stylesheet cache-buster found no HTML links")
+
+
+def original_bridge_receipt_units(site: Path) -> list[dict[str, object]]:
+    units: list[dict[str, object]] = []
+    for spec in ORIGINAL_BRIDGE_SPECS:
+        source = Path(spec["source"])
+        output = Path(spec["output"])
+        source_data = require_file(source)
+        output_data = require_file(site / output)
+        units.append(
+            {
+                "unit_id": str(spec["unit_id"]),
+                "source": source.relative_to(ROOT).as_posix(),
+                "output": output.as_posix(),
+                "previous_output": Path(spec["previous_output"]).as_posix(),
+                "rights_id": str(spec["rights_id"]),
+                "source_bytes": len(source_data),
+                "source_sha256": sha256(source_data),
+                "output_sha256": sha256(output_data),
+                "stable_ids": [str(item) for item in spec["stable_ids"]],
+                "disclosures": [
+                    {"id": str(disclosure_id), "aria_label": str(label)}
+                    for disclosure_id, label in spec["disclosures"]
+                ],
+                "mastery_counts": {
+                    str(key): int(value)
+                    for key, value in dict(spec["mastery_counts"]).items()
+                },
+            }
+        )
+    return units
+
+
+def write_manifest(
+    site: Path,
+    lab_results: list[dict[str, object]],
+    quantecon_component: dict[str, object],
+    quantecon_poisson_component: dict[str, object],
+    quantecon_markov_prop_component: dict[str, object],
+    quantecon_kolmogorov_bwd_component: dict[str, object],
+    quantecon_kolmogorov_fwd_component: dict[str, object],
+    quantecon_generators_component: dict[str, object],
+    quantecon_uc_mc_semigroups_component: dict[str, object],
+    quantecon_ergodicity_component: dict[str, object],
+) -> None:
     rows = site_rows(site)
     manifest = site / "PACKAGE_MANIFEST.csv"
     with manifest.open("w", encoding="utf-8", newline="") as stream:
@@ -3482,9 +8342,23 @@ def write_manifest(site: Path, lab_results: list[dict[str, object]]) -> None:
         )
         writer.writeheader()
         writer.writerows(rows)
+    build_timestamp = require_file(REPRODUCIBLE_BUILD_TIMESTAMP).decode(
+        "utf-8"
+    ).strip()
+    if not re.fullmatch(
+        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?\+00:00",
+        build_timestamp,
+    ):
+        raise RuntimeError(
+            "reproducible build timestamp must be an explicit UTC ISO-8601 value"
+        )
     receipt = {
         "schema": BUILD_RECEIPT_SCHEMA,
-        "built_at_utc": datetime.now(timezone.utc).isoformat(),
+        "built_at_utc": build_timestamp,
+        "timestamp_policy": (
+            "pinned by 00_control/REPRODUCIBLE_BUILD_TIMESTAMP_UTC.txt for "
+            "byte-reproducible reader and backend builds"
+        ),
         "random_authority_manifest_sha256": RANDOM_MANIFEST_SHA256,
         "theory_units": [
             {
@@ -3494,6 +8368,8 @@ def write_manifest(site: Path, lab_results: list[dict[str, object]]) -> None:
             }
             for unit in THEORY_UNITS
         ],
+        "original_bridge_units": original_bridge_receipt_units(site),
+        "supplement_units": supplement_receipt_units(site),
         "lab_source_sha256": sha256(require_file(Path(LAB_SPECS[0]["source"]))),
         "lab_sources": [
             {
@@ -3505,6 +8381,14 @@ def write_manifest(site: Path, lab_results: list[dict[str, object]]) -> None:
             }
             for spec, result in zip(LAB_SPECS, lab_results, strict=True)
         ],
+        "quantecon_component": quantecon_component,
+        "quantecon_poisson_component": quantecon_poisson_component,
+        "quantecon_markov_prop_component": quantecon_markov_prop_component,
+        "quantecon_kolmogorov_bwd_component": quantecon_kolmogorov_bwd_component,
+        "quantecon_kolmogorov_fwd_component": quantecon_kolmogorov_fwd_component,
+        "quantecon_generators_component": quantecon_generators_component,
+        "quantecon_uc_mc_semigroups_component": quantecon_uc_mc_semigroups_component,
+        "quantecon_ergodicity_component": quantecon_ergodicity_component,
         "runtime": runtime_evidence(),
         "r_version": R_VERSION,
         "r_rng": R_RNG,
@@ -3520,8 +8404,83 @@ def write_manifest(site: Path, lab_results: list[dict[str, object]]) -> None:
     )
 
 
+def verify_original_bridge_outputs(site: Path) -> None:
+    for spec in ORIGINAL_BRIDGE_SPECS:
+        output = site / Path(spec["output"])
+        soup = BeautifulSoup(require_file(output).decode("utf-8"), "lxml")
+        root = soup.find(id=str(spec["unit_id"]))
+        if root is None or root.name != "main" or "original-bridge" not in root.get(
+            "class", []
+        ):
+            raise RuntimeError("built original bridge root/main binding differs")
+        headings = soup.find_all("h1")
+        heading_text = re.sub(
+            r"\s+", " ", headings[0].get_text(" ", strip=True)
+        ).strip() if len(headings) == 1 else ""
+        if len(headings) != 1 or heading_text != str(spec["title"]):
+            raise RuntimeError("built original bridge H1 differs")
+        if soup.find("header", id="title-block-header") is not None:
+            raise RuntimeError("built original bridge retained the duplicate generated title")
+        expected_ids = tuple(str(item) for item in spec["stable_ids"])
+        expected_set = set(expected_ids)
+        all_ids = [str(node["id"]) for node in soup.select("[id]")]
+        observed_ids = tuple(item for item in all_ids if item in expected_set)
+        if observed_ids != expected_ids or any(all_ids.count(item) != 1 for item in expected_ids):
+            raise RuntimeError("built original bridge stable ID order or uniqueness differs")
+        expected_disclosures = tuple(
+            (str(disclosure_id), str(label))
+            for disclosure_id, label in spec["disclosures"]
+        )
+        details = soup.find_all("details")
+        if tuple(str(node.get("id", "")) for node in details) != tuple(
+            disclosure_id for disclosure_id, _ in expected_disclosures
+        ):
+            raise RuntimeError("built original bridge disclosure order differs")
+        for disclosure_id, label in expected_disclosures:
+            disclosure = soup.find("details", id=disclosure_id)
+            summary = (
+                disclosure.find("summary", recursive=False)
+                if disclosure is not None
+                else None
+            )
+            if (
+                summary is None
+                or summary.get_text(" ", strip=True) != label
+                or str(summary.get("aria-label", "")) != label
+            ):
+                raise RuntimeError(
+                    f"built original bridge disclosure label differs: {disclosure_id}"
+                )
+        if soup.select("div.hint, div.solution"):
+            raise RuntimeError("built original bridge left hint/solution divs undisclosed")
+        answer_ids = tuple(item for item in expected_ids if item.endswith(".answer"))
+        if any(soup.find("div", id=answer_id) is None for answer_id in answer_ids):
+            raise RuntimeError("built original bridge concise answers must remain visible divs")
+        output_rel = Path(spec["output"])
+        home_href = os.path.relpath(Path("index.html"), output_rel.parent).replace(os.sep, "/")
+        previous_href = os.path.relpath(
+            Path(spec["previous_output"]), output_rel.parent
+        ).replace(os.sep, "/")
+        edition_navs = soup.find_all("nav", attrs={"aria-label": "Navigasi edisi"})
+        if len(edition_navs) != 1 or [
+            str(anchor.get("href", "")) for anchor in edition_navs[0].select("a[href]")
+        ] != [home_href, previous_href]:
+            raise RuntimeError("built original bridge navigation differs")
+        previous_links = soup.select('head link[rel~="prev"]')
+        if len(previous_links) != 1 or str(previous_links[0].get("href", "")) != previous_href:
+            raise RuntimeError("built original bridge previous-unit metadata differs")
+        mathjax = soup.select('script[src="../MathJax/tex-svg.js"]')
+        if len(mathjax) != 1:
+            raise RuntimeError("built original bridge local MathJax binding differs")
+        visible = re.sub(r"\s+", " ", " ".join(soup.stripped_strings)).strip()
+        for witness in tuple(str(item) for item in spec["built_rights_witnesses"]):
+            if witness not in visible:
+                raise RuntimeError(f"built original bridge rights witness missing: {witness}")
+
+
 def verify_site(site: Path, execute_r: bool = True) -> None:
     validate_lab_specs()
+    validate_original_bridge_specs()
     runtime = runtime_evidence()
     manifest = site / "PACKAGE_MANIFEST.csv"
     receipt_path = site / "BUILD_RECEIPT.json"
@@ -3558,6 +8517,12 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
     ]
     if receipt.get("theory_units") != expected_theory:
         raise RuntimeError("build receipt theory inputs differ from the current ordered units")
+    expected_original_bridges = original_bridge_receipt_units(site)
+    if receipt.get("original_bridge_units") != expected_original_bridges:
+        raise RuntimeError("build receipt original bridge inputs/outputs differ")
+    expected_supplements = supplement_receipt_units(site)
+    if receipt.get("supplement_units") != expected_supplements:
+        raise RuntimeError("build receipt authored supplement inputs/outputs differ")
     expected_labs = [
         {
             "source": Path(spec["source"]).relative_to(ROOT).as_posix(),
@@ -3570,6 +8535,187 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
     ]
     if receipt.get("lab_sources") != expected_labs:
         raise RuntimeError("build receipt lab inputs/results differ from the current ordered specs")
+    component_root = QUANTECON_COMPONENT_ROOT
+    component_receipt_path = component_root / "COMPONENT_RECEIPT.json"
+    component_manifest_path = component_root / "COMPONENT_MANIFEST.tsv"
+    if not component_receipt_path.is_file() or not component_manifest_path.is_file():
+        raise RuntimeError("verified QuantEcon component receipt/manifest is missing")
+    component_receipt = json.loads(require_file(component_receipt_path).decode("utf-8"))
+    expected_component = {
+        "unit_id": str(component_receipt["unit_id"]),
+        "source_path": str(component_receipt["target"]["path"]),
+        "target_sha256": str(component_receipt["target"]["sha256"]),
+        "component_manifest_sha256": sha256(require_file(component_manifest_path)),
+        "component_receipt_sha256": sha256(require_file(component_receipt_path)),
+        "file_count": int(component_receipt["file_count"]),
+        "total_bytes": int(component_receipt["total_bytes"]),
+    }
+    if receipt.get("quantecon_component") != expected_component:
+        raise RuntimeError("build receipt QuantEcon component binding differs")
+    poisson_root = QUANTECON_POISSON_COMPONENT_ROOT
+    poisson_receipt_path = poisson_root / "COMPONENT_RECEIPT.json"
+    poisson_manifest_path = poisson_root / "COMPONENT_MANIFEST.tsv"
+    if not poisson_receipt_path.is_file() or not poisson_manifest_path.is_file():
+        raise RuntimeError("verified QuantEcon Poisson component receipt/manifest is missing")
+    poisson_receipt = json.loads(require_file(poisson_receipt_path).decode("utf-8"))
+    expected_poisson_component = {
+        "unit_id": str(poisson_receipt["unit_id"]),
+        "source_path": str(poisson_receipt["target"]["path"]),
+        "target_sha256": str(poisson_receipt["target"]["sha256"]),
+        "component_manifest_sha256": sha256(require_file(poisson_manifest_path)),
+        "component_receipt_sha256": sha256(require_file(poisson_receipt_path)),
+        "file_count": int(poisson_receipt["file_count"]),
+        "total_bytes": int(poisson_receipt["total_bytes"]),
+    }
+    if receipt.get("quantecon_poisson_component") != expected_poisson_component:
+        raise RuntimeError("build receipt QuantEcon Poisson component binding differs")
+    markov_prop_root = QUANTECON_MARKOV_PROP_COMPONENT_ROOT
+    markov_prop_receipt_path = markov_prop_root / "COMPONENT_RECEIPT.json"
+    markov_prop_manifest_path = markov_prop_root / "COMPONENT_MANIFEST.tsv"
+    if not markov_prop_receipt_path.is_file() or not markov_prop_manifest_path.is_file():
+        raise RuntimeError("verified QuantEcon Markov-property component receipt/manifest is missing")
+    markov_prop_receipt = json.loads(require_file(markov_prop_receipt_path).decode("utf-8"))
+    if markov_prop_receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon Markov-property component receipt schema differs")
+    if markov_prop_receipt.get("unit_id") != "unit.o009.quantecon.ctmc.markov-property":
+        raise RuntimeError("QuantEcon Markov-property component unit identity differs")
+    if markov_prop_receipt.get("target", {}).get("path") != "source/quantecon/lectures/markov_prop.md":
+        raise RuntimeError("QuantEcon Markov-property component target path differs")
+    expected_markov_prop_component = {
+        "unit_id": str(markov_prop_receipt["unit_id"]),
+        "source_path": str(markov_prop_receipt["target"]["path"]),
+        "target_sha256": str(markov_prop_receipt["target"]["sha256"]),
+        "component_manifest_sha256": sha256(require_file(markov_prop_manifest_path)),
+        "component_receipt_sha256": sha256(require_file(markov_prop_receipt_path)),
+        "file_count": int(markov_prop_receipt["file_count"]),
+        "total_bytes": int(markov_prop_receipt["total_bytes"]),
+    }
+    if receipt.get("quantecon_markov_prop_component") != expected_markov_prop_component:
+        raise RuntimeError("build receipt QuantEcon Markov-property component binding differs")
+    kolmogorov_bwd_root = QUANTECON_KOLMOGOROV_BWD_COMPONENT_ROOT
+    kolmogorov_bwd_receipt_path = kolmogorov_bwd_root / "COMPONENT_RECEIPT.json"
+    kolmogorov_bwd_manifest_path = kolmogorov_bwd_root / "COMPONENT_MANIFEST.tsv"
+    if not kolmogorov_bwd_receipt_path.is_file() or not kolmogorov_bwd_manifest_path.is_file():
+        raise RuntimeError("verified QuantEcon backward-equation component receipt/manifest is missing")
+    kolmogorov_bwd_receipt = json.loads(require_file(kolmogorov_bwd_receipt_path).decode("utf-8"))
+    if kolmogorov_bwd_receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon backward-equation component receipt schema differs")
+    if kolmogorov_bwd_receipt.get("unit_id") != "unit.o009.quantecon.ctmc.kolmogorov-backward":
+        raise RuntimeError("QuantEcon backward-equation component unit identity differs")
+    if kolmogorov_bwd_receipt.get("target", {}).get("path") != "source/quantecon/lectures/kolmogorov_bwd.md":
+        raise RuntimeError("QuantEcon backward-equation component target path differs")
+    expected_kolmogorov_bwd_component = {
+        "unit_id": str(kolmogorov_bwd_receipt["unit_id"]),
+        "source_path": str(kolmogorov_bwd_receipt["target"]["path"]),
+        "target_sha256": str(kolmogorov_bwd_receipt["target"]["sha256"]),
+        "component_manifest_sha256": sha256(require_file(kolmogorov_bwd_manifest_path)),
+        "component_receipt_sha256": sha256(require_file(kolmogorov_bwd_receipt_path)),
+        "file_count": int(kolmogorov_bwd_receipt["file_count"]),
+        "total_bytes": int(kolmogorov_bwd_receipt["total_bytes"]),
+    }
+    if receipt.get("quantecon_kolmogorov_bwd_component") != expected_kolmogorov_bwd_component:
+        raise RuntimeError("build receipt QuantEcon backward-equation component binding differs")
+    kolmogorov_fwd_root = QUANTECON_KOLMOGOROV_FWD_COMPONENT_ROOT
+    kolmogorov_fwd_receipt_path = kolmogorov_fwd_root / "COMPONENT_RECEIPT.json"
+    kolmogorov_fwd_manifest_path = kolmogorov_fwd_root / "COMPONENT_MANIFEST.tsv"
+    if not kolmogorov_fwd_receipt_path.is_file() or not kolmogorov_fwd_manifest_path.is_file():
+        raise RuntimeError("verified QuantEcon forward-equation component receipt/manifest is missing")
+    kolmogorov_fwd_receipt = json.loads(require_file(kolmogorov_fwd_receipt_path).decode("utf-8"))
+    if kolmogorov_fwd_receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon forward-equation component receipt schema differs")
+    if kolmogorov_fwd_receipt.get("unit_id") != "unit.o009.quantecon.ctmc.kolmogorov-forward":
+        raise RuntimeError("QuantEcon forward-equation component unit identity differs")
+    target_sha, numerical_qa_sha = validate_quantecon_kolmogorov_fwd_live_bindings(
+        kolmogorov_fwd_receipt
+    )
+    expected_kolmogorov_fwd_component = {
+        "unit_id": str(kolmogorov_fwd_receipt["unit_id"]),
+        "source_path": str(kolmogorov_fwd_receipt["target"]["path"]),
+        "target_sha256": target_sha,
+        "numerical_qa_sha256": numerical_qa_sha,
+        "component_manifest_sha256": sha256(require_file(kolmogorov_fwd_manifest_path)),
+        "component_receipt_sha256": sha256(require_file(kolmogorov_fwd_receipt_path)),
+        "file_count": int(kolmogorov_fwd_receipt["file_count"]),
+        "total_bytes": int(kolmogorov_fwd_receipt["total_bytes"]),
+    }
+    if receipt.get("quantecon_kolmogorov_fwd_component") != expected_kolmogorov_fwd_component:
+        raise RuntimeError("build receipt QuantEcon forward-equation component binding differs")
+    generators_root = QUANTECON_GENERATORS_COMPONENT_ROOT
+    generators_receipt_path = generators_root / "COMPONENT_RECEIPT.json"
+    generators_manifest_path = generators_root / "COMPONENT_MANIFEST.tsv"
+    if not generators_receipt_path.is_file() or not generators_manifest_path.is_file():
+        raise RuntimeError("verified QuantEcon generators component receipt/manifest is missing")
+    generators_receipt = json.loads(require_file(generators_receipt_path).decode("utf-8"))
+    if generators_receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon generators component receipt schema differs")
+    if generators_receipt.get("unit_id") != "unit.o009.quantecon.ctmc.generators":
+        raise RuntimeError("QuantEcon generators component unit identity differs")
+    generators_target_sha = validate_quantecon_generators_live_binding(
+        generators_receipt
+    )
+    expected_generators_component = {
+        "unit_id": str(generators_receipt["unit_id"]),
+        "source_path": str(generators_receipt["target"]["path"]),
+        "target_sha256": generators_target_sha,
+        "component_manifest_sha256": sha256(require_file(generators_manifest_path)),
+        "component_receipt_sha256": sha256(require_file(generators_receipt_path)),
+        "file_count": int(generators_receipt["file_count"]),
+        "total_bytes": int(generators_receipt["total_bytes"]),
+    }
+    if receipt.get("quantecon_generators_component") != expected_generators_component:
+        raise RuntimeError("build receipt QuantEcon generators component binding differs")
+    uc_root = QUANTECON_UC_MC_SEMIGROUPS_COMPONENT_ROOT
+    uc_receipt_path = uc_root / "COMPONENT_RECEIPT.json"
+    uc_manifest_path = uc_root / "COMPONENT_MANIFEST.tsv"
+    if not uc_receipt_path.is_file() or not uc_manifest_path.is_file():
+        raise RuntimeError("verified QuantEcon UC Markov component receipt/manifest is missing")
+    uc_receipt = json.loads(require_file(uc_receipt_path).decode("utf-8"))
+    if uc_receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon UC Markov component receipt schema differs")
+    if uc_receipt.get("unit_id") != (
+        "unit.o009.quantecon.ctmc.uniformly-continuous-markov-semigroups"
+    ):
+        raise RuntimeError("QuantEcon UC Markov component unit identity differs")
+    uc_target_sha, uc_numerical_qa_sha = (
+        validate_quantecon_uc_mc_semigroups_live_bindings(uc_receipt)
+    )
+    expected_uc_component = {
+        "unit_id": str(uc_receipt["unit_id"]),
+        "source_path": str(uc_receipt["target"]["path"]),
+        "target_sha256": uc_target_sha,
+        "numerical_qa_sha256": uc_numerical_qa_sha,
+        "component_manifest_sha256": sha256(require_file(uc_manifest_path)),
+        "component_receipt_sha256": sha256(require_file(uc_receipt_path)),
+        "file_count": int(uc_receipt["file_count"]),
+        "total_bytes": int(uc_receipt["total_bytes"]),
+    }
+    if receipt.get("quantecon_uc_mc_semigroups_component") != expected_uc_component:
+        raise RuntimeError("build receipt QuantEcon UC Markov component binding differs")
+    ergodicity_root = QUANTECON_ERGODICITY_COMPONENT_ROOT
+    ergodicity_receipt_path = ergodicity_root / "COMPONENT_RECEIPT.json"
+    ergodicity_manifest_path = ergodicity_root / "COMPONENT_MANIFEST.tsv"
+    if not ergodicity_receipt_path.is_file() or not ergodicity_manifest_path.is_file():
+        raise RuntimeError("verified QuantEcon ergodicity component receipt/manifest is missing")
+    ergodicity_receipt = json.loads(require_file(ergodicity_receipt_path).decode("utf-8"))
+    if ergodicity_receipt.get("schema") != "o009.quantecon-component.v1":
+        raise RuntimeError("QuantEcon ergodicity component receipt schema differs")
+    if ergodicity_receipt.get("unit_id") != "unit.o009.quantecon.ctmc.stationarity-ergodicity":
+        raise RuntimeError("QuantEcon ergodicity component unit identity differs")
+    ergodicity_target_sha, ergodicity_numerical_qa_sha = (
+        validate_quantecon_ergodicity_live_bindings(ergodicity_receipt)
+    )
+    expected_ergodicity_component = {
+        "unit_id": str(ergodicity_receipt["unit_id"]),
+        "source_path": str(ergodicity_receipt["target"]["path"]),
+        "target_sha256": ergodicity_target_sha,
+        "numerical_qa_sha256": ergodicity_numerical_qa_sha,
+        "component_manifest_sha256": sha256(require_file(ergodicity_manifest_path)),
+        "component_receipt_sha256": sha256(require_file(ergodicity_receipt_path)),
+        "file_count": int(ergodicity_receipt["file_count"]),
+        "total_bytes": int(ergodicity_receipt["total_bytes"]),
+    }
+    if receipt.get("quantecon_ergodicity_component") != expected_ergodicity_component:
+        raise RuntimeError("build receipt QuantEcon ergodicity component binding differs")
     if receipt.get("lab_source_sha256") != expected_labs[0]["source_sha256"]:
         raise RuntimeError("legacy first-lab source binding differs")
     if receipt.get("r_result_rows") != expected_labs[0]["r_result_rows"]:
@@ -3582,6 +8728,7 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
         (site / str(row["path"]) for row in actual if str(row["path"]).endswith(".html")),
         key=lambda path: path.as_posix().casefold(),
     )
+    expected_css_query = f"v={sha256(shared_reader_stylesheet(site))[:12]}"
     for path in html_paths:
         data = path.read_bytes()
         text = data.decode("utf-8")
@@ -3616,6 +8763,10 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
             attribute = "href" if tag.has_attr("href") else "src"
             ref = str(tag.get(attribute, ""))
             parsed = urllib.parse.urlparse(ref)
+            if parsed.path.endswith("reader.css") and parsed.query != expected_css_query:
+                raise RuntimeError(
+                    f"reader stylesheet link lacks the current cache-buster: {path} -> {ref}"
+                )
             if not ref or parsed.scheme:
                 continue
             if not parsed.path and parsed.fragment:
@@ -3636,15 +8787,81 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
                 target_soup = BeautifulSoup(target.read_text("utf-8"), "lxml")
                 if target_soup.find(id=parsed.fragment) is None:
                     raise RuntimeError(f"missing local fragment: {path} -> {ref}")
+    verify_original_bridge_outputs(site)
+    verify_supplement_outputs(site)
     index_soup = BeautifulSoup((site / "index.html").read_text("utf-8"), "lxml")
     index_hrefs = [str(anchor.get("href", "")) for anchor in index_soup.select("a[href]")]
     required_index_links = [str(unit["rel"]) for unit in THEORY_UNITS]
+    required_index_links.append("apps/two-state.html")
     required_index_links.extend(Path(spec["output"]).as_posix() for spec in LAB_SPECS)
+    required_index_links.extend(
+        Path(spec["output"]).as_posix() for spec in ORIGINAL_BRIDGE_SPECS
+    )
+    required_index_links.append("quantecon/lectures/memoryless.html")
+    required_index_links.append("quantecon/lectures/poisson.html")
+    required_index_links.append("quantecon/lectures/markov_prop.html")
+    required_index_links.append("quantecon/lectures/kolmogorov_bwd.html")
+    required_index_links.append("quantecon/lectures/kolmogorov_fwd.html")
+    required_index_links.append("quantecon/lectures/generators.html")
+    required_index_links.append("quantecon/lectures/uc_mc_semigroups.html")
+    required_index_links.append("quantecon/lectures/ergodicity.html")
     missing_index_links = [href for href in required_index_links if index_hrefs.count(href) != 1]
     if missing_index_links:
         raise RuntimeError(
             f"reader index must link every admitted unit exactly once: {missing_index_links}"
         )
+    overview_expectations = {
+        "martingales/index.html": {
+            "ids": {"Summary", "External"},
+            "metadata": {
+                "previous": "../markov/index.html",
+                "next": "../brown/index.html",
+            },
+            "scope_note": None,
+        },
+        "markov/index.html": {
+            "ids": {"sum", "cha", "spe", "con", "spe2", "Apps", "External"},
+            "metadata": {"next": "../martingales/index.html"},
+            "scope_note": "markov-index-edition-scope",
+        },
+        "brown/index.html": {
+            "ids": {"sum", "apps", "ext", "Grimmett2"},
+            "metadata": {"previous": "../martingales/index.html"},
+            "scope_note": "brown-index-edition-scope",
+        },
+    }
+    for relative, expected in overview_expectations.items():
+        overview_path = site / relative
+        overview_soup = BeautifulSoup(overview_path.read_text("utf-8"), "lxml")
+        observed_ids = {
+            str(node.get("id")) for node in overview_soup.select("[id]")
+        }
+        if not expected["ids"].issubset(observed_ids):
+            raise RuntimeError(
+                f"overview page lost selected source ids: {relative}: "
+                f"{sorted(expected['ids'] - observed_ids)}"
+            )
+        for relation, href in expected["metadata"].items():
+            links = overview_soup.select(f'head link[rel~="{relation}"]')
+            if len(links) != 1 or str(links[0].get("href", "")) != href:
+                raise RuntimeError(
+                    f"overview sequential metadata mismatch: {relative} {relation}"
+                )
+        scope_note = expected["scope_note"]
+        if scope_note is not None and len(overview_soup.select(f"#{scope_note}")) != 1:
+            raise RuntimeError(f"overview scope note missing or duplicated: {relative}")
+    brown_index_soup = BeautifulSoup(
+        (site / "brown" / "index.html").read_text("utf-8"), "lxml"
+    )
+    absolute_brownian_href = (
+        "https://www.randomservices.org/random/apps/AbsoluteBrownianMotion.html"
+    )
+    if len(
+        brown_index_soup.select(
+            f'a[href="{absolute_brownian_href}"]'
+        )
+    ) != 1:
+        raise RuntimeError("Brown overview absolute-motion application link was not repaired")
     css_paths = sorted(
         (site / str(row["path"]) for row in actual if str(row["path"]).endswith(".css")),
         key=lambda path: path.as_posix().casefold(),
@@ -3708,8 +8925,380 @@ def verify_site(site: Path, execute_r: bool = True) -> None:
     boldsymbol_target = site / "MathJax" / "input" / "tex" / "extensions" / "boldsymbol.js"
     if "\\boldsymbol" in theory_text and not boldsymbol_target.is_file():
         raise RuntimeError("required MathJax boldsymbol autoload extension is missing")
+    brown_path = site / "brown" / "Standard.html"
+    brown_text = brown_path.read_text("utf-8")
+    brown_soup = BeautifulSoup(brown_text, "lxml")
+    if len(brown_soup.select("div.unit")) != 50:
+        raise RuntimeError("Brown Standard reader must preserve all 50 source units")
+    if len(brown_soup.find_all("details")) != 30 or len(brown_soup.find_all("summary")) != 30:
+        raise RuntimeError("Brown Standard reader must contain 28 source disclosures and two additive disclosures")
+    for required_id in (
+        "app",
+        "brown-standard-downstream-corrections",
+        "brown-standard-exercise-solution",
+        "lil1-consequence",
+    ):
+        if brown_soup.find(id=required_id) is None:
+            raise RuntimeError(f"Brown Standard reader closure missing: {required_id}")
+    if len(brown_soup.select("#brown-standard-exercise-solution details")) != 1:
+        raise RuntimeError("Brown Standard original exercise solution is not structurally complete")
+    brown_app_links = brown_soup.select(
+        'p.app a[href^="https://www.randomservices.org/random/apps/"]'
+    )
+    if len(brown_app_links) != 12 or any(
+        "resmi daring" not in anchor.get_text(" ", strip=True)
+        for anchor in brown_app_links
+    ):
+        raise RuntimeError("Brown Standard external app prompts are not all explicitly online")
+    if [str(script.get("src", "")) for script in brown_soup.select("script[src]")].count(
+        "../apps/Apps.js"
+    ) != 1 or [
+        str(script.get("src", "")) for script in brown_soup.select("script[src]")
+    ].count("../apps/Distributions.js") != 1:
+        raise RuntimeError("Brown Standard offline simulator scripts are not exact-once")
+    for asset, expected_hash in (
+        (site / "apps" / "Apps.js", "a983fd231b3e5924ca46a80ef25ad614d84c70f5da933f90c698bd342ddf9d22"),
+        (site / "apps" / "Distributions.js", "bcf0e7266ff22890e23e577bdb37328233c1df9410ac2dc77a4075f0a3beeb0a"),
+    ):
+        if sha256(require_file(asset)) != expected_hash:
+            raise RuntimeError(f"Brown Standard offline simulator asset drift: {asset.name}")
+    required_brown_witnesses = (
+        'control.button.setAttribute("aria-label", label)',
+        'this.graph.svg.setAttribute("role", "img")',
+        r"e^{t u^2 / 2}",
+        r"\max\{X_s:0\le s\le t\}",
+        r"\var(Z_t) = t^2 / 8",
+        r"\liminf_{t\to\infty}",
+        r"\inf\varnothing=\infty",
+        r"\P(\tau\lt\infty)=1",
+        r"\mathscr F_s\)",
+        r"\sigma=\tau_y\wedge t",
+        r"\P(\sigma_q\lt\infty)=1",
+        r"tidak ada nol dalam \((s,t]\)",
+        r"Dengan probabilitas 1, \(Z\) mempunyai dimensi Hausdorff",
+        "solusi asli edisi ini",
+    )
+    missing_brown_witnesses = [
+        witness for witness in required_brown_witnesses if witness not in brown_text
+    ]
+    if missing_brown_witnesses:
+        raise RuntimeError(
+            f"Brown Standard corrected reader witnesses missing: {missing_brown_witnesses}"
+        )
+    forbidden_brown_witnesses = (
+        r"\5",
+        r"\lef[",
+        r"\text{ for all }",
+        r"\text{ for some }",
+        r"e^{t u / 2}",
+        r'href="#max3"',
+        "proses Markov homogen-waktu",
+        "inkremen stasioner dan saling bebas",
+        "jalan acak",
+        r"parameter skala \( t \)",
+        r"\E(Z_t) = t^2 / 8",
+        r"s \mapsto X(\tau_y + s) - y",
+        r"kejadian \( Z_t \le s \) sama dengan",
+    )
+    brown_hits = [value for value in forbidden_brown_witnesses if value in brown_text]
+    if brown_hits:
+        raise RuntimeError(f"Brown Standard stale authority defects remain: {brown_hits}")
+    if brown_text.count(r"\(") != brown_text.count(r"\)"):
+        raise RuntimeError("Brown Standard inline TeX delimiters are unbalanced downstream")
+    if brown_text.count(r"\[") != brown_text.count(r"\]"):
+        raise RuntimeError("Brown Standard display TeX delimiters are unbalanced downstream")
+    if brown_text.count(r"\begin{align}") != brown_text.count(r"\end{align}"):
+        raise RuntimeError("Brown Standard align environments are unbalanced downstream")
+    drift_path = site / "brown" / "Drift.html"
+    drift_text = drift_path.read_text("utf-8")
+    drift_soup = BeautifulSoup(drift_text, "lxml")
+    if len(drift_soup.select("div.unit")) != 11:
+        raise RuntimeError("Brown Drift reader must preserve all 11 active source units")
+    if len(drift_soup.find_all("details")) != 10 or len(drift_soup.find_all("summary")) != 10:
+        raise RuntimeError(
+            "Brown Drift reader must contain seven source disclosures and three additive disclosures"
+        )
+    for required_id in (
+        "brown-drift-downstream-corrections",
+        "brown-drift-offline-lab",
+        "brown-drift-chart",
+        "brown-drift-status",
+        "brown-drift-mastery",
+        "brown-drift-mastery-exercise",
+        "brown-drift-mastery-hint",
+        "brown-drift-mastery-solution",
+        "brown-drift-strong-markov-proof",
+    ):
+        if drift_soup.find(id=required_id) is None:
+            raise RuntimeError(f"Brown Drift reader closure missing: {required_id}")
+    drift_app_links = drift_soup.select(
+        'p.app a[href="https://www.randomservices.org/random/apps/DriftBrownianMotion.html"]'
+    )
+    if len(drift_app_links) != 1 or "resmi daring" not in drift_app_links[0].get_text(
+        " ", strip=True
+    ):
+        raise RuntimeError("Brown Drift retained Random app is not explicit and exact-once")
+    if [str(script.get("src", "")) for script in drift_soup.select("script[src]")].count(
+        "../apps/brown-drift-offline.js"
+    ) != 1:
+        raise RuntimeError("Brown Drift offline simulator script is not exact-once")
+    drift_app_asset = site / "apps" / "brown-drift-offline.js"
+    if sha256(require_file(drift_app_asset)) != (
+        "e4d64c98b1fa3fc7d1511c00a6b4385beb4079615c1217d74c0a0221ca310a1f"
+    ):
+        raise RuntimeError("Brown Drift offline simulator asset drift")
+    if len(drift_soup.select("#brown-drift-offline-lab input")) != 6:
+        raise RuntimeError("Brown Drift offline simulator parameter closure differs")
+    if len(drift_soup.select("#brown-drift-offline-lab button")) != 2:
+        raise RuntimeError("Brown Drift offline simulator action closure differs")
+    required_drift_witnesses = (
+        r"t_2 \lt \cdots \lt t_n",
+        r"\sigma\sqrt{s}\,\sigma\sqrt{t}",
+        r"(s, t) \in (0, \infty)^2",
+        r"\mathscr F_\infty=\sigma(\bigcup_{t\ge0}\mathscr F_t)",
+        r"\P(\tau\lt\infty)=1",
+        r"\tau_n=2^{-n}\lceil2^n\tau\rceil\downarrow\tau",
+        "tidak ada penskalaan nontrivial",
+        "parameter hanyutan dan skala yang sama",
+        "karya asli edisi ini, dilisensikan CC BY 4.0",
+        r"X_{5/2}\mid X_1=x_2",
+        "brown-drift-offline.js",
+    )
+    missing_drift_witnesses = [
+        witness for witness in required_drift_witnesses if witness not in drift_text
+    ]
+    if missing_drift_witnesses:
+        raise RuntimeError(
+            f"Brown Drift corrected reader witnesses missing: {missing_drift_witnesses}"
+        )
+    forbidden_drift_witnesses = (
+        r"t_2 \cdots \lt t_n",
+        r"\sigma s \sigma t",
+        r"\frac{\min\{s, t\}}{s t}",
+        r"(s, t) \in [0, \infty)^2 \]</p>",
+        "Kedua syarat tersebut tidak dapat dipenuhi sekaligus",
+        "merupakan gerak Brown standar lain",
+        r"B \in \mathscr{F}:",
+        r"\text{ for all }",
+    )
+    drift_hits = [value for value in forbidden_drift_witnesses if value in drift_text]
+    if drift_hits:
+        raise RuntimeError(f"Brown Drift stale authority defects remain: {drift_hits}")
+    if drift_text.count(r"\(") != drift_text.count(r"\)"):
+        raise RuntimeError("Brown Drift inline TeX delimiters are unbalanced downstream")
+    if drift_text.count(r"\[") != drift_text.count(r"\]"):
+        raise RuntimeError("Brown Drift display TeX delimiters are unbalanced downstream")
+    if drift_text.count(r"\begin{align}") != drift_text.count(r"\end{align}"):
+        raise RuntimeError("Brown Drift align environments are unbalanced downstream")
+    bridge_path = site / "brown" / "Bridge.html"
+    bridge_text = bridge_path.read_text("utf-8")
+    bridge_soup = BeautifulSoup(bridge_text, "lxml")
+    if len(bridge_soup.select("div.unit")) != 13:
+        raise RuntimeError("Brown Bridge reader must preserve all 13 source units")
+    if len(bridge_soup.find_all("details")) != 9 or len(bridge_soup.find_all("summary")) != 9:
+        raise RuntimeError(
+            "Brown Bridge reader must contain seven source disclosures and two additive disclosures"
+        )
+    for required_id in (
+        "brown-bridge-downstream-corrections",
+        "brown-bridge-offline-lab",
+        "brown-bridge-chart",
+        "brown-bridge-status",
+        "brown-bridge-mastery",
+        "brown-bridge-process-limit-warning",
+        "brown-bridge-mastery-exercise",
+        "brown-bridge-mastery-hint",
+        "brown-bridge-mastery-solution",
+    ):
+        if bridge_soup.find(id=required_id) is None:
+            raise RuntimeError(f"Brown Bridge reader closure missing: {required_id}")
+    bridge_app_links = bridge_soup.select(
+        'p.app a[href="https://www.randomservices.org/random/apps/BrownianBridge.html"]'
+    )
+    if len(bridge_app_links) != 2 or any(
+        "resmi daring" not in anchor.get_text(" ", strip=True)
+        for anchor in bridge_app_links
+    ):
+        raise RuntimeError("Brown Bridge retained Random apps are not explicit and exact-twice")
+    if [str(script.get("src", "")) for script in bridge_soup.select("script[src]")].count(
+        "../apps/brown-bridge-offline.js"
+    ) != 1:
+        raise RuntimeError("Brown Bridge offline simulator script is not exact-once")
+    bridge_app_asset = site / "apps" / "brown-bridge-offline.js"
+    if sha256(require_file(bridge_app_asset)) != (
+        "2c3a29ab169b538a54dd77e1813f95c06a68face108eb386723a84a514387f2b"
+    ):
+        raise RuntimeError("Brown Bridge offline simulator asset drift")
+    if len(bridge_soup.select("#brown-bridge-offline-lab input")) != 4:
+        raise RuntimeError("Brown Bridge offline simulator parameter closure differs")
+    if len(bridge_soup.select("#brown-bridge-offline-lab button")) != 2:
+        raise RuntimeError("Brown Bridge offline simulator action closure differs")
+    required_bridge_witnesses = (
+        "3. Jembatan Brown",
+        r"\E(X_t) = \E(Z_t) - t \E(Z_1)",
+        r"t \in [0, 1)",
+        r"s, \, t \in [0, \infty)",
+        r"\P(X_1=0)=0",
+        "hukum kondisional reguler",
+        r"d X_t = -\frac{X_t}{1 - t}",
+        "konsistensi kuadrat-rataan",
+        r"\cov\left[\bs{1}(T_i \le s), \bs{1}(T_j \le t)\right]",
+        "Teorema Donsker",
+        r"X_t\mid X_s=x\sim N",
+        "karya asli edisi ini, dilisensikan CC BY 4.0",
+        "brown-bridge-offline.js",
+    )
+    missing_bridge_witnesses = [
+        witness for witness in required_bridge_witnesses if witness not in bridge_text
+    ]
+    if missing_bridge_witnesses:
+        raise RuntimeError(
+            f"Brown Bridge corrected reader witnesses missing: {missing_bridge_witnesses}"
+        )
+    forbidden_bridge_witnesses = (
+        "5. Jembatan Brown",
+        r"\( E(X_t) = \E(Z_t)",
+        "1 - \tt",
+        r"d X_t = \frac{X_t}{1 - t}",
+        r"\cov\left[\bs{1}(T_i \le s) \bs{1}(T_j \le t)\right]",
+    )
+    bridge_hits = [value for value in forbidden_bridge_witnesses if value in bridge_text]
+    if bridge_hits:
+        raise RuntimeError(f"Brown Bridge stale authority defects remain: {bridge_hits}")
+    if bridge_text.count(r"\(") != bridge_text.count(r"\)"):
+        raise RuntimeError("Brown Bridge inline TeX delimiters are unbalanced downstream")
+    if bridge_text.count(r"\[") != bridge_text.count(r"\]"):
+        raise RuntimeError("Brown Bridge display TeX delimiters are unbalanced downstream")
+    geometric_path = site / "brown" / "Geometric.html"
+    geometric_text = geometric_path.read_text("utf-8")
+    geometric_soup = BeautifulSoup(geometric_text, "lxml")
+    if len(geometric_soup.select("div.unit")) != 14:
+        raise RuntimeError("Brown Geometric reader must preserve all 14 source units")
+    if (
+        len(geometric_soup.find_all("details")) != 8
+        or len(geometric_soup.find_all("summary")) != 8
+    ):
+        raise RuntimeError(
+            "Brown Geometric reader must contain six source disclosures and two additive disclosures"
+        )
+    for required_id in (
+        "geometric-brownian-downstream-corrections",
+        "geometric-brownian-offline-lab",
+        "geometric-brownian-chart",
+        "geometric-brownian-status",
+        "geometric-brownian-theoretical-mean",
+        "geometric-brownian-empirical-mean",
+        "geometric-brownian-theoretical-median",
+        "geometric-brownian-empirical-median",
+        "geometric-brownian-theoretical-variance",
+        "geometric-brownian-empirical-variance",
+        "geometric-brownian-theoretical-probability",
+        "geometric-brownian-empirical-probability",
+        "geometric-brownian-mastery",
+        "geometric-brownian-mastery-exercise",
+        "geometric-brownian-mastery-hint",
+        "geometric-brownian-mastery-solution",
+        "dst4",
+        "prp2",
+    ):
+        if geometric_soup.find(id=required_id) is None:
+            raise RuntimeError(f"Brown Geometric reader closure missing: {required_id}")
+    geometric_app_links = geometric_soup.select(
+        'p.app a[href="https://www.randomservices.org/random/apps/GeometricBrownianMotion.html"]'
+    )
+    if len(geometric_app_links) != 4 or any(
+        "resmi daring" not in anchor.get_text(" ", strip=True)
+        for anchor in geometric_app_links
+    ):
+        raise RuntimeError(
+            "Brown Geometric retained Random apps are not explicit and exact-four"
+        )
+    if [
+        str(script.get("src", "")) for script in geometric_soup.select("script[src]")
+    ].count("../apps/geometric-brownian-offline.js") != 1:
+        raise RuntimeError("Brown Geometric offline simulator script is not exact-once")
+    geometric_app_asset = site / "apps" / "geometric-brownian-offline.js"
+    if sha256(require_file(geometric_app_asset)) != (
+        "5b18869f5582f354c40fbf6a9987a191450e09d93b21891d9838251b4a3ed8a8"
+    ):
+        raise RuntimeError("Brown Geometric offline simulator asset drift")
+    if len(geometric_soup.select("#geometric-brownian-offline-lab input")) != 7:
+        raise RuntimeError("Brown Geometric offline simulator parameter closure differs")
+    if len(geometric_soup.select("#geometric-brownian-offline-lab button")) != 2:
+        raise RuntimeError("Brown Geometric offline simulator action closure differs")
+    if len(geometric_soup.select("#geometric-brownian-offline-lab tbody tr")) != 4:
+        raise RuntimeError("Brown Geometric accessible output table closure differs")
+    geometric_js_text = geometric_app_asset.read_text("utf-8")
+    required_geometric_js_witnesses = (
+        "function seededRandom(seed)",
+        "function normalCdf(x)",
+        "value *= Math.exp(logDrift + logScale * standardNormal(random));",
+        "geometric-brownian-theoretical-median",
+        "geometric-brownian-theoretical-probability",
+        "meanPoints",
+        "medianPoints",
+        "Selesai:",
+    )
+    missing_geometric_js_witnesses = [
+        witness
+        for witness in required_geometric_js_witnesses
+        if witness not in geometric_js_text
+    ]
+    if missing_geometric_js_witnesses:
+        raise RuntimeError(
+            "Brown Geometric offline simulator witnesses missing: "
+            f"{missing_geometric_js_witnesses}"
+        )
+    if any(value in geometric_js_text for value in ("fetch(", "XMLHttpRequest", "WebSocket")):
+        raise RuntimeError("Brown Geometric offline simulator has a network dependency")
+    required_geometric_witnesses = (
+        "4. Gerak Brown Geometrik",
+        r"(\mu - 2\sigma^2) t",
+        r"\(F_t(x)=0\)",
+        r"n\in\N_+",
+        r"\log(X_t)/t",
+        r"\limsup_{t\to\infty}X_t=\infty",
+        r"\E\!\left(\int_0^t \sigma^2X_s^2\,ds\right)",
+        r"\E(X_t\mid\mathscr F_s)=X_s e^{\mu\Delta}",
+        r"M_t=e^{-\mu t}X_t",
+        "karya asli edisi ini, dilisensikan CC BY 4.0",
+        "geometric-brownian-offline.js",
+    )
+    missing_geometric_witnesses = [
+        witness
+        for witness in required_geometric_witnesses
+        if witness not in geometric_text
+    ]
+    if missing_geometric_witnesses:
+        raise RuntimeError(
+            f"Brown Geometric corrected reader witnesses missing: {missing_geometric_witnesses}"
+        )
+    forbidden_geometric_witnesses = (
+        "6. Gerak Brown Geometrik",
+        r"(\mu - \sigma^2) t \pm",
+        'id="dist4"',
+        r"\( f \) meningkat lalu menurun",
+        r"\( f \) mula-mula cekung ke atas",
+        "Ditinjau dari orde momen",
+        "mendominasi suku",
+        "dengan asumsi-asumsi lazim",
+    )
+    geometric_hits = [
+        value for value in forbidden_geometric_witnesses if value in geometric_text
+    ]
+    if geometric_hits:
+        raise RuntimeError(
+            f"Brown Geometric stale authority defects remain: {geometric_hits}"
+        )
+    if geometric_text.count(r"\(") != geometric_text.count(r"\)"):
+        raise RuntimeError("Brown Geometric inline TeX delimiters are unbalanced downstream")
+    if geometric_text.count(r"\[") != geometric_text.count(r"\]"):
+        raise RuntimeError("Brown Geometric display TeX delimiters are unbalanced downstream")
     joined = b"\n".join((site / str(row["path"])).read_bytes() for row in actual)
-    forbidden = (b"googletagmanager", b"C:\\Users\\", b"C:/Users/", b"Floris")
+    forbidden = (b"googletagmanager", b"C:\\Users\\", b"C:/Users/")
+    profile_leaf = Path.home().name.encode("utf-8")
+    if profile_leaf:
+        forbidden += (profile_leaf,)
     hits = [value.decode("ascii") for value in forbidden if value in joined]
     if hits:
         raise RuntimeError(f"privacy/runtime residue in site: {hits}")
@@ -3726,6 +9315,7 @@ def build() -> None:
     validate_lab_specs()
     runtime_evidence()
     validate_theory_translation()
+    validate_original_bridge_specs()
     ROOT.joinpath("build").mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix="o009-first-boundary-", dir=ROOT / "build"))
     try:
@@ -3736,6 +9326,8 @@ def build() -> None:
                 lab_results.append({"text": lab_text, "rows": rows})
         copy_assets(stage)
         build_theory(stage)
+        build_original_bridges(stage)
+        build_supplements(stage)
         for index, (spec, result) in enumerate(zip(LAB_SPECS, lab_results, strict=True), start=1):
             processed_lab = stage / f"lab-build-input-{index:02d}.md"
             source_text = str(result["text"])
@@ -3753,9 +9345,32 @@ def build() -> None:
             run_pandoc(processed_lab, lab_output, "../reader.css", "../MathJax/tex-svg.js")
             decorate_lab_output(lab_output, spec)
             processed_lab.unlink()
+        quantecon_component = copy_quantecon_component(stage)
+        quantecon_poisson_component = copy_quantecon_poisson_component(stage)
+        quantecon_markov_prop_component = copy_quantecon_markov_prop_component(stage)
+        quantecon_kolmogorov_bwd_component = copy_quantecon_kolmogorov_bwd_component(stage)
+        quantecon_kolmogorov_fwd_component = copy_quantecon_kolmogorov_fwd_component(stage)
+        quantecon_generators_component = copy_quantecon_generators_component(stage)
+        quantecon_uc_mc_semigroups_component = (
+            copy_quantecon_uc_mc_semigroups_component(stage)
+        )
+        quantecon_ergodicity_component = copy_quantecon_ergodicity_component(stage)
         run_pandoc(SOURCE_INDEX, stage / "index.html", "reader.css")
         decorate_index_output(stage / "index.html")
-        write_manifest(stage, lab_results)
+        synchronize_shared_reader_stylesheet(stage)
+        version_reader_stylesheet_links(stage)
+        write_manifest(
+            stage,
+            lab_results,
+            quantecon_component,
+            quantecon_poisson_component,
+            quantecon_markov_prop_component,
+            quantecon_kolmogorov_bwd_component,
+            quantecon_kolmogorov_fwd_component,
+            quantecon_generators_component,
+            quantecon_uc_mc_semigroups_component,
+            quantecon_ergodicity_component,
+        )
         verify_site(stage)
         site_resolved = SITE.resolve()
         build_resolved = (ROOT / "build").resolve()
@@ -3801,6 +9416,7 @@ def main() -> int:
         validate_lab_specs()
         runtime_evidence()
         validate_theory_translation()
+        validate_original_bridge_specs()
         verify_site(SITE)
         receipt = json.loads((SITE / "BUILD_RECEIPT.json").read_text("utf-8"))
         print(

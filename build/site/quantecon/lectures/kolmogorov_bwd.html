@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>Persamaan Kolmogorov Mundur</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/><script>window.MathJax = {tex: {macros: {Exp: "\\operatorname{Exp}", BB: "\\mathbb{B}", PP: "\\mathbb{P}", RR: "\\mathbb{R}", NN: "\\mathbb{N}", ZZ: "\\mathbb{Z}", EE: "\\mathbb{E}", dD: "\\mathcal{D}", fF: "\\mathcal{F}", lL: "\\mathcal{L}", linop: "\\mathcal{L}(\\mathbb{B})", linopell: "\\mathcal{L}(\\ell_1)", Binomial: "\\operatorname{Binomial}", Poisson: "\\operatorname{Poisson}"}}};</script><script id="MathJax-script" src="../MathJax/tex-svg.js"></script></head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Persamaan Kolmogorov Mundur</h1>
+</header><nav aria-label="Navigasi edisi"><a href="../../index.html">Beranda edisi</a></nav><aside class="component-attribution" id="quantecon-attribution"><strong>Asal komponen dan lisensi.</strong> Adaptasi bahasa Indonesia dari <cite>Continuous Time Markov Chains</cite> karya Thomas J. Sargent dan John Stachurski, sumber MyST QuantEcon pada komit <code>8b06e0aa5a438692445b2c896f9d238c5a7d5eb7</code>. Komponen ini dipertahankan di bawah CC BY-SA 4.0; perubahan berupa terjemahan dan perbaikan hilir dicatat di provenance. QuantEcon tidak mengesahkan edisi ini.<p class="model-provenance">Provenans produksi: OpenAI Codex gpt-5.6-sol, Ultra. Kredit penulis dan kontributor manusia tetap dipertahankan.</p></aside><main>
+<h2 id="persamaan-kolmogorov-mundur">Persamaan Kolmogorov Mundur</h2>
+<p>Selain yang tersedia di lingkungan ilmiah Python, kuliah ini
+memerlukan NumPy, Matplotlib, Numba, dan SciPy.</p>
+<div class="code-cell" data-tags="hide-output" id="qe-cell-1">
+<pre><code class="language-python" data-cell-index="1"># Dependensi unit disediakan oleh lingkungan luring yang dikunci.
+# Tidak ada instalasi paket pada saat pembaca dijalankan.</code></pre>
+</div>
+<blockquote>
+<p><strong>Catatan adaptasi hilir.</strong> Sumber menjalankan
+<code>!pip install quantecon</code> di dalam pembaca. Instalasi saat
+runtime dihapus agar edisi ini dapat diputar ulang secara luring dan
+deterministik. Sel kode serta posisinya dipertahankan sebagai permukaan
+provenance, sedangkan paket <code>quantecon</code> tidak diperlukan oleh
+kode unit ini.</p>
+</blockquote>
+<h2 id="gambaran-umum">Gambaran umum</h2>
+<p>Ketika model menjadi semakin rumit, penurunan representasi analitis
+bagi semigrup Markov <span class="math inline">\((P_t)\)</span> menjadi
+semakin sulit.</p>
+<p>Hal ini serupa dengan kenyataan bahwa solusi model waktu kontinu
+sering kali tidak memiliki bentuk analitis.</p>
+<p>Sebagai contoh, ketika mempelajari lintasan deterministik dalam waktu
+kontinu, deskripsi infinitesimal (<a href="https://en.wikipedia.org/wiki/Ordinary_differential_equation">ODE</a>
+dan <a href="https://en.wikipedia.org/wiki/Partial_differential_equation">PDE</a>)
+sering lebih intuitif dan lebih mudah dituliskan daripada solusi yang
+bersesuaian.</p>
+<p>(Ini adalah salah satu wawasan cemerlang dalam matematika, yang
+bermula dari karya ilmuwan besar seperti Isaac Newton.)</p>
+<p>Dalam kuliah ini kita akan melihat bahwa hal yang sama berlaku bagi
+rantai Markov waktu kontinu.</p>
+<p>Agar kita dapat memusatkan perhatian pada intuisi alih-alih rincian
+teknis, ruang keadaan dalam kuliah ini diasumsikan berhingga, dengan
+<span class="math inline">\(|S|=n\)</span>.</p>
+<p>Kelak kita akan menyelidiki kasus <span class="math inline">\(|S|=\infty\)</span>.</p>
+<p>Kita akan memakai impor berikut.</p>
+<div class="code-cell" data-tags="" id="qe-cell-2">
+<pre><code class="language-python" data-cell-index="2">import numpy as np
+import matplotlib.pyplot as plt
+from numba import njit
+
+from scipy.linalg import expm
+from scipy.stats import binom</code></pre>
+</div>
+<blockquote>
+<p><strong>Catatan adaptasi hilir.</strong> Impor
+<code>scipy as sp</code> dan <code>quantecon as qe</code> pada sumber
+tidak dipakai oleh unit ini dan dihapus. Impor yang diperlukan oleh
+setiap sel komputasi tetap dipertahankan.</p>
+</blockquote>
+<p><a id="sdji"></a></p>
+<h2 id="intensitas-lompatan-yang-bergantung-pada-keadaan">Intensitas
+Lompatan yang Bergantung pada Keadaan</h2>
+<p>Seperti telah kita lihat, rantai Markov waktu kontinu melompat di
+antara keadaan-keadaan dan karena itu dapat berbentuk</p>
+<p><span class="math display">\[
+    X_t = \sum_{k \geq 0} Y_k \mathbb 1\{J_k \leq t &lt; J_{k+1}\}
+    \qquad (t \geq 0)
+\]</span></p>
+<p>di mana <span class="math inline">\((J_k)\)</span> adalah waktu-waktu
+lompatan dan <span class="math inline">\((Y_k)\)</span> adalah keadaan
+pada setiap lompatan.</p>
+<p>(Kita mengasumsikan bahwa <span class="math inline">\(J_k \to
+\infty\)</span> dengan probabilitas satu sehingga <span class="math inline">\(X_t\)</span> terdefinisi untuk semua <span class="math inline">\(t \geq 0\)</span>. Hal ini selalu benar ketika
+waktu tinggal berdistribusi eksponensial dengan laju positif dan ruang
+keadaannya berhingga.)</p>
+<p>Dalam <a href="markov_prop.html">kuliah sebelumnya</a>,</p>
+<ul>
+<li>barisan <span class="math inline">\((Y_k)\)</span> dibangkitkan dari
+matriks Markov <span class="math inline">\(K\)</span> dan disebut rantai
+lompatan tertanam, sedangkan</li>
+<li>waktu tinggal <span class="math inline">\(W_k :=
+J_k-J_{k-1}\)</span> bersifat IID dan Exp<span class="math inline">\((\lambda)\)</span> untuk suatu intensitas lompatan
+konstan <span class="math inline">\(\lambda\)</span>.</li>
+</ul>
+<p>Dalam kuliah ini kita melakukan generalisasi dengan membolehkan
+intensitas lompatan berubah menurut keadaan.</p>
+<p>Perbedaan ini tampak kecil, tetapi sesungguhnya memungkinkan kita
+mencapai keumuman penuh dalam deskripsi rantai Markov waktu kontinu,
+sebagaimana akan diperjelas di bawah.</p>
+<h3 id="motivasi">Motivasi</h3>
+<p>Sebagai contoh motivasi, ingat kembali <a href="markov_prop.html#inventory_dynam">model persediaan</a>, tempat
+kita mengasumsikan bahwa waktu tunggu hingga pelanggan berikutnya datang
+sama dengan waktu tunggu hingga persediaan baru datang.</p>
+<p>Asumsi ini dibuat semata-mata demi kemudahan dan tampaknya tidak
+realistis.</p>
+<p>Ketika asumsi tersebut kita longgarkan, intensitas lompatan
+bergantung pada keadaan.</p>
+<p><a id="jumpchainalgo"></a></p>
+<h3 id="algoritma-rantai-lompatan">Algoritma Rantai Lompatan</h3>
+<p>Kita mulai dengan tiga objek dasar:</p>
+<ol type="1">
+<li>kondisi awal <span class="math inline">\(\psi\)</span>,</li>
+<li>matriks Markov <span class="math inline">\(K\)</span> pada <span class="math inline">\(S\)</span> yang memenuhi <span class="math inline">\(K(x,x)=0\)</span> untuk semua <span class="math inline">\(x\in S\)</span>, dan</li>
+<li>fungsi <span class="math inline">\(\lambda\)</span> yang memetakan
+<span class="math inline">\(S\)</span> ke <span class="math inline">\([0,\infty)\)</span>.</li>
+</ol>
+<p>Proses <span class="math inline">\((X_t)\)</span></p>
+<ul>
+<li>bermula pada suatu keadaan <span class="math inline">\(x\)</span>
+yang diambil dari <span class="math inline">\(\psi\)</span>,</li>
+<li>jika <span class="math inline">\(\lambda(x)&gt;0\)</span>, tinggal
+di sana selama waktu eksponensial <span class="math inline">\(W\)</span>
+dengan laju <span class="math inline">\(\lambda(x)\)</span>; jika <span class="math inline">\(\lambda(x)=0\)</span>, tinggal di sana selamanya,
+dan</li>
+<li>ketika waktu tinggalnya berhingga, diperbarui ke keadaan baru <span class="math inline">\(y\)</span> yang diambil dari <span class="math inline">\(K(x,\cdot)\)</span>.</li>
+</ul>
+<p>Selanjutnya <span class="math inline">\(y\)</span> menjadi keadaan
+baru proses dan langkah-langkah tersebut diulangi.</p>
+<p>Berikut algoritma yang sama dalam bentuk lebih eksplisit.</p>
+<div class="qe-algorithm" id="ejc_algo">
+<p><strong>Algoritma Rantai Lompatan</strong> <strong>Masukan</strong>
+<span class="math inline">\(\psi \in \dD\)</span>, fungsi laju <span class="math inline">\(\lambda\)</span>, matriks Markov <span class="math inline">\(K\)</span></p>
+<p><strong>Keluaran</strong> rantai Markov <span class="math inline">\((X_t)\)</span></p>
+<ol type="1">
+<li>Ambil <span class="math inline">\(Y_0\)</span> dari <span class="math inline">\(\psi\)</span>, tetapkan <span class="math inline">\(J_0=0\)</span> dan <span class="math inline">\(k=1\)</span>.</li>
+<li>Dengan syarat pada <span class="math inline">\(Y_{k-1}\)</span>,
+ambil <span class="math inline">\(W_k\)</span> dari Exp<span class="math inline">\((\lambda(Y_{k-1}))\)</span> bila <span class="math inline">\(\lambda(Y_{k-1})&gt;0\)</span>; bila lajunya nol,
+tetapkan <span class="math inline">\(W_k=+\infty\)</span>. Pengambilan
+ini independen dari pengambilan sebelumnya dengan syarat pada lintasan
+keadaan.</li>
+<li>Tetapkan <span class="math inline">\(J_k=J_{k-1}+W_k\)</span>.</li>
+<li>Tetapkan <span class="math inline">\(X_t=Y_{k-1}\)</span> untuk
+<span class="math inline">\(t\)</span> dalam <span class="math inline">\([J_{k-1},J_k)\)</span>.</li>
+<li>Jika <span class="math inline">\(W_k=+\infty\)</span>, hentikan
+algoritma; jika tidak, ambil <span class="math inline">\(Y_k\)</span>
+dari <span class="math inline">\(K(Y_{k-1},\cdot)\)</span>, secara
+independen dari <span class="math inline">\(W_k\)</span> dengan syarat
+pada <span class="math inline">\(Y_{k-1}\)</span>.</li>
+<li>Tetapkan <span class="math inline">\(k=k+1\)</span> dan kembali ke
+langkah 2.</li>
+</ol>
+</div>
+<p>Dengan syarat pada lintasan keadaan <span class="math inline">\((Y_k)\)</span>, waktu-waktu tinggal <span class="math inline">\((W_k)\)</span> saling independen dan, pada laju
+positif, <span class="math inline">\(W_k\)</span> memiliki distribusi
+Exp<span class="math inline">\((\lambda(Y_{k-1}))\)</span>; laju nol
+memberi waktu tinggal <span class="math inline">\(+\infty\)</span>.
+Secara umum, waktu-waktu tersebut tidak berdistribusi identik dan tidak
+independen dari lintasan keadaan tanpa pengondisian. Dengan syarat pada
+keadaan saat ini <span class="math inline">\(Y_{k-1}\)</span>, waktu
+tinggal berikutnya <span class="math inline">\(W_k\)</span> dan keadaan
+berikutnya <span class="math inline">\(Y_k\)</span> saling
+independen.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Sumber menyatakan bahwa <span class="math inline">\((W_k)\)</span> adalah barisan IID dan independen
+dari <span class="math inline">\((Y_k)\)</span>. Pernyataan itu hanya
+benar pada kasus laju konstan sebelumnya. Pada laju <span class="math inline">\(\lambda(Y_{k-1})\)</span> yang bergantung pada
+keadaan, struktur independensi yang tepat adalah struktur bersyarat yang
+dinyatakan di atas. Otoritas sumber tetap dipertahankan terpisah tanpa
+perubahan.</p>
+</blockquote>
+<p>Syarat <span class="math inline">\(K(x,x)=0\)</span> untuk semua
+<span class="math inline">\(x\)</span> memastikan bahwa <span class="math inline">\((X_t)\)</span> benar-benar berpindah ke keadaan
+lain pada setiap waktu lompatan.</p>
+<h2 id="menghitung-semigrup">Menghitung Semigrup</h2>
+<p>Untuk proses lompatan <span class="math inline">\((X_t)\)</span>
+dengan intensitas bergantung keadaan yang dijelaskan oleh algoritma
+rantai lompatan, menghitung semigrup Markov bukanlah latihan sepele.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Sumber menyebut intensitas
+ini “berubah terhadap waktu”. Modelnya tetap homogen terhadap waktu;
+yang berubah di sepanjang lintasan adalah laju karena laju tersebut
+ditentukan oleh keadaan saat ini.</p>
+</blockquote>
+<p>Pendekatan kita adalah</p>
+<ol type="1">
+<li>memakai penalaran probabilistik untuk memperoleh persamaan integral
+yang harus dipenuhi semigrup,</li>
+<li>mengubah persamaan integral itu menjadi persamaan diferensial yang
+lebih mudah ditangani, dan</li>
+<li>menyelesaikan persamaan diferensial tersebut untuk memperoleh
+semigrup Markov <span class="math inline">\((P_t)\)</span>.</li>
+</ol>
+<p>Persamaan diferensial yang dimaksud memiliki nama khusus: persamaan
+mundur Kolmogorov.</p>
+<h3 id="sebuah-persamaan-integral">Sebuah Persamaan Integral</h3>
+<p>Berikut langkah pertama dalam urutan di atas.</p>
+<div class="qe-lemma">
+<p><strong>Sebuah Persamaan Integral</strong> Semigrup <span class="math inline">\((P_t)\)</span> dari proses lompatan dengan fungsi
+laju <span class="math inline">\(\lambda\)</span> dan matriks Markov
+<span class="math inline">\(K\)</span> memenuhi persamaan integral</p>
+<p><a id="equation-kbinteg"></a> <span class="math display">\[
+    P_t(x, y) = e^{-t \lambda(x)} I(x, y)
+    + \lambda(x)
+      \int_0^t (K P_{t-\tau})(x, y) e^{- \tau \lambda(x)} d \tau
+\]</span></p>
+<p>untuk semua <span class="math inline">\(t\geq0\)</span> dan <span class="math inline">\(x,y\)</span> dalam <span class="math inline">\(S\)</span>.</p>
+</div>
+<p>Di sini <span class="math inline">\((P_t)\)</span> adalah semigrup
+Markov dari <span class="math inline">\((X_t)\)</span>, yakni proses
+yang dibangun melalui <a href="#ejc_algo">algoritma rantai lompatan</a>,
+sedangkan <span class="math inline">\(KP_{t-\tau}\)</span> adalah hasil
+kali matriks <span class="math inline">\(K\)</span> dan <span class="math inline">\(P_{t-\tau}\)</span>.</p>
+<div class="qe-proof">
+<p>Dengan mengondisikan secara implisit pada <span class="math inline">\(X_0=x\)</span>, semigrup <span class="math inline">\((P_t)\)</span> harus memenuhi</p>
+<p><a id="equation-pt_split"></a> <span class="math display">\[
+    P_t(x, y)
+    = \PP\{X_t = y\}
+    = \PP\{X_t = y, \; J_1 &gt; t \}
+        + \PP\{X_t = y, \; J_1 \leq t \}
+\]</span></p>
+<p>Untuk suku pertama di ruas kanan <a href="#equation-pt_split">persamaan pt_split</a>, kita mempunyai</p>
+<p><a id="equation-pt_first"></a> <span class="math display">\[
+    \PP\{X_t = y, \; J_1 &gt; t \}
+        = I(x, y) \PP\{J_1 &gt; t \}
+        = I(x, y) e^{- t \lambda(x)}
+\]</span></p>
+<p>di mana <span class="math inline">\(I(x,y)=\mathbb
+1\{x=y\}\)</span>.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Faktor peluang pada baris
+sumber ditulis <span class="math inline">\(P\{J_1&gt;t\}\)</span>,
+sementara seluruh unit memakai makro probabilitas <span class="math inline">\(\PP\)</span>. Notasi tersebut dinormalkan menjadi
+<span class="math inline">\(\PP\{J_1&gt;t\}\)</span> tanpa mengubah
+makna.</p>
+</blockquote>
+<p>Untuk suku kedua di ruas kanan <a href="#equation-pt_split">persamaan
+pt_split</a>, kita mempunyai</p>
+<p><span class="math display">\[
+    \PP\{X_t = y, \; J_1 \leq t \}
+    = \EE
+        \left[
+            \mathbb 1\{J_1 \leq t\} \PP\{X_t = y \,|\, W_1, Y_1\}
+        \right]
+    = \EE
+        \left[
+            \mathbb 1\{J_1 \leq t\} P_{t - J_1} (Y_1, y)
+        \right].
+\]</span></p>
+<p>Dengan menghitung nilai harapan dan memakai independensi <span class="math inline">\(J_1\)</span> dan <span class="math inline">\(Y_1\)</span> bersyarat pada <span class="math inline">\(X_0=x\)</span>, hasil ini menjadi</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \PP\{X_t = y, \; J_1 \leq t \}
+    &amp; = \int_0^\infty
+            \mathbb 1\{\tau \leq t\}
+            \sum_z K(x, z) P_{t - \tau} (z, y)  \lambda(x) e^{-\tau
+\lambda(x)}
+            d \tau
+        \\
+    &amp; = \lambda(x)
+            \int_0^t
+            \sum_z K(x, z) P_{t - \tau} (z, y)  e^{-\tau \lambda(x)}
+            d \tau .
+\end{aligned}
+\]</span></p>
+<p>Menggabungkan hasil ini dengan <a href="#equation-pt_split">persamaan
+pt_split</a> dan <a href="#equation-pt_first">persamaan pt_first</a>
+menghasilkan <a href="#equation-kbinteg">persamaan kbinteg</a>.</p>
+</div>
+<h3 id="persamaan-diferensial-kolmogorov">Persamaan Diferensial
+Kolmogorov</h3>
+<p>Kita telah memastikan bahwa semigrup <span class="math inline">\((P_t)\)</span> yang terkait dengan proses rantai
+lompatan <span class="math inline">\((X_t)\)</span> memenuhi <a href="#equation-kbinteg">persamaan kbinteg</a>.</p>
+<p>Persamaan <a href="#equation-kbinteg">persamaan kbinteg</a> penting,
+tetapi kita dapat menyederhanakannya lebih lanjut tanpa kehilangan
+informasi dengan mengambil turunan terhadap waktu.</p>
+<p>Hal ini membawa kita pada hasil utama kuliah.</p>
+<div class="qe-theorem">
+<p><strong>Persamaan Kolmogorov Mundur</strong> Semigrup <span class="math inline">\((P_t)\)</span> dari proses lompatan dengan fungsi
+laju <span class="math inline">\(\lambda\)</span> dan matriks Markov
+<span class="math inline">\(K\)</span> memenuhi <strong>persamaan
+Kolmogorov mundur</strong></p>
+<p><a id="equation-kolbackeq"></a> <span class="math display">\[
+    P'_t = Q P_t
+    \quad \text{dengan } \;
+    Q(x, y) := \lambda(x) (K(x, y) - I(x, y)).
+\]</span></p>
+</div>
+<p>Turunan di ruas kiri <a href="#equation-kolbackeq">persamaan
+kolbackeq</a> diambil unsur demi unsur terhadap <span class="math inline">\(t\)</span>, sehingga</p>
+<p><span class="math display">\[
+    P'_t(x, y) = \left( \frac{d}{dt} P_t(x, y) \right)
+    \qquad ((x, y) \in S \times S).
+\]</span></p>
+<p>Pembuktian bahwa menurunkan <a href="#equation-kbinteg">persamaan
+kbinteg</a> menghasilkan <a href="#equation-kolbackeq">persamaan
+kolbackeq</a> adalah latihan penting (lihat di bawah).</p>
+<h3 id="solusi-eksponensial">Solusi Eksponensial</h3>
+<p>Persamaan Kolmogorov mundur adalah persamaan diferensial bernilai
+matriks.</p>
+<p>Ingat bahwa, untuk persamaan diferensial skalar <span class="math inline">\(y'_t=ay_t\)</span> dengan konstanta <span class="math inline">\(a\)</span> dan kondisi awal <span class="math inline">\(y_0\)</span>, solusinya adalah <span class="math inline">\(y_t=e^{ta}y_0\)</span>.</p>
+<p>Hal ini, bersama <span class="math inline">\(P_0=I\)</span>,
+mendorong kita menduga bahwa solusi persamaan mundur Kolmogorov <a href="#equation-kolbackeq">persamaan kolbackeq</a> adalah</p>
+<p><a id="equation-expsol"></a> <span class="math display">\[
+    P_t = e^{t Q}
+\]</span></p>
+<p>di mana ruas kanan adalah <a href="https://en.wikipedia.org/wiki/Matrix_exponential">eksponensial
+matriks</a>, yang didefinisikan oleh</p>
+<p><a id="equation-expofun"></a> <span class="math display">\[
+    e^{tQ}
+    = \sum_{k \geq 0} \frac{1}{k!} (tQ)^k
+    = I + tQ + \frac{t^2}{2!} Q^2 + \cdots .
+\]</span></p>
+<p>Dengan bekerja unsur demi unsur, mudah diperiksa bahwa turunan fungsi
+eksponensial <span class="math inline">\(t\mapsto e^{tQ}\)</span>
+adalah</p>
+<p><a id="equation-expoderiv"></a> <span class="math display">\[
+    \frac{d}{dt} e^{t Q} = Q e^{t Q} = e^{t Q} Q .
+\]</span></p>
+<p>Jadi, menurunkan <a href="#equation-expsol">persamaan expsol</a>
+memberikan <span class="math inline">\(P'_t=Qe^{tQ}=QP_t\)</span>,
+yang meyakinkan kita bahwa solusi eksponensial memenuhi <a href="#equation-kolbackeq">persamaan kolbackeq</a>.</p>
+<p>Perhatikan bahwa solusi kita</p>
+<p><a id="equation-psolq"></a> <span class="math display">\[
+    P_t = e^{t Q}
+    \quad \text{dengan } \;
+    Q(x, y) := \lambda(x) (K(x, y) - I(x, y))
+\]</span></p>
+<p>untuk semigrup proses lompatan <span class="math inline">\((X_t)\)</span> yang terkait dengan matriks
+lompatan <span class="math inline">\(K\)</span> dan fungsi intensitas
+lompatan <span class="math inline">\(\lambda\colon
+S\to[0,\infty)\)</span> konsisten dengan hasil kita sebelumnya.</p>
+<p>Khususnya, kita <a href="markov_prop.html#consjumptransemi">telah
+menunjukkan</a> bahwa, untuk model dengan intensitas lompatan konstan
+<span class="math inline">\(\lambda\)</span>, berlaku <span class="math inline">\(P_t=e^{t\lambda(K-I)}\)</span>.</p>
+<p>Ini jelas merupakan kasus khusus <a href="#equation-psolq">persamaan
+psolq</a>.</p>
+<h2 id="sifat-sifat-solusi">Sifat-sifat Solusi</h2>
+<p>Mari kita selidiki lebih lanjut sifat-sifat solusi eksponensial.</p>
+<h3 id="memeriksa-sifat-semigrup-transisi">Memeriksa Sifat Semigrup
+Transisi</h3>
+<p>Walaupun kita telah memastikan bahwa <span class="math inline">\(P_t=e^{tQ}\)</span> menyelesaikan persamaan
+Kolmogorov mundur, kita masih harus memeriksa bahwa solusi ini merupakan
+semigrup Markov.</p>
+<div class="qe-lemma" id="jctosg">
+<p><strong>Dari Rantai Lompatan ke Semigrup</strong> Misalkan <span class="math inline">\(\lambda\)</span> memetakan <span class="math inline">\(S\)</span> ke <span class="math inline">\(\RR_+\)</span> dan <span class="math inline">\(K\)</span> adalah matriks Markov pada <span class="math inline">\(S\)</span>. Jika <span class="math inline">\(P_t=e^{tQ}\)</span> untuk semua <span class="math inline">\(t\geq0\)</span>, dengan <span class="math inline">\(Q(x,y)=\lambda(x)(K(x,y)-I(x,y))\)</span>, maka
+<span class="math inline">\((P_t)\)</span> adalah semigrup Markov pada
+<span class="math inline">\(S\)</span>.</p>
+</div>
+<div class="qe-proof">
+<p>Pertama, perhatikan bahwa jumlah entri setiap baris <span class="math inline">\(Q\)</span> sama dengan nol, karena</p>
+<p><span class="math display">\[
+    \sum_y Q(x, y)
+    = \lambda(x) \sum_y (K(x, y) - I(x, y))
+    = 0.
+\]</span></p>
+<p>Sebagai latihan kecil, Anda dapat memeriksa bahwa, jika <span class="math inline">\(1\)</span> menyatakan vektor kolom yang semua
+unsurnya satu, maka</p>
+<p><a id="equation-zrsnec"></a> <span class="math display">\[
+    \text{ jumlah entri setiap baris } Q \text{ sama dengan nol }
+    \iff
+    Q^k 1 = 0 \text{ untuk semua } k \geq 1 .
+\]</span></p>
+<p>Jadi <span class="math inline">\(Q^k1=0\)</span> untuk setiap
+bilangan bulat <span class="math inline">\(k\geq1\)</span>. Akibatnya,
+untuk setiap <span class="math inline">\(t\geq0\)</span>,</p>
+<p><span class="math display">\[
+    P_t 1
+    = e^{tQ} 1
+    = I1 + tQ1 + \frac{t^2}{2!} Q^2 1 + \cdots
+    = I1 = 1.
+\]</span></p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Setelah menyatakan rentang
+<span class="math inline">\(k\geq1\)</span> dengan tepat, sumber
+menyingkatnya menjadi “semua <span class="math inline">\(k\)</span>”.
+Rentang positif dipertahankan di sini karena <span class="math inline">\(Q^0 1=I1=1\)</span>, bukan nol.</p>
+</blockquote>
+<p>Dengan kata lain, jumlah entri setiap baris <span class="math inline">\(P_t\)</span> sama dengan satu.</p>
+<p>Selanjutnya kita memeriksa ketaknegatifan seluruh unsur <span class="math inline">\(P_t\)</span> (sifat yang dengan mudah dapat gagal
+untuk eksponensial matriks umum).</p>
+<p>Mengikuti argumen dari <cite>Stroock (2013)</cite>, tetapkan <span class="math inline">\(m:=\max_x\lambda(x)\)</span>.</p>
+<p>Jika <span class="math inline">\(m=0\)</span>, maka <span class="math inline">\(\lambda(x)=0\)</span> untuk semua <span class="math inline">\(x\)</span>, sehingga <span class="math inline">\(Q=0\)</span> dan <span class="math inline">\(P_t=e^{tQ}=I\)</span>; semua klaim lemma langsung
+berlaku.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Sumber langsung membagi
+dengan <span class="math inline">\(m\)</span> dan tidak menangani kasus
+<span class="math inline">\(m=0\)</span>. Kasus nol dipisahkan di atas
+sebelum pembagian.</p>
+</blockquote>
+<p>Sekarang andaikan <span class="math inline">\(m&gt;0\)</span> dan
+tetapkan <span class="math inline">\(\hat P:=I+Q/m\)</span>.</p>
+<p>Tidak sulit diperiksa bahwa <span class="math inline">\(\hat
+P\)</span> adalah matriks Markov dan <span class="math inline">\(Q=m(\hat P-I)\)</span>.</p>
+<p>Mengingat bahwa untuk eksponensial matriks berlaku <span class="math inline">\(e^{A+B}=e^Ae^B\)</span> ketika <span class="math inline">\(AB=BA\)</span>, kita memperoleh</p>
+<p><span class="math display">\[
+    e^{tQ}
+    = e^{tm (\hat P - I)}
+    = e^{-tm I} e^{tm \hat P}
+    = e^{-tm}
+        \left(
+            I + tm \hat P + \frac{(tm)^2}{2!} \hat P^2 + \cdots
+        \right).
+\]</span></p>
+<p>Dari representasi ini jelas bahwa semua unsur <span class="math inline">\(e^{tQ}\)</span> tidak negatif.</p>
+<p>Terakhir, kita perlu memeriksa syarat kekontinuan <span class="math inline">\(P_t(x,y)\to I(x,y)\)</span> saat <span class="math inline">\(t\to0\)</span>, yang juga merupakan bagian dari
+definisi semigrup Markov.</p>
+<p>Dalam kasus sekarang hal ini langsung mengikuti kekontinuan fungsi
+eksponensial: <span class="math inline">\(P_t=e^{tQ}\to
+e^0=I\)</span>.</p>
+</div>
+<p>Sekarang kita yakin bahwa solusi persamaan Kolmogorov mundur memang
+merupakan semigrup Markov.</p>
+<h3 id="keunikan">Keunikan</h3>
+<p>Mungkinkah terdapat semigrup Markov lain yang sama sekali berbeda
+tetapi juga memenuhi persamaan Kolmogorov mundur?</p>
+<p>Jawabannya tidak: ODE linear pada ruang vektor berdimensi hingga,
+dengan koefisien konstan dan kondisi awal tetap (dalam hal ini <span class="math inline">\(P_0=I\)</span>), mempunyai solusi tunggal.</p>
+<p>Pembuktian langsungnya juga tidak sulit—lihat latihan.</p>
+<h2 id="penerapan-model-persediaan">Penerapan: Model Persediaan</h2>
+<p>Mari kita perhatikan versi modifikasi model persediaan, tempat
+intensitas lompatan bergantung pada keadaan.</p>
+<p>Secara khusus, waktu tunggu hingga persediaan baru datang sekarang
+berdistribusi eksponensial dengan laju <span class="math inline">\(\gamma\)</span>.</p>
+<p>Laju kedatangan pelanggan tetap dinyatakan dengan <span class="math inline">\(\lambda\)</span> dan boleh berbeda dari <span class="math inline">\(\gamma\)</span>.</p>
+<p>Kita memakai parameter berikut.</p>
+<div class="code-cell" data-tags="" id="qe-cell-3">
+<pre><code class="language-python" data-cell-index="3">α = 0.6
+λ = 0.5
+γ = 0.1
+b = 10</code></pre>
+</div>
+<p>Rencana kita adalah menyelidiki distribusi <span class="math inline">\(\psi_T\)</span> dari <span class="math inline">\(X_T\)</span> pada <span class="math inline">\(T=30\)</span>.</p>
+<p>Kita akan melakukannya dengan menyimulasikan banyak realisasi <span class="math inline">\(X_T\)</span> yang saling bebas dan membuat
+histogramnya.</p>
+<p>(Dalam latihan, Anda diminta menghitung <span class="math inline">\(\psi_T\)</span> dengan cara berbeda melalui <a href="#equation-psolq">persamaan psolq</a>.)</p>
+<div class="code-cell" data-tags="" id="qe-cell-4">
+<pre><code class="language-python" data-cell-index="4">@njit
+def draw_X(T, X_0, max_iter=5000):
+    """
+    Bangkitkan satu realisasi X_T dengan syarat X_0.
+    """
+
+    J, Y = 0.0, X_0
+    m = 0
+
+    while m &lt; max_iter:
+        s = 1 / γ if Y == 0 else 1 / λ
+        # W ~ Exp(γ) pada keadaan 0; W ~ Exp(λ) pada keadaan lainnya.
+        W = np.random.exponential(scale=s)
+        J += W
+        if J &gt;= T:
+            return Y
+        # Jika belum mencapai T, perbarui Y.
+        if Y == 0:
+            Y = b
+        else:
+            U = np.random.geometric(α)
+            Y = Y - min(Y, U)
+        m += 1
+
+    raise RuntimeError("max_iter tercapai sebelum waktu T")
+
+
+@njit
+def independent_draws(T=10, num_draws=100, seed=20260824):
+    "Bangkitkan vektor realisasi X_T yang saling bebas."
+
+    np.random.seed(seed)
+    draws = np.empty(num_draws, dtype=np.int64)
+
+    for i in range(num_draws):
+        X_0 = np.random.binomial(b, 0.25)
+        draws[i] = draw_X(T, X_0)
+
+    return draws</code></pre>
+</div>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong></p>
+<ul>
+<li>Komentar sumber menyatakan <span class="math inline">\(W\sim\operatorname{Exp}(\lambda)\)</span> untuk
+semua keadaan, padahal pada keadaan nol lajunya adalah <span class="math inline">\(\gamma\)</span>.</li>
+<li>Jika batas iterasi tercapai, fungsi sumber keluar tanpa nilai. Versi
+ini menimbulkan galat eksplisit agar kegagalan tidak berubah diam-diam
+menjadi data.</li>
+<li>Sumber tidak menetapkan seed. Seed eksplisit dipasang di dalam
+fungsi Numba agar pemutaran ulang menghasilkan realisasi yang sama.</li>
+<li>Sumber mengambil <code>Binomial(b+1,0.25)</code> meskipun ruang
+keadaan adalah <span class="math inline">\(\{0,\ldots,b\}\)</span>.
+Banyaknya percobaan dikoreksi menjadi <span class="math inline">\(b\)</span> agar seluruh massa berada pada ruang
+keadaan yang dimodelkan.</li>
+</ul>
+</blockquote>
+<div class="code-cell" data-tags="" id="qe-cell-5">
+<pre><code class="language-python" data-cell-index="5">T = 30
+n = b + 1
+states = np.arange(n)
+draws = independent_draws(T, num_draws=100_000, seed=20260824)
+prob_empiris = np.array([np.mean(draws == i) for i in states])
+
+fig, ax = plt.subplots()
+ax.bar(states, prob_empiris, width=0.8, alpha=0.6)
+ax.set_xlabel("persediaan", fontsize=14)
+ax.set_ylabel("probabilitas empiris", fontsize=14)
+ax.set_title("Distribusi persediaan hasil simulasi pada T = 30")
+fig.set_label(
+    "Diagram batang probabilitas empiris persediaan untuk keadaan 0 sampai 10."
+)
+
+print("keadaan,probabilitas_empiris")
+for state, probability in zip(states, prob_empiris):
+    print(f"{state},{probability:.12f}")
+
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-kolmogorov_bwd-cell-05-figure-01"><img alt="Diagram batang probabilitas empiris persediaan pada waktu 30 untuk keadaan 0 sampai 10." src="../components/kolmogorov_bwd/assets/kolmogorov_bwd-cell-05-figure-01.png"/><figcaption>Diagram batang probabilitas empiris persediaan pada waktu 30 untuk keadaan 0 sampai 10.</figcaption></figure><table aria-label="Data numerik untuk gambar sel 5" class="execution-data" id="kolmogorov-bwd-data-5"><thead><tr><th>keadaan</th><th>probabilitas empiris</th></tr></thead><tbody><tr><td>0</td><td>0.441390000000</td></tr><tr><td>1</td><td>0.052450000000</td></tr><tr><td>2</td><td>0.052620000000</td></tr><tr><td>3</td><td>0.053180000000</td></tr><tr><td>4</td><td>0.051620000000</td></tr><tr><td>5</td><td>0.051860000000</td></tr><tr><td>6</td><td>0.053140000000</td></tr><tr><td>7</td><td>0.052510000000</td></tr><tr><td>8</td><td>0.051370000000</td></tr><tr><td>9</td><td>0.053080000000</td></tr><tr><td>10</td><td>0.086780000000</td></tr></tbody></table>
+</div>
+<blockquote>
+<p><strong>Alternatif aksesibel untuk gambar.</strong> Diagram batang
+memperlihatkan probabilitas empiris setiap tingkat persediaan <span class="math inline">\(0,\ldots,10\)</span> pada <span class="math inline">\(T=30\)</span>. Sel kode mencetak pasangan
+<code>keadaan,probabilitas_empiris</code> yang memuat data gambar
+sebagai tabel numerik hingga dua belas angka desimal.</p>
+</blockquote>
+<blockquote>
+<p><strong>Catatan adaptasi hilir.</strong> Label sumbu
+<code>inventory</code> pada kedua gambar sumber dilokalkan menjadi
+<code>persediaan</code>. Kedua gambar juga memperoleh judul, label
+deskriptif, dan tabel data tekstual agar informasi tidak hanya tersedia
+melalui persepsi visual.</p>
+</blockquote>
+<p>Jika Anda bereksperimen dengan kode di atas, Anda akan melihat bahwa
+besarnya massa di keadaan nol disebabkan oleh rendahnya laju <span class="math inline">\(\gamma\)</span> bagi kedatangan persediaan
+baru.</p>
+<h2 id="latihan">Latihan</h2>
+<div class="exercise" id="kolmogorov-bwd-1">
+<p>Dalam pembahasan di atas, kita menghasilkan pendekatan bagi <span class="math inline">\(\psi_T\)</span> ketika <span class="math inline">\(T=30\)</span>, kondisi awal berdistribusi
+Binomial<span class="math inline">\((b,0.25)\)</span> pada ruang keadaan
+<span class="math inline">\(\{0,\ldots,b\}\)</span>, dan parameter
+ditetapkan sebagai</p>
+<pre class="ipython3"><code>α = 0.6
+λ = 0.5
+γ = 0.1
+b = 10</code></pre>
+<p>Perhitungan tersebut dilakukan dengan menyimulasikan realisasi yang
+saling bebas dan membuat histogram.</p>
+<p>Cobalah menghasilkan gambar yang sama dengan memakai <a href="#equation-psolq">persamaan psolq</a>, dengan memodifikasi kode
+dari <a href="markov_prop.html">kuliah kita</a> mengenai sifat
+Markov.</p>
+</div>
+<div class="solution" id="kolmogorov_bwd-solution-1">
+<p><strong>Solusi</strong></p>
+<p>Berikut salah satu solusi.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Sumber memakai
+<code>n=b+1</code> sebagai banyaknya keadaan sekaligus sebagai argumen
+banyaknya percobaan bagi <code>binom.pmf(states,n,0.25)</code>. Karena
+<code>states</code> hanya mencakup <span class="math inline">\(0,\ldots,b\)</span>, pilihan itu menghilangkan
+massa <span class="math inline">\(0.25^{b+1}\)</span> pada hasil <span class="math inline">\(b+1\)</span>. Solusi di bawah mempertahankan
+<code>n=b+1</code> untuk ukuran matriks, memakai <span class="math inline">\(b\)</span> sebagai banyaknya percobaan binomial,
+serta mendefinisikan <code>T</code>, <code>n</code>, dan
+<code>states</code> secara lokal agar solusi tidak bergantung pada sel
+sebelumnya.</p>
+</blockquote>
+<div class="code-cell" data-tags="" id="qe-cell-6">
+<pre><code class="language-python" data-cell-index="6">α = 0.6
+λ = 0.5
+γ = 0.1
+b = 10
+T = 30
+n = b + 1
+states = np.arange(n)
+I = np.identity(n)
+
+# Matriks rantai lompatan tertanam
+K = np.zeros((n, n))
+K[0, -1] = 1
+for i in range(1, n):
+    for j in range(0, i):
+        if j == 0:
+            K[i, j] = (1 - α)**(i-1)
+        else:
+            K[i, j] = α * (1 - α)**(i-j-1)
+
+# Intensitas lompatan sebagai fungsi keadaan
+r = np.ones(n) * λ
+r[0] = γ
+
+# Matriks Q
+Q = np.empty_like(K)
+for i in range(n):
+    for j in range(n):
+        Q[i, j] = r[i] * (K[i, j] - I[i, j])
+
+
+def P_t(ψ, t):
+    return ψ @ expm(t * Q)
+
+
+ψ_0 = binom.pmf(states, b, 0.25)
+ψ_T = P_t(ψ_0, T)
+
+fig, ax = plt.subplots()
+ax.bar(states, ψ_T, width=0.8, alpha=0.6)
+ax.set_xlabel("persediaan", fontsize=14)
+ax.set_ylabel("probabilitas", fontsize=14)
+ax.set_title("Distribusi persediaan eksak pada T = 30")
+fig.set_label(
+    "Diagram batang probabilitas eksak persediaan untuk keadaan 0 sampai 10."
+)
+
+print("keadaan,probabilitas_eksak")
+for state, probability in zip(states, ψ_T):
+    print(f"{state},{probability:.12f}")
+
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-kolmogorov_bwd-cell-06-figure-01"><img alt="Diagram batang probabilitas eksak persediaan pada waktu 30 untuk keadaan 0 sampai 10." src="../components/kolmogorov_bwd/assets/kolmogorov_bwd-cell-06-figure-01.png"/><figcaption>Diagram batang probabilitas eksak persediaan pada waktu 30 untuk keadaan 0 sampai 10.</figcaption></figure><table aria-label="Data numerik untuk gambar sel 6" class="execution-data" id="kolmogorov-bwd-data-6"><thead><tr><th>keadaan</th><th>probabilitas eksak</th></tr></thead><tbody><tr><td>0</td><td>0.439589806729</td></tr><tr><td>1</td><td>0.053393021119</td></tr><tr><td>2</td><td>0.053122384965</td></tr><tr><td>3</td><td>0.052810891683</td></tr><tr><td>4</td><td>0.052516360938</td></tr><tr><td>5</td><td>0.052285046134</td></tr><tr><td>6</td><td>0.052145773080</td></tr><tr><td>7</td><td>0.052107847928</td></tr><tr><td>8</td><td>0.052162447673</td></tr><tr><td>9</td><td>0.052286743809</td></tr><tr><td>10</td><td>0.087579675942</td></tr></tbody></table>
+</div>
+<blockquote>
+<p><strong>Alternatif aksesibel untuk gambar.</strong> Diagram batang
+memperlihatkan probabilitas eksak setiap tingkat persediaan <span class="math inline">\(0,\ldots,10\)</span> pada <span class="math inline">\(T=30\)</span>. Tabel teks
+<code>keadaan,probabilitas_eksak</code> yang dicetak oleh sel memuat
+data gambar hingga dua belas angka desimal.</p>
+</blockquote>
+</div>
+<div class="exercise" id="kolmogorov-bwd-2">
+<p>Buktikan bahwa penurunan <a href="#equation-kbinteg">persamaan
+kbinteg</a> pada setiap <span class="math inline">\((x,y)\)</span>
+menghasilkan <a href="#equation-kolbackeq">persamaan kolbackeq</a>.</p>
+</div>
+<div class="solution" id="kolmogorov_bwd-solution-2">
+<p><strong>Solusi</strong> Mudah diperiksa bahwa, jika <span class="math inline">\(f\)</span> adalah fungsi terdiferensialkan dan
+<span class="math inline">\(\alpha&gt;0\)</span>, maka</p>
+<p><a id="equation-gdiff"></a> <span class="math display">\[
+g(t) = e^{- t \alpha} f(t)
+\quad \implies \quad
+g'(t) = e^{- t \alpha} f'(t) - \alpha g(t).
+\]</span></p>
+<p>Perhatikan pula bahwa, dengan penggantian variabel <span class="math inline">\(s=t-\tau\)</span>, kita dapat menulis ulang <a href="#equation-kbinteg">persamaan kbinteg</a> sebagai</p>
+<p><a id="equation-kbinteg2"></a> <span class="math display">\[
+P_t(x, y) =
+e^{-t \lambda(x)}
+\left\{
+    I(x, y)
+    + \lambda(x)
+    \int_0^t (K P_s)(x, y) e^{s \lambda(x)} d s
+\right\}.
+\]</span></p>
+<p>Menerapkan <a href="#equation-gdiff">persamaan gdiff</a>
+memberikan</p>
+<p><span class="math display">\[
+P'_t(x, y)
+= e^{-t \lambda(x)}
+    \left\{
+            \lambda(x)
+            (K P_t)(x, y) e^{t \lambda(x)}
+    \right\}
+    - \lambda(x) P_t(x, y).
+\]</span></p>
+<p>Setelah sedikit menata ulang, hasilnya menjadi</p>
+<p><span class="math display">\[
+P'_t(x, y)
+= \lambda(x) [ (K - I)  P_t](x, y),
+\]</span></p>
+<p>yang identik dengan <a href="#equation-kolbackeq">persamaan
+kolbackeq</a>.</p>
+</div>
+<div class="exercise" id="kolmogorov-bwd-3">
+<p>Di atas kita menyatakan bahwa solusi <span class="math inline">\(P_t=e^{tQ}\)</span> adalah satu-satunya semigrup
+Markov yang memenuhi persamaan mundur <span class="math inline">\(P'_t=QP_t\)</span>.</p>
+<p>Cobalah memberikan pembuktian.</p>
+<p>(Latihan ini tidak mudah, tetapi tetap layak dipikirkan.)</p>
+</div>
+<div class="solution" id="kolmogorov_bwd-solution-3">
+<p><strong>Solusi</strong> Berikut salah satu pembuktian keunikan.</p>
+<p>Andaikan <span class="math inline">\((\hat P_t)\)</span> adalah
+semigrup Markov lain yang memenuhi <span class="math inline">\(\hat
+P'_t=Q\hat P_t\)</span>.</p>
+<p>Tetapkan <span class="math inline">\(t&gt;0\)</span> dan definisikan
+<span class="math inline">\(V_s=P_s\hat P_{t-s}\)</span> untuk <span class="math inline">\(0\leq s\leq t\)</span>.</p>
+<p>Perhatikan bahwa <span class="math inline">\(V_0=\hat P_t\)</span>
+dan <span class="math inline">\(V_t=P_t\)</span>.</p>
+<p>Pemetaan <span class="math inline">\(s\mapsto V_s\)</span>
+terdiferensialkan, dengan turunan</p>
+<p><span class="math display">\[
+V'_s
+= P'_s \hat P_{t-s} - P_s \hat P'_{t-s}
+= P_s Q \hat P_{t-s} - P_s Q \hat P_{t-s}
+= 0,
+\]</span></p>
+<p>di mana pada kesamaan kedua dari belakang kita memakai <a href="#equation-expoderiv">persamaan expoderiv</a>.</p>
+<p>Jadi <span class="math inline">\(V_s\)</span> konstan. Karena <span class="math inline">\(V_0=\hat P_t\)</span> dan <span class="math inline">\(V_t=P_t\)</span>, kita memperoleh <span class="math inline">\(\hat P_t=P_t\)</span>.</p>
+<p>Karena <span class="math inline">\(t\)</span> sebarang, pembuktian
+selesai.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Sumber menuliskan persamaan
+untuk semigrup kedua dengan simbol tanpa topi dan mendefinisikan <span class="math inline">\(V_s\)</span> untuk semua <span class="math inline">\(s\geq0\)</span>, meskipun <span class="math inline">\(\hat P_{t-s}\)</span> hanya tersedia pada interval
+<span class="math inline">\(0\leq s\leq t\)</span>. Simbol dan domain
+diperbaiki secara eksplisit tanpa mengubah argumen.</p>
+</blockquote>
+</div>
+</main><footer>Sumber resmi: https://github.com/QuantEcon/continuous_time_mcs — lisensi CC BY-SA 4.0.</footer></body>
+</html>

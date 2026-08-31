@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Distribusi bersyarat reguler dan disiplin versi</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="02-keterukuran-proses-dan-hukum-lintasan.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="02-keterukuran-proses-dan-hukum-lintasan.html">Jembatan asli sebelumnya</a></nav>
+
+<nav aria-label="Daftar isi" id="TOC" role="doc-toc">
+<ul>
+<li><a href="#distribusi-bersyarat-reguler-dan-disiplin-versi" id="toc-distribusi-bersyarat-reguler-dan-disiplin-versi">Distribusi
+bersyarat reguler dan disiplin versi</a>
+<ul>
+<li><a href="#tujuan-dan-kesenjangan-versi" id="toc-tujuan-dan-kesenjangan-versi">Tujuan dan kesenjangan
+versi</a></li>
+<li><a href="#dari-nilai-harapan-bersyarat-ke-kernel" id="toc-dari-nilai-harapan-bersyarat-ke-kernel">Dari nilai harapan
+bersyarat ke kernel</a></li>
+<li><a href="#keberadaan-pada-sasaran-borel-standar" id="toc-keberadaan-pada-sasaran-borel-standar">Keberadaan pada sasaran
+Borel standar</a></li>
+<li><a href="#kelas-penentu-dan-versi-serentak" id="toc-kelas-penentu-dan-versi-serentak">Kelas penentu dan versi
+serentak</a></li>
+<li><a href="#pengondisian-pada-peubah-acak" id="toc-pengondisian-pada-peubah-acak">Pengondisian pada peubah
+acak</a></li>
+<li><a href="#rumus-disintegrasi-dan-kepadatan" id="toc-rumus-disintegrasi-dan-kepadatan">Rumus disintegrasi dan
+kepadatan</a></li>
+<li><a href="#nilai-pada-titik-pengondisian-bermassa-nol" id="toc-nilai-pada-titik-pengondisian-bermassa-nol">Nilai pada titik
+pengondisian bermassa nol</a></li>
+<li><a href="#probabilitas-bersyarat-seluruh-eksperimen" id="toc-probabilitas-bersyarat-seluruh-eksperimen">Probabilitas
+bersyarat seluruh eksperimen</a></li>
+<li><a href="#audit-klaim-probabilitas-bersyarat" id="toc-audit-klaim-probabilitas-bersyarat">Audit klaim probabilitas
+bersyarat</a></li>
+<li><a href="#latihan-penguasaan-probabilitas-bersyarat-reguler" id="toc-latihan-penguasaan-probabilitas-bersyarat-reguler">Latihan
+penguasaan probabilitas bersyarat reguler</a></li>
+<li><a href="#hak-dan-provenans" id="toc-hak-dan-provenans">Hak dan
+provenans</a></li>
+</ul></li>
+</ul>
+</nav>
+<main class="original-bridge" id="unit.o009.original.bridge.regular-conditional-probability">
+<h1 id="distribusi-bersyarat-reguler-dan-disiplin-versi">Distribusi
+bersyarat reguler dan disiplin versi</h1>
+<section class="bridge-section" id="tujuan-dan-kesenjangan-versi">
+<h2>Tujuan dan kesenjangan versi</h2>
+<p>Notasi</p>
+<p><span class="math display">\[
+\mathbb P(Y\in B\mid X=x)
+\]</span></p>
+<p>terlihat seperti sebuah bilangan yang tinggal dihitung. Pada ruang
+diskret, kesan itu sering benar: jika <span class="math inline">\(\mathbb P(X=x)&gt;0\)</span>, kita membagi peluang
+gabungan dengan <span class="math inline">\(\mathbb P(X=x)\)</span>.
+Jika hukum <span class="math inline">\(X\)</span> tidak beratom—misalnya
+<span class="math inline">\(X\)</span> mempunyai kepadatan—maka <span class="math inline">\(\mathbb P(X=x)=0\)</span> untuk setiap <span class="math inline">\(x\)</span>. Nilai di ruas kiri tetap dapat diberi
+makna, tetapi maknanya bukan rasio pada kejadian nol. Ia adalah nilai
+suatu <strong>kernel probabilitas bersyarat</strong> yang telah dipilih
+sebagai satu versi.</p>
+<p>Unit <a href="../expect/Conditional2.html">nilai harapan
+bersyarat</a> membangun objek bersyarat untuk satu peubah acak atau satu
+kejadian pada satu waktu. Unit <a href="../expect/Kernels.html">kernel</a> menjelaskan kalkulus kernel. Di
+antara kedua unit itu masih ada pertanyaan penting:</p>
+<ol type="1">
+<li>kapan versi-versi untuk semua kejadian dapat dipilih secara serentak
+agar menjadi ukuran peluang pada setiap titik;</li>
+<li>di ruang mana kernel semacam itu dijamin ada;</li>
+<li>dalam arti apa kernel tersebut unik;</li>
+<li>apa yang boleh dikatakan pada nilai pengondisian yang bermassa
+nol.</li>
+</ol>
+<p>Jawabannya memerlukan pemisahan antara kesamaan hampir pasti dan
+kesamaan titik demi titik. Jawabannya juga memerlukan hipotesis ruang
+Borel standar pada sasaran yang tepat. Kita akan menyatakan teorema
+keberadaan, memberikan arsitektur buktinya, menurunkan rumus
+disintegrasi, dan menguji notasi bersyarat pada contoh diskret maupun
+kontinu.</p>
+<p>Biarkan <span class="math inline">\((\Omega,\mathcal F,\mathbb
+P)\)</span> menjadi ruang peluang dan <span class="math inline">\(\mathcal G\subseteq\mathcal F\)</span> sebuah
+sub-sigma-aljabar. Tidak diasumsikan bahwa <span class="math inline">\((\Omega,\mathcal F)\)</span> Borel standar kecuali
+ketika hal itu dinyatakan secara khusus. Dengan demikian, pembaca dapat
+melihat persis ruang mana yang memikul hipotesis keberadaan.</p>
+</section>
+<div class="bridge-section" id="dari-nilai-harapan-ke-kernel">
+<h2 id="dari-nilai-harapan-bersyarat-ke-kernel">Dari nilai harapan
+bersyarat ke kernel</h2>
+<p>Ada tiga tingkat objek yang tidak boleh disamakan.</p>
+<ol type="1">
+<li>Untuk peubah acak integrabel <span class="math inline">\(Z\)</span>,
+objek <span class="math inline">\(\mathbb E[Z\mid\mathcal G]\)</span>
+adalah kelas fungsi <span class="math inline">\(\mathcal
+G\)</span>-terukur yang sama hampir pasti.</li>
+<li>Untuk satu <span class="math inline">\(B\)</span> tetap, objek <span class="math inline">\(\mathbb P(Y\in B\mid\mathcal G)\)</span> adalah
+singkatan bagi <span class="math inline">\(\mathbb E[\mathbf1_{\{Y\in
+B\}}\mid\mathcal G]\)</span>, lagi-lagi sebuah kelas kesamaan hampir
+pasti.</li>
+<li>Sebuah distribusi bersyarat reguler harus memilih seluruh keluarga
+itu secara koheren sehingga <span class="math inline">\(B\mapsto
+K(\omega,B)\)</span> merupakan ukuran peluang untuk setiap <span class="math inline">\(\omega\)</span>, bukan hanya untuk hampir setiap
+<span class="math inline">\(\omega\)</span> yang dapat bergantung pada
+<span class="math inline">\(B\)</span>.</li>
+</ol>
+<blockquote>
+<p><strong>Definisi (distribusi bersyarat reguler).</strong> Misalkan
+<span class="math inline">\(Y:(\Omega,\mathcal F)\to(T,\mathcal
+T)\)</span> terukur. Sebuah distribusi bersyarat reguler <span class="math inline">\(Y\)</span> terhadap <span class="math inline">\(\mathcal G\)</span> adalah kernel probabilitas
+<span class="math display">\[
+K:(\Omega,\mathcal G)\rightsquigarrow(T,\mathcal T)
+\]</span> dengan dua sifat berikut.</p>
+<ul>
+<li>Untuk setiap <span class="math inline">\(B\in\mathcal T\)</span>,
+peta <span class="math inline">\(\omega\mapsto K(\omega,B)\)</span>
+terukur terhadap <span class="math inline">\(\mathcal G\)</span>.</li>
+<li>Untuk setiap <span class="math inline">\(B\in\mathcal T\)</span> dan
+<span class="math inline">\(G\in\mathcal G\)</span>, <span class="math display">\[
+\int_GK(\omega,B)\,\mathbb P(d\omega)
+=\mathbb P\bigl(G\cap\{Y\in B\}\bigr).
+\]</span></li>
+</ul>
+<p>Selain itu, untuk setiap <span class="math inline">\(\omega\)</span>,
+pemetaan <span class="math inline">\(B\mapsto K(\omega,B)\)</span> harus
+berupa ukuran peluang pada <span class="math inline">\((T,\mathcal
+T)\)</span>.</p>
+</blockquote>
+<p>Identitas integral menyatakan bahwa <span class="math inline">\(K(\cdot,B)\)</span> merupakan satu versi dari
+<span class="math inline">\(\mathbb P(Y\in B\mid\mathcal G)\)</span>.
+Syarat terakhir menyatukan versi-versi tersebut menjadi satu kernel.</p>
+<p>Pemilihan kejadian demi kejadian tidak cukup. Ambil <span class="math inline">\(\Omega=T=[0,1]\)</span> dengan ukuran Lebesgue,
+<span class="math inline">\(\mathcal G=\mathcal F\)</span> Borel, dan
+<span class="math inline">\(Y(\omega)=\omega\)</span>. Untuk setiap
+<span class="math inline">\(B\in\mathcal B([0,1])\)</span>, pilih</p>
+<p><span class="math display">\[
+Z_B(\omega)=
+\begin{cases}
+\mathbf1_{(0,1]}(\omega),&amp;B=[0,1],\\
+\mathbf1_B(\omega),&amp;B\ne[0,1].
+\end{cases}
+\]</span></p>
+<p>Untuk setiap <span class="math inline">\(B\)</span> tetap, <span class="math inline">\(Z_B\)</span> berbeda dari <span class="math inline">\(\mathbf1_{\{Y\in B\}}\)</span> paling banyak pada
+titik tunggal <span class="math inline">\(\{0\}\)</span>. Jadi <span class="math inline">\(Z_B\)</span> adalah versi yang sah dari peluang
+bersyarat kejadian tersebut. Namun <span class="math inline">\(Z_{[0,1]}(0)=0\)</span>. Pada <span class="math inline">\(\omega=0\)</span>, pemetaan <span class="math inline">\(B\mapsto Z_B(0)\)</span> bahkan tidak mempunyai
+massa total satu. Keluarga <span class="math inline">\((Z_B)_B\)</span>
+bukan kernel.</p>
+<p>Kita juga tidak boleh memperbaikinya dengan mengambil irisan semua
+kejadian berpeluang satu yang muncul secara terpisah. Setiap <span class="math inline">\([0,1]\setminus\{t\}\)</span> berpeluang satu,
+tetapi</p>
+<p><span class="math display">\[
+\bigcap_{t\in[0,1]}([0,1]\setminus\{t\})=\varnothing.
+\]</span></p>
+<p>Irisan tak terhitung dari kejadian berpeluang satu dapat kehilangan
+seluruh massanya. Teorema berikut bekerja karena ruang Borel standar
+menyediakan struktur pembangkit terhitung dan konstruksi ukuran yang
+koheren; bukan karena semua wakil per kejadian boleh diambil irisannya
+begitu saja.</p>
+</div>
+<section class="bridge-section" id="keberadaan-pada-sasaran-borel-standar">
+<h2>Keberadaan pada sasaran Borel standar</h2>
+<p>Sebuah ruang terukur <span class="math inline">\((T,\mathcal
+T)\)</span> disebut <strong>ruang Borel standar</strong> apabila ia
+isomorfik secara terukur dengan sebuah himpunan Borel dalam suatu ruang
+Polish. Himpunan terhitung dengan sigma-aljabar diskret, <span class="math inline">\(\mathbb R^d\)</span> dengan sigma-aljabar Borel,
+dan ruang lintasan Polish dengan sigma-aljabar Borelnya adalah contoh
+utama.</p>
+<blockquote>
+<p><strong>Teorema (keberadaan distribusi bersyarat reguler).</strong>
+Misalkan <span class="math inline">\((\Omega,\mathcal F,\mathbb
+P)\)</span> ruang peluang sembarang, <span class="math inline">\(\mathcal G\subseteq\mathcal F\)</span>, dan <span class="math inline">\(Y:\Omega\to(T,\mathcal T)\)</span> terukur. Jika
+<span class="math inline">\((T,\mathcal T)\)</span> tidak kosong dan
+Borel standar, maka terdapat distribusi bersyarat reguler <span class="math inline">\(Y\)</span> terhadap <span class="math inline">\(\mathcal G\)</span>, berupa kernel <span class="math display">\[
+K:(\Omega,\mathcal G)\rightsquigarrow(T,\mathcal T)
+\]</span></p>
+</blockquote>
+<p>Hipotesis Borel standar di sini dikenakan pada ruang nilai <span class="math inline">\(Y\)</span>. Ruang dasar <span class="math inline">\((\Omega,\mathcal F)\)</span> tidak perlu Borel
+standar. Ini penting ketika <span class="math inline">\(\mathcal
+F\)</span> telah dilengkapi oleh himpunan-himpunan nol atau ketika ruang
+dasarnya berasal dari konstruksi abstrak.</p>
+<p>Berikut arsitektur bukti yang menjelaskan fungsi hipotesis
+tersebut.</p>
+<ol type="1">
+<li>Karena <span class="math inline">\(T\)</span> Borel standar, ia
+dapat dikodekan melalui isomorfisme Borel <span class="math inline">\(\varphi:T\to E\)</span>, dengan <span class="math inline">\(E\)</span> himpunan Borel dalam <span class="math inline">\([0,1]\)</span>. Ganti sementara <span class="math inline">\(Y\)</span> oleh <span class="math inline">\(Z=\varphi(Y)\)</span>.</li>
+<li>Untuk setiap rasional <span class="math inline">\(q\)</span>, pilih
+satu versi <span class="math display">\[
+F_q=\mathbb E[\mathbf1_{\{Z\le q\}}\mid\mathcal G].
+\]</span> Hanya ada terhitung banyak <span class="math inline">\(q\)</span>, sehingga kita boleh membuang satu
+gabungan nol agar ketaksamaan monoton, batas ujung, dan relasi yang
+diperlukan berlaku serentak pada seluruh <span class="math inline">\(q\)</span> rasional.</li>
+<li>Di luar himpunan nol bersama itu, bentuk fungsi distribusi
+kanan-kontinu dari nilai-nilai rasional, misalnya melalui limit dari
+kanan. Fungsi ini menentukan satu ukuran peluang <span class="math inline">\(\mu_\omega\)</span> pada <span class="math inline">\([0,1]\)</span>. Pada himpunan nol, pasang satu
+ukuran titik tetap; perbaikan dilakukan pada seluruh ukuran, bukan
+secara terpisah untuk setiap <span class="math inline">\(B\)</span>.</li>
+<li>Keterukuran <span class="math inline">\(\omega\mapsto\mu_\omega(B)\)</span> mula-mula
+diperoleh pada kelas interval pembangkit yang terhitung. Teorema kelas
+monoton memperluasnya ke seluruh himpunan Borel. Identitas integral juga
+diperluas dari kelas pembangkit ke seluruh sigma-aljabar.</li>
+<li>Karena <span class="math inline">\(Z\)</span> berada dalam <span class="math inline">\(E\)</span> hampir pasti, identitas bersyarat untuk
+<span class="math inline">\(E\)</span> memberi <span class="math inline">\(\mu_\omega(E)=1\)</span> di luar satu himpunan nol
+lagi. Perbaiki ukuran pada himpunan nol itu dan dorong balik melalui
+<span class="math inline">\(\varphi^{-1}\)</span>.</li>
+</ol>
+<p>Langkah ketiga tidak boleh diganti dengan kalimat “pilih wakil pada
+sebuah pembangkit.” Nilai pada pembangkit yang dipilih sembarang belum
+tentu merupakan preukuran atau memenuhi aditivitas terhitung. Konstruksi
+fungsi distribusi dan perbaikan satu ukuran utuh adalah bagian
+substantif dari bukti.</p>
+<p>Kernel tersebut juga mengondisikan fungsi dari <span class="math inline">\(Y\)</span>, bukan hanya indikator.</p>
+<blockquote>
+<p><strong>Proposisi (bentuk fungsi).</strong> Jika <span class="math inline">\(f:T\to[0,\infty]\)</span> terukur, maka <span class="math display">\[
+\omega\longmapsto\int_T f(y)K(\omega,dy)
+\]</span> adalah versi dari <span class="math inline">\(\mathbb
+E[f(Y)\mid\mathcal G]\)</span>, dengan nilai diperluas dan boleh
+bernilai <span class="math inline">\(+\infty\)</span>. Jika <span class="math inline">\(f\)</span> bernilai real dan <span class="math inline">\(f(Y)\)</span> integrabel, integral bertanda
+tersebut berhingga mutlak hampir pasti. Tetapkan nilainya sama dengan
+nol pada himpunan nol terukur tempat <span class="math inline">\(\int|f|\,dK=\infty\)</span>; fungsi yang
+didefinisikan di seluruh <span class="math inline">\(\Omega\)</span> itu
+adalah versi dari <span class="math inline">\(\mathbb E[f(Y)\mid\mathcal
+G]\)</span>.</p>
+</blockquote>
+<p><strong>Bukti.</strong> Untuk indikator, klaim ini adalah definisi
+kernel bersyarat. Untuk fungsi sederhana nonnegatif, gunakan linearitas.
+Ambil barisan fungsi sederhana yang naik menuju <span class="math inline">\(f\)</span> dan gunakan konvergensi monoton pada
+integral kernel maupun integral terhadap <span class="math inline">\(\mathbb P\)</span>. Untuk <span class="math inline">\(f\)</span> real integrabel, terapkan hasil
+nonnegatif pada <span class="math inline">\(|f|\)</span>, <span class="math inline">\(f^+\)</span>, dan <span class="math inline">\(f^-\)</span>. Integral <span class="math inline">\(\int|f|\,dK\)</span> berhingga hampir pasti. Di
+himpunan itu ambil selisih integral bagian positif dan negatif; pada
+himpunan pengecualian yang berpeluang nol, gunakan nilai nol seperti
+dalam pernyataan. <span class="math inline">\(\square\)</span></p>
+</section>
+<section class="bridge-section" id="kelas-penentu-dan-versi-serentak">
+<h2>Kelas penentu dan versi serentak</h2>
+<p>Keunikan bersyarat mempunyai tiga tingkat.</p>
+<ul>
+<li>Untuk satu <span class="math inline">\(B\)</span> tetap, dua versi
+dari <span class="math inline">\(\mathbb P(Y\in B\mid\mathcal
+G)\)</span> sama hampir pasti; himpunan nolnya boleh bergantung pada
+<span class="math inline">\(B\)</span>.</li>
+<li>Untuk dua kernel bersyarat reguler dengan sasaran Borel standar, ada
+satu himpunan nol di luar mana kedua <strong>ukuran</strong> itu sama
+seluruhnya.</li>
+<li>Kesamaan pada setiap <span class="math inline">\(\omega\)</span>,
+atau pada setiap nilai <span class="math inline">\(x\)</span> yang
+mungkin dipakai untuk mengondisikan, tidak mengikuti dari dua pernyataan
+tersebut.</li>
+</ul>
+<blockquote>
+<p><strong>Teorema (keunikan serentak).</strong> Misalkan <span class="math inline">\(K\)</span> dan <span class="math inline">\(L\)</span> adalah dua distribusi bersyarat reguler
+<span class="math inline">\(Y\)</span> terhadap <span class="math inline">\(\mathcal G\)</span>, dengan sasaran Borel standar
+<span class="math inline">\((T,\mathcal T)\)</span>. Maka ada <span class="math inline">\(N\in\mathcal G\)</span> dengan <span class="math inline">\(\mathbb P(N)=0\)</span> sedemikian sehingga <span class="math display">\[
+K(\omega,\cdot)=L(\omega,\cdot)
+\qquad(\omega\notin N).
+\]</span></p>
+</blockquote>
+<p><strong>Bukti.</strong> Ruang Borel standar mempunyai sebuah
+sistem-<span class="math inline">\(\pi\)</span> terhitung <span class="math inline">\(\mathcal C\)</span> yang membangkitkan <span class="math inline">\(\mathcal T\)</span> dan menentukan ukuran peluang;
+kita boleh memastikan <span class="math inline">\(T\in\mathcal
+C\)</span>. Untuk setiap <span class="math inline">\(C\in\mathcal
+C\)</span>, <span class="math inline">\(K(\cdot,C)\)</span> dan <span class="math inline">\(L(\cdot,C)\)</span> adalah dua versi nilai harapan
+bersyarat yang sama. Maka ada <span class="math inline">\(N_C\in\mathcal
+G\)</span> dengan peluang nol tempat kesamaan mungkin gagal. Bentuk</p>
+<p><span class="math display">\[
+N=\bigcup_{C\in\mathcal C}N_C.
+\]</span></p>
+<p>Gabungan ini terhitung, jadi <span class="math inline">\(\mathbb
+P(N)=0\)</span>. Jika <span class="math inline">\(\omega\notin
+N\)</span>, kedua ukuran peluang <span class="math inline">\(K(\omega,\cdot)\)</span> dan <span class="math inline">\(L(\omega,\cdot)\)</span> sepakat pada <span class="math inline">\(\mathcal C\)</span>. Teorema sistem-<span class="math inline">\(\pi\)</span>–<span class="math inline">\(\lambda\)</span> memperluas kesamaan ke seluruh
+<span class="math inline">\(\mathcal T\)</span>. <span class="math inline">\(\square\)</span></p>
+<p>Kelas penentu terhitung dipakai untuk <strong>keunikan</strong>
+setelah kita sudah tahu bahwa <span class="math inline">\(K(\omega,\cdot)\)</span> dan <span class="math inline">\(L(\omega,\cdot)\)</span> adalah ukuran. Ia tidak
+mengubah sebuah keluarga wakil sembarang menjadi kernel. Perbedaan arah
+logika ini adalah inti disiplin versi.</p>
+<p>Jika sebuah kernel perlu diperbaiki pada <span class="math inline">\(N\)</span>, pilih satu ukuran peluang tetap <span class="math inline">\(\rho\)</span> pada <span class="math inline">\(T\)</span> dan definisikan</p>
+<p><span class="math display">\[
+\widetilde K(\omega,\cdot)=
+\begin{cases}
+K(\omega,\cdot),&amp;\omega\notin N,\\
+\rho(\cdot),&amp;\omega\in N.
+\end{cases}
+\]</span></p>
+<p>Karena <span class="math inline">\(N\in\mathcal G\)</span>, hasilnya
+tetap kernel terukur dan seluruh identitas integral tidak berubah.
+Mengganti nilai secara berbeda untuk setiap <span class="math inline">\(B\)</span> dapat merusak normalisasi atau
+aditivitas dan karena itu bukan perbaikan yang sah.</p>
+</section>
+<section class="bridge-section" id="pengondisian-pada-peubah-acak">
+<h2>Pengondisian pada peubah acak</h2>
+<p>Sekarang misalkan</p>
+<p><span class="math display">\[
+X:\Omega\to(S,\mathcal S),
+\qquad
+Y:\Omega\to(T,\mathcal T)
+\]</span></p>
+<p>adalah peubah acak. Notasi “dengan syarat <span class="math inline">\(X=x\)</span>” meminta kernel yang domainnya adalah
+ruang nilai <span class="math inline">\(X\)</span>, bukan ruang sampel
+<span class="math inline">\(\Omega\)</span>.</p>
+<blockquote>
+<p><strong>Teorema (hukum bersyarat terhadap sebuah peubah
+acak).</strong> Jika <span class="math inline">\(S\)</span> dan <span class="math inline">\(T\)</span> merupakan ruang Borel standar, terdapat
+kernel probabilitas <span class="math display">\[
+Q:(S,\mathcal S)\rightsquigarrow(T,\mathcal T)
+\]</span> sedemikian sehingga untuk setiap <span class="math inline">\(A\in\mathcal S\)</span> dan <span class="math inline">\(B\in\mathcal T\)</span>, <span class="math display">\[
+\mathbb P(X\in A,Y\in B)
+=\int_AQ(x,B)\,\mathbb P_X(dx).
+\]</span> Secara ekuivalen, <span class="math inline">\(Q(X,B)\)</span>
+adalah sebuah versi dari <span class="math inline">\(\mathbb P(Y\in
+B\mid\sigma(X))\)</span> untuk setiap <span class="math inline">\(B\)</span>.</p>
+</blockquote>
+<p>Identitas ini disebut <strong>disintegrasi</strong> hukum gabungan
+<span class="math inline">\((X,Y)\)</span> terhadap marginal <span class="math inline">\(\mathbb P_X\)</span>. Ia memberi arti ketat
+pada</p>
+<p><span class="math display">\[
+Q(x,B)=\mathbb P(Y\in B\mid X=x).
+\]</span></p>
+<p>Teorema dapat dibuktikan sebagai kasus teorema disintegrasi pada
+produk Borel standar. Cara lain ialah mulai dari distribusi bersyarat
+reguler terhadap <span class="math inline">\(\sigma(X)\)</span> dan
+memandang <span class="math inline">\(\omega\mapsto
+K(\omega,\cdot)\)</span> sebagai satu peta terukur menuju ruang Borel
+standar <span class="math inline">\(\mathcal P(T)\)</span> dari ukuran
+peluang, yang sigma-aljabarnya dibangkitkan oleh evaluasi pada sebuah
+kelas penentu terhitung. Faktorkan <strong>seluruh peta bernilai
+ukuran</strong> itu melalui <span class="math inline">\(X\)</span>
+dengan Doob–Dynkin. Memfaktorkan setiap <span class="math inline">\(K(\cdot,B)\)</span> secara terpisah tidak cukup
+untuk membuktikan aditivitas terhitung. Hipotesis Borel standar pada
+<span class="math inline">\(S\)</span> dan <span class="math inline">\(T\)</span> memastikan bahwa faktorisasi bernilai
+ukuran serta struktur terukurnya tersedia.</p>
+<p>Jika <span class="math inline">\(Q\)</span> dan <span class="math inline">\(R\)</span> keduanya memenuhi identitas di atas,
+maka untuk <span class="math inline">\(B\)</span> tetap <span class="math inline">\(Q(\cdot,B)=R(\cdot,B)\)</span> hampir di mana-mana
+terhadap <span class="math inline">\(\mathbb P_X\)</span>. Kelas penentu
+terhitung pada <span class="math inline">\(T\)</span> memberi satu
+himpunan <span class="math inline">\(M\in\mathcal S\)</span> dengan
+<span class="math inline">\(\mathbb P_X(M)=0\)</span> sehingga</p>
+<p><span class="math display">\[
+Q(x,\cdot)=R(x,\cdot)
+\qquad(x\notin M).
+\]</span></p>
+<p>Jadi kernel unik sebagai ukuran hanya <span class="math inline">\(\mathbb P_X\)</span>-hampir di mana-mana. Teorema
+tidak memilih nilai kanonik pada setiap <span class="math inline">\(x\)</span>.</p>
+<p>Untuk fungsi terukur nonnegatif <span class="math inline">\(g:S\times
+T\to[0,\infty]\)</span>, bentuk fungsi disintegrasi adalah</p>
+<p><span class="math display">\[
+\mathbb E[g(X,Y)]
+=\int_S\left[\int_Tg(x,y)Q(x,dy)\right]\mathbb P_X(dx).
+\]</span></p>
+<p>Untuk <span class="math inline">\(g\)</span> bernilai real, rumus
+yang sama berlaku apabila <span class="math inline">\(g(X,Y)\)</span>
+integrabel: integral dalam berhingga mutlak untuk <span class="math inline">\(\mathbb P_X\)</span>-hampir setiap <span class="math inline">\(x\)</span> dan didefinisikan sama dengan nol pada
+himpunan marginal nol tempat <span class="math inline">\(\int|g(x,y)|Q(x,dy)=\infty\)</span>. Pembuktiannya
+dimulai dari indikator persegi panjang, diteruskan ke fungsi sederhana,
+lalu ke fungsi nonnegatif dengan konvergensi monoton; kasus bertanda
+memakai bagian positif dan negatif.</p>
+</section>
+<section class="bridge-section" id="rumus-disintegrasi-dan-kepadatan">
+<h2>Rumus disintegrasi dan kepadatan</h2>
+<p>Pada kasus yang mempunyai kepadatan, kernel dapat ditulis eksplisit
+tanpa menghilangkan disiplin nilai nol. Misalkan <span class="math inline">\(\mu\)</span> dan <span class="math inline">\(\nu\)</span> sigma-hingga dan hukum gabungan <span class="math inline">\((X,Y)\)</span> mempunyai kepadatan <span class="math inline">\(p(x,y)\)</span> terhadap ukuran produk <span class="math inline">\(\mu\otimes\nu\)</span>. Bentuk marginal</p>
+<p><span class="math display">\[
+p_X(x)=\int_Tp(x,y)\,\nu(dy).
+\]</span></p>
+<p>Karena <span class="math inline">\(\int p_X\,d\mu=1\)</span>,
+himpunan <span class="math inline">\(D=\{x:0&lt;p_X(x)&lt;\infty\}\)</span> mempunyai
+komplemen yang bermarginal nol. Pilih satu hukum peluang tetap <span class="math inline">\(\rho\)</span> pada <span class="math inline">\(T\)</span>, lalu definisikan</p>
+<p><span class="math display">\[
+Q(x,B)=
+\begin{cases}
+\displaystyle\int_B\frac{p(x,y)}{p_X(x)}\,\nu(dy),&amp;x\in D,\\[1.2ex]
+\rho(B),&amp;x\notin D.
+\end{cases}
+\]</span></p>
+<p>Untuk setiap <span class="math inline">\(x\)</span>, <span class="math inline">\(Q(x,\cdot)\)</span> adalah ukuran peluang.
+Keterukuran terhadap <span class="math inline">\(x\)</span> mengikuti
+dari Tonelli untuk integral kernel nonnegatif. Untuk <span class="math inline">\(A\in\mathcal S\)</span> dan <span class="math inline">\(B\in\mathcal T\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\int_AQ(x,B)\,\mathbb P_X(dx)
+&amp;=\int_{A\cap D}
+  \left[\int_B\frac{p(x,y)}{p_X(x)}\,\nu(dy)\right]
+  p_X(x)\,\mu(dx)\\
+&amp;=\int_{A\times B}p(x,y)\,(\mu\otimes\nu)(d(x,y)).
+\end{aligned}
+\]</span></p>
+<p>Bagian <span class="math inline">\(D^c\)</span> tidak berkontribusi
+terhadap integral marginal: tempat <span class="math inline">\(p_X=0\)</span> bermassa marginal nol, sedangkan
+tempat <span class="math inline">\(p_X=\infty\)</span> bermassa <span class="math inline">\(\mu\)</span> nol karena <span class="math inline">\(p_X\)</span> integrabel. Karena itu, hukum <span class="math inline">\(\rho\)</span> di bagian tersebut dapat diganti
+dengan kernel terukur lain tanpa mengubah disintegrasi. Kebebasan ini
+bukan cacat rumus; ia tepat mencerminkan keunikan hanya hampir di
+mana-mana.</p>
+<p>Untuk <span class="math inline">\(0&lt;p_X(x)&lt;\infty\)</span>,
+fungsi</p>
+<p><span class="math display">\[
+q(y\mid x)=\frac{p(x,y)}{p_X(x)}
+\]</span></p>
+<p>disebut kepadatan bersyarat. Menulis rasio yang sama pada titik di
+luar <span class="math inline">\(D\)</span> menghasilkan bentuk tak
+terdefinisi atau pembagian oleh nol dan tidak mendefinisikan hukum. Pada
+titik itu kita harus menyatakan versi kernel yang dipilih.</p>
+</section>
+<div class="bridge-section" id="nilai-pada-titik-pengondisian-nol">
+<h2 id="nilai-pada-titik-pengondisian-bermassa-nol">Nilai pada titik
+pengondisian bermassa nol</h2>
+<p>Jika <span class="math inline">\(X\)</span> diskret dan <span class="math inline">\(\mathbb P(X=x)&gt;0\)</span>, disintegrasi memberi
+rumus biasa</p>
+<p><span class="math display">\[
+Q(x,B)
+=\frac{\mathbb P(Y\in B,X=x)}{\mathbb P(X=x)}.
+\]</span></p>
+<p>Rumus ini menentukan <span class="math inline">\(Q(x,\cdot)\)</span>
+secara unik pada atom positif tersebut. Sebaliknya, jika <span class="math inline">\(\mathbb P(X=x)=0\)</span>, identitas disintegrasi
+tidak melihat nilai kernel pada titik tunggal <span class="math inline">\(\{x\}\)</span>. Nilai itu dapat dipilih karena
+alasan kontinuitas, simetri, batas, atau kemudahan komputasi, tetapi
+alasan tambahan tersebut bukan konsekuensi dari definisi probabilitas
+bersyarat saja.</p>
+<p>Contoh paling tajam adalah <span class="math inline">\(X=Y\)</span>
+yang seragam pada <span class="math inline">\([0,1]\)</span>. Kernel
+alami</p>
+<p><span class="math display">\[
+Q(x,\cdot)=\delta_x
+\]</span></p>
+<p>menyatakan bahwa mengetahui <span class="math inline">\(X=x\)</span>
+menentukan <span class="math inline">\(Y=x\)</span>. Tetapkan <span class="math inline">\(x_0=1/2\)</span> dan ubah seluruh ukuran di satu
+titik:</p>
+<p><span class="math display">\[
+Q'(x,\cdot)=
+\begin{cases}
+\delta_x,&amp;x\ne x_0,\\
+\delta_0,&amp;x=x_0.
+\end{cases}
+\]</span></p>
+<p>Kedua objek adalah kernel Borel dan keduanya menghasilkan hukum
+diagonal yang sama setelah diintegrasikan terhadap ukuran Lebesgue.
+Namun</p>
+<p><span class="math display">\[
+Q(x_0,\{x_0\})=1,
+\qquad
+Q'(x_0,\{x_0\})=0.
+\]</span></p>
+<p>Tidak ada kontradiksi: <span class="math inline">\(\{x_0\}\)</span>
+adalah himpunan nol untuk marginal <span class="math inline">\(X\)</span>. Notasi <span class="math inline">\(\mathbb P(Y\in B\mid X=x_0)\)</span> tanpa
+menyebut versi tidak menentukan salah satu dari kedua nilai itu.</p>
+<p>Perbedaan ini juga membatasi interpretasi simulasi. Algoritme yang
+memasukkan <span class="math inline">\(x\)</span> tertentu akan memakai
+kernel yang dikodekan oleh program, termasuk pilihannya pada nilai
+marginal nol. Kebenaran identitas disintegrasi tidak sendiri menjamin
+bahwa pilihan titik tersebut kontinu, stabil secara numerik, atau sesuai
+dengan limit model yang diinginkan.</p>
+</div>
+<section class="bridge-section" id="probabilitas-bersyarat-seluruh-eksperimen">
+<h2>Probabilitas bersyarat seluruh eksperimen</h2>
+<p>Kadang-kadang “probabilitas bersyarat reguler terhadap <span class="math inline">\(\mathcal G\)</span>” berarti sebuah kernel</p>
+<p><span class="math display">\[
+R:(\Omega,\mathcal G)\rightsquigarrow(\Omega,\mathcal F)
+\]</span></p>
+<p>yang memenuhi</p>
+<p><span class="math display">\[
+R(\cdot,A)
+=\mathbb P(A\mid\mathcal G)
+\quad\text{hampir pasti untuk setiap }A\in\mathcal F.
+\]</span></p>
+<p>Ini adalah kasus khusus distribusi bersyarat reguler dengan <span class="math inline">\(Y=\operatorname{id}_\Omega\)</span>. Teorema
+keberadaan sebelumnya dapat langsung dipakai hanya jika ruang terukur
+sasaran <span class="math inline">\((\Omega,\mathcal F)\)</span> sendiri
+Borel standar. Fakta bahwa <span class="math inline">\(Y\)</span> yang
+lain bernilai di ruang Borel standar tidak otomatis membuat ruang dasar
+Borel standar.</p>
+<p>Penyelesaian sebuah sigma-aljabar Borel dengan semua bagian himpunan
+nol juga tidak otomatis tetap menjadi ruang Borel standar sebagai ruang
+terukur. Karena itu, klaim “probabilitas bersyarat reguler selalu ada
+untuk semua kejadian <span class="math inline">\(A\)</span>” memerlukan
+hipotesis tambahan pada <span class="math inline">\((\Omega,\mathcal
+F)\)</span> atau sebuah teorema lain yang dinyatakan secara
+eksplisit.</p>
+<p>Ada kehati-hatian kedua. Untuk setiap <span class="math inline">\(G\in\mathcal G\)</span> tetap, <span class="math inline">\(R(\cdot,G)\)</span> dan <span class="math inline">\(\mathbf1_G\)</span> adalah dua versi dari objek
+bersyarat yang sama, sehingga keduanya sama hampir pasti. Namun satu
+himpunan nol yang bekerja serentak untuk <strong>semua</strong> <span class="math inline">\(G\in\mathcal G\)</span> tidak boleh diklaim dari
+argumen ini tanpa syarat keterhitungan yang memadai pada <span class="math inline">\(\mathcal G\)</span>. Properti per kejadian, versi
+serentak, dan properti titik demi titik tetap merupakan tiga tingkat
+yang berbeda.</p>
+</section>
+<section class="bridge-section" id="audit-klaim-probabilitas-bersyarat">
+<h2>Audit klaim probabilitas bersyarat</h2>
+<p>Sebelum menerima sebuah rumus atau argumen tentang pengondisian,
+periksa daftar berikut.</p>
+<ol type="1">
+<li><strong>Objek apa yang dikondisikan?</strong> Nilai harapan satu
+fungsi, peluang satu kejadian, atau seluruh hukum peluang memerlukan
+tingkat koherensi berbeda.</li>
+<li><strong>Di mana kernelnya hidup?</strong> Kernel terhadap <span class="math inline">\(\mathcal G\)</span> berdomain <span class="math inline">\(\Omega\)</span>; kernel dengan syarat <span class="math inline">\(X=x\)</span> berdomain ruang nilai <span class="math inline">\(X\)</span>.</li>
+<li><strong>Hipotesis keberadaan apa yang dipakai?</strong> Untuk
+teorema dalam unit ini, ruang nilai peubah yang dikondisikan harus Borel
+standar. Probabilitas bersyarat untuk seluruh <span class="math inline">\(\mathcal F\)</span> membutuhkan syarat itu pada
+ruang dasar ketika memakai peta identitas.</li>
+<li><strong>Apakah keluarga per kejadian sudah terbukti sebagai
+ukuran?</strong> Keterukuran tiap koordinat <span class="math inline">\(B\)</span> dan kesamaan hampir pasti tidak
+membuktikan normalisasi atau aditivitas terhitung pada satu titik.</li>
+<li><strong>Apakah himpunan nol digabungkan secara sah?</strong> Hanya
+keluarga terhitung boleh digabungkan langsung. Kelas penentu terhitung
+memberi keunikan serentak bagi dua kernel yang sudah sah.</li>
+<li><strong>Ukuran mana yang mengatur “hampir di mana-mana”?</strong>
+Untuk <span class="math inline">\(K(\omega,\cdot)\)</span> ukurannya
+<span class="math inline">\(\mathbb P\)</span>; untuk <span class="math inline">\(Q(x,\cdot)\)</span> ukurannya marginal <span class="math inline">\(\mathbb P_X\)</span>.</li>
+<li><strong>Apakah titik pengondisian bermassa positif?</strong> Rasio
+atomik hanya berlaku jika penyebut positif. Kepadatan bersyarat hanya
+ditentukan di tempat marginal positif.</li>
+<li><strong>Apakah nilai pada himpunan nol diberi status yang
+jujur?</strong> Nilai itu mungkin merupakan pilihan versi yang berguna,
+tetapi bukan nilai kanonik yang dipaksa oleh hukum gabungan.</li>
+<li><strong>Apakah kernel diperbaiki sebagai satu ukuran utuh?</strong>
+Pada himpunan nol, ganti <span class="math inline">\(K(\omega,\cdot)\)</span> dengan satu hukum peluang
+tetap; jangan menambal setiap <span class="math inline">\(B\)</span>
+secara independen.</li>
+<li><strong>Apakah notasi menyembunyikan struktur tambahan?</strong>
+Kontinuitas terhadap <span class="math inline">\(x\)</span>, kepadatan,
+simetri, atau solusi persamaan stokastik dapat memilih versi istimewa,
+tetapi harus disebut sebagai informasi tambahan.</li>
+</ol>
+<p>Daftar ini memperbaiki lingkup pernyataan informal dalam unit donor
+tanpa mengubah byte sumbernya. Ia juga menghubungkan jembatan <a href="01-konstruksi-kolmogorov.html">konstruksi Kolmogorov</a> dan <a href="02-keterukuran-proses-dan-hukum-lintasan.html">keterukuran
+proses</a>: struktur Borel standar dan argumen keterhitungan bekerja di
+tempat tertentu, bukan sebagai izin untuk mengambil irisan keluarga nol
+tak terhitung.</p>
+</section>
+<section class="bridge-section" id="latihan-penguasaan-probabilitas-bersyarat-reguler">
+<h2>Latihan penguasaan probabilitas bersyarat reguler</h2>
+<div class="mastery-sequence" id="unit.o009.original.mastery.regular-conditional-probability.01">
+<div class="exercise" id="unit.o009.original.mastery.regular-conditional-probability.01.exercise">
+<h3 id="latihan-1-kernel-pada-keadaan-berpeluang-nol">Latihan 1 — kernel
+pada keadaan berpeluang nol</h3>
+<p>Misalkan <span class="math inline">\(X\)</span> bernilai di <span class="math inline">\(S=\{a,b,c\}\)</span> dan <span class="math inline">\(Y\)</span> bernilai di <span class="math inline">\(T=\{0,1\}\)</span>. Satu-satunya massa gabungan
+yang positif adalah</p>
+<p><span class="math display">\[
+\begin{array}{c|cc}
+&amp;Y=0&amp;Y=1\\ \hline
+X=a&amp;1/6&amp;1/3\\
+X=b&amp;1/4&amp;1/4\\
+X=c&amp;0&amp;0.
+\end{array}
+\]</span></p>
+<ol type="1">
+<li>Tentukan seluruh kernel <span class="math inline">\(Q:S\rightsquigarrow T\)</span> yang merupakan
+hukum bersyarat <span class="math inline">\(Y\)</span> dengan syarat
+<span class="math inline">\(X\)</span>.</li>
+<li>Verifikasi identitas disintegrasi untuk semua <span class="math inline">\(A\subseteq S\)</span> dan <span class="math inline">\(B\subseteq T\)</span>.</li>
+<li>Jelaskan tepat di mana kernel unik dan di mana ia bebas.</li>
+<li>Sebagai perluasan, misalkan <span class="math inline">\(Y\)</span>
+bernilai di <span class="math inline">\(\mathbb N_0\)</span> dan <span class="math inline">\(Z_n\)</span> adalah versi dari <span class="math inline">\(\mathbb P(Y=n\mid\mathcal G)\)</span>. Tunjukkan
+bagaimana satu perbaikan pada himpunan nol bersama menghasilkan kernel
+<span class="math inline">\(K(\omega,A)=\sum_{n\in
+A}Z_n(\omega)\)</span>.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.regular-conditional-probability.01.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 1">Petunjuk 1 untuk Latihan 1</summary>
+<p><strong>Petunjuk 1.</strong> Hitung marginal <span class="math inline">\(\mathbb P_X\)</span>. Pada <span class="math inline">\(a\)</span> dan <span class="math inline">\(b\)</span>, gunakan rasio atomik. Pada <span class="math inline">\(c\)</span>, pilih sembarang parameter <span class="math inline">\(\theta\in[0,1]\)</span> untuk <span class="math inline">\(Q(c,\{1\})\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.regular-conditional-probability.01.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 1">Petunjuk 2 untuk Latihan 1</summary>
+<p><strong>Petunjuk 2.</strong> Untuk perluasan terhitung, ambillah
+irisan kejadian berpeluang satu tempat semua <span class="math inline">\(Z_n\ge0\)</span> dan <span class="math inline">\(\sum_nZ_n=1\)</span>. Irisan ini sah karena indeks
+<span class="math inline">\(n\)</span> terhitung. Pada komplemennya,
+ganti seluruh barisan dengan satu distribusi titik tetap.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.regular-conditional-probability.01.answer">
+<p><strong>Jawaban ringkas.</strong> Marginalnya ialah <span class="math inline">\(\mathbb P_X(a)=\mathbb P_X(b)=1/2\)</span> dan
+<span class="math inline">\(\mathbb P_X(c)=0\)</span>. Jadi <span class="math inline">\(Q(a,\{1\})=2/3\)</span>, <span class="math inline">\(Q(b,\{1\})=1/2\)</span>, sedangkan <span class="math inline">\(Q(c,\{1\})=\theta\)</span> boleh sembarang dalam
+<span class="math inline">\([0,1]\)</span>. Nilai pada <span class="math inline">\(c\)</span> hilang dari semua integral terhadap
+<span class="math inline">\(\mathbb P_X\)</span>. Pada sasaran
+terhitung, perbaikan serentak seluruh massa atom menghasilkan kernel
+dengan menjumlahkan massa pada <span class="math inline">\(A\)</span>.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.regular-conditional-probability.01.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 1">Penyelesaian lengkap untuk Latihan 1</summary>
+<p><strong>Penyelesaian lengkap.</strong> Dari tabel,</p>
+<p><span class="math display">\[
+\mathbb P_X(a)=\frac16+\frac13=\frac12,
+\qquad
+\mathbb P_X(b)=\frac14+\frac14=\frac12,
+\qquad
+\mathbb P_X(c)=0.
+\]</span></p>
+<p>Pada atom positif, rumus rasio memaksa</p>
+<p><span class="math display">\[
+Q(a,\{0\})=\frac{1/6}{1/2}=\frac13,
+\quad
+Q(a,\{1\})=\frac23,
+\]</span></p>
+<p>dan</p>
+<p><span class="math display">\[
+Q(b,\{0\})=Q(b,\{1\})=\frac12.
+\]</span></p>
+<p>Pada <span class="math inline">\(c\)</span>, pilih <span class="math inline">\(\theta\in[0,1]\)</span> dan pasang <span class="math inline">\(Q(c,\{1\})=\theta\)</span>, <span class="math inline">\(Q(c,\{0\})=1-\theta\)</span>. Nilai pada <span class="math inline">\(\varnothing\)</span> dan <span class="math inline">\(T\)</span> ditentukan oleh aksioma ukuran. Karena
+<span class="math inline">\(S\)</span> dan <span class="math inline">\(T\)</span> diskret hingga, fungsi <span class="math inline">\(x\mapsto Q(x,B)\)</span> terukur untuk setiap
+<span class="math inline">\(B\)</span>.</p>
+<p>Untuk <span class="math inline">\(A\subseteq S\)</span> dan <span class="math inline">\(B\subseteq T\)</span>,</p>
+<p><span class="math display">\[
+\int_AQ(x,B)\,\mathbb P_X(dx)
+=\sum_{x\in A}Q(x,B)\mathbb P_X(x).
+\]</span></p>
+<p>Suku <span class="math inline">\(x=c\)</span> selalu nol. Untuk <span class="math inline">\(x=a,b\)</span>, definisi rasio memberi <span class="math inline">\(Q(x,B)\mathbb P_X(x)=\mathbb P(X=x,Y\in
+B)\)</span>. Menjumlahkan terhadap <span class="math inline">\(x\in
+A\)</span> menghasilkan <span class="math inline">\(\mathbb P(X\in
+A,Y\in B)\)</span>. Jadi setiap pilihan <span class="math inline">\(\theta\)</span> adalah kernel bersyarat yang sah
+untuk hukum gabungan yang sama. Kernel dipaksa pada <span class="math inline">\(a,b\)</span> dan bebas pada <span class="math inline">\(c\)</span>, tepat sesuai keunikan <span class="math inline">\(\mathbb P_X\)</span>-hampir di mana-mana.</p>
+<p>Untuk perluasan, ambil wakil <span class="math inline">\(\mathcal
+G\)</span>-terukur <span class="math inline">\(Z_n\)</span> dari <span class="math inline">\(\mathbb E[\mathbf1_{\{Y=n\}}\mid\mathcal
+G]\)</span>. Setiap <span class="math inline">\(Z_n\ge0\)</span> hampir
+pasti. Selain itu, oleh konvergensi monoton bersyarat,</p>
+<p><span class="math display">\[
+\sum_{n=0}^{\infty}Z_n
+=\mathbb E\left[\sum_{n=0}^{\infty}
+\mathbf1_{\{Y=n\}}\middle|\mathcal G\right]
+=1
+\quad\text{hampir pasti}.
+\]</span></p>
+<p>Karena indeksnya terhitung, ada satu <span class="math inline">\(N\in\mathcal G\)</span> berpeluang nol di luar
+mana semua ketaknegatifan dan identitas jumlah berlaku. Pada <span class="math inline">\(N\)</span>, ganti seluruh barisan dengan <span class="math inline">\((1,0,0,\ldots)\)</span>. Sekarang, untuk setiap
+<span class="math inline">\(\omega\)</span>, barisan itu adalah
+distribusi peluang pada <span class="math inline">\(\mathbb
+N_0\)</span>. Definisikan</p>
+<p><span class="math display">\[
+K(\omega,A)=\sum_{n\in A}Z_n(\omega).
+\]</span></p>
+<p>Pemetaan ini terukur dalam <span class="math inline">\(\omega\)</span> sebagai limit jumlah parsial dan
+merupakan ukuran peluang dalam <span class="math inline">\(A\)</span>.
+Untuk <span class="math inline">\(G\in\mathcal G\)</span>, Tonelli
+memberi</p>
+<p><span class="math display">\[
+\int_GK(\omega,A)\,d\mathbb P
+=\sum_{n\in A}\int_GZ_n\,d\mathbb P
+=\sum_{n\in A}\mathbb P(G\cap\{Y=n\})
+=\mathbb P(G\cap\{Y\in A\}).
+\]</span></p>
+<p>Jadi <span class="math inline">\(K\)</span> adalah distribusi
+bersyarat reguler pada sasaran terhitung.</p>
+</details>
+</div>
+<div class="mastery-sequence" id="unit.o009.original.mastery.regular-conditional-probability.02">
+<div class="exercise" id="unit.o009.original.mastery.regular-conditional-probability.02.exercise">
+<h3 id="latihan-2-kepadatan-pada-segitiga">Latihan 2 — kepadatan pada
+segitiga</h3>
+<p>Pasangan <span class="math inline">\((X,Y)\)</span> mempunyai
+kepadatan gabungan</p>
+<p><span class="math display">\[
+p(x,y)=2\,\mathbf1_{\{0&lt;x&lt;y&lt;1\}}
+\]</span></p>
+<p>terhadap ukuran Lebesgue pada <span class="math inline">\(\mathbb
+R^2\)</span>.</p>
+<ol type="1">
+<li>Hitung kepadatan marginal <span class="math inline">\(p_X\)</span>.</li>
+<li>Bangun kernel Borel <span class="math inline">\(Q(x,dy)\)</span>
+untuk hukum <span class="math inline">\(Y\)</span> dengan syarat <span class="math inline">\(X=x\)</span>, termasuk nilainya untuk <span class="math inline">\(x\notin(0,1)\)</span>.</li>
+<li>Verifikasi identitas disintegrasi untuk semua himpunan Borel <span class="math inline">\(A,B\)</span>.</li>
+<li>Hitung satu versi dari <span class="math inline">\(\mathbb E[Y\mid
+X=x]\)</span> dan jelaskan status nilainya pada <span class="math inline">\(x=1\)</span>.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.regular-conditional-probability.02.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 2">Petunjuk 1 untuk Latihan 2</summary>
+<p><strong>Petunjuk 1.</strong> Untuk <span class="math inline">\(0&lt;x&lt;1\)</span>, integralkan <span class="math inline">\(2\)</span> terhadap <span class="math inline">\(y\in(x,1)\)</span>. Kepadatan bersyaratnya konstan
+pada interval tersebut.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.regular-conditional-probability.02.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 2">Petunjuk 2 untuk Latihan 2</summary>
+<p><strong>Petunjuk 2.</strong> Di luar <span class="math inline">\((0,1)\)</span>, pilih satu ukuran titik tetap,
+misalnya <span class="math inline">\(\delta_0\)</span>. Untuk
+disintegrasi, integral terhadap <span class="math inline">\(\mathbb
+P_X\)</span> hanya membaca <span class="math inline">\(0&lt;x&lt;1\)</span>; gunakan Tonelli untuk
+menukar integral.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.regular-conditional-probability.02.answer">
+<p><strong>Jawaban ringkas.</strong> Marginalnya <span class="math inline">\(p_X(x)=2(1-x)\mathbf1_{(0,1)}(x)\)</span>. Untuk
+<span class="math inline">\(0&lt;x&lt;1\)</span>, <span class="math inline">\(Q(x,dy)=\mathbf1_{(x,1)}(y)\,dy/(1-x)\)</span>; di
+luar interval itu, kita boleh memakai <span class="math inline">\(\delta_0\)</span>. Maka <span class="math inline">\(\mathbb E[Y\mid X=x]=(1+x)/2\)</span> pada <span class="math inline">\((0,1)\)</span>. Nilai pada <span class="math inline">\(x=1\)</span> adalah pilihan versi; untuk kernel
+yang dipilih ia sama dengan nol.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.regular-conditional-probability.02.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 2">Penyelesaian lengkap untuk Latihan 2</summary>
+<p><strong>Penyelesaian lengkap.</strong> Untuk <span class="math inline">\(0&lt;x&lt;1\)</span>,</p>
+<p><span class="math display">\[
+p_X(x)=\int_{\mathbb R}2\mathbf1_{\{x&lt;y&lt;1\}}\,dy
+=2(1-x),
+\]</span></p>
+<p>dan <span class="math inline">\(p_X(x)=0\)</span> di luar interval
+itu. Integral totalnya <span class="math inline">\(\int_0^1
+2(1-x)dx=1\)</span>, sesuai normalisasi hukum gabungan.</p>
+<p>Definisikan, untuk <span class="math inline">\(B\in\mathcal B(\mathbb
+R)\)</span>,</p>
+<p><span class="math display">\[
+Q(x,B)=
+\begin{cases}
+\displaystyle\frac{\lambda(B\cap(x,1))}{1-x},&amp;0&lt;x&lt;1,\\[1.2ex]
+\delta_0(B),&amp;x\notin(0,1).
+\end{cases}
+\]</span></p>
+<p>Untuk setiap <span class="math inline">\(x\)</span>, ini ukuran
+peluang. Untuk <span class="math inline">\(B\)</span> tetap, fungsi
+<span class="math inline">\(x\mapsto\lambda(B\cap(x,1))\)</span> terukur
+karena dapat ditulis sebagai <span class="math inline">\(\int\mathbf1_B(y)\mathbf1_{\{x&lt;y&lt;1\}}dy\)</span>
+dan Tonelli memberi keterukuran parameter. Jadi <span class="math inline">\(Q\)</span> adalah kernel Borel.</p>
+<p>Untuk <span class="math inline">\(A,B\)</span> Borel,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\int_AQ(x,B)\,\mathbb P_X(dx)
+&amp;=\int_{A\cap(0,1)}
+\frac{\lambda(B\cap(x,1))}{1-x}\,2(1-x)\,dx\\
+&amp;=\int_A\int_B2\mathbf1_{\{0&lt;x&lt;y&lt;1\}}\,dy\,dx\\
+&amp;=\mathbb P(X\in A,Y\in B).
+\end{aligned}
+\]</span></p>
+<p>Karena itu <span class="math inline">\(Q\)</span> adalah hukum
+bersyarat yang dicari. Untuk <span class="math inline">\(0&lt;x&lt;1\)</span>,</p>
+<p><span class="math display">\[
+\int y\,Q(x,dy)
+=\frac1{1-x}\int_x^1y\,dy
+=\frac{1+x}{2}.
+\]</span></p>
+<p>Pada <span class="math inline">\(x=1\)</span>, kernel pilihan kita
+ialah <span class="math inline">\(\delta_0\)</span>, sehingga
+integralnya nol. Mengubah <span class="math inline">\(Q(1,\cdot)\)</span> menjadi hukum peluang lain
+akan mengubah nilai titik itu tanpa mengubah disintegrasi, sebab <span class="math inline">\(\mathbb P_X(\{1\})=0\)</span>. Jadi rumus <span class="math inline">\((1+x)/2\)</span> pada <span class="math inline">\((0,1)\)</span> ditentukan hampir di mana-mana,
+sedangkan perpanjangan ke <span class="math inline">\(x=1\)</span>
+memerlukan pilihan versi tambahan.</p>
+</details>
+</div>
+<div class="mastery-sequence" id="unit.o009.original.mastery.regular-conditional-probability.03">
+<div class="exercise" id="unit.o009.original.mastery.regular-conditional-probability.03.exercise">
+<h3 id="latihan-3-dua-versi-pada-satu-nilai-nol">Latihan 3 — dua versi
+pada satu nilai nol</h3>
+<p>Pada <span class="math inline">\(([0,1],\mathcal B,\lambda)\)</span>,
+ambil <span class="math inline">\(X(\omega)=Y(\omega)=\omega\)</span>
+dan <span class="math inline">\(x_0=1/2\)</span>. Definisikan</p>
+<p><span class="math display">\[
+Q(x,\cdot)=\delta_x,
+\qquad
+Q'(x,\cdot)=
+\begin{cases}
+\delta_x,&amp;x\ne x_0,\\
+\delta_0,&amp;x=x_0.
+\end{cases}
+\]</span></p>
+<ol type="1">
+<li>Buktikan bahwa <span class="math inline">\(Q\)</span> dan <span class="math inline">\(Q'\)</span> adalah kernel Borel.</li>
+<li>Verifikasi bahwa keduanya memenuhi identitas disintegrasi untuk
+hukum gabungan <span class="math inline">\((X,Y)\)</span>.</li>
+<li>Berikan sebuah <span class="math inline">\(B\)</span> yang membuat
+<span class="math inline">\(Q(x_0,B)\ne Q'(x_0,B)\)</span>.</li>
+<li>Untuk sasaran Borel standar umum, buktikan bahwa dua kernel yang
+mewakili distribusi bersyarat yang sama tetap harus sama sebagai ukuran
+di luar satu himpunan marginal nol.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.regular-conditional-probability.03.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 3">Petunjuk 1 untuk Latihan 3</summary>
+<p><strong>Petunjuk 1.</strong> Untuk <span class="math inline">\(B\)</span> Borel, <span class="math inline">\(Q(x,B)=\mathbf1_B(x)\)</span>. Kernel kedua
+berbeda hanya melalui indikator titik tunggal <span class="math inline">\(\{x_0\}\)</span>. Dalam integral Lebesgue,
+perubahan pada titik tunggal hilang.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.regular-conditional-probability.03.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 3">Petunjuk 2 untuk Latihan 3</summary>
+<p><strong>Petunjuk 2.</strong> Untuk bagian umum, pilih sistem-<span class="math inline">\(\pi\)</span> penentu yang terhitung. Gabungkan
+himpunan nol tempat kedua kernel berbeda pada setiap anggota sistem,
+lalu pakai teorema sistem-<span class="math inline">\(\pi\)</span>–<span class="math inline">\(\lambda\)</span> pada titik di luar gabungan
+itu.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.regular-conditional-probability.03.answer">
+<p><strong>Jawaban ringkas.</strong> Kedua kernel Borel karena evaluasi
+<span class="math inline">\(x\mapsto\mathbf1_B(x)\)</span> terukur dan
+perubahan dilakukan pada titik Borel tunggal. Keduanya mengintegralkan
+<span class="math inline">\(\mathbf1_B(x)\)</span> terhadap Lebesgue,
+sebab titik tunggal <span class="math inline">\(x_0\)</span> tidak
+berkontribusi. Untuk <span class="math inline">\(B=\{x_0\}\)</span>,
+nilai masing-masing satu dan nol. Pada sasaran Borel standar, kelas
+penentu terhitung menyatukan kesamaan per kejadian menjadi kesamaan
+seluruh ukuran di luar satu himpunan nol.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.regular-conditional-probability.03.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 3">Penyelesaian lengkap untuk Latihan 3</summary>
+<p><strong>Penyelesaian lengkap.</strong> Untuk <span class="math inline">\(B\in\mathcal B([0,1])\)</span>,</p>
+<p><span class="math display">\[
+Q(x,B)=\delta_x(B)=\mathbf1_B(x),
+\]</span></p>
+<p>yang Borel dalam <span class="math inline">\(x\)</span>. Sementara
+itu,</p>
+<p><span class="math display">\[
+Q'(x,B)
+=\mathbf1_{\{x\ne x_0\}}\mathbf1_B(x)
++\mathbf1_{\{x=x_0\}}\mathbf1_B(0),
+\]</span></p>
+<p>juga Borel. Untuk setiap <span class="math inline">\(x\)</span>,
+kedua pemetaan terhadap <span class="math inline">\(B\)</span> merupakan
+ukuran peluang, jadi keduanya kernel Borel.</p>
+<p>Hukum gabungan <span class="math inline">\((X,Y)\)</span>
+terkonsentrasi pada diagonal. Untuk <span class="math inline">\(A,B\)</span> Borel,</p>
+<p><span class="math display">\[
+\mathbb P(X\in A,Y\in B)=\lambda(A\cap B).
+\]</span></p>
+<p>Dengan <span class="math inline">\(Q\)</span>,</p>
+<p><span class="math display">\[
+\int_AQ(x,B)\,\lambda(dx)
+=\int_A\mathbf1_B(x)\,dx
+=\lambda(A\cap B).
+\]</span></p>
+<p>Kernel <span class="math inline">\(Q'\)</span> berbeda dari <span class="math inline">\(Q\)</span> hanya pada <span class="math inline">\(x_0\)</span>, sehingga integralnya sama. Jadi
+keduanya adalah hukum bersyarat <span class="math inline">\(Y\)</span>
+dengan syarat <span class="math inline">\(X\)</span>. Untuk <span class="math inline">\(B=\{x_0\}\)</span>,</p>
+<p><span class="math display">\[
+Q(x_0,B)=\delta_{x_0}(\{x_0\})=1,
+\qquad
+Q'(x_0,B)=\delta_0(\{x_0\})=0.
+\]</span></p>
+<p>Sekarang misalkan <span class="math inline">\(K\)</span> dan <span class="math inline">\(L\)</span> adalah dua kernel menuju ruang Borel
+standar <span class="math inline">\((T,\mathcal T)\)</span> yang
+mewakili distribusi bersyarat yang sama. Pilih sistem-<span class="math inline">\(\pi\)</span> penentu terhitung <span class="math inline">\(\mathcal C\)</span> yang memuat <span class="math inline">\(T\)</span>. Untuk setiap <span class="math inline">\(C\in\mathcal C\)</span>, identitas disintegrasi
+menyatakan bahwa <span class="math inline">\(K(\cdot,C)\)</span> dan
+<span class="math inline">\(L(\cdot,C)\)</span> adalah dua versi fungsi
+bersyarat yang sama. Maka terdapat himpunan marginal nol <span class="math inline">\(N_C\)</span> tempat keduanya mungkin berbeda.
+Gabungan</p>
+<p><span class="math display">\[
+N=\bigcup_{C\in\mathcal C}N_C
+\]</span></p>
+<p>tetap marginal nol. Untuk <span class="math inline">\(x\notin
+N\)</span>, ukuran peluang <span class="math inline">\(K(x,\cdot)\)</span> dan <span class="math inline">\(L(x,\cdot)\)</span> sepakat pada <span class="math inline">\(\mathcal C\)</span>. Teorema sistem-<span class="math inline">\(\pi\)</span>–<span class="math inline">\(\lambda\)</span> memberi kesamaan pada seluruh
+<span class="math inline">\(\mathcal T\)</span>. Dengan demikian kedua
+kernel sama sebagai ukuran di luar satu himpunan marginal nol, tetapi
+contoh <span class="math inline">\(Q,Q'\)</span> menunjukkan bahwa
+kesamaan titik demi titik tidak dapat dituntut.</p>
+</details>
+</div>
+</section>
+<div class="bridge-section" id="hak-dan-provenans-probabilitas-bersyarat">
+<h2 id="hak-dan-provenans">Hak dan provenans</h2>
+<p>Unit <strong>Distribusi bersyarat reguler dan disiplin
+versi</strong>, termasuk ketiga latihan, petunjuk, jawaban, dan
+penyelesaian di atas, merupakan materi asli berbahasa Indonesia yang
+disusun untuk edisi ini dan dilisensikan terpisah di bawah <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>,
+sejauh hak baru timbul. ID hak komponennya ialah
+<code>rights.o009.original.bridge.regular-conditional-probability.cc-by-4.0</code>.</p>
+<p>Penyusunan unit ini dibantu oleh <strong>OpenAI Codex gpt-5.6-sol,
+Ultra.</strong> Identitas model tersebut tidak menggantikan kredit
+penulis sumber atau kontributor manusia. Unit ini memperjelas lingkup
+teorema dan menyatukan prasyarat yang sudah diperkenalkan di bagian
+Random Services serta jembatan asli sebelumnya; ia tidak menyalin prosa
+donor dan tidak melisensikan ulang Random Services, QuantEcon, Žitković,
+MathJax, atau komponen lain. Hak campuran seluruh edisi tetap dijelaskan
+dalam <code>LICENSES.md</code> dan backend hak per komponen.</p>
+<p>Unit ini independen dan tidak didukung atau disahkan oleh penulis
+Random Services, QuantEcon, lembaga mereka, atau penulis sumber lain.
+Secara khusus, ia tidak mengklaim bahwa keluarga versi per kejadian
+selalu membentuk kernel, bahwa nilai bersyarat pada titik marginal nol
+bersifat kanonik, atau bahwa ruang terukur sembarang otomatis mempunyai
+probabilitas bersyarat reguler untuk seluruh kejadian.</p>
+</div>
+</main>
+</body>
+</html>

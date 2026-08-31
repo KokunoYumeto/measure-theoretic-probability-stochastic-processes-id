@@ -1,0 +1,23 @@
+{
+  "schema": "o009.checkpoint-38-reader-pdf-repeat-qa.v1",
+  "checkpoint": 38,
+  "artifact": "output/pdf/00_PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_READER_CHECKPOINT_38.pdf",
+  "runs": [
+    {
+      "run": 1,
+      "pdf_bytes": 39843697,
+      "pdf_sha256": "dda34267df928672e03e04b4c8a36d768aab2d33bc1194b269074da0d2d24e40",
+      "receipt_sha256": "e622fb8a0fd613136a501199f86b6bb4c1a6ae931dfb6773f7d0836d92584190"
+    },
+    {
+      "run": 2,
+      "pdf_bytes": 39843697,
+      "pdf_sha256": "dda34267df928672e03e04b4c8a36d768aab2d33bc1194b269074da0d2d24e40",
+      "receipt_sha256": "54d244005e657118854d102e7d75174884a0af9e940a6024d355e11e7befb8fb"
+    }
+  ],
+  "identity": "PASS: PDF bytes and SHA-256 are identical across two clean full renders; receipts differ only in run timestamp and therefore are retained as per-run evidence.",
+  "pages": 447,
+  "site_manifest_sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d",
+  "build_receipt_sha256": "1c2755cd401477c167f708a37d953ca809ed90338684ec1027ee9dd67cea1b00"
+}

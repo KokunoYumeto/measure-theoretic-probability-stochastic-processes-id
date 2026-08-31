@@ -1,0 +1,144 @@
+{
+  "schema": "o009.original-lab-qa.v1",
+  "as_of": "2026-08-29",
+  "status": "admitted",
+  "course_id": "D30",
+  "role_id": "O009",
+  "lab": {
+    "id": "o009-lab-conditional-martingale",
+    "title": "Nilai harapan bersyarat, filtrasi, dan penghentian opsional",
+    "source": {
+      "path": "source/labs/04-nilai-harapan-bersyarat-martingal.Rmd",
+      "bytes": 12256,
+      "sha256": "09148b76b5150471a514e8c284242f09c64aff3e54aa633ad4e2940901eb8002"
+    },
+    "reader": {
+      "path": "build/site/labs/04-nilai-harapan-bersyarat-martingal.html",
+      "bytes": 46080,
+      "sha256": "3e9c9cdab4d266e2677272fa005b14fbfacf7da98e84d08f9a21f8c89a57ee93"
+    },
+    "rights_id": "rights.o009.lab.conditional-martingale.cc-by-4.0",
+    "license": "CC BY 4.0",
+    "model": "OpenAI Codex gpt-5.6-sol, Ultra.",
+    "nonendorsement": true,
+    "random_source_bytes_copied": false,
+    "random_theory_dependencies": [
+      "unit.o009.random.expect.conditional2",
+      "unit.o009.random.prob.stop",
+      "unit.o009.random.martingales.properties",
+      "unit.o009.random.martingales.stop"
+    ],
+    "random_authority_sha256": {
+      "expect/Conditional2.html": "98307993d76941808cc87b7d28dfd8b2e24325913471b07c3a350a52a54c87c2",
+      "prob/Stop.html": "9d26e78a8ee2a5a14ade3708838298ef0ba51cf9cd9658602a4f26e73b68524d",
+      "martingales/Properties.html": "0f8bc07eb5eda38e8d4f78e94ba71a7dae8e9b788278f9b6ed250b0f66dc3850",
+      "martingales/Stop.html": "8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af"
+    }
+  },
+  "mathematics_and_language": {
+    "status": "pass",
+    "finite_conditional_expectation": "On all eight paths, M0=M1=3, M2=S2^2+1, M3=X, and the conditional/tower/martingale residuals are exactly zero at the printed precision.",
+    "bounded_stopping": "On all 64 six-step paths, 56 hit +/-2 and 8 remain at 0; E[S_(tau_b)]=0.",
+    "unbounded_stopping_diagnostic": "At cap 12, 3172 of 4096 paths hit +1, E[S_(tau_+ wedge 12)]=0, and the hit-only mean is 1. The text correctly identifies censoring and failure of uniform integrability rather than a failure of optional stopping.",
+    "independent_label_check": "The actual stopping-time means are E[tau_b]=7/2 and E[tau_+ wedge 12]=4751/1024; the reader now labels its zero-valued columns explicitly as means of S at the stopped times, not means of the stopping times.",
+    "proof_enumeration_boundary": "Finite enumeration is presented as an exact diagnostic for the cap and explicitly not as proof of the asymptotic statement.",
+    "repairs_before_admission": [
+      "renamed stopped-process result columns so they cannot be mistaken for means of the stopping times",
+      "made the exact model phrase and independent non-endorsement visible in the HTML rather than leaving them only in discarded custom metadata",
+      "replaced two unsupported display-math delimiter pairs so all display equations reach MathJax intact",
+      "bound conditional expectations to the literal F1 and F2 atoms rather than to accidental numeric grouping labels",
+      "corrected all four relative theory links and the hypothesis-audit fragment",
+      "stated the optional-stopping obstruction as absence of uniform integrability of the stopped family"
+    ]
+  },
+  "execution": {
+    "runtime": "R version 4.6.1 (2026-06-24 ucrt)",
+    "seed": 20260829,
+    "finite_spaces": ["Omega_3", "Omega_6", "Omega_12"],
+    "result_rows": 1,
+    "result_columns": 18,
+    "tolerance": 1e-12,
+    "hit_rate_exact": "3172/4096 = 0.774414062500",
+    "status": "pass"
+  },
+  "topology": {
+    "source_ids": 10,
+    "source_duplicate_ids": 0,
+    "backend_units": 12,
+    "exercises": 1,
+    "hints": 3,
+    "answers": 1,
+    "solutions": 1,
+    "programs": 1,
+    "result_tables": 1,
+    "dependency_edges": 4,
+    "translation_rows_claimed": 0,
+    "mastery_credit": {
+      "new_fully_solved_problems": 1,
+      "cumulative_original_fully_solved_problems": 14,
+      "remaining": 22
+    }
+  },
+  "reader_repeat": {
+    "file_count": 144,
+    "total_bytes": 7281394,
+    "manifest_sha256": "3503150a772908d43fe329ef8ad3fe103f8af4aec4cd14a8c479ad3a05747b10",
+    "build_receipt_bytes": 33000,
+    "build_receipt_sha256": "a09c15f04b908b0a6a41dda1d7547ce9854504abbfafd4400a76b40b0a5c79c0",
+    "repeat_identity": "two complete consecutive builds matched for the package manifest, build receipt, and Lab 04 HTML",
+    "timestamp_control": {
+      "path": "00_control/REPRODUCIBLE_BUILD_TIMESTAMP_UTC.txt",
+      "bytes": 33,
+      "sha256": "78e267f17dac32b1e67601c581787b85065f072741a3b8b6bd2e68ce1ba7dcf5",
+      "value": "2026-08-29T16:49:55.089106+00:00"
+    }
+  },
+  "backend_repeat": {
+    "files_bound_by_manifest": 21,
+    "records": 8168,
+    "entities": 2181,
+    "segments": 5987,
+    "relations": 2434,
+    "qa_failures": 0,
+    "manifest_bytes": 4003,
+    "manifest_sha256": "ec69174014db337e35c8184fabda721829b810cfe4b395a608e8b071b69e8aab",
+    "repeat_identity": "all generated backend files matched byte-for-byte across consecutive builds",
+    "strict_validate_only": "pass",
+    "specific_qa_event": "qa.o009.original-lab-04-conditional-martingale-binding"
+  },
+  "browser": {
+    "desktop": {
+      "viewport": "1280x720",
+      "document_client_width": 1265,
+      "document_scroll_width": 1265,
+      "main_client_width": 1152,
+      "main_scroll_width": 1152,
+      "main_bounds": "x=56.44..1208.44",
+      "result_table": "2 rows, 18 columns; client 1152, scroll 2421, overflow-x:auto",
+      "visual_inspection": "pass: title, navigation, provenance, model disclosure, non-endorsement, mathematics, and body text are readable and centered in the content column"
+    },
+    "mobile": {
+      "viewport": "390x844 isolated same-origin iframe; content viewport client width 375",
+      "document_client_width": 375,
+      "document_scroll_width": 375,
+      "main_client_width": 350,
+      "main_scroll_width": 350,
+      "main_bounds": "x=12.80..362.31",
+      "result_table": "2 rows, 18 columns; client 350, scroll 2235, overflow-x:auto",
+      "code": "the code pre has client 350/scroll 657 and is contained by its client-350 overflow-x:auto sourceCode parent; document width remains 375",
+      "content_bounds": "the exercise, three hints, answer, and solution each remain within x=12.80..362.31",
+      "visual_inspection": "pass: heading and long navigation wrap, the content fills the mobile column, and wide surfaces remain locally scrollable"
+    },
+    "mathjax_containers": 52,
+    "mathjax_errors": 0,
+    "static_document_ids": 110,
+    "static_duplicate_ids": 0,
+    "live_document_ids_after_mathjax": 436,
+    "live_unique_ids_after_mathjax": 436,
+    "visible_model": true,
+    "visible_nonendorsement": true,
+    "local_resources": "page, CSS, MathJax, and icon returned HTTP 200 or cache-valid 304",
+    "status": "pass"
+  },
+  "admission_decision": "Lab 04 is admitted as the second of three additional original deterministic domain labs. It adds one complete solved-problem sequence, depends on exactly four frozen Random theory pages without copying their bytes, and advances cumulative original solved mastery to 14 of 36."
+}

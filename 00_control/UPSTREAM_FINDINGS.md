@@ -482,3 +482,191 @@ Random ancillary, not a frozen offline app; the existing gambler's-ruin lab is
 not misrepresented as a replacement. No upstream contact has occurred; retain
 only a concise deduplicated subset for the one possible post-corpus report if
 separately authorized.
+
+## `markov/Recurrence.html` — pre-build correction audit
+
+The frozen selected page is 51,381 bytes at SHA-256
+`24edb8bd0237b0e3abd7beeae48596f35421c9aa35653c6845cfaebb223c5535`.
+It has 519 parsed elements, 48 unique identifiers, 35 unit blocks, 27
+disclosures, six content figures, ten images, and 698 ordered TeX surfaces.
+The authority and all six content PNGs are complete; the shared Random/MathJax
+closure supplies the remaining offline runtime.
+
+- The first finite-chain example prints the first transition row as
+  `(1/2, 2/3, 0, 0)`, which sums to `7/6`. A July 16, 2009 print capture of
+  Kyle Siegrist's former official UAH `Recurrence.xhtml` page shows the same
+  row as `(1/3, 2/3, 0, 0)` on PDF page 9. That historical source-lineage
+  witness resolves the otherwise ambiguous correction to `1/3`; the current
+  Random page and its LibreTexts derivative both retain the later `1/2`
+  regression. Witness URL:
+  `https://www.dipmat.univpm.it/~demeio/Alabama_PDF/16.%20Markov_Chains/Recurrence.pdf`.
+- The first-hit convolution statement is correct, but its proof sums over an
+  impossible/infinite range and substitutes `P^k(x,y)` where
+  `P^{n-k}(y,y)` is required. The first-step proof for `H_{n+1}` similarly
+  substitutes `H_n(x,A)` where `H_n(y,A)` is required.
+- The recurrent-visit proof contradicts its correct statement by concluding
+  `P_x(N_y=infinity)=1-H(x,y)` rather than `H(x,y)`, and its final item cites
+  the transient theorem instead of the visit-count distribution.
+- The page conditions repeatedly on possibly null initial-state events. The
+  reader must bind these expressions to the all-state family `(P_x)_{x in S}`
+  established in the preceding unit. First-positive hitting and restricted-
+  path formulas also need their `n=1` empty-intersection and `n=0` identity
+  cases stated explicitly.
+- The transitivity proof uses undeclared `N` instead of `\N`; singleton
+  closures are written ambiguously as `cl(y)` and `cl(x)`; thirteen generated
+  internal references lack static fallback labels. Deterministic grammar,
+  spelling, favicon-media-type, image-alternative, and long-matrix reflow
+  repairs are also required.
+
+No authority byte is changed and no upstream contact has occurred. The exact
+downstream correction count, target/build hashes, and final disposition will
+be frozen after the Indonesian reader boundary passes independent review.
+
+## `markov/Limiting.html` — checkpoint 16 correction audit
+
+The frozen authority is 50,069 bytes at SHA-256
+`d4719c5e1cb9ad3be4fbf84c8dd849390f7d1ad15ced112f6312be83e5545680`.
+The Indonesian source is 51,577 bytes at SHA-256
+`9ab9164c51069883a19cc2da591afd1019d214a497c743a8ef42491fd16e9c42` and
+preserves 581 TeX surfaces, 38 identifiers, 22 disclosure panels, five
+exercise/solution pairs, and all five source figures. Corrections are
+downstream-only; the frozen authority and source translation remain intact.
+
+- The renewal/counting theorem mixed `N_{n,y}` and `N_{y,n}` and asserted a
+  probability equal to `H` without the finite-mean/null-recurrent qualification.
+  The reader states the robust almost-sure limit and the conditional/finite-
+  mean scope explicitly.
+- Delayed-renewal and first-delay arguments were missing the hit conditioning
+  or strong-Markov qualification; these hypotheses are now visible.
+- The averaged-index identity uses the shifted increment
+  `G_{n+i+j}-G_{i+j}`; the invariant-limit citation and the zero-​probability
+  branch in the invariant-vector exercise are repaired.
+- The finite examples contain arithmetic/normalization defects: the fifth
+  return is `19/9` (not `19/8`), the limiting row has `1/10,1/10`, and the
+  final normalizers are `1/595` rather than `1/585`; punctuation and the
+  missing comma are restored.
+- The seven-state graph omitted the `d→d` self-loop. Its visible edge prose,
+  exact matrix, and image alternatives now agree. Empty references, malformed
+  paragraph/list topology, and the missing `</ol>` are repaired in the built
+  reader, while the source topology remains evidence-bound.
+- The authority's JavaScript-only TwoState app is not an offline reader
+  surface. An original deterministic two-state simulator is supplied as a
+  separately attributed CC BY 4.0 addition and is clearly not presented as
+  upstream or endorsed.
+
+No upstream contact has occurred. These findings are retained for one possible
+future deduplicated report only after the full corpus is complete and separately
+authorized.
+
+## Checkpoint 16 preservation finding
+
+The 193-page reader and 56-file HTML/backend boundary passed structural, math,
+link, asset, privacy, accessibility qualification, and representative visual
+QA. Zenodo record 22070728 / DOI `10.5281/zenodo.22070728` is public and every
+one of its six files was anonymously SHA-256 verified. Figshare's exact
+metadata-only package is locally valid, but its authorized publish attempt
+returned HTTP 403 `InactiveAccount` before mutation; see
+`00_control/FIGSHARE_PUBLICATION_BLOCKED_CHECKPOINT_16.json`. No upstream
+message or GitHub retry was made.
+
+## QuantEcon `memoryless.md` — checkpoint 17 finding
+
+The frozen authority is the QuantEcon `continuous_time_mcs` source at commit
+`8b06e0aa5a438692445b2c896f9d238c5a7d5eb7`, tree
+`f0f11e3bbc6bd23d6e4a447a7e05c0aaf0f7209e`, with the official CC BY-SA 4.0
+witness naming Thomas J. Sargent and John Stachurski. The bounded first unit
+contains two exercises, two solutions, and five executable cells. The
+downstream target preserves the source formulas/topology and uses a local
+offline build; no upstream authority bytes were changed.
+
+The donor solution for the first exercise had an invalid `s−t` branch. The
+reader corrects it with the mathematically valid cases `t≤s` and `t>s`; the
+correction is explicit in the component receipt and backend. The downstream
+adapter also removes only the package-install directive for offline replay,
+adds figure alternatives, and removes remote theme/analytics runtime. These
+are bounded reader-layer changes, not claims about upstream intent. No upstream
+contact has occurred; retain only a deduplicated subset for the single
+post-corpus report if separately authorized.
+
+## Checkpoint 17 publication finding
+
+The complete local checkpoint package passed metadata, ZIP integrity, reader,
+source/backend, PDF, and QA gates. The authorized Zenodo API preflight timed out
+after 30 seconds, and one bounded anonymous public API request timed out with
+zero response bytes after 20 seconds. No upload or publication mutation was
+observed. Checkpoint 16 remains the public lineage head. See the sanitized
+blocker `00_control/ZENODO_PUBLICATION_BLOCKED_CHECKPOINT_17.json`; do not loop
+or create a duplicate record.
+
+## QuantEcon `poisson.md` — checkpoint 18 findings
+
+The frozen authority is
+`authority/quantecon/source_snapshot/continuous_time_mcs-8b06e0aa5a438692445b2c896f9d238c5a7d5eb7/lectures/poisson.md`,
+13,453 bytes at SHA-256
+`d9bb4268d30179d48598dd63066f938da895110511fb6f54aaf915200353e102`.
+The Indonesian target is 14,614 bytes at SHA-256
+`8d0f457f3cad1b306e6fede93f390a514da5ec18a544bd22a9a4fdeccdcdea10`
+and preserves every formula, stable label, directive, seven executable cells,
+two exercises, and two solutions.
+
+- In the Bernoulli-grid construction, the authority describes the first-visit
+  waiting time as exponential with rate `t lambda`; its rate is `lambda`, with
+  `t` the observation horizon. The downstream reader states the corrected
+  rate.
+- The authority writes `J_k := W_1 + \\cdots W_k` and repeats the same omission
+  in the first exercise. The downstream reader inserts the missing `+` before
+  the final summand.
+- The proof typo `indepenence` is rendered as `independensi`.
+- Several authority prose passages loosely call fixed-time Poisson laws
+  rate-parameterized. The terminology gate preserves `laju` for the process or
+  exponential waiting-time distribution and uses `parameter` for a fixed-time
+  Poisson count distribution. Formulas and executable code are unchanged.
+
+The frozen authority bytes remain unchanged. These bounded corrections are
+recorded in the component receipt and backend; no upstream contact has
+occurred. Retain only a concise deduplicated subset for the single possible
+post-corpus report after separate authorization.
+
+## Checkpoint 18 terminology and reader finding
+
+No representative same-field Indonesian arXiv TeX source was found in the
+bounded official search. The official Universitas Ahmad Dahlan module
+*Pengantar Proses Stokastik* (2021) was therefore inspected only as a
+nonredistributed PDF terminology witness. The resulting glossary decisions
+were propagated before the final build. The 78-file HTML reader, 5,300-record
+backend, and 209-page PDF pass their strict and visual QA gates. The rejected
+first PDF candidate was never published; the admitted PDF has SHA-256
+`0e833c56460522b981511b2a2b7293f1e4dd3184fbb6755e53064e99d2fbbad9`.
+
+## QuantEcon `markov_prop.md` — checkpoint 20 findings
+
+The frozen authority is
+`authority/quantecon/source_snapshot/continuous_time_mcs-8b06e0aa5a438692445b2c896f9d238c5a7d5eb7/lectures/markov_prop.md`,
+31,134 bytes at SHA-256
+`0380ca588468e4185391e8bf5d2d207978a958a6c954029f41399473d9d6f545`.
+The Indonesian target is 34,796 bytes at SHA-256
+`95819eeb048f4fc792bd7d8b1a85dfbaecca962c440bd87b54424a6fa8b96a45`
+and preserves the 27-heading sequence, 32 display surfaces, 12 equation
+labels, five standalone labels, five executable cells, four exercises, four
+solutions, and the frozen source figure.
+
+- The inventory-process prose states that the simulation starts from
+  `X_0=0`, while the function signature, docstring, and call initialize it at
+  `b`. The downstream reader states `X_0=b`, matching the executable model.
+- The displayed empirical distribution averages indicators of `X_t` without
+  the replication index. The downstream reader writes `X_t^m`, making the
+  Monte Carlo sample explicit without changing the computation.
+- Exercise 4 defines states `0,...,b` but evaluates a binomial PMF with
+  `n=b+1`, which assigns positive mass to the omitted state `b+1`. The
+  downstream solution uses `Binomial(b,0.25)` on `0,...,b`; the admitted PMF
+  sums to one up to floating-point error, whereas the source expression omits
+  mass `2.3841857965667401e-07` for the supplied parameters.
+
+The downstream renderer also required two local implementation repairs that
+are not upstream content findings: an unlabeled display was initially allowed
+to consume later parenthetical prose as an HTML equation ID, and the official
+QuantEcon macro `dD = \\mathcal{D}` was absent from the local MathJax map.
+Both are now regression-guarded. Generated and source figures now have stable
+resolving DOM fragments and backend asset paths. No upstream contact has
+occurred; retain only a concise deduplicated subset for the single possible
+post-corpus report after separate authorization.

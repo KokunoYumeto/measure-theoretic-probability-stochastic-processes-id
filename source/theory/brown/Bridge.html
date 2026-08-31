@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+	<meta charset="utf-8">
+	<title>Jembatan Brown</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probability, statistics, stochastic process, Brownian bridge, Brownian motion, normal distribution, empirical distribution function">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\( \newcommand{\P}{\mathbb{P}} \)
+	\( \newcommand{\E}{\mathbb{E}} \) 
+	\( \newcommand{\R}{\mathbb{R}} \) 
+	\( \newcommand{\N}{\mathbb{N}} \)
+	\( \newcommand{\Z}{\mathbb{Z}} \)
+	\( \newcommand{\bs}{\boldsymbol} \)
+	\( \newcommand{\cov}{\text{cov}} \)
+	\( \newcommand{\cor}{\text{cor}} \)
+	\( \newcommand{\var}{\text{var}} \)
+	\( \newcommand{\sd}{\text{sd}} \)
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Gerak Brown</a></li>
+		<li class="child"><a href="Standard.html" title="Gerak Brown Standar">1</a></li>
+		<li class="child"><a href="Drift.html" title="Gerak Brown dengan Hanyutan">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Geometric.html" title="Gerak Brown Geometrik">4</a></li>
+		<li class="details"><button type="button" title="Perluas Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Perluas"></button></li>
+		<li class="details"><button type="button" title="Ciutkan Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Ciutkan"></button></li>
+	</ol>
+	<h2>5. Jembatan Brown</h2>
+</header>
+
+<h3>Teori Dasar</h3>
+
+<h4 id="def">Definisi dan Konstruksi</h4>
+
+<p>Dalam perumusan yang paling umum, <dfn>proses jembatan Brown</dfn> diperoleh dengan mengambil suatu proses <a href="Standard.html">gerak Brown standar</a> \( \bs{X} \), membatasinya pada interval \( [0, 1] \), dan mengondisikannya pada kejadian bahwa \( X_1 = 0 \). Karena \( X_0 = 0 \) juga, proses tersebut <q>tertambat</q> di kedua ujung sehingga proses di antaranya membentuk suatu <q>jembatan</q> (meskipun jembatan yang sangat bergerigi). Jembatan Brown ternyata merupakan proses stokastik yang menarik dengan berbagai penerapan yang mengejutkan, termasuk penerapan yang sangat penting dalam statistika. Namun, untuk definisinya, kita akan memberikan daftar sifat penciri seperti yang kita lakukan untuk gerak Brown standar dan gerak Brown dengan <a href="Drift.html">hanyutan dan penskalaan</a>.</p>
+
+<div class="unit" id="def1">
+	<p class="dfn">Suatu <dfn>jembatan Brown</dfn> adalah proses stokastik \( \bs{X} = \{X_t: t \in [0, 1]\} \) dengan ruang keadaan \( \R \) yang memenuhi sifat-sifat berikut:</p>
+	<ol class="sub">
+		<li>\( X_0 = 0 \) dan \( X_1 = 0 \) (masing-masing dengan probabilitas 1).</li>
+		<li>\( \bs{X} \) adalah proses Gauss.</li>
+		<li>\( \E(X_t) = 0 \) untuk \( t \in [0, 1] \).</li>
+		<li>\( \cov(X_s, X_t) = \min\{s, t\} - s t \) untuk \( s, \, t \in [0, 1] \).</li>
+		<li>Dengan probabilitas 1, \( t \mapsto X_t \) kontinu pada \( [0, 1] \).</li>
+	</ol>
+</div>
+
+<p>Jadi, secara ringkas, jembatan Brown \( \bs{X} \) adalah proses Gauss kontinu dengan \( X_0 = X_1 = 0 \), serta dengan fungsi rataan dan kovarians yang masing-masing diberikan dalam (c) dan (d). Tentu saja, pertanyaan pertama ialah apakah proses seperti itu ada. Jawabannya ya—kalau tidak, untuk apa kita berada di sini? Bahkan, kita akan melihat beberapa cara mengonstruksi jembatan Brown dari gerak Brown standar. Untuk membantu pembuktian, ingatlah bahwa proses gerak Brown standar \( \bs{Z} = \{Z_t: t \in [0, \infty)\} \) adalah proses Gauss kontinu dengan \( Z_0 = 0 \), \( \E(Z_t) = 0 \) untuk \( t \in [0, \infty) \), dan \( \cov(Z_s, Z_t) = \min\{s, t\} \) untuk \( s, \, t \in [0, \infty) \). Berikut konstruksi pertama kita:</p>
+
+<div class="unit" id="def2">
+	<p class="math">Misalkan \(\bs{Z} = \{Z_t: t \in [0, \infty)\} \) adalah gerak Brown standar, dan misalkan \( X_t = Z_t - t Z_1 \) untuk \( t \in [0, 1] \). Maka \( \bs{X} = \{X_t: t \in [0, 1]\} \) adalah jembatan Brown.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Perhatikan bahwa \( X_0 = Z_0 = 0 \) dan \( X_1 = Z_1 - Z_1 = 0 \).</li>
+			<li>Kombinasi linear peubah-peubah dalam \( \bs{X} \) dapat direduksi menjadi kombinasi linear peubah-peubah dalam \( \bs{Z} \), sehingga berdistribusi normal. Jadi, \( \bs{X} \) adalah proses Gauss.</li>
+			<li>\( E(X_t) = \E(Z_t) - t \E(Z_1) = 0 \) untuk \( t \in [0, 1] \)</li>
+			<li>\( \cov(X_s, X_t) = \cov(Z_s - s Z_1, Z_t - t Z_1) = \cov(Z_s, Z_t) - t \, \cov(Z_s, Z_1) - s \, \cov(Z_1, Z_t) + s t \, \cov(Z_1, Z_1) = \min\{s, t\} - s t - s t + s t \) untuk \( s, \, t \in [0, 1] \).</li>
+			<li>Fungsi \( t \mapsto X_t \) kontinu pada \( [0, 1] \) karena \( t \mapsto Z_t \) kontinu pada \( [0, 1] \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Mari kita lihat jembatan Brown bekerja.</p>
+
+<div class="unit" id="def3">
+	<p class="app">Jalankan simulasi <a href="JavaScript:openAncillary('../apps/BrownianBridge.html')" class="ancillary">proses jembatan Brown</a> dalam modus satu langkah beberapa kali.</p>
+</div>
+
+<p>Untuk jembatan Brown \( \bs{X} \), perhatikan khususnya bahwa \( X_t \) berdistribusi normal dengan rataan 0 dan varians \( t (1 - t) \) untuk \( t \in [0, 1] \). Jadi, varians meningkat lalu menurun pada \( [0, 1] \), dan mencapai maksimum \( 1/4 \) pada \( t = 1/2 \). Tentu saja, varians bernilai 0 pada \( t = 0 \) dan \( t = 1 \), karena \( X_0 = X_1 = 0 \) secara deterministik.</p>
+
+<div class="unit" id="def4">
+	<p class="app">Buka simulasi <a href="JavaScript:openAncillary('../apps/BrownianBridge.html')" class="ancillary">proses jembatan Brown</a>. Ubah \( t \) dan perhatikan perubahan fungsi kepadatan probabilitas serta momennya. Untuk berbagai nilai \( t \), jalankan simulasi 1.000 kali dan bandingkan fungsi kepadatan serta momen empiris dengan fungsi kepadatan dan momen yang sebenarnya.</p>
+</div>
+
+<p>Sebagai kebalikan dari konstruksi dalam <a href="#def2" class="ref"></a>, kita dapat membangun gerak Brown standar pada interval waktu \( [0, 1] \) dari jembatan Brown.</p>
+
+<div class="unit" id="def5">
+	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in [0, 1]\} \) adalah jembatan Brown, dan misalkan \( Z \) adalah peubah acak berdistribusi normal standar yang saling bebas dengan \( \bs{X} \). Misalkan \( Z_t = X_t + t Z \) untuk \( t \in [0, 1] \). Maka \( \bs{Z} = \{Z_t: t \in [0, 1]\} \) adalah gerak Brown standar pada \( [0, 1] \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Perhatikan bahwa \( Z_0 = X_0 = 0 \).</li>
+			<li>Kombinasi linear peubah-peubah dalam \( \bs{Z} \) dapat direduksi menjadi kombinasi linear peubah-peubah dalam \( \bs{X} \), sehingga berdistribusi normal. Jadi, \( \bs{Z} \) adalah proses Gauss.</li>
+			<li>\( \E(Z_t) = \E(X_t) + t \E(Z) = 0 \) untuk \( t \in [0, 1] \).</li>
+			<li>\( \cov(Z_s, Z_t) = \cov(X_s + s Z, X_t + t Z) = \cov(X_s, X_t) + t \, \cov(X_s, Z) + s \, \cov(X_t, Z) + s t \, \var(Z) = \min\{s, t\} - s t + 0 + 0 + s t = \min\{s, t\} \) untuk \( s, \, t \in [0, 1] \).</li>
+			<li>Fungsi \( t \mapsto Z_t \) kontinu pada \( [0, 1] \) karena \( t \mapsto X_t \) kontinu pada \( [0, 1] \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Berikut cara lain mengonstruksi jembatan Brown dari gerak Brown standar.</p>
+
+<div class="unit" id="def7">
+	<p class="math">Misalkan \( \bs{Z} = \{Z_t: t \in [0, \infty)\} \) adalah gerak Brown standar. Definisikan \( X_1 = 0 \) dan 
+	\[ X_t = (1 - t) Z\left(\frac{t}{1 - t}\right), \quad t \in [0, 1) \]
+	Maka \( \bs{X} = \{X_t: t \in [0, 1]\} \) adalah jembatan Brown.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Perhatikan bahwa \( X_0 = Z_0 = 0 \) dan, menurut definisi, \( X_1 = 0 \).</li>
+			<li>Kombinasi linear peubah-peubah dalam \( \bs{X} \) dapat direduksi menjadi kombinasi linear peubah-peubah dalam \( \bs{Z} \), sehingga berdistribusi normal. Jadi, \( \bs{X} \) adalah proses Gauss.</li>
+			<li>Untuk \( t \in [0, 1] \),
+			\[ \E(X_t) = (1 - t) \E\left[Z\left(\frac{t}{1 - t}\right)\right] = 0 \]</li>
+			<li>Jika \( s, \, t \in [0, 1) \) dengan \( s \lt t \), maka \( s \big/ (1 - s) \lt t \big/ (1 - t) \), sehingga
+			\[ \cov(X_s, X_t) = \cov\left[(1 - s) Z\left(\frac{s}{1 - s}\right), (1 - t) Z\left(\frac{t}{1 - 	t}\right)\right] = (1 - s)(1 - t) \frac{s}{1 - s} = s (1 - t) \]</li>
+			<li>Terakhir, fungsi \( t \mapsto X_t \) kontinu dengan probabilitas 1 pada \( [0, 1) \), dan dengan probabilitas 1, \( X_t = (1 - t) Z\left[t \big/ (1 - t)\right] \to 0 \) ketika \( t \uparrow 1 \).</li>
+		</ol>
+	</details>
+</div>
+
+<p>Sebaliknya, kita dapat mengonstruksi gerak Brown standar dari jembatan Brown.</p>
+
+<div class="unit" id="def8">
+	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in [0, 1]\} \) adalah jembatan Brown. Definisikan
+	\[ Z_t = (1 + t) X\left(\frac{t}{1 + t}\right), \quad t \in [0, \infty) \]
+	Maka \( \bs{Z} = \{Z_t: t \in [0, \infty)\} \) adalah proses gerak Brown standar.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Perhatikan bahwa \( Z_0 = X_0 = 0 \)</li>
+			<li>Kombinasi linear peubah-peubah dalam \( \bs{Z} \) dapat direduksi menjadi kombinasi linear peubah-peubah dalam \( X \), sehingga berdistribusi normal. Jadi, \( \bs{Z} \) adalah proses Gauss.</li>
+			<li>Untuk \( t \in [0, \infty) \), 
+			\[ \E(Z_t) = (1 + t) \E\left[X\left(\frac{t}{1 + t}\right)\right] = 0 \]</li>
+			<li>Jika \( s, \, t \in [0, 1] \) dengan \( s \lt t \), maka \( s \big/ (1 + s) \lt t \big/ (1 + t) \), sehingga
+			\[ \cov(Z_s, Z_t) = \cov\left[(1 + s) X\left(\frac{s}{1 + s}\right), (1 + t) X\left(\frac{t}{1 + t}\right)\right] = (1 + s)(1 + t) \left[\frac{s}{1 + s} - \frac{s}{1 + s}\frac{t}{1 + t}\right] = s \]</li>
+			<li>Karena \( t \mapsto X_t \) kontinu, \( t \mapsto Z_t \) kontinu.</li>
+		</ol>
+	</details>
+</div>
+
+<p>Kita kembali ke komentar pada awal bagian ini, mengenai pengondisian gerak Brown standar agar bernilai 0 pada waktu 1. Berbeda dengan dua konstruksi sebelumnya, perhatikan bahwa kita tidak mentransformasi peubah-peubah acaknya, melainkan mengubah <em>ukuran probabilitas</em> yang mendasarinya.</p>
+
+<div class="unit" id="def6">
+	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in [0, \infty)\} \) adalah gerak Brown standar. Maka, jika dikondisikan pada \( X_1 = 0 \), proses \( \{X_t: t \in [0, 1]\} \) adalah proses jembatan Brown.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Sebagian argumen didasarkan pada sifat-sifat <a href="../special/MultiNormal.html">distribusi normal multivariat</a>. Proses yang dikondisikan tetap kontinu dan tetap merupakan proses Gauss. Secara khusus, misalkan \( s, \, t \in [0, 1] \) dengan \( s \lt t \). Maka \( (X_t, X_1) \) mempunyai distribusi normal bersama dengan parameter yang ditentukan oleh fungsi rataan dan kovarians \( \bs{X} \). Melalui perhitungan standar, distribusi bersyarat \( X_t \) jika diketahui \( X_1 = 0 \) adalah normal dengan rataan 0 dan varians \( t (1 - t) \). Demikian pula, distribusi bersama \( (X_s, X_t, X_1) \) adalah normal dengan parameter yang ditentukan oleh fungsi rataan dan kovarians \( \bs{X} \). Sekali lagi, melalui perhitungan standar, distribusi bersyarat \( (X_s, X_t) \) jika diketahui \( X_1 = 0 \) adalah normal bivariat dengan rataan 0 dan dengan \( \cov(X_s, X_t \mid X_1 = 0) = s (1 - t) \).</p>
+	</details>
+</div>
+
+<p>Terakhir, jembatan Brown dapat didefinisikan melalui suatu integral stokastik.</p>
+
+<div class="unit">
+	<p class="math">Misalkan \( \bs{Z} = \{Z_t: t \in [0, \infty)\} \) adalah gerak Brown standar. Definisikan \( X_1 = 0 \) dan
+	\[ X_t = (1 - t) \int_0^t \frac{1}{1 - s} \, dZ_s, \quad t \in [0, 1) \]
+	Maka \( \bs{X} = \{X_t: t \in [0, 1]\} \) adalah proses jembatan Brown.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Perhatikan bahwa \( X_0 = 0 \) dan, menurut definisi, \( X_1 = 0 \).</li>
+			<li>Karena integran dalam integral stokastik tersebut deterministik, \( \bs{X} \) adalah proses Gauss.</li>
+			<li>\( \bs{X} \) kontinu pada \( [0, 1) \) dengan probabilitas 1 sebagai sifat dasar integral stokastik. Selain itu, \( X_t \to 0 \) ketika \( t \uparrow 1 \) sebagai konsekuensi ketaksamaan martingal.</li>
+			<li>\( \E(X_t) = 0 \) karena integral stokastik tersebut mempunyai rataan 0.</li>
+			<li>Misalkan \( s, \, t \in [0, 1] \) dengan \( s \le t \). Maka
+			\[ \cov(X_s, X_t) = \cov\left[(1 - s) \int_0^s \frac{1}{1 - u} \, dZ_u, (1 - t)\left(\int_0^s \frac{1}{1 - u} \, dZ_u + \int_s^t \frac{1}{1 - u} \, dZ_u\right)\right] \]
+			Namun, \( \int_0^s \frac{1}{1 - u} \, dZ_u \) dan \( \int_s^t \frac{1}{1 - u} \, dZ_u \) saling bebas,
+			\[ \cov(X_s, X_t) = (1 - s)(1 - t) \var\left(\int_0^s \frac{1}{1 - u} \, dZ_u\right) \]
+			Lalu, berdasarkan isometri Itô,
+			\[ \cov(X_s, X_t) = (1 - s)(1 - t) \int_0^s \frac{1}{(1 - u)^2} \, du = (1 - s)(1 - t) \left(\frac{1}{1 - s} - 1\right) = (1 - t)s \]</li>
+		</ol>
+	</details>
+</div>
+
+<p>Dalam bentuk diferensial, proses di atas dapat ditulis sebagai 
+\[ d X_t = \frac{X_t}{1 - t} \, dt  + dZ_t, \; X_0 = 0 \]</p>
+
+<h4 id="gen">Jembatan Brown Umum</h4>
+
+<p>Proses-proses yang dikonstruksi di atas (dengan beberapa cara!) merupakan jembatan Brown <dfn>standar</dfn>. Proses ini mudah diperumum agar bermula di \( a \) dan berakhir di \( b \), untuk sebarang \( a, \, b \in \R \).</p>
+
+<div class="unit" id="gen1">
+	<p class="math">Misalkan \( \bs{Z} = \{Z_t: t \in [0, 1]\} \) adalah proses jembatan Brown standar. Misalkan \( a, \, b \in \R \) dan definisikan
+	\( X_t = (1 - t) a + t b + Z_t\) untuk \( t \in [0, 1] \). Maka \( \bs{X} = \{X_t: t \in [0, 1]\} \) adalah <dfn>proses jembatan Brown dari \( a \) ke \( b \)</dfn>.</p>
+</div>
+
+<p>Tentu saja, setiap konstruksi jembatan Brown standar di atas dapat dimodifikasi untuk menghasilkan jembatan Brown umum. Berikut sifat-sifat pencirinya.</p>
+
+<div class="unit" id="gen2">
+	<p class="math">Proses jembatan Brown \( \bs{X} = \{X_t: t \in [0, 1]\} \) dari \( a \) ke \( b \) dicirikan oleh sifat-sifat berikut:</p>
+	<ol class="sub">
+		<li>\( X_0 = a \) dan \( X_1 = b \) (masing-masing dengan probabilitas 1).</li>
+		<li>\( \bs{X} \) adalah proses Gauss.</li>
+		<li>\( \E(X_t) = (1 - t) a + t b \) untuk \( t \in [0, 1] \).</li>
+		<li>\( \cov(X_s, X_t) = \min\{s, t\} - s t \) untuk \( s, \, t \in [0, 1] \).</li>
+		<li>Dengan probabilitas 1, \( t \mapsto X_t \) kontinu pada \( [0, 1] \).</li>
+	</ol>
+</div>
+
+
+<h3 id="app">Penerapan</h3>
+
+<h4 id="edf">Fungsi Distribusi Empiris</h4>
+
+<p>Kita mulai dengan salah satu persoalan paling mendasar dalam statistika. Misalkan \( T \) adalah peubah acak bernilai real dengan distribusi yang tidak diketahui. Misalkan \( F \) menyatakan <a href="../dist/CDF.html">fungsi distribusi</a> \( T \), sehingga \( F(t) = \P(T \le t) \) untuk \( t \in \R \). Tujuan kita ialah mengonstruksi <a href="../point/Estimators.html">penduga</a> \( F \), sehingga langkah pertama yang wajar ialah mengambil <em>sampel</em> dari distribusi \( T \). Hal ini menghasilkan barisan \( \bs{T} = (T_1, T_2, \ldots) \) yang terdiri atas peubah-peubah saling bebas dan masing-masing berdistribusi sama dengan \( T \) (dan karenanya mempunyai fungsi distribusi \( F \)). Bayangkan \( \bs{T} \) sebagai barisan <em>salinan</em> \( T \) yang saling bebas. Untuk \( n \in \N_+ \) dan \( t \in \R \), penduga alami bagi \( F(t) \) berdasarkan \( n \) nilai sampel pertama adalah 
+\[ F_n(t) = \frac{1}{n}\sum_{i=1}^n \bs{1}(T_i \le t) \]
+yang tidak lain adalah proporsi dari \( n \) nilai sampel pertama yang jatuh dalam interval \( (-\infty, t] \). Sesuai dengan sifatnya, \( F_n \) dikenal sebagai <dfn>fungsi distribusi empiris</dfn> yang bersesuaian dengan sampel berukuran \( n \). Perhatikan bahwa \( \left(\bs{1}(T_1 \le t), \bs{1}(T_2 \le t), \ldots\right) \) adalah barisan peubah indikator independen dan berdistribusi identik (sehingga merupakan barisan <a href="../bernoulli/index.html">percobaan Bernoulli</a>), dan bersesuaian dengan pengambilan sampel dari distribusi \( \bs{1}(T \le t) \). Penduga \( F_n(t) \) hanyalah <a href="../sample/Mean.html">rataan sampel</a> dari \( n \) peubah pertama ini. Pembilangnya, yaitu banyaknya peubah sampel asli yang nilainya berada dalam \( (-\infty, t] \), mempunyai <a href="../bernoulli/Binomial.html">distribusi binomial</a> dengan parameter \( n \) dan \( F(t) \). Seperti semua rataan sampel dari sampel independen dan berdistribusi identik, \( F_n(t) \) memenuhi beberapa sifat dasar yang penting. Ringkasannya diberikan di bawah, tetapi untuk memahami beberapa fakta ini, ingat kembali rataan dan varians peubah indikator yang kita sampel: \( \E\left[\bs{1}(T \le t)\right] = F(t) \), \( \var\left[\bs{1}(T \le t)\right] = F(t)\left[1 - F(t)\right] \).</p>
+
+<div class="unit" id="edf1">
+	<p class="math">Untuk \( t \in \R \) yang tetap,</p>
+	<ol class="sub">
+		<li>\( \E\left[F_n(t)\right] = F(t) \), sehingga \( F_n(t) \) adalah penduga takbias bagi \( F(t) \).</li>
+		<li>\( \var\left[F_n(t)\right] = F(t)\left[1 - F(t)\right] \big/ n \), sehingga \( F_n(t) \) adalah penduga konsisten bagi \( F(t) \).</li>
+		<li>\( F_n(t) \to F(t) \) ketika \( n \to \infty \) dengan probabilitas 1, berdasarkan <a href="../sample/LLN.html">hukum kuat bilangan besar</a>.</li>
+		<li>\( \sqrt{n}\left[F_n(t) - F(t)\right] \) mempunyai rataan 0 dan varians \( F(t)\left[1 - F(t)\right] \), serta <a href="../dist/Convergence.html">konvergen</a> ke distribusi normal dengan parameter-parameter tersebut ketika \( n \to \infty \), berdasarkan <a href="../sample/CLT.html">teorema limit pusat</a>.</li>
+	</ol>
+</div>
+
+<p>Teorema <a href="#edf1" class="ref"></a> memberi kita banyak informasi tentang \( F_n(t) \) untuk \( t \) yang <em>tetap</em>, tetapi sekarang kita ingin membiarkan \( t \) bervariasi dan memandang ekspresi dalam (d), yaitu \( t \mapsto \sqrt{n}\left[F_n(t) - F(t)\right] \), sebagai proses acak untuk setiap \( n \in \N_+ \). Kuncinya ialah terlebih dahulu mempertimbangkan suatu distribusi yang sangat khusus.</p>
+
+<p>Misalkan \( T \) mempunyai <a href="../special/UniformContinuous.html">distribusi seragam standar</a>, yakni distribusi seragam kontinu pada interval \( [0, 1] \). Dalam hal ini, fungsi distribusinya hanyalah \( F(t) = t \) untuk \( t \in [0, 1] \), sehingga kita memperoleh barisan proses stokastik \( \bs{X}_n = \left\{X_n(t): t \in [0, 1]\right\} \) untuk \( n \in \N_+ \), dengan
+\[ X_n(t) = \sqrt{n}\left[F_n(t) - t\right] \]
+Tentu saja, hasil-hasil sebelumnya berlaku, sehingga proses \( \bs{X}_n \) mempunyai fungsi rataan 0, fungsi varians \( t \mapsto t(1 - t) \), dan untuk \( t \in [0, 1] \) yang tetap, distribusi \( X_n(t) \) konvergen ke distribusi normal yang bersesuaian ketika \( n \to \infty \). Berikut informasi barunya: fungsi kovarians \( \bs{X}_n \) sama dengan fungsi kovarians jembatan Brown!</p>
+
+<div class="unit" id="edf2">
+	<p class="math">\( \cov\left[X_n(s), X_n(t)\right] = \min\{s, t\} - s t \) untuk \( s, \, t \in [0, 1] \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Misalkan \( s \le t \). Berdasarkan sifat-sifat dasar kovarians,
+		\[ \cov\left[X_n(s), X_n(t)\right] = n \, \cov\left[F_n(s), F_n(t)\right] = \frac{1}{n} \cov\left(\sum_{i=1}^n \bs{1}(T_i \le s), \sum_{j=1}^n \bs{1}(T_j \le t)\right) = \frac{1}{n} \sum_{i=1}^n \sum_{j=1}^n \cov\left[\bs{1}(T_i \le s) \bs{1}(T_j \le t)\right] \]
+		Namun, jika \( i \ne j \), peubah \( \bs{1}(T_i \le s) \) dan \( \bs{1}(T_j \le t) \) saling bebas, sehingga mempunyai kovarians 0. Di sisi lain,
+		\[ \cov\left[\bs{1}(T_i \le s), \bs{1}(T_i \le t)\right] = \P(T_i \le s, T_i \le t) - \P(T_i \le s) \P(T_i \le t) = \P(T_i \le s) - \P(T_i \le s) \P(T_i \le t) = s - st \]
+		sehingga
+		\[ \cov\left[X_n(s), X_n(t)\right] = \frac{1}{n} \sum_{i=1}^n \cov\left[\bs{1}(T_i \le s), \bs{1}(T_i \le t)\right] = s - s t\]</p>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">16. Gerak Brown</a></li>
+		<li class="child"><a href="Standard.html" title="Gerak Brown Standar">1</a></li>
+		<li class="child"><a href="Drift.html" title="Gerak Brown dengan Hanyutan">2</a></li>
+		<li class="current">3</li>
+		<li class="child"><a href="Geometric.html" title="Gerak Brown Geometrik">4</a></li>
+		<li class="details"><button type="button" title="Perluas Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Perluas"></button></li>
+		<li class="details"><button type="button" title="Ciutkan Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Ciutkan"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Himpunan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

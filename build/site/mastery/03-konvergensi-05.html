@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>Penguasaan 03.05: limit gabungan pada waktu Poisson</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="02-konvergensi-03-04.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="02-konvergensi-03-04.html">Unit sebelumnya</a></nav><main class="mastery-reader"><h1>Penguasaan 03.05: limit gabungan pada waktu
+Poisson</h1>
+
+<div class="mastery original-addition" id="o009-mastery-convergence-05">
+<blockquote>
+<p><strong>Hak dan provenans.</strong> Soal, petunjuk, jawaban, dan
+penyelesaian ini adalah materi asli berbahasa Indonesia (id-ID), disusun
+oleh OpenAI Codex atas arahan pengguna, dan dilisensikan dengan <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Tidak
+ada soal donor yang disalin atau diadaptasi.</p>
+</blockquote>
+<h2 id="prasyarat">Prasyarat</h2>
+<ul>
+<li>fungsi karakteristik dan teorema kontinuitas Lévy;</li>
+<li>fungsi pembangkit peluang distribusi Poisson;</li>
+<li>hukum probabilitas total, independensi, dan ekspektasi
+bersyarat;</li>
+<li>konvergensi dalam peluang, teorema pemetaan kontinu, dan teorema
+Slutsky;</li>
+<li>ekspansi fungsi karakteristik sampai orde dua untuk peubah acak
+bermomen kedua hingga.</li>
+</ul>
+<h2 id="hasil-belajar">Hasil belajar</h2>
+<p>Setelah menyelesaikan soal ini, pembaca dapat menurunkan limit normal
+gabungan untuk jumlah dengan banyak suku acak, membuktikan independensi
+asimtotik (bukan sekadar kovarians nol), serta membedakan ragam limit
+akibat pemusatan acak dan pemusatan deterministik.</p>
+<div class="exercise" id="o009-exercise-convergence-05">
+<p>Misalkan <span class="math inline">\(X_1,X_2,\ldots\)</span> iid
+dengan <span class="math inline">\(\mathbb E X_1=\mu\)</span> dan <span class="math inline">\(\operatorname{Var}(X_1)=\sigma^2\in(0,\infty)\)</span>.
+Untuk setiap <span class="math inline">\(n\geq 1\)</span>, misalkan
+<span class="math inline">\(N_n\sim\operatorname{Poisson}(n)\)</span>
+dan <span class="math inline">\(N_n\)</span> independen dari seluruh
+barisan <span class="math inline">\((X_k)_{k\geq1}\)</span>. Definisikan
+<span class="math inline">\(S_m=\sum_{k=1}^m X_k\)</span>, dengan <span class="math inline">\(S_0=0\)</span>, serta</p>
+<p><span class="math display">\[
+A_n=\frac{S_{N_n}-\mu N_n}{\sqrt n},
+\qquad
+B_n=\frac{N_n-n}{\sqrt n}.
+\]</span></p>
+<ol type="1">
+<li>Buktikan bahwa <span class="math inline">\(\operatorname{Cov}(A_n,B_n)=0\)</span> untuk
+setiap <span class="math inline">\(n\)</span>, lalu jelaskan mengapa
+fakta ini saja belum membuktikan independensi asimtotik.</li>
+<li>Buktikan limit gabungan <span class="math display">\[
+(A_n,B_n)\ \Rightarrow\ (\sigma Z_1,Z_2),
+\]</span> dengan <span class="math inline">\(Z_1,Z_2\)</span> normal
+baku yang independen.</li>
+<li>Deduksikan kedua limit berikut: <span class="math display">\[
+\frac{S_{N_n}-\mu n}{\sqrt n}
+\Rightarrow N(0,\sigma^2+\mu^2),
+\qquad
+\frac{S_{N_n}-\mu N_n}{\sqrt{N_n}}
+\Rightarrow N(0,\sigma^2),
+\]</span> dengan pecahan kedua didefinisikan bernilai <span class="math inline">\(0\)</span> pada kejadian <span class="math inline">\(N_n=0\)</span>. Terangkan secara singkat asal suku
+tambahan <span class="math inline">\(\mu^2\)</span> pada limit
+pertama.</li>
+</ol>
+</div>
+<details class="hint" id="o009-hint-convergence-05-1"><summary aria-label="Petunjuk: o009-hint-convergence-05-1">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Tetapkan <span class="math inline">\(Y_k=X_k-\mu\)</span>. Dengan mengondisikan pada
+<span class="math inline">\(N_n\)</span>, periksa bahwa <span class="math inline">\(\mathbb E[S_{N_n}-\mu N_n\mid N_n]=0\)</span>. Ini
+menyelesaikan perhitungan kovarians, tetapi belum menentukan hukum
+gabungan.</p>
+</details>
+<details class="hint" id="o009-hint-convergence-05-2"><summary aria-label="Petunjuk: o009-hint-convergence-05-2">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Jika <span class="math inline">\(\varphi(u)=\mathbb E e^{iuY_1}\)</span>, maka
+untuk <span class="math inline">\(t,s\in
+\mathbb R\)</span> fungsi karakteristik gabungan dapat ditulis tepat
+sebagai</p>
+<p><span class="math display">\[
+\mathbb E e^{i(tA_n+sB_n)}
+=\exp\!\left\{n\left(e^{is/\sqrt n}\varphi(t/\sqrt n)
+-1-\frac{is}{\sqrt n}\right)\right\}.
+\]</span></p>
+<p>Gunakan <span class="math inline">\(\varphi(u)=1-\sigma^2u^2/2+o(u^2)\)</span>.</p>
+</details>
+<details class="hint" id="o009-hint-convergence-05-3"><summary aria-label="Petunjuk: o009-hint-convergence-05-3">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Untuk deduksi pertama, gunakan identitas
+<span class="math inline">\(S_{N_n}-\mu n=(S_{N_n}-\mu
+N_n)+\mu(N_n-n)\)</span>. Untuk deduksi kedua, buktikan dahulu <span class="math inline">\(N_n/n\to 1\)</span> dalam peluang dan terapkan
+Slutsky; kejadian <span class="math inline">\(N_n=0\)</span> mempunyai
+peluang <span class="math inline">\(e^{-n}\)</span>.</p>
+</details>
+<div class="answer" id="o009-answer-convergence-05">
+<p><strong>Jawaban ringkas.</strong> Untuk setiap <span class="math inline">\(n\)</span>, <span class="math inline">\(\operatorname{Cov}(A_n,B_n)=0\)</span>. Fungsi
+karakteristik gabungan <span class="math inline">\((A_n,B_n)\)</span>
+menuju</p>
+<p><span class="math display">\[
+\exp\!\left(-\frac{\sigma^2t^2+s^2}{2}\right),
+\]</span></p>
+<p>yakni fungsi karakteristik <span class="math inline">\((\sigma
+Z_1,Z_2)\)</span> dengan komponen independen. Karena <span class="math inline">\((S_{N_n}-\mu n)/\sqrt n=A_n+\mu B_n\)</span>,
+limitnya adalah <span class="math inline">\(N(0,\sigma^2+\mu^2)\)</span>. Selain itu <span class="math inline">\(N_n/n\to1\)</span> dalam peluang, sehingga <span class="math inline">\((S_{N_n}-\mu N_n)/\sqrt{N_n}\Rightarrow
+N(0,\sigma^2)\)</span>.</p>
+</div>
+<details class="solution" id="o009-solution-convergence-05"><summary aria-label="Penyelesaian lengkap: o009-solution-convergence-05">Penyelesaian lengkap</summary>
+<p><strong>Penyelesaian lengkap.</strong> Tuliskan <span class="math inline">\(Y_k=X_k-\mu\)</span>. Maka <span class="math inline">\(\mathbb E Y_k=0\)</span>, <span class="math inline">\(\mathbb E Y_k^2=\sigma^2\)</span>, dan <span class="math inline">\(S_{N_n}-\mu N_n=\sum_{k=1}^{N_n}Y_k\)</span>.
+Dengan mengondisikan pada <span class="math inline">\(N_n\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E\!\left[S_{N_n}-\mu N_n\mid N_n\right]=0.
+\]</span></p>
+<p>Karena <span class="math inline">\(\mathbb E B_n=0\)</span>,
+diperoleh</p>
+<p><span class="math display">\[
+\operatorname{Cov}(A_n,B_n)
+=\mathbb E[A_nB_n]
+=\frac1n\mathbb E\!\left[(N_n-n)
+  \mathbb E[S_{N_n}-\mu N_n\mid N_n]\right]=0.
+\]</span></p>
+<p>Kovarians nol hanya mengukur hubungan linear; untuk peubah yang tidak
+diketahui normal gabungan, ia tidak menyiratkan independensi. Karena
+itu, independensi pada limit harus dibuktikan dari hukum
+gabungannya.</p>
+<p>Ambil <span class="math inline">\(t,s\in\mathbb R\)</span> tetap dan
+definisikan <span class="math inline">\(\varphi(u)=\mathbb E
+e^{iuY_1}\)</span>. Bersyarat pada <span class="math inline">\(N_n=m\)</span>, independensi memberikan</p>
+<p><span class="math display">\[
+\mathbb E\!\left[e^{itA_n}\mid N_n=m\right]
+=\varphi(t/\sqrt n)^m.
+\]</span></p>
+<p>Rumus <span class="math inline">\(\mathbb
+E[z^{N_n}]=\exp\{n(z-1)\}\)</span>, yang juga berlaku untuk <span class="math inline">\(z\in\mathbb C\)</span>, kemudian menghasilkan</p>
+<p><span class="math display">\[
+\begin{aligned}
+\Phi_n(t,s)
+&amp;=\mathbb E e^{i(tA_n+sB_n)}\\
+&amp;=e^{-is\sqrt n}
+  \mathbb E\!\left[
+    \{e^{is/\sqrt n}\varphi(t/\sqrt n)\}^{N_n}
+  \right]\\
+&amp;=\exp\!\left\{n\left(e^{is/\sqrt n}\varphi(t/\sqrt n)
+  -1-\frac{is}{\sqrt n}\right)\right\}.
+\end{aligned}
+\]</span></p>
+<p>Momen kedua yang hingga dan <span class="math inline">\(\mathbb E
+Y_1=0\)</span> menjamin ekspansi</p>
+<p><span class="math display">\[
+\varphi(u)=1-\frac{\sigma^2u^2}{2}+o(u^2).
+\]</span></p>
+<p>Sebagai justifikasi, bagi <span class="math inline">\(e^{iuY_1}-1-iuY_1\)</span> dengan <span class="math inline">\(u^2\)</span> dan gunakan konvergensi terdominasi;
+ketaksamaan <span class="math inline">\(|e^{ix}-1-ix|\le x^2/2\)</span>
+menyediakan dominator <span class="math inline">\(Y_1^2/2\)</span>. Di
+sisi lain,</p>
+<p><span class="math display">\[
+e^{is/\sqrt n}
+=1+\frac{is}{\sqrt n}-\frac{s^2}{2n}+o(n^{-1}).
+\]</span></p>
+<p>Mengalikan kedua ekspansi memberi</p>
+<p><span class="math display">\[
+e^{is/\sqrt n}\varphi(t/\sqrt n)
+=1+\frac{is}{\sqrt n}
+-\frac{s^2+\sigma^2t^2}{2n}+o(n^{-1}).
+\]</span></p>
+<p>Karena itu</p>
+<p><span class="math display">\[
+\Phi_n(t,s)\longrightarrow
+\exp\!\left(-\frac{s^2+\sigma^2t^2}{2}\right)
+=e^{-\sigma^2t^2/2}e^{-s^2/2}.
+\]</span></p>
+<p>Fungsi terakhir kontinu di asal dan merupakan hasil kali fungsi
+karakteristik <span class="math inline">\(N(0,\sigma^2)\)</span> dan
+<span class="math inline">\(N(0,1)\)</span>. Teorema kontinuitas Lévy
+menyimpulkan <span class="math inline">\((A_n,B_n)\Rightarrow(\sigma
+Z_1,Z_2)\)</span>, dan faktorisasi tersebut membuktikan bahwa <span class="math inline">\(Z_1\)</span> dan <span class="math inline">\(Z_2\)</span> independen.</p>
+<p>Selanjutnya, identitas</p>
+<p><span class="math display">\[
+\frac{S_{N_n}-\mu n}{\sqrt n}=A_n+\mu B_n
+\]</span></p>
+<p>serta teorema pemetaan kontinu memberikan limit <span class="math inline">\(\sigma Z_1+\mu Z_2\)</span>. Independensi kedua
+normal itu menghasilkan ragam <span class="math inline">\(\sigma^2+\mu^2\)</span>. Suku <span class="math inline">\(\mu^2\)</span> berasal dari fluktuasi Poisson pada
+banyaknya suku: mengganti pusat acak <span class="math inline">\(\mu
+N_n\)</span> dengan pusat tetap <span class="math inline">\(\mu
+n\)</span> menyisakan <span class="math inline">\(\mu(N_n-n)\)</span>
+pada skala <span class="math inline">\(\sqrt n\)</span>.</p>
+<p>Terakhir, <span class="math inline">\(\mathbb E N_n=n\)</span> dan
+<span class="math inline">\(\operatorname{Var}(N_n)=n\)</span>, sehingga
+untuk setiap <span class="math inline">\(\varepsilon&gt;0\)</span>,
+ketaksamaan Chebyshev memberi</p>
+<p><span class="math display">\[
+\mathbb P\!\left(\left|\frac{N_n}{n}-1\right|&gt;\varepsilon\right)
+\le \frac{1}{n\varepsilon^2}\longrightarrow0.
+\]</span></p>
+<p>Jadi <span class="math inline">\(N_n/n\to1\)</span> dalam peluang.
+Pada <span class="math inline">\(\{N_n&gt;0\}\)</span>,</p>
+<p><span class="math display">\[
+\frac{S_{N_n}-\mu N_n}{\sqrt{N_n}}
+=\frac{A_n}{\sqrt{N_n/n}}.
+\]</span></p>
+<p>Karena <span class="math inline">\(\mathbb
+P(N_n=0)=e^{-n}\to0\)</span>, definisi bernilai nol pada kejadian itu
+tidak memengaruhi limit. Teorema Slutsky akhirnya memberikan <span class="math inline">\(A_n/\sqrt{N_n/n}\Rightarrow\sigma Z_1\)</span>,
+yaitu <span class="math inline">\(N(0,\sigma^2)\)</span>.</p>
+</details>
+</div>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

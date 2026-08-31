@@ -1,0 +1,210 @@
+{
+  "schema": "o009.original-lab-05-browser-qa.v1",
+  "status": "PASS",
+  "visualInspection": {
+    "status": "PASS",
+    "desktop": "Full-page 1280x720 capture inspected: centered readable column, intact formulas and colored code, locally contained wide result table, and aligned exercise, hints, answer, and solution panels; no clipping or overlap observed.",
+    "mobile": "Full-page 390x844 capture inspected: single-column reflow remains legible, formulas stay within their local surfaces, code and the wide table remain in local horizontal scrollers, and all instructional panels remain ordered and visually separated; no page-level clipping or overlap observed."
+  },
+  "requestedRelpath": "output/reader/labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html",
+  "requestedPathExists": false,
+  "testedRelpath": "build/site/labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html",
+  "sourceBytes": 40440,
+  "sourceSha256": "75fbef2ad90b770736df18f35c5181bcb0010c870ddfae8e2b6fb832faa6ed60",
+  "executablePath": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "viewportCount": 2,
+  "observations": [
+    {
+      "viewport": {
+        "name": "desktop",
+        "width": 1280,
+        "height": 720
+      },
+      "state": {
+        "lang": "id-ID",
+        "title": "Gerak Brown: Donsker, variasi kuadratik, dan waktu kena",
+        "bodyCharacters": 12161,
+        "idCount": 626,
+        "duplicateIds": [],
+        "documentMetrics": {
+          "documentClientWidth": 1280,
+          "documentScrollWidth": 1280,
+          "bodyClientWidth": 1280,
+          "bodyScrollWidth": 1280,
+          "horizontalOverflowPx": 0
+        },
+        "mainBox": {
+          "tag": "main",
+          "id": null,
+          "className": "",
+          "left": 64,
+          "right": 1216,
+          "width": 1152,
+          "clientWidth": 1152,
+          "scrollWidth": 1152,
+          "overflowX": "visible",
+          "localScrollEnabled": false,
+          "contentFitsOrLocallyScrolls": true
+        },
+        "tableBox": {
+          "tag": "table",
+          "id": "o009-results-brownian-diagnostics",
+          "className": "",
+          "left": 64,
+          "right": 1216,
+          "width": 1152,
+          "clientWidth": 1152,
+          "scrollWidth": 1888,
+          "overflowX": "auto",
+          "localScrollEnabled": true,
+          "contentFitsOrLocallyScrolls": true
+        },
+        "codeBox": {
+          "tag": "div",
+          "id": "o009_lab_brownian_diagnostics",
+          "className": "sourceCode",
+          "left": 64,
+          "right": 1216,
+          "width": 1152,
+          "clientWidth": 1152,
+          "scrollWidth": 1152,
+          "overflowX": "auto",
+          "localScrollEnabled": true,
+          "contentFitsOrLocallyScrolls": true
+        },
+        "table": {
+          "exists": true,
+          "rows": 5,
+          "columnsByRow": [
+            15,
+            15,
+            15,
+            15,
+            15
+          ],
+          "headerColumns": 15,
+          "bodyRows": 4
+        },
+        "details": {
+          "count": 0,
+          "open": 0
+        },
+        "exerciseCount": 1,
+        "hintCount": 3,
+        "answerCount": 1,
+        "solutionCount": 1,
+        "mathJaxContainerCount": 90,
+        "mathJaxErrors": [],
+        "witnesses": {
+          "o006DependencyAndNoCopy": true,
+          "nonendorsement": true,
+          "model": true
+        },
+        "externalResourceElements": []
+      },
+      "screenshot": "qa/render/lab05_brownian/desktop.png",
+      "screenshotBytes": 708302,
+      "screenshotSha256": "c8e07e8bb69cbbe10e72a43f0a355befaedf45ecf817a9afacbd54cb02187caa",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedRequests": [],
+      "externalRequests": []
+    },
+    {
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844
+      },
+      "state": {
+        "lang": "id-ID",
+        "title": "Gerak Brown: Donsker, variasi kuadratik, dan waktu kena",
+        "bodyCharacters": 12161,
+        "idCount": 626,
+        "duplicateIds": [],
+        "documentMetrics": {
+          "documentClientWidth": 390,
+          "documentScrollWidth": 390,
+          "bodyClientWidth": 390,
+          "bodyScrollWidth": 390,
+          "horizontalOverflowPx": 0
+        },
+        "mainBox": {
+          "tag": "main",
+          "id": null,
+          "className": "",
+          "left": 12.796875,
+          "right": 377.203125,
+          "width": 364.40625,
+          "clientWidth": 364,
+          "scrollWidth": 364,
+          "overflowX": "visible",
+          "localScrollEnabled": false,
+          "contentFitsOrLocallyScrolls": true
+        },
+        "tableBox": {
+          "tag": "table",
+          "id": "o009-results-brownian-diagnostics",
+          "className": "",
+          "left": 12.796875,
+          "right": 377.203125,
+          "width": 364.40625,
+          "clientWidth": 364,
+          "scrollWidth": 1744,
+          "overflowX": "auto",
+          "localScrollEnabled": true,
+          "contentFitsOrLocallyScrolls": true
+        },
+        "codeBox": {
+          "tag": "div",
+          "id": "o009_lab_brownian_diagnostics",
+          "className": "sourceCode",
+          "left": 12.796875,
+          "right": 377.203125,
+          "width": 364.40625,
+          "clientWidth": 364,
+          "scrollWidth": 666,
+          "overflowX": "auto",
+          "localScrollEnabled": true,
+          "contentFitsOrLocallyScrolls": true
+        },
+        "table": {
+          "exists": true,
+          "rows": 5,
+          "columnsByRow": [
+            15,
+            15,
+            15,
+            15,
+            15
+          ],
+          "headerColumns": 15,
+          "bodyRows": 4
+        },
+        "details": {
+          "count": 0,
+          "open": 0
+        },
+        "exerciseCount": 1,
+        "hintCount": 3,
+        "answerCount": 1,
+        "solutionCount": 1,
+        "mathJaxContainerCount": 90,
+        "mathJaxErrors": [],
+        "witnesses": {
+          "o006DependencyAndNoCopy": true,
+          "nonendorsement": true,
+          "model": true
+        },
+        "externalResourceElements": []
+      },
+      "screenshot": "qa/render/lab05_brownian/mobile.png",
+      "screenshotBytes": 548724,
+      "screenshotSha256": "571886ee53945c762db371f7d032315776e1bef133a751f167fc43bd49a27539",
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedRequests": [],
+      "externalRequests": []
+    }
+  ]
+}

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Maksimum gerak Brown bersyarat pada titik akhir</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="13-brown-05-06.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="13-brown-05-06.html">Unit sebelumnya</a></nav><main class="mastery-reader">
+
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#maksimum-gerak-brown-bersyarat-pada-titik-akhir" id="toc-maksimum-gerak-brown-bersyarat-pada-titik-akhir">Maksimum gerak
+Brown bersyarat pada titik akhir</a>
+<ul>
+<li><a href="#prasyarat" id="toc-prasyarat">Prasyarat</a></li>
+<li><a href="#capaian-pembelajaran" id="toc-capaian-pembelajaran">Capaian pembelajaran</a></li>
+<li><a href="#latihan-07-maksimum-yang-diketahui-titik-akhirnya" id="toc-latihan-07-maksimum-yang-diketahui-titik-akhirnya">Latihan 07 —
+maksimum yang diketahui titik akhirnya</a></li>
+<li><a href="#jawaban-ringkas" id="toc-jawaban-ringkas">Jawaban
+ringkas</a></li>
+<li><a href="#penyelesaian-lengkap" id="toc-penyelesaian-lengkap">Penyelesaian lengkap</a>
+<ul>
+<li><a href="#refleksi-dan-subkerapatan-bersama" id="toc-refleksi-dan-subkerapatan-bersama">1. Refleksi dan subkerapatan
+bersama</a></li>
+<li><a href="#hukum-dan-kerapatan-bersyarat" id="toc-hukum-dan-kerapatan-bersyarat">2. Hukum dan kerapatan
+bersyarat</a></li>
+<li><a href="#rataan-bersyarat" id="toc-rataan-bersyarat">3. Rataan
+bersyarat</a></li>
+<li><a href="#kasus-jembatan-brown-standar" id="toc-kasus-jembatan-brown-standar">4. Kasus jembatan Brown
+standar</a></li>
+</ul></li>
+<li><a href="#hak-dan-provenans" id="toc-hak-dan-provenans">Hak dan
+provenans</a></li>
+</ul></li>
+</ul>
+</nav>
+<div class="original-mastery mastery-sequence" id="unit.o009.original.mastery.brown.07">
+<h1 id="maksimum-gerak-brown-bersyarat-pada-titik-akhir">Maksimum gerak
+Brown bersyarat pada titik akhir</h1>
+<div class="prerequisites" id="unit.o009.original.mastery.brown.07.prerequisites">
+<h2 id="prasyarat">Prasyarat</h2>
+<p>Pembaca diharapkan telah mengenal gerak Brown standar, kekontinuan
+lintasannya, kerapatan normal standar, prinsip refleksi pada waktu
+pencapaian pertama, serta cara memperoleh peluang bersyarat dari
+kerapatan bersama. Untuk bagian terakhir diperlukan rumus integral ekor
+bagi peubah acak nonnegatif dan fungsi galat komplementer</p>
+<p><span class="math display">\[
+\operatorname{erfc}(z)=\frac{2}{\sqrt{\pi}}
+\int_z^\infty e^{-u^2}\,du.
+\]</span></p>
+</div>
+<div class="learning-outcomes" id="unit.o009.original.mastery.brown.07.outcomes">
+<h2 id="capaian-pembelajaran">Capaian pembelajaran</h2>
+<p>Setelah menyelesaikan latihan ini, pembaca mampu:</p>
+<ol type="1">
+<li>memakai refleksi lintasan untuk memperoleh kerapatan bersama
+maksimum dan titik akhir gerak Brown;</li>
+<li>menafsirkan pengondisian pada kejadian nol seperti <span class="math inline">\(B_1=x\)</span> melalui probabilitas bersyarat
+reguler;</li>
+<li>menurunkan fungsi distribusi, kerapatan, dan rataan maksimum
+bersyarat secara eksak; dan</li>
+<li>mengenali kasus <span class="math inline">\(B_1=0\)</span> sebagai
+maksimum jembatan Brown standar.</li>
+</ol>
+</div>
+<div class="exercise" id="unit.o009.original.mastery.brown.07.exercise">
+<h2 id="latihan-07-maksimum-yang-diketahui-titik-akhirnya">Latihan 07 —
+maksimum yang diketahui titik akhirnya</h2>
+<p>Misalkan <span class="math inline">\(B=(B_t)_{0\le t\le1}\)</span>
+adalah gerak Brown standar dan</p>
+<p><span class="math display">\[
+M=\max_{0\le s\le1}B_s,
+\qquad
+\varphi(y)=\frac{1}{\sqrt{2\pi}}e^{-y^2/2}.
+\]</span></p>
+<p>Untuk <span class="math inline">\(x\in\mathbb R\)</span>, notasi
+<span class="math inline">\(\mathbb P(\,\cdot\mid B_1=x)\)</span> harus
+ditafsirkan sebagai sebuah versi probabilitas bersyarat reguler, bukan
+sebagai rasio peluang dua kejadian.</p>
+<ol type="1">
+<li><p>Untuk <span class="math inline">\(a&gt;0\)</span>, gunakan
+refleksi lintasan setelah waktu pertama mencapai <span class="math inline">\(a\)</span> untuk membuktikan bahwa, pada daerah
+<span class="math inline">\(x&lt;a\)</span>, subkerapatan titik akhir
+lintasan yang telah mencapai <span class="math inline">\(a\)</span>
+adalah</p>
+<p><span class="math display">\[
+\mathbb P(M\ge a,\ B_1\in dx)=\varphi(2a-x)\,dx.
+\]</span></p></li>
+<li><p>Tetapkan <span class="math inline">\(\ell(x)=\max\{0,x\}\)</span>. Turunkan fungsi
+distribusi bersyarat <span class="math inline">\(F_x(m)=\mathbb P(M\le
+m\mid B_1=x)\)</span> untuk seluruh <span class="math inline">\(m\in\mathbb R\)</span>, lalu tentukan kerapatan
+bersyarat <span class="math inline">\(f_x\)</span>.</p></li>
+<li><p>Hitung <span class="math inline">\(\mathbb E[M\mid
+B_1=x]\)</span> secara tertutup dalam <span class="math inline">\(x\)</span> dan <span class="math inline">\(\operatorname{erfc}\)</span>.</p></li>
+<li><p>Khususkan hasilnya pada <span class="math inline">\(x=0\)</span>.
+Berikan fungsi distribusi, kerapatan, rataan, dan median maksimum
+jembatan Brown standar.</p></li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.brown.07.hint.01"><summary aria-label="Petunjuk: unit.o009.original.mastery.brown.07.hint.01">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Ambil <span class="math inline">\(\tau_a=\inf\{t\ge0:B_t=a\}\)</span>. Pada <span class="math inline">\(\{\tau_a\le1\}\)</span>, gantilah bagian lintasan
+setelah <span class="math inline">\(\tau_a\)</span> dengan <span class="math inline">\(2a-B_t\)</span>. Jika lintasan semula berakhir di
+<span class="math inline">\(x&lt;a\)</span>, di manakah lintasan hasil
+refleksi berakhir?</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.brown.07.hint.02"><summary aria-label="Petunjuk: unit.o009.original.mastery.brown.07.hint.02">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Untuk <span class="math inline">\(m&gt;\ell(x)\)</span>, bagi subkerapatan pada
+Petunjuk 1 dengan kerapatan marginal <span class="math inline">\(\varphi(x)\)</span> dan sederhanakan</p>
+<p><span class="math display">\[
+\frac{\varphi(2m-x)}{\varphi(x)}.
+\]</span></p>
+<p>Ingat pula bahwa <span class="math inline">\(M\ge0\)</span> dan, di
+bawah pengondisian, <span class="math inline">\(M\ge x\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.brown.07.hint.03"><summary aria-label="Petunjuk: unit.o009.original.mastery.brown.07.hint.03">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Gunakan</p>
+<p><span class="math display">\[
+\mathbb E[M\mid B_1=x]
+=\ell(x)+\int_{\ell(x)}^\infty
+\mathbb P(M&gt;m\mid B_1=x)\,dm
+\]</span></p>
+<p>dan lengkapkan kuadrat:</p>
+<p><span class="math display">\[
+-2m(m-x)=\frac{x^2}{2}-2\left(m-\frac{x}{2}\right)^2.
+\]</span></p>
+<p>Perhatikan bahwa <span class="math inline">\(\ell(x)-x/2=|x|/2\)</span>.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.brown.07.answer">
+<h2 id="jawaban-ringkas">Jawaban ringkas</h2>
+<p>Untuk <span class="math inline">\(a&gt;0\)</span> dan <span class="math inline">\(x&lt;a\)</span>, refleksi memberi subkerapatan
+<span class="math inline">\(\varphi(2a-x)\)</span>. Karena <span class="math inline">\(B_1\)</span> mempunyai kerapatan <span class="math inline">\(\varphi\)</span>, sebuah versi kontinu dari hukum
+bersyarat maksimum ialah</p>
+<p><span class="math display">\[
+F_x(m)=
+\begin{cases}
+0, &amp; m&lt;\ell(x),\\[3pt]
+1-e^{-2m(m-x)}, &amp; m\ge\ell(x),
+\end{cases}
+\qquad \ell(x)=\max\{0,x\}.
+\]</span></p>
+<p>Hukum ini tidak mempunyai atom, dan kerapatannya adalah</p>
+<p><span class="math display">\[
+f_x(m)=2(2m-x)e^{-2m(m-x)}
+\mathbf 1_{(\ell(x),\infty)}(m).
+\]</span></p>
+<p>Rataannya ialah</p>
+<p><span class="math display">\[
+\mathbb E[M\mid B_1=x]
+=\ell(x)+\frac{\sqrt\pi}{2\sqrt2}
+e^{x^2/2}\operatorname{erfc}\!\left(\frac{|x|}{\sqrt2}\right).
+\]</span></p>
+<p>Untuk <span class="math inline">\(x=0\)</span>, berlaku</p>
+<p><span class="math display">\[
+F_0(m)=1-e^{-2m^2},\qquad
+f_0(m)=4m e^{-2m^2}\quad(m\ge0),
+\]</span></p>
+<p>sedangkan rataannya <span class="math inline">\(\sqrt{\pi/8}\)</span>
+dan mediannya <span class="math inline">\(\sqrt{(\log2)/2}\)</span>.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.brown.07.solution"><summary aria-label="Penyelesaian lengkap: unit.o009.original.mastery.brown.07.solution">Penyelesaian lengkap</summary>
+<h2 id="penyelesaian-lengkap">Penyelesaian lengkap</h2>
+<h3 id="refleksi-dan-subkerapatan-bersama">1. Refleksi dan subkerapatan
+bersama</h3>
+<p>Tetapkan <span class="math inline">\(a&gt;0\)</span> dan definisikan
+waktu pencapaian pertama</p>
+<p><span class="math display">\[
+\tau_a=\inf\{t\ge0:B_t=a\}.
+\]</span></p>
+<p>Berkat kekontinuan lintasan, kejadian <span class="math inline">\(\{M\ge a\}\)</span> sama dengan <span class="math inline">\(\{\tau_a\le1\}\)</span>. Pada kejadian ini,
+definisikan lintasan terefleksi</p>
+<p><span class="math display">\[
+\widetilde B_t=
+\begin{cases}
+B_t, &amp; 0\le t\le\tau_a,\\
+2a-B_t, &amp; \tau_a&lt;t\le1.
+\end{cases}
+\]</span></p>
+<p>Prinsip refleksi menyatakan bahwa transformasi ini mempertahankan
+ukuran Wiener dan bersifat involutif: merefleksikan lintasan yang sama
+sekali lagi menghasilkan lintasan semula. Jika <span class="math inline">\(B_1=x&lt;a\)</span>, maka <span class="math inline">\(\widetilde B_1=2a-x&gt;a\)</span>.</p>
+<p>Karena itu, untuk setiap himpunan Borel <span class="math inline">\(A\subset(-\infty,a)\)</span>, refleksi memberi
+bijeksi yang mempertahankan peluang dan menghasilkan</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb P(M\ge a,\ B_1\in A)
+&amp;=\mathbb P(B_1\in 2a-A)\\
+&amp;=\int_{2a-A}\varphi(y)\,dy\\
+&amp;=\int_A\varphi(2a-x)\,dx,
+\end{aligned}
+\]</span></p>
+<p>dengan <span class="math inline">\(2a-A=\{2a-x:x\in A\}\)</span>.
+Jadi, pada <span class="math inline">\(x&lt;a\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P(M\ge a,\ B_1\in dx)=\varphi(2a-x)\,dx.
+\]</span></p>
+<p>Secara ekuivalen, bagian lintasan yang tetap di bawah <span class="math inline">\(a\)</span> mempunyai subkerapatan</p>
+<p><span class="math display">\[
+\mathbb P(M&lt;a,\ B_1\in dx)
+=\bigl[\varphi(x)-\varphi(2a-x)\bigr]\,dx,
+\qquad x&lt;a.
+\]</span></p>
+<h3 id="hukum-dan-kerapatan-bersyarat">2. Hukum dan kerapatan
+bersyarat</h3>
+<p>Karena <span class="math inline">\(\varphi(x)&gt;0\)</span> untuk
+setiap <span class="math inline">\(x\in\mathbb R\)</span>, disintegrasi
+kerapatan pada hasil di atas memberi, mula-mula untuk hampir setiap
+<span class="math inline">\(x&lt;a\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb P(M\ge a\mid B_1=x)
+&amp;=\frac{\varphi(2a-x)}{\varphi(x)}\\
+&amp;=\exp\!\left(
+-\frac{(2a-x)^2-x^2}{2}
+\right)\\
+&amp;=e^{-2a(a-x)}.
+\end{aligned}
+\]</span></p>
+<p>Ruas terakhir kontinu dalam <span class="math inline">\((a,x)\)</span> pada <span class="math inline">\(x&lt;a\)</span>. Karena hukum bersyarat hanya
+ditentukan hampir di mana-mana terhadap hukum <span class="math inline">\(B_1\)</span>, rumus kontinu ini memilih satu versi
+untuk setiap <span class="math inline">\(x\)</span>.</p>
+<p>Selalu berlaku <span class="math inline">\(M\ge B_0=0\)</span>, dan
+di bawah pengondisian <span class="math inline">\(B_1=x\)</span> juga
+berlaku <span class="math inline">\(M\ge x\)</span>. Jadi <span class="math inline">\(M\ge\ell(x)=\max\{0,x\}\)</span> hampir pasti
+menurut hukum bersyarat. Untuk <span class="math inline">\(m&gt;\ell(x)\)</span>, rumus refleksi dapat
+dipakai dengan <span class="math inline">\(a=m\)</span> dan memberi</p>
+<p><span class="math display">\[
+\mathbb P(M&gt;m\mid B_1=x)=e^{-2m(m-x)}.
+\]</span></p>
+<p>Oleh sebab itu,</p>
+<p><span class="math display">\[
+F_x(m)=
+\begin{cases}
+0, &amp; m&lt;\ell(x),\\[3pt]
+1-e^{-2m(m-x)}, &amp; m\ge\ell(x).
+\end{cases}
+\]</span></p>
+<p>Pada <span class="math inline">\(m=\ell(x)\)</span>, rumus baris
+kedua juga bernilai nol: jika <span class="math inline">\(x\ge0\)</span>, maka <span class="math inline">\(m=x\)</span>; jika <span class="math inline">\(x&lt;0\)</span>, maka <span class="math inline">\(m=0\)</span>. Selain itu, <span class="math inline">\(F_x(m)\to1\)</span> ketika <span class="math inline">\(m\to\infty\)</span>. Jadi rumus tersebut memang
+fungsi distribusi dan tidak mempunyai lompatan pada batas
+penyangganya.</p>
+<p>Mendiferensiasikan pada <span class="math inline">\(m&gt;\ell(x)\)</span> menghasilkan</p>
+<p><span class="math display">\[
+f_x(m)
+=2(2m-x)e^{-2m(m-x)}.
+\]</span></p>
+<p>Pada daerah ini <span class="math inline">\(2m-x&gt;0\)</span>,
+sehingga kerapatan nonnegatif. Karena <span class="math inline">\(F_x\)</span> naik dari nol ke satu, integral <span class="math inline">\(f_x\)</span> pada <span class="math inline">\((\ell(x),\infty)\)</span> sama dengan satu.</p>
+<h3 id="rataan-bersyarat">3. Rataan bersyarat</h3>
+<p>Karena <span class="math inline">\(M\ge\ell(x)\)</span>, rumus
+integral ekor memberi</p>
+<p><span class="math display">\[
+\mathbb E[M\mid B_1=x]
+=\ell(x)+\int_{\ell(x)}^\infty e^{-2m(m-x)}\,dm.
+\]</span></p>
+<p>Lengkapi kuadrat pada eksponen:</p>
+<p><span class="math display">\[
+-2m(m-x)
+=\frac{x^2}{2}-2\left(m-\frac{x}{2}\right)^2.
+\]</span></p>
+<p>Dengan substitusi <span class="math inline">\(u=\sqrt2(m-x/2)\)</span> dan identitas <span class="math inline">\(\ell(x)-x/2=|x|/2\)</span>, integral tersebut
+menjadi</p>
+<p><span class="math display">\[
+\begin{aligned}
+\int_{\ell(x)}^\infty e^{-2m(m-x)}\,dm
+&amp;=\frac{e^{x^2/2}}{\sqrt2}
+\int_{|x|/\sqrt2}^\infty e^{-u^2}\,du\\
+&amp;=\frac{\sqrt\pi}{2\sqrt2}e^{x^2/2}
+\operatorname{erfc}\!\left(\frac{|x|}{\sqrt2}\right).
+\end{aligned}
+\]</span></p>
+<p>Maka</p>
+<p><span class="math display">\[
+\boxed{
+\mathbb E[M\mid B_1=x]
+=\max\{0,x\}
++\frac{\sqrt\pi}{2\sqrt2}e^{x^2/2}
+\operatorname{erfc}\!\left(\frac{|x|}{\sqrt2}\right)
+}.
+\]</span></p>
+<h3 id="kasus-jembatan-brown-standar">4. Kasus jembatan Brown
+standar</h3>
+<p>Hukum proses <span class="math inline">\(B\)</span> dengan syarat
+<span class="math inline">\(B_1=0\)</span> adalah hukum jembatan Brown
+standar pada <span class="math inline">\([0,1]\)</span>. Memasukkan
+<span class="math inline">\(x=0\)</span> ke rumus sebelumnya memberi,
+untuk <span class="math inline">\(m\ge0\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P(M\le m\mid B_1=0)=1-e^{-2m^2},
+\qquad
+f_0(m)=4m e^{-2m^2}.
+\]</span></p>
+<p>Rataan diperoleh baik dari rumus umum maupun langsung dari integral
+ekor:</p>
+<p><span class="math display">\[
+\mathbb E[M\mid B_1=0]
+=\int_0^\infty e^{-2m^2}\,dm
+=\frac{\sqrt\pi}{2\sqrt2}
+=\sqrt{\frac{\pi}{8}}.
+\]</span></p>
+<p>Jika <span class="math inline">\(q_{1/2}\)</span> menyatakan median,
+maka</p>
+<p><span class="math display">\[
+1-e^{-2q_{1/2}^2}=\frac12,
+\]</span></p>
+<p>sehingga</p>
+<p><span class="math display">\[
+\boxed{q_{1/2}=\sqrt{\frac{\log2}{2}}}.
+\]</span></p>
+<p>Perhitungan ini juga menunjukkan mengapa pengondisian pada <span class="math inline">\(B_1=0\)</span> tidak boleh diperlakukan sebagai
+pembagian dengan <span class="math inline">\(\mathbb P(B_1=0)\)</span>,
+yang bernilai nol. Yang dipakai adalah rasio kerapatan, lalu versi
+kontinu dari kernel bersyarat.</p>
+</details>
+<div class="rights-provenance" id="unit.o009.original.mastery.brown.07.rights-provenance">
+<h2 id="hak-dan-provenans">Hak dan provenans</h2>
+<p>Latihan <strong>Maksimum gerak Brown bersyarat pada titik
+akhir</strong>, termasuk seluruh petunjuk, jawaban, dan penyelesaiannya,
+merupakan materi asli berbahasa Indonesia yang disusun untuk edisi ini.
+Materi baru tersebut dilisensikan di bawah <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International (CC BY 4.0)</a>, sejauh hak baru timbul.
+ID hak komponennya ialah
+<code>rights.o009.original.mastery.brown.07.cc-by-4.0</code>.</p>
+<p>Penyusunan materi ini dibantu oleh <strong>OpenAI Codex gpt-5.6-sol,
+Ultra.</strong> Materi ini memakai teori umum gerak Brown, kerapatan
+Gaussian, dan prinsip refleksi yang dibahas dalam unit <a href="../brown/Standard.html">Gerak Brown Standar</a> sebagai
+prasyarat. Rumusan soal, urutan derivasi, penghitungan rataan bersyarat
+melalui <span class="math inline">\(\operatorname{erfc}\)</span>, dan
+penyajian pedagogis di sini ditulis khusus untuk latihan ini; prosa
+sumber tidak direproduksi secara substansial.</p>
+<p>Lisensi CC BY 4.0 di atas hanya mencakup kontribusi baru pada berkas
+ini dan tidak melisensikan ulang Random Services, MathJax, perangkat
+lunak, atau komponen pihak ketiga lainnya. Materi ini independen dan
+tidak didukung atau disahkan oleh penulis maupun lembaga sumber.</p>
+</div>
+</div>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

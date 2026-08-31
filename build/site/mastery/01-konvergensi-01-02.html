@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Penguasaan konvergensi: subbarisan dan pemetaan diskontinu</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Unit sebelumnya</a></nav><main class="mastery-reader">
+
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#penguasaan-konvergensi-subbarisan-dan-pemetaan-diskontinu" id="toc-penguasaan-konvergensi-subbarisan-dan-pemetaan-diskontinu">Penguasaan
+konvergensi: subbarisan dan pemetaan diskontinu</a></li>
+</ul>
+</nav>
+<div class="original-mastery-set" id="unit.o009.mastery.convergence.01-02">
+<h1 id="penguasaan-konvergensi-subbarisan-dan-pemetaan-diskontinu">Penguasaan
+konvergensi: subbarisan dan pemetaan diskontinu</h1>
+<div class="mastery-sequence" id="unit.o009.mastery.convergence.01">
+<div class="mastery-bindings" id="unit.o009.mastery.convergence.01.bindings">
+<p><strong>Ikatan prasyarat.</strong></p>
+<ul>
+<li><code>prerequisite.o009.probability.convergence.modes</code>:
+definisi konvergensi hampir pasti dan dalam probabilitas pada <a href="../prob/Convergence.html#lim">kekonvergenan peubah
+acak</a>.</li>
+<li><code>prerequisite.o009.probability.borel-cantelli.first</code>:
+lemma Borel–Cantelli pertama dan kriteria jumlah peluang pada <a href="../prob/Convergence.html#bcl">pembahasan
+konvergensi</a>.</li>
+</ul>
+<p><strong>Ikatan hasil.</strong></p>
+<ul>
+<li><code>outcome.o009.convergence.separate-probability-almost-sure</code>:
+membangun dan mengaudit contoh yang konvergen dalam probabilitas tetapi
+tidak hampir pasti.</li>
+<li><code>outcome.o009.convergence.subsequence-characterization</code>:
+membuktikan karakterisasi konvergensi dalam probabilitas melalui
+subsubbarisan yang konvergen hampir pasti.</li>
+</ul>
+</div>
+<div class="exercise" id="unit.o009.mastery.convergence.01.exercise">
+<h2 id="soal-1-sapuan-blok-dan-prinsip-subbarisan">Soal 1 — sapuan blok
+dan prinsip subbarisan</h2>
+<p>Pada ruang peluang</p>
+<p><span class="math display">\[
+(\Omega,\mathcal F,\mathbb P)
+=\bigl((0,1],\mathcal B((0,1]),\lambda\bigr),
+\]</span></p>
+<p>untuk <span class="math inline">\(m\ge 0\)</span> dan <span class="math inline">\(0\le j&lt;2^m\)</span> definisikan</p>
+<p><span class="math display">\[
+I_{m,j}=\bigl(j2^{-m},(j+1)2^{-m}\bigr].
+\]</span></p>
+<p>Setiap <span class="math inline">\(n\ge1\)</span> mempunyai
+representasi tunggal <span class="math inline">\(n=2^m+j\)</span> dengan
+<span class="math inline">\(m\ge0\)</span> dan <span class="math inline">\(0\le j&lt;2^m\)</span>. Tetapkan</p>
+<p><span class="math display">\[
+X_n=\mathbf 1_{I_{m,j}}.
+\]</span></p>
+<ol type="1">
+<li><p>Buktikan bahwa <span class="math inline">\(X_n\to0\)</span> dalam
+probabilitas.</p></li>
+<li><p>Buktikan bahwa <span class="math inline">\(X_n(\omega)\)</span>
+tidak konvergen ke <span class="math inline">\(0\)</span> untuk satu pun
+<span class="math inline">\(\omega\in(0,1]\)</span>. Jelaskan mengapa
+ini tidak bertentangan dengan bagian pertama.</p></li>
+<li><p>Temukan subbarisan eksplisit yang konvergen ke <span class="math inline">\(0\)</span> di setiap titik <span class="math inline">\(\omega\in(0,1]\)</span>.</p></li>
+<li><p>Buktikan prinsip umum berikut untuk peubah acak bernilai real
+pada satu ruang peluang:</p>
+<p><span class="math display">\[
+Y_n\xrightarrow{\mathbb P}Y
+\quad\Longleftrightarrow\quad
+\text{setiap subbarisan $(Y_{n_k})$ memiliki subsubbarisan yang
+konvergen hampir pasti ke $Y$.}
+\]</span></p></li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.mastery.convergence.01.hint.01"><summary aria-label="Petunjuk: unit.o009.mastery.convergence.01.hint.01">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Untuk <span class="math inline">\(2^m\le
+n&lt;2^{m+1}\)</span>, kejadian <span class="math inline">\(\{X_n=1\}\)</span> mempunyai peluang <span class="math inline">\(2^{-m}\)</span>. Sebaliknya, pada setiap tingkat
+<span class="math inline">\(m\)</span>, interval <span class="math inline">\(I_{m,0},\ldots,I_{m,2^m-1}\)</span> membentuk
+partisi <span class="math inline">\((0,1]\)</span>. Untuk subbarisan
+eksplisit, ikuti selalu sel pertama pada setiap tingkat.</p>
+</details>
+<details class="hint" id="unit.o009.mastery.convergence.01.hint.02"><summary aria-label="Petunjuk: unit.o009.mastery.convergence.01.hint.02">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Jika <span class="math inline">\(Y_n\to
+Y\)</span> dalam probabilitas, dari subbarisan sebarang pilih indeks
+lebih lanjut sehingga</p>
+<p><span class="math display">\[
+\mathbb P\bigl(|Y_{n_{k_r}}-Y|&gt;2^{-r}\bigr)\le2^{-r}.
+\]</span></p>
+<p>Jumlahkan peluang-peluang ini dan gunakan Borel–Cantelli. Untuk arah
+balik, negasikan konvergensi dalam probabilitas dan ekstrak subbarisan
+yang peluang penyimpangannya dibatasi dari bawah oleh satu konstanta
+positif.</p>
+</details>
+<div class="answer" id="unit.o009.mastery.convergence.01.answer">
+<p><strong>Jawaban ringkas.</strong> Pada blok ke-<span class="math inline">\(m\)</span>, <span class="math inline">\(\mathbb
+P(X_n=1)=2^{-m}\to0\)</span>, tetapi setiap <span class="math inline">\(\omega\)</span> berada dalam tepat satu sel pada
+setiap blok, sehingga <span class="math inline">\(X_n(\omega)=1\)</span>
+tak hingga kali. Subbarisan <span class="math inline">\(X_{2^k}=\mathbf
+1_{(0,2^{-k}]}\)</span> konvergen ke <span class="math inline">\(0\)</span> di setiap titik. Secara umum, pemilihan
+peluang yang dapat dijumlahkan dan Borel–Cantelli menghasilkan
+subsubbarisan hampir pasti; negasi konvergensi dalam probabilitas
+memberi subbarisan yang tidak mungkin memiliki subsubbarisan semacam
+itu.</p>
+</div>
+<details class="solution" id="unit.o009.mastery.convergence.01.solution"><summary aria-label="Penyelesaian lengkap: unit.o009.mastery.convergence.01.solution">Penyelesaian lengkap</summary>
+<p><strong>Penyelesaian lengkap.</strong> Jika <span class="math inline">\(2^m\le n&lt;2^{m+1}\)</span> dan <span class="math inline">\(j=n-2^m\)</span>, maka panjang <span class="math inline">\(I_{m,j}\)</span> adalah <span class="math inline">\(2^{-m}\)</span>. Jadi, untuk <span class="math inline">\(0&lt;\varepsilon&lt;1\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P(|X_n|&gt;\varepsilon)
+=\mathbb P(X_n=1)=2^{-m}.
+\]</span></p>
+<p>Ketika <span class="math inline">\(n\to\infty\)</span>, tingkat blok
+<span class="math inline">\(m\to\infty\)</span>, sehingga ruas kanan
+menuju nol. Untuk <span class="math inline">\(\varepsilon\ge1\)</span>,
+peluang tersebut sudah sama dengan nol. Maka <span class="math inline">\(X_n\to0\)</span> dalam probabilitas.</p>
+<p>Untuk setiap <span class="math inline">\(m\)</span>, keluarga <span class="math inline">\(\{I_{m,j}:0\le j&lt;2^m\}\)</span> merupakan
+partisi <span class="math inline">\((0,1]\)</span>; konvensi interval
+terbuka di kiri dan tertutup di kanan memastikan titik batas pun masuk
+ke tepat satu sel. Karena itu, bagi setiap <span class="math inline">\(\omega\in(0,1]\)</span> terdapat tepat satu indeks
+<span class="math inline">\(j_m\)</span> sedemikian sehingga</p>
+<p><span class="math display">\[
+X_{2^m+j_m}(\omega)=1.
+\]</span></p>
+<p>Hal ini terjadi untuk setiap <span class="math inline">\(m\)</span>,
+jadi <span class="math inline">\(X_n(\omega)=1\)</span> untuk tak hingga
+banyak <span class="math inline">\(n\)</span>. Akibatnya <span class="math inline">\(X_n(\omega)\)</span> tidak konvergen ke <span class="math inline">\(0\)</span> untuk satu pun <span class="math inline">\(\omega\)</span>. Tidak ada pertentangan:
+konvergensi dalam probabilitas mengendalikan peluang penyimpangan pada
+setiap indeks secara terpisah, sedangkan konvergensi hampir pasti
+mengendalikan seluruh ekor barisan pada lintasan yang sama.</p>
+<p>Ambil <span class="math inline">\(n_k=2^k\)</span>. Indeks ini selalu
+memilih <span class="math inline">\(j=0\)</span>, sehingga</p>
+<p><span class="math display">\[
+X_{n_k}=\mathbf 1_{(0,2^{-k}]}.
+\]</span></p>
+<p>Jika <span class="math inline">\(\omega&gt;0\)</span>, maka <span class="math inline">\(2^{-k}&lt;\omega\)</span> untuk semua <span class="math inline">\(k\)</span> yang cukup besar. Jadi <span class="math inline">\(X_{n_k}(\omega)=0\)</span> akhirnya, dan
+subbarisan ini konvergen ke <span class="math inline">\(0\)</span> di
+setiap titik.</p>
+<p>Sekarang buktikan prinsip umum. Misalkan <span class="math inline">\(Y_n\to Y\)</span> dalam probabilitas dan ambil
+subbarisan <span class="math inline">\((Y_{n_k})\)</span>. Subbarisan
+itu juga konvergen dalam probabilitas ke <span class="math inline">\(Y\)</span>. Secara rekursif pilih</p>
+<p><span class="math display">\[
+k_1&lt;k_2&lt;\cdots
+\]</span></p>
+<p>sedemikian sehingga</p>
+<p><span class="math display">\[
+\mathbb P(E_r)\le2^{-r},
+\qquad
+E_r=\{|Y_{n_{k_r}}-Y|&gt;2^{-r}\}.
+\]</span></p>
+<p>Pemilihan ini mungkin karena, untuk setiap <span class="math inline">\(r\)</span> tetap, peluang penyimpangan pada ambang
+<span class="math inline">\(2^{-r}\)</span> menuju nol. Karena <span class="math inline">\(\sum_r\mathbb
+P(E_r)\le\sum_r2^{-r}&lt;\infty\)</span>, lemma Borel–Cantelli pertama
+memberikan</p>
+<p><span class="math display">\[
+\mathbb P(E_r\text{ terjadi tak hingga kali})=0.
+\]</span></p>
+<p>Di luar kejadian nol itu, untuk semua <span class="math inline">\(r\)</span> yang cukup besar berlaku <span class="math inline">\(|Y_{n_{k_r}}-Y|\le2^{-r}\)</span>; maka <span class="math inline">\(Y_{n_{k_r}}\to Y\)</span> hampir pasti.</p>
+<p>Sebaliknya, andaikan sifat subsubbarisan berlaku tetapi <span class="math inline">\(Y_n\not\to Y\)</span> dalam probabilitas. Maka ada
+<span class="math inline">\(\varepsilon&gt;0\)</span>, <span class="math inline">\(\delta&gt;0\)</span>, dan subbarisan <span class="math inline">\((Y_{n_k})\)</span> sehingga</p>
+<p><span class="math display">\[
+\mathbb P(|Y_{n_k}-Y|&gt;\varepsilon)\ge\delta
+\qquad\text{untuk setiap }k.
+\]</span></p>
+<p>Menurut sifat yang diasumsikan, subbarisan ini mempunyai
+subsubbarisan <span class="math inline">\((Y_{n_{k_r}})\)</span> yang
+konvergen hampir pasti ke <span class="math inline">\(Y\)</span>.
+Konvergensi hampir pasti menyiratkan konvergensi dalam probabilitas,
+sehingga</p>
+<p><span class="math display">\[
+\mathbb P(|Y_{n_{k_r}}-Y|&gt;\varepsilon)\longrightarrow0,
+\]</span></p>
+<p>bertentangan dengan batas bawah <span class="math inline">\(\delta\)</span>. Jadi sifat subsubbarisan juga
+menyiratkan <span class="math inline">\(Y_n\to Y\)</span> dalam
+probabilitas, dan ekuivalensi terbukti.</p>
+</details>
+<div class="rights-provenance" id="unit.o009.mastery.convergence.01.rights">
+<p><strong>Hak dan provenans.</strong> Soal, kedua petunjuk, jawaban
+ringkas, dan penyelesaian lengkap pada akar
+<code>unit.o009.mastery.convergence.01</code> merupakan materi asli yang
+ditulis untuk unit ini dan dilepas dengan lisensi <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International</a> di bawah pengenal
+<code>rights.o009.mastery.convergence.01.cc-by-4.0</code>. Konsep
+prasyarat ditautkan untuk orientasi kurikuler; tidak ada teks soal atau
+penyelesaian yang diadaptasi dari sumber donor. Pengungkapan produksi:
+<strong>OpenAI Codex gpt-5.6-sol, Ultra</strong>, atas arahan
+pengguna.</p>
+</div>
+</div>
+<div class="mastery-sequence" id="unit.o009.mastery.convergence.02">
+<div class="mastery-bindings" id="unit.o009.mastery.convergence.02.bindings">
+<p><strong>Ikatan prasyarat.</strong></p>
+<ul>
+<li><code>prerequisite.o009.distribution.weak-convergence</code>:
+konvergensi lemah pada ruang Polish dalam <a href="../dist/Convergence.html">konvergensi dalam
+distribusi</a>.</li>
+<li><code>prerequisite.o009.distribution.skorohod-continuous-mapping</code>:
+representasi Skorohod dan pemetaan kontinu hampir di mana-mana pada <a href="../dist/Convergence.html#sko">bagian ruang umum</a>.</li>
+</ul>
+<p><strong>Ikatan hasil.</strong></p>
+<ul>
+<li><code>outcome.o009.convergence.map-outside-null-discontinuities</code>:
+menerapkan teorema pemetaan ketika limit menghindari himpunan
+diskontinuitas.</li>
+<li><code>outcome.o009.convergence.audit-discontinuous-transform</code>:
+menguji ketajaman hipotesis dengan limit degenerat yang terkonsentrasi
+pada himpunan diskontinuitas.</li>
+</ul>
+</div>
+<div class="exercise" id="unit.o009.mastery.convergence.02.exercise">
+<h2 id="soal-2-pemetaan-diskontinu-dan-limit-pada-diagonal">Soal 2 —
+pemetaan diskontinu dan limit pada diagonal</h2>
+<p>Misalkan <span class="math inline">\(S\)</span> dan <span class="math inline">\(T\)</span> ruang metrik lengkap separabel, <span class="math inline">\(g:S\to T\)</span> terukur, dan <span class="math inline">\(D_g\)</span> himpunan titik diskontinuitas <span class="math inline">\(g\)</span>.</p>
+<ol type="1">
+<li><p>Dengan menggunakan teorema representasi Skorohod, buktikan
+bahwa</p>
+<p><span class="math display">\[
+Y_n\Rightarrow Y,
+\qquad \mathbb P(Y\in D_g)=0
+\quad\Longrightarrow\quad
+g(Y_n)\Rightarrow g(Y).
+\]</span></p>
+<p>Peubah-peubah <span class="math inline">\(Y_n\)</span> tidak perlu
+didefinisikan pada ruang peluang yang sama.</p></li>
+<li><p>Ambil <span class="math inline">\(Z,W\)</span> saling bebas
+dengan distribusi <span class="math inline">\(\mathcal N(0,1)\)</span>,
+definisikan</p>
+<p><span class="math display">\[
+Y_n=(Z+n^{-1},W),
+\qquad Y=(Z,W),
+\qquad
+g(x,y)=\mathbf 1_{\{x\le y\}}.
+\]</span></p>
+<p>Tentukan <span class="math inline">\(D_g\)</span>, verifikasi
+hipotesis bagian pertama, dan tentukan limit distribusi <span class="math inline">\(g(Y_n)\)</span>.</p></li>
+<li><p>Tunjukkan bahwa syarat <span class="math inline">\(\mathbb P(Y\in
+D_g)=0\)</span> tidak boleh dihapus begitu saja. Untuk</p>
+<p><span class="math display">\[
+\widetilde Y_n=(Z,Z+n^{-1}W),
+\qquad \widetilde Y=(Z,Z),
+\]</span></p>
+<p>buktikan <span class="math inline">\(\widetilde Y_n\to\widetilde
+Y\)</span> dalam probabilitas, tetapi <span class="math inline">\(g(\widetilde Y_n)\)</span> tidak konvergen dalam
+distribusi ke <span class="math inline">\(g(\widetilde
+Y)\)</span>.</p></li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.mastery.convergence.02.hint.01"><summary aria-label="Petunjuk: unit.o009.mastery.convergence.02.hint.01">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Realisasikan hukum <span class="math inline">\(Y_n\)</span> dan <span class="math inline">\(Y\)</span> sebagai <span class="math inline">\(Y_n'\)</span> dan <span class="math inline">\(Y'\)</span> pada satu ruang peluang dengan
+<span class="math inline">\(Y_n'\to Y'\)</span> hampir pasti.
+Pada kejadian tempat <span class="math inline">\(Y'\notin
+D_g\)</span>, gunakan definisi kekontinuan <span class="math inline">\(g\)</span> di titik limit tersebut.</p>
+</details>
+<details class="hint" id="unit.o009.mastery.convergence.02.hint.02"><summary aria-label="Petunjuk: unit.o009.mastery.convergence.02.hint.02">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Untuk <span class="math inline">\(g(x,y)=\mathbf 1_{\{x\le y\}}\)</span>, himpunan
+diskontinuitasnya adalah diagonal <span class="math inline">\(\Delta=\{(x,y):x=y\}\)</span>. Pada contoh kedua,
+periksa <span class="math inline">\(W-Z\)</span>; pada contoh ketiga,
+sederhanakan langsung ketaksamaan <span class="math inline">\(Z\le
+Z+n^{-1}W\)</span>.</p>
+</details>
+<div class="answer" id="unit.o009.mastery.convergence.02.answer">
+<p><strong>Jawaban ringkas.</strong> Representasi Skorohod dan
+kekontinuan <span class="math inline">\(g\)</span> di luar <span class="math inline">\(D_g\)</span> memberi konvergensi hampir pasti pada
+pasangan terkopel, sehingga memberi konvergensi distribusi bagi hukum
+semula. Di aplikasi pertama, <span class="math inline">\(D_g=\Delta\)</span>, <span class="math inline">\(\mathbb P(Z=W)=0\)</span>, dan <span class="math inline">\(g(Y_n)\Rightarrow\operatorname{Bernoulli}(1/2)\)</span>.
+Untuk limit degenerat, <span class="math inline">\(\widetilde
+Y_n\to(Z,Z)\)</span> dalam probabilitas, tetapi <span class="math inline">\(g(\widetilde Y_n)=\mathbf 1_{\{W\ge0\}}\)</span>
+berdistribusi <span class="math inline">\(\operatorname{Bernoulli}(1/2)\)</span> untuk
+setiap <span class="math inline">\(n\)</span>, sedangkan <span class="math inline">\(g(\widetilde Y)=1\)</span> hampir pasti.</p>
+</div>
+<details class="solution" id="unit.o009.mastery.convergence.02.solution"><summary aria-label="Penyelesaian lengkap: unit.o009.mastery.convergence.02.solution">Penyelesaian lengkap</summary>
+<p><strong>Penyelesaian lengkap.</strong> Karena <span class="math inline">\(S\)</span> Polish dan <span class="math inline">\(Y_n\Rightarrow Y\)</span>, teorema representasi
+Skorohod memberikan satu ruang peluang serta peubah acak <span class="math inline">\(Y_n',Y'\)</span> pada ruang itu sedemikian
+sehingga</p>
+<p><span class="math display">\[
+\mathcal L(Y_n')=\mathcal L(Y_n),
+\qquad
+\mathcal L(Y')=\mathcal L(Y),
+\qquad
+Y_n'\longrightarrow Y'\quad\text{hampir pasti}.
+\]</span></p>
+<p>Karena hukum <span class="math inline">\(Y'\)</span> sama dengan
+hukum <span class="math inline">\(Y\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P(Y'\in D_g)=\mathbb P(Y\in D_g)=0.
+\]</span></p>
+<p>Pada kejadian berprobabilitas satu tempat <span class="math inline">\(Y_n'\to Y'\)</span> dan <span class="math inline">\(Y'\notin D_g\)</span>, fungsi <span class="math inline">\(g\)</span> kontinu di <span class="math inline">\(Y'\)</span>. Definisi kekontinuan lalu memberi
+<span class="math inline">\(g(Y_n')\to g(Y')\)</span> pada
+kejadian tersebut. Jadi <span class="math inline">\(g(Y_n')\to
+g(Y')\)</span> hampir pasti, dan karenanya juga dalam distribusi.
+Karena pemetaan terukur mempertahankan kesamaan hukum,</p>
+<p><span class="math display">\[
+\mathcal L(g(Y_n'))=\mathcal L(g(Y_n)),
+\qquad
+\mathcal L(g(Y'))=\mathcal L(g(Y)).
+\]</span></p>
+<p>Maka <span class="math inline">\(g(Y_n)\Rightarrow g(Y)\)</span>,
+meskipun peubah semula tidak berada pada satu ruang peluang.</p>
+<p>Sekarang ambil <span class="math inline">\(g(x,y)=\mathbf 1_{\{x\le
+y\}}\)</span>. Jika <span class="math inline">\(x&lt;y\)</span> atau
+<span class="math inline">\(x&gt;y\)</span>, ketaksamaan tersebut tetap
+mempunyai nilai kebenaran yang sama pada suatu lingkungan cukup kecil
+dari <span class="math inline">\((x,y)\)</span>; jadi <span class="math inline">\(g\)</span> kontinu di luar diagonal. Sebaliknya,
+setiap lingkungan titik <span class="math inline">\((x,x)\)</span>
+memuat titik dengan koordinat pertama lebih kecil dan titik dengan
+koordinat pertama lebih besar daripada koordinat kedua. Nilai <span class="math inline">\(g\)</span> di kedua sisi itu berbeda. Dengan
+demikian,</p>
+<p><span class="math display">\[
+D_g=\Delta=\{(x,y)\in\mathbb R^2:x=y\}.
+\]</span></p>
+<p>Untuk <span class="math inline">\(Y_n=(Z+n^{-1},W)\)</span>
+berlaku</p>
+<p><span class="math display">\[
+\|Y_n-Y\|=n^{-1}\longrightarrow0,
+\]</span></p>
+<p>bahkan di setiap titik ruang sampel. Jadi <span class="math inline">\(Y_n\to Y\)</span> hampir pasti dan, khususnya,
+<span class="math inline">\(Y_n\Rightarrow Y\)</span>. Karena <span class="math inline">\(W-Z\sim\mathcal N(0,2)\)</span> mempunyai
+distribusi kontinu,</p>
+<p><span class="math display">\[
+\mathbb P(Y\in D_g)=\mathbb P(Z=W)
+=\mathbb P(W-Z=0)=0.
+\]</span></p>
+<p>Bagian pertama berlaku. Selain itu,</p>
+<p><span class="math display">\[
+\mathbb P(g(Y)=1)
+=\mathbb P(Z\le W)
+=\mathbb P(W-Z\ge0)=\frac12,
+\]</span></p>
+<p>karena distribusi normal berataan nol simetris. Oleh sebab itu,</p>
+<p><span class="math display">\[
+g(Y_n)\Rightarrow g(Y)
+\sim\operatorname{Bernoulli}\!\left(\frac12\right).
+\]</span></p>
+<p>Terakhir,</p>
+<p><span class="math display">\[
+\|\widetilde Y_n-\widetilde Y\|
+=n^{-1}|W|.
+\]</span></p>
+<p>Untuk setiap <span class="math inline">\(\varepsilon&gt;0\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P\bigl(\|\widetilde Y_n-\widetilde Y\|&gt;\varepsilon\bigr)
+=\mathbb P(|W|&gt;n\varepsilon)\longrightarrow0,
+\]</span></p>
+<p>karena kejadian <span class="math inline">\(\{|W|&gt;n\varepsilon\}\)</span> turun menuju
+himpunan kosong. Jadi <span class="math inline">\(\widetilde
+Y_n\to\widetilde Y\)</span> dalam probabilitas. Akan tetapi,</p>
+<p><span class="math display">\[
+g(\widetilde Y_n)
+=\mathbf 1_{\{Z\le Z+n^{-1}W\}}
+=\mathbf 1_{\{W\ge0\}}
+\sim\operatorname{Bernoulli}\!\left(\frac12\right)
+\]</span></p>
+<p>untuk setiap <span class="math inline">\(n\)</span>, sedangkan</p>
+<p><span class="math display">\[
+g(\widetilde Y)=\mathbf 1_{\{Z\le Z\}}=1
+\quad\text{hampir pasti}.
+\]</span></p>
+<p>Kedua distribusi tidak dapat konvergen satu sama lain. Misalnya, pada
+titik <span class="math inline">\(t=1/2\)</span>, yang merupakan titik
+kekontinuan fungsi distribusi peubah konstan <span class="math inline">\(1\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P(g(\widetilde Y_n)\le t)=\frac12
+\not\longrightarrow
+0=\mathbb P(g(\widetilde Y)\le t).
+\]</span></p>
+<p>Di sini <span class="math inline">\(\mathbb P(\widetilde Y\in
+D_g)=1\)</span>, sehingga kegagalan tersebut tepat menunjukkan peran
+hipotesis himpunan diskontinuitas bernilai nol.</p>
+</details>
+<div class="rights-provenance" id="unit.o009.mastery.convergence.02.rights">
+<p><strong>Hak dan provenans.</strong> Soal, kedua petunjuk, jawaban
+ringkas, dan penyelesaian lengkap pada akar
+<code>unit.o009.mastery.convergence.02</code> merupakan materi asli yang
+ditulis untuk unit ini dan dilepas dengan lisensi <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International</a> di bawah pengenal
+<code>rights.o009.mastery.convergence.02.cc-by-4.0</code>. Konsep
+prasyarat ditautkan untuk orientasi kurikuler; tidak ada teks soal atau
+penyelesaian yang diadaptasi dari sumber donor. Pengungkapan produksi:
+<strong>OpenAI Codex gpt-5.6-sol, Ultra</strong>, atas arahan
+pengguna.</p>
+</div>
+</div>
+</div>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

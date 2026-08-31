@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>Distribusi Tanpa Ingatan</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/><script>window.MathJax = {tex: {macros: {Exp: "\\operatorname{Exp}", BB: "\\mathbb{B}", PP: "\\mathbb{P}", RR: "\\mathbb{R}", NN: "\\mathbb{N}", ZZ: "\\mathbb{Z}", EE: "\\mathbb{E}", dD: "\\mathcal{D}", fF: "\\mathcal{F}", lL: "\\mathcal{L}", linop: "\\mathcal{L}(\\mathbb{B})", linopell: "\\mathcal{L}(\\ell_1)", Binomial: "\\operatorname{Binomial}", Poisson: "\\operatorname{Poisson}"}}};</script><script id="MathJax-script" src="../MathJax/tex-svg.js"></script></head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Distribusi Tanpa Ingatan</h1>
+</header><nav aria-label="Navigasi edisi"><a href="../../index.html">Beranda edisi</a></nav><aside class="component-attribution" id="quantecon-attribution"><strong>Asal komponen dan lisensi.</strong> Adaptasi bahasa Indonesia dari <cite>Continuous Time Markov Chains</cite> karya Thomas J. Sargent dan John Stachurski, sumber MyST QuantEcon pada komit <code>8b06e0aa5a438692445b2c896f9d238c5a7d5eb7</code>. Komponen ini dipertahankan di bawah CC BY-SA 4.0; perubahan berupa terjemahan dan perbaikan hilir dicatat di provenance. QuantEcon tidak mengesahkan edisi ini.</aside><main>
+<h2 id="distribusi-tanpa-ingatan">Distribusi Tanpa Ingatan</h2>
+<p>Selain pustaka yang tersedia di Anaconda, kuliah ini memerlukan
+pustaka berikut:</p>
+<div class="code-cell" data-tags="hide-output" id="qe-cell-1">
+<pre><code class="language-python" data-cell-index="1"># Build luring hilir: perintah pemasangan paket dari sumber dihapus.</code></pre>
+
+</div>
+<h2 id="gambaran-umum">Gambaran umum</h2>
+<p>Menurut definisi, proses Markov bersifat melupakan masa lalu.</p>
+<p>Secara khusus, untuk setiap proses Markov, distribusi hasil di masa
+depan hanya bergantung pada keadaan saat ini, bukan pada seluruh
+riwayat.</p>
+<p>Dalam kasus rantai Markov waktu kontinu, yang melompat di antara
+keadaan-keadaan diskret, hal ini mengharuskan bahwa lama waktu yang
+telah berlalu sejak lompatan terakhir tidak membantu memprediksi waktu
+lompatan berikutnya.</p>
+<p>Dengan kata lain, waktu-waktu lompatan bersifat “tanpa ingatan”.</p>
+<p>Menariknya, satu-satunya distribusi pada <span class="math inline">\(\RR_+\)</span> yang memiliki sifat ini adalah
+distribusi eksponensial.</p>
+<p>Demikian pula, satu-satunya distribusi tanpa ingatan pada <span class="math inline">\(\ZZ_+\)</span> adalah distribusi geometrik.</p>
+<p>Kuliah ini berusaha memperjelas gagasan-gagasan tersebut.</p>
+<p>Kita akan menggunakan impor berikut:</p>
+<div class="code-cell" data-tags="" id="qe-cell-2">
+<pre><code class="language-python" data-cell-index="2">import numpy as np
+import matplotlib.pyplot as plt
+import quantecon as qe
+from numba import njit
+from scipy.special import factorial, binom</code></pre>
+
+</div>
+<h2 id="distribusi-geometrik">Distribusi Geometrik</h2>
+<p>Pertimbangkan taruhan pada roda rolet dan misalkan merah muncul empat
+kali berturut-turut.</p>
+<p>Karena lima hasil merah berturut-turut merupakan kejadian yang
+jarang, banyak orang secara naluriah merasa bahwa hitam lebih mungkin
+muncul pada putaran kelima — “Kali ini pasti hitam!”</p>
+<p>Namun, penalaran rasional menunjukkan bahwa naluri tersebut keliru:
+empat hasil merah sebelumnya tidak memengaruhi hasil putaran
+berikutnya.</p>
+<p>(Banyak kasino menyediakan minuman beralkohol gratis tanpa batas
+untuk mencegah analisis rasional semacam ini.)</p>
+<p>Pernyataan matematis dari fenomena ini adalah: distribusi geometrik
+bersifat tanpa ingatan.</p>
+<h3 id="sifat-tanpa-ingatan">Sifat tanpa ingatan</h3>
+<p>Misalkan <span class="math inline">\(X\)</span> adalah peubah acak
+yang didukung pada bilangan bulat tak-negatif <span class="math inline">\(\ZZ_+\)</span>.</p>
+<p>Kita mengatakan bahwa <span class="math inline">\(X\)</span> <a href="https://en.wikipedia.org/wiki/Geometric_distribution">berdistribusi
+geometrik</a> jika, untuk suatu <span class="math inline">\(\theta\)</span> yang memenuhi <span class="math inline">\(0 \leq \theta \leq 1\)</span>,</p>
+<p><a id="equation-geodist"></a> <span class="math display">\[
+    \PP\{X = k\} = (1-\theta)^k \theta
+    \qquad (k = 0, 1, \ldots)
+\]</span></p>
+<p>Salah satu contoh dapat dibangun dari pembahasan tentang roda rolet
+di atas.</p>
+<p>Misalkan,</p>
+<ul>
+<li>hasil setiap putaran adalah merah atau hitam,</li>
+<li>putaran diberi label <span class="math inline">\(0, 1, 2,
+\ldots\)</span>,</li>
+<li>pada setiap putaran, hitam muncul dengan peluang <span class="math inline">\(\theta\)</span>, dan</li>
+<li>hasil pada putaran-putaran yang berbeda saling independen.</li>
+</ul>
+<p>Maka <a href="#equation-geodist">persamaan geodist</a> adalah peluang
+bahwa kemunculan hitam pertama terjadi pada putaran <span class="math inline">\(k\)</span>.</p>
+<p>(Hasil “hitam” gagal muncul sebanyak <span class="math inline">\(k\)</span> kali, lalu berhasil.)</p>
+<p>Sesuai dengan pembahasan pada pendahuluan, distribusi geometrik
+bersifat <strong>tanpa ingatan</strong>.</p>
+<p>Secara khusus, untuk setiap bilangan bulat tak-negatif <span class="math inline">\(m\)</span>, kita memiliki</p>
+<p><a id="equation-memgeo"></a> <span class="math display">\[
+    \PP \{X = m + 1 \,|\, X &gt; m \} = \theta
+\]</span></p>
+<p>Dengan kata lain, berapa pun lamanya kita hanya melihat hasil merah,
+peluang munculnya hitam pada putaran berikutnya sama dengan peluang
+tak-bersyarat untuk mendapatkan hitam pada putaran pertama.</p>
+<p>Untuk membuktikan <a href="#equation-memgeo">persamaan memgeo</a>,
+kita menggunakan sifat-sifat dasar distribusi geometrik dan
+memperoleh</p>
+<p><span class="math display">\[
+    \frac{ \PP \{X = m + 1 \text{ and } X &gt; m \} }
+    {\PP \{X \geq m\}}
+    =
+    \frac{ \PP \{X = m + 1 \} }
+    {\PP \{X &gt; m\}}
+    = \frac{ (1-\theta)^{m+1} \theta }
+        {(1-\theta)^{m+1} }
+    = \theta
+\]</span></p>
+<h2 id="distribusi-eksponensial">Distribusi Eksponensial</h2>
+<p>Kelak, ketika kita membangun rantai Markov waktu kontinu, kita perlu
+menentukan distribusi waktu tinggal, yaitu interval waktu di antara
+lompatan.</p>
+<p>Seperti dibahas di atas (dan akan dibahas lagi di bawah), distribusi
+waktu tinggal harus tanpa ingatan agar rantai memenuhi sifat Markov.</p>
+<p>Walaupun distribusi geometrik bersifat tanpa ingatan, dukungannya
+yang diskret membuatnya kurang cocok untuk kasus waktu kontinu.</p>
+<p>Karena itu kita beralih ke <a href="https://en.wikipedia.org/wiki/Exponential_distribution">distribusi
+eksponensial</a>, yang didukung pada <span class="math inline">\(\RR_+\)</span>.</p>
+<p>Peubah acak <span class="math inline">\(Y\)</span> pada <span class="math inline">\(\RR_+\)</span> disebut <strong>eksponensial dengan
+laju <span class="math inline">\(\lambda\)</span></strong>, dan ditulis
+<span class="math inline">\(Y \sim \Exp(\lambda)\)</span>, jika</p>
+<p><span class="math display">\[
+    \PP\{Y &gt; y\} = e^{-\lambda y}
+    \qquad (y \geq 0)
+\]</span></p>
+<p><a id="geomtoexp"></a></p>
+<h3 id="dari-geometrik-ke-eksponensial">Dari Geometrik ke
+Eksponensial</h3>
+<p>Distribusi eksponensial dapat dipandang sebagai “limit” distribusi
+geometrik.</p>
+<p>Untuk mengilustrasikannya, misalkan</p>
+<ul>
+<li>pelanggan datang ke sebuah toko pada waktu-waktu diskret <span class="math inline">\(t_0, t_1, \ldots\)</span></li>
+<li>waktu-waktu tersebut berjarak sama, sehingga <span class="math inline">\(h = t_{i+1} - t_i\)</span> untuk suatu <span class="math inline">\(h &gt; 0\)</span> dan setiap <span class="math inline">\(i \in \ZZ_+\)</span></li>
+<li>pada setiap <span class="math inline">\(t_i\)</span>, nol atau satu
+pelanggan datang (tidak lebih, karena <span class="math inline">\(h\)</span> kecil)</li>
+<li>kedatangan pada setiap <span class="math inline">\(t_i\)</span>
+terjadi dengan peluang <span class="math inline">\(\lambda h\)</span>
+serta independen terhadap <span class="math inline">\(i\)</span>.</li>
+</ul>
+<p>Kenyataan bahwa peluang kedatangan sebanding dengan <span class="math inline">\(h\)</span> penting untuk pembahasan
+selanjutnya.</p>
+<p>Bayangkan banyak pelanggan melewati toko, masing-masing masuk secara
+independen.</p>
+<p>Jika interval waktu dibagi dua, peluang seorang pelanggan masuk juga
+dibagi dua.</p>
+<p>Misalkan</p>
+<ul>
+<li><span class="math inline">\(Y\)</span> adalah waktu kedatangan
+pertama di toko,</li>
+<li><span class="math inline">\(t\)</span> adalah bilangan positif yang
+diberikan, dan</li>
+<li><span class="math inline">\(i(h)\)</span> adalah bilangan bulat
+terbesar sedemikian sehingga <span class="math inline">\(t_{i(h)} \leq
+t\)</span>.</li>
+</ul>
+<p>Perhatikan bahwa, ketika <span class="math inline">\(h \to
+0\)</span>, kisi menjadi semakin rapat dan <span class="math inline">\(t_{i(h)} = i(h) h  \to t\)</span>.</p>
+<p>Tuliskan <span class="math inline">\(i(h)\)</span> sebagai <span class="math inline">\(i\)</span>. Dengan menggunakan distribusi
+geometrik, peluang bahwa kedatangan pertama terjadi setelah <span class="math inline">\(t_{i}\)</span> adalah <span class="math inline">\((1-\lambda h)^{i}\)</span>.</p>
+<p>Jadi</p>
+<p><span class="math display">\[
+    \PP\{Y &gt; t_{i} \}
+    = (1-\lambda h)^i
+    = \left( 1- \frac{\lambda i h}{i} \right)^i
+\]</span></p>
+<p>Dengan menggunakan fakta bahwa <span class="math inline">\(e^x =
+\lim_{i \to \infty}(1 + x/i)^i\)</span> untuk semua <span class="math inline">\(x\)</span> dan <span class="math inline">\(i
+h = t_i \to t\)</span>, untuk <span class="math inline">\(i\)</span>
+besar kita memperoleh</p>
+<p><span class="math display">\[
+    \PP\{Y &gt; t\}
+    \approx
+    e^{- \lambda t}
+\]</span></p>
+<p>Dalam pengertian ini, eksponensial merupakan limit distribusi
+geometrik.</p>
+<h3 id="sifat-tanpa-ingatan-distribusi-eksponensial">Sifat Tanpa Ingatan
+Distribusi Eksponensial</h3>
+<p>Distribusi eksponensial adalah satu-satunya distribusi yang didukung
+pada <span class="math inline">\(\RR_+\)</span> dan bersifat tanpa
+ingatan, sebagaimana ditegaskan teorema berikut.</p>
+<div class="qe-theorem" id="exp_unique">
+<p><strong>Karakterisasi Distribusi Eksponensial</strong> Jika <span class="math inline">\(X\)</span> adalah peubah acak yang didukung pada
+<span class="math inline">\(\RR_+\)</span>, maka terdapat <span class="math inline">\(\lambda &gt; 0\)</span> sedemikian sehingga <span class="math inline">\(X \sim \Exp(\lambda)\)</span> jika dan hanya jika,
+untuk setiap <span class="math inline">\(s, t\)</span> positif,</p>
+<p><a id="equation-memexpo"></a> <span class="math display">\[
+    \PP \{X &gt; s + t \,|\, X &gt; s \} = \PP \{X &gt; t\}
+\]</span></p>
+</div>
+<div class="qe-proof">
+<p>Untuk melihat bahwa <a href="#equation-memexpo">persamaan memexpo</a>
+berlaku ketika <span class="math inline">\(X\)</span> eksponensial
+dengan laju <span class="math inline">\(\lambda\)</span>, tetapkan <span class="math inline">\(s, t &gt; 0\)</span> dan perhatikan</p>
+<p><span class="math display">\[
+    \frac{ \PP \{X &gt; s + t \text{ and } X &gt; s \} }
+    {\PP \{X &gt; s\}}
+    =
+    \frac{ \PP \{X &gt; s + t \} }
+    {\PP \{X &gt; s\}}
+    = \frac{e^{-\lambda s - \lambda t}}{e^{-\lambda s}}
+    = e^{-\lambda t}
+\]</span></p>
+<p>Untuk menunjukkan implikasi sebaliknya, misalkan <span class="math inline">\(X\)</span> adalah peubah acak yang didukung pada
+<span class="math inline">\(\RR_+\)</span> dan memenuhi <a href="#equation-memexpo">persamaan memexpo</a>.</p>
+<p>Fungsi “pelampauan” <span class="math inline">\(f(s) := \PP\{X &gt;
+s\}\)</span> kemudian memiliki tiga sifat:</p>
+<ol type="1">
+<li><span class="math inline">\(f\)</span> menurun pada <span class="math inline">\(\RR_+\)</span>,</li>
+<li><span class="math inline">\(0 &lt; f(t) &lt; 1\)</span> untuk setiap
+<span class="math inline">\(t &gt; 0\)</span>,</li>
+<li><span class="math inline">\(f(s + t) = f(s) f(t)\)</span> untuk
+setiap <span class="math inline">\(s, t &gt; 0\)</span>.</li>
+</ol>
+<p>Sifat pertama berlaku untuk semua fungsi pelampauan, sifat kedua
+disebabkan oleh kenyataan bahwa <span class="math inline">\(X\)</span>
+didukung pada seluruh <span class="math inline">\(\RR_+\)</span>, dan
+sifat ketiga adalah <a href="#equation-memexpo">persamaan
+memexpo</a>.</p>
+<p>Dari ketiga sifat ini kita akan menunjukkan bahwa</p>
+<p><a id="equation-implex"></a> <span class="math display">\[
+    f(t) = f(1)^t  \;\; \forall \, t \geq 0
+\]</span></p>
+<p>Hal ini cukup untuk membuktikan klaim karena kemudian <span class="math inline">\(\lambda := - \ln f(1)\)</span> merupakan bilangan
+riil positif (menurut sifat 2), dan lebih lanjut,</p>
+<p><span class="math display">\[
+    f(t)
+    = \exp( \ln ( f(1) ) t)
+    = \exp( - \lambda t)
+\]</span></p>
+<p>Untuk melihat bahwa <a href="#equation-implex">persamaan implex</a>
+berlaku, tetapkan bilangan bulat positif <span class="math inline">\(m,n\)</span>.</p>
+<p>Dengan menggunakan sifat 3, kita memperoleh</p>
+<p><span class="math display">\[
+    f(m/n) = f(1/n)^m
+    \quad \text{and} \quad
+    f(1) = f(1/n)^n
+\]</span></p>
+<p>Akibatnya, <span class="math inline">\(f(m/n)^n = f(1/n)^{m n} =
+f(1)^m\)</span> dan, dengan mengambil pangkat <span class="math inline">\(1/n\)</span>, kita mendapatkan <a href="#equation-implex">persamaan implex</a> untuk <span class="math inline">\(t=m/n\)</span>.</p>
+<p>Pembahasan sejauh ini mengonfirmasi bahwa <a href="#equation-implex">persamaan implex</a> berlaku ketika <span class="math inline">\(t\)</span> rasional.</p>
+<p>Sekarang ambil sembarang <span class="math inline">\(t \geq
+0\)</span> dan barisan rasional <span class="math inline">\((a_n)\)</span> serta <span class="math inline">\((b_n)\)</span> yang konvergen ke <span class="math inline">\(t\)</span>, dengan <span class="math inline">\(a_n
+\leq t \leq b_n\)</span> untuk setiap <span class="math inline">\(n\)</span>.</p>
+<p>Menurut sifat 1, <span class="math inline">\(f(b_n) \leq f(t) \leq
+f(a_n)\)</span> untuk setiap <span class="math inline">\(n\)</span>,
+sehingga</p>
+<p><span class="math display">\[
+    f(1)^{b_n} \leq f(t) \leq f(1)^{a_n}
+    \quad \forall \, n \in \NN
+\]</span></p>
+<p>Mengambil limit terhadap <span class="math inline">\(n\)</span>
+menyelesaikan pembuktian.</p>
+</div>
+<p><a id="fail_mem"></a></p>
+<h3 id="kegagalan-sifat-tanpa-ingatan">Kegagalan Sifat Tanpa
+Ingatan</h3>
+<p>Kita mengetahui dari bagian sebelumnya bahwa setiap distribusi pada
+<span class="math inline">\(\RR_+\)</span> selain distribusi
+eksponensial gagal bersifat tanpa ingatan.</p>
+<p>Berikut contoh yang membantu memperjelas hal ini (walaupun dukungan
+distribusinya merupakan himpunan bagian sejati dari <span class="math inline">\(\RR_+\)</span>).</p>
+<p>Peubah acak <span class="math inline">\(Y\)</span> memiliki
+distribusi Pareto dengan parameter positif <span class="math inline">\(t_0, \alpha\)</span> jika</p>
+<p><span class="math display">\[
+    f(t)
+    := \PP\{Y &gt; t\}
+    =
+    \begin{cases}
+    1 &amp; \text{ if } t \leq t_0
+    \\
+    (t_0 / t)^\alpha &amp; \text{ if } t &gt; t_0
+    \end{cases}
+\]</span></p>
+<p>Akibatnya, untuk <span class="math inline">\(s &gt; t_0\)</span>,</p>
+<p><span class="math display">\[
+    \PP \{Y &gt; s + t \,|\, Y &gt; s \}
+    =
+    \frac{ \PP \{Y &gt; s + t \} }
+    {\PP \{Y &gt; s\}}
+    = \left( \frac{t}{t + s} \right)^\alpha
+\]</span></p>
+<p>Karena peluang ini menurun terhadap <span class="math inline">\(s\)</span>, distribusi tersebut tidak bersifat
+tanpa ingatan.</p>
+<p>Jika kita telah menunggu berjam-jam untuk suatu kejadian (yakni,
+<span class="math inline">\(s\)</span> besar), maka peluang harus
+menunggu satu jam lagi relatif kecil.</p>
+<h2 id="jumlah-peubah-eksponensial">Jumlah Peubah Eksponensial</h2>
+<p>Peubah acak <span class="math inline">\(W\)</span> pada <span class="math inline">\(\RR_+\)</span> dikatakan memiliki <a href="https://en.wikipedia.org/wiki/Erlang_distribution">distribusi
+Erlang</a> jika densitasnya berbentuk</p>
+<p><span class="math display">\[
+    f(t) = \frac{\lambda^n  t^{n-1}}{(n-1)!} e^{-\lambda t}
+    \qquad (t \geq 0)
+\]</span></p>
+<p>untuk suatu <span class="math inline">\(n \in \NN\)</span> dan <span class="math inline">\(\lambda &gt; 0\)</span>.</p>
+<p>Parameter <span class="math inline">\(n\)</span> dan <span class="math inline">\(\lambda\)</span> masing-masing disebut parameter
+<strong>bentuk</strong> dan <strong>laju</strong>.</p>
+<p>Gambar berikut menunjukkan bentuk untuk dua parameterisasi.</p>
+<details class="code-cell" id="qe-cell-3">
+<summary aria-label="Tampilkan kode">
+Tampilkan kode
+</summary>
+<pre><code class="language-python" data-cell-index="3" data-tags="hide-input">t_grid = np.linspace(0, 50, 100)
+
+class Erlang:
+
+    def __init__(self, λ=0.5, n=10):
+        self.λ, self.n = λ, n
+
+    def __call__(self, t):
+        n, λ = self.n, self.λ
+        return (λ**n * t**(n-1) * np.exp(-λ * t)) / factorial(n-1)
+
+e1 = Erlang(n=10, λ=0.5)
+e2 = Erlang(n=10, λ=0.75)
+
+fig, ax = plt.subplots()
+for e in e1, e2:
+    ax.plot(t_grid, e(t_grid), label=f'$n={e.n}, \lambda={e.λ}$')
+
+ax.legend()
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-memoryless-cell-03-figure-01"><img alt="Grafik kepadatan distribusi Erlang untuk dua parameterisasi." src="../assets/memoryless-cell-03-figure-01.png"/><figcaption>Grafik kepadatan distribusi Erlang untuk dua parameterisasi.</figcaption></figure>
+</details>
+<p>Fungsi distribusi kumulatif (CDF) distribusi Erlang adalah</p>
+<p><a id="equation-erlcdf"></a> <span class="math display">\[
+    F(t)
+    = \PP\{W \leq t\}
+    = 1 - \sum_{k=0}^{n-1} \frac{(\lambda t)^k}{k!} e^{-\lambda t}
+\]</span></p>
+<p>Distribusi Erlang menarik bagi kita karena fakta berikut.</p>
+<div class="qe-lemma" id="erlexp">
+<p><strong>Distribusi Jumlah Peubah Eksponensial</strong> Jika, untuk
+suatu <span class="math inline">\(\lambda &gt; 0\)</span>, barisan <span class="math inline">\((W_i)\)</span> berdistribusi IID dan eksponensial
+dengan laju <span class="math inline">\(\lambda\)</span>, maka <span class="math inline">\(J_n := \sum_{i=1}^n W_i\)</span> memiliki
+distribusi Erlang dengan bentuk <span class="math inline">\(n\)</span>
+dan laju <span class="math inline">\(\lambda\)</span>.</p>
+</div>
+<p>Hal ini terhubung dengan teori proses Poisson, sebagaimana akan
+segera kita lihat.</p>
+<h2 id="latihan">Latihan</h2>
+<div class="exercise" id="memoryless-ex-1">
+<p>Karena sifat tanpa ingatannya, kita dapat “menghentikan” dan “memulai
+ulang” pengambilan sampel eksponensial tanpa mengubah distribusinya.</p>
+<p>Untuk mengilustrasikannya, tetapkan <span class="math inline">\(\lambda &gt; 0\)</span>, ambil sampel dari <span class="math inline">\(\Exp(\lambda)\)</span>, lalu hentikan dan mulai
+ulang setiap kali suatu ambang <span class="math inline">\(s\)</span>
+terlewati.</p>
+<p>Secara khusus, pertimbangkan peubah acak <span class="math inline">\(X\)</span> yang didefinisikan sebagai berikut:</p>
+<ul>
+<li>Ambil <span class="math inline">\(Y\)</span> dari <span class="math inline">\(\Exp(\lambda)\)</span>.</li>
+<li>Jika <span class="math inline">\(Y \leq s\)</span>, tetapkan <span class="math inline">\(X = Y\)</span>.</li>
+<li>Jika tidak, ambil <span class="math inline">\(Z\)</span> secara
+independen dari <span class="math inline">\(\Exp(\lambda)\)</span> dan
+tetapkan <span class="math inline">\(X = s + Z\)</span>.</li>
+</ul>
+<p>Tunjukkan bahwa <span class="math inline">\(X \sim
+\Exp(\lambda)\)</span>.</p>
+</div>
+<div class="solution" id="memoryless-solution-1">
+<p><strong>Solusi</strong> Misalkan <span class="math inline">\(X\)</span> dibangun seperti pada pernyataan
+latihan dan tetapkan <span class="math inline">\(t &gt; 0\)</span>.</p>
+<p>Jika <span class="math inline">\(t \leq s\)</span>, maka <span class="math inline">\(X &gt; t\)</span> jika dan hanya jika <span class="math inline">\(Y &gt; t\)</span>, sehingga <span class="math inline">\(\PP\{X&gt;t\}=e^{-\lambda t}\)</span>.</p>
+<p>Jika <span class="math inline">\(t&gt;s\)</span>, maka <span class="math inline">\(X&gt;t\)</span> jika dan hanya jika <span class="math inline">\(Y&gt;s\)</span> dan <span class="math inline">\(Z&gt;t-s\)</span>. Dengan independensi,</p>
+<p><span class="math display">\[
+\PP\{X&gt;t\}
+=\PP\{Y&gt;s\}\PP\{Z&gt;t-s\}
+=e^{-\lambda s}e^{-\lambda(t-s)}
+=e^{-\lambda t}.
+\]</span></p>
+<p>Jadi fungsi pelampauan <span class="math inline">\(X\)</span> sama
+dengan fungsi pelampauan distribusi eksponensial berlaju <span class="math inline">\(\lambda\)</span>, dan karena itu <span class="math inline">\(X \sim \Exp(\lambda)\)</span>.</p>
+</div>
+<div class="exercise" id="memoryless-ex-2">
+<p>Tetapkan <span class="math inline">\(\lambda = 0.5\)</span> dan <span class="math inline">\(s=1.0\)</span>.</p>
+<p>Simulasikan 1.000 pengambilan <span class="math inline">\(X\)</span>
+menggunakan algoritme di atas.</p>
+<p>Gambarkan fraksi sampel yang melebihi <span class="math inline">\(t\)</span> untuk setiap <span class="math inline">\(t \geq 0\)</span> (pada suatu kisi), lalu
+bandingkan dengan <span class="math inline">\(t \mapsto e^{-\lambda
+t}\)</span>.</p>
+<p>Apakah kecocokannya baik? Bagaimana jika jumlah pengambilan
+ditambah?</p>
+<p>Apakah hasilnya sejalan dengan hasil latihan sebelumnya?</p>
+</div>
+<div class="solution" id="memoryless-solution-2">
+<p><strong>Solusi</strong></p>
+<p>Berikut salah satu solusi, dimulai dengan 1.000 pengambilan.</p>
+<div class="code-cell" data-tags="" id="qe-cell-4">
+<pre><code class="language-python" data-cell-index="4">λ = 0.5 
+np.random.seed(1234)
+t_grid = np.linspace(0, 10, 200)
+
+@njit
+def draw_X(s=1.0, n=1_000):
+    np.random.seed(1234)
+    draws = np.empty(n)
+    for i in range(n):
+        Y = np.random.exponential(scale=1/λ)
+        if Y &lt;= s:
+            X = Y
+        else:
+            Z = np.random.exponential(scale=1/λ)
+            X = s + Z
+        draws[i] = X
+    return draws
+
+fig, ax = plt.subplots()
+draws = draw_X()
+empirical_exceedance = [np.mean(draws &gt; t) for t in t_grid]
+ax.plot(t_grid, np.exp(- λ * t_grid), label='exponential exceedance')
+ax.plot(t_grid, empirical_exceedance, label='empirical exceedance')
+ax.legend()
+
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-memoryless-cell-04-figure-01"><img alt="Grafik perbandingan ekor empiris dan eksponensial untuk 1.000 simulasi." src="../assets/memoryless-cell-04-figure-01.png"/><figcaption>Grafik perbandingan ekor empiris dan eksponensial untuk 1.000 simulasi.</figcaption></figure>
+</div>
+<p>Kecocokannya sudah sangat dekat, sesuai dengan teori pada <a href="#memoryless-ex-1">latihan pertama</a>.</p>
+<p>Kedua garis menjadi tak terbedakan ketika <span class="math inline">\(n\)</span> semakin besar.</p>
+<div class="code-cell" data-tags="" id="qe-cell-5">
+<pre><code class="language-python" data-cell-index="5">fig, ax = plt.subplots()
+draws = draw_X(n=10_000)
+empirical_exceedance = [np.mean(draws &gt; t) for t in t_grid]
+ax.plot(t_grid, np.exp(- λ * t_grid), label='exponential exceedance')
+ax.plot(t_grid, empirical_exceedance, label='empirical exceedance')
+ax.legend()
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-memoryless-cell-05-figure-01"><img alt="Grafik perbandingan ekor empiris dan eksponensial untuk 10.000 simulasi." src="../assets/memoryless-cell-05-figure-01.png"/><figcaption>Grafik perbandingan ekor empiris dan eksponensial untuk 10.000 simulasi.</figcaption></figure>
+</div>
+</div>
+</main><footer>Sumber resmi: https://github.com/QuantEcon/continuous_time_mcs — lisensi CC BY-SA 4.0.</footer></body>
+</html>

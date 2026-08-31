@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Konstruksi ukuran acak Poisson pada ruang ukuran umum</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="08-martingal-05.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="08-martingal-05.html">Unit sebelumnya</a></nav><main class="mastery-reader">
+
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#konstruksi-ukuran-acak-poisson-pada-ruang-ukuran-umum" id="toc-konstruksi-ukuran-acak-poisson-pada-ruang-ukuran-umum">Konstruksi
+ukuran acak Poisson pada ruang ukuran umum</a>
+<ul>
+<li><a href="#prasyarat-dan-hasil-belajar" id="toc-prasyarat-dan-hasil-belajar">Prasyarat dan hasil
+belajar</a></li>
+<li><a href="#latihan-9-membangun-ukuran-acak-poisson-dari-partisi-sigma-hingga" id="toc-latihan-9-membangun-ukuran-acak-poisson-dari-partisi-sigma-hingga">Latihan
+9 — membangun ukuran acak Poisson dari partisi sigma-hingga</a></li>
+<li><a href="#jawaban-ringkas" id="toc-jawaban-ringkas">Jawaban
+ringkas</a></li>
+<li><a href="#penyelesaian-lengkap" id="toc-penyelesaian-lengkap">Penyelesaian lengkap</a>
+<ul>
+<li><a href="#partisi-ruang-produk-dan-sifat-ukuran-acak" id="toc-partisi-ruang-produk-dan-sifat-ukuran-acak">1. Partisi, ruang
+produk, dan sifat ukuran acak</a></li>
+<li><a href="#intensitas-dan-keterhinggaan-pada-himpunan-berukuran-hingga" id="toc-intensitas-dan-keterhinggaan-pada-himpunan-berukuran-hingga">2.
+Intensitas dan keterhinggaan pada himpunan berukuran hingga</a></li>
+<li><a href="#fungsional-laplace" id="toc-fungsional-laplace">3.
+Fungsional Laplace</a></li>
+<li><a href="#hukum-poisson-dan-inkremen-bebas" id="toc-hukum-poisson-dan-inkremen-bebas">4. Hukum Poisson dan inkremen
+bebas</a></li>
+<li><a href="#ketaktergantungan-pada-partisi-dan-keunikan-hukum" id="toc-ketaktergantungan-pada-partisi-dan-keunikan-hukum">5.
+Ketaktergantungan pada partisi dan keunikan hukum</a></li>
+</ul></li>
+<li><a href="#hak-dan-provenans" id="toc-hak-dan-provenans">Hak dan
+provenans</a></li>
+</ul></li>
+</ul>
+</nav>
+<div class="mastery-sequence" id="unit.o009.original.mastery.poisson-construction.01">
+<h1 id="konstruksi-ukuran-acak-poisson-pada-ruang-ukuran-umum">Konstruksi
+ukuran acak Poisson pada ruang ukuran umum</h1>
+<div class="mastery-context" id="unit.o009.original.mastery.poisson-construction.01.prerequisites-outcomes">
+<h2 id="prasyarat-dan-hasil-belajar">Prasyarat dan hasil belajar</h2>
+<p>Prasyarat latihan ini ialah ukuran sigma-hingga, ukuran produk
+terhitung, keluarga peubah acak independen, distribusi Poisson beserta
+fungsi pembangkitnya, integral terhadap ukuran pencacahan, serta teorema
+konvergensi monoton. Definisi proses Poisson pada ruang ukuran umum
+dapat ditinjau di <a href="../poisson/General.html">Proses
+Poisson pada Ruang Umum</a>.</p>
+<p>Setelah menyelesaikan latihan ini, pembaca mampu:</p>
+<ol type="1">
+<li>membangun ukuran acak Poisson secara eksplisit dari cacah Poisson
+dan titik acak yang saling bebas pada partisi sigma-hingga;</li>
+<li>membuktikan keterukuran, aditivitas terhitung, dan keterhinggaan
+hampir pasti pada setiap himpunan berintensitas hingga;</li>
+<li>menurunkan fungsional Laplace, hukum cacah Poisson, serta inkremen
+bebas; dan</li>
+<li>membuktikan bahwa hasil konstruksi tidak bergantung dalam hukum pada
+partisi sigma-hingga yang dipilih.</li>
+</ol>
+<p>Konstruksi di sini sengaja langsung: ruang peluang dibentuk sebagai
+produk terhitung dan ukuran acaknya berupa jumlah eksplisit ukuran
+Dirac. Latihan ini tidak meminta perluasan dari hukum-hukum berdimensi
+hingga dan tidak memakai teorema perluasan Kolmogorov.</p>
+</div>
+<div class="exercise" id="unit.o009.original.mastery.poisson-construction.01.exercise">
+<h2 id="latihan-9-membangun-ukuran-acak-poisson-dari-partisi-sigma-hingga">Latihan
+9 — membangun ukuran acak Poisson dari partisi sigma-hingga</h2>
+<p>Misalkan <span class="math inline">\((S,\mathcal S,\nu)\)</span>
+adalah ruang ukuran sigma-hingga. Ukuran <span class="math inline">\(\nu\)</span> boleh beratom dan tidak diasumsikan
+memiliki topologi. Tuliskan <span class="math inline">\(\overline{\mathbb N}_0=\mathbb
+N_0\cup\{\infty\}\)</span>, dan lengkapi himpunan semua ukuran
+pencacahan pada <span class="math inline">\((S,\mathcal S)\)</span>
+dengan sigma-aljabar evaluasi</p>
+<p><span class="math display">\[
+\mathcal E
+=\sigma\{m\mapsto m(A):A\in\mathcal S\}.
+\]</span></p>
+<ol type="1">
+<li><p>Mulailah dari penutup sigma-hingga <span class="math inline">\(S=\bigcup_{n\ge1}B_n\)</span> dengan <span class="math inline">\(\nu(B_n)&lt;\infty\)</span>. Bentuk partisi
+terukur <span class="math inline">\((E_n)_{n\ge1}\)</span> atas <span class="math inline">\(S\)</span> dengan <span class="math inline">\(\nu(E_n)&lt;\infty\)</span>. Untuk setiap indeks
+<span class="math inline">\(j\)</span> dengan <span class="math inline">\(\lambda_j:=\nu(E_j)&gt;0\)</span>, definisikan
+<span class="math inline">\(q_j(A)=\nu(A\cap E_j)/\lambda_j\)</span>.
+Pada satu ruang produk terhitung, ambil seluruh peubah koordinat berikut
+secara bersama-sama independen:</p>
+<p><span class="math display">\[
+K_j\sim\operatorname{Pois}(\lambda_j),
+\qquad
+X_{j,1},X_{j,2},\ldots\ \overset{\mathrm{iid}}{\sim}q_j.
+\]</span></p>
+<p>Definisikan, untuk <span class="math inline">\(A\in\mathcal
+S\)</span>,</p>
+<p><span class="math display">\[
+N(A)
+=\sum_{j:\lambda_j&gt;0}\sum_{m=1}^{K_j}\mathbf 1_A(X_{j,m}).
+\tag{1}
+\]</span></p>
+<p>Buktikan bahwa untuk setiap hasil dasar, <span class="math inline">\(A\mapsto N(A)\)</span> adalah ukuran pencacahan,
+dan bahwa <span class="math inline">\(N\)</span> merupakan peta terukur
+menuju ruang ukuran pencacahan dengan sigma-aljabar <span class="math inline">\(\mathcal E\)</span>.</p></li>
+<li><p>Buktikan bahwa <span class="math inline">\(\mathbb
+E[N(A)]=\nu(A)\)</span> dalam arti nilai diperluas. Tarik kesimpulan
+bahwa <span class="math inline">\(N(A)&lt;\infty\)</span> hampir pasti
+apabila <span class="math inline">\(\nu(A)&lt;\infty\)</span>.</p></li>
+<li><p>Untuk setiap fungsi terukur <span class="math inline">\(f:S\to[0,\infty]\)</span>, buktikan fungsional
+Laplace</p>
+<p><span class="math display">\[
+\mathbb E\!\left[
+  \exp\!\left(-\int_S f\,\mathrm dN\right)
+\right]
+=\exp\!\left(
+  -\int_S(1-e^{-f})\,\mathrm d\nu
+\right).
+\tag{2}
+\]</span></p></li>
+<li><p>Deduksikan dari (2) bahwa <span class="math inline">\(N(A)\sim\operatorname{Pois}(\nu(A))\)</span> jika
+<span class="math inline">\(\nu(A)&lt;\infty\)</span>, bahwa <span class="math inline">\(N(A)=\infty\)</span> hampir pasti jika <span class="math inline">\(\nu(A)=\infty\)</span>, dan bahwa cacah pada
+setiap keluarga terhitung himpunan saling lepas adalah
+independen.</p></li>
+<li><p>Misalkan konstruksi yang sama diulang dengan penutup sigma-hingga
+lain. Buktikan bahwa kedua ukuran acak yang dihasilkan memiliki hukum
+yang sama pada sigma-aljabar evaluasi <span class="math inline">\(\mathcal E\)</span>.</p></li>
+</ol>
+<p>Apabila materi dasar memakai parameter kerapatan <span class="math inline">\(r&gt;0\)</span> pada <span class="math inline">\((S,\mathcal S,\mu)\)</span>, ambil saja <span class="math inline">\(\nu=r\mu\)</span>.</p>
+</div>
+<details class="hint" id="unit.o009.original.mastery.poisson-construction.01.hint.01"><summary aria-label="Petunjuk: unit.o009.original.mastery.poisson-construction.01.hint.01">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Ganti <span class="math inline">\((B_n)\)</span> dengan himpunan naik <span class="math inline">\(C_n=\bigcup_{k\le n}B_k\)</span>, lalu ambil <span class="math inline">\(E_n=C_n\setminus C_{n-1}\)</span>. Untuk
+keterukuran evaluasi, tulis suku dalam (1) sebagai</p>
+<p><span class="math display">\[
+\sum_{m\ge1}\mathbf 1_{\{m\le K_j\}}\mathbf 1_A(X_{j,m}).
+\]</span></p>
+<p>Untuk aditivitas terhitung lintasan demi lintasan, tukarkan hanya
+deret-deret tak negatif.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.poisson-construction.01.hint.02"><summary aria-label="Petunjuk: unit.o009.original.mastery.poisson-construction.01.hint.02">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Bersyarat pada <span class="math inline">\(K_j=k\)</span>, kontribusi sel <span class="math inline">\(E_j\)</span> terhadap <span class="math inline">\(\int f\,\mathrm dN\)</span> adalah jumlah <span class="math inline">\(k\)</span> peubah iid. Jika <span class="math inline">\(a_j=\int e^{-f}\,\mathrm dq_j\)</span>, fungsi
+pembangkit Poisson memberi</p>
+<p><span class="math display">\[
+\mathbb E[a_j^{K_j}]
+=\exp\{-\lambda_j(1-a_j)\}.
+\]</span></p>
+<p>Kalikan identitas ini untuk sejumlah hingga sel, kemudian lewatkan
+banyaknya sel ke tak hingga.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.poisson-construction.01.hint.03"><summary aria-label="Petunjuk: unit.o009.original.mastery.poisson-construction.01.hint.03">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Dalam (2), pakai <span class="math inline">\(f=t\mathbf 1_A\)</span> untuk memperoleh hukum
+satu cacah dan pakai <span class="math inline">\(f=\sum_{i=1}^rt_i\mathbf 1_{A_i}\)</span> untuk
+himpunan-himpunan saling lepas. Untuk keunikan hukum, uraikan sembarang
+keluarga hingga <span class="math inline">\(A_1,\ldots,A_r\)</span>
+menjadi atom-atom keanggotaan yang saling lepas, lalu gunakan
+sistem-<span class="math inline">\(\pi\)</span> silinder pada ruang
+ukuran pencacahan.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.poisson-construction.01.answer">
+<h2 id="jawaban-ringkas">Jawaban ringkas</h2>
+<p>Partisi dapat dipilih terukur, saling lepas, menutupi <span class="math inline">\(S\)</span>, dan memiliki ukuran hingga. Pada
+produk koordinat <span class="math inline">\(\operatorname{Pois}(\lambda_j)\otimes
+q_j^{\otimes\mathbb N}\)</span>, rumus (1) adalah jumlah terhitung
+ukuran Dirac, sehingga merupakan ukuran pencacahan; setiap evaluasinya
+adalah jumlah peubah acak tak negatif yang terukur. Lebih lanjut,</p>
+<p><span class="math display">\[
+\mathbb E[N(A)]
+=\sum_j\lambda_jq_j(A)
+=\sum_j\nu(A\cap E_j)
+=\nu(A).
+\]</span></p>
+<p>Perhitungan bersyarat per sel dan independensi antarsel
+menghasilkan</p>
+<p><span class="math display">\[
+\mathbb E e^{-\int f\,\mathrm dN}
+=\prod_j
+  \exp\!\left[-\int_{E_j}(1-e^{-f})\,\mathrm d\nu\right]
+=\exp\!\left[-\int_S(1-e^{-f})\,\mathrm d\nu\right].
+\]</span></p>
+<p>Pemilihan <span class="math inline">\(f=t\mathbf 1_A\)</span> memberi
+hukum Poisson, sedangkan pemilihan fungsi tangga pada himpunan saling
+lepas memfaktorkan transformasi Laplace bersama dan memberi
+independensi. Semua distribusi evaluasi berdimensi hingga dengan
+demikian hanya ditentukan oleh <span class="math inline">\(\nu\)</span>;
+argumen sistem-<span class="math inline">\(\pi\)</span>–<span class="math inline">\(\lambda\)</span> memberi keunikan hukum pada <span class="math inline">\(\mathcal E\)</span>.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.poisson-construction.01.solution"><summary aria-label="Penyelesaian lengkap: unit.o009.original.mastery.poisson-construction.01.solution">Penyelesaian lengkap</summary>
+<h2 id="penyelesaian-lengkap">Penyelesaian lengkap</h2>
+<h3 id="partisi-ruang-produk-dan-sifat-ukuran-acak">1. Partisi, ruang
+produk, dan sifat ukuran acak</h3>
+<p>Ambil <span class="math inline">\(C_0=\varnothing\)</span> dan</p>
+<p><span class="math display">\[
+C_n=\bigcup_{k=1}^nB_k,
+\qquad
+E_n=C_n\setminus C_{n-1}.
+\]</span></p>
+<p>Maka <span class="math inline">\((E_n)_{n\ge1}\)</span> terukur,
+saling lepas, menutupi <span class="math inline">\(S\)</span>, dan <span class="math inline">\(\nu(E_n)\le\nu(C_n)&lt;\infty\)</span>.
+Tuliskan</p>
+<p><span class="math display">\[
+J_+=\{j\ge1:\lambda_j:=\nu(E_j)&gt;0\}.
+\]</span></p>
+<p>Untuk <span class="math inline">\(j\in J_+\)</span>, <span class="math inline">\(q_j\)</span> adalah ukuran peluang pada <span class="math inline">\((S,\mathcal S)\)</span> dan terkonsentrasi pada
+<span class="math inline">\(E_j\)</span>. Ambil ruang peluang produk</p>
+<p><span class="math display">\[
+(\Omega,\mathcal F,\mathbb P)
+=\bigotimes_{j\in J_+}
+\left[
+  (\mathbb N_0,\mathcal P(\mathbb N_0),
+       \operatorname{Pois}(\lambda_j))
+  \otimes
+  (S^{\mathbb N},\mathcal S^{\otimes\mathbb N},
+       q_j^{\otimes\mathbb N})
+\right].
+\tag{3}
+\]</span></p>
+<p>Jika <span class="math inline">\(J_+=\varnothing\)</span>, ambil
+ruang peluang satu titik dan <span class="math inline">\(N=0\)</span>.
+Proyeksi koordinat pada (3) memberikan <span class="math inline">\(K_j\)</span> serta <span class="math inline">\(X_{j,m}\)</span> dengan seluruh sifat independensi
+yang diminta.</p>
+<p>Untuk <span class="math inline">\(\omega\in\Omega\)</span>,
+definisikan ukuran</p>
+<p><span class="math display">\[
+N_\omega
+=\sum_{j\in J_+}\sum_{m\ge1}
+  \mathbf 1_{\{m\le K_j(\omega)\}}\,\delta_{X_{j,m}(\omega)}.
+\tag{4}
+\]</span></p>
+<p>Ini adalah jumlah terhitung ukuran positif. Secara eksplisit, jika
+<span class="math inline">\((A_\ell)_{\ell\ge1}\)</span> saling lepas,
+maka Tonelli untuk deret tak negatif memberi</p>
+<p><span class="math display">\[
+\begin{aligned}
+N_\omega\!\left(\bigcup_{\ell\ge1}A_\ell\right)
+&amp;=\sum_{j,m}\mathbf 1_{\{m\le K_j(\omega)\}}
+  \mathbf 1_{\cup_\ell A_\ell}(X_{j,m}(\omega))\\
+&amp;=\sum_{j,m}\sum_{\ell\ge1}
+  \mathbf 1_{\{m\le K_j(\omega)\}}
+  \mathbf 1_{A_\ell}(X_{j,m}(\omega))\\
+&amp;=\sum_{\ell\ge1}N_\omega(A_\ell).
+\end{aligned}
+\]</span></p>
+<p>Nilainya selalu berada dalam <span class="math inline">\(\overline{\mathbb N}_0\)</span>, dan <span class="math inline">\(N_\omega(\varnothing)=0\)</span>. Jadi <span class="math inline">\(N_\omega\)</span> adalah ukuran pencacahan. Untuk
+<span class="math inline">\(A\in\mathcal S\)</span> tetap,</p>
+<p><span class="math display">\[
+N(A)
+=\sum_{j\in J_+}\sum_{m\ge1}
+  \mathbf 1_{\{m\le K_j\}}\mathbf 1_A(X_{j,m})
+\]</span></p>
+<p>adalah limit naik jumlah parsial fungsi terukur. Karena itu <span class="math inline">\(N(A)\)</span> terukur. Sigma-aljabar <span class="math inline">\(\mathcal E\)</span> dibangkitkan tepat oleh
+seluruh peta evaluasi, sehingga <span class="math inline">\(\omega\mapsto N_\omega\)</span> terukur menuju
+ruang ukuran pencacahan.</p>
+<h3 id="intensitas-dan-keterhinggaan-pada-himpunan-berukuran-hingga">2.
+Intensitas dan keterhinggaan pada himpunan berukuran hingga</h3>
+<p>Independensi <span class="math inline">\(K_j\)</span> dan <span class="math inline">\((X_{j,m})_{m\ge1}\)</span> serta Tonelli
+memberi</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E\!\left[
+  \sum_{m\ge1}\mathbf 1_{\{m\le K_j\}}
+                    \mathbf 1_A(X_{j,m})
+\right]
+&amp;=\sum_{m\ge1}\mathbb P(K_j\ge m)q_j(A)\\
+&amp;=q_j(A)\mathbb E[K_j]\\
+&amp;=\lambda_jq_j(A)\\
+&amp;=\nu(A\cap E_j).
+\end{aligned}
+\]</span></p>
+<p>Menjumlahkan lagi dan memakai bahwa <span class="math inline">\((E_j)\)</span> mempartisi <span class="math inline">\(S\)</span> menghasilkan</p>
+<p><span class="math display">\[
+\mathbb E[N(A)]
+=\sum_{j\in J_+}\nu(A\cap E_j)
+=\nu(A).
+\tag{5}
+\]</span></p>
+<p>Kesamaan ini sah juga ketika kedua ruas bernilai tak hingga. Jika
+<span class="math inline">\(\nu(A)&lt;\infty\)</span>, (5) memaksa <span class="math inline">\(N(A)&lt;\infty\)</span> hampir pasti: peubah acak
+tak negatif yang bernilai <span class="math inline">\(\infty\)</span>
+pada kejadian berpeluang positif tidak mungkin memiliki ekspektasi
+hingga.</p>
+<h3 id="fungsional-laplace">3. Fungsional Laplace</h3>
+<p>Tetapkan <span class="math inline">\(f:S\to[0,\infty]\)</span>
+terukur. Untuk <span class="math inline">\(j\in J_+\)</span>, tulis</p>
+<p><span class="math display">\[
+a_j=\int_S e^{-f(x)}\,q_j(\mathrm dx)\in[0,1].
+\]</span></p>
+<p>Bersyarat pada <span class="math inline">\(K_j=k\)</span>,
+titik-titik dalam sel itu iid, sehingga</p>
+<p><span class="math display">\[
+\mathbb E\!\left[
+  \left.
+  \exp\!\left(-\sum_{m=1}^{K_j}f(X_{j,m})\right)
+  \right|K_j=k
+\right]
+=a_j^k.
+\]</span></p>
+<p>Dengan fungsi pembangkit distribusi Poisson,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E\!\left[
+  \exp\!\left(-\sum_{m=1}^{K_j}f(X_{j,m})\right)
+\right]
+&amp;=e^{-\lambda_j}\sum_{k=0}^{\infty}
+  \frac{(\lambda_ja_j)^k}{k!}\\
+&amp;=\exp[-\lambda_j(1-a_j)]\\
+&amp;=\exp\!\left[-\int_{E_j}(1-e^{-f})\,\mathrm d\nu\right].
+\end{aligned}
+\tag{6}
+\]</span></p>
+<p>Biarkan <span class="math inline">\(N^{(n)}\)</span> hanya
+menjumlahkan sel-sel <span class="math inline">\(E_j\)</span> dengan
+<span class="math inline">\(j\le n\)</span> dan <span class="math inline">\(j\in J_+\)</span>. Independensi antarsel serta (6)
+memberikan</p>
+<p><span class="math display">\[
+\mathbb E\!\left[e^{-\int f\,\mathrm dN^{(n)}}\right]
+=\exp\!\left[
+  -\int_{\cup_{j\le n}E_j}(1-e^{-f})\,\mathrm d\nu
+\right].
+\tag{7}
+\]</span></p>
+<p>Karena <span class="math inline">\(N^{(n)}\uparrow N\)</span> sebagai
+ukuran, <span class="math inline">\(\int f\,\mathrm dN^{(n)}\uparrow\int
+f\,\mathrm dN\)</span>. Ruas kiri di dalam ekspektasi pada (7) turun dan
+dibatasi oleh <span class="math inline">\(1\)</span>, jadi konvergensi
+terbatas berlaku. Pada ruas kanan, konvergensi monoton untuk <span class="math inline">\((1-e^{-f})\mathbf 1_{\cup_{j\le n}E_j}\)</span>
+memberi integral pada seluruh <span class="math inline">\(S\)</span>.
+Melewatkan <span class="math inline">\(n\to\infty\)</span> dalam (7)
+membuktikan (2), termasuk kasus ketika integral pada eksponen bernilai
+<span class="math inline">\(\infty\)</span>.</p>
+<h3 id="hukum-poisson-dan-inkremen-bebas">4. Hukum Poisson dan inkremen
+bebas</h3>
+<p>Ambil <span class="math inline">\(f=t\mathbf 1_A\)</span> dengan
+<span class="math inline">\(t\ge0\)</span>. Dari (2),</p>
+<p><span class="math display">\[
+\mathbb E[e^{-tN(A)}]
+=\exp\!\left[-\int_A(1-e^{-t})\,\mathrm d\nu\right].
+\tag{8}
+\]</span></p>
+<p>Untuk <span class="math inline">\(t=0\)</span>, kedua ruas pada (8)
+sama dengan <span class="math inline">\(1\)</span>. Untuk <span class="math inline">\(t&gt;0\)</span>, integral tersebut sama dengan
+<span class="math inline">\((1-e^{-t})\nu(A)\)</span> dalam arti nilai
+diperluas, sehingga ruas kanan dapat ditulis <span class="math inline">\(\exp[-\nu(A)(1-e^{-t})]\)</span> tanpa membentuk
+hasil kali tak terdefinisi <span class="math inline">\(0\cdot\infty\)</span>.</p>
+<p>Jika <span class="math inline">\(\nu(A)&lt;\infty\)</span>, ruas
+kanan adalah transformasi Laplace—atau fungsi pembangkit pada <span class="math inline">\(z=e^{-t}\)</span>—dari distribusi <span class="math inline">\(\operatorname{Pois}(\nu(A))\)</span>. Keunikan
+fungsi pembangkit pada <span class="math inline">\(\mathbb N_0\)</span>
+dan keterhinggaan hampir pasti dari langkah 2 memberi</p>
+<p><span class="math display">\[
+N(A)\sim\operatorname{Pois}(\nu(A)).
+\]</span></p>
+<p>Khusus <span class="math inline">\(\nu(A)=0\)</span>, ini adalah
+distribusi degenerat di nol. Jika <span class="math inline">\(\nu(A)=\infty\)</span>, maka untuk setiap <span class="math inline">\(t&gt;0\)</span> ruas kanan (8) sama dengan nol.
+Karena <span class="math inline">\(e^{-tN(A)}&gt;0\)</span> tepat pada
+kejadian <span class="math inline">\(\{N(A)&lt;\infty\}\)</span>,
+diperoleh <span class="math inline">\(N(A)=\infty\)</span> hampir
+pasti.</p>
+<p>Sekarang ambil <span class="math inline">\(A_1,\ldots,A_r\)</span>
+saling lepas dengan <span class="math inline">\(\nu(A_i)&lt;\infty\)</span> untuk semua <span class="math inline">\(i\)</span>, serta <span class="math inline">\(t_1,\ldots,t_r\ge0\)</span>. Untuk <span class="math inline">\(f=\sum_{i=1}^rt_i\mathbf 1_{A_i}\)</span>, karena
+himpunan-himpunan itu saling lepas, diperoleh</p>
+<p><span class="math display">\[
+1-e^{-f}
+=\sum_{i=1}^r(1-e^{-t_i})\mathbf 1_{A_i}.
+\]</span></p>
+<p>Karena itu (2) menjadi</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E\!\left[
+  e^{-\sum_{i=1}^rt_iN(A_i)}
+\right]
+&amp;=\exp\!\left[-\sum_{i=1}^r
+  \nu(A_i)(1-e^{-t_i})\right]\\
+&amp;=\prod_{i=1}^r\mathbb E[e^{-t_iN(A_i)}].
+\end{aligned}
+\tag{9}
+\]</span></p>
+<p>Keunikan transformasi Laplace bersama menunjukkan bahwa
+cacah-cacahnya independen. Komponen dengan ukuran tak hingga sama dengan
+<span class="math inline">\(\infty\)</span> hampir pasti dan karenanya
+merupakan peubah acak konstan; menambah komponen semacam itu tidak
+merusak independensi. Jadi setiap subkeluarga hingga dari keluarga cacah
+pada himpunan-himpunan saling lepas adalah independen. Berdasarkan
+definisi independensi keluarga terhitung, seluruh keluarga tersebut
+independen.</p>
+<h3 id="ketaktergantungan-pada-partisi-dan-keunikan-hukum">5.
+Ketaktergantungan pada partisi dan keunikan hukum</h3>
+<p>Misalkan <span class="math inline">\(N\)</span> dan <span class="math inline">\(\widetilde N\)</span> diperoleh dari dua partisi
+sigma-hingga yang berbeda. Langkah 4 menunjukkan bahwa keduanya
+mempunyai hukum Poisson dengan parameter <span class="math inline">\(\nu(D)\)</span> pada setiap <span class="math inline">\(D\in\mathcal S\)</span>, dan mempunyai cacah
+independen pada himpunan-himpunan saling lepas.</p>
+<p>Ambil <span class="math inline">\(A_1,\ldots,A_r\in\mathcal
+S\)</span>. Untuk setiap himpunan indeks tak kosong <span class="math inline">\(I\subseteq\{1,\ldots,r\}\)</span>, bentuk atom
+keanggotaan</p>
+<p><span class="math display">\[
+D_I
+=\left(\bigcap_{i\in I}A_i\right)
+\setminus\left(\bigcup_{k\notin I}A_k\right).
+\tag{10}
+\]</span></p>
+<p>Atom-atom tak kosong pada (10) saling lepas, dan</p>
+<p><span class="math display">\[
+N(A_i)=\sum_{I:\,i\in I}N(D_I).
+\tag{11}
+\]</span></p>
+<p>Jika semua <span class="math inline">\(A_i\)</span> berukuran hingga,
+maka setiap <span class="math inline">\(D_I\)</span> juga berukuran
+hingga. Vektor <span class="math inline">\((N(D_I))_I\)</span> terdiri
+dari peubah Poisson independen dengan parameter <span class="math inline">\((\nu(D_I))_I\)</span>; hal yang sama berlaku bagi
+<span class="math inline">\(\widetilde N\)</span>. Rumus (11) menentukan
+hukum bersama <span class="math inline">\((N(A_1),\ldots,N(A_r))\)</span>, sehingga hukum
+itu sama untuk kedua konstruksi. Jika beberapa <span class="math inline">\(A_i\)</span> berukuran tak hingga, koordinat yang
+bersangkutan sama dengan <span class="math inline">\(\infty\)</span>
+hampir pasti, sedangkan argumen tadi diterapkan pada semua koordinat
+yang berukuran hingga. Jadi seluruh distribusi evaluasi berdimensi
+hingga tetap sama.</p>
+<p>Terakhir, silinder evaluasi</p>
+<p><span class="math display">\[
+\left\{
+  m:(m(A_1),\ldots,m(A_r))\in H
+\right\},
+\qquad
+H\subseteq\overline{\mathbb N}_0^{\,r},
+\tag{12}
+\]</span></p>
+<p>membentuk sistem-<span class="math inline">\(\pi\)</span> yang
+membangkitkan <span class="math inline">\(\mathcal E\)</span>. Hukum
+<span class="math inline">\(N\)</span> dan <span class="math inline">\(\widetilde N\)</span> sepakat pada setiap silinder
+(12), karena semua distribusi evaluasi berdimensi hingganya sama.
+Teorema sistem-<span class="math inline">\(\pi\)</span>–<span class="math inline">\(\lambda\)</span> kemudian memberikan</p>
+<p><span class="math display">\[
+\mathcal L(N)=\mathcal L(\widetilde N)
+\qquad\text{pada }\mathcal E.
+\]</span></p>
+<p>Dengan demikian (1) benar-benar membangun ukuran acak Poisson
+berintensitas <span class="math inline">\(\nu\)</span> pada ruang ukuran
+umum, dan pilihan partisi hanyalah perangkat konstruksi, bukan bagian
+dari hukumnya.</p>
+</details>
+<div class="rights-provenance" id="unit.o009.original.mastery.poisson-construction.01.rights-provenance">
+<h2 id="hak-dan-provenans">Hak dan provenans</h2>
+<p>Soal, tiga petunjuk progresif, jawaban ringkas, dan penyelesaian
+lengkap pada berkas ini merupakan materi asli yang ditulis untuk edisi
+id-ID ini atas arahan pengguna. Seluruh materi tersebut dilepas dengan
+lisensi <a href="https://creativecommons.org/licenses/by/4.0/">Creative
+Commons Attribution 4.0 International</a> di bawah pengenal hak
+<code>rights.o009.original.mastery.poisson-construction.01.cc-by-4.0</code>.</p>
+<p>Keterkaitan kurikulernya adalah definisi ukuran acak Poisson dan
+hukum titik bersyarat dalam <a href="../poisson/General.html">Proses Poisson pada Ruang
+Umum</a>. Berkas ini tidak menyalin soal atau penyelesaian dari sumber
+tersebut: konstruksi produk sigma-hingga, pembuktian fungsional Laplace,
+dan argumen keunikan pada sigma-aljabar evaluasi disusun khusus sebagai
+latihan penguasaan baru. Lisensi sumber donor tetap terpisah dan tidak
+diubah.</p>
+<p>Pengungkapan produksi: <strong>OpenAI Codex gpt-5.6-sol,
+Ultra.</strong> Penyebutan sumber hanya menunjukkan hubungan kurikuler
+dan provenans intelektual; sumber donor tidak mendukung, mengesahkan,
+atau mensponsori materi asli ini.</p>
+</div>
+</div>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

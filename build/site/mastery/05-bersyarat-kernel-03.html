@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Penguasaan bersyarat–kernel 05.03: pembaruan Beta melalui komposisi kernel</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="04-bersyarat-kernel-01-02.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="04-bersyarat-kernel-01-02.html">Unit sebelumnya</a></nav><main class="mastery-reader">
+
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#penguasaan-05.03-komposisi-kernel-posterior-dan-sifat-menara" id="toc-penguasaan-05.03-komposisi-kernel-posterior-dan-sifat-menara">Penguasaan
+05.03 — Komposisi kernel, posterior, dan sifat menara</a>
+<ul>
+<li><a href="#soal-satu-pengamatan-bernoulli-terhadap-keadaan-beta-berparameter" id="toc-soal-satu-pengamatan-bernoulli-terhadap-keadaan-beta-berparameter">Soal
+— satu pengamatan Bernoulli terhadap keadaan Beta berparameter</a></li>
+<li><a href="#jawaban-ringkas" id="toc-jawaban-ringkas">Jawaban
+ringkas</a></li>
+<li><a href="#penyelesaian-lengkap" id="toc-penyelesaian-lengkap">Penyelesaian lengkap</a>
+<ul>
+<li><a href="#kernel-awal-dan-komposisinya" id="toc-kernel-awal-dan-komposisinya">1. Kernel awal dan
+komposisinya</a></li>
+<li><a href="#kernel-posterior-dan-identitas-bayes" id="toc-kernel-posterior-dan-identitas-bayes">2. Kernel posterior dan
+identitas Bayes</a></li>
+<li><a href="#karakterisasi-bersyarat-dan-sifat-menara" id="toc-karakterisasi-bersyarat-dan-sifat-menara">3. Karakterisasi
+bersyarat dan sifat menara</a></li>
+<li><a href="#momen-pertama-dan-kedua" id="toc-momen-pertama-dan-kedua">4. Momen pertama dan kedua</a></li>
+<li><a href="#optimalitas-kuadrat-dan-nilai-risiko" id="toc-optimalitas-kuadrat-dan-nilai-risiko">5. Optimalitas kuadrat dan
+nilai risiko</a></li>
+</ul></li>
+<li><a href="#hak-dan-provenans" id="toc-hak-dan-provenans">Hak dan
+provenans</a></li>
+</ul></li>
+</ul>
+</nav>
+<div class="mastery-sequence" id="unit.o009.mastery.conditional-kernel.03">
+<h1 id="penguasaan-05.03-komposisi-kernel-posterior-dan-sifat-menara">Penguasaan
+05.03 — Komposisi kernel, posterior, dan sifat menara</h1>
+<div class="prerequisites" id="unit.o009.mastery.conditional-kernel.03.prerequisites">
+<p><strong>Prasyarat.</strong> Pembaca telah mengenal kernel
+probabilitas, operator <span class="math inline">\(Kf(x)=\int
+f(y)K(x,dy)\)</span>, komposisi kernel, karakterisasi integral nilai
+harapan bersyarat, sifat menara, dan momen dasar distribusi Beta.
+Rujukan konseptualnya ialah unit <a href="../expect/Conditional2.html">nilai harapan bersyarat</a> dan <a href="../expect/Kernels.html">kernel serta operator</a>.</p>
+</div>
+<div class="learning-outcomes" id="unit.o009.mastery.conditional-kernel.03.outcomes">
+<p><strong>Capaian.</strong> Setelah menyelesaikan masalah ini, pembaca
+mampu memverifikasi keterukuran kernel berparameter, memperoleh kernel
+posterior dari identitas Bayes antarkernel, membuktikan representasi
+nilai harapan bersyarat dengan uji integral, menurunkan sifat menara
+sebagai identitas operator titik demi titik, serta menghitung perbaikan
+risiko kuadrat secara eksak.</p>
+</div>
+<div class="exercise" id="unit.o009.mastery.conditional-kernel.03.exercise">
+<h2 id="soal-satu-pengamatan-bernoulli-terhadap-keadaan-beta-berparameter">Soal
+— satu pengamatan Bernoulli terhadap keadaan Beta berparameter</h2>
+<p>Ambil ruang Borel</p>
+<p><span class="math display">\[
+S=[0,1],\qquad T=(0,1),\qquad E=\{0,1\},
+\]</span></p>
+<p>dan biarkan <span class="math inline">\(\pi\)</span> menjadi ukuran
+Lebesgue yang dibatasi pada <span class="math inline">\(S\)</span> (jadi
+<span class="math inline">\(\pi(S)=1\)</span>). Untuk <span class="math inline">\(x\in S\)</span>, tulis</p>
+<p><span class="math display">\[
+a_x=1+x,\qquad b_x=2-x,
+\]</span></p>
+<p>sehingga <span class="math inline">\(a_x+b_x=3\)</span>. Dengan</p>
+<p><span class="math display">\[
+B(a,b)=\int_0^1 y^{a-1}(1-y)^{b-1}\,dy,
+\]</span></p>
+<p>definisikan kernel <span class="math inline">\(K:S\rightsquigarrow
+T\)</span> dan <span class="math inline">\(L:T\rightsquigarrow
+E\)</span> melalui</p>
+<p><span class="math display">\[
+K(x,dy)
+=\frac{y^{a_x-1}(1-y)^{b_x-1}}{B(a_x,b_x)}\,dy,
+\qquad
+L(y,\{z\})=y^z(1-y)^{1-z}.
+\]</span></p>
+<p>Pada <span class="math inline">\(\Omega=S\times T\times E\)</span>,
+definisikan hukum peluang</p>
+<p><span class="math display">\[
+\mathbb P(F)
+=\int_S\pi(dx)\int_TK(x,dy)
+  \sum_{z\in E}\mathbf 1_F(x,y,z)L(y,\{z\}),
+\]</span></p>
+<p>dan nyatakan proyeksi koordinatnya dengan <span class="math inline">\((X,Y,Z)\)</span>. Jadi, setelah <span class="math inline">\(X=x\)</span> dipilih, <span class="math inline">\(Y\)</span> mempunyai hukum <span class="math inline">\(\operatorname{Beta}(1+x,2-x)\)</span>, lalu <span class="math inline">\(Z\)</span> merupakan satu pengamatan Bernoulli
+dengan parameter <span class="math inline">\(Y\)</span>.</p>
+<ol type="1">
+<li>Buktikan bahwa <span class="math inline">\(K\)</span> dan <span class="math inline">\(L\)</span> adalah kernel probabilitas. Hitung
+kernel komposisi <span class="math inline">\(M=KL:S\rightsquigarrow
+E\)</span> secara eksplisit.</li>
+<li>Bangun kernel <span class="math inline">\(R:(S\times
+E)\rightsquigarrow T\)</span> yang memenuhi identitas Bayes antarkernel
+<span class="math display">\[
+M(x,\{z\})R((x,z),dy)=L(y,\{z\})K(x,dy)
+\tag{1}
+\]</span> untuk setiap <span class="math inline">\((x,z)\)</span>.
+Verifikasi bahwa <span class="math inline">\(R\)</span> benar-benar
+kernel probabilitas, termasuk keterukuran terhadap <span class="math inline">\((x,z)\)</span>.</li>
+<li>Untuk setiap fungsi Borel terbatas <span class="math inline">\(h:T\to\mathbb R\)</span>, buktikan langsung dari
+karakterisasi integral bahwa <span class="math display">\[
+Rh(X,Z)
+\quad\text{adalah versi dari}\quad
+\mathbb E[h(Y)\mid\sigma(X,Z)].
+\]</span> Selanjutnya buktikan identitas operator titik demi titik <span class="math display">\[
+\sum_{z\in E}M(x,\{z\})Rh(x,z)=Kh(x),
+\qquad x\in S,
+\tag{2}
+\]</span> dan jelaskan bagaimana (2) menghasilkan sifat menara.</li>
+<li>Hitung secara eksplisit <span class="math inline">\(\mathbb E[Y\mid
+X]\)</span>, <span class="math inline">\(\mathbb E[Y\mid X,Z]\)</span>,
+<span class="math inline">\(\mathbb E[Y^2\mid X]\)</span>, dan <span class="math inline">\(\mathbb E[Y^2\mid X,Z]\)</span>. Periksa (2) untuk
+<span class="math inline">\(h(y)=y^2\)</span> tanpa hanya mengutip sifat
+menara.</li>
+<li>Di bawah kerugian kuadrat, bandingkan prediktor Bayes <span class="math display">\[
+A_0=\mathbb E[Y\mid X],\qquad
+A_1=\mathbb E[Y\mid X,Z].
+\]</span> Buktikan optimalitas keduanya pada kelas informasi
+masing-masing, lalu hitung tepat <span class="math inline">\(\mathbb
+E[(Y-A_0)^2]\)</span>, <span class="math inline">\(\mathbb
+E[(Y-A_1)^2]\)</span>, dan penurunan risikonya.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.mastery.conditional-kernel.03.hint.01"><summary aria-label="Petunjuk: unit.o009.mastery.conditional-kernel.03.hint.01">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Gunakan <span class="math inline">\(B(a+1,b)/B(a,b)=a/(a+b)\)</span> dan <span class="math inline">\(B(a,b+1)/B(a,b)=b/(a+b)\)</span>. Untuk
+keterukuran <span class="math inline">\(K(x,C)\)</span>, pandang
+rapatannya sebagai fungsi Borel bersama dari <span class="math inline">\((x,y)\)</span>, lalu integralkan terhadap <span class="math inline">\(y\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.mastery.conditional-kernel.03.hint.02"><summary aria-label="Petunjuk: unit.o009.mastery.conditional-kernel.03.hint.02">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Perkalian dengan likelihood <span class="math inline">\(y^z(1-y)^{1-z}\)</span> menaikkan parameter Beta
+pertama sebesar <span class="math inline">\(z\)</span> dan parameter
+kedua sebesar <span class="math inline">\(1-z\)</span>. Konstanta yang
+hilang persis <span class="math inline">\(M(x,\{z\})\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.mastery.conditional-kernel.03.hint.03"><summary aria-label="Petunjuk: unit.o009.mastery.conditional-kernel.03.hint.03">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Uji kandidat nilai harapan bersyarat
+pada kejadian <span class="math inline">\(\{X\in A,Z=z\}\)</span>;
+kejadian-kejadian ini membangkitkan <span class="math inline">\(\sigma(X,Z)\)</span>. Untuk risiko, gunakan
+dekomposisi ortogonal</p>
+<p><span class="math display">\[
+\mathbb E[(Y-A)^2]
+=\mathbb E[(Y-\mathbb E[Y\mid\mathcal G])^2]
++\mathbb E[(A-\mathbb E[Y\mid\mathcal G])^2]
+\]</span></p>
+<p>bagi setiap <span class="math inline">\(A\)</span> yang terukur-<span class="math inline">\(\mathcal G\)</span> dan berkuadrat integrabel.</p>
+</details>
+<div class="answer" id="unit.o009.mastery.conditional-kernel.03.answer">
+<h2 id="jawaban-ringkas">Jawaban ringkas</h2>
+<p>Komposisinya adalah</p>
+<p><span class="math display">\[
+M(x,\{1\})=\frac{1+x}{3},
+\qquad
+M(x,\{0\})=\frac{2-x}{3}.
+\]</span></p>
+<p>Kernel posteriornya ialah</p>
+<p><span class="math display">\[
+R((x,z),dy)
+=\frac{y^{x+z}(1-y)^{2-x-z}}
+       {B(1+x+z,3-x-z)}\,dy,
+\]</span></p>
+<p>yakni <span class="math inline">\(\operatorname{Beta}(1+x+z,3-x-z)\)</span>.
+Identitas (1) memberi sekaligus karakterisasi integral nilai harapan
+bersyarat dan, setelah dijumlahkan terhadap <span class="math inline">\(z\)</span>, identitas menara (2). Momen yang
+diminta adalah</p>
+<p><span class="math display">\[
+\mathbb E[Y\mid X=x]=\frac{1+x}{3},
+\qquad
+\mathbb E[Y\mid X=x,Z=z]=\frac{1+x+z}{4},
+\]</span></p>
+<p><span class="math display">\[
+\mathbb E[Y^2\mid X=x]=\frac{(1+x)(2+x)}{12},
+\qquad
+\mathbb E[Y^2\mid X=x,Z=z]
+=\frac{(1+x+z)(2+x+z)}{20}.
+\]</span></p>
+<p>Kedua prediktor adalah proyeksi kuadrat pada informasi masing-masing,
+dan</p>
+<p><span class="math display">\[
+\mathbb E[(Y-A_0)^2]=\frac{13}{216},
+\qquad
+\mathbb E[(Y-A_1)^2]=\frac{13}{288}.
+\]</span></p>
+<p>Satu pengamatan <span class="math inline">\(Z\)</span> menurunkan
+risiko sebesar <span class="math inline">\(13/864\)</span>, atau
+seperempat dari risiko semula.</p>
+</div>
+<details class="solution" id="unit.o009.mastery.conditional-kernel.03.solution"><summary aria-label="Penyelesaian lengkap: unit.o009.mastery.conditional-kernel.03.solution">Penyelesaian lengkap</summary>
+<h2 id="penyelesaian-lengkap">Penyelesaian lengkap</h2>
+<h3 id="kernel-awal-dan-komposisinya">1. Kernel awal dan
+komposisinya</h3>
+<p>Untuk <span class="math inline">\(x\in[0,1]\)</span>, kedua parameter
+<span class="math inline">\(a_x\)</span> dan <span class="math inline">\(b_x\)</span> berada dalam <span class="math inline">\([1,2]\)</span>. Karena itu rapatan <span class="math inline">\(K(x,\cdot)\)</span> taknegatif dan integralnya
+satu berdasarkan definisi fungsi Beta. Fungsi</p>
+<p><span class="math display">\[
+(x,y)\longmapsto
+\frac{y^x(1-y)^{1-x}}{B(1+x,2-x)}
+\]</span></p>
+<p>bersifat Borel pada <span class="math inline">\(S\times T\)</span>:
+pembilangnya kontinu dan penyebutnya positif serta kontinu terhadap
+<span class="math inline">\(x\)</span>. Maka, untuk setiap <span class="math inline">\(C\in\mathcal B(T)\)</span>, teorema keterukuran
+integral berparameter memberi keterukuran <span class="math inline">\(x\mapsto K(x,C)\)</span>. Jadi <span class="math inline">\(K\)</span> adalah kernel probabilitas.</p>
+<p>Untuk setiap <span class="math inline">\(y\)</span>, dua nilai <span class="math inline">\(L\)</span> adalah <span class="math inline">\(L(y,\{1\})=y\)</span> dan <span class="math inline">\(L(y,\{0\})=1-y\)</span>. Keduanya Borel,
+taknegatif, dan berjumlah satu. Pada ruang hingga <span class="math inline">\(E\)</span>, fakta-fakta ini cukup untuk
+menyimpulkan bahwa <span class="math inline">\(L\)</span> adalah kernel
+probabilitas.</p>
+<p>Komposisi <span class="math inline">\(M=KL\)</span> memenuhi</p>
+<p><span class="math display">\[
+\begin{aligned}
+M(x,\{1\})
+&amp;=\int_0^1 y\,K(x,dy)
+  =\frac{a_x}{a_x+b_x}=\frac{1+x}{3},\\
+M(x,\{0\})
+&amp;=\int_0^1(1-y)\,K(x,dy)
+  =\frac{b_x}{a_x+b_x}=\frac{2-x}{3}.
+\end{aligned}
+\]</span></p>
+<p>Kedua nilai berada di <span class="math inline">\([1/3,2/3]\)</span>,
+sehingga tidak ada penyebut posterior yang nol dalam soal ini.</p>
+<h3 id="kernel-posterior-dan-identitas-bayes">2. Kernel posterior dan
+identitas Bayes</h3>
+<p>Untuk <span class="math inline">\((x,z)\in S\times E\)</span>,
+definisikan</p>
+<p><span class="math display">\[
+R((x,z),dy)
+=\frac{y^{a_x+z-1}(1-y)^{b_x+1-z-1}}
+       {B(a_x+z,b_x+1-z)}\,dy.
+\tag{3}
+\]</span></p>
+<p>Parameter pada (3) berada dalam <span class="math inline">\([1,3]\)</span> dan jumlahnya empat. Jadi setiap
+baris <span class="math inline">\(R((x,z),\cdot)\)</span> adalah ukuran
+peluang Beta. Untuk <span class="math inline">\(C\)</span> Borel, <span class="math inline">\(R((x,z),C)\)</span> terukur terhadap <span class="math inline">\((x,z)\)</span> dengan argumen integral
+berparameter yang sama seperti untuk <span class="math inline">\(K\)</span>; koordinat <span class="math inline">\(z\)</span> hanya mengambil dua nilai. Dengan
+demikian, <span class="math inline">\(R\)</span> adalah kernel
+probabilitas.</p>
+<p>Tuliskan <span class="math inline">\(m_z(x)=M(x,\{z\})\)</span>.
+Identitas rasio Beta memberi</p>
+<p><span class="math display">\[
+m_z(x)=\frac{B(a_x+z,b_x+1-z)}{B(a_x,b_x)}.
+\tag{4}
+\]</span></p>
+<p>Memperkalikan rapatan (3) dengan (4) menghasilkan</p>
+<p><span class="math display">\[
+\begin{aligned}
+m_z(x)R((x,z),dy)
+&amp;=\frac{y^{a_x+z-1}(1-y)^{b_x+1-z-1}}
+        {B(a_x,b_x)}\,dy\\
+&amp;=y^z(1-y)^{1-z}K(x,dy)\\
+&amp;=L(y,\{z\})K(x,dy),
+\end{aligned}
+\]</span></p>
+<p>yang membuktikan (1) sebagai identitas ukuran hingga pada <span class="math inline">\(T\)</span>.</p>
+<h3 id="karakterisasi-bersyarat-dan-sifat-menara">3. Karakterisasi
+bersyarat dan sifat menara</h3>
+<p>Ambil fungsi Borel terbatas <span class="math inline">\(h\)</span>.
+Kernel integral <span class="math inline">\(Rh\)</span> terukur pada
+<span class="math inline">\(S\times E\)</span> dan terbatas oleh <span class="math inline">\(\lVert h\rVert_\infty\)</span>. Untuk <span class="math inline">\(A\in\mathcal B(S)\)</span> dan <span class="math inline">\(z\in E\)</span>, definisi hukum gabungan serta (1)
+memberi</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E[\mathbf1_{\{X\in A,Z=z\}}h(Y)]
+&amp;=\int_A\pi(dx)\int_T h(y)L(y,\{z\})K(x,dy)\\
+&amp;=\int_A m_z(x)Rh(x,z)\,\pi(dx)\\
+&amp;=\mathbb E[\mathbf1_{\{X\in A,Z=z\}}Rh(X,Z)].
+\end{aligned}
+\tag{5}
+\]</span></p>
+<p>Kelas kejadian <span class="math inline">\(\{X\in A,Z=z\}\)</span>,
+setelah ditutup terhadap gabungan hingga, membentuk suatu aljabar yang
+membangkitkan <span class="math inline">\(\sigma(X,Z)\)</span>. Dari
+(5), argumen kelas monoton memperluas kesamaan integral ke seluruh
+kejadian dalam <span class="math inline">\(\sigma(X,Z)\)</span>. Karena
+<span class="math inline">\(Rh(X,Z)\)</span> juga terukur terhadap
+sigma-aljabar itu,</p>
+<p><span class="math display">\[
+Rh(X,Z)=\mathbb E[h(Y)\mid\sigma(X,Z)]
+\quad\text{hampir pasti}.
+\tag{6}
+\]</span></p>
+<p>Dengan cara yang lebih sederhana, menguji pada <span class="math inline">\(\{X\in A\}\)</span> menunjukkan bahwa <span class="math inline">\(Kh(X)\)</span> merupakan versi dari <span class="math inline">\(\mathbb E[h(Y)\mid\sigma(X)]\)</span>.</p>
+<p>Sekarang (1) dapat dijumlahkan terhadap kedua nilai <span class="math inline">\(z\)</span>. Untuk setiap <span class="math inline">\(x\in S\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum_{z\in E}m_z(x)Rh(x,z)
+&amp;=\sum_{z\in E}\int_T h(y)L(y,\{z\})K(x,dy)\\
+&amp;=\int_T h(y)\left[\sum_{z\in E}L(y,\{z\})\right]K(x,dy)\\
+&amp;=Kh(x).
+\end{aligned}
+\]</span></p>
+<p>Ini membuktikan (2) bahkan titik demi titik. Bersyarat pada <span class="math inline">\(X=x\)</span>, hukum <span class="math inline">\(Z\)</span> adalah <span class="math inline">\(M(x,\cdot)\)</span>; karena itu ruas kiri adalah
+satu versi dari <span class="math inline">\(\mathbb
+E[Rh(X,Z)\mid\sigma(X)]\)</span>. Bersama (6), identitas tersebut
+menjadi</p>
+<p><span class="math display">\[
+\mathbb E\!\left[
+  \mathbb E[h(Y)\mid\sigma(X,Z)]\mid\sigma(X)
+\right]
+=\mathbb E[h(Y)\mid\sigma(X)],
+\]</span></p>
+<p>yaitu sifat menara untuk <span class="math inline">\(\sigma(X)\subseteq\sigma(X,Z)\)</span>.</p>
+<h3 id="momen-pertama-dan-kedua">4. Momen pertama dan kedua</h3>
+<p>Jika <span class="math inline">\(U\sim\operatorname{Beta}(a,b)\)</span> dan <span class="math inline">\(s=a+b\)</span>, maka</p>
+<p><span class="math display">\[
+\mathbb E[U]=\frac a s,
+\qquad
+\mathbb E[U^2]=\frac{a(a+1)}{s(s+1)}.
+\]</span></p>
+<p>Untuk <span class="math inline">\(K\)</span>, ambil <span class="math inline">\(a=1+x\)</span> dan <span class="math inline">\(s=3\)</span>; untuk <span class="math inline">\(R\)</span>, ambil <span class="math inline">\(a'=1+x+z\)</span> dan <span class="math inline">\(s'=4\)</span>. Jadi</p>
+<p><span class="math display">\[
+\mathbb E[Y\mid X=x]=\frac{1+x}{3},
+\qquad
+\mathbb E[Y\mid X=x,Z=z]=\frac{1+x+z}{4},
+\tag{7}
+\]</span></p>
+<p>serta</p>
+<p><span class="math display">\[
+\mathbb E[Y^2\mid X=x]=\frac{(1+x)(2+x)}{12},
+\qquad
+\mathbb E[Y^2\mid X=x,Z=z]
+=\frac{(1+x+z)(2+x+z)}{20}.
+\tag{8}
+\]</span></p>
+<p>Untuk memeriksa (2) pada <span class="math inline">\(h(y)=y^2\)</span>, gunakan (8) dan bobot <span class="math inline">\(M\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\frac{1+x}{3}\frac{(2+x)(3+x)}{20}
++\frac{2-x}{3}\frac{(1+x)(2+x)}{20}\\
+&amp;\quad=\frac{(1+x)(2+x)}{60}
+  \bigl[(3+x)+(2-x)\bigr]\\
+&amp;\quad=\frac{(1+x)(2+x)}{12},
+\end{aligned}
+\]</span></p>
+<p>tepat sama dengan <span class="math inline">\(Kh(x)\)</span>.</p>
+<h3 id="optimalitas-kuadrat-dan-nilai-risiko">5. Optimalitas kuadrat dan
+nilai risiko</h3>
+<p>Misalkan <span class="math inline">\(\mathcal G\)</span> adalah <span class="math inline">\(\sigma(X)\)</span> atau <span class="math inline">\(\sigma(X,Z)\)</span> dan <span class="math inline">\(m=\mathbb E[Y\mid\mathcal G]\)</span>. Untuk
+setiap peubah acak <span class="math inline">\(A\in L^2(\mathcal
+G)\)</span>,</p>
+<p><span class="math display">\[
+(Y-A)^2=(Y-m)^2+(m-A)^2+2(Y-m)(m-A).
+\]</span></p>
+<p>Suku silang mempunyai nilai harapan nol karena <span class="math inline">\(m-A\)</span> terukur-<span class="math inline">\(\mathcal G\)</span> dan <span class="math inline">\(\mathbb E[Y-m\mid\mathcal G]=0\)</span>. Maka</p>
+<p><span class="math display">\[
+\mathbb E[(Y-A)^2]
+=\mathbb E[(Y-m)^2]+\mathbb E[(m-A)^2].
+\tag{9}
+\]</span></p>
+<p>Jadi <span class="math inline">\(m\)</span> meminimumkan risiko, dan
+kesamaan hanya terjadi bila <span class="math inline">\(A=m\)</span>
+hampir pasti. Rumus (9) membuktikan optimalitas <span class="math inline">\(A_0\)</span> dan <span class="math inline">\(A_1\)</span> pada kelas informasi
+masing-masing.</p>
+<p>Varians Beta memberi</p>
+<p><span class="math display">\[
+\operatorname{Var}(Y\mid X=x)
+=\frac{(1+x)(2-x)}{36}.
+\]</span></p>
+<p>Karena <span class="math inline">\(X\)</span> seragam pada <span class="math inline">\([0,1]\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E[(Y-A_0)^2]
+&amp;=\int_0^1\frac{(1+x)(2-x)}{36}\,dx\\
+&amp;=\frac1{36}\int_0^1(2+x-x^2)\,dx
+=\frac{13}{216}.
+\end{aligned}
+\tag{10}
+\]</span></p>
+<p>Setelah <span class="math inline">\(Z=z\)</span> diamati, varians
+posteriornya adalah</p>
+<p><span class="math display">\[
+\operatorname{Var}(Y\mid X=x,Z=z)
+=\frac{(1+x+z)(3-x-z)}{80}.
+\]</span></p>
+<p>Merata-ratakan dahulu terhadap <span class="math inline">\(Z\)</span>
+bersyarat pada <span class="math inline">\(X=x\)</span> menghasilkan</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\sum_{z\in E}M(x,\{z\})
+  \operatorname{Var}(Y\mid X=x,Z=z)\\
+&amp;\quad=\frac{1+x}{3}\frac{(2+x)(2-x)}{80}
++\frac{2-x}{3}\frac{(1+x)(3-x)}{80}\\
+&amp;\quad=\frac{2+x-x^2}{48}.
+\end{aligned}
+\]</span></p>
+<p>Oleh karena itu,</p>
+<p><span class="math display">\[
+\mathbb E[(Y-A_1)^2]
+=\frac1{48}\int_0^1(2+x-x^2)\,dx
+=\frac{13}{288}.
+\tag{11}
+\]</span></p>
+<p>Dari (10)–(11), penurunan absolutnya ialah</p>
+<p><span class="math display">\[
+\frac{13}{216}-\frac{13}{288}=\frac{13}{864}.
+\]</span></p>
+<p>Karena <span class="math inline">\(13/288=(3/4)(13/216)\)</span>,
+satu pengamatan Bernoulli menurunkan risiko Bayes sebesar seperempat.
+Nilai ini diperoleh dari hukum gabungan dan komposisi kernel, bukan dari
+klaim bahwa satu pengamatan menentukan keadaan laten <span class="math inline">\(Y\)</span>.</p>
+</details>
+<div class="rights-provenance" id="unit.o009.mastery.conditional-kernel.03.rights-provenance">
+<h2 id="hak-dan-provenans">Hak dan provenans</h2>
+<p>Soal, petunjuk bertahap, jawaban, dan penyelesaian dalam unit ini
+merupakan materi asli berbahasa Indonesia yang disusun untuk edisi ini.
+Sejauh hak baru timbul, materi tersebut dilisensikan di bawah <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International (CC BY 4.0)</a> dengan ID hak
+<code>rights.o009.mastery.conditional-kernel.03.cc-by-4.0</code>.</p>
+<p>Penyusunan materi dibantu oleh <strong>OpenAI Codex gpt-5.6-sol,
+Ultra.</strong> Masalah Beta–Bernoulli, susunan pembuktian antarkernel,
+dan perhitungan risiko di sini ditulis khusus untuk unit ini; tidak ada
+prosa contoh donor yang disalin. Definisi dan hasil baku yang dirujuk
+dari unit teori tetap tunduk pada hak dan provenans sumbernya
+masing-masing. Lisensi unit ini hanya mencakup kontribusi asli pada
+berkas ini dan tidak melisensikan ulang Random Services, QuantEcon,
+MathJax, atau materi pihak lain.</p>
+</div>
+</div>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

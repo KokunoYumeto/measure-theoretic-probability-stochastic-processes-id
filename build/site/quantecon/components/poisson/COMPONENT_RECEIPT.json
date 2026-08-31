@@ -1,0 +1,253 @@
+{
+  "authority": {
+    "active_input_manifest_sha256_after": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "active_input_manifest_sha256_before": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "commit": "8b06e0aa5a438692445b2c896f9d238c5a7d5eb7",
+    "notebook_path": "authority\\quantecon\\notebook_snapshot\\continuous_time_mcs.notebooks-1e17c25c937f369544380f769eb9c1bc45d12d1a\\poisson.ipynb",
+    "notebook_sha256": "cae41809b046c2b1153cbe01523d2128790bf6226ec87aaefe0fbcb6b4464474",
+    "source_manifest_sha256_after": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_manifest_sha256_before": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_path": "authority\\quantecon\\source_snapshot\\continuous_time_mcs-8b06e0aa5a438692445b2c896f9d238c5a7d5eb7\\lectures\\poisson.md",
+    "source_sha256": "d9bb4268d30179d48598dd63066f938da895110511fb6f54aaf915200353e102",
+    "tree": "f0f11e3bbc6bd23d6e4a447a7e05c0aaf0f7209e"
+  },
+  "built_at_utc": "2026-08-24T06:34:23.961483+00:00",
+  "code_cells": [
+    {
+      "execution_source_sha256": "3b5055509a42069a0ca0515b9feff6d3ff6cecf9678c27f7480146e2c16dd72e",
+      "index": 1,
+      "replay": {
+        "figures": [],
+        "index": 1,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "c18d8d19d04280516dbaa4fcf818d5c05656b4c8539e7c68449e3eed34df1b4b"
+    },
+    {
+      "execution_source_sha256": "1b8407af16385907a560a2d14957042a2feddc84fc0afd3ade4b59820af5c5e1",
+      "index": 2,
+      "replay": {
+        "figures": [],
+        "index": 2,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "1b8407af16385907a560a2d14957042a2feddc84fc0afd3ade4b59820af5c5e1"
+    },
+    {
+      "execution_source_sha256": "260fff2a817b8edf44327933ffa0737d5e533b1733ef9756e0730708c08d8325",
+      "index": 3,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 6558,
+            "index": 1,
+            "sha256": "8dd10d9ec6be892ad17db596d1009673052d5da03ae2a41fc787e9e54fd99840"
+          }
+        ],
+        "index": 3,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "260fff2a817b8edf44327933ffa0737d5e533b1733ef9756e0730708c08d8325"
+    },
+    {
+      "execution_source_sha256": "f0d73f9ef04428fc0d0bb44eb391cc924aee6dae011b4d2e5b61e8a3b343fd1d",
+      "index": 4,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 6818,
+            "index": 1,
+            "sha256": "a23f23ceef99cde835f4a8d4d43390de7334960580412967613aabacc36f3c16"
+          }
+        ],
+        "index": 4,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "f0d73f9ef04428fc0d0bb44eb391cc924aee6dae011b4d2e5b61e8a3b343fd1d"
+    },
+    {
+      "execution_source_sha256": "b76fb5d5efdceb5c97960cdc6c3a78cfa400f0488d0d9b7cd3435847ec176762",
+      "index": 5,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 10549,
+            "index": 1,
+            "sha256": "1cad0b9c6cf25111904c30000b4682eabe72bb62b5898957e3ef67ca255e7bcc"
+          }
+        ],
+        "index": 5,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "b76fb5d5efdceb5c97960cdc6c3a78cfa400f0488d0d9b7cd3435847ec176762"
+    },
+    {
+      "execution_source_sha256": "a153ef5eab18d1102c6e4b9102e1710b90f48a29677b44c97c66f13120dfd430",
+      "index": 6,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 29643,
+            "index": 1,
+            "sha256": "51d98f090bad9ace18f38ce6b961245fe9e0dec63479f17492676dd19c2c707b"
+          }
+        ],
+        "index": 6,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "d7ac65a74a0d8fa00e87411a144afbd64daf3c107d18065bc2a8c5727a39cf59"
+    },
+    {
+      "execution_source_sha256": "74889eb443660f900b881bf33a28e2ad3e14726643d04ce4883b5cb27a8673c7",
+      "index": 7,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 92570,
+            "index": 1,
+            "sha256": "892bd884f5ce06a1d0a17578c197d1ae55451f187a8247de3cc1570c7dba9029"
+          }
+        ],
+        "index": 7,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "74889eb443660f900b881bf33a28e2ad3e14726643d04ce4883b5cb27a8673c7"
+    }
+  ],
+  "corrections": [
+    {
+      "description": "Corrected the authority's first-visit waiting-time prose from rate t lambda to rate lambda; t is the horizon.",
+      "id": "poisson-rate-copyedit"
+    },
+    {
+      "description": "Inserted the explicit plus sign omitted in the authority's W_1 + \\cdots W_k/n sum.",
+      "id": "formula-plus-3"
+    },
+    {
+      "description": "Rendered the authority typo indepenence as the correct Indonesian independensi.",
+      "id": "poisson-proof-typo"
+    },
+    {
+      "description": "Repaired the reference to the Erlang CDF definition as a local link to the preceding memoryless unit.",
+      "id": "poisson-cross-unit-erlcdf"
+    },
+    {
+      "description": "Resolved MyST citation keys and two cross-unit proof/section references into human-readable citations and local links.",
+      "id": "poisson-myst-references"
+    },
+    {
+      "description": "Removed only the package-install directive in downstream execution/render copies; frozen source remains unchanged.",
+      "id": "quantecon-offline-install"
+    },
+    {
+      "description": "Added meaningful Indonesian alternatives to generated computational figures.",
+      "id": "quantecon-accessibility-alt"
+    },
+    {
+      "description": "Removed remote theme/analytics/launch runtime while retaining author, source, license, and non-endorsement attribution.",
+      "id": "quantecon-branding-runtime"
+    }
+  ],
+  "file_count": 11,
+  "files": [
+    {
+      "bytes": 6558,
+      "path": "assets/poisson-cell-03-figure-01.png",
+      "sha256": "8dd10d9ec6be892ad17db596d1009673052d5da03ae2a41fc787e9e54fd99840"
+    },
+    {
+      "bytes": 6818,
+      "path": "assets/poisson-cell-04-figure-01.png",
+      "sha256": "a23f23ceef99cde835f4a8d4d43390de7334960580412967613aabacc36f3c16"
+    },
+    {
+      "bytes": 10549,
+      "path": "assets/poisson-cell-05-figure-01.png",
+      "sha256": "1cad0b9c6cf25111904c30000b4682eabe72bb62b5898957e3ef67ca255e7bcc"
+    },
+    {
+      "bytes": 29643,
+      "path": "assets/poisson-cell-06-figure-01.png",
+      "sha256": "51d98f090bad9ace18f38ce6b961245fe9e0dec63479f17492676dd19c2c707b"
+    },
+    {
+      "bytes": 92570,
+      "path": "assets/poisson-cell-07-figure-01.png",
+      "sha256": "892bd884f5ce06a1d0a17578c197d1ae55451f187a8247de3cc1570c7dba9029"
+    },
+    {
+      "bytes": 27968,
+      "path": "lectures/poisson.html",
+      "sha256": "831bab3e9f5e00fbe9b4739fdc55e7bf2a07031257eb36696ed252862287015d"
+    },
+    {
+      "bytes": 1704911,
+      "path": "MathJax/tex-svg.js",
+      "sha256": "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
+    },
+    {
+      "bytes": 21620,
+      "path": "notebooks/poisson-authority.ipynb",
+      "sha256": "cae41809b046c2b1153cbe01523d2128790bf6226ec87aaefe0fbcb6b4464474"
+    },
+    {
+      "bytes": 4794,
+      "path": "notebooks/poisson-executed.ipynb",
+      "sha256": "5f8ddd71ca92d948e814d38d454227bcdb4d050c83fdf57d9cda92b3d2d5f938"
+    },
+    {
+      "bytes": 3366,
+      "path": "reader.css",
+      "sha256": "820f354bd797c5b5cb0e34248bc82c9b835e0fafb66fed75145f7c8180fa997c"
+    },
+    {
+      "bytes": 14614,
+      "path": "source-poisson.md",
+      "sha256": "8d0f457f3cad1b306e6fede93f390a514da5ec18a544bd22a9a4fdeccdcdea10"
+    }
+  ],
+  "manifest_sha256": "67613ec5a692c891b4fff469a0c6ead8871db50a314904158e121c249b464a83",
+  "replay_match": true,
+  "runtime": {
+    "bytes": 253256,
+    "lock_sha256": "7b7009aa8abf346cd7dec13c50f03f413471e7e0585ed23563685fd4b1f86210",
+    "path": "tmp\\quantecon-offline-replay\\Scripts\\python.exe",
+    "sha256": "0e818a1f9a0b8fbd4e7cc458a07cb7de2ea02ea326e387699a33b92f151242cd",
+    "version": "Python 3.13.9"
+  },
+  "schema": "o009.quantecon-component.v1",
+  "status": "complete-unit-local",
+  "target": {
+    "path": "source/quantecon/lectures/poisson.md",
+    "sha256": "8d0f457f3cad1b306e6fede93f390a514da5ec18a544bd22a9a4fdeccdcdea10",
+    "title": "Proses Poisson"
+  },
+  "topology": {
+    "code_cells": 7,
+    "equation_refs": [
+      "binpois",
+      "erlcdf",
+      "poissondist"
+    ],
+    "exercises": 2,
+    "headings": 9,
+    "labels": [
+      "poisson-ex-1",
+      "poisson-ex-2"
+    ],
+    "proof_directives": 3,
+    "solutions": 2,
+    "standalone_labels": [
+      "restart_prop"
+    ]
+  },
+  "total_bytes": 1923411,
+  "unit_id": "unit.o009.quantecon.ctmc.poisson-processes"
+}

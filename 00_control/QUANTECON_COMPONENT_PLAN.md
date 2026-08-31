@@ -1,8 +1,10 @@
 # QuantEcon CTMC component plan
 
 Status: authority, rights witness, native editable closure, offline Python
-environment, and native HTML/PDF baseline admitted. This component is not yet
-translated or admitted into the public reader.
+environment, native HTML/PDF baseline, translation, exercise/solution closure,
+and executable-cell replay are admitted. All eight selected units are complete
+in the public reader at checkpoint 38; this plan remains the component-level
+provenance and reproducibility witness.
 
 ## Authority and format
 
@@ -36,12 +38,12 @@ SHA-256
 | 7 | `uc_mc_semigroups.md` | `unit.o009.quantecon.ctmc.uniformly-continuous-markov-semigroups` | 5 / 5 / 0 |
 | 8 | `ergodicity.md` | `unit.o009.quantecon.ctmc.stationarity-ergodicity` | 3 / 3 / 4 |
 
-The eight chapters contain 25 exercises, 25 paired solutions, and 33 source
-code-cell directives. `status.md` contributes two more source cells, for 35
-source cells total. The generated notebooks contain 36 cells because the
-`kolmogorov_bwd` solution parameter block becomes a separate notebook cell;
-all generated execution counts and outputs are empty. Preserve both censuses
-and never present them as contradictory.
+The eight chapters contain 25 exercises, 25 paired solutions, and 33 strict
+MyST source-cell directives. The generated notebooks contain 34 code cells
+because the `kolmogorov_bwd` solution parameter block becomes a separate
+notebook cell; all generated execution counts and outputs are empty. Preserve
+the source and notebook censuses as distinct witnesses and never present them
+as contradictory.
 
 The first QuantEcon translation boundary, after the four selected Random
 discrete pages, is the complete `memoryless.md` chapter with its two

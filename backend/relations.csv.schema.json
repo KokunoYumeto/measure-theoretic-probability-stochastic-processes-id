@@ -12,10 +12,12 @@
     },
     "relation_type": {
       "enum": [
+        "alternate-form",
         "answers",
         "assesses",
         "contains",
         "depends-on",
+        "executes",
         "hints",
         "precedes",
         "prerequisite",
@@ -58,6 +60,6 @@
       "evidence",
       "status"
     ],
-    "line_ending": "CRLF"
+    "line_ending": "LF"
   }
 }

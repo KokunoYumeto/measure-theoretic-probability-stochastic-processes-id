@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>Penguasaan 10.01: gerak Brown dengan luas lintasan yang ditambatkan</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="09-poisson-konstruksi-01.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="09-poisson-konstruksi-01.html">Unit sebelumnya</a></nav><main class="mastery-reader"><h1>Penguasaan 10.01: gerak Brown dengan luas lintasan
+yang ditambatkan</h1>
+
+<div class="mastery original-addition" id="o009-mastery-brown-01">
+<blockquote>
+<p><strong>Hak dan provenans.</strong> Soal, petunjuk, jawaban, dan
+penyelesaian ini adalah materi asli berbahasa Indonesia (id-ID), disusun
+oleh OpenAI Codex atas arahan pengguna, dan dilisensikan dengan <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Tidak
+ada soal donor yang disalin atau diadaptasi. Konteks gerak Brown
+mengikuti unit teori yang dipasangkan dan laboratorium Brown pada kursus
+ini, tetapi masalah observasi luas lintasan serta seluruh derivasi di
+bawah ditulis baru.</p>
+</blockquote>
+<h2 id="prasyarat">Prasyarat</h2>
+<ul>
+<li>definisi gerak Brown standar dan rumus <span class="math inline">\(\operatorname{Cov}(B_s,B_t)=\min(s,t)\)</span>;</li>
+<li>vektor Gaussian, fungsi kovarians, dan fakta bahwa komponen suatu
+vektor Gaussian yang tidak berkorelasi saling independen;</li>
+<li>integral Riemann lintasan kontinu, konvergensi dalam <span class="math inline">\(L^2\)</span>, serta teorema Fubini untuk
+ekspektasi;</li>
+<li>rumus regresi Gaussian dan pengertian distribusi bersyarat
+reguler.</li>
+</ul>
+<h2 id="hasil-belajar">Hasil belajar</h2>
+<p>Setelah menyelesaikan soal ini, pembaca dapat membuktikan bahwa
+fungsional linear lintasan Brown bersifat Gaussian, menghitung hukum
+bersyarat seluruh proses dari satu observasi linear, membangun proses
+residu yang independen, dan menafsirkan pengondisian pada kejadian
+bernilai peluang nol secara tepat.</p>
+<div class="exercise" id="o009-exercise-brown-01">
+<p>Misalkan <span class="math inline">\(B=(B_t)_{0\leq t\leq1}\)</span>
+adalah gerak Brown standar dan definisikan luas bertanda di bawah
+lintasannya dengan integral Riemann lintasan demi lintasan</p>
+<p><span class="math display">\[
+A=\int_0^1 B_u\,du.
+\]</span></p>
+<p>Untuk <span class="math inline">\(t\in[0,1]\)</span>, tuliskan <span class="math inline">\(g(t)=t-t^2/2\)</span>, dan untuk <span class="math inline">\(a\in\mathbb R\)</span> tafsirkan ``hukum <span class="math inline">\(B\)</span> bersyarat pada <span class="math inline">\(A=a\)</span>’’ sebagai suatu versi distribusi
+bersyarat reguler.</p>
+<ol type="1">
+<li>Buktikan bahwa untuk setiap <span class="math inline">\(0\leq
+t_1&lt;\cdots&lt;t_m\leq1\)</span>, vektor <span class="math inline">\((B_{t_1},\ldots,B_{t_m},A)\)</span> adalah
+Gaussian berpusat. Hitung <span class="math inline">\(\operatorname{Cov}(B_t,A)\)</span> dan <span class="math inline">\(\operatorname{Var}(A)\)</span> secara eksak.</li>
+<li>Definisikan <span class="math display">\[
+R_t=B_t-3g(t)A.
+\]</span> Buktikan bahwa proses kontinu <span class="math inline">\(R\)</span> independen dari <span class="math inline">\(A\)</span>. Gunakan hasil ini untuk menentukan
+fungsi rataan dan fungsi kovarians hukum bersyarat seluruh lintasan
+<span class="math inline">\((B_t)_{0\leq t\leq1}\)</span> dengan syarat
+<span class="math inline">\(A=a\)</span>.</li>
+<li>Berikan realisasi eksplisit proses yang mempunyai hukum bersyarat
+tersebut, buktikan bahwa luas lintasannya sama dengan <span class="math inline">\(a\)</span> hampir pasti, lalu hitung <span class="math display">\[
+\mathbb P(B_{1/2}&gt;0\mid A=a)
+\]</span> pada versi bersyarat reguler yang Anda peroleh. Nyatakan
+jawaban dengan fungsi distribusi normal baku <span class="math inline">\(\Phi\)</span>.</li>
+</ol>
+</div>
+<details class="hint" id="o009-hint-brown-01-1"><summary aria-label="Petunjuk: o009-hint-brown-01-1">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Aproksimasi <span class="math inline">\(A\)</span> dengan jumlah Riemann <span class="math inline">\(A_n=n^{-1}\sum_{k=1}^n B_{(k-1)/n}\)</span>.
+Gunakan <span class="math inline">\(\lVert
+B_u-B_v\rVert_2=|u-v|^{1/2}\)</span> untuk memperoleh <span class="math inline">\(A_n\to A\)</span> dalam <span class="math inline">\(L^2\)</span>. Untuk kovarians, integralkan <span class="math inline">\(\min(t,u)\)</span> pada <span class="math inline">\(u\in[0,1]\)</span>.</p>
+</details>
+<details class="hint" id="o009-hint-brown-01-2"><summary aria-label="Petunjuk: o009-hint-brown-01-2">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Koefisien regresi Gaussian untuk
+memprediksi <span class="math inline">\(B_t\)</span> dari <span class="math inline">\(A\)</span> adalah</p>
+<p><span class="math display">\[
+\frac{\operatorname{Cov}(B_t,A)}{\operatorname{Var}(A)}=3g(t).
+\]</span></p>
+<p>Periksa <span class="math inline">\(\operatorname{Cov}(R_t,A)=0\)</span>. Untuk
+mengangkat independensi berdimensi hingga menjadi independensi proses,
+gunakan kontinuitas lintasan: sigma-aljabar Borel pada <span class="math inline">\(C[0,1]\)</span> dibangkitkan oleh evaluasi pada
+waktu rasional.</p>
+</details>
+<details class="hint" id="o009-hint-brown-01-3"><summary aria-label="Petunjuk: o009-hint-brown-01-3">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Ambil <span class="math inline">\(X_t^{(a)}=R_t+3g(t)a\)</span>. Identitas <span class="math inline">\(\int_0^1g(t)\,dt=1/3\)</span> menunjukkan bahwa
+<span class="math inline">\(\int_0^1X_t^{(a)}\,dt=a\)</span>. Pada <span class="math inline">\(t=1/2\)</span>, hitung <span class="math inline">\(g(1/2)=3/8\)</span> sebelum menstandarkan normal
+bersyarat.</p>
+</details>
+<div class="answer" id="o009-answer-brown-01">
+<p><strong>Jawaban ringkas.</strong> Vektor <span class="math inline">\((B_{t_1},\ldots,B_{t_m},A)\)</span> adalah
+Gaussian berpusat, dan</p>
+<p><span class="math display">\[
+\operatorname{Cov}(B_t,A)=g(t)=t-\frac{t^2}{2},
+\qquad
+\operatorname{Var}(A)=\frac13.
+\]</span></p>
+<p>Proses <span class="math inline">\(R_t=B_t-3g(t)A\)</span> independen
+dari <span class="math inline">\(A\)</span>. Suatu versi hukum bersyarat
+<span class="math inline">\(B\mid A=a\)</span> ialah hukum proses <span class="math inline">\(X_t^{(a)}=R_t+3g(t)a\)</span>, yang mempunyai</p>
+<p><span class="math display">\[
+\mathbb E[X_t^{(a)}]=3g(t)a,
+\qquad
+\operatorname{Cov}(X_s^{(a)},X_t^{(a)})
+=\min(s,t)-3g(s)g(t).
+\]</span></p>
+<p>Selain itu, <span class="math inline">\(\int_0^1X_t^{(a)}\,dt=a\)</span> hampir pasti
+dan</p>
+<p><span class="math display">\[
+\mathbb P(B_{1/2}&gt;0\mid A=a)=\Phi\!\left(\frac{9a}{\sqrt5}\right).
+\]</span></p>
+</div>
+<details class="solution" id="o009-solution-brown-01"><summary aria-label="Penyelesaian lengkap: o009-solution-brown-01">Penyelesaian lengkap</summary>
+<p><strong>Penyelesaian lengkap.</strong> Karena lintasan Brown kontinu
+hampir pasti, integral <span class="math inline">\(A\)</span> ada
+sebagai integral Riemann. Untuk menunjukkan sifat Gaussian yang juga
+diperlukan dalam perhitungan bersyarat, ambil</p>
+<p><span class="math display">\[
+A_n=\frac1n\sum_{k=1}^n B_{(k-1)/n}.
+\]</span></p>
+<p>Jika <span class="math inline">\(\pi_n(u)=(k-1)/n\)</span> untuk
+<span class="math inline">\(u\in[(k-1)/n,k/n)\)</span>, ketaksamaan
+Minkowski dan sifat inkremen Brown memberi</p>
+<p><span class="math display">\[
+\begin{aligned}
+\lVert A-A_n\rVert_2
+&amp;\leq \int_0^1\lVert B_u-B_{\pi_n(u)}\rVert_2\,du\\
+&amp;=\int_0^1|u-\pi_n(u)|^{1/2}\,du
+\leq n^{-1/2}\longrightarrow0.
+\end{aligned}
+\]</span></p>
+<p>Untuk setiap <span class="math inline">\(n\)</span>, vektor <span class="math inline">\((B_{t_1},\ldots,B_{t_m},A_n)\)</span> adalah
+transformasi linear dari suatu vektor Gaussian berdimensi hingga. Setiap
+kombinasi linearnya adalah normal berpusat. Kombinasi tersebut konvergen
+dalam <span class="math inline">\(L^2\)</span> ketika <span class="math inline">\(A_n\)</span> diganti oleh <span class="math inline">\(A\)</span>, sehingga ragamnya juga konvergen;
+limitnya tetap normal, mungkin degenerat. Kriteria kombinasi linear
+untuk vektor Gaussian menyimpulkan bahwa <span class="math inline">\((B_{t_1},\ldots,B_{t_m},A)\)</span> Gaussian
+berpusat.</p>
+<p>Fubini dan <span class="math inline">\(\mathbb
+E[B_tB_u]=\min(t,u)\)</span> menghasilkan</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{Cov}(B_t,A)
+&amp;=\int_0^1\min(t,u)\,du\\
+&amp;=\int_0^t u\,du+\int_t^1t\,du
+=t-\frac{t^2}{2}=g(t).
+\end{aligned}
+\]</span></p>
+<p>Dengan mengintegralkan sekali lagi,</p>
+<p><span class="math display">\[
+\operatorname{Var}(A)
+=\int_0^1\operatorname{Cov}(B_t,A)\,dt
+=\int_0^1\left(t-\frac{t^2}{2}\right)dt
+=\frac13.
+\]</span></p>
+<p>Sekarang definisikan <span class="math inline">\(R_t=B_t-3g(t)A\)</span>. Proses ini kontinu dan
+Gaussian, serta</p>
+<p><span class="math display">\[
+\operatorname{Cov}(R_t,A)
+=g(t)-3g(t)\operatorname{Var}(A)=0.
+\]</span></p>
+<p>Untuk setiap kumpulan waktu hingga, vektor nilai-nilai <span class="math inline">\(R\)</span> bersama <span class="math inline">\(A\)</span> bersifat Gaussian. Kovarians silang nol
+karena itu membuat vektor nilai-nilai <span class="math inline">\(R\)</span> independen dari <span class="math inline">\(A\)</span>. Evaluasi pada waktu rasional
+membangkitkan sigma-aljabar Borel <span class="math inline">\(C[0,1]\)</span>; kontinuitas <span class="math inline">\(R\)</span> lalu menunjukkan bahwa proses <span class="math inline">\(R\)</span>, sebagai peubah acak bernilai <span class="math inline">\(C[0,1]\)</span>, independen dari <span class="math inline">\(A\)</span>.</p>
+<p>Identitas <span class="math inline">\(B_t=R_t+3g(t)A\)</span>
+sekarang memberi versi hukum bersyarat yang konkret. Untuk setiap <span class="math inline">\(a\in\mathbb R\)</span>, tetapkan</p>
+<p><span class="math display">\[
+X_t^{(a)}=R_t+3g(t)a.
+\]</span></p>
+<p>Karena <span class="math inline">\(R\)</span> independen dari <span class="math inline">\(A\)</span>, kernel <span class="math inline">\(a\mapsto\mathcal L(X^{(a)})\)</span> memenuhi
+identitas disintegrasi dan merupakan distribusi bersyarat reguler <span class="math inline">\(\mathcal L(B\mid A=a)\)</span>. Bahkan kernel ini
+terdefinisi untuk setiap <span class="math inline">\(a\)</span>,
+sehingga rumusnya memberi versi kontinu yang jelas meskipun kejadian
+tunggal <span class="math inline">\(\{A=a\}\)</span> berpeluang nol.</p>
+<p>Rataannya adalah <span class="math inline">\(3g(t)a\)</span>. Fungsi
+kovariansnya sama dengan kovarians <span class="math inline">\(R\)</span>; untuk <span class="math inline">\(s,t\in[0,1]\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{Cov}(R_s,R_t)
+&amp;=\min(s,t)-3g(t)g(s)-3g(s)g(t)
+  +9g(s)g(t)\operatorname{Var}(A)\\
+&amp;=\min(s,t)-3g(s)g(t).
+\end{aligned}
+\]</span></p>
+<p>Selanjutnya, <span class="math inline">\(\int_0^1g(t)\,dt=1/3\)</span>, sehingga</p>
+<p><span class="math display">\[
+\int_0^1R_t\,dt
+=A-3A\int_0^1g(t)\,dt=0
+\]</span></p>
+<p>hampir pasti. Akibatnya,</p>
+<p><span class="math display">\[
+\int_0^1X_t^{(a)}\,dt
+=0+3a\int_0^1g(t)\,dt=a
+\]</span></p>
+<p>hampir pasti, sebagaimana seharusnya untuk lintasan yang luasnya
+ditambatkan.</p>
+<p>Terakhir, <span class="math inline">\(g(1/2)=3/8\)</span>. Di bawah
+hukum bersyarat,</p>
+<p><span class="math display">\[
+B_{1/2}\mid A=a
+\sim N\!\left(
+3\frac38a,
+\frac12-3\left(\frac38\right)^2
+\right)
+=N\!\left(\frac{9a}{8},\frac{5}{64}\right).
+\]</span></p>
+<p>Karena simpangan bakunya <span class="math inline">\(\sqrt5/8\)</span> dan simetri normal memberi <span class="math inline">\(1-\Phi(-x)=\Phi(x)\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P(B_{1/2}&gt;0\mid A=a)
+=\Phi\!\left(
+\frac{9a/8}{\sqrt5/8}
+\right)
+=\Phi\!\left(\frac{9a}{\sqrt5}\right).
+\]</span></p>
+</details>
+</div>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

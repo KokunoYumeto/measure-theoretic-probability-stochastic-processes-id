@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+<head>
+<meta charset="utf-8"/>
+<title>Martingal</title>
+<meta content="Kyle Siegrist" name="author"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="probabilitas, proses stokastik, martingal, waktu henti, pertidaksamaan martingal, konvergensi martingal, martingal mundur" name="keywords"/>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
+<link href="../markov/index.html" rel="previous"/>
+<link href="../brown/index.html" rel="next"/>
+<script src="../Basic.js"></script>
+<script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/></head>
+<body>
+<header>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="child"><a aria-label="Bagian 0: Dasar-Dasar" href="https://www.randomservices.org/random/foundations/index.html" title="Dasar-Dasar">0</a></li>
+<li class="child"><a aria-label="Bagian 1: Ruang Probabilitas" href="https://www.randomservices.org/random/prob/index.html" title="Ruang Probabilitas">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Distribusi" href="https://www.randomservices.org/random/dist/index.html" title="Distribusi">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Nilai Harapan" href="https://www.randomservices.org/random/expect/index.html" title="Nilai Harapan">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Distribusi Khusus" href="https://www.randomservices.org/random/special/index.html" title="Distribusi Khusus">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Sampel Acak" href="https://www.randomservices.org/random/sample/index.html" title="Sampel Acak">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Estimasi Titik" href="https://www.randomservices.org/random/point/index.html" title="Estimasi Titik">6</a></li>
+<li class="child"><a aria-label="Bagian 7: Estimasi Himpunan" href="https://www.randomservices.org/random/interval/index.html" title="Estimasi Himpunan">7</a></li>
+<li class="child"><a aria-label="Bagian 8: Pengujian Hipotesis" href="https://www.randomservices.org/random/hypothesis/index.html" title="Pengujian Hipotesis">8</a></li>
+<li class="child"><a aria-label="Bagian 9: Model Geometrik" href="https://www.randomservices.org/random/buffon/index.html" title="Model Geometrik">9</a></li>
+<li class="child"><a aria-label="Bagian 10: Percobaan Bernoulli" href="https://www.randomservices.org/random/bernoulli/index.html" title="Percobaan Bernoulli">10</a></li>
+<li class="child"><a aria-label="Bagian 11: Model Pengambilan Sampel Hingga" href="https://www.randomservices.org/random/urn/index.html" title="Model Pengambilan Sampel Hingga">11</a></li>
+<li class="child"><a aria-label="Bagian 12: Permainan Peluang" href="https://www.randomservices.org/random/games/index.html" title="Permainan Peluang">12</a></li>
+<li class="child"><a aria-label="Bagian 13: Proses Poisson" href="https://www.randomservices.org/random/poisson/index.html" title="Proses Poisson">13</a></li>
+<li class="child"><a aria-label="Bagian 14: Proses Pembaruan" href="https://www.randomservices.org/random/renewal/index.html" title="Proses Pembaruan">14</a></li>
+<li class="child"><a aria-label="Bagian 15: Proses Markov" href="../markov/index.html" title="Proses Markov">15</a></li>
+<li aria-current="page" aria-label="Bagian 16: Martingal (halaman saat ini)" class="current">16</li>
+<li class="child"><a aria-label="Bagian 17: Gerak Brown" href="../brown/index.html" title="Gerak Brown">17</a></li>
+</ol>
+<h1>16. Martingal</h1>
+</header><aside class="component-attribution" id="o009-rights-random-martingales-index">
+<strong>Asal komponen.</strong> Terjemahan halaman <cite>Martingales</cite>
+karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
+Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
+beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
+atribusi. <a href="https://www.randomservices.org/random/martingales/index.html">Baca sumber resmi</a>.
+</aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../markov/Recurrence.html">Keadaan transien dan rekuren</a> · <a href="../markov/Periodicity.html">Periodisitas</a> · <a href="../markov/Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="../brown/Standard.html">Gerak Brown standar</a> · <a href="../brown/Drift.html">Gerak Brown dengan hanyutan</a> · <a href="../brown/Bridge.html">Jembatan Brown</a> · <a href="../brown/Geometric.html">Gerak Brown geometrik</a> · <a href="index.html">Ikhtisar martingal</a> · <a href="../markov/index.html">Ikhtisar proses Markov</a> · <a href="../brown/index.html">Ikhtisar gerak Brown</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="../labs/03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="../labs/04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a> · <a href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a></nav><main>
+<h2 class="reader-level-2" id="Summary">Ringkasan</h2>
+<p><dfn>Martingal</dfn>, beserta kerabatnya <dfn>submartingal</dfn> dan <dfn>supermartingal</dfn>, adalah proses stokastik bernilai riil yang merupakan generalisasi abstrak dari proses perjudian yang adil, menguntungkan, dan merugikan. Arti penting martingal jauh melampaui perjudian; bahkan, proses-proses acak ini termasuk yang terpenting dalam teori probabilitas, dengan jumlah dan ragam penerapan yang luar biasa.</p>
+<h3 class="reader-level-3">Topik</h3>
+<ol>
+<li><a href="Introduction.html">Pendahuluan</a></li>
+<li><a href="Properties.html">Sifat dan Konstruksi</a></li>
+<li><a href="Stop.html">Waktu Henti</a></li>
+<li><a href="Inequalities.html">Pertidaksamaan</a></li>
+<li><a href="Convergence.html">Konvergensi</a></li>
+<li><a href="Backwards.html">Martingal Mundur</a></li>
+</ol>
+<h3 class="reader-level-3" id="External">Sumber dan Referensi</h3>
+<ul>
+<li><a class="external" href="http://www.google.com/search?q=Probability+and+Measure,+Billingsley" target="external">Probability and Measure</a>. Patrick Billingsley</li>
+<li><a class="external" href="http://www.google.com/search?q=Theory+of+Probability,+de+Finetti" target="external">Theory of Probability</a>, Bruno de Finetti</li>
+<li><a class="external" href="http://www.google.com/search?q=Stochastic+Processes,+Doob" target="external">Stochastic Processes</a>, Joseph Doob</li>
+<li><a class="external" href="http://www.google.com/search?q=Classical+Potential+and+its+Probabilistic+Counterpart,+Doob" target="external">Classical Potential Theory and Its Probabilistic Counterpart</a>, Joseph Doob</li>
+<li><a class="external" href="http://www.google.com/search?q=Probability:+Theory+and+Examples,+Durrett" target="external">Probability: Theory and Examples</a>. Richard Durrett</li>
+<li><a class="external" href="http://www.google.com/search?q=A+First+Course+in+Stochastic+Processes,+Karlin,+Taylor" target="external">A First Course in Stochastic Processes</a>. Samuel Karlin dan Howard Taylor</li>
+<li><a class="external" href="http://www.google.com/search?q=Stochastic+Processes,+Ross" target="external">Stochastic Processes</a>. Sheldon Ross</li>
+<li><a class="external" href="http://www.google.com/search?q=Advanced+Probability,+Sousi" target="external">Advanced Probability</a>, Perla Sousi</li>
+</ul>
+</main><footer>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="child"><a aria-label="Bagian 0: Dasar-Dasar" href="https://www.randomservices.org/random/foundations/index.html" title="Dasar-Dasar">0</a></li>
+<li class="child"><a aria-label="Bagian 1: Ruang Probabilitas" href="https://www.randomservices.org/random/prob/index.html" title="Ruang Probabilitas">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Distribusi" href="https://www.randomservices.org/random/dist/index.html" title="Distribusi">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Nilai Harapan" href="https://www.randomservices.org/random/expect/index.html" title="Nilai Harapan">3</a></li>
+<li class="child"><a aria-label="Bagian 4: Distribusi Khusus" href="https://www.randomservices.org/random/special/index.html" title="Distribusi Khusus">4</a></li>
+<li class="child"><a aria-label="Bagian 5: Sampel Acak" href="https://www.randomservices.org/random/sample/index.html" title="Sampel Acak">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Estimasi Titik" href="https://www.randomservices.org/random/point/index.html" title="Estimasi Titik">6</a></li>
+<li class="child"><a aria-label="Bagian 7: Estimasi Himpunan" href="https://www.randomservices.org/random/interval/index.html" title="Estimasi Himpunan">7</a></li>
+<li class="child"><a aria-label="Bagian 8: Pengujian Hipotesis" href="https://www.randomservices.org/random/hypothesis/index.html" title="Pengujian Hipotesis">8</a></li>
+<li class="child"><a aria-label="Bagian 9: Model Geometrik" href="https://www.randomservices.org/random/buffon/index.html" title="Model Geometrik">9</a></li>
+<li class="child"><a aria-label="Bagian 10: Percobaan Bernoulli" href="https://www.randomservices.org/random/bernoulli/index.html" title="Percobaan Bernoulli">10</a></li>
+<li class="child"><a aria-label="Bagian 11: Model Pengambilan Sampel Hingga" href="https://www.randomservices.org/random/urn/index.html" title="Model Pengambilan Sampel Hingga">11</a></li>
+<li class="child"><a aria-label="Bagian 12: Permainan Peluang" href="https://www.randomservices.org/random/games/index.html" title="Permainan Peluang">12</a></li>
+<li class="child"><a aria-label="Bagian 13: Proses Poisson" href="https://www.randomservices.org/random/poisson/index.html" title="Proses Poisson">13</a></li>
+<li class="child"><a aria-label="Bagian 14: Proses Pembaruan" href="https://www.randomservices.org/random/renewal/index.html" title="Proses Pembaruan">14</a></li>
+<li class="child"><a aria-label="Bagian 15: Proses Markov" href="../markov/index.html" title="Proses Markov">15</a></li>
+<li aria-current="page" aria-label="Bagian 16: Martingal (halaman saat ini)" class="current">16</li>
+<li class="child"><a aria-label="Bagian 17: Gerak Brown" href="../brown/index.html" title="Gerak Brown">17</a></li>
+</ol>
+<ul class="map">
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/data/index.html">Kumpulan Data</a></li>
+<li class="child"><a class="ancillary" href="https://www.randomservices.org/random/biographies/index.html"> Biografi</a></li>
+</ul>
+</footer>
+</body>
+</html>

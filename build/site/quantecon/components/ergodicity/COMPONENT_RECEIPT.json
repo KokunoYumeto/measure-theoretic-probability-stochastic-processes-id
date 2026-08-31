@@ -1,0 +1,285 @@
+{
+  "authority": {
+    "active_input_manifest_sha256_after": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "active_input_manifest_sha256_before": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "commit": "8b06e0aa5a438692445b2c896f9d238c5a7d5eb7",
+    "notebook_path": "authority\\quantecon\\notebook_snapshot\\continuous_time_mcs.notebooks-1e17c25c937f369544380f769eb9c1bc45d12d1a\\ergodicity.ipynb",
+    "notebook_sha256": "e9daac187c07d8ba4d63cb43df2bb1874afa69a6095f91dd9f14a27c674fa881",
+    "source_manifest_sha256_after": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_manifest_sha256_before": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_path": "authority\\quantecon\\source_snapshot\\continuous_time_mcs-8b06e0aa5a438692445b2c896f9d238c5a7d5eb7\\lectures\\ergodicity.md",
+    "source_sha256": "01c8f94e8016119107d6a3c14e688a0c1ed71690f678a2ae252703f7abccba84",
+    "tree": "f0f11e3bbc6bd23d6e4a447a7e05c0aaf0f7209e"
+  },
+  "built_at_utc": "2026-08-24T22:28:11.714146+00:00",
+  "code_cells": [
+    {
+      "execution_source_sha256": "051b372d71f8347804f0474ac3ff09d1cc154765ef922dd4a6692ae0cde9fca9",
+      "index": 1,
+      "replay": {
+        "figures": [],
+        "index": 1,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "051b372d71f8347804f0474ac3ff09d1cc154765ef922dd4a6692ae0cde9fca9"
+    },
+    {
+      "execution_source_sha256": "058d7b9d54b60eb553f03210bdb556b3a8cd56e3e179ab4dc80772c481b80a30",
+      "index": 2,
+      "replay": {
+        "figures": [],
+        "index": 2,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "058d7b9d54b60eb553f03210bdb556b3a8cd56e3e179ab4dc80772c481b80a30"
+    },
+    {
+      "execution_source_sha256": "65aa79e223cd5fc3f22431241528dd1588a5cdc7f20a4d1cccf7dd2fc9f42775",
+      "index": 3,
+      "replay": {
+        "figures": [],
+        "index": 3,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "65aa79e223cd5fc3f22431241528dd1588a5cdc7f20a4d1cccf7dd2fc9f42775"
+    },
+    {
+      "execution_source_sha256": "809d41c6522066ff4b34917e4dd287730930839c2beaf3ee38d9b7ee6e82b990",
+      "index": 4,
+      "replay": {
+        "figures": [
+          {
+            "bytes": 37187,
+            "index": 1,
+            "sha256": "cf9cecb59c93a0e74e9c6322d5497dcfe89a9fbe4d15223cc4a65d1c257fe0fc"
+          }
+        ],
+        "index": 4,
+        "stderr": "",
+        "stdout": ""
+      },
+      "source_sha256": "809d41c6522066ff4b34917e4dd287730930839c2beaf3ee38d9b7ee6e82b990"
+    }
+  ],
+  "corrections": [
+    {
+      "description": "Removed the runtime package installation and unused imports while preserving all four source code-cell positions and executable logic.",
+      "id": "ergodicity-offline-runtime-surface"
+    },
+    {
+      "description": "Corrected each plotted initial vector from total mass 1.01 to one by changing its dominant coordinate from 0.99 to 0.98.",
+      "id": "ergodicity-simplex-seed-normalization"
+    },
+    {
+      "description": "Added a mathematical text alternative and exposed the deterministic figure outside the collapsed hide-input code control.",
+      "id": "ergodicity-accessible-figure"
+    },
+    {
+      "description": "Replaced the invalid cancellation-prone Q-power argument and reversed accessibility premise with a nonnegative uniformization proof, including the zero-rate and diagonal cases.",
+      "id": "ergodicity-irreducibility-uniformization-proof"
+    },
+    {
+      "description": "Stated and proved Markov contraction for all signed ell_1 vectors before applying it to differences of distributions.",
+      "id": "ergodicity-l1-contractivity-domain"
+    },
+    {
+      "description": "Completed the strict contraction argument through positive/negative parts and overlap of their everywhere-positive images.",
+      "id": "ergodicity-strict-contractivity-proof"
+    },
+    {
+      "description": "Replaced the undefined P in the uniqueness contradiction with the everywhere-positive operator P_1.",
+      "id": "ergodicity-uniqueness-operator-notation"
+    },
+    {
+      "description": "Proved that the skeleton stationary law is stationary for every P_h before using that identity in the full-time convergence argument.",
+      "id": "ergodicity-skeleton-stationarity-closure"
+    },
+    {
+      "description": "Corrected the piecewise drift condition and added the summability/domain qualification needed when the Lyapunov function is unbounded.",
+      "id": "ergodicity-drift-domain-and-piecewise-scope"
+    },
+    {
+      "description": "Corrected the M/M/1 finite-set drift bound to M=lambda>0, required 0<lambda<mu, and retained epsilon=mu-lambda.",
+      "id": "ergodicity-mm1-drift-bound"
+    },
+    {
+      "description": "Made explicit that the exercise answer uses the unit's t>=0 definition of accessibility and does not automatically cover a positive-time convention.",
+      "id": "ergodicity-accessibility-time-convention"
+    },
+    {
+      "description": "Replaced division by a potentially zero stationary coordinate with the coordinate-zero equation and a valid induction proving every coordinate zero.",
+      "id": "ergodicity-pure-birth-induction"
+    },
+    {
+      "description": "Resolved every admitted equation, cross-unit, proof, and bibliography role into stable local links or complete human-readable citations.",
+      "id": "ergodicity-myst-references-and-citations"
+    },
+    {
+      "description": "Replayed all four code cells twice under the pinned offline runtime and bound the sole generated PNG by byte count and SHA-256.",
+      "id": "ergodicity-deterministic-executable-replay"
+    },
+    {
+      "description": "Removed remote runtime and branding while preserving authorship, CC BY-SA 4.0, exact model provenance, and non-endorsement.",
+      "id": "quantecon-branding-runtime"
+    }
+  ],
+  "file_count": 7,
+  "files": [
+    {
+      "bytes": 37187,
+      "path": "assets/ergodicity-cell-04-figure-01.png",
+      "sha256": "cf9cecb59c93a0e74e9c6322d5497dcfe89a9fbe4d15223cc4a65d1c257fe0fc"
+    },
+    {
+      "bytes": 49941,
+      "path": "lectures/ergodicity.html",
+      "sha256": "7bbc26405b7113241763a395f172343db5bb03f5cc4223ef8c6311483fc0a2e1"
+    },
+    {
+      "bytes": 1704911,
+      "path": "MathJax/tex-svg.js",
+      "sha256": "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
+    },
+    {
+      "bytes": 30306,
+      "path": "notebooks/ergodicity-authority.ipynb",
+      "sha256": "e9daac187c07d8ba4d63cb43df2bb1874afa69a6095f91dd9f14a27c674fa881"
+    },
+    {
+      "bytes": 3231,
+      "path": "notebooks/ergodicity-executed.ipynb",
+      "sha256": "9a7603eedcac9f18fd1200d83744b9a7fd5608e1f85fcab268b37106e3fde22e"
+    },
+    {
+      "bytes": 3366,
+      "path": "reader.css",
+      "sha256": "820f354bd797c5b5cb0e34248bc82c9b835e0fafb66fed75145f7c8180fa997c"
+    },
+    {
+      "bytes": 27023,
+      "path": "source-ergodicity.md",
+      "sha256": "5ae7f5f06befc5c71727da6c33678af5aac3fed523e9d547fb7a0577a1af61ad"
+    }
+  ],
+  "manifest_sha256": "b2c5d1423bd5d0a898f462e7fb9245f2d03661f7e704c13660c9c76abeed9983",
+  "numerical_qa": {
+    "path": "qa/QUANTECON_ERGODICITY_NUMERICAL_QA.json",
+    "sha256": "b2571f0c59f067a3b6a4dc0d696a990d3dacfa3b78967c0ee1e4c539fc984eb6",
+    "status": "pass"
+  },
+  "replay_match": true,
+  "runtime": {
+    "bytes": 253256,
+    "lock_sha256": "7b7009aa8abf346cd7dec13c50f03f413471e7e0585ed23563685fd4b1f86210",
+    "path": "tmp\\quantecon-offline-replay\\Scripts\\python.exe",
+    "sha256": "0e818a1f9a0b8fbd4e7cc458a07cb7de2ea02ea326e387699a33b92f151242cd",
+    "version": "Python 3.13.9"
+  },
+  "schema": "o009.quantecon-component.v1",
+  "status": "complete-unit-local",
+  "target": {
+    "path": "source/quantecon/lectures/ergodicity.md",
+    "sha256": "5ae7f5f06befc5c71727da6c33678af5aac3fed523e9d547fb7a0577a1af61ad",
+    "title": "Stasioneritas dan Ergodisitas"
+  },
+  "topology": {
+    "code_cells": 4,
+    "equation_refs": [
+      "allmocontract",
+      "asyms",
+      "chapkol_ct2",
+      "kfromqxx",
+      "kfromqxy",
+      "lambdafromq",
+      "mm1q",
+      "ptexpan",
+      "qkassum",
+      "rkassum",
+      "unifexp"
+    ],
+    "exercises": 3,
+    "headings": 15,
+    "labels": [
+      "equivirr",
+      "ergodicity-ex-1",
+      "ergodicity-ex-2",
+      "ergodicity-ex-3",
+      "perimposs",
+      "sdrift",
+      "sfinite",
+      "stabskel",
+      "statfromq",
+      "strictcontract",
+      "uniirr"
+    ],
+    "proof_directives": 14,
+    "solutions": 3,
+    "source_figures": 0,
+    "standalone_labels": []
+  },
+  "total_bytes": 1855965,
+  "unit_closure": {
+    "authoring_format": "MyST Markdown with paired Jupyter notebook witness",
+    "authority_code_cells": 4,
+    "authority_markdown_bytes": 18548,
+    "authority_markdown_sha256": "01c8f94e8016119107d6a3c14e688a0c1ed71690f678a2ae252703f7abccba84",
+    "authority_notebook_bytes": 30306,
+    "authority_notebook_cells": 44,
+    "authority_notebook_code_source_sha256": [
+      "b2d2562b1a941fc815498fd5e78c415464f44818be21d3ab1cdc7f91b1217060",
+      "c8eb3db2a1bb1ebe783f59942002db6a6cbae9ddec24da44570df9411f95b965",
+      "0bff4cf525d9178a3b127b0af49452fdc21102cb977bd5e6a770c664cf6446c6",
+      "1af9745c28653c29c861bb760cfe3cc7bd4fb06d72a5d779f96f9cb9beb272e4"
+    ],
+    "authority_notebook_sha256": "e9daac187c07d8ba4d63cb43df2bb1874afa69a6095f91dd9f14a27c674fa881",
+    "citation_keys": [
+      "lasota1994chaos",
+      "pichor2012stochastic",
+      "stachurski2009economic"
+    ],
+    "citation_occurrences": 3,
+    "cross_unit_dependencies": [
+      "kolmogorov_bwd.html#ejc_algo",
+      "kolmogorov_fwd.html#solvode",
+      "markov_prop.html#equation-chapkol_ct2",
+      "uc_mc_semigroups.html#equation-kfromqxx",
+      "uc_mc_semigroups.html#equation-kfromqxy",
+      "uc_mc_semigroups.html#equation-lambdafromq"
+    ],
+    "generated_media": [
+      {
+        "bytes": 37187,
+        "path": "assets/ergodicity-cell-04-figure-01.png",
+        "sha256": "cf9cecb59c93a0e74e9c6322d5497dcfe89a9fbe4d15223cc4a65d1c257fe0fc"
+      }
+    ],
+    "license": "CC BY-SA 4.0",
+    "local_runtime_assets": [
+      {
+        "path": "MathJax/tex-svg.js",
+        "sha256": "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
+      },
+      {
+        "path": "reader.css",
+        "sha256": "820f354bd797c5b5cb0e34248bc82c9b835e0fafb66fed75145f7c8180fa997c"
+      }
+    ],
+    "model_provenance": "OpenAI Codex gpt-5.6-sol, Ultra.",
+    "non_endorsement": true,
+    "target_code_cells": 4,
+    "target_code_source_sha256": [
+      "051b372d71f8347804f0474ac3ff09d1cc154765ef922dd4a6692ae0cde9fca9",
+      "058d7b9d54b60eb553f03210bdb556b3a8cd56e3e179ab4dc80772c481b80a30",
+      "65aa79e223cd5fc3f22431241528dd1588a5cdc7f20a4d1cccf7dd2fc9f42775",
+      "809d41c6522066ff4b34917e4dd287730930839c2beaf3ee38d9b7ee6e82b990"
+    ],
+    "target_markdown_bytes": 27023,
+    "target_markdown_sha256": "5ae7f5f06befc5c71727da6c33678af5aac3fed523e9d547fb7a0577a1af61ad",
+    "unit_generated_media": 1,
+    "unit_source_assets": 0
+  },
+  "unit_id": "unit.o009.quantecon.ctmc.stationarity-ergodicity"
+}

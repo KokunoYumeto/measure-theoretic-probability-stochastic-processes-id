@@ -1,0 +1,267 @@
+---
+title: "Nilai harapan bersyarat, filtrasi, dan penghentian opsional"
+lang: id-ID
+author:
+  - "Codex (materi asli, atas arahan pengguna)"
+authoring:
+  course_id: "o009"
+  unit_id: "o009-unit-conditional-martingale-lab"
+  lab_id: "o009-lab-conditional-martingale"
+  matched_theory_id: "o009-theory-random-conditional-martingale"
+  target_locale: "id-ID"
+  source_alias: "Random:expect/Conditional2.html;prob/Stop.html;martingales/Properties.html;martingales/Stop.html"
+  source_authority: "authority/random/RANDOM_AUTHORITY_RECEIPT.json"
+  source_authority_sha256: "ea3786a05f3a1ccf444818f17516ce85065c76759bfc8071d43fd8a98c643eb4"
+  source_page_sha256: "expect/Conditional2.html=98307993d76941808cc87b7d28dfd8b2e24325913471b07c3a350a52a54c87c2; prob/Stop.html=9d26e78a8ee2a5a14ade3708838298ef0ba51cf9cd9658602a4f26e73b68524d; martingales/Properties.html=0f8bc07eb5eda38e8d4f78e94ba71a7dae8e9b788278f9b6ed250b0f66dc3850; martingales/Stop.html=8d4c674bec0d19a253405dfe8c06e4b4062d6ef82330f945d50e2c494955a5af"
+  source_license_witness: "CC-BY-2.0 and CC-BY-1.0 witnesses are retained separately in RANDOM_AUTHORITY_RECEIPT.json"
+  source_relation: "original diagnostic informed by the cited theory pages; no source HTML bytes are copied"
+  adaptation_license: "CC-BY-4.0"
+  model_provenance: "OpenAI Codex gpt-5.6-sol, Ultra."
+  non_endorsement: "Edisi independen; tidak didukung atau disahkan oleh Kyle Siegrist, Random, atau penulis sumber."
+---
+
+::: {#o009-lab-conditional-martingale .lab}
+
+> **Asal konsep, hak, dan batasan.** Laboratorium ini adalah tulisan baru dalam
+> bahasa Indonesia yang menggunakan definisi dan istilah pada halaman resmi
+> *Random* karya Kyle Siegrist: [nilai harapan bersyarat](../expect/Conditional2.html),
+> [filtrasi dan waktu henti](../prob/Stop.html),
+> [sifat martingal](../martingales/Properties.html), dan
+> [penghentian opsional](../martingales/Stop.html). Empat berkas saksi
+> dibekukan di `authority/random` dengan SHA-256 yang dicatat pada paket
+> edisi. Tidak ada byte HTML sumber yang disalin ke dalam Rmd ini. Sumber
+> resmi mempertahankan dua saksi lisensi yang berbeda (CC BY 2.0 pada
+> `index.html` dan CC BY 1.0 pada `Credits.html`); saksi itu tidak digabungkan
+> atau diganti. Teks, kode, tabel, dan diagnostik asli pada berkas ini dilepas
+> dengan **CC BY 4.0**. Atribusi sumber, lisensi per komponen, pengungkapan
+> model, dan pernyataan non-endorsement ini harus tetap bersama setiap salinan.
+> Materi asli ini dihasilkan oleh **OpenAI Codex gpt-5.6-sol, Ultra.**, atas
+> arahan pengguna. Edisi independen ini tidak didukung atau disahkan oleh
+> Kyle Siegrist, Random, ataupun penulis sumber.
+
+## Tujuan dan model hingga {#o009-conditional-martingale-goals}
+
+Kita memakai ruang peluang hingga untuk membuat tiga operasi dapat diperiksa
+tanpa simulasi yang menyamarkan galat numerik. Ambil tiga inkremen koin
+adil
+
+$$
+\Omega_3=\{-1,+1\}^3,
+\qquad \mathbb P(\omega)=2^{-3},
+\qquad S_t=\xi_1+\cdots+\xi_t,
+$$
+
+dengan $S_0=0$ dan filtrasi alami
+$\mathcal F_t=\sigma(\xi_1,\ldots,\xi_t)$. Kita tetapkan
+$X=S_3^2$ dan $M_t=\mathbb E[X\mid\mathcal F_t]$. Karena $M_t$
+adalah nilai harapan bersyarat dari satu peubah terminal, sifat menara
+memberi $\mathbb E[M_{t+1}\mid\mathcal F_t]=M_t$; jadi $(M_t)$ adalah
+martingal.
+
+Kode pertama mengenumerasi semua delapan lintasan, menghitung $M_t$ secara
+langsung per atom filtrasi, lalu memeriksa identitas menara dan martingal.
+`set.seed` dicatat agar jejak pelaksanaan (termasuk urutan audit) dapat
+direproduksi; nilai utama di bawah ini berasal dari enumerasi lengkap, bukan
+dari perkiraan Monte Carlo.
+
+## Audit nilai harapan bersyarat {#o009-conditional-expectation-audit}
+
+::: {#o009-exercise-conditional-martingale-audit .exercise}
+Untuk model di atas, jalankan kode dan lakukan hal berikut.
+
+1. Jelaskan mengapa $M_0=3$, $M_1=3$ pada kedua atom waktu satu, dan
+   $M_2=S_2^2+1$.
+2. Periksa bahwa galat maksimum identitas menara dan galat maksimum
+   martingal berada di bawah toleransi numerik yang dicetak.
+3. Bandingkan penghentian berbatas $\tau_b=\inf\{t:S_t\in\{-2,2\}\}\wedge6$
+   dengan waktu henti $\tau_+=\inf\{t:S_t=1\}$. Jelaskan mengapa hasil
+   pada kolom `laju_kena_batas`, `rerata_S_tau_plus_terpotong`, dan
+   `rerata_S_hanya_yang_kena` bukan pelanggaran teorema penghentian opsional.
+:::
+
+```{r o009_lab_conditional_martingale, echo=TRUE}
+set.seed(20260829)
+seed = 20260829L
+tolerance = 1e-12
+
+# Semua atom Omega_3; pengacakan hanya untuk jejak urutan audit.
+paths3 = expand.grid(x1=c(-1L, 1L), x2=c(-1L, 1L), x3=c(-1L, 1L))
+paths3 = paths3[sample.int(nrow(paths3)), , drop=FALSE]
+paths3$S1 = paths3$x1
+paths3$S2 = paths3$x1 + paths3$x2
+paths3$S3 = paths3$x1 + paths3$x2 + paths3$x3
+paths3$X = paths3$S3^2
+
+# Nilai harapan bersyarat sebagai rata-rata pada atom filtrasi yang sama.
+atom_F1 = interaction(paths3$x1, drop=TRUE)
+atom_F2 = interaction(paths3$x1, paths3$x2, drop=TRUE)
+paths3$M0 = mean(paths3$X)
+paths3$M1 = ave(paths3$X, atom_F1, FUN=mean)
+paths3$M2 = ave(paths3$X, atom_F2, FUN=mean)
+paths3$M3 = paths3$X
+tower_0 = abs(mean(paths3$M1) - paths3$M0)
+tower_1 = max(abs(ave(paths3$M2, atom_F1, FUN=mean) - paths3$M1))
+tower_2 = max(abs(ave(paths3$M3, atom_F2, FUN=mean) - paths3$M2))
+tower_error = max(tower_0, tower_1, tower_2)
+martingale_error = tower_error
+conditional_error = max(
+  abs(paths3$M0 - 3),
+  abs(paths3$M1 - 3),
+  abs(paths3$M2 - (paths3$S2^2 + 1)),
+  abs(paths3$M3 - paths3$X)
+)
+
+# Nilai M_tau untuk waktu henti berbatas; tau_b <= 6 pada setiap atom.
+stop_value = function(increments, boundary, cap) {
+  s = 0L
+  for (n in seq_len(cap)) {
+    s = s + increments[n]
+    if (s %in% boundary) {
+      return(c(tau=as.numeric(n), value=as.numeric(s), hit=1))
+    }
+  }
+  c(tau=as.numeric(cap), value=as.numeric(s), hit=0)
+}
+
+paths6 = expand.grid(
+  x1=c(-1L, 1L), x2=c(-1L, 1L), x3=c(-1L, 1L),
+  x4=c(-1L, 1L), x5=c(-1L, 1L), x6=c(-1L, 1L)
+)
+bounded = t(apply(paths6[, c("x1", "x2", "x3", "x4", "x5", "x6")], 1,
+                  stop_value, boundary=c(-2L, 2L), cap=6L))
+bounded_mean = mean(bounded[, "value"])
+
+# Waktu henti tak berbatas tau_+; enumerasi hingga cap=12 menunjukkan
+# E[S_{tau_+ wedge 12}]=0, sedangkan nilai pada lintasan yang sudah kena
+# batas selalu 1. Hit rate eksak pada cap ini adalah 3172/4096.
+# Bangun Omega_12 secara eksplisit; 2^12=4096 masih kecil dan dapat
+# dienumerasi secara eksak.
+paths12 = expand.grid(
+  x1=c(-1L, 1L), x2=c(-1L, 1L), x3=c(-1L, 1L), x4=c(-1L, 1L),
+  x5=c(-1L, 1L), x6=c(-1L, 1L), x7=c(-1L, 1L), x8=c(-1L, 1L),
+  x9=c(-1L, 1L), x10=c(-1L, 1L), x11=c(-1L, 1L), x12=c(-1L, 1L)
+)
+failure = t(apply(paths12, 1, stop_value, boundary=1L, cap=12L))
+failure_hit_rate = mean(failure[, "hit"] == 1)
+failure_capped_mean = mean(failure[, "value"])
+failure_hit_only_mean = mean(failure[failure[, "hit"] == 1, "value"])
+failure_target_hit_rate = 3172 / 4096
+failure_naive_gap = failure_hit_only_mean - 0
+
+status = ifelse(
+  max(conditional_error, tower_error, martingale_error,
+      abs(bounded_mean), abs(failure_capped_mean),
+      abs(failure_hit_only_mean - 1),
+      abs(failure_hit_rate - failure_target_hit_rate)) <= tolerance,
+  "PASS", "FAIL"
+)
+hasil = data.frame(
+  seed=seed,
+  ruang_hingga="Omega_3 dan Omega_12",
+  E_X=sprintf("%.12f", paths3$M0[1]),
+  galat_bersyarat=sprintf("%.12f", conditional_error),
+  galat_menara=sprintf("%.12f", tower_error),
+  galat_martingal=sprintf("%.12f", martingale_error),
+  rerata_S_tau_b=sprintf("%.12f", bounded_mean),
+  target_E_S_tau_b=sprintf("%.12f", 0),
+  cap_tau_plus=12L,
+  laju_kena_batas=sprintf("%.12f", failure_hit_rate),
+  target_laju=sprintf("%.12f", failure_target_hit_rate),
+  rerata_S_tau_plus_terpotong=sprintf("%.12f", failure_capped_mean),
+  target_E_S_tau_plus_terpotong=sprintf("%.12f", 0),
+  rerata_S_hanya_yang_kena=sprintf("%.12f", failure_hit_only_mean),
+  target_S_tau_plus=sprintf("%.12f", 1),
+  celah_naif=sprintf("%.12f", failure_naive_gap),
+  toleransi=sprintf("%.12e", tolerance),
+  status=status,
+  stringsAsFactors=FALSE
+)
+write.csv(hasil, file="", row.names=FALSE, quote=FALSE)
+```
+
+<!-- O009_CONDITIONAL_MARTINGALE_EXECUTION_TABLE -->
+
+Untuk enumerasi hingga $12$, kode menghasilkan
+$$
+\mathbb P(\tau_+\le12)=\frac{3172}{4096}=0{,}774414062500,
+\qquad
+\mathbb E[S_{\tau_+\wedge12}]=0,
+\qquad
+\mathbb E[S_{\tau_+}\mid\tau_+\le12]=1.
+$$
+Baris `celah_naif=1` sengaja menampilkan kesalahan umum: merata-ratakan
+hanya lintasan yang sudah mengenai batas lalu menyebutnya sebagai
+$\mathbb E[S_{\tau_+\wedge12}]$. Penyebut yang benar mencakup lintasan
+yang belum berhenti; lintasan tersensor itu memberi kontribusi negatif yang
+meniadakan kontribusi lintasan yang telah mencapai $+1$.
+
+## Mengapa hipotesis penghentian opsional diperlukan {#o009-optional-stopping-diagnostic}
+
+Untuk $\tau_b$, waktu henti dibatasi oleh enam sehingga teorema
+penghentian opsional memberi $\mathbb E[S_{\tau_b}]=\mathbb E[S_0]=0$,
+dan enumerasi mengonfirmasi hal itu. Pada kasus kedua, $\tau_+$ berhingga
+hampir pasti tetapi tidak memiliki nilai harapan hingga; bahkan
+$S_{\tau_+}=1$ hampir pasti. Identitas untuk setiap pemotongan,
+$\mathbb E[S_{\tau_+\wedge N}]=0$, tidak boleh dilewatkan ke limit tanpa
+keterintegralan seragam atau hipotesis pengganti. Jadi diagnostik ini
+menunjukkan tepat hipotesis yang hilang; ia tidak mengklaim bahwa enumerasi
+hingga 12 membuktikan pernyataan asimtotik.
+
+::: {#o009-hint-conditional-martingale-audit-1 .hint}
+**Petunjuk 1.** Pada $\mathcal F_2$, nilai $S_2$ menentukan semua
+informasi yang diperlukan untuk merata-ratakan satu inkremen terakhir:
+$\mathbb E[(S_2+\xi_3)^2\mid\mathcal F_2]=S_2^2+1$.
+:::
+
+::: {#o009-hint-conditional-martingale-audit-2 .hint}
+**Petunjuk 2.** Untuk membuktikan identitas menara secara komputasional,
+kelompokkan `M2` menurut atom `F1`, lalu bandingkan rata-ratanya dengan `M1` pada
+setiap atom; jangan membandingkan hanya nilai harapan tak bersyarat.
+:::
+
+::: {#o009-hint-conditional-martingale-audit-3 .hint}
+**Petunjuk 3.** Pada kasus gagal, `hit=0` berarti nilai akhir pada cap harus
+tetap dimasukkan ke rata-rata. Nilai $1$ yang muncul pada semua lintasan
+`hit=1` adalah $S_{\tau_+}$, bukan rata-rata peubah yang terpotong.
+:::
+
+::: {#o009-answer-conditional-martingale-audit .answer}
+**Jawaban ringkas.** $M_0=\mathbb E[S_3^2]=3$, $M_1=3$, dan
+$M_2=S_2^2+1$. Semua galat identitas pada enumerasi berada di bawah
+$10^{-12}$, serta $\mathbb E[S_{\tau_b}]=0$. Untuk $\tau_+$, laju
+kena batas hingga cap adalah $3172/4096$, rata-rata terpotong tetap nol,
+dan rata-rata bersyarat pada lintasan yang kena batas adalah satu. Perbedaan
+itu adalah diagnostik penyensoran; aplikasi naif pada limit tak hingga tidak
+sah karena tidak ada kendali keterintegralan seragam.
+:::
+
+::: {#o009-solution-conditional-martingale-audit .solution}
+**Penyelesaian lengkap.** Karena $S_3=S_2+\xi_3$, dengan
+$\mathbb E\xi_3=0$ dan $\mathbb E\xi_3^2=1$, diperoleh
+$$
+M_2=\mathbb E[(S_2+\xi_3)^2\mid\mathcal F_2]=S_2^2+1.
+$$
+Mengondisikan sekali lagi pada $\mathcal F_1$ menghasilkan
+$M_1=\mathbb E[M_2\mid\mathcal F_1]=3$, dan akhirnya
+$M_0=\mathbb E[M_1]=3$. Enumerasi kode menghitung rata-rata pada setiap
+atom, sehingga ketiga galat menara dan galat martingal hanya berasal dari
+pembulatan titik-mengambang dan tercetak nol pada presisi yang diminta.
+
+Untuk $\tau_b$, semua jalur berhenti paling lambat pada waktu enam. Simetri
+yang menukar semua tanda membuat distribusi $S_{\tau_b}$ simetris, sehingga
+nilai harapannya nol; ini adalah penggunaan sah penghentian opsional untuk
+waktu henti berbatas.
+
+Untuk $\tau_+$, enumerasi $2^{12}$ jalur memberi 3.172 jalur yang telah
+mencapai $+1$ dan 924 jalur yang belum. Pada jalur pertama,
+$S_{\tau_+\wedge12}=1$; pada jalur kedua, nilai terminal genap yang
+negatif atau nol menyeimbangkannya, sehingga rata-rata keseluruhan tepat
+nol. Ketika cap dilepas, gerak acak simetris mencapai $+1$ hampir pasti,
+tetapi $\mathbb E\tau_+=\infty$ dan keluarga
+$(S_{\tau_+\wedge N})_{N\ge1}$ tidak terintegralkan seragam. Karena itu,
+langkah $N\to\infty$ di dalam nilai harapan tidak dibenarkan. Inilah
+hipotesis yang harus diaudit pada
+[jembatan audit hipotesis](../original/04-audit-hipotesis-proses-stokastik.html#unit.o009.original.mastery.hypothesis-audits.02), bukan kontradiksi terhadap versi berbatas pada halaman sumber.
+:::
+
+:::

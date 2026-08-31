@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (materi asli, atas arahan pengguna)" name="author"/>
+<title>Nilai harapan bersyarat, filtrasi, dan penghentian opsional</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Nilai harapan bersyarat, filtrasi, dan penghentian
+opsional</h1>
+<p class="author">Codex (materi asli, atas arahan pengguna)</p>
+</header><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../markov/Recurrence.html">Keadaan transien dan rekuren</a> · <a href="../markov/Periodicity.html">Periodisitas</a> · <a href="../markov/Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="../brown/Standard.html">Gerak Brown standar</a> · <a href="../brown/Drift.html">Gerak Brown dengan hanyutan</a> · <a href="../brown/Bridge.html">Jembatan Brown</a> · <a href="../brown/Geometric.html">Gerak Brown geometrik</a> · <a href="../martingales/index.html">Ikhtisar martingal</a> · <a href="../markov/index.html">Ikhtisar proses Markov</a> · <a href="../brown/index.html">Ikhtisar gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a> · <a href="01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a></nav><main>
+<div class="lab" id="o009-lab-conditional-martingale">
+<blockquote>
+<p><strong>Asal konsep, hak, dan batasan.</strong> Laboratorium ini
+adalah tulisan baru dalam bahasa Indonesia yang menggunakan definisi dan
+istilah pada halaman resmi <em>Random</em> karya Kyle Siegrist: <a href="../expect/Conditional2.html">nilai harapan bersyarat</a>, <a href="../prob/Stop.html">filtrasi dan waktu henti</a>, <a href="../martingales/Properties.html">sifat martingal</a>, dan <a href="../martingales/Stop.html">penghentian opsional</a>. Empat berkas
+saksi dibekukan di <code>authority/random</code> dengan SHA-256 yang
+dicatat pada paket edisi. Tidak ada byte HTML sumber yang disalin ke
+dalam Rmd ini. Sumber resmi mempertahankan dua saksi lisensi yang
+berbeda (CC BY 2.0 pada <code>index.html</code> dan CC BY 1.0 pada
+<code>Credits.html</code>); saksi itu tidak digabungkan atau diganti.
+Teks, kode, tabel, dan diagnostik asli pada berkas ini dilepas dengan
+<strong>CC BY 4.0</strong>. Atribusi sumber, lisensi per komponen,
+pengungkapan model, dan pernyataan non-endorsement ini harus tetap
+bersama setiap salinan. Materi asli ini dihasilkan oleh <strong>OpenAI
+Codex gpt-5.6-sol, Ultra.</strong>, atas arahan pengguna. Edisi
+independen ini tidak didukung atau disahkan oleh Kyle Siegrist, Random,
+ataupun penulis sumber.</p>
+</blockquote>
+<h2 id="o009-conditional-martingale-goals">Tujuan dan model hingga</h2>
+<p>Kita memakai ruang peluang hingga untuk membuat tiga operasi dapat
+diperiksa tanpa simulasi yang menyamarkan galat numerik. Ambil tiga
+inkremen koin adil</p>
+<p><span class="math display">\[
+\Omega_3=\{-1,+1\}^3,
+\qquad \mathbb P(\omega)=2^{-3},
+\qquad S_t=\xi_1+\cdots+\xi_t,
+\]</span></p>
+<p>dengan <span class="math inline">\(S_0=0\)</span> dan filtrasi alami
+<span class="math inline">\(\mathcal
+F_t=\sigma(\xi_1,\ldots,\xi_t)\)</span>. Kita tetapkan <span class="math inline">\(X=S_3^2\)</span> dan <span class="math inline">\(M_t=\mathbb E[X\mid\mathcal F_t]\)</span>. Karena
+<span class="math inline">\(M_t\)</span> adalah nilai harapan bersyarat
+dari satu peubah terminal, sifat menara memberi <span class="math inline">\(\mathbb E[M_{t+1}\mid\mathcal F_t]=M_t\)</span>;
+jadi <span class="math inline">\((M_t)\)</span> adalah martingal.</p>
+<p>Kode pertama mengenumerasi semua delapan lintasan, menghitung <span class="math inline">\(M_t\)</span> secara langsung per atom filtrasi,
+lalu memeriksa identitas menara dan martingal. <code>set.seed</code>
+dicatat agar jejak pelaksanaan (termasuk urutan audit) dapat
+direproduksi; nilai utama di bawah ini berasal dari enumerasi lengkap,
+bukan dari perkiraan Monte Carlo.</p>
+<h2 id="o009-conditional-expectation-audit">Audit nilai harapan
+bersyarat</h2>
+<div class="exercise" id="o009-exercise-conditional-martingale-audit">
+<p>Untuk model di atas, jalankan kode dan lakukan hal berikut.</p>
+<ol type="1">
+<li>Jelaskan mengapa <span class="math inline">\(M_0=3\)</span>, <span class="math inline">\(M_1=3\)</span> pada kedua atom waktu satu, dan
+<span class="math inline">\(M_2=S_2^2+1\)</span>.</li>
+<li>Periksa bahwa galat maksimum identitas menara dan galat maksimum
+martingal berada di bawah toleransi numerik yang dicetak.</li>
+<li>Bandingkan penghentian berbatas <span class="math inline">\(\tau_b=\inf\{t:S_t\in\{-2,2\}\}\wedge6\)</span>
+dengan waktu henti <span class="math inline">\(\tau_+=\inf\{t:S_t=1\}\)</span>. Jelaskan mengapa
+hasil pada kolom <code>laju_kena_batas</code>,
+<code>rerata_S_tau_plus_terpotong</code>, dan
+<code>rerata_S_hanya_yang_kena</code> bukan pelanggaran teorema
+penghentian opsional.</li>
+</ol>
+</div>
+<div class="sourceCode" id="o009_lab_conditional_martingale"><pre class="sourceCode r"><code class="sourceCode r"><span id="o009_lab_conditional_martingale-1"><a aria-hidden="true" href="#o009_lab_conditional_martingale-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260829</span>)</span>
+<span id="o009_lab_conditional_martingale-2"><a aria-hidden="true" href="#o009_lab_conditional_martingale-2" tabindex="-1"></a>seed <span class="ot">=</span> <span class="dv">20260829</span><span class="dt">L</span></span>
+<span id="o009_lab_conditional_martingale-3"><a aria-hidden="true" href="#o009_lab_conditional_martingale-3" tabindex="-1"></a>tolerance <span class="ot">=</span> <span class="fl">1e-12</span></span>
+<span id="o009_lab_conditional_martingale-4"><a aria-hidden="true" href="#o009_lab_conditional_martingale-4" tabindex="-1"></a></span>
+<span id="o009_lab_conditional_martingale-5"><a aria-hidden="true" href="#o009_lab_conditional_martingale-5" tabindex="-1"></a><span class="co"># Semua atom Omega_3; pengacakan hanya untuk jejak urutan audit.</span></span>
+<span id="o009_lab_conditional_martingale-6"><a aria-hidden="true" href="#o009_lab_conditional_martingale-6" tabindex="-1"></a>paths3 <span class="ot">=</span> <span class="fu">expand.grid</span>(<span class="at">x1=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x2=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x3=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>))</span>
+<span id="o009_lab_conditional_martingale-7"><a aria-hidden="true" href="#o009_lab_conditional_martingale-7" tabindex="-1"></a>paths3 <span class="ot">=</span> paths3[<span class="fu">sample.int</span>(<span class="fu">nrow</span>(paths3)), , drop<span class="ot">=</span><span class="cn">FALSE</span>]</span>
+<span id="o009_lab_conditional_martingale-8"><a aria-hidden="true" href="#o009_lab_conditional_martingale-8" tabindex="-1"></a>paths3<span class="sc">$</span>S1 <span class="ot">=</span> paths3<span class="sc">$</span>x1</span>
+<span id="o009_lab_conditional_martingale-9"><a aria-hidden="true" href="#o009_lab_conditional_martingale-9" tabindex="-1"></a>paths3<span class="sc">$</span>S2 <span class="ot">=</span> paths3<span class="sc">$</span>x1 <span class="sc">+</span> paths3<span class="sc">$</span>x2</span>
+<span id="o009_lab_conditional_martingale-10"><a aria-hidden="true" href="#o009_lab_conditional_martingale-10" tabindex="-1"></a>paths3<span class="sc">$</span>S3 <span class="ot">=</span> paths3<span class="sc">$</span>x1 <span class="sc">+</span> paths3<span class="sc">$</span>x2 <span class="sc">+</span> paths3<span class="sc">$</span>x3</span>
+<span id="o009_lab_conditional_martingale-11"><a aria-hidden="true" href="#o009_lab_conditional_martingale-11" tabindex="-1"></a>paths3<span class="sc">$</span>X <span class="ot">=</span> paths3<span class="sc">$</span>S3<span class="sc">^</span><span class="dv">2</span></span>
+<span id="o009_lab_conditional_martingale-12"><a aria-hidden="true" href="#o009_lab_conditional_martingale-12" tabindex="-1"></a></span>
+<span id="o009_lab_conditional_martingale-13"><a aria-hidden="true" href="#o009_lab_conditional_martingale-13" tabindex="-1"></a><span class="co"># Nilai harapan bersyarat sebagai rata-rata pada atom filtrasi yang sama.</span></span>
+<span id="o009_lab_conditional_martingale-14"><a aria-hidden="true" href="#o009_lab_conditional_martingale-14" tabindex="-1"></a>atom_F1 <span class="ot">=</span> <span class="fu">interaction</span>(paths3<span class="sc">$</span>x1, <span class="at">drop=</span><span class="cn">TRUE</span>)</span>
+<span id="o009_lab_conditional_martingale-15"><a aria-hidden="true" href="#o009_lab_conditional_martingale-15" tabindex="-1"></a>atom_F2 <span class="ot">=</span> <span class="fu">interaction</span>(paths3<span class="sc">$</span>x1, paths3<span class="sc">$</span>x2, <span class="at">drop=</span><span class="cn">TRUE</span>)</span>
+<span id="o009_lab_conditional_martingale-16"><a aria-hidden="true" href="#o009_lab_conditional_martingale-16" tabindex="-1"></a>paths3<span class="sc">$</span>M0 <span class="ot">=</span> <span class="fu">mean</span>(paths3<span class="sc">$</span>X)</span>
+<span id="o009_lab_conditional_martingale-17"><a aria-hidden="true" href="#o009_lab_conditional_martingale-17" tabindex="-1"></a>paths3<span class="sc">$</span>M1 <span class="ot">=</span> <span class="fu">ave</span>(paths3<span class="sc">$</span>X, atom_F1, <span class="at">FUN=</span>mean)</span>
+<span id="o009_lab_conditional_martingale-18"><a aria-hidden="true" href="#o009_lab_conditional_martingale-18" tabindex="-1"></a>paths3<span class="sc">$</span>M2 <span class="ot">=</span> <span class="fu">ave</span>(paths3<span class="sc">$</span>X, atom_F2, <span class="at">FUN=</span>mean)</span>
+<span id="o009_lab_conditional_martingale-19"><a aria-hidden="true" href="#o009_lab_conditional_martingale-19" tabindex="-1"></a>paths3<span class="sc">$</span>M3 <span class="ot">=</span> paths3<span class="sc">$</span>X</span>
+<span id="o009_lab_conditional_martingale-20"><a aria-hidden="true" href="#o009_lab_conditional_martingale-20" tabindex="-1"></a>tower_0 <span class="ot">=</span> <span class="fu">abs</span>(<span class="fu">mean</span>(paths3<span class="sc">$</span>M1) <span class="sc">-</span> paths3<span class="sc">$</span>M0)</span>
+<span id="o009_lab_conditional_martingale-21"><a aria-hidden="true" href="#o009_lab_conditional_martingale-21" tabindex="-1"></a>tower_1 <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">ave</span>(paths3<span class="sc">$</span>M2, atom_F1, <span class="at">FUN=</span>mean) <span class="sc">-</span> paths3<span class="sc">$</span>M1))</span>
+<span id="o009_lab_conditional_martingale-22"><a aria-hidden="true" href="#o009_lab_conditional_martingale-22" tabindex="-1"></a>tower_2 <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">abs</span>(<span class="fu">ave</span>(paths3<span class="sc">$</span>M3, atom_F2, <span class="at">FUN=</span>mean) <span class="sc">-</span> paths3<span class="sc">$</span>M2))</span>
+<span id="o009_lab_conditional_martingale-23"><a aria-hidden="true" href="#o009_lab_conditional_martingale-23" tabindex="-1"></a>tower_error <span class="ot">=</span> <span class="fu">max</span>(tower_0, tower_1, tower_2)</span>
+<span id="o009_lab_conditional_martingale-24"><a aria-hidden="true" href="#o009_lab_conditional_martingale-24" tabindex="-1"></a>martingale_error <span class="ot">=</span> tower_error</span>
+<span id="o009_lab_conditional_martingale-25"><a aria-hidden="true" href="#o009_lab_conditional_martingale-25" tabindex="-1"></a>conditional_error <span class="ot">=</span> <span class="fu">max</span>(</span>
+<span id="o009_lab_conditional_martingale-26"><a aria-hidden="true" href="#o009_lab_conditional_martingale-26" tabindex="-1"></a>  <span class="fu">abs</span>(paths3<span class="sc">$</span>M0 <span class="sc">-</span> <span class="dv">3</span>),</span>
+<span id="o009_lab_conditional_martingale-27"><a aria-hidden="true" href="#o009_lab_conditional_martingale-27" tabindex="-1"></a>  <span class="fu">abs</span>(paths3<span class="sc">$</span>M1 <span class="sc">-</span> <span class="dv">3</span>),</span>
+<span id="o009_lab_conditional_martingale-28"><a aria-hidden="true" href="#o009_lab_conditional_martingale-28" tabindex="-1"></a>  <span class="fu">abs</span>(paths3<span class="sc">$</span>M2 <span class="sc">-</span> (paths3<span class="sc">$</span>S2<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span>)),</span>
+<span id="o009_lab_conditional_martingale-29"><a aria-hidden="true" href="#o009_lab_conditional_martingale-29" tabindex="-1"></a>  <span class="fu">abs</span>(paths3<span class="sc">$</span>M3 <span class="sc">-</span> paths3<span class="sc">$</span>X)</span>
+<span id="o009_lab_conditional_martingale-30"><a aria-hidden="true" href="#o009_lab_conditional_martingale-30" tabindex="-1"></a>)</span>
+<span id="o009_lab_conditional_martingale-31"><a aria-hidden="true" href="#o009_lab_conditional_martingale-31" tabindex="-1"></a></span>
+<span id="o009_lab_conditional_martingale-32"><a aria-hidden="true" href="#o009_lab_conditional_martingale-32" tabindex="-1"></a><span class="co"># Nilai M_tau untuk waktu henti berbatas; tau_b &lt;= 6 pada setiap atom.</span></span>
+<span id="o009_lab_conditional_martingale-33"><a aria-hidden="true" href="#o009_lab_conditional_martingale-33" tabindex="-1"></a>stop_value <span class="ot">=</span> <span class="cf">function</span>(increments, boundary, cap) {</span>
+<span id="o009_lab_conditional_martingale-34"><a aria-hidden="true" href="#o009_lab_conditional_martingale-34" tabindex="-1"></a>  s <span class="ot">=</span> <span class="dv">0</span><span class="dt">L</span></span>
+<span id="o009_lab_conditional_martingale-35"><a aria-hidden="true" href="#o009_lab_conditional_martingale-35" tabindex="-1"></a>  <span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">seq_len</span>(cap)) {</span>
+<span id="o009_lab_conditional_martingale-36"><a aria-hidden="true" href="#o009_lab_conditional_martingale-36" tabindex="-1"></a>    s <span class="ot">=</span> s <span class="sc">+</span> increments[n]</span>
+<span id="o009_lab_conditional_martingale-37"><a aria-hidden="true" href="#o009_lab_conditional_martingale-37" tabindex="-1"></a>    <span class="cf">if</span> (s <span class="sc">%in%</span> boundary) {</span>
+<span id="o009_lab_conditional_martingale-38"><a aria-hidden="true" href="#o009_lab_conditional_martingale-38" tabindex="-1"></a>      <span class="fu">return</span>(<span class="fu">c</span>(<span class="at">tau=</span><span class="fu">as.numeric</span>(n), <span class="at">value=</span><span class="fu">as.numeric</span>(s), <span class="at">hit=</span><span class="dv">1</span>))</span>
+<span id="o009_lab_conditional_martingale-39"><a aria-hidden="true" href="#o009_lab_conditional_martingale-39" tabindex="-1"></a>    }</span>
+<span id="o009_lab_conditional_martingale-40"><a aria-hidden="true" href="#o009_lab_conditional_martingale-40" tabindex="-1"></a>  }</span>
+<span id="o009_lab_conditional_martingale-41"><a aria-hidden="true" href="#o009_lab_conditional_martingale-41" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">tau=</span><span class="fu">as.numeric</span>(cap), <span class="at">value=</span><span class="fu">as.numeric</span>(s), <span class="at">hit=</span><span class="dv">0</span>)</span>
+<span id="o009_lab_conditional_martingale-42"><a aria-hidden="true" href="#o009_lab_conditional_martingale-42" tabindex="-1"></a>}</span>
+<span id="o009_lab_conditional_martingale-43"><a aria-hidden="true" href="#o009_lab_conditional_martingale-43" tabindex="-1"></a></span>
+<span id="o009_lab_conditional_martingale-44"><a aria-hidden="true" href="#o009_lab_conditional_martingale-44" tabindex="-1"></a>paths6 <span class="ot">=</span> <span class="fu">expand.grid</span>(</span>
+<span id="o009_lab_conditional_martingale-45"><a aria-hidden="true" href="#o009_lab_conditional_martingale-45" tabindex="-1"></a>  <span class="at">x1=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x2=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x3=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>),</span>
+<span id="o009_lab_conditional_martingale-46"><a aria-hidden="true" href="#o009_lab_conditional_martingale-46" tabindex="-1"></a>  <span class="at">x4=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x5=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x6=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>)</span>
+<span id="o009_lab_conditional_martingale-47"><a aria-hidden="true" href="#o009_lab_conditional_martingale-47" tabindex="-1"></a>)</span>
+<span id="o009_lab_conditional_martingale-48"><a aria-hidden="true" href="#o009_lab_conditional_martingale-48" tabindex="-1"></a>bounded <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">apply</span>(paths6[, <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span>, <span class="st">"x4"</span>, <span class="st">"x5"</span>, <span class="st">"x6"</span>)], <span class="dv">1</span>,</span>
+<span id="o009_lab_conditional_martingale-49"><a aria-hidden="true" href="#o009_lab_conditional_martingale-49" tabindex="-1"></a>                  stop_value, <span class="at">boundary=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span><span class="dt">L</span>, <span class="dv">2</span><span class="dt">L</span>), <span class="at">cap=</span><span class="dv">6</span><span class="dt">L</span>))</span>
+<span id="o009_lab_conditional_martingale-50"><a aria-hidden="true" href="#o009_lab_conditional_martingale-50" tabindex="-1"></a>bounded_mean <span class="ot">=</span> <span class="fu">mean</span>(bounded[, <span class="st">"value"</span>])</span>
+<span id="o009_lab_conditional_martingale-51"><a aria-hidden="true" href="#o009_lab_conditional_martingale-51" tabindex="-1"></a></span>
+<span id="o009_lab_conditional_martingale-52"><a aria-hidden="true" href="#o009_lab_conditional_martingale-52" tabindex="-1"></a><span class="co"># Waktu henti tak berbatas tau_+; enumerasi hingga cap=12 menunjukkan</span></span>
+<span id="o009_lab_conditional_martingale-53"><a aria-hidden="true" href="#o009_lab_conditional_martingale-53" tabindex="-1"></a><span class="co"># E[S_{tau_+ wedge 12}]=0, sedangkan nilai pada lintasan yang sudah kena</span></span>
+<span id="o009_lab_conditional_martingale-54"><a aria-hidden="true" href="#o009_lab_conditional_martingale-54" tabindex="-1"></a><span class="co"># batas selalu 1. Hit rate eksak pada cap ini adalah 3172/4096.</span></span>
+<span id="o009_lab_conditional_martingale-55"><a aria-hidden="true" href="#o009_lab_conditional_martingale-55" tabindex="-1"></a><span class="co"># Bangun Omega_12 secara eksplisit; 2^12=4096 masih kecil dan dapat</span></span>
+<span id="o009_lab_conditional_martingale-56"><a aria-hidden="true" href="#o009_lab_conditional_martingale-56" tabindex="-1"></a><span class="co"># dienumerasi secara eksak.</span></span>
+<span id="o009_lab_conditional_martingale-57"><a aria-hidden="true" href="#o009_lab_conditional_martingale-57" tabindex="-1"></a>paths12 <span class="ot">=</span> <span class="fu">expand.grid</span>(</span>
+<span id="o009_lab_conditional_martingale-58"><a aria-hidden="true" href="#o009_lab_conditional_martingale-58" tabindex="-1"></a>  <span class="at">x1=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x2=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x3=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x4=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>),</span>
+<span id="o009_lab_conditional_martingale-59"><a aria-hidden="true" href="#o009_lab_conditional_martingale-59" tabindex="-1"></a>  <span class="at">x5=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x6=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x7=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x8=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>),</span>
+<span id="o009_lab_conditional_martingale-60"><a aria-hidden="true" href="#o009_lab_conditional_martingale-60" tabindex="-1"></a>  <span class="at">x9=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x10=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x11=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>), <span class="at">x12=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>, <span class="dv">1</span><span class="dt">L</span>)</span>
+<span id="o009_lab_conditional_martingale-61"><a aria-hidden="true" href="#o009_lab_conditional_martingale-61" tabindex="-1"></a>)</span>
+<span id="o009_lab_conditional_martingale-62"><a aria-hidden="true" href="#o009_lab_conditional_martingale-62" tabindex="-1"></a>failure <span class="ot">=</span> <span class="fu">t</span>(<span class="fu">apply</span>(paths12, <span class="dv">1</span>, stop_value, <span class="at">boundary=</span><span class="dv">1</span><span class="dt">L</span>, <span class="at">cap=</span><span class="dv">12</span><span class="dt">L</span>))</span>
+<span id="o009_lab_conditional_martingale-63"><a aria-hidden="true" href="#o009_lab_conditional_martingale-63" tabindex="-1"></a>failure_hit_rate <span class="ot">=</span> <span class="fu">mean</span>(failure[, <span class="st">"hit"</span>] <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="o009_lab_conditional_martingale-64"><a aria-hidden="true" href="#o009_lab_conditional_martingale-64" tabindex="-1"></a>failure_capped_mean <span class="ot">=</span> <span class="fu">mean</span>(failure[, <span class="st">"value"</span>])</span>
+<span id="o009_lab_conditional_martingale-65"><a aria-hidden="true" href="#o009_lab_conditional_martingale-65" tabindex="-1"></a>failure_hit_only_mean <span class="ot">=</span> <span class="fu">mean</span>(failure[failure[, <span class="st">"hit"</span>] <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"value"</span>])</span>
+<span id="o009_lab_conditional_martingale-66"><a aria-hidden="true" href="#o009_lab_conditional_martingale-66" tabindex="-1"></a>failure_target_hit_rate <span class="ot">=</span> <span class="dv">3172</span> <span class="sc">/</span> <span class="dv">4096</span></span>
+<span id="o009_lab_conditional_martingale-67"><a aria-hidden="true" href="#o009_lab_conditional_martingale-67" tabindex="-1"></a>failure_naive_gap <span class="ot">=</span> failure_hit_only_mean <span class="sc">-</span> <span class="dv">0</span></span>
+<span id="o009_lab_conditional_martingale-68"><a aria-hidden="true" href="#o009_lab_conditional_martingale-68" tabindex="-1"></a></span>
+<span id="o009_lab_conditional_martingale-69"><a aria-hidden="true" href="#o009_lab_conditional_martingale-69" tabindex="-1"></a>status <span class="ot">=</span> <span class="fu">ifelse</span>(</span>
+<span id="o009_lab_conditional_martingale-70"><a aria-hidden="true" href="#o009_lab_conditional_martingale-70" tabindex="-1"></a>  <span class="fu">max</span>(conditional_error, tower_error, martingale_error,</span>
+<span id="o009_lab_conditional_martingale-71"><a aria-hidden="true" href="#o009_lab_conditional_martingale-71" tabindex="-1"></a>      <span class="fu">abs</span>(bounded_mean), <span class="fu">abs</span>(failure_capped_mean),</span>
+<span id="o009_lab_conditional_martingale-72"><a aria-hidden="true" href="#o009_lab_conditional_martingale-72" tabindex="-1"></a>      <span class="fu">abs</span>(failure_hit_only_mean <span class="sc">-</span> <span class="dv">1</span>),</span>
+<span id="o009_lab_conditional_martingale-73"><a aria-hidden="true" href="#o009_lab_conditional_martingale-73" tabindex="-1"></a>      <span class="fu">abs</span>(failure_hit_rate <span class="sc">-</span> failure_target_hit_rate)) <span class="sc">&lt;=</span> tolerance,</span>
+<span id="o009_lab_conditional_martingale-74"><a aria-hidden="true" href="#o009_lab_conditional_martingale-74" tabindex="-1"></a>  <span class="st">"PASS"</span>, <span class="st">"FAIL"</span></span>
+<span id="o009_lab_conditional_martingale-75"><a aria-hidden="true" href="#o009_lab_conditional_martingale-75" tabindex="-1"></a>)</span>
+<span id="o009_lab_conditional_martingale-76"><a aria-hidden="true" href="#o009_lab_conditional_martingale-76" tabindex="-1"></a>hasil <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="o009_lab_conditional_martingale-77"><a aria-hidden="true" href="#o009_lab_conditional_martingale-77" tabindex="-1"></a>  <span class="at">seed=</span>seed,</span>
+<span id="o009_lab_conditional_martingale-78"><a aria-hidden="true" href="#o009_lab_conditional_martingale-78" tabindex="-1"></a>  <span class="at">ruang_hingga=</span><span class="st">"Omega_3 dan Omega_12"</span>,</span>
+<span id="o009_lab_conditional_martingale-79"><a aria-hidden="true" href="#o009_lab_conditional_martingale-79" tabindex="-1"></a>  <span class="at">E_X=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, paths3<span class="sc">$</span>M0[<span class="dv">1</span>]),</span>
+<span id="o009_lab_conditional_martingale-80"><a aria-hidden="true" href="#o009_lab_conditional_martingale-80" tabindex="-1"></a>  <span class="at">galat_bersyarat=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, conditional_error),</span>
+<span id="o009_lab_conditional_martingale-81"><a aria-hidden="true" href="#o009_lab_conditional_martingale-81" tabindex="-1"></a>  <span class="at">galat_menara=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, tower_error),</span>
+<span id="o009_lab_conditional_martingale-82"><a aria-hidden="true" href="#o009_lab_conditional_martingale-82" tabindex="-1"></a>  <span class="at">galat_martingal=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, martingale_error),</span>
+<span id="o009_lab_conditional_martingale-83"><a aria-hidden="true" href="#o009_lab_conditional_martingale-83" tabindex="-1"></a>  <span class="at">rerata_S_tau_b=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, bounded_mean),</span>
+<span id="o009_lab_conditional_martingale-84"><a aria-hidden="true" href="#o009_lab_conditional_martingale-84" tabindex="-1"></a>  <span class="at">target_E_S_tau_b=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, <span class="dv">0</span>),</span>
+<span id="o009_lab_conditional_martingale-85"><a aria-hidden="true" href="#o009_lab_conditional_martingale-85" tabindex="-1"></a>  <span class="at">cap_tau_plus=</span><span class="dv">12</span><span class="dt">L</span>,</span>
+<span id="o009_lab_conditional_martingale-86"><a aria-hidden="true" href="#o009_lab_conditional_martingale-86" tabindex="-1"></a>  <span class="at">laju_kena_batas=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, failure_hit_rate),</span>
+<span id="o009_lab_conditional_martingale-87"><a aria-hidden="true" href="#o009_lab_conditional_martingale-87" tabindex="-1"></a>  <span class="at">target_laju=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, failure_target_hit_rate),</span>
+<span id="o009_lab_conditional_martingale-88"><a aria-hidden="true" href="#o009_lab_conditional_martingale-88" tabindex="-1"></a>  <span class="at">rerata_S_tau_plus_terpotong=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, failure_capped_mean),</span>
+<span id="o009_lab_conditional_martingale-89"><a aria-hidden="true" href="#o009_lab_conditional_martingale-89" tabindex="-1"></a>  <span class="at">target_E_S_tau_plus_terpotong=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, <span class="dv">0</span>),</span>
+<span id="o009_lab_conditional_martingale-90"><a aria-hidden="true" href="#o009_lab_conditional_martingale-90" tabindex="-1"></a>  <span class="at">rerata_S_hanya_yang_kena=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, failure_hit_only_mean),</span>
+<span id="o009_lab_conditional_martingale-91"><a aria-hidden="true" href="#o009_lab_conditional_martingale-91" tabindex="-1"></a>  <span class="at">target_S_tau_plus=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, <span class="dv">1</span>),</span>
+<span id="o009_lab_conditional_martingale-92"><a aria-hidden="true" href="#o009_lab_conditional_martingale-92" tabindex="-1"></a>  <span class="at">celah_naif=</span><span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, failure_naive_gap),</span>
+<span id="o009_lab_conditional_martingale-93"><a aria-hidden="true" href="#o009_lab_conditional_martingale-93" tabindex="-1"></a>  <span class="at">toleransi=</span><span class="fu">sprintf</span>(<span class="st">"%.12e"</span>, tolerance),</span>
+<span id="o009_lab_conditional_martingale-94"><a aria-hidden="true" href="#o009_lab_conditional_martingale-94" tabindex="-1"></a>  <span class="at">status=</span>status,</span>
+<span id="o009_lab_conditional_martingale-95"><a aria-hidden="true" href="#o009_lab_conditional_martingale-95" tabindex="-1"></a>  <span class="at">stringsAsFactors=</span><span class="cn">FALSE</span></span>
+<span id="o009_lab_conditional_martingale-96"><a aria-hidden="true" href="#o009_lab_conditional_martingale-96" tabindex="-1"></a>)</span>
+<span id="o009_lab_conditional_martingale-97"><a aria-hidden="true" href="#o009_lab_conditional_martingale-97" tabindex="-1"></a><span class="fu">write.csv</span>(hasil, <span class="at">file=</span><span class="st">""</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>, <span class="at">quote=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<table id="o009-results-conditional-martingale">
+<colgroup>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+<col style="width: 5%"/>
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: right;">benih</th>
+<th style="text-align: right;">ruang hingga</th>
+<th style="text-align: right;">E[X]</th>
+<th style="text-align: right;">galat bersyarat</th>
+<th style="text-align: right;">galat menara</th>
+<th style="text-align: right;">galat martingal</th>
+<th style="text-align: right;">rerata S_tau_b</th>
+<th style="text-align: right;">target E[S_tau_b]</th>
+<th style="text-align: right;">cap tau_+</th>
+<th style="text-align: right;">laju kena batas</th>
+<th style="text-align: right;">target laju</th>
+<th style="text-align: right;">rerata S_(tau_+ terpotong)</th>
+<th style="text-align: right;">target E[S_(tau_+ terpotong)]</th>
+<th style="text-align: right;">rerata S hanya yang kena</th>
+<th style="text-align: right;">target S_tau_+</th>
+<th style="text-align: right;">celah naif</th>
+<th style="text-align: right;">toleransi</th>
+<th style="text-align: right;">status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">20260829</td>
+<td style="text-align: right;">Omega_3 dan Omega_12</td>
+<td style="text-align: right;">3.000000000000</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.774414062500</td>
+<td style="text-align: right;">0.774414062500</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">1.000000000000</td>
+<td style="text-align: right;">1.000000000000</td>
+<td style="text-align: right;">1.000000000000</td>
+<td style="text-align: right;">1.000000000000e-12</td>
+<td style="text-align: right;">PASS</td>
+</tr>
+</tbody>
+</table>
+<p>Untuk enumerasi hingga <span class="math inline">\(12\)</span>, kode
+menghasilkan <span class="math display">\[
+\mathbb P(\tau_+\le12)=\frac{3172}{4096}=0{,}774414062500,
+\qquad
+\mathbb E[S_{\tau_+\wedge12}]=0,
+\qquad
+\mathbb E[S_{\tau_+}\mid\tau_+\le12]=1.
+\]</span> Baris <code>celah_naif=1</code> sengaja menampilkan kesalahan
+umum: merata-ratakan hanya lintasan yang sudah mengenai batas lalu
+menyebutnya sebagai <span class="math inline">\(\mathbb
+E[S_{\tau_+\wedge12}]\)</span>. Penyebut yang benar mencakup lintasan
+yang belum berhenti; lintasan tersensor itu memberi kontribusi negatif
+yang meniadakan kontribusi lintasan yang telah mencapai <span class="math inline">\(+1\)</span>.</p>
+<h2 id="o009-optional-stopping-diagnostic">Mengapa hipotesis penghentian
+opsional diperlukan</h2>
+<p>Untuk <span class="math inline">\(\tau_b\)</span>, waktu henti
+dibatasi oleh enam sehingga teorema penghentian opsional memberi <span class="math inline">\(\mathbb E[S_{\tau_b}]=\mathbb E[S_0]=0\)</span>,
+dan enumerasi mengonfirmasi hal itu. Pada kasus kedua, <span class="math inline">\(\tau_+\)</span> berhingga hampir pasti tetapi
+tidak memiliki nilai harapan hingga; bahkan <span class="math inline">\(S_{\tau_+}=1\)</span> hampir pasti. Identitas
+untuk setiap pemotongan, <span class="math inline">\(\mathbb
+E[S_{\tau_+\wedge N}]=0\)</span>, tidak boleh dilewatkan ke limit tanpa
+keterintegralan seragam atau hipotesis pengganti. Jadi diagnostik ini
+menunjukkan tepat hipotesis yang hilang; ia tidak mengklaim bahwa
+enumerasi hingga 12 membuktikan pernyataan asimtotik.</p>
+<div class="hint" id="o009-hint-conditional-martingale-audit-1">
+<p><strong>Petunjuk 1.</strong> Pada <span class="math inline">\(\mathcal F_2\)</span>, nilai <span class="math inline">\(S_2\)</span> menentukan semua informasi yang
+diperlukan untuk merata-ratakan satu inkremen terakhir: <span class="math inline">\(\mathbb E[(S_2+\xi_3)^2\mid\mathcal
+F_2]=S_2^2+1\)</span>.</p>
+</div>
+<div class="hint" id="o009-hint-conditional-martingale-audit-2">
+<p><strong>Petunjuk 2.</strong> Untuk membuktikan identitas menara
+secara komputasional, kelompokkan <code>M2</code> menurut atom
+<code>F1</code>, lalu bandingkan rata-ratanya dengan <code>M1</code>
+pada setiap atom; jangan membandingkan hanya nilai harapan tak
+bersyarat.</p>
+</div>
+<div class="hint" id="o009-hint-conditional-martingale-audit-3">
+<p><strong>Petunjuk 3.</strong> Pada kasus gagal, <code>hit=0</code>
+berarti nilai akhir pada cap harus tetap dimasukkan ke rata-rata. Nilai
+<span class="math inline">\(1\)</span> yang muncul pada semua lintasan
+<code>hit=1</code> adalah <span class="math inline">\(S_{\tau_+}\)</span>, bukan rata-rata peubah yang
+terpotong.</p>
+</div>
+<div class="answer" id="o009-answer-conditional-martingale-audit">
+<p><strong>Jawaban ringkas.</strong> <span class="math inline">\(M_0=\mathbb E[S_3^2]=3\)</span>, <span class="math inline">\(M_1=3\)</span>, dan <span class="math inline">\(M_2=S_2^2+1\)</span>. Semua galat identitas pada
+enumerasi berada di bawah <span class="math inline">\(10^{-12}\)</span>,
+serta <span class="math inline">\(\mathbb E[S_{\tau_b}]=0\)</span>.
+Untuk <span class="math inline">\(\tau_+\)</span>, laju kena batas
+hingga cap adalah <span class="math inline">\(3172/4096\)</span>,
+rata-rata terpotong tetap nol, dan rata-rata bersyarat pada lintasan
+yang kena batas adalah satu. Perbedaan itu adalah diagnostik
+penyensoran; aplikasi naif pada limit tak hingga tidak sah karena tidak
+ada kendali keterintegralan seragam.</p>
+</div>
+<div class="solution" id="o009-solution-conditional-martingale-audit">
+<p><strong>Penyelesaian lengkap.</strong> Karena <span class="math inline">\(S_3=S_2+\xi_3\)</span>, dengan <span class="math inline">\(\mathbb E\xi_3=0\)</span> dan <span class="math inline">\(\mathbb E\xi_3^2=1\)</span>, diperoleh <span class="math display">\[
+M_2=\mathbb E[(S_2+\xi_3)^2\mid\mathcal F_2]=S_2^2+1.
+\]</span> Mengondisikan sekali lagi pada <span class="math inline">\(\mathcal F_1\)</span> menghasilkan <span class="math inline">\(M_1=\mathbb E[M_2\mid\mathcal F_1]=3\)</span>, dan
+akhirnya <span class="math inline">\(M_0=\mathbb E[M_1]=3\)</span>.
+Enumerasi kode menghitung rata-rata pada setiap atom, sehingga ketiga
+galat menara dan galat martingal hanya berasal dari pembulatan
+titik-mengambang dan tercetak nol pada presisi yang diminta.</p>
+<p>Untuk <span class="math inline">\(\tau_b\)</span>, semua jalur
+berhenti paling lambat pada waktu enam. Simetri yang menukar semua tanda
+membuat distribusi <span class="math inline">\(S_{\tau_b}\)</span>
+simetris, sehingga nilai harapannya nol; ini adalah penggunaan sah
+penghentian opsional untuk waktu henti berbatas.</p>
+<p>Untuk <span class="math inline">\(\tau_+\)</span>, enumerasi <span class="math inline">\(2^{12}\)</span> jalur memberi 3.172 jalur yang
+telah mencapai <span class="math inline">\(+1\)</span> dan 924 jalur
+yang belum. Pada jalur pertama, <span class="math inline">\(S_{\tau_+\wedge12}=1\)</span>; pada jalur kedua,
+nilai terminal genap yang negatif atau nol menyeimbangkannya, sehingga
+rata-rata keseluruhan tepat nol. Ketika cap dilepas, gerak acak simetris
+mencapai <span class="math inline">\(+1\)</span> hampir pasti, tetapi
+<span class="math inline">\(\mathbb E\tau_+=\infty\)</span> dan keluarga
+<span class="math inline">\((S_{\tau_+\wedge N})_{N\ge1}\)</span> tidak
+terintegralkan seragam. Karena itu, langkah <span class="math inline">\(N\to\infty\)</span> di dalam nilai harapan tidak
+dibenarkan. Inilah hipotesis yang harus diaudit pada <a href="../original/04-audit-hipotesis-proses-stokastik.html#unit.o009.original.mastery.hypothesis-audits.02">jembatan
+audit hipotesis</a>, bukan kontradiksi terhadap versi berbatas pada
+halaman sumber.</p>
+</div>
+</div>
+</main></body>
+</html>

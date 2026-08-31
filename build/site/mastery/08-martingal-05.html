@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>Martingal mundur dan pelupaan kuantitatif pada rantai Markov reversibel</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="07-martingal-03-04.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="07-martingal-03-04.html">Unit sebelumnya</a></nav><main class="mastery-reader">
+
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#id-mtp-masteri-martingal-05" id="toc-id-mtp-masteri-martingal-05">Martingal mundur dan pelupaan
+kuantitatif pada rantai Markov reversibel</a>
+<ul>
+<li><a href="#id-mtp-masteri-martingal-05-prasyarat" id="toc-id-mtp-masteri-martingal-05-prasyarat">Prasyarat</a></li>
+<li><a href="#id-mtp-masteri-martingal-05-capaian" id="toc-id-mtp-masteri-martingal-05-capaian">Capaian
+pembelajaran</a></li>
+<li><a href="#id-mtp-masteri-martingal-05-latihan" id="toc-id-mtp-masteri-martingal-05-latihan">Latihan</a></li>
+<li><a href="#id-mtp-masteri-martingal-05-petunjuk-1" id="toc-id-mtp-masteri-martingal-05-petunjuk-1">Petunjuk 1</a></li>
+<li><a href="#id-mtp-masteri-martingal-05-petunjuk-2" id="toc-id-mtp-masteri-martingal-05-petunjuk-2">Petunjuk 2</a></li>
+<li><a href="#id-mtp-masteri-martingal-05-petunjuk-3" id="toc-id-mtp-masteri-martingal-05-petunjuk-3">Petunjuk 3</a></li>
+<li><a href="#id-mtp-masteri-martingal-05-jawaban" id="toc-id-mtp-masteri-martingal-05-jawaban">Jawaban ringkas</a></li>
+<li><a href="#id-mtp-masteri-martingal-05-solusi" id="toc-id-mtp-masteri-martingal-05-solusi">Solusi lengkap</a>
+<ul>
+<li><a href="#struktur-martingal-mundur-dan-rumus-pembalikan-waktu" id="toc-struktur-martingal-mundur-dan-rumus-pembalikan-waktu">1.
+Struktur martingal mundur dan rumus pembalikan waktu</a></li>
+<li><a href="#pelupaan-kuantitatif-dan-identifikasi-limit" id="toc-pelupaan-kuantitatif-dan-identifikasi-limit">2. Pelupaan
+kuantitatif dan identifikasi limit</a></li>
+<li><a href="#trivialitas-aljabar-sigma-ekor" id="toc-trivialitas-aljabar-sigma-ekor">3. Trivialitas aljabar-<span class="math inline">\(\sigma\)</span> ekor</a></li>
+<li><a href="#perhitungan-eksak-untuk-rantai-dua-keadaan" id="toc-perhitungan-eksak-untuk-rantai-dua-keadaan">4. Perhitungan eksak
+untuk rantai dua keadaan</a></li>
+</ul></li>
+<li><a href="#id-mtp-masteri-martingal-05-hak-provenans" id="toc-id-mtp-masteri-martingal-05-hak-provenans">Hak dan
+provenans</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="id-mtp-masteri-martingal-05">Martingal mundur dan pelupaan
+kuantitatif pada rantai Markov reversibel</h1>
+<h2 id="id-mtp-masteri-martingal-05-prasyarat">Prasyarat</h2>
+<p>Pembaca diharapkan menguasai nilai harapan bersyarat, sifat menara,
+rantai Markov homogen pada ruang keadaan berhingga, distribusi
+stasioner, kesetimbangan terperinci, norma <span class="math inline">\(L^2\)</span>, serta teorema konvergensi martingal
+mundur.</p>
+<h2 id="id-mtp-masteri-martingal-05-capaian">Capaian pembelajaran</h2>
+<p>Setelah menyelesaikan latihan ini, pembaca dapat:</p>
+<ol type="1">
+<li>mengenali nilai harapan bersyarat terhadap filtrasi yang menurun
+sebagai martingal mundur;</li>
+<li>mengubah pembalikan waktu rantai Markov reversibel menjadi identitas
+operator yang eksplisit;</li>
+<li>menurunkan laju pelupaan <span class="math inline">\(L^2\)</span>
+dan batas probabilitas dari celah spektral; dan</li>
+<li>membuktikan trivialitas aljabar-<span class="math inline">\(\sigma\)</span> ekor tanpa menggunakan waktu henti
+atau teorema penghentian opsional.</li>
+</ol>
+<h2 id="id-mtp-masteri-martingal-05-latihan">Latihan</h2>
+<p>Misalkan <span class="math inline">\((X_n)_{n\ge 0}\)</span> adalah
+rantai Markov stasioner pada himpunan berhingga <span class="math inline">\(E\)</span>, dengan matriks transisi <span class="math inline">\(P\)</span> dan distribusi stasioner <span class="math inline">\(\pi\)</span> yang memenuhi <span class="math inline">\(\pi(x)&gt;0\)</span> untuk setiap <span class="math inline">\(x\in E\)</span>. Operator transisi bekerja pada
+fungsi <span class="math inline">\(h:E\to\mathbb R\)</span> melalui</p>
+<p><span class="math display">\[
+(Ph)(x)=\sum_{y\in E}P(x,y)h(y).
+\]</span></p>
+<p>Andaikan rantai reversibel,</p>
+<p><span class="math display">\[
+\pi(x)P(x,y)=\pi(y)P(y,x),\qquad x,y\in E,
+\]</span></p>
+<p>dan terdapat <span class="math inline">\(\rho\in[0,1)\)</span>
+sehingga</p>
+<p><span class="math display">\[
+\|Ph\|_{2,\pi}\le \rho\|h\|_{2,\pi}
+\quad\text{untuk setiap }h\text{ dengan }\pi(h)=0,
+\tag{1}
+\]</span></p>
+<p>dengan</p>
+<p><span class="math display">\[
+\pi(h)=\sum_{x\in E}\pi(x)h(x),
+\qquad
+\|h\|_{2,\pi}^2=\sum_{x\in E}\pi(x)h(x)^2.
+\]</span></p>
+<p>Untuk <span class="math inline">\(n\ge0\)</span>, definisikan
+aljabar-<span class="math inline">\(\sigma\)</span> masa depan</p>
+<p><span class="math display">\[
+\mathcal G_n=\sigma(X_n,X_{n+1},X_{n+2},\ldots),
+\qquad
+\mathcal G_\infty=\bigcap_{n\ge0}\mathcal G_n.
+\]</span></p>
+<p>Ambil <span class="math inline">\(f:E\to\mathbb R\)</span> dengan
+<span class="math inline">\(\pi(f)=0\)</span>, lalu tetapkan</p>
+<p><span class="math display">\[
+Y_n=\mathbb E[f(X_0)\mid\mathcal G_n].
+\]</span></p>
+<p>Kerjakan semua bagian berikut.</p>
+<ol type="1">
+<li>Buktikan bahwa <span class="math inline">\((Y_n,\mathcal
+G_n)_{n\ge0}\)</span> adalah martingal mundur dan bahwa <span class="math display">\[
+Y_n=(P^nf)(X_n).
+\tag{2}
+\]</span></li>
+<li>Buktikan batas kuantitatif <span class="math display">\[
+\mathbb E(Y_n^2)\le \rho^{2n}\|f\|_{2,\pi}^2,
+\qquad
+\mathbb P(|Y_n|\ge t)
+\le \min\!\left\{1,\frac{\rho^{2n}\|f\|_{2,\pi}^2}{t^2}\right\}
+\quad(t&gt;0).
+\tag{3}
+\]</span> Identifikasikan limit hampir pastinya dan limit <span class="math inline">\(L^2\)</span> dari <span class="math inline">\(Y_n\)</span>.</li>
+<li>Buktikan bahwa <span class="math inline">\(\mathcal
+G_\infty\)</span> trivial modulo himpunan nol: untuk setiap <span class="math inline">\(A\in\mathcal G_\infty\)</span>, berlaku <span class="math inline">\(\mathbb P(A)\in\{0,1\}\)</span>.</li>
+<li>Khusus untuk <span class="math inline">\(E=\{0,1\}\)</span>, ambil
+<span class="math display">\[
+P=
+\begin{pmatrix}
+1-a &amp; a\\
+b &amp; 1-b
+\end{pmatrix},
+\qquad a,b\in(0,1).
+\]</span> Dengan <span class="math inline">\(p=a/(a+b)\)</span>, <span class="math inline">\(\lambda=1-a-b\)</span>, dan <span class="math inline">\(f(x)=x-p\)</span>, tentukan <span class="math inline">\(Y_n\)</span>, <span class="math inline">\(\mathbb
+E(Y_n^2)\)</span>, serta <span class="math inline">\(\mathbb P(|Y_n|\ge
+t)\)</span> secara eksak.</li>
+</ol>
+<details class="hint" id="id-mtp-masteri-martingal-05-petunjuk-1"><summary aria-label="Petunjuk 1: id-mtp-masteri-martingal-05-petunjuk-1">Petunjuk 1</summary>
+<p>Mulailah dari inklusi <span class="math inline">\(\mathcal
+G_{n+1}\subseteq\mathcal G_n\)</span> dan sifat menara. Untuk (2),
+gunakan dua fakta secara berurutan: masa lalu dan masa depan saling
+bebas bersyarat pada <span class="math inline">\(X_n\)</span>, lalu
+pembalikan waktu rantai stasioner reversibel memiliki matriks transisi
+yang sama dengan <span class="math inline">\(P\)</span>.</p>
+</details><details class="hint" id="id-mtp-masteri-martingal-05-petunjuk-2"><summary aria-label="Petunjuk 2: id-mtp-masteri-martingal-05-petunjuk-2">Petunjuk 2</summary>
+<p>Untuk <span class="math inline">\(j\in E\)</span>, hitung
+langsung</p>
+<p><span class="math display">\[
+\mathbb E[f(X_0)\mid X_n=j]
+=\frac{1}{\pi(j)}\sum_{i\in E}\pi(i)P^n(i,j)f(i).
+\]</span></p>
+<p>Kesetimbangan terperinci juga berlaku untuk <span class="math inline">\(P^n\)</span>. Setelah memperoleh (2), gunakan
+stasioneritas <span class="math inline">\(X_n\sim\pi\)</span>, iterasi
+(1), dan pertidaksamaan Chebyshev.</p>
+</details><details class="hint" id="id-mtp-masteri-martingal-05-petunjuk-3"><summary aria-label="Petunjuk 3: id-mtp-masteri-martingal-05-petunjuk-3">Petunjuk 3</summary>
+<p>Untuk trivialitas ekor, ambil <span class="math inline">\(A\in\mathcal G_\infty\)</span>, <span class="math inline">\(B\in\mathcal F_m:=\sigma(X_0,\ldots,X_m)\)</span>,
+dan <span class="math inline">\(n&gt;m\)</span>. Definisikan</p>
+<p><span class="math display">\[
+q_n(x)=\mathbb P(A\mid X_n=x),
+\qquad r=\mathbb P(A).
+\]</span></p>
+<p>Tunjukkan bahwa <span class="math inline">\(\pi(q_n)=r\)</span>
+dan</p>
+<p><span class="math display">\[
+\mathbb E[\mathbf 1_A\mid\mathcal F_m]
+=P^{\,n-m}q_n(X_m).
+\]</span></p>
+<p>Terapkan (1) pada <span class="math inline">\(q_n-r\)</span>,
+kemudian biarkan <span class="math inline">\(n\to\infty\)</span>.
+Terakhir, perluas independensi dari semua kejadian silinder ke <span class="math inline">\(\sigma(X_0,X_1,\ldots)\)</span> dengan teorema
+kelas monoton.</p>
+</details><h2 id="id-mtp-masteri-martingal-05-jawaban">Jawaban ringkas</h2>
+<p>Keluarga <span class="math inline">\((\mathcal G_n)\)</span> menurun
+dan sifat menara memberi <span class="math inline">\(\mathbb
+E(Y_n\mid\mathcal G_{n+1})=Y_{n+1}\)</span>. Reversibilitas memberi</p>
+<p><span class="math display">\[
+Y_n=(P^nf)(X_n).
+\]</span></p>
+<p>Akibatnya,</p>
+<p><span class="math display">\[
+\|Y_n\|_2=\|P^nf\|_{2,\pi}
+\le\rho^n\|f\|_{2,\pi},
+\]</span></p>
+<p>sehingga <span class="math inline">\(Y_n\to0\)</span> hampir pasti
+dan dalam <span class="math inline">\(L^2\)</span>, serta (3) mengikuti
+dari Chebyshev. Kontraksi yang sama menunjukkan bahwa setiap kejadian
+ekor independen dari setiap blok berhingga; jadi kejadian itu independen
+dari dirinya sendiri dan berpeluang 0 atau 1.</p>
+<p>Dalam kasus dua keadaan,</p>
+<p><span class="math display">\[
+Y_n=\lambda^n(X_n-p),
+\qquad
+\mathbb E(Y_n^2)=\lambda^{2n}p(1-p),
+\]</span></p>
+<p>dan, untuk <span class="math inline">\(t&gt;0\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P(|Y_n|\ge t)
+=(1-p)\mathbf 1_{\{|\lambda|^np\ge t\}}
++p\mathbf 1_{\{|\lambda|^n(1-p)\ge t\}}.
+\]</span></p>
+<details class="solution" id="id-mtp-masteri-martingal-05-solusi"><summary aria-label="Solusi lengkap: id-mtp-masteri-martingal-05-solusi">Solusi lengkap</summary>
+</details><h3 id="struktur-martingal-mundur-dan-rumus-pembalikan-waktu">1.
+Struktur martingal mundur dan rumus pembalikan waktu</h3>
+<p>Jelas bahwa <span class="math inline">\(\mathcal
+G_{n+1}\subseteq\mathcal G_n\)</span>. Peubah <span class="math inline">\(Y_n\)</span> terukur terhadap <span class="math inline">\(\mathcal G_n\)</span> dan terintegralkan karena
+<span class="math inline">\(E\)</span> berhingga. Dengan sifat
+menara,</p>
+<p><span class="math display">\[
+\mathbb E[Y_n\mid\mathcal G_{n+1}]
+=\mathbb E\!\left[
+   \mathbb E[f(X_0)\mid\mathcal G_n]
+   \mathrel{\Big|}\mathcal G_{n+1}
+\right]
+=\mathbb E[f(X_0)\mid\mathcal G_{n+1}]
+=Y_{n+1}.
+\]</span></p>
+<p>Jadi, <span class="math inline">\((Y_n,\mathcal G_n)\)</span> adalah
+martingal mundur.</p>
+<p>Untuk <span class="math inline">\(n\ge1\)</span>, sifat Markov
+menyatakan bahwa, bersyarat pada <span class="math inline">\(X_n\)</span>, masa lalu <span class="math inline">\(\sigma(X_0,\ldots,X_{n-1})\)</span> dan masa depan
+<span class="math inline">\(\sigma(X_{n+1},X_{n+2},\ldots)\)</span>
+saling bebas. Oleh karena itu,</p>
+<p><span class="math display">\[
+Y_n=\mathbb E[f(X_0)\mid X_n].
+\tag{4}
+\]</span></p>
+<p>Untuk <span class="math inline">\(n=0\)</span>, identitas yang sama
+berlaku langsung karena <span class="math inline">\(Y_0=f(X_0)=P^0f(X_0)\)</span>.</p>
+<p>Untuk <span class="math inline">\(j\in E\)</span>, stasioneritas dan
+rumus Bayes memberikan</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E[f(X_0)\mid X_n=j]
+&amp;=\sum_{i\in E}f(i)
+   \frac{\mathbb P(X_0=i,X_n=j)}{\mathbb P(X_n=j)}\\
+&amp;=\frac{1}{\pi(j)}
+   \sum_{i\in E}f(i)\pi(i)P^n(i,j).
+\end{aligned}
+\tag{5}
+\]</span></p>
+<p>Kesetimbangan terperinci untuk <span class="math inline">\(P\)</span>
+menyiratkan kesetimbangan terperinci untuk setiap pangkatnya:</p>
+<p><span class="math display">\[
+\pi(i)P^n(i,j)=\pi(j)P^n(j,i).
+\]</span></p>
+<p>Memasukkannya ke (5) menghasilkan</p>
+<p><span class="math display">\[
+\mathbb E[f(X_0)\mid X_n=j]
+=\sum_{i\in E}P^n(j,i)f(i)
+=(P^nf)(j).
+\]</span></p>
+<p>Bersama (4), ini membuktikan (2).</p>
+<h3 id="pelupaan-kuantitatif-dan-identifikasi-limit">2. Pelupaan
+kuantitatif dan identifikasi limit</h3>
+<p>Karena <span class="math inline">\(X_n\sim\pi\)</span>, identitas (2)
+memberi</p>
+<p><span class="math display">\[
+\mathbb E(Y_n^2)
+=\sum_{x\in E}\pi(x)(P^nf(x))^2
+=\|P^nf\|_{2,\pi}^2.
+\]</span></p>
+<p>Rata-rata <span class="math inline">\(\pi\)</span> dipertahankan oleh
+<span class="math inline">\(P\)</span>, sehingga <span class="math inline">\(\pi(P^kf)=\pi(f)=0\)</span> untuk setiap <span class="math inline">\(k\)</span>. Karena itu, (1) dapat
+diiterasikan:</p>
+<p><span class="math display">\[
+\|P^nf\|_{2,\pi}
+\le\rho^n\|f\|_{2,\pi}.
+\]</span></p>
+<p>Setelah dikuadratkan, diperoleh bagian pertama (3). Pertidaksamaan
+Chebyshev memberi</p>
+<p><span class="math display">\[
+\mathbb P(|Y_n|\ge t)
+\le \frac{\mathbb E(Y_n^2)}{t^2}
+\le \frac{\rho^{2n}\|f\|_{2,\pi}^2}{t^2};
+\]</span></p>
+<p>menggabungkannya dengan batas trivial 1 menghasilkan bagian kedua
+(3).</p>
+<p>Teorema konvergensi martingal mundur menyatakan bahwa</p>
+<p><span class="math display">\[
+Y_n\longrightarrow
+Y_\infty:=\mathbb E[f(X_0)\mid\mathcal G_\infty]
+\]</span></p>
+<p>hampir pasti dan dalam <span class="math inline">\(L^2\)</span>. Di
+sisi lain, batas norma di atas menyatakan <span class="math inline">\(Y_n\to0\)</span> dalam <span class="math inline">\(L^2\)</span>. Keunikan limit dalam probabilitas
+lalu memberi</p>
+<p><span class="math display">\[
+\mathbb E[f(X_0)\mid\mathcal G_\infty]=0
+\quad\text{hampir pasti},
+\]</span></p>
+<p>dan <span class="math inline">\(Y_n\to0\)</span> baik hampir pasti
+maupun dalam <span class="math inline">\(L^2\)</span>.</p>
+<h3 id="trivialitas-aljabar-sigma-ekor">3. Trivialitas aljabar-<span class="math inline">\(\sigma\)</span> ekor</h3>
+<p>Ambil <span class="math inline">\(A\in\mathcal G_\infty\)</span>,
+tetapkan <span class="math inline">\(r=\mathbb P(A)\)</span>, dan
+definisikan, untuk setiap <span class="math inline">\(n\)</span>,</p>
+<p><span class="math display">\[
+q_n(x)=\mathbb P(A\mid X_n=x),\qquad x\in E.
+\]</span></p>
+<p>Karena <span class="math inline">\(0\le q_n\le1\)</span> dan <span class="math inline">\(X_n\sim\pi\)</span>,</p>
+<p><span class="math display">\[
+\pi(q_n)=\mathbb E[q_n(X_n)]=\mathbb P(A)=r,
+\qquad
+\|q_n-r\|_{2,\pi}\le1.
+\tag{6}
+\]</span></p>
+<p>Tetapkan <span class="math inline">\(m\ge0\)</span>, ambil <span class="math inline">\(B\in\mathcal F_m:=\sigma(X_0,\ldots,X_m)\)</span>,
+dan pilih sembarang <span class="math inline">\(n&gt;m\)</span>. Karena
+<span class="math inline">\(A\in\mathcal G_\infty\subseteq\mathcal
+G_n\)</span>, sifat Markov memberi</p>
+<p><span class="math display">\[
+\mathbb E[\mathbf1_A\mid\mathcal F_n]=q_n(X_n).
+\]</span></p>
+<p>Dengan mengondisikan sekali lagi pada <span class="math inline">\(\mathcal F_m\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E[\mathbf1_A\mid\mathcal F_m]
+=\mathbb E[q_n(X_n)\mid\mathcal F_m]
+=P^{\,n-m}q_n(X_m).
+\tag{7}
+\]</span></p>
+<p>Gunakan (7), lalu kurangi <span class="math inline">\(\mathbb
+P(B)r\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\left|\mathbb P(A\cap B)-r\mathbb P(B)\right|
+&amp;=\left|
+   \mathbb E\!\left[
+      \mathbf1_B P^{\,n-m}(q_n-r)(X_m)
+   \right]
+\right|\\
+&amp;\le \|\mathbf1_B\|_2
+       \|P^{\,n-m}(q_n-r)(X_m)\|_2\\
+&amp;\le \rho^{\,n-m}\|q_n-r\|_{2,\pi}\\
+&amp;\le \rho^{\,n-m}.
+\end{aligned}
+\tag{8}
+\]</span></p>
+<p>Ruas kiri (8) tidak bergantung pada <span class="math inline">\(n\)</span>, sedangkan ruas kanan menuju nol. Jadi
+<span class="math inline">\(A\)</span> independen dari setiap <span class="math inline">\(\mathcal F_m\)</span>. Karena kejadian-kejadian
+dalam <span class="math inline">\(\bigcup_m\mathcal F_m\)</span>
+membentuk aljabar yang membangkitkan</p>
+<p><span class="math display">\[
+\mathcal F_\infty^{\mathrm{jalur}}
+:=\sigma(X_0,X_1,\ldots),
+\]</span></p>
+<p>teorema kelas monoton memperluas independensi itu ke seluruh <span class="math inline">\(\mathcal F_\infty^{\mathrm{jalur}}\)</span>. Namun
+<span class="math inline">\(A\in\mathcal G_\infty\subseteq\mathcal
+F_\infty^{\mathrm{jalur}}\)</span>. Dengan memilih kejadian kedua juga
+<span class="math inline">\(A\)</span>, diperoleh</p>
+<p><span class="math display">\[
+\mathbb P(A)=\mathbb P(A\cap A)=\mathbb P(A)^2.
+\]</span></p>
+<p>Maka <span class="math inline">\(\mathbb P(A)\in\{0,1\}\)</span>,
+sebagaimana diminta.</p>
+<h3 id="perhitungan-eksak-untuk-rantai-dua-keadaan">4. Perhitungan eksak
+untuk rantai dua keadaan</h3>
+<p>Distribusi stasionernya adalah</p>
+<p><span class="math display">\[
+\pi(1)=p=\frac{a}{a+b},
+\qquad
+\pi(0)=1-p=\frac{b}{a+b}.
+\]</span></p>
+<p>Ruang fungsi yang bermean nol terhadap <span class="math inline">\(\pi\)</span> berdimensi satu. Untuk <span class="math inline">\(f(x)=x-p\)</span>, perhitungan langsung
+memberi</p>
+<p><span class="math display">\[
+Pf=\lambda f,
+\qquad \lambda=1-a-b.
+\]</span></p>
+<p>Karena <span class="math inline">\(a,b\in(0,1)\)</span>, berlaku
+<span class="math inline">\(|\lambda|&lt;1\)</span>; dalam (1) dapat
+diambil <span class="math inline">\(\rho=|\lambda|\)</span>. Dari
+(2),</p>
+<p><span class="math display">\[
+Y_n=(P^nf)(X_n)=\lambda^n(X_n-p).
+\]</span></p>
+<p>Selanjutnya, <span class="math inline">\(\mathbb
+E[(X_n-p)^2]=p(1-p)\)</span>, sehingga</p>
+<p><span class="math display">\[
+\mathbb E(Y_n^2)=\lambda^{2n}p(1-p).
+\]</span></p>
+<p>Terakhir, <span class="math inline">\(X_n=0\)</span> dengan
+probabilitas <span class="math inline">\(1-p\)</span> dan <span class="math inline">\(X_n=1\)</span> dengan probabilitas <span class="math inline">\(p\)</span>. Pada kedua kejadian itu,
+berturut-turut,</p>
+<p><span class="math display">\[
+|Y_n|=|\lambda|^np
+\quad\text{dan}\quad
+|Y_n|=|\lambda|^n(1-p).
+\]</span></p>
+<p>Jadi, untuk setiap <span class="math inline">\(t&gt;0\)</span>,
+probabilitas eksaknya adalah</p>
+<p><span class="math display">\[
+\boxed{
+\mathbb P(|Y_n|\ge t)
+=(1-p)\mathbf1_{\{|\lambda|^np\ge t\}}
++p\mathbf1_{\{|\lambda|^n(1-p)\ge t\}}
+}.
+\]</span></p>
+<p>Kasus eksplisit ini memperlihatkan bahwa laju geometrik bukan sekadar
+artefak pembuktian: untuk fungsi observasi yang merupakan fungsi eigen,
+faktor <span class="math inline">\(|\lambda|^n\)</span> tepat.</p>
+<h2 id="id-mtp-masteri-martingal-05-hak-provenans">Hak dan
+provenans</h2>
+<p>Latihan, susunan subsoal, petunjuk, jawaban, dan solusi ini ditulis
+secara orisinal dalam bahasa Indonesia (id-ID) untuk materi penguasaan
+ini. Landasan teorinya adalah definisi serta teorema konvergensi
+martingal mundur pada <a href="../martingales/Backwards.html">teori martingal mundur</a>;
+konstruksi pelupaan spektral, pembuktian trivialitas ekor, dan
+spesialisasi dua keadaan di atas bukan salinan dari contoh pada sumber
+tersebut. Materi ini tidak menggunakan teorema penghentian opsional.</p>
+<p>Hak cipta © 2026 para kontributor. Dilisensikan berdasarkan <a href="https://creativecommons.org/licenses/by/4.0/deed.id">Creative
+Commons Attribution 4.0 International (CC BY 4.0)</a>. Anda boleh
+membagikan dan mengadaptasi materi ini untuk tujuan apa pun dengan
+atribusi yang sesuai, pranala lisensi, dan penandaan perubahan.</p>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

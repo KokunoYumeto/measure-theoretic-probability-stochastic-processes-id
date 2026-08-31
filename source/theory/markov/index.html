@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+	<meta charset="utf-8">
+	<title>Proses Markov</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probabilitas, proses stokastik, proses Markov, rantai Markov, waktu diskret, waktu kontinu, sifat transien, sifat rekuren, distribusi invarian, distribusi limit, periodisitas, potensial, rekuren positif, pembalikan waktu, rantai percabangan, rantai antrean, rantai kelahiran–kematian, gerak acak, rantai Ehrenfest, rantai Bernoulli–Laplace, rantai reliabilitas, proses Poisson">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<link rel="previous" href="../renewal/index.html">
+	<link rel="next" href="../brown/index.html">
+	<script src="../Basic.js"></script>
+</head>
+
+<body>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="child"><a href="../foundations/index.html" title="Dasar-Dasar">0</a></li>
+		<li class="child"><a href="../prob/index.html" title="Ruang Probabilitas">1</a></li>
+		<li class="child"><a href="../dist/index.html" title="Distribusi">2</a></li>
+		<li class="child"><a href="../expect/index.html" title="Nilai Harapan">3</a></li>
+		<li class="child"><a href="../special/index.html" title="Distribusi Khusus">4</a></li>
+		<li class="child"><a href="../sample/index.html" title="Sampel Acak">5</a></li>
+		<li class="child"><a href="../point/index.html" title="Estimasi Titik">6</a></li>
+		<li class="child"><a href="../interval/index.html" title="Estimasi Himpunan">7</a></li>
+		<li class="child"><a href="../hypothesis/index.html" title="Pengujian Hipotesis">8</a></li>
+		<li class="child"><a href="../buffon/index.html" title="Model Geometrik">9</a></li>
+		<li class="child"><a href="../bernoulli/index.html" title="Percobaan Bernoulli">10</a></li>
+		<li class="child"><a href="../urn/index.html" title="Model Pengambilan Sampel Hingga">11</a></li>
+		<li class="child"><a href="../games/index.html" title="Permainan Peluang">12</a></li>
+		<li class="child"><a href="../poisson/index.html" title="Proses Poisson">13</a></li>
+		<li class="child"><a href="../renewal/index.html" title="Proses Pembaruan">14</a></li>
+		<li class="current">15</li>
+		<li class="child"><a href="../martingales/index.html" title="Martingal">16</a></li>	
+		<li class="child"><a href="../brown/index.html" title="Gerak Brown">17</a></li>
+	</ol>
+	<h1>15. Proses Markov</h1>
+</header>
+
+<h4 id="sum">Ringkasan</h4>
+
+<p>Proses Markov adalah proses acak yang masa depannya independen dari masa lalu jika keadaan sekarang diketahui. Dengan demikian, proses Markov merupakan analog stokastik alami dari proses deterministik yang dijelaskan oleh persamaan diferensial dan persamaan beda. Proses Markov merupakan salah satu kelas proses acak terpenting.</p>
+
+<h4>Teori Umum</h4>
+
+<ol>
+	<li><a href="General.html">Pendahuluan</a></li>
+	<li><a href="Potentials.html">Potensial dan Generator</a></li>
+</ol>
+
+<h4 id="cha">Rantai Markov Waktu Diskret</h4>
+
+<ol start="3">
+	<li><a href="Discrete.html">Pendahuluan</a></li>
+	<li><a href="Recurrence.html">Keadaan Transien dan Rekuren</a></li>
+	<li><a href="Periodicity.html">Periodisitas</a></li>
+	<li><a href="Limiting.html">Distribusi Invarian dan Limit</a></li>
+	<li><a href="TimeReversal.html">Pembalikan Waktu</a></li>
+</ol>
+
+<h4 id="spe">Rantai Khusus Waktu Diskret</h4>
+
+<ol start="8">
+	<li><a href="Ehrenfest.html">Rantai Ehrenfest</a></li>
+	<li><a href="BernoulliLaplace.html">Rantai Bernoulli–Laplace</a></li>
+	<li><a href="Reliability.html">Rantai Reliabilitas</a></li>
+	<li><a href="Branching.html">Rantai Percabangan</a></li>
+	<li><a href="Queuing.html">Rantai Antrean</a></li>
+	<li><a href="BirthDeath.html">Rantai Kelahiran–Kematian</a></li>
+	<li><a href="WalkGraph.html">Gerak Acak pada Graf</a></li>
+</ol>
+
+<h4 id="con">Rantai Markov Waktu Kontinu</h4>
+
+<ol start="15">
+	<li><a href="Continuous.html">Pendahuluan</a></li>
+	<li><a href="Transition.html">Matriks Transisi dan Generator</a></li>
+	<li><a href="Potentials2.html">Matriks Potensial</a></li>
+	<li><a href="Limiting2.html">Distribusi Invarian dan Limit</a></li>
+	<li><a href="TimeReversal2.html">Pembalikan Waktu</a></li>
+</ol>
+
+<h4 id="spe2">Rantai Khusus Waktu Kontinu</h4>
+
+<ol start="20">
+	<li><a href="Poisson.html">Rantai yang Disubordinasikan pada Proses Poisson</a></li>
+	<li><a href="BirthDeath2.html">Rantai Kelahiran–Kematian</a></li>
+	<li><a href="Queuing2.html">Rantai Antrean</a></li>
+	<li><a href="Branching2.html">Rantai Percabangan</a></li>
+</ol>
+
+<h4 id="Apps">Aplikasi</h4>
+
+<ul class="ancillary">
+	<li><a href="JavaScript:openAncillary('../apps/TwoState.html')" class="ancillary">Rantai Dua Keadaan Waktu Diskret</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/Ehrenfest.html')" class="ancillary">Rantai Ehrenfest</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/BernoulliLaplace.html')" class="ancillary">Rantai Bernoulli–Laplace</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/SuccessRuns.html')" class="ancillary">Rantai Rentetan Keberhasilan</a></li>
+	<li><a href="JavaScript:openAncillary('../apps/RemainingLife.html')" class="ancillary">Rantai Sisa Umur</a></li>
+</ul>
+
+<h4 id="External">Sumber dan Referensi</h4>
+
+<ul>
+	<li><a href="http://www.google.com/search?q=Introduction+to+Stochastic+Processes,+Cinlar" target="external" class="external">Introduction to Stochastic Processes</a>. Erhan Çınlar</li>
+	<li><a href="http://www.google.com/search?q=Random+Walks+and+Electrical+Networks,+Doyle,+Snell" target="external" class="external">Random Walks and Electrical Networks</a>. Peter Doyle dan Laurie Snell</li>
+	<li><a href="http://www.google.com/search?q=Probability+and+Random+Processes,+Grimmet,+Stitzaker" target="external" class="external">Probability and Random Processes</a>. Geoffrey Grimmett dan David Stirzaker</li>
+	<li><a href="http://www.google.com/search?q=A+First+Course+in+Stochastic+Processes,+Karlin,+Taylor" target="external" class="external">A First Course in Stochastic Processes</a>. Samuel Karlin dan Howard Taylor</li>
+	<li><a href="http://www.google.com/search?q=Adventures+in+Stochastic+Processes,+Resnick" target="external" class="external">Adventures in Stochastic Processes</a>, Sidney I Resnick</li>
+	<li><a href="http://www.google.com/search?q=Introduction+to+Probability+Models,+Ross" target="external" class="external">Introduction to Probability Models</a>. Sheldon Ross</li>
+	<li><a href="http://www.google.com/search?q=Stochastic+Processes,+Ross" target="external" class="external">Stochastic Processes</a>. Sheldon Ross</li>
+	<li><a href="http://www.google.com/search?q=General+Theory+of+Markov+Processes,+Sharpe" target="external" class="external">General Theory of Markov Processes</a>, Michael Sharpe</li>
+</ul>
+
+<h4>Kutipan</h4>
+
+<ul class="quote">
+	<li><q>Ketika aku jatuh terhina di mata Fortuna dan manusia <br>
+	Aku seorang diri meratapi keadaanku yang tersisih ...</q>&mdash;Shakespeare, Soneta 29 </li>
+</ul>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="child"><a href="../foundations/index.html" title="Dasar-Dasar">0</a></li>
+		<li class="child"><a href="../prob/index.html" title="Ruang Probabilitas">1</a></li>
+		<li class="child"><a href="../dist/index.html" title="Distribusi">2</a></li>
+		<li class="child"><a href="../expect/index.html" title="Nilai Harapan">3</a></li>
+		<li class="child"><a href="../special/index.html" title="Distribusi Khusus">4</a></li>
+		<li class="child"><a href="../sample/index.html" title="Sampel Acak">5</a></li>
+		<li class="child"><a href="../point/index.html" title="Estimasi Titik">6</a></li>
+		<li class="child"><a href="../interval/index.html" title="Estimasi Himpunan">7</a></li>
+		<li class="child"><a href="../hypothesis/index.html" title="Pengujian Hipotesis">8</a></li>
+		<li class="child"><a href="../buffon/index.html" title="Model Geometrik">9</a></li>
+		<li class="child"><a href="../bernoulli/index.html" title="Percobaan Bernoulli">10</a></li>
+		<li class="child"><a href="../urn/index.html" title="Model Pengambilan Sampel Hingga">11</a></li>
+		<li class="child"><a href="../games/index.html" title="Permainan Peluang">12</a></li>
+		<li class="child"><a href="../poisson/index.html" title="Proses Poisson">13</a></li>
+		<li class="child"><a href="../renewal/index.html" title="Proses Pembaruan">14</a></li>
+		<li class="current">15</li>
+		<li class="child"><a href="../martingales/index.html" title="Martingal">16</a></li>
+		<li class="child"><a href="../brown/index.html" title="Gerak Brown">17</a></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Himpunan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+</body>
+</html>

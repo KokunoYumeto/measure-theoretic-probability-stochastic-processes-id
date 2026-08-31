@@ -66,6 +66,6 @@
       "media_type",
       "status"
     ],
-    "line_ending": "CRLF"
+    "line_ending": "LF"
   }
 }

@@ -12,7 +12,7 @@ O009-T0010,Borel-Cantelli lemma,lema Borel–Cantelli,admitted,course,
 O009-T0011,Monte Carlo method,metode Monte Carlo,admitted,lab,
 O009-T0012,sample mean,rata-rata sampel,admitted,lab,O006/C140 is the shared prerequisite owner.
 O009-T0013,stochastic process,proses stokastik,admitted,course,
-O009-T0014,conditional expectation,ekspektasi bersyarat,admitted,course,
+O009-T0014,conditional expectation,nilai harapan bersyarat,admitted,course,Ekspektasi bersyarat is an accepted synonym; use nilai harapan bersyarat throughout this reader.
 O009-T0015,martingale,martingal,provisional,course,Verify coordinator-wide convention before first use.
 O009-T0016,kernel,kernel,admitted,course,Use for measure kernels and integral operators; qualify the type at first use.
 O009-T0017,probability kernel,kernel probabilitas,admitted,course,Stochastic kernel and Markov kernel are stated as synonyms where the source does so.
@@ -23,8 +23,8 @@ O009-T0021,submartingale,submartingal,provisional,course,Keep parallel with the 
 O009-T0022,supermartingale,supermartingal,provisional,course,Keep parallel with the selected martingal form.
 O009-T0023,martingale difference sequence,barisan selisih martingal,admitted,course,
 O009-T0024,random walk,gerak acak,admitted,course,Matches the existing O009 stochastic-process reader terminology.
-O009-T0025,independent increments,inkremen independen,admitted,course,Preferred technical term in Indonesian stochastic-process literature.
-O009-T0026,stationary increments,inkremen stasioner,admitted,course,
+O009-T0025,independent increments,inkremen independen,admitted,course,UAD uses kenaikan independen while other current Indonesian mathematical sources use inkremen; retain inkremen for this advanced reader and state the synonym at first definition.
+O009-T0026,stationary increments,inkremen stasioner,admitted,course,Kenaikan stasioner is a recognized synonym; retain the form parallel to inkremen independen.
 O009-T0027,likelihood ratio test,uji rasio kemungkinan,provisional,course,Retain the English term in parentheses at first use if needed.
 O009-T0028,branching process,proses percabangan,admitted,course,
 O009-T0029,Doob martingale,martingal Doob,provisional,course,
@@ -67,7 +67,7 @@ O009-T0065,conditionally independent and identically distributed,independen dan 
 O009-T0066,de Finetti theorem,teorema de Finetti,admitted,course,The unrestricted general-space statement requires a standard-Borel-type hypothesis.
 O009-T0067,mixture of product measures,campuran ukuran produk,admitted,course,
 O009-T0068,hypergeometric model,model hipergeometrik,admitted,course,
-O009-T0069,Markov process,proses Markov,admitted,course,Use proses for the indexed random family and rantai only for discrete-time chains.
+O009-T0069,Markov process,proses Markov,admitted,course,Use proses for the general indexed Markov family; use rantai for a specified state-space chain in either discrete or continuous time.
 O009-T0070,transition kernel,kernel transisi,admitted,course,Keep the all-state kernel distinct from a conditional law defined only almost everywhere.
 O009-T0071,transition semigroup,semigrup transisi,admitted,course,
 O009-T0072,Feller process,proses Feller,admitted,course,Use the C0-preserving semigroup definition and state continuity at time zero.
@@ -80,9 +80,171 @@ O009-T0078,discrete-time Markov chain,rantai Markov waktu diskret,admitted,cours
 O009-T0079,time-homogeneous Markov chain,rantai Markov homogen terhadap waktu,admitted,course,Do not conflate transition homogeneity with stationarity of the process law.
 O009-T0080,entrance time,waktu masuk,admitted,course,Distinguish entry at time zero from the first positive hitting time.
 O009-T0081,transition matrix,matriks transisi,admitted,course,Use P_n for the n-step matrix and P for one step.
-O009-T0082,invariant distribution,distribusi invarian,admitted,course,Reserve stasioner for process laws unless the source explicitly identifies an invariant initial law.
+O009-T0082,invariant distribution,distribusi invarian,admitted,course,UAD uses distribusi stasioner for this law; retain distribusi invarian where the mathematical distinction from a stationary process law matters.
 O009-T0083,state graph,graf keadaan,admitted,course,Directed edges encode positive one-step transition probability.
 O009-T0084,potential matrix,matriks potensial,admitted,course,Use matriks potensial-alpha for the discounted resolvent R_alpha.
 O009-T0085,sampled chain,rantai tersampel,admitted,course,Keep deterministic-time sampling distinct from random stopping.
 O009-T0086,substochastic restricted matrix,matriks pembatasan substokastik,admitted,course,The row deficit records probability of leaving the restricted set.
 O009-T0087,doubly stochastic matrix,matriks stokastik ganda,admitted,course,Both row and column sums equal one.
+O009-T0088,transience,sifat transien,admitted,course,Prefer keadaan/sifat transien in running prose; avoid nominalizing the English property as transiens.
+O009-T0089,recurrence,sifat rekuren,admitted,course,Prefer keadaan/sifat rekuren in parallel classifications; rekurensi remains available when the abstract property itself is foregrounded.
+O009-T0090,hitting probability,probabilitas pencapaian,admitted,course,Here hitting means the first strictly positive visit unless the page explicitly includes time zero.
+O009-T0091,hitting matrix,matriks pencapaian,admitted,course,Unlike a transition kernel this set function is not additive over target states.
+O009-T0092,counting variable,peubah pencacahan,admitted,course,Counts positive-time visits and may take the value infinity.
+O009-T0093,defective distribution,distribusi defektif,admitted,course,The missing finite mass is carried at infinity.
+O009-T0094,accessibility relation,relasi ketercapaian,admitted,course,Use relasi ketercapaian as the noun phrase; use dapat mencapai only as a predicate and retain the arrow notation.
+O009-T0095,communicating relation,relasi komunikasi,admitted,course,Two states communicate when each is accessible from the other.
+O009-T0096,communicating class,kelas komunikasi,admitted,course,The source calls these equivalence classes under the bidirectional accessibility relation.
+O009-T0097,closed class,kelas tertutup,admitted,course,No state in the class can lead to a state outside it.
+O009-T0098,irreducible class,kelas tak tereduksi,admitted,course,UAD gives irreducible with tidak tereduksi in parentheses; use the concise Indonesian tak tereduksi consistently for classes and chains.
+O009-T0099,closure,tutupan,admitted,course,The smallest closed set containing the specified state set.
+O009-T0100,canonical decomposition,dekomposisi kanonik,admitted,course,Partition into the transient region and closed recurrent communicating classes.
+O009-T0101,staying probability,probabilitas bertahan,admitted,course,Probability that the chain remains inside a specified set at every positive time.
+O009-T0102,visit count,jumlah kunjungan,admitted,course,Distinguish positive-time visits from a count that includes the initial state.
+O009-T0103,finite Markov chain,rantai Markov berhingga,admitted,course,Finite refers to the state space.
+O009-T0104,period,periode,admitted,course,For a state use the gcd of positive return times with the explicit convention gcd of the empty set equals zero.
+O009-T0105,periodic,periodik,admitted,course,A positive-return-time set must be nonempty and have gcd greater than one.
+O009-T0106,aperiodic,aperiodik,admitted,course,Use only when the state or communicating class has period one.
+O009-T0107,cyclic class,kelas siklik,admitted,course,One of the d communicating classes of the d-step chain for an irreducible chain of period d.
+O009-T0108,modular congruence,kongruensi modulo,admitted,course,Retain the subscripted congruence notation from the source.
+O009-T0109,d-step chain,rantai d-langkah,admitted,course,The deterministic-time subsequence with transition matrix P raised to d.
+O009-T0110,divisibility,keterbagian,admitted,course,Use habis dibagi in predicates and keterbagian for the abstract relation.
+O009-T0111,random variable,peubah acak,admitted,course,Variabel acak is an accepted synonym and UAD uses both forms on the same page; use peubah acak consistently in this reader.
+O009-T0112,state,keadaan,admitted,course,UAD mixes state and keadaan; use keadaan in reader prose and retain state only inside source quotations or code where required.
+O009-T0113,renewal process,proses pembaruan,admitted,course,UAD alternates pembaharuan and pembaruan; use the standardized pembaruan form consistently.
+O009-T0114,positive recurrent,rekuren positif,admitted,course,Use for a recurrent state whose mean return time is finite.
+O009-T0115,null recurrent,rekuren nol,admitted,course,Use for a recurrent state whose mean return time is infinite.
+O009-T0116,mean return time,waktu kembali rata-rata,admitted,course,The expected first positive return time when the chain starts in the same state.
+O009-T0117,limiting distribution,distribusi limit,admitted,course,Distinguish a time-index limit from an invariant distribution when periodicity prevents pointwise convergence.
+O009-T0118,ergodic,ergodik,admitted,course,For this Random component use the source convention: irreducible positive recurrent and aperiodic.
+O009-T0119,embedded renewal process,proses pembaruan tertanam,admitted,course,Use only after stating the hitting-probability or conditioning qualification for the initial delay.
+O009-T0120,counting process,proses penghitungan,admitted,course,UAD alternates proses menghitung and proses perhitungan; proses pencacahan is also established usage. Use proses penghitungan consistently for an event-count process and record the variants as synonyms.
+O009-T0121,arrival time,waktu kedatangan,admitted,course,The jump time J_k at which the k-th arrival occurs.
+O009-T0122,wait time,waktu tunggu,admitted,course,Use for the elapsed time until an arrival or event; UAD strongly prefers waktu tunggu and waktu antarkedatangan.
+O009-T0123,holding time,waktu tinggal,admitted,course,Use for time spent before a process leaves its current state; keep distinct from the broader wait-time synonym where the mathematical role matters.
+O009-T0124,Poisson process,proses Poisson,admitted,course,The process has a rate; its fixed-time count has a Poisson distribution parameter.
+O009-T0125,Poisson-process rate,laju proses Poisson,admitted,course,Use laju lambda for the process and for exponential waiting times.
+O009-T0126,Poisson-distribution parameter,parameter distribusi Poisson,admitted,course,For N_t use parameter t lambda; do not call t lambda a process rate.
+O009-T0127,exponential-distribution rate,laju distribusi eksponensial,admitted,course,Use laju lambda and distinguish it from the mean 1 over lambda.
+O009-T0128,Erlang shape,parameter bentuk Erlang,admitted,course,Reader prose may shorten this to bentuk when the distribution is already explicit.
+O009-T0129,interarrival time,waktu antarkedatangan,admitted,course,UAD also prints waktu antar kedatangan; use the standard compact compound antarkedatangan consistently.
+O009-T0130,continuous-time Markov chain,rantai Markov waktu kontinu,admitted,course,UAD and Indonesian curricula use rantai for both discrete- and continuous-time state-space chains; distinguish a general proses Markov by scope rather than by time index alone.
+O009-T0131,random process,proses acak,admitted,course,Admitted synonym of proses stokastik; retain both where a definition explicitly equates them.
+O009-T0132,Markov property,sifat Markov,admitted,course,Use for conditional independence of past and future given the present state; distinguish the property from a Markov process or chain.
+O009-T0133,state space,ruang keadaan,admitted,course,UAD uses ruang keadaan as its main Indonesian form; retain state only inside source code or a quoted source phrase.
+O009-T0134,countable set,himpunan terhitung,admitted,course,Use terhitung consistently and state explicitly that the convention includes finite sets.
+O009-T0135,Markov matrix,matriks Markov,admitted,course,A nonnegative row-stochastic matrix on the state space; preserve the reader's row-vector convention.
+O009-T0136,joint distribution,distribusi gabungan,admitted,course,Use for the law of several coordinates or of a complete process on path space.
+O009-T0137,finite-dimensional distribution,distribusi berdimensi hingga,admitted,course,Use for the joint laws at finite collections of time indices.
+O009-T0138,canonical chain,rantai kanonik,admitted,course,The coordinate process on path space equipped with the process law.
+O009-T0139,canonical construction,konstruksi kanonik,admitted,course,The path-space realization that takes coordinate projections as the process.
+O009-T0140,right-continuous path,lintasan kontinu dari kanan,admitted,course,Use for sample paths whose value approaches the present value from later times.
+O009-T0141,history,riwayat,admitted,course,Use for the information generated by the process up to the present time.
+O009-T0142,filtration,filtrasi,admitted,course,An increasing family of sigma-algebras representing information through time.
+O009-T0143,embedded jump chain,rantai lompatan tertanam,admitted,course,The discrete-time chain obtained by observing successive states at jump times.
+O009-T0144,jump process,proses lompatan,admitted,course,A continuous-time process whose sample paths are piecewise constant with jumps.
+O009-T0145,jump time,waktu lompatan,admitted,course,The time at which a jump occurs; distinguish it from the holding duration before that time.
+O009-T0146,jump rate,laju lompatan,admitted,course,Use for the exponential clock rate lambda governing jump events.
+O009-T0147,jump intensity,intensitas lompatan,admitted,course,Use only where intensity is the mathematical object; do not replace every process rate with intensitas.
+O009-T0148,jump matrix,matriks lompatan,admitted,course,The Markov matrix governing the embedded state update at each jump.
+O009-T0149,semigroup property,sifat semigrup,admitted,course,The composition law P_{s+t}=P_s P_t for nonnegative times.
+O009-T0150,Markov semigroup,semigrup Markov,admitted,course,A semigroup of Markov matrices or kernels.
+O009-T0151,transition semigroup,semigrup transisi,admitted,course,Compatibility alias retained because this stable ID was already published; canonical glossary row O009-T0071 governs the same term.
+O009-T0152,distribution flow,aliran distribusi,admitted,course,The time evolution of the marginal or cross-sectional law under a transition semigroup.
+O009-T0153,cross-sectional distribution,distribusi penampang,admitted,course,The distribution across independently sampled units at one fixed time.
+O009-T0154,matrix exponential,eksponensial matriks,admitted,course,Use for exp(tQ) or exp(t lambda(K-I)); preserve multiplication order under the row-vector convention.
+O009-T0155,inventory,persediaan,admitted,course,Use the operations and stochastic-process term persediaan in reader prose; preserve inventory only in source code or identifiers.
+O009-T0156,inventory dynamics,dinamika persediaan,admitted,course,Use for the stock-depletion and replenishment model in the Markov-property unit.
+O009-T0157,Kolmogorov backward equation,persamaan Kolmogorov mundur,admitted,course,Use this word order as witnessed directly in the retained Indonesian UAD stochastic-process text; pair it with persamaan Kolmogorov maju in the next unit.
+O009-T0158,state-dependent jump intensity,intensitas lompatan yang bergantung pada keadaan,admitted,course,The compact attributive form intensitas lompatan bergantung keadaan is permitted; the chain remains time homogeneous.
+O009-T0159,rate function,fungsi laju,admitted,course,Use laju for the state-indexed exponential clock and reserve intensitas for the jump-process object.
+O009-T0160,jump chain algorithm,algoritma rantai lompatan,admitted,course,Reserve rantai lompatan tertanam for the discrete chain Y_k and use proses lompatan for the continuous-time process X_t.
+O009-T0161,Kolmogorov forward equation,persamaan Kolmogorov maju,admitted,course,Use this word order as directly witnessed in the retained Indonesian UAD stochastic-process text and pair it with persamaan Kolmogorov mundur.
+O009-T0162,intensity matrix,matriks intensitas,admitted,course,Preserve QuantEcon's distinction between the finite-state intensity matrix Q and the more general generator of an operator semigroup; matriks generator is an admitted contextual synonym.
+O009-T0163,generator,generator,admitted,course,Use the established mathematical loanword for the operator that generates a semigroup; do not use the literal and unnatural generator sangat kecil.
+O009-T0164,infinitesimal generator,generator infinitesimal,admitted,course,Use when infinitesimal must be explicit; UAD's generator sangat kecil is recorded as witness evidence but is not adopted as controlled reader terminology.
+O009-T0165,Banach space,ruang Banach,admitted,course,Retain the proper name Banach and use ruang for the ambient complete normed vector space.
+O009-T0166,bounded linear operator,operator linear terbatas,admitted,course,Use terbatas for boundedness in operator norm; do not translate it as merely finite.
+O009-T0167,unbounded operator,operator tak terbatas,admitted,course,Pair with an explicit domain when the operator is not defined on all of the Banach space.
+O009-T0168,operator norm,norma operator,admitted,course,Use for the norm on bounded linear operators and distinguish it from pointwise or strong convergence.
+O009-T0169,evolution semigroup,semigrup evolusi,admitted,course,The family consists of operators in L(B) but is a semigroup acting on the Banach space B.
+O009-T0170,C0 semigroup,semigrup C_0,admitted,course,Use for a strongly continuous semigroup and retain the mathematical C_0 notation.
+O009-T0171,uniformly continuous semigroup,semigrup kontinu seragam,admitted,course,Abbreviate as UC after definition; here the time map is continuous in operator norm and the name does not assert uniform continuity in time.
+O009-T0172,generator domain,domain generator,admitted,course,Write A:D(A) subset B to make the domain of a possibly unbounded generator explicit.
+O009-T0173,exponential curve,kurva eksponensial,admitted,course,Use for the operator-valued path t maps to exp(tA).
+O009-T0174,abstract Cauchy problem,masalah Cauchy abstrak,admitted,course,Use for the Banach-space initial-value problem x'_t=A x_t with specified x_0.
+O009-T0175,classical solution,solusi klasik,admitted,course,For an unbounded generator require the initial point and trajectory to satisfy the generator-domain regularity needed for the differential equation.
+O009-T0176,mild solution,solusi ringan,admitted,course,Use for the semigroup trajectory U_t x_0 when x_0 need not lie in the generator domain.
+O009-T0177,absolutely summable,dapat dijumlahkan secara mutlak,admitted,course,Use for functions in ell_1 whose series of absolute values converges; distinguish it from conditional summability.
+O009-T0178,conservative intensity matrix,matriks intensitas konservatif,admitted,course,In this QuantEcon unit the term means an intensity matrix whose row action is a bounded linear operator on ell_1; other CTMC literature may use conservative only for zero row sums.
+O009-T0179,nonexplosive,tidak meledak,admitted,course,Use for a process that almost surely makes only finitely many jumps on every bounded time interval; uniform boundedness of jump rates is sufficient but not necessary.
+O009-T0180,explosion,ledakan,admitted,course,Use for infinitely many jumps accumulating in finite time or the analogous finite maximal endpoint of a trajectory.
+O009-T0181,canonical jump-chain decomposition,dekomposisi rantai lompatan kanonik,admitted,course,Require zero self-loop probability at positive exit rate and an absorbing point-mass row at zero exit rate so the decomposition of Q is unique.
+O009-T0182,absorbing state,keadaan penyerap,admitted,course,Use for a state whose transition row is the point mass at itself and whose exit rate is zero.
+O009-T0183,probability mass,massa probabilitas,admitted,course,Use for total or statewise probability carried by a distribution; loss of total mass characterizes a sub-Markov rather than honest Markov evolution.
+O009-T0184,sub-Markov semigroup,semigrup sub-Markov,admitted,course,Use when positivity is preserved but total mass may decrease because the minimal process can explode.
+O009-T0185,principal diagonal,diagonal utama,admitted,course,"Use for the entries Q(x,x) or K(x,x) indexed by the same state in both coordinates."
+O009-T0186,pure-birth process,proses kelahiran murni,admitted,course,Use for a continuous-time chain whose only jumps are from n to n+1; distinguish unbounded nonexplosive and explosive rate sequences.
+O009-T0187,stationary distribution,distribusi stasioner,admitted,course,Use within the QuantEcon component for a probability law psi satisfying psi P_t equals psi for all t; note that Random's distribution invarian is the controlled synonym when a distinction from process stationarity matters.
+O009-T0188,stationarity,stasioneritas,admitted,course,Use for invariance of a distribution or stochastic law under time evolution; distinguish it from time-homogeneous transition dynamics.
+O009-T0189,ergodicity,ergodisitas,admitted,course,Use for the unit's long-run stability theory; do not silently equate every source-specific ergodic convention across discrete and continuous time.
+O009-T0190,asymptotic stability,kestabilan asimtotik,admitted,course,Use for uniqueness of a stationary distribution together with l1 convergence from every initial distribution.
+O009-T0191,strict contractivity,kontraktivitas ketat,admitted,course,Use when a positive Markov operator strictly reduces l1 distance between distinct probability distributions.
+O009-T0192,drift condition,syarat hanyutan,admitted,course,Use for a Foster-Lyapunov inequality; state the finite set generator domain and nonexplosion scope required by the theorem.
+O009-T0193,skeleton chain,rantai kerangka,admitted,course,Use for the discrete-time chain sampled from a continuous-time semigroup at a fixed positive interval s.
+O009-T0194,Q-positive probability flow,aliran probabilitas positif-Q,admitted,course,Use for a finite path whose consecutive off-diagonal Q entries are positive; do not infer it directly from signed powers of Q without uniformization.
+O009-T0195,Brownian motion,gerak Brown,admitted,course,Use Brown as the proper-name modifier; do not translate it as gerak cokelat.
+O009-T0196,standard Brownian motion,gerak Brown standar,admitted,course,Reserve standar for zero initial value zero drift and variance parameter t.
+O009-T0197,reflected Brownian motion,gerak Brown tercermin,admitted,course,Use for the process obtained by reflection at a level or boundary and state the construction when needed.
+O009-T0198,self-similarity,keserupaan diri,admitted,course,For Brownian scaling state equality in law rather than invariance of each individual sample path.
+O009-T0199,time reversal,pembalikan waktu,admitted,course,Use for reversing a process on a fixed finite horizon.
+O009-T0200,time inversion,inversi waktu,admitted,course,Use for the Brownian transform t maps to t X subscript 1 over t with the value at zero specified separately.
+O009-T0201,reflection principle,prinsip refleksi,admitted,course,Use for the Brownian path reflection argument at a hitting time.
+O009-T0202,law of the iterated logarithm,hukum logaritma berulang,admitted,course,State both limsup and liminf when a two-sided conclusion is used.
+O009-T0203,arcsine law,hukum arksinus,admitted,course,Use for the Brownian zero and last-zero probability laws; retain arksinus as one word.
+O009-T0204,arcsine distribution,distribusi arksinus,admitted,course,Distinguish the named distribution from the broader family of arcsine laws.
+O009-T0205,zero set,himpunan nol,admitted,course,Use for the random set of times at which a stochastic process equals zero.
+O009-T0206,half-normal distribution,distribusi setengah-normal,admitted,course,Use scale sqrt t when the underlying centered normal variance is t.
+O009-T0207,Hölder continuity,kekontinuan Hölder,admitted,course,Use kontinu Hölder adjectivally; for Brownian paths distinguish every exponent below one half from the unattained endpoint.
+O009-T0208,Hausdorff dimension,dimensi Hausdorff,admitted,course,State the almost-sure scope for random graphs and random zero sets.
+O009-T0209,Brownian bridge,jembatan Brown,admitted,course,Use Brown as the proper-name modifier and reserve this term for the conditioned Gaussian process with pinned endpoints.
+O009-T0210,empirical distribution function,fungsi distribusi empiris,admitted,course,Use for the sample distribution function and retain EDF only after the term is defined.
+O009-T0211,stochastic integral,integral stokastik,admitted,course,State the integrator and admissible integrand class when first introduced.
+O009-T0212,Itô isometry,isometri Itô,admitted,course,Retain the diacritic in Itô and state the relevant square-integrability domain.
+O009-T0213,geometric Brownian motion,gerak Brown geometrik,admitted,course,Use for the exponential of drifted and scaled Brownian motion; keep Brown as the proper-name modifier.
+O009-T0214,volatility parameter,parameter volatilitas,admitted,course,Use sigma for the positive diffusion coefficient in geometric Brownian motion; distinguish it from the scale of an already standardized marginal law.
+O009-T0215,lognormal distribution,distribusi lognormal,admitted,course,Use for the law of the exponential of a normal variable and state its log-location and log-scale parameters explicitly.
+O009-T0216,discounted process,proses terdiskonto,admitted,course,Use for the transformed process obtained by multiplying X subscript t by exp minus mu t.
+O009-T0217,initial value,nilai awal,admitted,course,Use for x subscript zero and distinguish it from a random initial distribution.
+O009-T0218,coordinate map,peta koordinat,admitted,course,Use for the fixed-time measurable map X_t from the sample space to the state space.
+O009-T0219,raw path map,peta lintasan mentah,admitted,course,Use for omega maps to the complete coordinate family in S^T with the product sigma-algebra.
+O009-T0220,process evaluation map,peta evaluasi proses,admitted,course,Use for the two-argument map taking time and sample point to X_t of omega.
+O009-T0221,coordinatewise measurability,keterukuran koordinat demi koordinat,admitted,course,Reader prose may say keterukuran tiap waktu when the coordinates are indexed by time; do not conflate it with joint measurability.
+O009-T0222,joint measurability,keterukuran bersama,admitted,course,Use only for measurability of the time-sample evaluation map on the product measurable space.
+O009-T0223,raw path law,hukum lintasan mentah,admitted,course,Use for the pushforward law on S^T equipped only with its coordinate-generated product sigma-algebra.
+O009-T0224,regular path-space law,hukum pada ruang lintasan teratur,admitted,course,Use after the process is established as a random element of a specified regular path space with its stated Borel sigma-algebra.
+O009-T0225,countable-coordinate dependence,ketergantungan koordinat terhitung,admitted,course,Use for product-sigma-algebra events whose membership is determined by at most countably many coordinates.
+O009-T0226,canonical evaluation,evaluasi kanonik,admitted,course,"Use for the map e(t, omega)=omega(t) on a canonical path space and always state the measurable structures under discussion."
+O009-T0227,modification,modifikasi,admitted,course,Use for two processes on one probability space that agree almost surely at each fixed time; assume the state-space diagonal is measurable.
+O009-T0228,indistinguishability,ketakterbedaan,admitted,course,Use when one measurable event of probability one gives equality of the two processes at every time.
+O009-T0229,sample path,lintasan sampel,admitted,course,Use for the function of time obtained after fixing one sample point; lintasan is acceptable after the object is clear.
+O009-T0230,path regularity,keteraturan lintasan,admitted,course,Use for properties such as continuity or cadlag behavior and bind them to an explicit measurable path space before making probability claims.
+O009-T0231,path space,ruang lintasan,admitted,course,"State whether this means the raw product S^T or a regular space such as C([0,1], R) because their sigma-algebras differ."
+O009-T0232,product sigma-algebra,sigma-aljabar produk,admitted,course,Use for the sigma-algebra generated by coordinate projections; for an uncountable index set it need not contain regular-path subsets.
+O009-T0233,conditional probability,probabilitas bersyarat,admitted,course,For conditioning on a null event or value use a specified regular conditional kernel; do not imply a pointwise ratio exists.
+O009-T0234,conditional law,hukum bersyarat,admitted,course,Use for the probability law of one random element conditional on information or another random element; qualify the chosen version.
+O009-T0235,regular conditional probability,probabilitas bersyarat reguler,admitted,course,Use for a probability kernel on the underlying event space and state the sufficient existence hypotheses explicitly.
+O009-T0236,version,versi,admitted,course,Use for one measurable representative of an almost-sure equivalence class; do not use modifikasi which is reserved for processes.
+O009-T0237,almost everywhere,hampir di mana-mana,admitted,course,State the governing measure when it is not unambiguous; almost surely remains hampir pasti on a probability space.
+O009-T0238,standard Borel space,ruang Borel standar,admitted,course,Use ruang Borel standar consistently; do not alternate with ruang Borel baku.
+O009-T0239,determining class,kelas penentu,admitted,course,Use for a class of measurable sets on which equality determines equality of probability measures; state countability when used for a common-null-set argument.
+O009-T0240,simultaneous version,versi serentak,admitted,course,Use when one coherent family of representatives satisfies all required measure identities outside one common null set.
+O009-T0241,disintegration,disintegrasi,admitted,course,Use for decomposing a joint law into a marginal law and a conditional probability kernel.
+O009-T0242,conditioning value,nilai pengondisian,admitted,course,Use for a point x in the value space of the conditioning variable; pointwise kernel values may be version-dependent.
+O009-T0243,null conditioning value,nilai pengondisian nol,admitted,course,Use for a value lying in a marginal-null set; it need not be a point of positive mass and generally has no canonical ratio definition.
+O009-T0244,conditional density,kepadatan bersyarat,admitted,course,Define only where the marginal density is positive and specify a measurable probability-law replacement elsewhere.
+O009-T0245,tightness,keketatan,admitted,course,Use for tightness of a family of probability laws; distinguish it from pointwise boundedness and from compactness itself.
+O009-T0246,modulus of continuity,modulus kontinuitas,admitted,course,Use for the pathwise oscillation control entering tightness criteria on continuous-path spaces.
+O009-T0247,continuous mapping theorem,teorema pemetaan kontinu,admitted,course,State the relevant topology and require the limiting law to assign probability zero to the discontinuity set of the mapping.
+O009-T0248,compound Poisson process,proses Poisson majemuk,admitted,course,Use when Poisson arrival times carry non-unit jump sizes; do not call it a simple counting process.
+O009-T0249,hypothesis audit,audit hipotesis,admitted,course,Use for the five-field check of object setting hypotheses conclusion and a failure witness before applying a theorem.

@@ -262,7 +262,7 @@
 
 <h4 id="mar">Proses Markov</h4>
 
-<p>Seperti yang mungkin Anda duga, terdapat hubungan penting antara <a href="../markov/index.html">proses Markov</a> dan martingal. Misalkan \( \bs X = \{X_t: t \in T\} \) merupakan proses Markov (homogen) dengan ruang keadaan \( (S, \mathscr{S}) \), terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \). Misalkan \( \bs P = \{P_t: t \in T\} \) menyatakan koleksi <a href="../markov/General.html">kernel transisi</a> \( \bs X \), sehingga 
+<p>Seperti yang mungkin Anda duga, terdapat hubungan penting antara <a href="../markov/index.html">proses Markov</a> dan martingal. Misalkan \( \bs X = \{X_t: t \in T\} \) merupakan proses Markov (homogen) dengan ruang keadaan \( (S, \mathscr{S}) \), terhadap filtrasi \( \mathfrak F = \{\mathscr{F}_t: t \in T\} \). Misalkan \( \bs P = \{P_t: t \in T\} \) menyatakan koleksi <a href="../markov/General.html">kernel transisi</a> \( \bs X \), sehingga
 \[ P_t(x, A) = \P(X_t \in A \mid X_0 = x), \quad x \in S, A \in \mathscr{S} \]
 Ingat bahwa (seperti semua kernel probabilitas), \( P_t \) beroperasi (dari kanan) pada fungsi (terukur) \( h: S \to \R \) menurut aturan
 \[ P_t h(x) = \int_S P_t(x, dy) h(y) = \E[h(X_t) \mid X_0 = x], \quad x \in S \]
@@ -402,7 +402,7 @@ Kita juga mengetahui bahwa \( \E(X_t - X_0) = a t \) untuk \( t \in T \), dengan
 	</details>
 </div>
 
-<p>Dengan demikian, \( \bs X \) merupakan martingal jika \( a = 0 \), submartingal jika \( a \ge 0 \), dan supermartingal jika \( a \le 0 \). Kita telah menunjukkan hal ini langsung dalam <a href="Introduction.html#inc">pendahuluan</a>. Ingat bahwa dalam waktu kontinu, <a href="../poisson/Poisson.html">proses pencacahan Poisson</a> memiliki inkremen stasioner dan independen, demikian pula <a href="../brown/Standard.html">gerak Brown standar</a>.</p>
+<p>Dengan demikian, \( \bs X \) merupakan martingal jika \( a = 0 \), submartingal jika \( a \ge 0 \), dan supermartingal jika \( a \le 0 \). Kita telah menunjukkan hal ini langsung dalam <a href="Introduction.html#inc">pendahuluan</a>. Ingat bahwa dalam waktu kontinu, <a href="../poisson/Poisson.html">proses penghitungan Poisson</a> memiliki inkremen stasioner dan independen, demikian pula <a href="../brown/Standard.html">gerak Brown standar</a>.</p>
 
 <footer>
 	<ol class="map">

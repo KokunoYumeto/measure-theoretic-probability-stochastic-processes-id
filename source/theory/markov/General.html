@@ -34,7 +34,7 @@
 		<li class="child"><a href="Discrete.html" title="Rantai Waktu Diskret">3</a></li>
 		<li class="child"><a href="Recurrence.html" title="Transiens dan Rekurensi">4</a></li>
 		<li class="child"><a href="Periodicity.html" title="Periodisitas">5</a></li>
-		<li class="child"><a href="Limiting.html" title="Distribusi Stasioner dan Limit">6</a></li>
+		<li class="child"><a href="Limiting.html" title="Distribusi Invarian dan Limit">6</a></li>
 		<li class="child"><a href="TimeReversal.html" title="Pembalikan Waktu pada Rantai Waktu Diskret">7</a></li>
 		<li class="child"><a href="Ehrenfest.html" title="Rantai Ehrenfest">8</a></li>
 		<li class="child"><a href="BernoulliLaplace.html" title="Rantai Bernoulli–Laplace">9</a></li>
@@ -46,7 +46,7 @@
 		<li class="child"><a href="Continuous.html" title="Rantai Waktu Kontinu">15</a></li>
 		<li class="child"><a href="Transition.html" title="Matriks Transisi dan Generator">16</a></li>
 		<li class="child"><a href="Potentials2.html" title="Matriks Potensial">17</a></li>
-		<li class="child"><a href="Limiting2.html" title="Distribusi Stasioner dan Limit">18</a></li>
+		<li class="child"><a href="Limiting2.html" title="Distribusi Invarian dan Limit">18</a></li>
 		<li class="child"><a href="TimeReversal2.html" title="Pembalikan Waktu pada Rantai Waktu Kontinu">19</a></li>
 		<li class="child"><a href="Poisson.html" title="Rantai yang Disubordinasikan pada Proses Poisson">20</a></li>
 		<li class="child"><a href="BirthDeath2.html" title="Rantai Kelahiran–Kematian Waktu Kontinu">21</a></li>
@@ -72,7 +72,7 @@
 <p>Untuk ruang keadaan umum, teorinya lebih rumit dan teknis, seperti dikemukakan di atas. Namun, kita dapat membedakan dua kelas proses Markov, sekali lagi bergantung pada apakah ruang waktunya diskret atau kontinu.</p>
 
 <ul>
-	<li>Jika \( T = \N \) dan \( S \ = \R \), contoh sederhana proses Markov adalah proses jumlah parsial yang berkaitan dengan barisan variabel acak bernilai riil yang independen dan berdistribusi identik. Barisan semacam ini dipelajari dalam bab mengenai <a href="../sample/index.html">sampel acak</a> (tetapi bukan sebagai proses Markov), dan dibahas kembali <a href="#inc">di bawah</a>.</li>
+	<li>Jika \( T = \N \) dan \( S \ = \R \), contoh sederhana proses Markov adalah proses jumlah parsial yang berkaitan dengan barisan peubah acak bernilai riil yang independen dan berdistribusi identik. Barisan semacam ini dipelajari dalam bab mengenai <a href="../sample/index.html">sampel acak</a> (tetapi bukan sebagai proses Markov), dan dibahas kembali <a href="#inc">di bawah</a>.</li>
 	<li>Untuk kasus \( T = [0, \infty) \) dan \( S = \R\), atau secara lebih umum \(S = \R^k \), proses Markov terpenting adalah <dfn>proses difusi</dfn>. Secara umum, proses semacam ini dapat dikonstruksi melalui persamaan diferensial stokastik dari <a href="../brown/index.html">gerak Brown</a>, yang dengan demikian menjadi contoh utama proses Markov dalam waktu dan ruang kontinu.</li>
 </ul>
 
@@ -90,7 +90,7 @@
 
 <p>Berbagai ruang fungsi bernilai riil pada \( S \) memainkan peran penting. Misalkan \( \mathscr{B} \) menyatakan koleksi fungsi terbatas dan terukur \( f: S \to \R \). Dengan penjumlahan dan perkalian skalar biasa (secara titik demi titik), \( \mathscr{B} \) merupakan ruang vektor. Kita melengkapi \( \mathscr{B} \) dengan norma supremum, yang didefinisikan oleh \( \|f\| = \sup\{\left|f(x)\right|: x \in S\} \).</p>
 
-<p>Sekarang, misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah <a href="../prob/Processes.html">proses stokastik</a> pada \( (\Omega, \mathscr{F}, \P) \) dengan ruang keadaan \( S \) dan ruang waktu \( T \). Jadi, \( X_t \) adalah variabel acak yang mengambil nilai dalam \( S \) untuk setiap \( t \in T \), dan kita memandang \( X_t \in S \) sebagai <dfn>keadaan</dfn> suatu sistem pada <dfn>waktu</dfn> \( t \in T\). Kita juga mengasumsikan adanya koleksi \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\}\) yang terdiri atas \( \sigma \)-aljabar dengan sifat bahwa \( X_t \) terukur terhadap \( \mathscr{F}_t \) untuk \( t \in T \), dan \( \mathscr{F}_s \subseteq \mathscr{F}_t \subseteq \mathscr{F} \) untuk \( s, \, t \in T \) dengan \( s \le t \). Secara intuitif, \( \mathscr{F}_t \) adalah koleksi kejadian hingga waktu \( t \in T \). Secara teknis, asumsi-asumsi tersebut berarti bahwa \( \mathfrak{F} \) merupakan <a href="../prob/Stop.html">filtrasi</a> dan proses \( \bs{X} \) <dfn>teradaptasi</dfn> terhadap \( \mathfrak{F} \). Filtrasi yang paling mendasar (dan paling kasar) adalah <dfn>filtrasi alami</dfn> \( \mathfrak{F}^0 = \left\{\mathscr{F}^0_t: t \in T\right\} \), dengan \( \mathscr{F}^0_t = \sigma\{X_s: s \in T, s \le t\} \), yakni \( \sigma \)-aljabar yang dibangkitkan oleh proses hingga waktu \( t \in T \). Namun, dalam waktu kontinu, sering kali perlu digunakan \( \sigma \)-aljabar yang sedikit lebih halus agar diperoleh teori matematika yang baik. Secara khusus, kita sering perlu mengasumsikan bahwa filtrasi \( \mathfrak{F} \) <dfn>kontinu kanan</dfn>, dalam arti \( \mathscr{F}_{t+} = \mathscr{F}_t \) untuk \( t \in T \), dengan \(\mathscr{F}_{t+} = \bigcap\{\mathscr{F}_s: s \in T, s \gt t\} \). Hal ini dapat dicapai dengan mengambil \( \mathfrak{F} = \mathfrak{F}^0_+ \), sehingga \( \mathscr{F}_t = \mathscr{F}^0_{t+} \) untuk \( t \in T \); dalam hal ini, \( \mathfrak{F} \) disebut <dfn>penyempurnaan kontinu kanan</dfn> dari filtrasi alami. Kadang-kadang kita juga perlu mengasumsikan bahwa \( \mathfrak{F} \) <dfn>lengkap</dfn> terhadap \( \P \), dalam arti bahwa jika \( A \in \mathscr{S} \) dengan \( \P(A) = 0 \) dan \( B \subseteq A \), maka \( B \in \mathscr{F}_0 \). Artinya, \( \mathscr{F}_0 \) memuat semua <dfn>kejadian nol</dfn> (dan karena itu juga semua kejadian <dfn>hampir pasti</dfn>), dan dengan demikian \( \mathscr{F}_t \) pun memuatnya untuk semua \( t \in T \).</p>
+<p>Sekarang, misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah <a href="../prob/Processes.html">proses stokastik</a> pada \( (\Omega, \mathscr{F}, \P) \) dengan ruang keadaan \( S \) dan ruang waktu \( T \). Jadi, \( X_t \) adalah peubah acak yang mengambil nilai dalam \( S \) untuk setiap \( t \in T \), dan kita memandang \( X_t \in S \) sebagai <dfn>keadaan</dfn> suatu sistem pada <dfn>waktu</dfn> \( t \in T\). Kita juga mengasumsikan adanya koleksi \(\mathfrak{F} = \{\mathscr{F}_t: t \in T\}\) yang terdiri atas \( \sigma \)-aljabar dengan sifat bahwa \( X_t \) terukur terhadap \( \mathscr{F}_t \) untuk \( t \in T \), dan \( \mathscr{F}_s \subseteq \mathscr{F}_t \subseteq \mathscr{F} \) untuk \( s, \, t \in T \) dengan \( s \le t \). Secara intuitif, \( \mathscr{F}_t \) adalah koleksi kejadian hingga waktu \( t \in T \). Secara teknis, asumsi-asumsi tersebut berarti bahwa \( \mathfrak{F} \) merupakan <a href="../prob/Stop.html">filtrasi</a> dan proses \( \bs{X} \) <dfn>teradaptasi</dfn> terhadap \( \mathfrak{F} \). Filtrasi yang paling mendasar (dan paling kasar) adalah <dfn>filtrasi alami</dfn> \( \mathfrak{F}^0 = \left\{\mathscr{F}^0_t: t \in T\right\} \), dengan \( \mathscr{F}^0_t = \sigma\{X_s: s \in T, s \le t\} \), yakni \( \sigma \)-aljabar yang dibangkitkan oleh proses hingga waktu \( t \in T \). Namun, dalam waktu kontinu, sering kali perlu digunakan \( \sigma \)-aljabar yang sedikit lebih halus agar diperoleh teori matematika yang baik. Secara khusus, kita sering perlu mengasumsikan bahwa filtrasi \( \mathfrak{F} \) <dfn>kontinu kanan</dfn>, dalam arti \( \mathscr{F}_{t+} = \mathscr{F}_t \) untuk \( t \in T \), dengan \(\mathscr{F}_{t+} = \bigcap\{\mathscr{F}_s: s \in T, s \gt t\} \). Hal ini dapat dicapai dengan mengambil \( \mathfrak{F} = \mathfrak{F}^0_+ \), sehingga \( \mathscr{F}_t = \mathscr{F}^0_{t+} \) untuk \( t \in T \); dalam hal ini, \( \mathfrak{F} \) disebut <dfn>penyempurnaan kontinu kanan</dfn> dari filtrasi alami. Kadang-kadang kita juga perlu mengasumsikan bahwa \( \mathfrak{F} \) <dfn>lengkap</dfn> terhadap \( \P \), dalam arti bahwa jika \( A \in \mathscr{S} \) dengan \( \P(A) = 0 \) dan \( B \subseteq A \), maka \( B \in \mathscr{F}_0 \). Artinya, \( \mathscr{F}_0 \) memuat semua <dfn>kejadian nol</dfn> (dan karena itu juga semua kejadian <dfn>hampir pasti</dfn>), dan dengan demikian \( \mathscr{F}_t \) pun memuatnya untuk semua \( t \in T \).</p>
 
 <h4 id="dfn">Definisi</h4>
 
@@ -100,7 +100,7 @@
 	untuk semua \( s, \, t \in T \) dan \( A \in \mathscr{S} \).</p>
 </div>
 
-<p>Syarat yang mendefinisikan ini, yang tepat disebut <dfn>sifat Markov</dfn>, menyatakan bahwa distribusi bersyarat dari \( X_{s+t} \) jika \( \mathscr{F}_s \) diketahui sama dengan distribusi bersyarat dari \( X_{s+t} \) jika hanya \( X_s \) yang diketahui. Pandanglah \( s \) sebagai waktu sekarang, sehingga \( s + t \) adalah suatu waktu di masa depan. Jika kita mengetahui keadaan sekarang \( X_s \), pengetahuan tambahan apa pun mengenai kejadian masa lalu tidak relevan untuk memprediksi keadaan mendatang \( X_{s + t} \). Secara teknis, probabilitas bersyarat dalam definisi tersebut adalah variabel acak, dan kesamaannya harus ditafsirkan berlaku dengan probabilitas 1. Seperti mungkin Anda ingat, <a href="../expect/Conditional2.html">nilai harapan bersyarat</a> merupakan konsep yang lebih umum dan berguna daripada probabilitas bersyarat, sehingga teorema berikut mungkin tidak mengejutkan.</p>
+<p>Syarat yang mendefinisikan ini, yang tepat disebut <dfn>sifat Markov</dfn>, menyatakan bahwa distribusi bersyarat dari \( X_{s+t} \) jika \( \mathscr{F}_s \) diketahui sama dengan distribusi bersyarat dari \( X_{s+t} \) jika hanya \( X_s \) yang diketahui. Pandanglah \( s \) sebagai waktu sekarang, sehingga \( s + t \) adalah suatu waktu di masa depan. Jika kita mengetahui keadaan sekarang \( X_s \), pengetahuan tambahan apa pun mengenai kejadian masa lalu tidak relevan untuk memprediksi keadaan mendatang \( X_{s + t} \). Secara teknis, probabilitas bersyarat dalam definisi tersebut adalah peubah acak, dan kesamaannya harus ditafsirkan berlaku dengan probabilitas 1. Seperti mungkin Anda ingat, <a href="../expect/Conditional2.html">nilai harapan bersyarat</a> merupakan konsep yang lebih umum dan berguna daripada probabilitas bersyarat, sehingga teorema berikut mungkin tidak mengejutkan.</p>
 
 <div class="unit" id="dfn2">
 	<p class="dfn">Proses acak \( \bs{X} \) adalah proses Markov jika dan hanya jika
@@ -176,7 +176,7 @@
 
 <p>Karena waktu (masa lalu, sekarang, dan masa depan) memainkan peran begitu mendasar dalam proses Markov, tidak mengherankan bahwa waktu acak itu penting. Kita sering perlu mengizinkan waktu acak mengambil nilai \( \infty \), sehingga himpunan waktu perlu diperluas menjadi \( T_\infty = T \cup \{\infty\} \). Topologi pada \( T \) diperluas ke \( T_\infty \) dengan kaidah bahwa untuk \( s \in T \), himpunan \( \{t \in T_\infty: t \gt s\} \) merupakan lingkungan terbuka dari \( \infty \). Ini adalah kompaktifikasi satu titik dari \( T \), yang digunakan agar pengertian <em>waktu yang menuju tak hingga</em> tetap dipertahankan. \( \sigma \)-aljabar Borel \( \mathscr{T}_\infty \) digunakan pada \( T_\infty \), yang sekali lagi hanyalah himpunan kuasa dalam kasus diskret.</p>
 
-<p>Jika \( \bs{X} = \{X_t: t \in T\} \) adalah proses stokastik pada ruang sampel \( (\Omega, \mathscr{F}) \), dan jika \( \tau \) merupakan waktu acak, kita secara alami ingin mempertimbangkan keadaan \( X_\tau \) pada waktu acak tersebut. Ada dua masalah. Pertama, jika \( \tau \) mengambil nilai \( \infty \), \( X_\tau \) tidak terdefinisi. Penyelesaian yang lazim adalah menambahkan <q>keadaan kematian</q> baru \( \delta \) ke himpunan keadaan \( S \), kemudian melengkapi \( S_\delta = S \cup \{\delta\} \) dengan \( \sigma \)-aljabar \( \mathscr{S}_\delta = \mathscr{S} \cup \{A \cup \{\delta\}: A \in \mathscr{S}\} \). Fungsi \( f \in \mathscr{B} \) diperluas ke \( S_\delta \) dengan kaidah \( f(\delta) = 0 \). Masalah kedua adalah bahwa \( X_\tau \) mungkin bukan variabel acak yang sah (yakni terukur), kecuali kita mengasumsikan bahwa proses stokastik \( \bs{X} \) terukur. Ingat bahwa ini berarti \( \bs{X}: \Omega \times T \to S \) terukur relatif terhadap \( \mathscr{F} \otimes \mathscr{T} \) dan \( \mathscr{S} \). (Hal ini selalu benar dalam waktu diskret.)</p>
+<p>Jika \( \bs{X} = \{X_t: t \in T\} \) adalah proses stokastik pada ruang sampel \( (\Omega, \mathscr{F}) \), dan jika \( \tau \) merupakan waktu acak, kita secara alami ingin mempertimbangkan keadaan \( X_\tau \) pada waktu acak tersebut. Ada dua masalah. Pertama, jika \( \tau \) mengambil nilai \( \infty \), \( X_\tau \) tidak terdefinisi. Penyelesaian yang lazim adalah menambahkan <q>keadaan kematian</q> baru \( \delta \) ke himpunan keadaan \( S \), kemudian melengkapi \( S_\delta = S \cup \{\delta\} \) dengan \( \sigma \)-aljabar \( \mathscr{S}_\delta = \mathscr{S} \cup \{A \cup \{\delta\}: A \in \mathscr{S}\} \). Fungsi \( f \in \mathscr{B} \) diperluas ke \( S_\delta \) dengan kaidah \( f(\delta) = 0 \). Masalah kedua adalah bahwa \( X_\tau \) mungkin bukan peubah acak yang sah (yakni terukur), kecuali kita mengasumsikan bahwa proses stokastik \( \bs{X} \) terukur. Ingat bahwa ini berarti \( \bs{X}: \Omega \times T \to S \) terukur relatif terhadap \( \mathscr{F} \otimes \mathscr{T} \) dan \( \mathscr{S} \). (Hal ini selalu benar dalam waktu diskret.)</p>
 
 <p>Selanjutnya, ingat bahwa waktu acak \( \tau \) adalah <a href="../prob/Stop.html">waktu henti</a> (juga disebut <dfn>waktu Markov</dfn> atau <dfn>waktu opsional</dfn>) relatif terhadap \( \mathfrak{F} \) jika \( \{\tau \le t\} \in \mathscr{F}_t \) untuk setiap \( t \in T \). Secara intuitif, kita dapat mengetahui apakah \( \tau \le t \) dari informasi yang tersedia bagi kita pada waktu \( t \). Dalam arti tertentu, waktu henti adalah waktu acak yang tidak mengharuskan kita melihat ke masa depan. Tentu saja, konsep ini sangat bergantung pada filtrasi. Ingat bahwa jika waktu acak \( \tau \) merupakan waktu henti untuk filtrasi \( \mathfrak{F} = \{\mathscr{F}_t: t \in T\} \), maka ( \tau ) juga merupakan waktu henti untuk filtrasi yang lebih halus \( \mathfrak{G} = \{\mathscr{G}_t: t \in T\} \), sehingga \( \mathscr{F}_t \subseteq \mathscr{G}_t \) untuk \( t \in T \). Jadi, makin halus filtrasinya, makin besar koleksi waktu hentinya. Bahkan, jika filtrasi tersebut adalah filtrasi trivial dengan \( \mathscr{F}_t = \mathscr{F} \) untuk semua \( t \in T \) (sehingga semua informasi tersedia bagi kita sejak awal waktu), maka <em>setiap</em> waktu acak merupakan waktu henti. Namun, tentu saja filtrasi trivial ini biasanya tidak masuk akal.</p>
 
@@ -228,7 +228,7 @@ Secara intuitif, \( \mathscr{F}_\tau \) adalah koleksi kejadian hingga waktu aca
 	Maka \( P_t \) adalah kernel probabilitas pada \( (S, \mathscr{S}) \), yang dikenal sebagai <dfn>kernel transisi</dfn> dari \( \bs{X} \) untuk waktu \( t \).</p>
 	<details>
 		<summary>Rincian:</summary>
-		<p>Tetapkan \( t \in T \). Keterukuran \( x \mapsto \P(X_t \in A \mid X_0 = x) \) untuk \( A \in \mathscr{S} \) sudah tercakup dalam definisi probabilitas bersyarat. Selain itu, tentu saja, \( A \mapsto \P(X_t \in A \mid X_0 = x) \) merupakan ukuran probabilitas pada \( \mathscr{S} \) untuk \( x \in S \). Secara umum, distribusi bersyarat satu variabel acak, dengan syarat nilai variabel acak lain, mendefinisikan kernel probabilitas.</p>
+		<p>Tetapkan \( t \in T \). Keterukuran \( x \mapsto \P(X_t \in A \mid X_0 = x) \) untuk \( A \in \mathscr{S} \) sudah tercakup dalam definisi probabilitas bersyarat. Selain itu, tentu saja, \( A \mapsto \P(X_t \in A \mid X_0 = x) \) merupakan ukuran probabilitas pada \( \mathscr{S} \) untuk \( x \in S \). Secara umum, distribusi bersyarat satu peubah acak, dengan syarat nilai peubah acak lain, mendefinisikan kernel probabilitas.</p>
 	</details>
 </div>
 
@@ -376,7 +376,7 @@ Teorema berikut memberikan persamaan <dfn>Chapman–Kolmogorov</dfn>, yang dinam
 <p>Hasil pertama dalam pembahasan ini adalah bahwa proses Markov takhomogen dapat diubah menjadi proses Markov homogen, tetapi sebagai konsekuensinya ruang keadaan harus diperluas.</p>
 
 <div class="unit" id="enl1">
-	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov takhomogen dengan ruang keadaan \( (S, \mathscr{S}) \). Misalkan pula bahwa \( \tau \) adalah variabel acak yang mengambil nilai dalam \( T \), independen dari \( \bs{X} \). Misalkan \( \tau_t = \tau + t \) dan \( Y_t = \left(X_{\tau_t}, \tau_t\right) \) untuk \( t \in T \). Maka \( \bs{Y} = \{Y_t: t \in T\} \) adalah proses Markov homogen dengan ruang keadaan \( (S \times T, \mathscr{S} \otimes \mathscr{T}) \). Untuk \( t \in T \), kernel transisi \( P_t \) diberikan oleh
+	<p class="math">Misalkan \( \bs{X} = \{X_t: t \in T\} \) adalah proses Markov takhomogen dengan ruang keadaan \( (S, \mathscr{S}) \). Misalkan pula bahwa \( \tau \) adalah peubah acak yang mengambil nilai dalam \( T \), independen dari \( \bs{X} \). Misalkan \( \tau_t = \tau + t \) dan \( Y_t = \left(X_{\tau_t}, \tau_t\right) \) untuk \( t \in T \). Maka \( \bs{Y} = \{Y_t: t \in T\} \) adalah proses Markov homogen dengan ruang keadaan \( (S \times T, \mathscr{S} \otimes \mathscr{T}) \). Untuk \( t \in T \), kernel transisi \( P_t \) diberikan oleh
 	\[ P_t[(x, r), A \times B] = \P(X_{r+t} \in A \mid X_r = x) \bs{1}(r + t \in B), \quad (x, r) \in S \times T, \, A \times B \in \mathscr{S} \otimes \mathscr{T} \]</p>
 	<details>
 		<summary>Rincian:</summary>
@@ -468,7 +468,7 @@ Teorema berikut memberikan persamaan <dfn>Chapman–Kolmogorov</dfn>, yang dinam
 	<p class="math">\( Q_s * Q_t = Q_{s+t} \) untuk \( s, \, t \in T \).</p>
 	<details>
 		<summary>Rincian:</summary>
-		<p>Untuk \( s, \, t \in T \), \( Q_s \) adalah distribusi \( X_s - X_0 \), dan berdasarkan sifat stasioner, \( Q_t \) adalah distribusi \( X_{s + t} - X_s \). Berdasarkan sifat independen, \( X_s - X_0 \) dan \( X_{s+t} - X_s \) saling independen. Karena itu, \( Q_s * Q_t \) merupakan distribusi dari \( \left[X_s - X_0\right] + \left[X_{s+t} - X_s\right] = X_{s+t} - X_0 \). Namun, berdasarkan definisi, variabel ini memiliki distribusi \( Q_{s+t} \)</p>
+		<p>Untuk \( s, \, t \in T \), \( Q_s \) adalah distribusi \( X_s - X_0 \), dan berdasarkan sifat stasioner, \( Q_t \) adalah distribusi \( X_{s + t} - X_s \). Berdasarkan sifat independen, \( X_s - X_0 \) dan \( X_{s+t} - X_s \) saling independen. Karena itu, \( Q_s * Q_t \) merupakan distribusi dari \( \left[X_s - X_0\right] + \left[X_{s+t} - X_s\right] = X_{s+t} - X_0 \). Namun, berdasarkan definisi, peubah ini memiliki distribusi \( Q_{s+t} \)</p>
 	</details>
 </div>
 
@@ -519,7 +519,7 @@ dengan mengasumsikan, tentu saja, bahwa keduanya ada. Fungsi rerata dan varians 
 			<li>Berdasarkan sifat aditif nilai harapan dan sifat stasioner,
 			\[ m_0(t + s) = \E(X_{t+s} - X_0) = \E[(X_{t + s} - X_s) + (X_s - X_0)] = \E(X_{t+s} - X_s) + \E(X_s - X_0) = m_0(t) + m_0(s) \]
 			</li>
-			<li>Berdasarkan sifat aditif varians untuk variabel-variabel yang <em>independen</em> dan sifat stasioner,
+			<li>Berdasarkan sifat aditif varians untuk peubah-peubah yang <em>independen</em> dan sifat stasioner,
 			\[ v_0(t + s) = \var(X_{t+s} - X_0) = \var[(X_{t + s} - X_s) + (X_s - X_0)] = \var(X_{t+s} - X_s) + \var(X_s - X_0) = v_0(t) + v_0(s) \]
 			</li>
 		</ol>
@@ -530,17 +530,17 @@ dengan mengasumsikan, tentu saja, bahwa keduanya ada. Fungsi rerata dan varians 
 <p>Proses dengan inkremen stasioner dan independen dalam waktu diskret mudah dideskripsikan.</p>
 
 <div class="unit" id="inc6">
-	<p class="math">Proses \( \bs{X} = \{X_n: n \in \N\} \) memiliki inkremen independen jika dan hanya jika terdapat barisan variabel acak bernilai riil yang independen \( (U_0, U_1, \ldots) \) sedemikian sehingga
+	<p class="math">Proses \( \bs{X} = \{X_n: n \in \N\} \) memiliki inkremen independen jika dan hanya jika terdapat barisan peubah acak bernilai riil yang independen \( (U_0, U_1, \ldots) \) sedemikian sehingga
 	\[ X_n = \sum_{i=0}^n U_i \]
 	Selain itu, \( \bs{X} \) memiliki inkremen stasioner jika dan hanya jika \( (U_1, U_2, \ldots) \) berdistribusi identik.</p>
 	<details>
 		<summary>Rincian:</summary>
-		<p>Pertama, misalkan \( \bs{U} = (U_0, U_1, \ldots) \) adalah barisan variabel acak bernilai riil yang independen, dan definisikan \( X_n = \sum_{i=0}^n U_i \) untuk \( n \in \N \). Perhatikan bahwa \(\mathscr{F}_n = \sigma\{X_0, \ldots, X_n\} = \sigma\{U_0, \ldots, U_n\} \) untuk \( n \in \N \). Jika \( k, \, n \in \N \) dengan \( k \le n \), maka \( X_n - X_k = \sum_{i=k+1}^n U_i \), yang independen dari \( \mathscr{F}_k \) berdasarkan asumsi independensi pada \( \bs{U} \). Karena itu, \( \bs{X} \) memiliki inkremen independen. Misalkan selain itu \( (U_1, U_2, \ldots) \) berdistribusi identik. Maka inkremen \( X_n - X_k \) di atas memiliki distribusi yang sama dengan \( \sum_{i=1}^{n-k} U_i = X_{n-k} - X_0 \). Karena itu, \( \bs{X} \) memiliki inkremen stasioner.</p>
+		<p>Pertama, misalkan \( \bs{U} = (U_0, U_1, \ldots) \) adalah barisan peubah acak bernilai riil yang independen, dan definisikan \( X_n = \sum_{i=0}^n U_i \) untuk \( n \in \N \). Perhatikan bahwa \(\mathscr{F}_n = \sigma\{X_0, \ldots, X_n\} = \sigma\{U_0, \ldots, U_n\} \) untuk \( n \in \N \). Jika \( k, \, n \in \N \) dengan \( k \le n \), maka \( X_n - X_k = \sum_{i=k+1}^n U_i \), yang independen dari \( \mathscr{F}_k \) berdasarkan asumsi independensi pada \( \bs{U} \). Karena itu, \( \bs{X} \) memiliki inkremen independen. Misalkan selain itu \( (U_1, U_2, \ldots) \) berdistribusi identik. Maka inkremen \( X_n - X_k \) di atas memiliki distribusi yang sama dengan \( \sum_{i=1}^{n-k} U_i = X_{n-k} - X_0 \). Karena itu, \( \bs{X} \) memiliki inkremen stasioner.</p>
 		<p>Sebaliknya, misalkan \( \bs{X} = \{X_n: n \in \N\} \) memiliki inkremen independen. Misalkan \( U_0 = X_0 \) dan \( U_n = X_n - X_{n-1} \) untuk \( n \in \N_+ \). Maka \( X_n = \sum_{i=0}^n U_i \) untuk \( n \in \N \). Seperti sebelumnya, \(\mathscr{F}_n = \sigma\{X_0, \ldots, X_n\} = \sigma\{U_0, \ldots, U_n\} \) untuk \( n \in \N \). Karena \( \bs{X} \) memiliki inkremen independen, \( U_n \) independen dari \( \mathscr{F}_{n-1} \) untuk \( n \in \N_+ \), sehingga \( (U_0, U_1, \ldots) \) saling independen. Jika selain itu \( \bs{X} \) memiliki inkremen stasioner, \( U_n = X_n - X_{n-1} \) memiliki distribusi yang sama dengan \( X_1 - X_0 = U_1 \) untuk \( n \in \N_+ \). Karena itu, \((U_1, U_2, \ldots)\) berdistribusi identik.</p>
 	</details>
 </div>
 
-<p>Jadi, misalkan \( \bs{U} = (U_0, U_1, \ldots) \) adalah barisan variabel acak bernilai riil yang independen, dengan \( (U_1, U_2, \ldots) \) berdistribusi identik menurut distribusi \( Q \). Berdasarkan <a href="#inc3" class="ref"></a>, proses jumlah parsial \( \bs{X} = \{X_n: n \in \N\} \) yang berkaitan dengan \( \bs{U} \) merupakan proses Markov homogen dengan kernel transisi satu langkah \( P \) yang diberikan oleh
+<p>Jadi, misalkan \( \bs{U} = (U_0, U_1, \ldots) \) adalah barisan peubah acak bernilai riil yang independen, dengan \( (U_1, U_2, \ldots) \) berdistribusi identik menurut distribusi \( Q \). Berdasarkan <a href="#inc3" class="ref"></a>, proses jumlah parsial \( \bs{X} = \{X_n: n \in \N\} \) yang berkaitan dengan \( \bs{U} \) merupakan proses Markov homogen dengan kernel transisi satu langkah \( P \) yang diberikan oleh
 \[ P(x, A) = Q(A - x), \quad x \in S, \, A \in \mathscr{S} \]
 Secara lebih umum, untuk \( n \in \N \), kernel transisi \( n \) langkah adalah \( P^n(x, A) = Q^{*n}(A - x) \) untuk \( x \in S \) dan \( A \in \mathscr{S} \). Proses Markov ini dikenal sebagai <dfn>gerak acak</dfn> (meskipun sayangnya istilah <em>gerak acak</em> juga digunakan dalam sejumlah konteks lain). Gagasannya adalah bahwa pada waktu \( n \), pejalan bergerak sejauh \( U_n \) (dengan arah) pada garis riil, dan langkah-langkah ini independen serta berdistribusi identik. Jika \( Q \) memiliki fungsi kepadatan probabilitas \( g \) terhadap ukuran acuan \( \lambda \), maka kepadatan transisi satu langkahnya adalah
 \[ p(x, y) = g(y - x), \quad x, \, y \in S \]
@@ -573,7 +573,7 @@ Secara lebih umum, untuk \( n \in \N \), kernel transisi \( n \) langkah adalah 
 		<summary>Rincian:</summary>
 		<p>Ingat bahwa 
 		\[ g_t(n) = e^{-t} \frac{t^n}{n!}, \quad n \in \N \]
-		Kita hanya perlu menunjukkan bahwa \( \{g_t: t \in [0, \infty)\} \) memenuhi sifat semigrup dan bahwa hasil kontinuitas berlaku. Namun, kita sudah mengetahui bahwa jika \( U, \, V \) adalah variabel independen yang masing-masing berdistribusi Poisson dengan parameter \( s, \, t \in [0, \infty) \), maka \( U + V \) berdistribusi Poisson dengan parameter \( s + t \). Artinya, \( g_s * g_t = g_{s+t} \). Selain itu, \( g_t \to g_0 \) ketika \( t \downarrow 0 \).</p>
+		Kita hanya perlu menunjukkan bahwa \( \{g_t: t \in [0, \infty)\} \) memenuhi sifat semigrup dan bahwa hasil kontinuitas berlaku. Namun, kita sudah mengetahui bahwa jika \( U, \, V \) adalah peubah independen yang masing-masing berdistribusi Poisson dengan parameter \( s, \, t \in [0, \infty) \), maka \( U + V \) berdistribusi Poisson dengan parameter \( s + t \). Artinya, \( g_s * g_t = g_{s+t} \). Selain itu, \( g_t \to g_0 \) ketika \( t \downarrow 0 \).</p>
 	</details>
 </div>
 
@@ -589,7 +589,7 @@ Secara lebih umum, untuk \( n \in \N \), kernel transisi \( n \) langkah adalah 
 		<summary>Rincian:</summary>
 		<p>Ingat bahwa untuk \( t \in (0, \infty) \),
 		\[ g_t(z) = \frac{1}{\sqrt{2 \pi t}} \exp\left(-\frac{z^2}{2 t}\right), \quad z \in \R \]
-		Kita hanya perlu menunjukkan bahwa \( \{g_t: t \in [0, \infty)\} \) memenuhi sifat semigrup dan bahwa hasil kontinuitas berlaku. Namun, kita sudah mengetahui bahwa jika \( U, \, V \) adalah variabel independen yang masing-masing berdistribusi normal dengan rerata 0 dan varians \( s, \, t \in (0, \infty) \), maka \( U + V \) berdistribusi normal dengan rerata 0 dan varians \( s + t \). Artinya, \( g_s * g_t = g_{s+t} \). Selain itu, kita juga mengetahui bahwa distribusi normal dengan varians \( t \) konvergen ke massa titik di 0 ketika \( t \downarrow 0 \).</p>
+		Kita hanya perlu menunjukkan bahwa \( \{g_t: t \in [0, \infty)\} \) memenuhi sifat semigrup dan bahwa hasil kontinuitas berlaku. Namun, kita sudah mengetahui bahwa jika \( U, \, V \) adalah peubah independen yang masing-masing berdistribusi normal dengan rerata 0 dan varians \( s, \, t \in (0, \infty) \), maka \( U + V \) berdistribusi normal dengan rerata 0 dan varians \( s + t \). Artinya, \( g_s * g_t = g_{s+t} \). Selain itu, kita juga mengetahui bahwa distribusi normal dengan varians \( t \) konvergen ke massa titik di 0 ketika \( t \downarrow 0 \).</p>
 	</details>
 </div>
 
@@ -608,7 +608,7 @@ Secara lebih umum, untuk \( n \in \N \), kernel transisi \( n \) langkah adalah 
 		<li class="child"><a href="Discrete.html" title="Rantai Waktu Diskret">3</a></li>
 		<li class="child"><a href="Recurrence.html" title="Transiens dan Rekurensi">4</a></li>
 		<li class="child"><a href="Periodicity.html" title="Periodisitas">5</a></li>
-		<li class="child"><a href="Limiting.html" title="Distribusi Stasioner dan Limit">6</a></li>
+		<li class="child"><a href="Limiting.html" title="Distribusi Invarian dan Limit">6</a></li>
 		<li class="child"><a href="TimeReversal.html" title="Pembalikan Waktu pada Rantai Waktu Diskret">7</a></li>
 		<li class="child"><a href="Ehrenfest.html" title="Rantai Ehrenfest">8</a></li>
 		<li class="child"><a href="BernoulliLaplace.html" title="Rantai Bernoulli–Laplace">9</a></li>
@@ -620,7 +620,7 @@ Secara lebih umum, untuk \( n \in \N \), kernel transisi \( n \) langkah adalah 
 		<li class="child"><a href="Continuous.html" title="Rantai Waktu Kontinu">15</a></li>
 		<li class="child"><a href="Transition.html" title="Matriks Transisi dan Generator">16</a></li>
 		<li class="child"><a href="Potentials2.html" title="Matriks Potensial">17</a></li>
-		<li class="child"><a href="Limiting2.html" title="Distribusi Stasioner dan Limit">18</a></li>
+		<li class="child"><a href="Limiting2.html" title="Distribusi Invarian dan Limit">18</a></li>
 		<li class="child"><a href="TimeReversal2.html" title="Pembalikan Waktu pada Rantai Waktu Kontinu">19</a></li>
 		<li class="child"><a href="Poisson.html" title="Rantai yang Disubordinasikan pada Proses Poisson">20</a></li>
 		<li class="child"><a href="BirthDeath2.html" title="Rantai Kelahiran–Kematian Waktu Kontinu">21</a></li>

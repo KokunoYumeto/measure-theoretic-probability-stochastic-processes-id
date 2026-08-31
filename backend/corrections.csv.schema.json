@@ -5,6 +5,7 @@
   "properties": {
     "change_kind": {
       "enum": [
+        "accessibility-localization",
         "deterministic-output",
         "original-addition",
         "source-content-repair",
@@ -57,6 +58,6 @@
       "evidence",
       "status"
     ],
-    "line_ending": "CRLF"
+    "line_ending": "LF"
   }
 }

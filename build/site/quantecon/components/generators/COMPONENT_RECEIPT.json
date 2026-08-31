@@ -1,0 +1,184 @@
+{
+  "authority": {
+    "active_input_manifest_sha256_after": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "active_input_manifest_sha256_before": "6caf088583fba12eab445490f8ef3cfbece2c23b0e47a715a5da7f2ed412beb6",
+    "commit": "8b06e0aa5a438692445b2c896f9d238c5a7d5eb7",
+    "notebook_path": "authority\\quantecon\\notebook_snapshot\\continuous_time_mcs.notebooks-1e17c25c937f369544380f769eb9c1bc45d12d1a\\generators.ipynb",
+    "notebook_sha256": "8ce748db97a5a38414277e8056ab3b6a6eac8900e3a97b44991ba722033099b1",
+    "source_manifest_sha256_after": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_manifest_sha256_before": "6b9c5ae0a04281259360124f0d432dea19ff03d10cb00ced0ae3499ded58d27c",
+    "source_path": "authority\\quantecon\\source_snapshot\\continuous_time_mcs-8b06e0aa5a438692445b2c896f9d238c5a7d5eb7\\lectures\\generators.md",
+    "source_sha256": "035caa76ccc07622b6d0564f7b72a2f02a2b5d276e2848a3612f9414232d6736",
+    "tree": "f0f11e3bbc6bd23d6e4a447a7e05c0aaf0f7209e"
+  },
+  "built_at_utc": "2026-08-24T08:11:41.599150+00:00",
+  "code_cells": [],
+  "corrections": [
+    {
+      "description": "Added the missing domain qualification for classical solutions of the abstract Cauchy problem and identified the general semigroup trajectory as a mild solution; the bounded UC case is distinguished.",
+      "id": "generators-classical-versus-mild-solutions"
+    },
+    {
+      "description": "Made the time-zero continuity assumption explicit in the finite-state claim and noted explosion, mass loss, and uniqueness hazards for unrestricted infinite-state intensity matrices.",
+      "id": "generators-markov-semigroup-regularity-scope"
+    },
+    {
+      "description": "Made the finite-state dependence explicit as ell_1(S), avoiding the false implication that the standard infinite sequence space is finite-dimensional.",
+      "id": "generators-finite-state-l1-space"
+    },
+    {
+      "description": "Corrected an evolution semigroup described as being on the operator space to a semigroup of operators acting on the Banach space B.",
+      "id": "generators-semigroup-carrier-space"
+    },
+    {
+      "description": "Typed the possibly unbounded generator as A:D(A) subset B to B instead of claiming it is defined on all of B.",
+      "id": "generators-domain-of-unbounded-generator"
+    },
+    {
+      "description": "Restricted the scalar functional-equation statement and conclusion to nonnegative time, matching its stated hypotheses.",
+      "id": "generators-scalar-semigroup-domain"
+    },
+    {
+      "description": "Restored both missing h factors in the authority solution, supplied the exponential-series remainder bound, and proved both derivative equalities.",
+      "id": "generators-exercise-1-missing-h"
+    },
+    {
+      "description": "Completed the one-sided argument at positive and zero time and reduced an arbitrary convergent time sequence to the required cases.",
+      "id": "generators-exercise-2-continuity-closure"
+    },
+    {
+      "description": "Made the strong-continuity implication and resulting semigroup bound explicit, then completed both one-sided limits and the arbitrary-sequence conclusion.",
+      "id": "generators-exercise-3-continuity-closure"
+    },
+    {
+      "description": "Resolved every equation, document, proof, and bibliography role into stable local links or complete human-readable citations.",
+      "id": "generators-myst-references-and-citations"
+    },
+    {
+      "description": "Proved the Markdown and notebook witnesses contain no executable cells and admitted no unit-specific source figures or generated media.",
+      "id": "generators-zero-code-zero-source-assets"
+    },
+    {
+      "description": "Removed remote runtime and branding while preserving authorship, CC BY-SA 4.0, exact model provenance, and non-endorsement.",
+      "id": "quantecon-branding-runtime"
+    }
+  ],
+  "file_count": 6,
+  "files": [
+    {
+      "bytes": 41114,
+      "path": "lectures/generators.html",
+      "sha256": "70cc156f7eb6b0a885a55ca218ade41774c6f973f505f98e01a550c90127ba66"
+    },
+    {
+      "bytes": 1704911,
+      "path": "MathJax/tex-svg.js",
+      "sha256": "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
+    },
+    {
+      "bytes": 26128,
+      "path": "notebooks/generators-authority.ipynb",
+      "sha256": "8ce748db97a5a38414277e8056ab3b6a6eac8900e3a97b44991ba722033099b1"
+    },
+    {
+      "bytes": 278,
+      "path": "notebooks/generators-executed.ipynb",
+      "sha256": "bf0d5b3cb50f552f9903a0bd6bdab3e27e6b0cd24074e88a246293e670d7749d"
+    },
+    {
+      "bytes": 3366,
+      "path": "reader.css",
+      "sha256": "820f354bd797c5b5cb0e34248bc82c9b835e0fafb66fed75145f7c8180fa997c"
+    },
+    {
+      "bytes": 21637,
+      "path": "source-generators.md",
+      "sha256": "db2fa074b9198d2722c8bba8adc69987ce4c5bf580a0119d7996ab0301fa1da0"
+    }
+  ],
+  "manifest_sha256": "ff0d088e83308078b266fec203eb7d7ba2a661e2dd5f32c8ea30ede2b78ec219",
+  "replay_match": true,
+  "runtime": {
+    "bytes": 253256,
+    "lock_sha256": "7b7009aa8abf346cd7dec13c50f03f413471e7e0585ed23563685fd4b1f86210",
+    "path": "tmp\\quantecon-offline-replay\\Scripts\\python.exe",
+    "sha256": "0e818a1f9a0b8fbd4e7cc458a07cb7de2ea02ea326e387699a33b92f151242cd",
+    "version": "Python 3.13.9"
+  },
+  "schema": "o009.quantecon-component.v1",
+  "status": "complete-unit-local",
+  "target": {
+    "path": "source/quantecon/lectures/generators.md",
+    "sha256": "db2fa074b9198d2722c8bba8adc69987ce4c5bf580a0119d7996ab0301fa1da0",
+    "title": "Semigrup dan Generator"
+  },
+  "topology": {
+    "code_cells": 0,
+    "equation_refs": [
+      "abscp",
+      "czsg2",
+      "czsg3",
+      "defgenr",
+      "devlim",
+      "expdiffer",
+      "norml",
+      "opexpo",
+      "sgbound"
+    ],
+    "exercises": 3,
+    "headings": 12,
+    "labels": [
+      "diffexpmap",
+      "ecuc",
+      "generators-ex-1",
+      "generators-ex-2",
+      "generators-ex-3",
+      "generators-prf-1",
+      "generators-prf-2",
+      "ucsgec"
+    ],
+    "proof_directives": 5,
+    "solutions": 3,
+    "source_figures": 0,
+    "standalone_labels": []
+  },
+  "total_bytes": 1797434,
+  "unit_closure": {
+    "authoring_format": "MyST Markdown with paired Jupyter notebook witness",
+    "authority_code_cells": 0,
+    "authority_markdown_bytes": 16818,
+    "authority_markdown_sha256": "035caa76ccc07622b6d0564f7b72a2f02a2b5d276e2848a3612f9414232d6736",
+    "authority_notebook_bytes": 26128,
+    "authority_notebook_cells": 28,
+    "authority_notebook_sha256": "8ce748db97a5a38414277e8056ab3b6a6eac8900e3a97b44991ba722033099b1",
+    "citation_keys": [
+      "applebaum2019semigroups",
+      "bobrowski2005functional",
+      "sahoo2011introduction"
+    ],
+    "citation_occurrences": 4,
+    "cross_unit_dependencies": [
+      "kolmogorov_fwd.html",
+      "memoryless.html#exp_unique"
+    ],
+    "license": "CC BY-SA 4.0",
+    "local_runtime_assets": [
+      {
+        "path": "MathJax/tex-svg.js",
+        "sha256": "dba9c7e8646389650c445e0547023942bed229b3fdb9513b1c6c01237af0b81a"
+      },
+      {
+        "path": "reader.css",
+        "sha256": "820f354bd797c5b5cb0e34248bc82c9b835e0fafb66fed75145f7c8180fa997c"
+      }
+    ],
+    "model_provenance": "OpenAI Codex gpt-5.6-sol, Ultra.",
+    "non_endorsement": true,
+    "target_code_cells": 0,
+    "target_markdown_bytes": 21637,
+    "target_markdown_sha256": "db2fa074b9198d2722c8bba8adc69987ce4c5bf580a0119d7996ab0301fa1da0",
+    "unit_generated_media": 0,
+    "unit_source_assets": 0
+  },
+  "unit_id": "unit.o009.quantecon.ctmc.generators"
+}

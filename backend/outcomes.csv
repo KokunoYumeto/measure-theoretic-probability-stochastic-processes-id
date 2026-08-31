@@ -1,23 +1,86 @@
 outcome_id,course_id,label,locale,cognitive_level,status
+outcome.o009.analyze-brownian-bridge-empirical-process,course.o009.d30,Menganalisis struktur kovarians jembatan Brown dalam proses empiris tanpa menyamakan hasil titik-demi-titik dengan teorema limit fungsional.,id-ID,analyze,active
+outcome.o009.analyze-brownian-scaling-irregularity,course.o009.d30,Menganalisis penskalaan distribusional dan regularitas lintasan gerak Brown.,id-ID,analyze,active
+outcome.o009.analyze-brownian-zero-arcsine-lil,course.o009.d30,"Menganalisis himpunan nol, hukum arksinus, dan hukum logaritma berulang untuk gerak Brown.",id-ID,analyze,active
 outcome.o009.analyze-discrete-potential-and-restriction,course.o009.d30,"Menganalisis matriks potensial, pengambilan sampel waktu, dan pembatasan substokastik suatu rantai diskret.",id-ID,analyze,active
 outcome.o009.analyze-exchangeability-conditional-iid,course.o009.d30,"Menganalisis pertukaran, keindependenan bersyarat, dan hukum hipergeometrik pada awalan barisan.",id-ID,analyze,active
+outcome.o009.analyze-geometric-brownian-asymptotics,course.o009.d30,Menganalisis perilaku hampir pasti gerak Brown geometrik dan syarat martingal eksponensialnya.,id-ID,analyze,active
+outcome.o009.analyze-markov-ergodic-periodic-limits,course.o009.d30,Menganalisis distribusi limit rantai ergodik dan limit subsekuens rantai periodik melalui kelas-kelas siklik.,id-ID,analyze,active
+outcome.o009.analyze-markov-staying-probabilities,course.o009.d30,Menganalisis peluang bertahan sebagai solusi tetap matriks pembatasan dan menggunakannya untuk menguji rekurensi.,id-ID,analyze,active
 outcome.o009.analyze-martingale-limit-applications,course.o009.d30,"Menganalisis limit martingal pada gerak acak, proses percabangan, model Bayes, uji rasio kemungkinan, dan hasil kali parsial.",id-ID,analyze,active
 outcome.o009.analyze-optimal-stopping,course.o009.d30,Menganalisis aturan ambang penghentian optimal pada masalah sekretaris.,id-ID,analyze,active
+outcome.o009.analyze-poisson-thinning-superposition,course.o009.d30,Membuktikan hukum penipisan dan superposisi proses Poisson beserta parameter intensitas yang tepat.,id-ID,prove,active
+outcome.o009.analyze-spatial-poisson-models,course.o009.d30,"Menganalisis proses Poisson takhomogen dan spasial, termasuk distribusi jarak titik terdekat, lalu menyelesaikan model cacahan ruang.",id-ID,analyze,active
+outcome.o009.apply-brownian-strong-markov-reflection,course.o009.d30,Menerapkan sifat Markov kuat dan prinsip refleksi pada gerak Brown.,id-ID,apply,active
 outcome.o009.apply-lp-martingale-convergence,course.o009.d30,Menerapkan pertidaksamaan maksimal untuk membuktikan konvergensi martingal dalam Lp.,id-ID,apply,active
 outcome.o009.apply-martingale-maximal-inequalities,course.o009.d30,Menerapkan pertidaksamaan maksimal Doob dan Kolmogorov untuk membatasi probabilitas maksimum lintasan.,id-ID,apply,active
+outcome.o009.audit-and-repair-stochastic-process-claims,course.o009.d30,"Mengaudit objek, latar, hipotesis, kesimpulan, dan saksi kegagalan suatu klaim proses stokastik, lalu menyatakan satu perbaikan cukup yang eksplisit.",id-ID,analyze,active
+outcome.o009.audit-conditional-version-uniqueness,course.o009.d30,"Membedakan keunikan untuk satu kejadian, keunikan kernel di luar satu himpunan nol, dan pilihan versi pada nilai pengondisian nol.",id-ID,analyze,active
+outcome.o009.audit-fdd-versus-path-law-convergence,course.o009.d30,Membedakan konvergensi distribusi berdimensi hingga dari konvergensi lemah hukum lintasan dengan memeriksa keketatan dan gerbang teorema pemetaan kontinu.,id-ID,analyze,active
+outcome.o009.audit-fdd-versus-regular-path-law,course.o009.d30,Mengaudit tepat apa yang ditentukan oleh distribusi berdimensi hingga pada ruang produk mentah dan apa yang masih memerlukan ruang lintasan teratur.,id-ID,analyze,active
 outcome.o009.audit-gambling-maximal-bound,course.o009.d30,"Memeriksa syarat keterprediksian, kenegatifan, dan keterbatasan utang saat menerapkan batas maksimal pada strategi perjudian.",id-ID,analyze,active
+outcome.o009.audit-kolmogorov-extension-hypotheses,course.o009.d30,Mengaudit hipotesis perluasan Kolmogorov dan membatasi kesimpulannya pada sigma-aljabar produk serta ruang lintasan mentah.,id-ID,analyze,active
 outcome.o009.audit-strong-markov-hypotheses,course.o009.d30,"Memeriksa hipotesis ruang keadaan, sifat Feller, regularitas lintasan, dan filtrasi sebelum memakai sifat Markov kuat.",id-ID,analyze,active
+outcome.o009.characterize-brownian-drift-scaling,course.o009.d30,"Mengkarakterisasi gerak Brown dengan parameter hanyutan dan skala melalui representasi standar, hukum Gaussian, dan transformasi ruang-waktu.",id-ID,analyze,active
 outcome.o009.characterize-discrete-markov-chains,course.o009.d30,Mengkarakterisasi rantai Markov waktu diskret homogen melalui riwayat berprobabilitas positif dan keluarga matriks transisi yang konsisten.,id-ID,analyze,active
+outcome.o009.characterize-geometric-brownian-motion,course.o009.d30,Mengkarakterisasi gerak Brown geometrik melalui representasi eksponensial dan persamaan diferensial stokastiknya.,id-ID,analyze,active
+outcome.o009.characterize-markov-invariant-measures,course.o009.d30,"Mengkarakterisasi distribusi dan ukuran invarian pada rantai rekuren, termasuk eksistensi, ketunggalan, dan campuran antarkelas.",id-ID,prove,active
+outcome.o009.characterize-markov-periodicity,course.o009.d30,Mengkarakterisasi periode suatu keadaan dan membuktikan bahwa periodisitas merupakan sifat kelas komunikasi.,id-ID,analyze,active
+outcome.o009.characterize-standard-brownian-motion,course.o009.d30,"Mengkarakterisasi gerak Brown standar melalui inkremen, kontinuitas, dan hukum Gaussian berdimensi hingga.",id-ID,analyze,active
 outcome.o009.characterize-ui-martingales,course.o009.d30,Mengkarakterisasi martingal terintegralkan seragam melalui representasi peubah terminal dan konvergensi dalam rata-rata.,id-ID,analyze,active
 outcome.o009.check-optional-stopping-conditions,course.o009.d30,Memeriksa syarat keterbatasan atau integrabilitas sebelum menerapkan teorema penghentian opsional.,id-ID,analyze,active
+outcome.o009.classify-markov-states-and-classes,course.o009.d30,Mengklasifikasikan keadaan dan kelas komunikasi sebagai transien atau rekuren serta menyusun dekomposisi kanonik.,id-ID,analyze,active
+outcome.o009.classify-positive-null-recurrence,course.o009.d30,"Mengklasifikasikan keadaan dan kelas sebagai rekuren positif, rekuren nol, atau transien melalui waktu kembali rata-rata.",id-ID,analyze,active
 outcome.o009.compute-discrete-transition-laws,course.o009.d30,Menghitung matriks transisi beberapa langkah dan hukum berdimensi hingga dengan persamaan Chapman–Kolmogorov.,id-ID,apply,active
+outcome.o009.compute-markov-hitting-and-green-quantities,course.o009.d30,"Menghitung probabilitas pencapaian, banyaknya kunjungan, serta matriks Green pada rantai Markov waktu diskret.",id-ID,apply,active
 outcome.o009.compute-random-time-expectations,course.o009.d30,"Menghitung probabilitas pencapaian dan nilai harapan pada waktu henti, termasuk Persamaan Wald dan waktu tunggu pola.",id-ID,apply,active
+outcome.o009.construct-brownian-bridges,course.o009.d30,"Membangun jembatan Brown melalui pengurangan tambatan, perubahan waktu, integral stokastik, dan pengondisian reguler.",id-ID,analyze,active
+outcome.o009.construct-canonical-process-from-fdds,course.o009.d30,Membangun proses koordinat kanonik dari keluarga hukum berdimensi hingga yang konsisten secara proyektif.,id-ID,prove,active
+outcome.o009.construct-markov-cyclic-decomposition,course.o009.d30,Menyusun kelas-kelas siklik suatu rantai irreduksibel periodik dan menghubungkannya dengan rantai langkah-d.,id-ID,prove,active
 outcome.o009.construct-markov-kernels,course.o009.d30,"Menyusun kernel transisi, semigrup transisi, dan persamaan Chapman–Kolmogorov pada ruang keadaan yang sesuai.",id-ID,apply,active
+outcome.o009.construct-regular-conditional-distribution,course.o009.d30,Membangun distribusi bersyarat reguler pada sasaran Borel standar dan menunjukkan tepat letak hipotesis keberadaannya.,id-ID,prove,active
 outcome.o009.construct-reverse-martingales,course.o009.d30,Membangun martingal mundur dari keluarga aljabar-σ menurun dan mengubahnya menjadi martingal waktu maju.,id-ID,apply,active
+outcome.o009.convergence.03.second-order-delta-method,course.o009.d30,Membuktikan metode delta orde kedua pada limit bersama,id-ID,prove,active
+outcome.o009.convergence.04.rare-spike-phase-diagram,course.o009.d30,Menganalisis diagram fase lonjakan langka,id-ID,analyze,active
+outcome.o009.convergence.asymptotic-independence,course.o009.d30,Membuktikan ketakbergantungan asimtotik,id-ID,prove,active
+outcome.o009.convergence.audit-discontinuous-transform,course.o009.d30,Mengaudit transformasi diskontinu pada limit,id-ID,analyze,active
+outcome.o009.convergence.map-outside-null-discontinuities,course.o009.d30,Menerapkan pemetaan kontinu di luar himpunan diskontinuitas nol,id-ID,prove,active
+outcome.o009.convergence.random-sum-joint-limit,course.o009.d30,Membuktikan limit gabungan jumlah acak,id-ID,prove,active
+outcome.o009.convergence.random-versus-deterministic-centering,course.o009.d30,Membandingkan pemusatan acak dan deterministik,id-ID,analyze,active
+outcome.o009.convergence.separate-probability-almost-sure,course.o009.d30,Membedakan konvergensi dalam probabilitas dan hampir pasti,id-ID,analyze,active
+outcome.o009.convergence.subsequence-characterization,course.o009.d30,Membuktikan karakterisasi konvergensi melalui subbarisan,id-ID,prove,active
+outcome.o009.derive-brownian-drift-transition-laws,course.o009.d30,Menurunkan kepadatan transisi serta persamaan difusi maju dan mundur untuk gerak Brown dengan hanyutan.,id-ID,prove,active
+outcome.o009.derive-brownian-hitting-maximum-laws,course.o009.d30,"Menurunkan hukum waktu pencapaian, maksimum berjalan, dan rekurensi gerak Brown.",id-ID,prove,active
+outcome.o009.derive-conditional-poisson-point-laws,course.o009.d30,"Menurunkan hukum seragam, binomial, dan multinomial bersyarat untuk lokasi titik-titik proses Poisson.",id-ID,prove,active
+outcome.o009.derive-disintegration-and-null-value-versions,course.o009.d30,"Menurunkan kernel dari hukum gabungan atau kepadatan, memverifikasi rumus disintegrasi, dan menangani nilai pengondisian bermassa nol.",id-ID,apply,active
+outcome.o009.derive-geometric-brownian-laws,course.o009.d30,"Menurunkan distribusi lognormal, fungsi distribusi, kuantil, dan momen gerak Brown geometrik.",id-ID,prove,active
+outcome.o009.derive-markov-renewal-limits,course.o009.d30,"Menurunkan frekuensi okupasi, rata-rata Cesàro probabilitas transisi, dan limit transisi aperiodik dari proses pembaruan yang tertanam.",id-ID,prove,active
 outcome.o009.derive-strong-law-reverse-martingale,course.o009.d30,Menurunkan hukum kuat bilangan besar dari struktur martingal mundur sambil menggunakan modul sampling bersama sebagai prasyarat.,id-ID,prove,active
+outcome.o009.distinguish-convergence-modes,course.o009.d30,"Membedakan konvergensi hampir pasti, dalam probabilitas, dalam distribusi, dan dalam Lp melalui bukti serta diagnostik deterministik.",id-ID,analyze,active
 outcome.o009.distinguish-evidence-proof,course.o009.d30,Membedakan bukti empiris simulasi dari pembuktian probabilistik.,id-ID,analyze,active
+outcome.o009.distinguish-modification-and-indistinguishability,course.o009.d30,"Membedakan kesamaan FDD, modifikasi, dan ketakterbedaan serta membuktikan kapan keteraturan lintasan menguatkan kesamaan tiap waktu.",id-ID,prove,active
+outcome.o009.distinguish-process-measurability-levels,course.o009.d30,"Membedakan keterukuran tiap koordinat, peta lintasan mentah, evaluasi proses bersama, dan peubah acak bernilai ruang lintasan teratur.",id-ID,analyze,active
 outcome.o009.estimate-expectation-monte-carlo,course.o009.d30,Menaksir nilai harapan dengan simulasi Monte Carlo deterministik.,id-ID,apply,active
 outcome.o009.explain-lln-monte-carlo,course.o009.d30,Menjelaskan hubungan hukum bilangan besar dengan estimasi Monte Carlo.,id-ID,understand,active
+outcome.o009.formulate-poisson-random-measures,course.o009.d30,Merumuskan ukuran acak Poisson pada ruang ukuran dan menghitung momen cacahannya dari ukuran intensitas.,id-ID,apply,active
+outcome.o009.mastery.brown.01,course.o009.d30,Membuktikan capaian penguasaan: Prasyarat,id-ID,prove,active
+outcome.o009.mastery.brown.02,course.o009.d30,Membuktikan capaian penguasaan: Penguasaan gerak Brown 02 — spektrum kovarians dan aproksimasi Karhunen–Loève,id-ID,prove,active
+outcome.o009.mastery.brown.03,course.o009.d30,Membuktikan capaian penguasaan: Prasyarat,id-ID,prove,active
+outcome.o009.mastery.brown.04,course.o009.d30,Membuktikan capaian penguasaan: Prasyarat,id-ID,prove,active
+outcome.o009.mastery.conditional-kernel.03,course.o009.d30,"Membuktikan capaian penguasaan: Penguasaan 05.03 — Komposisi kernel, posterior, dan sifat menara",id-ID,prove,active
+outcome.o009.mastery.conditional-kernel.bayes-tilt,course.o009.d30,Membuktikan perubahan ukuran Bayes melalui kernel,id-ID,prove,active
+outcome.o009.mastery.conditional-kernel.gaussian-bridge,course.o009.d30,Membangun kernel jembatan Gaussian,id-ID,prove,active
+outcome.o009.mastery.martingales.01.compensator,course.o009.d30,Membangun kompensator dan menghentikannya secara sah,id-ID,prove,active
+outcome.o009.mastery.martingales.01.harmonic-stopping,course.o009.d30,Membangun martingal harmonik untuk absorpsi,id-ID,prove,active
+outcome.o009.mastery.martingales.02.counting-compensator,course.o009.d30,Menurunkan kompensator proses hitung dari generator,id-ID,prove,active
+outcome.o009.mastery.martingales.02.laplace-stopping,course.o009.d30,Menghitung transformasi Laplace dengan martingal ruang-waktu,id-ID,prove,active
+outcome.o009.mastery.martingales.03,course.o009.d30,Membuktikan capaian penguasaan: Masalah 03 — Rata-rata yang belum teramati,id-ID,prove,active
+outcome.o009.mastery.martingales.04,course.o009.d30,Membuktikan capaian penguasaan: Masalah 04 — Uji rasio kemungkinan yang berhenti tepat di batas,id-ID,prove,active
+outcome.o009.mastery.martingales.05,course.o009.d30,Membuktikan capaian penguasaan: Martingal mundur dan pelupaan kuantitatif pada rantai Markov reversibel,id-ID,prove,active
+outcome.o009.original.mastery.brown.05,course.o009.d30,Membuktikan capaian penguasaan: Masalah 05 — gerak Brown pada jam eksponensial,id-ID,prove,active
+outcome.o009.original.mastery.brown.06,course.o009.d30,Membuktikan capaian penguasaan: Masalah 06 — variasi kuadratik berbobot pada partisi tak seragam,id-ID,prove,active
+outcome.o009.original.mastery.brown.07,course.o009.d30,Membuktikan capaian penguasaan: Maksimum gerak Brown bersyarat pada titik akhir,id-ID,prove,active
+outcome.o009.original.mastery.poisson-construction.01,course.o009.d30,Membuktikan capaian penguasaan: Konstruksi ukuran acak Poisson pada ruang ukuran umum,id-ID,prove,active
 outcome.o009.prove-binary-de-finetti,course.o009.d30,Membuktikan representasi de Finetti biner sebagai campuran hukum Bernoulli dengan pengondisian yang sah.,id-ID,prove,active
 outcome.o009.prove-convergence-in-probability,course.o009.d30,Membuktikan konvergensi dalam probabilitas memakai ketaksamaan Chebyshev.,id-ID,prove,active
 outcome.o009.prove-martingale-convergence,course.o009.d30,Membuktikan konvergensi hampir pasti martingal dengan pertidaksamaan lintas-naik dan syarat keterbatasan L1.,id-ID,prove,active
@@ -25,5 +88,16 @@ outcome.o009.prove-reverse-martingale-convergence,course.o009.d30,"Membuktikan k
 outcome.o009.prove-stopped-martingale,course.o009.d30,"Membuktikan bahwa penghentian mempertahankan sifat martingal, submartingal, atau supermartingal.",id-ID,prove,active
 outcome.o009.recover-density-martingale-limits,course.o009.d30,Menentukan limit proses kerapatan melalui teorema Radon-Nikodym dan dekomposisi bagian singular.,id-ID,analyze,active
 outcome.o009.simulate-absorbing-markov-chain,course.o009.d30,Mensimulasikan rantai Markov menyerap secara deterministik dan membandingkan taksiran dengan peluang horizon serta peluang harmonik eksak.,id-ID,apply,active
+outcome.o009.simulate-brownian-bridge-marginal-law,course.o009.d30,Mensimulasikan jembatan Brown secara deterministik dan membandingkan distribusi marginal empiris dengan hukum Gaussian teoretis.,id-ID,apply,active
+outcome.o009.simulate-brownian-drift-terminal-law,course.o009.d30,Mensimulasikan secara deterministik gerak Brown dengan hanyutan dan membandingkan momen serta distribusi terminal empiris dengan hukum teoretis.,id-ID,apply,active
+outcome.o009.simulate-geometric-brownian-terminal-law,course.o009.d30,Mensimulasikan lintasan gerak Brown geometrik secara deterministik dan membandingkan hukum terminal empiris dengan hukum lognormal teoretis.,id-ID,apply,active
+outcome.o009.solve-brownian-bridge-conditional-law,course.o009.d30,Menghitung dan menafsirkan hukum Gaussian bersyarat jembatan Brown pada dua waktu interior.,id-ID,apply,active
+outcome.o009.solve-brownian-drift-joint-conditional-law,course.o009.d30,"Menghitung hukum Gaussian bersama dan bersyarat gerak Brown dengan hanyutan, termasuk vektor rataan, kovarians, dan korelasi.",id-ID,apply,active
+outcome.o009.solve-brownian-joint-gaussian,course.o009.d30,"Menghitung kepadatan bersama, matriks kovarians, dan matriks korelasi vektor gerak Brown.",id-ID,apply,active
 outcome.o009.solve-finite-discrete-chain-models,course.o009.d30,"Menyelesaikan model rantai hingga memakai graf keadaan, distribusi invarian, dan struktur stokastik ganda.",id-ID,apply,active
+outcome.o009.solve-finite-limiting-models,course.o009.d30,"Menghitung distribusi invarian, waktu kembali rata-rata, dan matriks limit atau limit subsekuens pada rantai Markov berhingga.",id-ID,apply,active
+outcome.o009.solve-finite-periodicity-models,course.o009.d30,"Menentukan periode, pangkat matriks transisi, dan kelas siklik pada rantai Markov berhingga.",id-ID,apply,active
+outcome.o009.solve-finite-recurrence-models,course.o009.d30,"Menyelesaikan model rantai berhingga melalui graf keadaan, kelas komunikasi, matriks pencapaian, dan matriks Green.",id-ID,apply,active
+outcome.o009.solve-geometric-brownian-conditional-law,course.o009.d30,"Menurunkan hukum, rataan, dan varians bersyarat gerak Brown geometrik serta membuktikan sifat martingal proses terdiskonto.",id-ID,apply,active
 outcome.o009.use-upcrossings-for-convergence,course.o009.d30,Menggunakan pertidaksamaan lintasan-naik untuk mengendalikan osilasi martingal dan menyiapkan teorema konvergensi.,id-ID,analyze,active
+outcome.o009.verify-brownian-drift-strong-markov,course.o009.d30,Memeriksa dan menerapkan sifat Markov kuat gerak Brown dengan hanyutan di bawah hipotesis filtrasi dan keterhinggaan waktu henti yang tepat.,id-ID,analyze,active

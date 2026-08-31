@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+<head>
+<meta charset="utf-8"/>
+<title>Gerak Brown Geometrik</title>
+<meta content="Kyle Siegrist" name="author"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="probability, stochastic process, geometric Brownian motion, Brownian motion, lognormal distribution" name="keywords"/>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="../Basic.js"></script>
+<script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/></head>
+<body>
+<div class="latex">
+	\( \newcommand{\P}{\mathbb{P}} \)
+	\( \newcommand{\E}{\mathbb{E}} \) 
+	\( \newcommand{\R}{\mathbb{R}} \) 
+	\( \newcommand{\N}{\mathbb{N}} \)
+	\( \newcommand{\Z}{\mathbb{Z}} \)
+	\( \newcommand{\bs}{\boldsymbol} \)
+	\( \newcommand{\cov}{\text{cov}} \)
+	\( \newcommand{\cor}{\text{cor}} \)
+	\( \newcommand{\var}{\text{var}} \)
+	\( \newcommand{\sd}{\text{sd}} \)
+</div>
+<header>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="index.html">16. Gerak Brown</a></li>
+<li class="child"><a aria-label="Bagian 1: Gerak Brown Standar" href="Standard.html" title="Gerak Brown Standar">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Gerak Brown dengan Hanyutan" href="Drift.html" title="Gerak Brown dengan Hanyutan">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Jembatan Brown" href="Bridge.html" title="Jembatan Brown">3</a></li>
+<li aria-current="page" aria-label="Bagian 4: Gerak Brown Geometrik (halaman saat ini)" class="current">4</li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
+</ol>
+<h1>4. Gerak Brown Geometrik</h1>
+</header><aside class="component-attribution" id="o009-rights-random-brown-geometric">
+<strong>Asal komponen.</strong> Terjemahan halaman <cite>Geometric Brownian Motion</cite>
+karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
+Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
+beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
+atribusi. <a href="https://www.randomservices.org/random/brown/Geometric.html">Baca sumber resmi</a>.
+</aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../markov/Recurrence.html">Keadaan transien dan rekuren</a> · <a href="../markov/Periodicity.html">Periodisitas</a> · <a href="../markov/Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="Standard.html">Gerak Brown standar</a> · <a href="Drift.html">Gerak Brown dengan hanyutan</a> · <a href="Bridge.html">Jembatan Brown</a> · <a href="Geometric.html">Gerak Brown geometrik</a> · <a href="../martingales/index.html">Ikhtisar martingal</a> · <a href="../markov/index.html">Ikhtisar proses Markov</a> · <a href="index.html">Ikhtisar gerak Brown</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="../labs/03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="../labs/04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a> · <a href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a></nav><main>
+<h2 class="reader-level-2">Teori Dasar</h2>
+<p>Gerak Brown geometrik, serta proses stokastik lain yang dikonstruksi darinya, sering digunakan untuk memodelkan pertumbuhan populasi dan proses keuangan (seperti harga saham dari waktu ke waktu) yang dipengaruhi <q>derau</q> acak.</p>
+<h3 class="reader-level-3" id="def">Definisi</h3>
+<div class="unit" id="def1">
+<p class="dfn">Misalkan \( \bs{Z} = \{Z_t: t \in [0, \infty)\} \) adalah <a href="Standard.html">gerak Brown standar</a> dan \( \mu \in \R \) serta \( \sigma \in (0, \infty) \). Definisikan
+	\[ X_t = \exp\left[\left(\mu - \frac{\sigma^2}{2}\right) t + \sigma Z_t\right], \quad t \in [0, \infty) \]
+	Proses stokastik \( \bs{X} = \{X_t: t \in [0, \infty)\} \) disebut <dfn>gerak Brown geometrik</dfn> dengan <dfn>parameter hanyutan</dfn> \( \mu \) dan <dfn>parameter volatilitas</dfn> \( \sigma \).</p>
+</div><aside class="reader-note reader-correction" id="geometric-brownian-downstream-corrections">
+<strong>Catatan koreksi hilir.</strong> Terjemahan sumber mempertahankan struktur,
+ID, dan permukaan matematika halaman beku. Lapisan pembaca ini memperbaiki
+penomoran judul ke urutan pembaca lokal, tipe media ikon, label aplikasi daring, notasi kepadatan,
+titik belok lognormal, domain fungsi distribusi, syarat orde momen positif,
+bukti kasus batas asimtotik, urutan ID, dan syarat keterintegralan dalam bukti
+martingal. Laboratorium luring dan latihan bersolusi diberi tanda terpisah
+sebagai karya asli edisi CC BY 4.0.
+</aside><section class="reader-original-lab" id="geometric-brownian-offline-lab">
+<style>
+#geometric-brownian-offline-lab fieldset { border: 1px solid #777; margin: 1rem 0; padding: 1rem; }
+#geometric-brownian-offline-lab .geometric-brownian-fields { display: grid; gap: .65rem; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); }
+#geometric-brownian-offline-lab label { display: grid; gap: .2rem; height: auto; margin-left: 0; }
+#geometric-brownian-offline-lab input { box-sizing: border-box; font: inherit; height: 2.4rem; margin-left: 0; max-width: none; padding: .25rem; width: 100%; }
+#geometric-brownian-offline-lab .geometric-brownian-actions { align-items: center; display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+#geometric-brownian-offline-lab button { font: inherit; height: auto; margin-left: 0; padding: .45rem .75rem; }
+#geometric-brownian-chart { background: #fff; border: 1px solid #777; display: block; height: auto; max-width: 100%; }
+#geometric-brownian-offline-lab .geometric-brownian-frame { fill: #fff; stroke: #777; }
+#geometric-brownian-offline-lab .geometric-brownian-initial { stroke: #b56b00; stroke-dasharray: 1 3; stroke-width: 1.5; }
+#geometric-brownian-offline-lab .geometric-brownian-path { fill: none; stroke: #2457a7; stroke-width: 2; }
+#geometric-brownian-offline-lab .geometric-brownian-mean { fill: none; stroke: #137333; stroke-dasharray: 10 4; stroke-width: 1.8; }
+#geometric-brownian-offline-lab .geometric-brownian-median { fill: none; stroke: #8a4d00; stroke-dasharray: 3 3; stroke-width: 1.6; }
+#geometric-brownian-offline-lab .geometric-brownian-bar { fill: #8baee5; stroke: #31598d; stroke-width: .5; }
+#geometric-brownian-offline-lab .geometric-brownian-density { fill: none; stroke: #9a2e65; stroke-width: 2; }
+#geometric-brownian-offline-lab .geometric-brownian-title { font-size: 14px; font-weight: 700; }
+#geometric-brownian-offline-lab .geometric-brownian-legend { font-size: 11px; }
+#geometric-brownian-offline-lab table { border-collapse: collapse; margin: 1rem 0; width: 100%; }
+#geometric-brownian-offline-lab th, #geometric-brownian-offline-lab td { border: 1px solid #777; padding: .4rem; text-align: right; }
+#geometric-brownian-offline-lab th:first-child { text-align: left; }
+@media print { #geometric-brownian-offline-lab fieldset, #geometric-brownian-offline-lab .geometric-brownian-actions { display: none; } }
+</style>
+<p class="reader-note-title"><strong>Laboratorium luring: lintasan dan distribusi gerak Brown geometrik</strong></p>
+<p><strong>Status dan lisensi.</strong> Laboratorium deterministik ini merupakan
+karya asli edisi, berfungsi tanpa jaringan, dan dilisensikan CC BY 4.0. Ia
+melengkapi—bukan menggantikan—<a href="https://www.randomservices.org/random/apps/GeometricBrownianMotion.html">aplikasi resmi daring Random</a>.</p>
+<p>Ubah nilai awal \(x_0\), hanyutan \(\mu\), volatilitas \(\sigma\), dan horizon
+\(T\). Simulator menggunakan solusi eksak pada kisi waktu, lalu membandingkan
+histogram \(X_T\) dengan kepadatan lognormal teoretis. Benih yang sama selalu
+menghasilkan keluaran yang sama.</p>
+<fieldset>
+<legend>Parameter simulasi</legend>
+<div class="geometric-brownian-fields">
+<label for="geometric-brownian-x0">Nilai awal x₀<input id="geometric-brownian-x0" max="1000000" min="0.0001" step="0.1" type="number" value="1"/></label>
+<label for="geometric-brownian-mu">Hanyutan μ<input id="geometric-brownian-mu" max="2" min="-2" step="0.05" type="number" value="0.1"/></label>
+<label for="geometric-brownian-sigma">Volatilitas σ<input id="geometric-brownian-sigma" max="2" min="0.01" step="0.05" type="number" value="0.4"/></label>
+<label for="geometric-brownian-horizon">Horizon T<input id="geometric-brownian-horizon" max="4" min="0.01" step="0.1" type="number" value="1"/></label>
+<label for="geometric-brownian-steps">Banyak langkah<input id="geometric-brownian-steps" max="1000" min="20" step="1" type="number" value="200"/></label>
+<label for="geometric-brownian-repetitions">Banyak replikasi<input id="geometric-brownian-repetitions" max="2000" min="10" step="10" type="number" value="1000"/></label>
+<label for="geometric-brownian-seed">Benih deterministik<input id="geometric-brownian-seed" max="4294967295" min="1" step="1" type="number" value="20260826"/></label>
+</div>
+<div class="geometric-brownian-actions"><button id="geometric-brownian-run" type="button">Jalankan simulasi</button><button id="geometric-brownian-reset" type="button">Pulihkan parameter</button></div>
+</fieldset>
+<p aria-live="polite" id="geometric-brownian-status">Simulator sedang disiapkan.</p>
+<svg aria-labelledby="geometric-brownian-chart-title geometric-brownian-chart-description" id="geometric-brownian-chart" role="img" viewbox="0 0 750 350">
+<title id="geometric-brownian-chart-title">Lintasan dan distribusi akhir gerak Brown geometrik</title>
+<desc id="geometric-brownian-chart-description">Grafik akan diperbarui setelah simulasi dijalankan.</desc>
+</svg>
+<table>
+<caption>Perbandingan ringkasan distribusi nilai akhir \(X_T\)</caption>
+<thead><tr><th scope="col">Ringkasan</th><th scope="col">Teoretis</th><th scope="col">Empiris</th></tr></thead>
+<tbody>
+<tr><th scope="row">Rataan</th><td id="geometric-brownian-theoretical-mean">—</td><td id="geometric-brownian-empirical-mean">—</td></tr>
+<tr><th scope="row">Median</th><td id="geometric-brownian-theoretical-median">—</td><td id="geometric-brownian-empirical-median">—</td></tr>
+<tr><th scope="row">Varians</th><td id="geometric-brownian-theoretical-variance">—</td><td id="geometric-brownian-empirical-variance">—</td></tr>
+<tr><th scope="row">Peluang \(X_T\gt x_0\)</th><td id="geometric-brownian-theoretical-probability">—</td><td id="geometric-brownian-empirical-probability">—</td></tr>
+</tbody>
+</table>
+<noscript>JavaScript diperlukan untuk menjalankan simulasi. Rumus teoretis dan latihan bersolusi di bawah tetap dapat dibaca tanpa JavaScript.</noscript>
+<script src="../apps/geometric-brownian-offline.js"></script>
+</section>
+<p>Perhatikan bahwa proses stokastik 
+\[ \left\{\left(\mu - \frac{\sigma^2}{2}\right) t + \sigma Z_t:  t \in [0, \infty) \right\} \] 
+adalah gerak Brown dengan <a href="Drift.html">parameter hanyutan</a> \( \mu - \sigma^2 / 2 \) dan parameter skala \( \sigma \), sehingga gerak Brown geometrik tidak lain adalah eksponensial dari proses tersebut. Secara khusus, proses ini selalu positif; inilah salah satu alasan gerak Brown geometrik digunakan untuk memodelkan proses keuangan dan proses lain yang tidak dapat bernilai negatif. Perhatikan pula bahwa \( X_0 = 1 \), sehingga proses dimulai dari 1, tetapi kita dapat mengubahnya dengan mudah. Untuk \( x_0 \in (0, \infty) \), proses \(\{x_0 X_t: t \in [0, \infty)\}\) adalah gerak Brown geometrik yang <dfn>dimulai dari</dfn> \( x_0 \). Anda mungkin bertanya-tanya tentang kombinasi parameter khusus \( \mu - \sigma^2 / 2 \) dalam definisi tersebut. Jawaban singkatnya diberikan oleh teorema berikut:</p>
+<div class="unit" id="def2">
+<p class="math">Gerak Brown geometrik \( \bs{X} = \{X_t: t \in [0, \infty)\} \) memenuhi persamaan diferensial stokastik
+	\[ d X_t = \mu X_t \, dt + \sigma X_t \, dZ_t \]</p>
+</div>
+<p>Perhatikan bahwa bagian deterministik dari persamaan ini merupakan persamaan diferensial standar untuk pertumbuhan atau peluruhan eksponensial dengan parameter laju \( \mu \). </p>
+<div class="unit" id="def3">
+<p class="app">Jalankan simulasi <a class="ancillary" href="https://www.randomservices.org/random/apps/GeometricBrownianMotion.html">aplikasi resmi daring gerak Brown geometrik</a> beberapa kali dalam modus satu langkah untuk berbagai nilai parameter. Amati perilaku prosesnya.</p>
+</div>
+<h3 class="reader-level-3" id="dst">Distribusi</h3>
+<div class="unit" id="dst1">
+<p class="math">Untuk \( t \in (0, \infty) \), \( X_t \) mempunyai <a href="https://www.randomservices.org/random/special/LogNormal.html">distribusi lognormal</a> dengan parameter \( \left(\mu - \frac{\sigma^2}{2}\right)t \) dan \( \sigma \sqrt{t} \). Fungsi kepadatan probabilitas \( f_t \) diberikan oleh
+	\[ f_t(x) = \frac{1}{\sqrt{2 \pi t} \sigma x} \exp \left(-\frac{\left[\ln(x) - \left(\mu - \sigma^2 / 2\right)t \right]^2}{2 \sigma^2 t} \right), \quad x \in (0, \infty) \]</p>
+<ol class="sub">
+<li>\( f_t \) meningkat lalu menurun, dengan modus pada \( x = \exp\left[\left(\mu - \frac{3}{2} \sigma^2\right)t\right]\)</li>
+<li>\( f_t \) mula-mula cekung ke atas, lalu ke bawah, kemudian ke atas lagi, dengan titik-titik belok pada \( x = \exp\left[(\mu - 2\sigma^2) t \pm \frac{1}{2} \sigma \sqrt{\sigma^2 t^2 + 4 t}\right] \)</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Distribusi, butir 1">Rincian:</summary>
+<p>Karena peubah \(U_t = \left(\mu - \sigma^2 / 2\right) t + \sigma Z_t\) mempunyai distribusi normal dengan rataan \( (\mu - \sigma^2/2)t \) dan simpangan baku \( \sigma \sqrt{t} \), maka \( X_t = \exp(U_t) \) mempunyai distribusi lognormal dengan parameter-parameter tersebut. Hasil-hasil mengenai fungsi kepadatan probabilitas ini kemudian langsung mengikuti hasil-hasil yang bersesuaian untuk fungsi kepadatan lognormal.</p>
+</details>
+</div>
+<p>Secara khusus, gerak Brown geometrik bukanlah proses Gauss.</p>
+<div class="unit" id="dst2">
+<p class="app">Buka simulasi <a class="ancillary" href="https://www.randomservices.org/random/apps/GeometricBrownianMotion.html">aplikasi resmi daring gerak Brown geometrik</a>. Ubah-ubah parameternya dan amati bentuk fungsi kepadatan probabilitas dari \( X_t \). Untuk berbagai nilai parameter, jalankan simulasi 1.000 kali dan bandingkan fungsi kepadatan empiris dengan fungsi kepadatan probabilitas yang sebenarnya.</p>
+</div>
+<div class="unit" id="dst3">
+<p class="math">Untuk \( t \in (0, \infty) \), <a href="https://www.randomservices.org/random/dist/CDF.html">fungsi distribusi</a> \( F_t \) dari \( X_t \) diberikan oleh
+	\[ F_t(x) = \Phi\left[\frac{\ln(x) - (\mu - \sigma^2/2)t}{\sigma \sqrt{t}}\right], \quad x \in (0, \infty) \]
+	dengan \( \Phi \) adalah fungsi distribusi normal standar; untuk \(x \le 0\), \(F_t(x)=0\).</p>
+<details>
+<summary aria-label="Rincian: Distribusi, butir 2">Rincian:</summary>
+<p>Sekali lagi, hasil ini langsung mengikuti fungsi distribusi lognormal.</p>
+</details>
+</div>
+<div class="unit" id="dst4">
+<p class="math">Untuk \( t \in (0, \infty) \), fungsi kuantil \( F_t^{-1} \) dari \( X_t \) diberikan oleh
+	\[ F_t^{-1}(p) = \exp\left[(\mu - \sigma^2 / 2)t + \sigma \sqrt{t} \Phi^{-1}(p)\right], \quad p \in (0, 1) \]
+	dengan \( \Phi^{-1} \) adalah fungsi kuantil normal standar.</p>
+<details>
+<summary aria-label="Rincian: Distribusi, butir 3">Rincian:</summary>
+<p>Hasil ini langsung mengikuti fungsi kuantil lognormal.</p>
+</details>
+</div>
+<h3 class="reader-level-3" id="mom">Momen</h3>
+<div class="unit" id="mom1">
+<p class="math">Untuk \( n \in \N \) dan \( t \in [0, \infty) \),
+	\[ \E\left(X_t^n\right) = \exp\left\{\left[n \mu + \frac{\sigma^2}{2}(n^2 - n)\right] t\right\} \]</p>
+<details>
+<summary aria-label="Rincian: Momen">Rincian:</summary>
+<p>Hasil ini mengikuti rumus momen-momen <a href="https://www.randomservices.org/random/special/LogNormal.html">distribusi lognormal</a>.</p>
+</details>
+</div>
+<p>Untuk orde momen positif \(n\in\N_+\), suku dominan di dalam tanda kurung siku pada eksponen adalah \( \sigma^2 n^2 / 2 \). Jika \( n \gt 1 - 2 \mu / \sigma^2 \), maka \( n \mu + \frac{\sigma^2}{2}(n^2 - n) \gt 0 \), sehingga \( \E(X_t^n) \to \infty \) ketika \( t \to \infty \). Pembatasan \(n\gt0\) diperlukan karena momen orde nol selalu bernilai 1. Rataan dan varians mudah diperoleh dari hasil momen umum tersebut.</p>
+<div class="unit" id="mom2">
+<p class="math">Untuk \( t \in [0, \infty) \),</p>
+<ol class="sub">
+<li>\( \E(X_t) = e^{\mu t} \)</li>
+<li>\( \var(X_t) = e^{2 \mu t} \left(e^{\sigma^2 t} - 1\right) \)</li>
+</ol>
+</div>
+<p>Secara khusus, perhatikan bahwa fungsi rataan \( m(t) = \E(X_t) = e^{\mu t} \) untuk \( t \in [0, \infty) \) memenuhi bagian deterministik dari persamaan diferensial dalam <a class="ref" href="#def2"></a>.</p>
+<div class="unit" id="mom3">
+<p class="math">Perilaku asimtotik:</p>
+<ol class="sub">
+<li>Jika \( \mu \gt 0 \), maka \( m(t) \to \infty \) ketika \( t \to \infty \).</li>
+<li>Jika \( \mu = 0 \), maka \( m(t) = 1 \) untuk setiap \( t \in [0, \infty) \).</li>
+<li>Jika \( \mu \lt 0 \), maka \( m(t) \to 0 \) ketika \( t \to \infty \).</li>
+</ol>
+</div>
+<div class="unit" id="mom4">
+<p class="app">Buka simulasi <a class="ancillary" href="https://www.randomservices.org/random/apps/GeometricBrownianMotion.html">aplikasi resmi daring gerak Brown geometrik</a>. Grafik fungsi rataan \( m \) ditampilkan sebagai kurva biru pada kotak grafik utama. Untuk berbagai nilai parameter, jalankan simulasi 1.000 kali dan amati perilaku proses acak tersebut terhadap fungsi rataan.</p>
+</div>
+<div class="unit" id="mom5">
+<p class="app">Buka simulasi <a class="ancillary" href="https://www.randomservices.org/random/apps/GeometricBrownianMotion.html">aplikasi resmi daring gerak Brown geometrik</a>. Ubah-ubah parameternya dan amati ukuran serta letak batang rataan \( \pm \) simpangan baku untuk \( X_t \). Untuk berbagai nilai parameter, jalankan simulasi 1.000 kali dan bandingkan rataan serta simpangan baku empiris dengan rataan serta simpangan baku yang sebenarnya.</p>
+</div>
+<h3 class="reader-level-3" id="prp">Sifat</h3>
+<p>Parameter \( \mu - \sigma^2 / 2 \) menentukan perilaku asimtotik gerak Brown geometrik.</p>
+<div class="unit" id="prp1">
+<p class="math">Perilaku asimtotik:</p>
+<ol class="sub">
+<li>Jika \( \mu \gt \sigma^2 / 2 \), maka \( X_t \to \infty \) ketika \( t \to \infty \) dengan probabilitas 1.</li>
+<li>Jika \( \mu \lt \sigma^2 / 2 \), maka \( X_t \to 0 \) ketika \( t \to \infty \) dengan probabilitas 1.</li>
+<li>Jika \( \mu = \sigma^2 / 2 \), maka \( X_t \) tidak mempunyai limit ketika \( t \to \infty \) dengan probabilitas 1.</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Sifat, butir 1">Rincian:</summary>
+<p>Jika \(\mu\ne\sigma^2/2\), hasilnya mengikuti fakta bahwa \(\log(X_t)/t=\mu-\sigma^2/2+\sigma Z_t/t\to\mu-\sigma^2/2\) hampir pasti. Pada kasus batas \(\mu=\sigma^2/2\), <a href="Standard.html#lil">hukum logaritma berulang</a> memberi \(\limsup_{t\to\infty}Z_t=\infty\) dan \(\liminf_{t\to\infty}Z_t=-\infty\) hampir pasti; jadi \(\limsup_{t\to\infty}X_t=\infty\), \(\liminf_{t\to\infty}X_t=0\), dan \(X_t\) tidak mempunyai limit.</p>
+</details>
+</div><aside class="reader-original-solution" id="geometric-brownian-mastery">
+<p class="reader-note-title"><strong>Latihan penguasaan asli edisi</strong></p>
+<p><strong>Status dan lisensi.</strong> Soal, petunjuk, dan solusi berikut merupakan
+karya asli edisi ini, dilisensikan CC BY 4.0, dan bukan bagian dari halaman Random.</p>
+<p id="geometric-brownian-mastery-exercise"><strong>Soal.</strong> Misalkan
+\(\bs X\) adalah gerak Brown geometrik dengan parameter \(\mu,\sigma\), dimulai
+dari \(x_0\gt0\), dan \(0\le s\lt t\). Dengan
+\(\mathscr F_s=\sigma\{Z_u:0\le u\le s\}\), tentukan hukum bersyarat \(X_t\)
+jika \(\mathscr F_s\) diketahui, lalu hitung rataan dan varians bersyaratnya. Tunjukkan
+bahwa proses terdiskonto \(M_t=e^{-\mu t}X_t\) merupakan martingal.</p>
+<details id="geometric-brownian-mastery-hint"><summary aria-label="Petunjuk: Sifat, butir 2">Petunjuk</summary><p>Tulis
+\(X_t=X_s\exp[(\mu-\sigma^2/2)(t-s)+\sigma(Z_t-Z_s)]\) dan gunakan kebebasan
+inkremen \(Z_t-Z_s\) dari \(\mathscr F_s\).</p></details>
+<details id="geometric-brownian-mastery-solution"><summary aria-label="Solusi lengkap: Sifat, butir 3">Solusi lengkap</summary><p>
+Dengan \(\Delta=t-s\), rasio \(X_t/X_s\), jika \(\mathscr F_s\) diketahui,
+berdistribusi lognormal dengan parameter lokasi log
+\((\mu-\sigma^2/2)\Delta\) dan parameter skala log \(\sigma\sqrt{\Delta}\).
+Karena itu
+\[\E(X_t\mid\mathscr F_s)=X_s e^{\mu\Delta},\qquad
+\var(X_t\mid\mathscr F_s)=X_s^2e^{2\mu\Delta}\bigl(e^{\sigma^2\Delta}-1\bigr).\]
+Selanjutnya,
+\[\E(M_t\mid\mathscr F_s)=e^{-\mu t}\E(X_t\mid\mathscr F_s)
+=e^{-\mu s}X_s=M_s.\]
+Setiap \(M_t\) terintegralkan karena \(\E(M_t)=x_0\), sehingga identitas
+bersyarat tersebut membuktikan sifat martingal.</p></details>
+</aside>
+<p>Menarik untuk membandingkan <a class="ref" href="#prp1"></a> dengan <a class="ref" href="#mom3"></a>, yang hanya bergantung pada parameter \( \mu \). Ketika parameter hanyutan bernilai 0, gerak Brown geometrik merupakan <a href="../martingales/index.html">martingal</a>.</p>
+<div class="unit" id="prp2">
+<p class="math">Jika \( \mu = 0 \), gerak Brown geometrik \( \bs{X} \) merupakan martingal terhadap gerak Brown yang mendasarinya, \( \bs{Z} \).</p>
+<details>
+<summary aria-label="Rincian: Sifat, butir 4">Rincian:</summary>
+<p><strong>Bukti melalui integral stokastik:</strong> Ini merupakan bukti paling sederhana. Ketika \( \mu = 0 \), \( \bs{X} \) memenuhi persamaan diferensial stokastik \( d X_t = \sigma X_t \, dZ_t \), sehingga
+		\[ X_t = 1 + \sigma \int_0^t X_s \, dZ_s, \quad t \ge 0 \]
+		Selain itu, \(\E(X_s^2)=e^{\sigma^2s}\), sehingga untuk setiap \(t\lt\infty\), \[\E\!\left(\int_0^t \sigma^2X_s^2\,ds\right)=\sigma^2\int_0^t e^{\sigma^2s}\,ds\lt\infty.\] Karena integrannya teradaptasi dan terintegralkan kuadrat pada setiap horizon hingga, integral stokastik tersebut merupakan martingal kuadrat-terintegralkan.</p>
+<p><strong>Bukti langsung:</strong> Misalkan \( \mathscr{F}_t = \sigma\{Z_s: 0 \le s \le t\} \) untuk \( t \in [0, \infty) \), sehingga \( \mathfrak{F} = \{\mathscr{F}_t: t \in [0, \infty)\} \) merupakan filtrasi alami yang berkaitan dengan \( \bs{Z} \). Misalkan \( s, \, t \in [0, \infty) \) dengan \( s \le t \). Kita menggunakan trik lazim dengan menuliskan \( Z_t = Z_s + (Z_t - Z_s) \) untuk memanfaatkan sifat inkremen stasioner dan independen dari gerak Brown. Dengan demikian,
+		\[ X_t = \exp\left[-\frac{\sigma^2}{2} t + \sigma Z_s + \sigma (Z_t - Z_s)\right] \]
+		Karena \( Z_s \) terukur terhadap \( \mathscr{F}_s \) dan \( Z_t - Z_s \) saling bebas dengan \( \mathscr{F}_s \), kita memperoleh
+		\[ \E\left(X_t \mid \mathscr{F}_s\right) = \exp\left(-\frac{\sigma^2}{2} t + \sigma Z_s\right) \E\left\{\exp\left[\sigma(Z_t - Z_s)\right]\right\} \]
+		Namun, \( Z_t - Z_s \) mempunyai distribusi normal dengan rataan 0 dan varians \( t - s \), sehingga dari rumus fungsi pembangkit momen distribusi normal diperoleh 
+		\[ \E\left\{\exp\left[\sigma(Z_t - Z_s)\right]\right\} = \exp\left[\frac{\sigma^2}{2}(t - s)\right] \]
+		Dengan menyubstitusikannya, diperoleh 
+		\[ \E\left(X_t \mid \mathscr{F}_s\right) = \exp\left(-\frac{\sigma^2}{2} s + \sigma Z_s\right) = X_s \]
+	</p></details>
+</div>
+</main><footer>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="index.html">16. Gerak Brown</a></li>
+<li class="child"><a aria-label="Bagian 1: Gerak Brown Standar" href="Standard.html" title="Gerak Brown Standar">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Gerak Brown dengan Hanyutan" href="Drift.html" title="Gerak Brown dengan Hanyutan">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Jembatan Brown" href="Bridge.html" title="Jembatan Brown">3</a></li>
+<li aria-current="page" aria-label="Bagian 4: Gerak Brown Geometrik (halaman saat ini)" class="current">4</li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Perluas Rincian" type="button"><img alt="Perluas" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Ciutkan Rincian" type="button"><img alt="Ciutkan" src="../icons/Minus.svg"/></button></li>
+</ol>
+<ul class="map">
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/data/index.html">Himpunan Data</a></li>
+<li class="child"><a class="ancillary" href="https://www.randomservices.org/random/biographies/index.html"> Biografi</a></li>
+</ul>
+</footer>
+<script>getReferences();</script>
+</body>
+</html>

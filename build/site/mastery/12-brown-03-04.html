@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>Penguasaan 12.03–12.04: perubahan tanda kisi dan energi lintasan Brown</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="11-brown-02.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="11-brown-02.html">Unit sebelumnya</a></nav><main class="mastery-reader"><h1>Penguasaan 12.03–12.04: perubahan tanda kisi dan
+energi lintasan Brown</h1>
+
+<div class="mastery original-addition" id="o009-mastery-brown-03">
+<blockquote>
+<p><strong>Hak dan provenans.</strong> Soal, petunjuk, jawaban, dan
+penyelesaian ini adalah materi asli berbahasa Indonesia (id-ID), disusun
+oleh OpenAI Codex atas arahan pengguna, dan dilisensikan dengan <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Tidak
+ada soal donor yang disalin atau diadaptasi.</p>
+</blockquote>
+<h2 id="prasyarat">Prasyarat</h2>
+<ul>
+<li>distribusi berdimensi hingga gerak Brown standar dan <span class="math inline">\(\operatorname{Cov}(B_s,B_t)=\min\{s,t\}\)</span>;</li>
+<li>representasi pasangan normal baku berkorelasi menggunakan dua normal
+baku independen;</li>
+<li>koordinat polar untuk normal baku dua dimensi;</li>
+<li>linearitas ekspektasi, perbandingan integral, dan notasi
+asimtotik.</li>
+</ul>
+<h2 id="hasil-belajar">Hasil belajar</h2>
+<p>Setelah menyelesaikan soal ini, pembaca dapat mengubah pertanyaan
+tentang tanda pada dua waktu Brown menjadi geometri sudut pasangan
+Gaussian, menurunkan rumus eksak bagi cacah perubahan tanda pada suatu
+kisi, serta membuktikan asimtotiknya tanpa menganggap
+indikator-indikator perubahan tanda saling independen.</p>
+<div class="exercise" id="o009-exercise-brown-03">
+<p>Misalkan <span class="math inline">\(B=(B_t)_{t\geq0}\)</span> adalah
+gerak Brown standar. Untuk bilangan bulat <span class="math inline">\(n\geq2\)</span>, definisikan cacah perubahan tanda
+pada titik-titik kisi positif</p>
+<p><span class="math display">\[
+N_n=\sum_{k=1}^{n-1}
+\mathbf 1_{\{B_{k/n}B_{(k+1)/n}&lt;0\}}.
+\]</span></p>
+<ol type="1">
+<li>Misalkan <span class="math inline">\((X,Y)\)</span> normal baku
+bersama dengan korelasi <span class="math inline">\(\rho\in[0,1)\)</span>. Buktikan <span class="math display">\[
+\mathbb P(XY&lt;0)=\frac{1}{\pi}\arccos\rho.
+\]</span></li>
+<li>Gunakan hasil tersebut untuk membuktikan rumus eksak <span class="math display">\[
+\mathbb E N_n
+=\frac1\pi\sum_{k=1}^{n-1}
+  \arccos\sqrt{\frac{k}{k+1}}
+=\frac1\pi\sum_{k=1}^{n-1}
+  \arctan\frac1{\sqrt{k}}.
+\]</span></li>
+<li>Buktikan limit dan bentuk asimtotik yang lebih tajam <span class="math display">\[
+\frac{\mathbb E N_n}{\sqrt n}\longrightarrow\frac2\pi,
+\qquad
+\mathbb E N_n=\frac2\pi\sqrt n+O(1).
+\]</span> Jelaskan mengapa perhitungan ini tidak memerlukan independensi
+antar-suku indikator dalam definisi <span class="math inline">\(N_n\)</span>.</li>
+</ol>
+</div>
+<details class="hint" id="o009-hint-brown-03-1"><summary aria-label="Petunjuk: o009-hint-brown-03-1">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Tulis <span class="math inline">\(X=U\)</span> dan <span class="math inline">\(Y=\rho U+\sqrt{1-\rho^2}\,V\)</span>, dengan <span class="math inline">\(U,V\)</span> normal baku independen. Jika <span class="math inline">\(\alpha=\arccos\rho\)</span>, gunakan koordinat
+polar <span class="math inline">\((U,V)=R(\cos\Theta,\sin\Theta)\)</span> untuk
+membandingkan tanda <span class="math inline">\(\cos\Theta\)</span> dan
+<span class="math inline">\(\cos(\Theta-\alpha)\)</span>.</p>
+</details>
+<details class="hint" id="o009-hint-brown-03-2"><summary aria-label="Petunjuk: o009-hint-brown-03-2">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Normalisasikan pasangan <span class="math inline">\((B_{k/n},B_{(k+1)/n})\)</span>. Korelasinya adalah
+<span class="math inline">\(\sqrt{k/(k+1)}\)</span>. Jika <span class="math inline">\(\theta_k=\arccos\sqrt{k/(k+1)}\)</span>, hitung
+<span class="math inline">\(\tan\theta_k\)</span>.</p>
+</details>
+<details class="hint" id="o009-hint-brown-03-3"><summary aria-label="Petunjuk: o009-hint-brown-03-3">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Untuk <span class="math inline">\(x\geq0\)</span>,</p>
+<p><span class="math display">\[
+0\leq x-\arctan x
+=\int_0^x\frac{u^2}{1+u^2}\,du
+\leq\frac{x^3}{3}.
+\]</span></p>
+<p>Terapkan ketaksamaan ini pada <span class="math inline">\(x=k^{-1/2}\)</span>, lalu gunakan perbandingan
+integral untuk <span class="math inline">\(\sum_{k&lt;n}k^{-1/2}\)</span>.</p>
+</details>
+<div class="answer" id="o009-answer-brown-03">
+<p><strong>Jawaban ringkas.</strong> Untuk pasangan normal baku dengan
+korelasi <span class="math inline">\(\rho\)</span>, dua setengah bidang
+yang menentukan tanda berbeda membentuk total sudut <span class="math inline">\(2\arccos\rho\)</span>; karena sudut pasangan
+normal isotropik seragam, peluangnya adalah <span class="math inline">\(\arccos(\rho)/\pi\)</span>. Pada dua titik kisi
+Brown,</p>
+<p><span class="math display">\[
+\rho_k=\operatorname{Corr}(B_{k/n},B_{(k+1)/n})
+=\sqrt{\frac{k}{k+1}},
+\]</span></p>
+<p>sehingga</p>
+<p><span class="math display">\[
+\mathbb E N_n=\frac1\pi\sum_{k=1}^{n-1}\arctan(k^{-1/2}).
+\]</span></p>
+<p>Selisih jumlah ini dari <span class="math inline">\(\sum_{k=1}^{n-1}k^{-1/2}\)</span> terbatas seragam
+dalam <span class="math inline">\(n\)</span>, sedangkan jumlah terakhir
+adalah <span class="math inline">\(2\sqrt n+O(1)\)</span>. Jadi <span class="math inline">\(\mathbb E N_n=2\sqrt n/\pi+O(1)\)</span>.</p>
+</div>
+<details class="solution" id="o009-solution-brown-03"><summary aria-label="Penyelesaian lengkap: o009-solution-brown-03">Penyelesaian lengkap</summary>
+<p><strong>Penyelesaian lengkap.</strong> Ambil <span class="math inline">\(U,V\)</span> normal baku independen. Pasangan</p>
+<p><span class="math display">\[
+X=U,
+\qquad
+Y=\rho U+\sqrt{1-\rho^2}\,V
+\]</span></p>
+<p>adalah normal baku bersama dengan korelasi <span class="math inline">\(\rho\)</span>. Tetapkan <span class="math inline">\(\alpha=\arccos\rho\in(0,\pi/2]\)</span>. Dalam
+koordinat polar, <span class="math inline">\((U,V)=R(\cos\Theta,\sin\Theta)\)</span>, dengan
+<span class="math inline">\(R\geq0\)</span> dan <span class="math inline">\(\Theta\)</span> seragam pada <span class="math inline">\([0,2\pi)\)</span> serta independen dari <span class="math inline">\(R\)</span>. Karena <span class="math inline">\(\rho=\cos\alpha\)</span> dan <span class="math inline">\(\sqrt{1-\rho^2}=\sin\alpha\)</span>,</p>
+<p><span class="math display">\[
+X=R\cos\Theta,
+\qquad
+Y=R\cos(\Theta-\alpha).
+\]</span></p>
+<p>Mengabaikan batas-batas yang berpeluang nol, kejadian <span class="math inline">\(XY&lt;0\)</span> terjadi ketika <span class="math inline">\(\cos\Theta\)</span> dan <span class="math inline">\(\cos(\Theta-\alpha)\)</span> berlainan tanda. Dua
+setengah lingkaran tempat masing-masing kosinus bernilai positif
+mempunyai beda simetris dengan total panjang sudut <span class="math inline">\(2\alpha\)</span>. Oleh karena itu,</p>
+<p><span class="math display">\[
+\mathbb P(XY&lt;0)=\frac{2\alpha}{2\pi}
+=\frac1\pi\arccos\rho.
+\]</span></p>
+<p>Sekarang tetapkan <span class="math inline">\(k\in\{1,\ldots,n-1\}\)</span>. Kedua peubah <span class="math inline">\(B_{k/n}\)</span> dan <span class="math inline">\(B_{(k+1)/n}\)</span> berdistribusi normal,
+berpusat, dan</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{Var}(B_{k/n})&amp;=\frac{k}{n},\\
+\operatorname{Var}(B_{(k+1)/n})&amp;=\frac{k+1}{n},\\
+\operatorname{Cov}(B_{k/n},B_{(k+1)/n})&amp;=\frac{k}{n}.
+\end{aligned}
+\]</span></p>
+<p>Jadi, setelah normalisasi, korelasinya adalah</p>
+<p><span class="math display">\[
+\rho_k
+=\frac{k/n}{\sqrt{(k/n)((k+1)/n)}}
+=\sqrt{\frac{k}{k+1}}.
+\]</span></p>
+<p>Nilai Brown pada setiap waktu positif tetap mempunyai kepadatan,
+sehingga peluang bahwa salah satu faktor tepat nol adalah nol. Hasil
+bagian pertama memberi</p>
+<p><span class="math display">\[
+\mathbb P\!\left(B_{k/n}B_{(k+1)/n}&lt;0\right)
+=\frac1\pi\arccos\sqrt{\frac{k}{k+1}}.
+\]</span></p>
+<p>Jika <span class="math inline">\(\theta_k=\arccos\sqrt{k/(k+1)}\)</span>, maka
+<span class="math inline">\(\theta_k\in(0,\pi/2)\)</span> dan</p>
+<p><span class="math display">\[
+\tan\theta_k
+=\frac{\sqrt{1-k/(k+1)}}{\sqrt{k/(k+1)}}
+=\frac1{\sqrt{k}}.
+\]</span></p>
+<p>Jadi <span class="math inline">\(\theta_k=\arctan(k^{-1/2})\)</span>.
+Linearitas ekspektasi sekarang menghasilkan, tanpa syarat independensi
+apa pun,</p>
+<p><span class="math display">\[
+\mathbb E N_n
+=\sum_{k=1}^{n-1}
+  \mathbb P\!\left(B_{k/n}B_{(k+1)/n}&lt;0\right)
+=\frac1\pi\sum_{k=1}^{n-1}\arctan(k^{-1/2}).
+\]</span></p>
+<p>Untuk asimtotik, ketaksamaan pada Petunjuk 3 memberikan</p>
+<p><span class="math display">\[
+0\leq
+\sum_{k=1}^{n-1}\left(k^{-1/2}-\arctan(k^{-1/2})\right)
+\leq\frac13\sum_{k=1}^{\infty}k^{-3/2}&lt;\infty.
+\]</span></p>
+<p>Dengan demikian,</p>
+<p><span class="math display">\[
+\sum_{k=1}^{n-1}\arctan(k^{-1/2})
+=\sum_{k=1}^{n-1}k^{-1/2}+O(1).
+\]</span></p>
+<p>Karena <span class="math inline">\(x\mapsto x^{-1/2}\)</span>
+menurun, perbandingan integral memberi</p>
+<p><span class="math display">\[
+2(\sqrt n-1)
+\leq\sum_{k=1}^{n-1}k^{-1/2}
+\leq1+2(\sqrt{n-1}-1),
+\]</span></p>
+<p>dan karenanya <span class="math inline">\(\sum_{k=1}^{n-1}k^{-1/2}=2\sqrt n+O(1)\)</span>.
+Setelah dibagi dengan <span class="math inline">\(\pi\)</span>,
+diperoleh</p>
+<p><span class="math display">\[
+\mathbb E N_n=\frac2\pi\sqrt n+O(1),
+\qquad
+\frac{\mathbb E N_n}{\sqrt n}\longrightarrow\frac2\pi.
+\]</span></p>
+<p>Indikator-indikator perubahan tanda memang umumnya bergantung, tetapi
+linearitas ekspektasi berlaku tanpa independensi; itulah sebabnya
+ketergantungan tersebut tidak memasuki perhitungan rataan.</p>
+</details>
+</div>
+<div class="mastery original-addition" id="o009-mastery-brown-04">
+<blockquote>
+<p><strong>Hak dan provenans.</strong> Soal, petunjuk, jawaban, dan
+penyelesaian ini adalah materi asli berbahasa Indonesia (id-ID), disusun
+oleh OpenAI Codex atas arahan pengguna, dan dilisensikan dengan <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Tidak
+ada soal donor yang disalin atau diadaptasi.</p>
+</blockquote>
+<h2 id="prasyarat-1">Prasyarat</h2>
+<ul>
+<li>penskalaan gerak Brown dan kovarians <span class="math inline">\(\operatorname{Cov}(B_s,B_t)=\min\{s,t\}\)</span>;</li>
+<li>rumus momen keempat Isserlis untuk pasangan Gaussian berpusat;</li>
+<li>teorema Tonelli–Fubini;</li>
+<li>rumus Itô, martingal lokal terbatas, dan argumen Feynman–Kac;</li>
+<li>fungsi hiperbolik dasar.</li>
+</ul>
+<h2 id="hasil-belajar-1">Hasil belajar</h2>
+<p>Setelah menyelesaikan soal ini, pembaca dapat menghitung momen energi
+kuadrat lintasan Brown, memecahkan persamaan panas dengan potensial
+kuadrat melalui ansatz Gaussian, dan memverifikasi transformasi Laplace
+fungsional lintasan secara probabilistik dengan martingal terbatas.</p>
+<div class="exercise" id="o009-exercise-brown-04">
+<p>Misalkan <span class="math inline">\(B=(B_t)_{t\geq0}\)</span> adalah
+gerak Brown standar dan, untuk <span class="math inline">\(T&gt;0\)</span>,</p>
+<p><span class="math display">\[
+I_T=\int_0^T B_s^2\,ds.
+\]</span></p>
+<ol type="1">
+<li>Buktikan sifat penskalaan <span class="math inline">\(I_T\overset
+d=T^2I_1\)</span>, lalu hitung <span class="math inline">\(\mathbb E
+I_T\)</span> dan <span class="math inline">\(\operatorname{Var}(I_T)\)</span> secara
+langsung.</li>
+<li>Untuk <span class="math inline">\(\lambda&gt;0\)</span>, cari solusi
+terbatas dari masalah nilai awal <span class="math display">\[
+\partial_tu=\frac12\partial_{xx}u-\lambda x^2u,
+\qquad u(0,x)=1,
+\]</span> dalam bentuk <span class="math inline">\(u(t,x)=c(t)\exp\{-a(t)x^2/2\}\)</span>.</li>
+<li>Dengan rumus Itô, verifikasi representasi Feynman–Kac dan simpulkan
+rumus eksak <span class="math display">\[
+\mathbb E\exp(-\lambda I_T)
+=\frac1{\sqrt{\cosh(T\sqrt{2\lambda})}}.
+\]</span> Tunjukkan pula bahwa ekspansi transformasi ini konsisten
+dengan kedua momen pada bagian pertama.</li>
+</ol>
+</div>
+<details class="hint" id="o009-hint-brown-04-1"><summary aria-label="Petunjuk: o009-hint-brown-04-1">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Gunakan <span class="math inline">\((B_{Tu})_{0\leq u\leq1}\overset d=(\sqrt
+T\,\widetilde B_u)_{0\leq u\leq1}\)</span>. Untuk varians, pakai</p>
+<p><span class="math display">\[
+\mathbb E(B_s^2B_t^2)=st+2\min(s,t)^2.
+\]</span></p>
+</details>
+<details class="hint" id="o009-hint-brown-04-2"><summary aria-label="Petunjuk: o009-hint-brown-04-2">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Substitusi ansatz Gaussian ke PDE
+memberi</p>
+<p><span class="math display">\[
+a'(t)=2\lambda-a(t)^2,
+\qquad
+\frac{c'(t)}{c(t)}=-\frac{a(t)}2,
+\qquad a(0)=0,\quad c(0)=1.
+\]</span></p>
+<p>Tuliskan <span class="math inline">\(q=\sqrt{2\lambda}\)</span> dan
+selesaikan persamaan Riccati tersebut.</p>
+</details>
+<details class="hint" id="o009-hint-brown-04-3"><summary aria-label="Petunjuk: o009-hint-brown-04-3">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Untuk <span class="math inline">\(X_s=x+B_s\)</span> dan <span class="math inline">\(0\leq s\leq t\)</span>, terapkan rumus Itô
+pada</p>
+<p><span class="math display">\[
+M_s=\exp\!\left(-\lambda\int_0^sX_r^2\,dr\right)u(t-s,X_s).
+\]</span></p>
+<p>PDE menghapus suku hanyut. Kandidat <span class="math inline">\(u\)</span> memenuhi <span class="math inline">\(0&lt;u\leq1\)</span>, sehingga <span class="math inline">\(M\)</span> adalah martingal lokal terbatas dan
+oleh sebab itu martingal sejati.</p>
+</details>
+<div class="answer" id="o009-answer-brown-04">
+<p><strong>Jawaban ringkas.</strong> Penskalaan Brown memberi <span class="math inline">\(I_T\overset d=T^2I_1\)</span>, dan</p>
+<p><span class="math display">\[
+\mathbb E I_T=\frac{T^2}{2},
+\qquad
+\operatorname{Var}(I_T)=\frac{T^4}{3}.
+\]</span></p>
+<p>Dengan <span class="math inline">\(q=\sqrt{2\lambda}\)</span>, solusi
+PDE adalah</p>
+<p><span class="math display">\[
+u(t,x)=\frac{1}{\sqrt{\cosh(qt)}}
+\exp\!\left[-\frac q2\tanh(qt)x^2\right].
+\]</span></p>
+<p>Verifikasi Itô memberi <span class="math inline">\(u(T,0)=\mathbb E
+e^{-\lambda I_T}\)</span>, sehingga transformasi Laplace yang diminta
+adalah <span class="math inline">\(\{\cosh(T\sqrt{2\lambda})\}^{-1/2}\)</span>.</p>
+</div>
+<details class="solution" id="o009-solution-brown-04"><summary aria-label="Penyelesaian lengkap: o009-solution-brown-04">Penyelesaian lengkap</summary>
+<p><strong>Penyelesaian lengkap.</strong> Dengan perubahan variabel
+<span class="math inline">\(s=Tu\)</span> dan penskalaan Brown, terdapat
+gerak Brown standar <span class="math inline">\(\widetilde B\)</span>
+sehingga</p>
+<p><span class="math display">\[
+I_T
+=T\int_0^1B_{Tu}^2\,du
+\overset d=T\int_0^1(\sqrt T\,\widetilde B_u)^2\,du
+=T^2I_1.
+\]</span></p>
+<p>Karena integrannya taknegatif, Tonelli dan <span class="math inline">\(\mathbb E B_s^2=s\)</span> memberikan</p>
+<p><span class="math display">\[
+\mathbb E I_T=\int_0^T s\,ds=\frac{T^2}{2}.
+\]</span></p>
+<p>Untuk pasangan Gaussian berpusat <span class="math inline">\((B_s,B_t)\)</span>, rumus Isserlis menyatakan</p>
+<p><span class="math display">\[
+\mathbb E(B_s^2B_t^2)
+=\mathbb E(B_s^2)\mathbb E(B_t^2)
++2\{\mathbb E(B_sB_t)\}^2
+=st+2\min(s,t)^2.
+\]</span></p>
+<p>Maka, dengan Fubini,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{Var}(I_T)
+&amp;=2\int_0^T\!\int_0^T\min(s,t)^2\,ds\,dt\\
+&amp;=4\int_0^T s^2(T-s)\,ds
+=\frac{T^4}{3}.
+\end{aligned}
+\]</span></p>
+<p>Secara khusus, <span class="math inline">\(\mathbb
+E(I_T^2)=\operatorname{Var}(I_T)+(\mathbb E I_T)^2
+=7T^4/12\)</span>.</p>
+<p>Sekarang cari solusi PDE dalam bentuk <span class="math inline">\(u(t,x)=c(t)e^{-a(t)x^2/2}\)</span>. Pembagian
+dengan <span class="math inline">\(u\)</span> memberi</p>
+<p><span class="math display">\[
+\frac{u_t}{u}=\frac{c'}c-\frac{a'}2x^2,
+\qquad
+\frac{u_{xx}}u=a^2x^2-a.
+\]</span></p>
+<p>Menyamakan koefisien konstanta dan <span class="math inline">\(x^2\)</span> menghasilkan</p>
+<p><span class="math display">\[
+a'=2\lambda-a^2,
+\qquad
+\frac{c'}c=-\frac a2,
+\qquad a(0)=0,\quad c(0)=1.
+\]</span></p>
+<p>Jika <span class="math inline">\(q=\sqrt{2\lambda}\)</span>,
+solusinya adalah</p>
+<p><span class="math display">\[
+a(t)=q\tanh(qt),
+\qquad
+c(t)=\{\cosh(qt)\}^{-1/2}.
+\]</span></p>
+<p>Memang, <span class="math inline">\(a'=q^2\operatorname{sech}^2(qt)=2\lambda-a^2\)</span>
+dan <span class="math inline">\(c'/c=-q\tanh(qt)/2=-a/2\)</span>.
+Jadi</p>
+<p><span class="math display">\[
+u(t,x)=\frac{1}{\sqrt{\cosh(qt)}}
+\exp\!\left[-\frac q2\tanh(qt)x^2\right]
+\]</span></p>
+<p>memenuhi PDE dan syarat awal. Selain itu, <span class="math inline">\(0&lt;u(t,x)\leq1\)</span>.</p>
+<p>Untuk verifikasi probabilistik, mulai Brown di <span class="math inline">\(x\)</span> dengan <span class="math inline">\(X_s=x+B_s\)</span>. Untuk <span class="math inline">\(t&gt;0\)</span> tetap, definisikan</p>
+<p><span class="math display">\[
+M_s=\exp\!\left(-\lambda\int_0^sX_r^2\,dr\right)u(t-s,X_s),
+\qquad 0\leq s\leq t.
+\]</span></p>
+<p>Rumus Itô dan PDE memberi</p>
+<p><span class="math display">\[
+dM_s
+=\exp\!\left(-\lambda\int_0^sX_r^2\,dr\right)
+u_x(t-s,X_s)\,dB_s;
+\]</span></p>
+<p>jadi <span class="math inline">\(M\)</span> adalah martingal lokal.
+Karena <span class="math inline">\(0\leq M_s\leq1\)</span>, martingal
+lokal ini adalah martingal sejati. Oleh karena itu,</p>
+<p><span class="math display">\[
+u(t,x)=M_0=\mathbb E_xM_t
+=\mathbb E_x\exp\!\left(-\lambda\int_0^tX_s^2\,ds\right),
+\]</span></p>
+<p>sebab <span class="math inline">\(u(0,X_t)=1\)</span>. Mengambil
+<span class="math inline">\(x=0\)</span> dan <span class="math inline">\(t=T\)</span> menghasilkan</p>
+<p><span class="math display">\[
+\boxed{
+\mathbb E e^{-\lambda I_T}
+=\frac1{\sqrt{\cosh(T\sqrt{2\lambda})}}
+}.
+\]</span></p>
+<p>Terakhir, untuk <span class="math inline">\(z\to0\)</span>, <span class="math inline">\(\log\cosh z=z^2/2-z^4/12+O(z^6)\)</span>. Dengan
+<span class="math inline">\(z=T\sqrt{2\lambda}\)</span>,</p>
+<p><span class="math display">\[
+\log\mathbb E e^{-\lambda I_T}
+=-\frac{T^2}{2}\lambda+\frac{T^4}{6}\lambda^2+O(\lambda^3),
+\]</span></p>
+<p>dan setelah dieksponensialkan,</p>
+<p><span class="math display">\[
+\mathbb E e^{-\lambda I_T}
+=1-\frac{T^2}{2}\lambda
++\frac{7T^4}{24}\lambda^2+O(\lambda^3).
+\]</span></p>
+<p>Koefisien ini sama dengan <span class="math inline">\(1-\lambda\mathbb E I_T+\lambda^2\mathbb
+E(I_T^2)/2+O(\lambda^3)\)</span>, karena <span class="math inline">\(\mathbb E I_T=T^2/2\)</span> dan <span class="math inline">\(\mathbb E(I_T^2)=7T^4/12\)</span>.</p>
+</details>
+</div>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

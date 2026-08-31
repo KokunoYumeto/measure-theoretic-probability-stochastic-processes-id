@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (materi asli, atas arahan pengguna)" name="author"/>
+<title>Mode konvergensi dan pembanding LLN/CLT</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Mode konvergensi dan pembanding LLN/CLT</h1>
+<p class="author">Codex (materi asli, atas arahan pengguna)</p>
+</header><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../markov/Recurrence.html">Keadaan transien dan rekuren</a> · <a href="../markov/Periodicity.html">Periodisitas</a> · <a href="../markov/Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="../brown/Standard.html">Gerak Brown standar</a> · <a href="../brown/Drift.html">Gerak Brown dengan hanyutan</a> · <a href="../brown/Bridge.html">Jembatan Brown</a> · <a href="../brown/Geometric.html">Gerak Brown geometrik</a> · <a href="../martingales/index.html">Ikhtisar martingal</a> · <a href="../markov/index.html">Ikhtisar proses Markov</a> · <a href="../brown/index.html">Ikhtisar gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a> · <a href="01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a> · <a href="05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a></nav><main>
+<div class="lab" id="o009-lab-convergence-modes">
+<blockquote>
+<p><strong>Asal dan lisensi.</strong> Laboratorium ini adalah materi
+asli edisi ini (CC BY 4.0). Ia memakai teori konvergensi dari unit
+<em>Random</em> yang sudah diterjemahkan, sedangkan backend menautkan
+LLN/CLT O006/C140 sebagai prasyarat bersama; tidak ada byte donor O006
+yang disalin. Kode memakai R dasar, luring, dan tidak mengklaim dukungan
+dari penulis sumber mana pun. Provenans produksi: <strong>OpenAI Codex
+gpt-5.6-sol, Ultra.</strong></p>
+</blockquote>
+<h2 id="tujuan">Tujuan</h2>
+<p>Laboratorium ini membandingkan empat mode konvergensi—hampir pasti,
+dalam peluang, dalam distribusi, dan dalam <span class="math inline">\(L^1\)</span>—dengan eksperimen yang ukurannya
+dapat diaudit. Untuk <span class="math inline">\(U\)</span> yang seragam
+pada <span class="math inline">\((0,1)\)</span>, contoh lonjakan langka
+<span class="math inline">\(Y_n=n\mathbf 1_{\{U\le1/n\}}\)</span>
+konvergen hampir pasti, dalam peluang, dan dalam distribusi ke nol,
+tetapi tidak dalam <span class="math inline">\(L^1\)</span>: peluang
+kejadian tak nol menuju nol, sedangkan <span class="math inline">\(\mathbb E|Y_n|=1\)</span> untuk setiap <span class="math inline">\(n\)</span>. Contoh indikator <span class="math inline">\(X_n=\mathbf 1_{\{U\le1/n\}}\)</span> juga
+konvergen hampir pasti dan dalam <span class="math inline">\(L^1\)</span>. Baris terakhir membandingkan intuisi
+itu dengan LLN dan CLT O006: rata-rata Bernoulli berparameter <span class="math inline">\(p=0{,}3\)</span> mendekati <span class="math inline">\(p\)</span>, sedangkan statistik terstandar memakai
+simpangan baku <span class="math inline">\(\sqrt{p(1-p)}\)</span> pada
+skala satu pengamatan, atau <span class="math inline">\(\sqrt{p(1-p)/n}\)</span> pada skala rata-rata
+sampel.</p>
+<h2 id="o009-lab-convergence-modes-experiment">Eksperimen dan pembanding
+O006</h2>
+<div class="exercise" id="o009-exercise-convergence-modes-estimation">
+<p>Jalankan kode dan baca tabel. Jelaskan mengapa baris 1 hanya
+merupakan satu lintasan, sedangkan <code>nilai</code> pada baris 2 dan 3
+masing-masing menaksir peluang kejadian dan norma <span class="math inline">\(L^1\)</span>. Untuk dua baris terakhir, hubungkan
+<code>nilai</code> dan <code>target</code> dengan LLN dan CLT
+O006/C140.</p>
+</div>
+<p>Benih dan urutan keluaran dibekukan. Baris pertama memakai <span class="math inline">\(U_0=0{,}37\)</span> untuk satu lintasan; baris
+kedua dan ketiga memakai 10^6 realisasi independen.</p>
+<div class="sourceCode" id="o009_lab_convergence_modes"><pre class="sourceCode r"><code class="sourceCode r"><span id="o009_lab_convergence_modes-1"><a aria-hidden="true" href="#o009_lab_convergence_modes-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260829</span>)</span>
+<span id="o009_lab_convergence_modes-2"><a aria-hidden="true" href="#o009_lab_convergence_modes-2" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span><span class="dt">L</span></span>
+<span id="o009_lab_convergence_modes-3"><a aria-hidden="true" href="#o009_lab_convergence_modes-3" tabindex="-1"></a>u0 <span class="ot">=</span> <span class="fl">0.37</span></span>
+<span id="o009_lab_convergence_modes-4"><a aria-hidden="true" href="#o009_lab_convergence_modes-4" tabindex="-1"></a>x_indicator <span class="ot">=</span> <span class="fu">as.numeric</span>(u0 <span class="sc">&lt;=</span> <span class="dv">1</span> <span class="sc">/</span> n)</span>
+<span id="o009_lab_convergence_modes-5"><a aria-hidden="true" href="#o009_lab_convergence_modes-5" tabindex="-1"></a>indicator_probability_target <span class="ot">=</span> <span class="dv">1</span> <span class="sc">/</span> n</span>
+<span id="o009_lab_convergence_modes-6"><a aria-hidden="true" href="#o009_lab_convergence_modes-6" tabindex="-1"></a></span>
+<span id="o009_lab_convergence_modes-7"><a aria-hidden="true" href="#o009_lab_convergence_modes-7" tabindex="-1"></a>u <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">1000000</span><span class="dt">L</span>)</span>
+<span id="o009_lab_convergence_modes-8"><a aria-hidden="true" href="#o009_lab_convergence_modes-8" tabindex="-1"></a>rare <span class="ot">=</span> n <span class="sc">*</span> (u <span class="sc">&lt;=</span> <span class="dv">1</span> <span class="sc">/</span> n)</span>
+<span id="o009_lab_convergence_modes-9"><a aria-hidden="true" href="#o009_lab_convergence_modes-9" tabindex="-1"></a>rare_probability <span class="ot">=</span> <span class="fu">mean</span>(rare <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="o009_lab_convergence_modes-10"><a aria-hidden="true" href="#o009_lab_convergence_modes-10" tabindex="-1"></a>rare_l1 <span class="ot">=</span> <span class="fu">mean</span>(<span class="fu">abs</span>(rare))</span>
+<span id="o009_lab_convergence_modes-11"><a aria-hidden="true" href="#o009_lab_convergence_modes-11" tabindex="-1"></a></span>
+<span id="o009_lab_convergence_modes-12"><a aria-hidden="true" href="#o009_lab_convergence_modes-12" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260830</span>)</span>
+<span id="o009_lab_convergence_modes-13"><a aria-hidden="true" href="#o009_lab_convergence_modes-13" tabindex="-1"></a>sample_n <span class="ot">=</span> <span class="dv">10000</span><span class="dt">L</span></span>
+<span id="o009_lab_convergence_modes-14"><a aria-hidden="true" href="#o009_lab_convergence_modes-14" tabindex="-1"></a>p <span class="ot">=</span> <span class="fl">0.3</span></span>
+<span id="o009_lab_convergence_modes-15"><a aria-hidden="true" href="#o009_lab_convergence_modes-15" tabindex="-1"></a>bernoulli <span class="ot">=</span> <span class="fu">rbinom</span>(sample_n, <span class="at">size=</span><span class="dv">1</span><span class="dt">L</span>, <span class="at">prob=</span>p)</span>
+<span id="o009_lab_convergence_modes-16"><a aria-hidden="true" href="#o009_lab_convergence_modes-16" tabindex="-1"></a>lln_mean <span class="ot">=</span> <span class="fu">mean</span>(bernoulli)</span>
+<span id="o009_lab_convergence_modes-17"><a aria-hidden="true" href="#o009_lab_convergence_modes-17" tabindex="-1"></a>lln_target <span class="ot">=</span> p</span>
+<span id="o009_lab_convergence_modes-18"><a aria-hidden="true" href="#o009_lab_convergence_modes-18" tabindex="-1"></a>clt_z <span class="ot">=</span> <span class="fu">sqrt</span>(sample_n) <span class="sc">*</span> (lln_mean <span class="sc">-</span> p) <span class="sc">/</span> <span class="fu">sqrt</span>(p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="o009_lab_convergence_modes-19"><a aria-hidden="true" href="#o009_lab_convergence_modes-19" tabindex="-1"></a></span>
+<span id="o009_lab_convergence_modes-20"><a aria-hidden="true" href="#o009_lab_convergence_modes-20" tabindex="-1"></a>hasil <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="o009_lab_convergence_modes-21"><a aria-hidden="true" href="#o009_lab_convergence_modes-21" tabindex="-1"></a>  <span class="at">kasus =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="o009_lab_convergence_modes-22"><a aria-hidden="true" href="#o009_lab_convergence_modes-22" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">c</span>(n, n, n, sample_n, sample_n),</span>
+<span id="o009_lab_convergence_modes-23"><a aria-hidden="true" href="#o009_lab_convergence_modes-23" tabindex="-1"></a>  <span class="at">benih =</span> <span class="fu">c</span>(<span class="dv">20260829</span>, <span class="dv">20260829</span>, <span class="dv">20260829</span>, <span class="dv">20260830</span>, <span class="dv">20260830</span>),</span>
+<span id="o009_lab_convergence_modes-24"><a aria-hidden="true" href="#o009_lab_convergence_modes-24" tabindex="-1"></a>  <span class="at">nilai =</span> <span class="fu">c</span>(x_indicator, rare_probability, rare_l1, lln_mean, clt_z),</span>
+<span id="o009_lab_convergence_modes-25"><a aria-hidden="true" href="#o009_lab_convergence_modes-25" tabindex="-1"></a>  <span class="at">target =</span> <span class="fu">c</span>(<span class="dv">0</span>, indicator_probability_target, <span class="dv">0</span>, lln_target, <span class="dv">0</span>),</span>
+<span id="o009_lab_convergence_modes-26"><a aria-hidden="true" href="#o009_lab_convergence_modes-26" tabindex="-1"></a>  <span class="at">galat_mutlak =</span> <span class="fu">c</span>(<span class="fu">abs</span>(x_indicator), <span class="fu">abs</span>(rare_probability <span class="sc">-</span> indicator_probability_target),</span>
+<span id="o009_lab_convergence_modes-27"><a aria-hidden="true" href="#o009_lab_convergence_modes-27" tabindex="-1"></a>                   <span class="fu">abs</span>(rare_l1), <span class="fu">abs</span>(lln_mean <span class="sc">-</span> lln_target), <span class="fu">abs</span>(clt_z)),</span>
+<span id="o009_lab_convergence_modes-28"><a aria-hidden="true" href="#o009_lab_convergence_modes-28" tabindex="-1"></a>  <span class="at">skala_teori =</span> <span class="fu">c</span>(indicator_probability_target, indicator_probability_target, <span class="dv">1</span>,</span>
+<span id="o009_lab_convergence_modes-29"><a aria-hidden="true" href="#o009_lab_convergence_modes-29" tabindex="-1"></a>                  <span class="fu">sqrt</span>(p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">/</span> sample_n), <span class="dv">1</span>),</span>
+<span id="o009_lab_convergence_modes-30"><a aria-hidden="true" href="#o009_lab_convergence_modes-30" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>,</span>
+<span id="o009_lab_convergence_modes-31"><a aria-hidden="true" href="#o009_lab_convergence_modes-31" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="o009_lab_convergence_modes-32"><a aria-hidden="true" href="#o009_lab_convergence_modes-32" tabindex="-1"></a>)</span>
+<span id="o009_lab_convergence_modes-33"><a aria-hidden="true" href="#o009_lab_convergence_modes-33" tabindex="-1"></a>hasil<span class="sc">$</span>nilai <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, hasil<span class="sc">$</span>nilai)</span>
+<span id="o009_lab_convergence_modes-34"><a aria-hidden="true" href="#o009_lab_convergence_modes-34" tabindex="-1"></a>hasil<span class="sc">$</span>target <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, hasil<span class="sc">$</span>target)</span>
+<span id="o009_lab_convergence_modes-35"><a aria-hidden="true" href="#o009_lab_convergence_modes-35" tabindex="-1"></a>hasil<span class="sc">$</span>galat_mutlak <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, hasil<span class="sc">$</span>galat_mutlak)</span>
+<span id="o009_lab_convergence_modes-36"><a aria-hidden="true" href="#o009_lab_convergence_modes-36" tabindex="-1"></a>hasil<span class="sc">$</span>skala_teori <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%.12f"</span>, hasil<span class="sc">$</span>skala_teori)</span>
+<span id="o009_lab_convergence_modes-37"><a aria-hidden="true" href="#o009_lab_convergence_modes-37" tabindex="-1"></a><span class="fu">write.csv</span>(hasil, <span class="at">file=</span><span class="st">""</span>, <span class="at">row.names=</span><span class="cn">FALSE</span>, <span class="at">quote=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<table id="o009-results-convergence-modes" style="width:100%;">
+<colgroup>
+<col style="width: 14%"/>
+<col style="width: 14%"/>
+<col style="width: 14%"/>
+<col style="width: 14%"/>
+<col style="width: 14%"/>
+<col style="width: 14%"/>
+<col style="width: 14%"/>
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: right;">kasus</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">benih</th>
+<th style="text-align: right;">nilai</th>
+<th style="text-align: right;">target</th>
+<th style="text-align: right;">galat mutlak</th>
+<th style="text-align: right;">skala teori</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">20260829</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">0.001000000000</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">20260829</td>
+<td style="text-align: right;">0.001040000000</td>
+<td style="text-align: right;">0.001000000000</td>
+<td style="text-align: right;">0.000040000000</td>
+<td style="text-align: right;">0.001000000000</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">20260829</td>
+<td style="text-align: right;">1.040000000000</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">1.040000000000</td>
+<td style="text-align: right;">1.000000000000</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">10000</td>
+<td style="text-align: right;">20260830</td>
+<td style="text-align: right;">0.297000000000</td>
+<td style="text-align: right;">0.300000000000</td>
+<td style="text-align: right;">0.003000000000</td>
+<td style="text-align: right;">0.004582575695</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">10000</td>
+<td style="text-align: right;">20260830</td>
+<td style="text-align: right;">-0.654653670708</td>
+<td style="text-align: right;">0.000000000000</td>
+<td style="text-align: right;">0.654653670708</td>
+<td style="text-align: right;">1.000000000000</td>
+</tr>
+</tbody>
+</table>
+<p>Baris 1 hanya memperlihatkan satu lintasan indikator. Baris 2
+memperkirakan <span class="math inline">\(\mathbb
+P(Y_n\ne0)=1/n\)</span>, sedangkan baris 3 memperkirakan <span class="math inline">\(\mathbb E|Y_n|=1\)</span>. Jadi peluang dapat
+menghilang sementara norma L1 tetap, tanpa kontradiksi. Baris 4 adalah
+pembanding LLN O006; baris 5 memakai normalisasi CLT. Satu nilai
+statistik CLT bukan bukti kenormalan, melainkan pemeriksaan skala
+terhadap pusat asimtotik nol dari <span class="math inline">\(N(0,1)\)</span>; nilai <code>target</code> pada
+baris 5 adalah pusat itu, bukan target konvergensi statistiknya ke nol.
+Gerbang numeriknya menetapkan toleransi absolut <span class="math inline">\(2\times10^{-4}\)</span> untuk peluang lonjakan,
+<span class="math inline">\(0{,}08\)</span> untuk momen <span class="math inline">\(L^1\)</span>, <span class="math inline">\(0{,}01\)</span> untuk rata-rata LLN, dan <span class="math inline">\(|z|\le3\)</span> untuk pemeriksaan skala CLT.</p>
+<h2 id="o009-mastery-convergence-modes">Tambahan asli: dua besaran yang
+berbeda</h2>
+<div class="original-addition" id="o009-mastery-convergence-modes-sequence">
+<div class="exercise" id="o009-exercise-convergence-modes-mastery">
+<p>Untuk <span class="math inline">\(Y_n=n\mathbf
+1_{\{U\le1/n\}}\)</span>, hitung <span class="math inline">\(\mathbb
+P(|Y_n|&gt;\varepsilon)\)</span> untuk <span class="math inline">\(0&lt;\varepsilon&lt;n\)</span> dan <span class="math inline">\(\mathbb E|Y_n|\)</span>. Putuskan mode konvergensi
+mana yang gagal, lalu jelaskan dua kolom tabel.</p>
+</div>
+<div class="hint" id="o009-hint-convergence-modes-1">
+<p><strong>Petunjuk 1.</strong> Untuk <span class="math inline">\(0&lt;\varepsilon&lt;n\)</span>, kejadian <span class="math inline">\(|Y_n|&gt;\varepsilon\)</span> sama dengan <span class="math inline">\(U\le1/n\)</span>.</p>
+</div>
+<div class="hint" id="o009-hint-convergence-modes-2">
+<p><strong>Petunjuk 2.</strong> Pada kejadian itu <span class="math inline">\(|Y_n|=n\)</span>; di luar kejadian nilainya
+nol.</p>
+</div>
+<div class="answer" id="o009-answer-convergence-modes">
+<p><strong>Jawaban ringkas.</strong> <span class="math inline">\(\mathbb
+P(|Y_n|&gt;\varepsilon)=1/n\)</span> menuju nol, tetapi <span class="math inline">\(\mathbb E|Y_n|=1\)</span> untuk setiap <span class="math inline">\(n\)</span>. Jadi konvergensi dalam peluang tidak
+memaksa konvergensi <span class="math inline">\(L^1\)</span>.</p>
+</div>
+<div class="solution" id="o009-solution-convergence-modes">
+<p><strong>Penyelesaian lengkap.</strong> Karena <span class="math inline">\(Y_n\)</span> hanya bernilai <span class="math inline">\(0\)</span> atau <span class="math inline">\(n\)</span> dan <span class="math inline">\(0&lt;\varepsilon&lt;n\)</span>, kejadian <span class="math inline">\(\{|Y_n|&gt;\varepsilon\}\)</span> sama dengan
+<span class="math inline">\(\{U\le1/n\}\)</span>; karena <span class="math inline">\(U\)</span> berdistribusi seragam, peluangnya <span class="math inline">\(1/n\)</span> dan menuju nol. Selanjutnya <span class="math inline">\(\mathbb E|Y_n|=n\mathbb
+P(U\le1/n)=n(1/n)=1\)</span>, sehingga norma <span class="math inline">\(L^1\)</span> tidak menuju nol. Baris 2 dan 3
+mengukur besaran berbeda: frekuensi kejadian versus tinggi lonjakan.
+Perbandingan LLN/CLT di atas tidak mengubah contoh ini.</p>
+</div>
+</div>
+</div>
+</main></body>
+</html>

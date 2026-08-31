@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>Semigrup Markov yang Kontinu Seragam</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/><script>window.MathJax = {tex: {macros: {Exp: "\\operatorname{Exp}", BB: "\\mathbb{B}", PP: "\\mathbb{P}", RR: "\\mathbb{R}", NN: "\\mathbb{N}", ZZ: "\\mathbb{Z}", EE: "\\mathbb{E}", dD: "\\mathcal{D}", fF: "\\mathcal{F}", lL: "\\mathcal{L}", linop: "\\mathcal{L}(\\mathbb{B})", linopell: "\\mathcal{L}(\\ell_1)", Binomial: "\\operatorname{Binomial}", Poisson: "\\operatorname{Poisson}"}}};</script><script id="MathJax-script" src="../MathJax/tex-svg.js"></script></head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Semigrup Markov yang Kontinu Seragam</h1>
+</header><nav aria-label="Navigasi edisi"><a href="../../index.html">Beranda edisi</a></nav><aside class="component-attribution" id="quantecon-attribution"><strong>Asal komponen dan lisensi.</strong> Adaptasi bahasa Indonesia dari <cite>Continuous Time Markov Chains</cite> karya Thomas J. Sargent dan John Stachurski, sumber MyST QuantEcon pada komit <code>8b06e0aa5a438692445b2c896f9d238c5a7d5eb7</code>. Komponen ini dipertahankan di bawah CC BY-SA 4.0; perubahan berupa terjemahan dan perbaikan hilir dicatat di provenance. QuantEcon tidak mengesahkan edisi ini.<p class="model-provenance">Provenans produksi: OpenAI Codex gpt-5.6-sol, Ultra. Kredit penulis dan kontributor manusia tetap dipertahankan.</p></aside><main>
+<h2 id="semigrup-markov-yang-kontinu-seragam">Semigrup Markov yang
+Kontinu Seragam</h2>
+<h2 id="gambaran-umum">Gambaran umum</h2>
+<p>Dalam kuliah sebelumnya kita membahas sebagian teori umum semigrup
+operator.</p>
+<p>Selanjutnya, kita menerjemahkan hasil-hasil tersebut ke dalam latar
+semigrup Markov.</p>
+<p>Semigrup Markov di sini didefinisikan pada himpunan terhitung <span class="math inline">\(S\)</span>.</p>
+<p>Tujuan utama kita adalah memberikan korespondensi satu-ke-satu yang
+tepat antara</p>
+<ul>
+<li>semigrup Markov UC,</li>
+<li>matriks intensitas “konservatif”, dan</li>
+<li>dekomposisi rantai lompatan kanonik dengan intensitas lompatan yang
+bergantung pada keadaan.</li>
+</ul>
+<p>Sifat konservatif didefinisikan di bawah dan berkaitan dengan sifat
+“tidak meledak” dari rantai Markov yang bersesuaian.</p>
+<p>Kita juga akan membahas secara singkat matriks intensitas yang tidak
+memiliki sifat ini, beserta proses yang dibangkitkannya.</p>
+<h2 id="notasi-dan-terminologi">Notasi dan Terminologi</h2>
+<p>Misalkan <span class="math inline">\(S\)</span> suatu himpunan
+terhitung sembarang.</p>
+<p>Sepanjang kuliah ini, <span class="math inline">\(\RR_+=[0,\infty)\)</span>.</p>
+<p>Misalkan <span class="math inline">\(\ell_1\)</span> ruang Banach
+yang terdiri atas <strong>fungsi yang dapat dijumlahkan secara
+mutlak</strong> pada <span class="math inline">\(S\)</span>; yakni,
+semua <span class="math inline">\(g \, \colon S \to \RR\)</span> yang
+memenuhi</p>
+<p><span class="math display">\[
+    \| g \| := \sum_x |g(x)| &lt; \infty.
+\]</span></p>
+<p>Perhatikan bahwa <span class="math inline">\(\dD\)</span>, himpunan
+semua distribusi pada <span class="math inline">\(S\)</span>, termuat
+dalam <span class="math inline">\(\ell_1\)</span>.</p>
+<p>Setiap matriks Markov <span class="math inline">\(P\)</span> pada
+<span class="math inline">\(S\)</span> dapat dan akan kita identifikasi
+dengan operator linear <span class="math inline">\(f \mapsto fP\)</span>
+pada <span class="math inline">\(\ell_1\)</span> melalui</p>
+<p><a id="equation-mmismo"></a> <span class="math display">\[
+    (fP)(y) = \sum_x f(x) P(x, y)
+    \qquad (f \in \ell_1, \; y \in S).
+\]</span></p>
+<p>Agar konsisten dengan notasi sebelumnya, kita menuliskan argumen
+<span class="math inline">\(P\)</span> di sebelah kiri dan menerapkan
+<span class="math inline">\(P\)</span> kepadanya seolah-olah kita
+mengalikan matriks <span class="math inline">\(P\)</span> dari kiri
+dengan vektor baris.</p>
+<p>Dalam latihan, Anda diminta memverifikasi bahwa <a href="#equation-mmismo">persamaan mmismo</a> mendefinisikan operator
+linear terbatas pada <span class="math inline">\(\ell_1\)</span>
+sedemikian sehingga</p>
+<p><a id="equation-propp"></a> <span class="math display">\[
+    \|P\| = 1 \text{ dan } \phi P \in \dD \text{ setiap kali } \phi \in
+\dD.
+\]</span></p>
+<p>Perhatikan bahwa komposisi <span class="math inline">\(P\)</span>
+dengan dirinya sendiri setara dengan pangkat-pangkat matriks di bawah
+perkalian matriks.</p>
+<p>Untuk matriks intensitas <span class="math inline">\(Q\)</span> pada
+<span class="math inline">\(S\)</span>, kita dapat mencoba
+memperkenalkan operator yang bersesuaian secara analog melalui</p>
+<p><a id="equation-imislo"></a> <span class="math display">\[
+    (fQ)(y) = \sum_x f(x) Q(x, y)
+    \qquad (f \in \ell_1, \; y \in S).
+\]</span></p>
+<p>Namun, jumlah dalam <a href="#equation-imislo">persamaan imislo</a>
+tidak selalu terdefinisi dengan baik.<a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Kita mengatakan bahwa matriks intensitas <span class="math inline">\(Q\)</span> bersifat <strong>konservatif</strong>
+jika jumlah dalam <a href="#equation-imislo">persamaan imislo</a>
+terdefinisi dengan baik untuk setiap <span class="math inline">\(y\)</span> dan, selain itu, pemetaan <span class="math inline">\(f\mapsto fQ\)</span> dalam <a href="#equation-imislo">persamaan imislo</a> merupakan operator linear
+terbatas pada <span class="math inline">\(\ell_1\)</span>.</p>
+<p>Di bawah ini kita menunjukkan cara memeriksa sifat tersebut dalam
+penerapan.</p>
+<blockquote>
+<p><strong>Catatan terminologi hilir.</strong> Dalam kuliah ini,
+“konservatif” adalah istilah lokal untuk syarat operator-terbatas di
+atas. Dalam sebagian literatur rantai Markov, “matriks-<span class="math inline">\(Q\)</span> konservatif” hanya berarti bahwa setiap
+jumlah barisnya nol. Definisi sumber yang lebih kuat dipertahankan di
+sini agar semua pernyataan berikut dibaca dengan ruang lingkup yang
+tepat.</p>
+</blockquote>
+<h2 id="semigrup-markov-uc-dan-generatornya">Semigrup Markov UC dan
+Generatornya</h2>
+<p>Misalkan <span class="math inline">\(Q\)</span> suatu matriks
+intensitas konservatif pada <span class="math inline">\(S\)</span>.</p>
+<p>Karena <span class="math inline">\(Q\)</span> berada dalam <span class="math inline">\(\linopell\)</span>, eksponensial operator <span class="math inline">\(e^{tQ}\)</span> terdefinisi dengan baik sebagai
+unsur <span class="math inline">\(\linopell\)</span> untuk setiap <span class="math inline">\(t\geq0\)</span>.</p>
+<p>Selain itu, berdasarkan <a href="generators.html#ecuc">contoh kurva
+eksponensial</a>, keluarga <span class="math inline">\((P_t)\)</span>
+dalam <span class="math inline">\(\lL(\ell_1)\)</span> yang
+didefinisikan oleh <span class="math inline">\(P_t=e^{tQ}\)</span>
+membentuk semigrup Markov UC pada <span class="math inline">\(\ell_1\)</span>.</p>
+<p>(Di sini, semigrup Markov <span class="math inline">\((P_t)\)</span>
+merupakan sekaligus kumpulan matriks Markov dan kumpulan operator,
+seperti dalam <a href="#equation-mmismo">persamaan mmismo</a>.)</p>
+<p>Teorema berikut menyatakan bahwa semigrup Markov UC hanya dapat
+muncul dengan cara ini.</p>
+<div class="qe-theorem" id="usmg">
+<p>Jika <span class="math inline">\((P_t)\)</span> merupakan semigrup
+Markov UC pada <span class="math inline">\(\ell_1\)</span>, terdapat
+matriks intensitas konservatif <span class="math inline">\(Q\)</span>
+sedemikian sehingga <span class="math inline">\(P_t=e^{tQ}\)</span>
+untuk setiap <span class="math inline">\(t\geq0\)</span>.</p>
+</div>
+<div class="qe-proof" id="proof-001">
+<p>Misalkan <span class="math inline">\((P_t)\)</span> suatu semigrup
+Markov UC pada <span class="math inline">\(\ell_1\)</span>.</p>
+<p>Karena <span class="math inline">\((P_t)\)</span> merupakan semigrup
+UC pada <span class="math inline">\(\ell_1\)</span>, dari <a href="generators.html#ucsgec">teorema karakterisasi semigrup UC</a>
+terdapat <span class="math inline">\(Q\in\lL(\ell_1)\)</span> sedemikian
+sehingga <span class="math inline">\(P_t=e^{tQ}\)</span> untuk setiap
+<span class="math inline">\(t\geq0\)</span>.</p>
+<p>Kita hanya perlu menunjukkan bahwa <span class="math inline">\(Q\)</span> merupakan matriks intensitas
+konservatif.</p>
+<p>Karena <span class="math inline">\((P_t)\)</span> adalah semigrup
+Markov, <span class="math inline">\(P_t\)</span> merupakan matriks
+Markov untuk setiap <span class="math inline">\(t\)</span>. Karena <span class="math inline">\(P_t=e^{tQ}\)</span> untuk setiap <span class="math inline">\(t\)</span>, dapat disimpulkan bahwa <span class="math inline">\(Q\)</span> merupakan matriks intensitas.</p>
+<p>Kita telah membuktikan hal ini untuk kasus <span class="math inline">\(|S|&lt;\infty\)</span> dalam <a href="kolmogorov_fwd.html#intvsmk">hasil matriks intensitas ruang
+berhingga</a>, dan argumen yang sama tetap berlaku ketika <span class="math inline">\(|S|=\infty\)</span>.</p>
+<p>Karena <span class="math inline">\(Q\in\lL(\ell_1)\)</span>, kita
+mengetahui bahwa <span class="math inline">\(Q\)</span> merupakan
+operator terbatas. Jadi, <span class="math inline">\(Q\)</span> adalah
+matriks intensitas konservatif.</p>
+<blockquote>
+<p><strong>Catatan pelengkapan hilir.</strong> Pada ruang keadaan
+terhitung, langkah yang diringkas di atas dapat dibaca dalam norma <span class="math inline">\(\ell_1\)</span>: untuk vektor massa satuan <span class="math inline">\(\delta_x\)</span>, konvergensi <span class="math inline">\((\delta_xP_h-\delta_x)/h\to\delta_xQ\)</span>
+memberi <span class="math inline">\(Q(x,y)\geq0\)</span> bagi <span class="math inline">\(y\neq x\)</span>. Karena konvergensi berlangsung
+dalam <span class="math inline">\(\ell_1\)</span>, penjumlahan koordinat
+boleh dilewatkan melalui limit, sehingga <span class="math inline">\(\sum_yQ(x,y)=0\)</span>. Ekspansi terhadap basis
+Schauder <span class="math inline">\((\delta_x)\)</span> dari <span class="math inline">\(\ell_1\)</span> kemudian memberikan representasi
+matriks <a href="#equation-imislo">persamaan imislo</a> untuk setiap
+<span class="math inline">\(f\in\ell_1\)</span>. Ini menutup dua syarat
+matriks intensitas tanpa mengandalkan pertukaran jumlah tak berhingga
+yang tidak dibenarkan.</p>
+</blockquote>
+</div>
+<p>Dari <a href="#usmg">teorema semigrup Markov UC</a> kita dapat segera
+menyimpulkan bahwa</p>
+<ul>
+<li><span class="math inline">\(P_t\)</span> terdiferensialkan pada
+setiap <span class="math inline">\(t\geq0\)</span>,</li>
+<li><span class="math inline">\(Q\)</span> adalah generator dari <span class="math inline">\((P_t)\)</span>,</li>
+<li><span class="math inline">\(P_t'=QP_t=P_tQ\)</span> untuk setiap
+<span class="math inline">\(t\geq0\)</span>, dan</li>
+<li><span class="math inline">\(P_0'=Q\)</span>, dengan turunan
+kanan di <span class="math inline">\(t=0\)</span>.</li>
+</ul>
+<p>Sesungguhnya, hasil-hasil ini hanyalah kasus khusus dari klaim-klaim
+dalam <a href="generators.html#ucsgec">teorema karakterisasi semigrup
+UC</a>.</p>
+<p>Butir kedua dari belakang merupakan persamaan Kolmogorov maju dan
+mundur.</p>
+<p>Butir terakhir menunjukkan bahwa kita dapat memperoleh matriks
+intensitas <span class="math inline">\(Q\)</span> dengan mengambil
+turunan kanan <span class="math inline">\(P_t\)</span> pada <span class="math inline">\(t=0\)</span>.</p>
+<div class="qe-example" id="uc-mc-semigroups-prf-1">
+<p>Mari kita tinjau kembali proses Poisson <span class="math inline">\((N_t)\)</span> pada <span class="math inline">\(S=\ZZ_+\)</span> dengan laju <span class="math inline">\(\lambda&gt;0\)</span> dalam kaitannya dengan
+pembahasan di atas.</p>
+<p>Semigrup <span class="math inline">\((P_t)\)</span> yang bersesuaian
+bersifat UC. Karena itu, terdapat matriks intensitas konservatif <span class="math inline">\(Q\)</span> yang memenuhi <span class="math inline">\(P_t=e^{tQ}\)</span> untuk setiap <span class="math inline">\(t\geq0\)</span>.</p>
+<p>Fakta ini dapat ditetapkan dengan membuktikan sifat UC, lalu
+menerapkan <a href="#usmg">teorema semigrup Markov UC</a>.</p>
+<p>Alternatif lain, yang lebih mudah dalam kasus ini, adalah memberikan
+matriks intensitas <span class="math inline">\(Q\)</span> secara
+langsung, lalu memverifikasi bahwa <span class="math inline">\(P_t=e^{tQ}\)</span>.</p>
+<p>Semigrup untuk proses Poisson dengan laju <span class="math inline">\(\lambda\)</span> diberikan dalam <a href="markov_prop.html#equation-poissemi">persamaan poissemi</a> dan
+dituliskan kembali di sini:</p>
+<p><a id="equation-poissemi2"></a> <span class="math display">\[
+    P_t(j, k)
+    =
+    \begin{cases}
+    e^{-\lambda t} \frac{ (\lambda t)^{k-j} }{(k-j)!}
+        &amp; \text{ jika } j \leq k
+        \\
+    0 &amp; \text{ selainnya}.
+    \end{cases}
+\]</span></p>
+<p>Untuk matriks intensitasnya, kita ambil</p>
+<p><a id="equation-poissonq"></a> <span class="math display">\[
+    Q :=
+    \begin{pmatrix}
+    -\lambda &amp; \lambda &amp; 0 &amp; 0 &amp; 0 &amp; \cdots
+    \\
+    0 &amp; -\lambda &amp; \lambda &amp; 0 &amp; 0 &amp; \cdots
+    \\
+    0 &amp; 0 &amp; -\lambda &amp; \lambda &amp; 0 &amp; \cdots
+    \\
+    0 &amp; 0 &amp; 0 &amp; -\lambda &amp; \lambda &amp; \cdots
+    \\
+    \vdots &amp; \vdots  &amp; \vdots  &amp; \vdots  &amp; \vdots
+    \end{pmatrix}.
+\]</span></p>
+<p>Bentuk <span class="math inline">\(Q\)</span> bersifat intuitif:
+massa probabilitas mengalir keluar dari keadaan <span class="math inline">\(i\)</span> dan masuk ke keadaan <span class="math inline">\(i+1\)</span> dengan laju <span class="math inline">\(\lambda\)</span>.</p>
+<p>Jelas bahwa <span class="math inline">\(Q\)</span> merupakan matriks
+intensitas, seperti diklaim.</p>
+<p>Latihan meminta Anda memastikan bahwa <span class="math inline">\(Q\)</span> berada dalam <span class="math inline">\(\lL(\ell_1)\)</span>.</p>
+<p>Untuk membuktikan bahwa <span class="math inline">\(P_t=e^{tQ}\)</span> bagi sembarang <span class="math inline">\(t\geq0\)</span>, mula-mula kita uraikan <span class="math inline">\(Q\)</span> sebagai <span class="math inline">\(Q=\lambda(K-I)\)</span>, dengan <span class="math inline">\(K\)</span> didefinisikan oleh</p>
+<p><span class="math display">\[
+    K(i, j) = \mathbb 1\{j = i + 1\}.
+\]</span></p>
+<p>Untuk <span class="math inline">\(t\geq0\)</span> yang diberikan,
+kita kemudian memperoleh</p>
+<p><span class="math display">\[
+    e^{tQ}
+    = e^{\lambda t (K-I)}
+    = e^{-\lambda t} e^{\lambda t K}
+    = e^{-\lambda t}
+    \sum_{m \geq 0} \frac{(\lambda t K)^m}{m!}.
+\]</span></p>
+<p>Latihan meminta Anda memverifikasi bahwa pangkat-pangkat <span class="math inline">\(K\)</span> memenuhi <span class="math inline">\(K^m(i,j)=\mathbb 1\{j=i+m\}\)</span>.</p>
+<p>Memasukkan bentuk <span class="math inline">\(K^m\)</span> ini
+menghasilkan</p>
+<p><span class="math display">\[
+    e^{tQ}(i, j)
+    = e^{-\lambda t}
+    \sum_{m \geq 0} \frac{(\lambda t )^m}{m!} \mathbb 1\{j = i + m\}
+    = e^{-\lambda t}
+    \sum_{m \geq 0} \frac{(\lambda t )^m}{m!} \mathbb 1\{m = j-i\}.
+\]</span></p>
+<p>Ini identik dengan <a href="#equation-poissemi2">persamaan
+poissemi2</a>.</p>
+<p>Sekarang dapat disimpulkan bahwa <span class="math inline">\(t\mapsto
+P_t\in\lL(\ell_1)\)</span> terdiferensialkan pada setiap <span class="math inline">\(t\geq0\)</span> dan <span class="math inline">\(Q\)</span> merupakan generator dari <span class="math inline">\((P_t)\)</span>, dengan turunan kanan <span class="math inline">\(P_0'=Q\)</span>.</p>
+</div>
+<h3 id="syarat-perlu-dan-cukup">Syarat Perlu dan Cukup</h3>
+<p>Definisi kita tentang matriks intensitas konservatif sesuai untuk
+teori di atas, tetapi mungkin sulit diperiksa dalam penerapan dan kurang
+memberikan intuisi probabilistik.</p>
+<p>Untungnya, kita memiliki karakterisasi sederhana berikut.</p>
+<div class="qe-lemma" id="scintcon">
+<p>Matriks intensitas <span class="math inline">\(Q\)</span> pada <span class="math inline">\(S\)</span> bersifat konservatif jika dan hanya
+jika <span class="math inline">\(\sup_x|Q(x,x)|\)</span> berhingga.</p>
+</div>
+<p>Pembuktiannya merupakan latihan yang telah dilengkapi solusi.</p>
+<div class="qe-example" id="jccs">
+<p>Ingat kembali latar rantai lompatan. Dengan mengulangi <a href="kolmogorov_bwd.html#equation-kolbackeq">persamaan kolbackeq</a>,
+kita mendefinisikan <span class="math inline">\(Q\)</span> melalui</p>
+<p><a id="equation-kolbackeq_inf"></a> <span class="math display">\[
+    Q(x, y) := \lambda(x) (K(x, y) - I(x, y)).
+\]</span></p>
+<p>Fungsi <span class="math inline">\(\lambda\colon S\to\RR_+\)</span>
+memberikan laju lompatan pada setiap keadaan, sedangkan <span class="math inline">\(K\)</span> merupakan matriks Markov bagi rantai
+lompatan waktu diskret yang tertanam.</p>
+<p>Sebelumnya kita membahas latar ini ketika <span class="math inline">\(S\)</span> berhingga, tetapi perhatian kita tidak
+perlu dibatasi pada kasus tersebut.</p>
+<p>Untuk <span class="math inline">\(S\)</span> terhitung yang umum,
+matriks <span class="math inline">\(Q\)</span> yang didefinisikan dalam
+<a href="#equation-kolbackeq_inf">persamaan kolbackeq_inf</a> tetap
+merupakan matriks intensitas.</p>
+<p>Jika kita tetap mengasumsikan <span class="math inline">\(K(x,x)=0\)</span> untuk setiap <span class="math inline">\(x\)</span>, maka <span class="math inline">\(Q(x,x)=-\lambda(x)\)</span>.</p>
+<p>Karena itu, <span class="math inline">\(Q\)</span> bersifat
+konservatif jika dan hanya jika <span class="math inline">\(\sup_x\lambda(x)\)</span> berhingga.</p>
+<p>Dengan kata lain, <span class="math inline">\(Q\)</span> bersifat
+konservatif jika himpunan laju lompatannya terbatas.</p>
+</div>
+<p>Sumber menyimpulkan dari contoh ini bahwa syarat konservatif pada
+<span class="math inline">\(Q\)</span> merupakan pembatasan yang relatif
+ringan.</p>
+<blockquote>
+<p><strong>Catatan kualifikasi hilir.</strong> Syarat tersebut memang
+mudah diperiksa dan memberikan syarat cukup yang kuat untuk tidak
+terjadinya ledakan. Namun, keterbatasan seragam semua laju bukan syarat
+perlu bagi sifat tidak meledak dan dapat mengecualikan model kelahiran
+atau antrean yang penting.</p>
+</blockquote>
+<h3 id="kasus-ruang-keadaan-berhingga">Kasus Ruang Keadaan
+Berhingga</h3>
+<p>Dari <a href="#scintcon">lema syarat konservatif</a>, langsung
+terlihat bahwa setiap matriks intensitas bersifat konservatif ketika
+ruang keadaan <span class="math inline">\(S\)</span> berhingga.</p>
+<p>Karena itu, dalam latar ini setiap matriks intensitas <span class="math inline">\(Q\)</span> pada <span class="math inline">\(S\)</span> mendefinisikan semigrup Markov UC <span class="math inline">\((P_t)\)</span> melalui <span class="math inline">\(P_t=e^{tQ}\)</span>.</p>
+<p>Sebaliknya, jika <span class="math inline">\(S\)</span> berhingga,
+setiap semigrup Markov <span class="math inline">\((P_t)\)</span>
+merupakan semigrup Markov UC.</p>
+<p>Untuk melihatnya, ingat bahwa sebagai semigrup Markov, <span class="math inline">\((P_t)\)</span> memenuhi <span class="math inline">\(\lim_{t\to0}P_t(x,y)=I(x,y)\)</span> untuk setiap
+<span class="math inline">\(x,y\)</span> dalam <span class="math inline">\(S\)</span>.</p>
+<p>Dalam ruang berdimensi berhingga, konvergensi titik demi titik
+menyiratkan konvergensi norma. Jadi, <span class="math inline">\(P_t\to
+I\)</span> dalam norma operator ketika <span class="math inline">\(t\to0\)</span> dari kanan.</p>
+<p>Seperti yang telah kita lihat, ini cukup untuk memastikan bahwa
+pemetaan <span class="math inline">\(t\mapsto P_t\)</span> kontinu dalam
+norma di seluruh <span class="math inline">\(\RR_+\)</span>.</p>
+<p>Dengan demikian, <span class="math inline">\((P_t)\)</span> merupakan
+semigrup Markov UC.</p>
+<p>Dengan menggabungkan hasil-hasil tersebut dengan <a href="#usmg">teorema semigrup Markov UC</a>, kita menyimpulkan bahwa
+ketika <span class="math inline">\(S\)</span> berhingga, terdapat
+korespondensi satu-ke-satu antara semigrup Markov dan matriks
+intensitas.</p>
+<h2 id="dari-matriks-intensitas-ke-rantai-lompatan">Dari Matriks
+Intensitas ke Rantai Lompatan</h2>
+<p>Kini kita memahami bahwa terdapat pasangan satu-ke-satu antara
+matriks intensitas konservatif dan semigrup Markov UC.</p>
+<p>Gagasan-gagasan ini penting dari sudut pandang analitis.</p>
+<p>Sekarang kita memberikan sudut pandang lain yang lebih erat terkait
+dengan probabilitas.</p>
+<p>Sudut pandang ini penting bagi teori maupun komputasi.</p>
+<h3 id="pasangan-rantai-lompatan">Pasangan Rantai Lompatan</h3>
+<p>Mari kita sepakati bahwa <span class="math inline">\((\lambda,K)\)</span> disebut <strong>pasangan
+rantai lompatan</strong> jika <span class="math inline">\(\lambda\)</span> merupakan pemetaan dari <span class="math inline">\(S\)</span> ke <span class="math inline">\(\RR_+\)</span> dan <span class="math inline">\(K\)</span> merupakan matriks Markov pada <span class="math inline">\(S\)</span>.</p>
+<p>Mudah diverifikasi bahwa matriks <span class="math inline">\(Q\)</span> pada <span class="math inline">\(S\)</span> yang didefinisikan oleh</p>
+<p><a id="equation-jcinmat"></a> <span class="math display">\[
+    Q(x, y) := \lambda(x) (K(x, y) - I(x, y))
+\]</span></p>
+<p>merupakan matriks intensitas.</p>
+<p>(Dalam <a href="kolmogorov_bwd.html">kuliah sebelumnya</a>, kita
+melihat bahwa <span class="math inline">\(Q\)</span> merupakan matriks
+intensitas bagi rantai lompatan <span class="math inline">\((X_t)\)</span> yang dibangun melalui <a href="kolmogorov_bwd.html#ejc_algo">algoritma rantai lompatan</a> dari
+pasangan rantai lompatan <span class="math inline">\((\lambda,K)\)</span>.)</p>
+<p>Seperti yang akan kita tunjukkan, setiap matriks intensitas memiliki
+uraian dalam <a href="#equation-jcinmat">persamaan jcinmat</a> untuk
+suatu pasangan rantai lompatan.</p>
+<h3 id="dekomposisi-rantai-lompatan">Dekomposisi Rantai Lompatan</h3>
+<p>Untuk matriks intensitas <span class="math inline">\(Q\)</span> yang
+diberikan, tetapkan</p>
+<p><a id="equation-lambdafromq"></a> <span class="math display">\[
+    \lambda(x) := -Q(x, x)
+    \qquad (x \in S).
+\]</span></p>
+<p>Selanjutnya, kita membangun <span class="math inline">\(K\)</span>,
+mula-mula pada diagonal utama melalui</p>
+<p><a id="equation-kfromqxx"></a> <span class="math display">\[
+    K(x,x) =
+    \begin{cases}
+        0 &amp; \text{ jika } \lambda(x) &gt; 0
+        \\
+        1 &amp; \text{ selainnya}.
+    \end{cases}
+\]</span></p>
+<p>Jadi, jika laju meninggalkan <span class="math inline">\(x\)</span>
+positif, kita menetapkan <span class="math inline">\(K(x,x)=0\)</span>
+agar rantai lompatan tertanam berpindah dari <span class="math inline">\(x\)</span> dengan probabilitas satu ketika
+lompatan berikutnya terjadi.</p>
+<p>Sebaliknya, ketika <span class="math inline">\(Q(x,x)=0\)</span>,
+kita menetap di <span class="math inline">\(x\)</span> selamanya. Jadi,
+<span class="math inline">\(x\)</span> merupakan <strong>keadaan
+penyerap</strong>.</p>
+<p>Di luar diagonal utama, yakni ketika <span class="math inline">\(x\neq y\)</span>, kita tetapkan</p>
+<p><a id="equation-kfromqxy"></a> <span class="math display">\[
+    K(x,y) =
+    \begin{cases}
+        \frac{Q(x,y)}{\lambda(x)} &amp; \text{ jika } \lambda(x) &gt; 0
+        \\
+        0 &amp; \text{ selainnya}.
+    \end{cases}
+\]</span></p>
+<p>Latihan di bawah meminta Anda memastikan bahwa untuk <span class="math inline">\(\lambda\)</span> dan <span class="math inline">\(K\)</span> yang baru didefinisikan,</p>
+<ol type="1">
+<li><span class="math inline">\((\lambda,K)\)</span> merupakan pasangan
+rantai lompatan; dan</li>
+<li>matriks intensitas <span class="math inline">\(Q\)</span> memenuhi
+<a href="#equation-jcinmat">persamaan jcinmat</a>.</li>
+</ol>
+<p>Kita menyebut <span class="math inline">\((\lambda,K)\)</span>
+sebagai <strong>dekomposisi rantai lompatan</strong> dari <span class="math inline">\(Q\)</span>.</p>
+<p>Kita merangkumnya dalam sebuah lema.</p>
+<div class="qe-lemma" id="imatjc">
+<p>Suatu matriks <span class="math inline">\(Q\)</span> pada <span class="math inline">\(S\)</span> merupakan matriks intensitas jika dan
+hanya jika terdapat pasangan rantai lompatan <span class="math inline">\((\lambda,K)\)</span> sedemikian sehingga <a href="#equation-jcinmat">persamaan jcinmat</a> berlaku.</p>
+</div>
+<h3 id="kasus-konservatif">Kasus Konservatif</h3>
+<p>Dari <a href="#jccs">contoh pasangan rantai lompatan</a>, kita
+mengetahui bahwa matriks intensitas <span class="math inline">\(Q\)</span> bersifat konservatif jika dan hanya
+jika <span class="math inline">\(\lambda\)</span> terbatas.</p>
+<p>Selain itu, dalam <a href="#usmg">teorema semigrup Markov UC</a> kita
+melihat bahwa pasangan antara matriks intensitas konservatif dan
+semigrup Markov UC bersifat satu-ke-satu.</p>
+<p>Hal ini menghasilkan pernyataan berikut.</p>
+<div class="qe-theorem" id="theorem-002">
+<p>Pada <span class="math inline">\(S\)</span>, terdapat korespondensi
+satu-ke-satu antara himpunan-himpunan objek berikut:</p>
+<ol type="1">
+<li>Himpunan semua dekomposisi rantai lompatan kanonik <span class="math inline">\((\lambda,K)\)</span> dengan <span class="math inline">\(\lambda\)</span> terbatas, <span class="math inline">\(K(x,x)=0\)</span> jika <span class="math inline">\(\lambda(x)&gt;0\)</span>, dan <span class="math inline">\(K(x,x)=1\)</span> jika <span class="math inline">\(\lambda(x)=0\)</span>.</li>
+<li>Himpunan semua matriks intensitas konservatif.</li>
+<li>Himpunan semua semigrup Markov UC.</li>
+</ol>
+</div>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Sumber menyatakan butir
+pertama untuk semua pasangan rantai lompatan dengan <span class="math inline">\(\lambda\)</span> terbatas. Tanpa konvensi kanonik
+di atas, pemetaan <span class="math inline">\((\lambda,K)\mapsto
+Q\)</span> tidak injektif: transisi-diri dapat dipindahkan antara laju
+<span class="math inline">\(\lambda\)</span> dan diagonal <span class="math inline">\(K\)</span> tanpa mengubah <span class="math inline">\(Q\)</span>. Pembatasan pada dekomposisi yang baru
+didefinisikan memulihkan korespondensi satu-ke-satu yang dimaksud.</p>
+</blockquote>
+<h3 id="simulasi">Simulasi</h3>
+<p>Berdasarkan pembahasan sebelumnya, kita memiliki cara sederhana untuk
+menyimulasikan rantai Markov dari sembarang matriks intensitas
+konservatif <span class="math inline">\(Q\)</span>.</p>
+<p>Langkah-langkahnya adalah</p>
+<ol type="1">
+<li>Uraikan <span class="math inline">\(Q\)</span> menjadi pasangan
+rantai lompatan <span class="math inline">\((\lambda,K)\)</span>.</li>
+<li>Lakukan simulasi melalui <a href="kolmogorov_bwd.html#ejc_algo">algoritma rantai lompatan</a>.</li>
+</ol>
+<p>Dengan mengingat pembahasan persamaan Kolmogorov mundur, kita
+mengetahui bahwa prosedur ini menghasilkan rantai Markov dengan semigrup
+Markov <span class="math inline">\((P_t)\)</span> yang memenuhi <span class="math inline">\(P_t=e^{tQ}\)</span> untuk <span class="math inline">\(Q\)</span> dalam <a href="#equation-jcinmat">persamaan jcinmat</a>.</p>
+<p>(Walaupun argumen kita mengasumsikan <span class="math inline">\(S\)</span> berhingga, pembuktiannya tetap berlaku
+ketika <span class="math inline">\(S\)</span> terhitung tak berhingga
+dan <span class="math inline">\(Q\)</span> konservatif, dengan perubahan
+yang sangat kecil.)</p>
+<p>Secara khusus, <span class="math inline">\((X_t)\)</span> merupakan
+rantai Markov waktu kontinu dengan matriks intensitas <span class="math inline">\(Q\)</span>.</p>
+<h2 id="melampaui-matriks-intensitas-terbatas">Melampaui Matriks
+Intensitas Terbatas</h2>
+<p>Jika dalam suatu penerapan kita menjumpai matriks intensitas <span class="math inline">\(Q\)</span> yang tidak konservatif, apa yang dapat
+kita harapkan?</p>
+<p>Dalam keadaan ini, setidaknya kita dapat berharap bahwa <span class="math inline">\(Q\)</span> mempunyai suatu realisasi
+operator—dengan domain rapat yang dinyatakan—yang merupakan generator
+semigrup <span class="math inline">\(C_0\)</span>.</p>
+<p>Jika semigrup yang dibangkitkan juga positif, mempertahankan massa,
+dan memenuhi syarat Markov yang sesuai, semigrup tersebut merupakan
+semigrup Markov.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Sumber menyatakan bahwa
+karena <span class="math inline">\(Q\)</span> merupakan matriks
+intensitas, semigrup yang dibangkitkannya pasti merupakan semigrup
+Markov. Untuk operator tak terbatas, bentuk matriks intensitas saja
+belum menjamin sifat generator, kepositifan, ketunggalan, ataupun
+konservasi massa. Syarat-syarat tambahan tersebut diperlukan, terutama
+ketika ledakan mungkin terjadi.</p>
+</blockquote>
+<p>Realisasi minimal dari suatu matriks <span class="math inline">\(Q\)</span> dapat hanya menghasilkan semigrup
+sub-Markov: massa totalnya berkurang ketika proses meledak. Bahkan jika
+suatu perluasan konservatif ada, ketunggalannya perlu dibuktikan.
+Keterbatasan seragam laju lompatan menjamin tidak terjadinya ledakan,
+tetapi bukan syarat perlu. Sebagai contoh, proses kelahiran murni dengan
+laju <span class="math inline">\(\lambda_n=n+1\)</span> memiliki laju
+tak terbatas tetapi tidak meledak, sedangkan <span class="math inline">\(\lambda_n=(n+1)^2\)</span> menghasilkan
+ledakan.</p>
+<p>Untuk mengetahui kapan <span class="math inline">\(Q\)</span> menjadi
+generator semigrup <span class="math inline">\(C_0\)</span>, kita perlu
+merujuk pada <a href="https://en.wikipedia.org/wiki/Hille%E2%80%93Yosida_theorem">Teorema
+Hille–Yosida</a> dan syarat-syarat cukup yang diturunkan darinya.</p>
+<p>Walaupun kita tidak membahas rinciannya, patut dicatat bahwa
+persoalan ini berkaitan dengan ledakan.</p>
+<p>Untuk melihat hubungannya, ingat bahwa sebagian masalah nilai awal
+tidak menghasilkan solusi sah yang terdefinisi untuk setiap <span class="math inline">\(t\in\RR_+\)</span>.</p>
+<p>Salah satu contohnya adalah masalah skalar <span class="math inline">\(x'_t=1+x_t^2\)</span>, yang memiliki solusi
+<span class="math inline">\(x_t=\tan(t-c)\)</span> untuk suatu konstanta
+<span class="math inline">\(c\)</span> pada selang keberadaan
+maksimalnya.</p>
+<p>Solusi tersebut menuju <span class="math inline">\(+\infty\)</span>
+ketika <span class="math inline">\(t\uparrow c+\pi/2\)</span> dan tidak
+dapat dilanjutkan sebagai solusi bernilai riil melewati waktu itu.</p>
+<p>Masalahnya ialah lintasan waktu meledak menuju tak berhingga dalam
+waktu berhingga.</p>
+<p>Persoalan yang sama dapat terjadi pada proses Markov jika laju
+lompatannya tumbuh cukup cepat.</p>
+<p>Untuk pembahasan lebih lanjut, lihat, misalnya, Bagian 2.7 dari
+<cite>J. R. Norris, Markov Chains (Cambridge University Press, 1998),
+Bagian 2.7</cite>.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Sumber menyatakan bahwa <span class="math inline">\(\tan(t-c)\)</span> “sama dengan <span class="math inline">\(+\infty\)</span>” untuk semua <span class="math inline">\(t\geq c+\pi/2\)</span>. Formulasi di atas
+menyatakan fakta yang tepat: solusi klasik mencapai batas waktu
+berhingga dan tidak terdefinisi di titik ledakan.</p>
+</blockquote>
+<h2 id="latihan">Latihan</h2>
+<div class="exercise" id="uc-mc-semigroups-ex-1">
+<p>Misalkan <span class="math inline">\(P\)</span> suatu matriks Markov
+pada <span class="math inline">\(S\)</span> dan identifikasikan <span class="math inline">\(P\)</span> dengan operator linear dalam <a href="#equation-mmismo">persamaan mmismo</a>. Verifikasi klaim-klaim
+dalam <a href="#equation-propp">persamaan propp</a>.</p>
+</div>
+<div class="solution" id="uc_mc_semigroups-solution-1">
+<p><strong>Solusi</strong> Untuk menentukan norma <span class="math inline">\(P\)</span>, kita menggunakan definisi dalam <a href="generators.html#equation-norml">persamaan norml</a>.</p>
+<p>Untuk setiap <span class="math inline">\(f\in\ell_1\)</span>, jumlah
+dalam <a href="#equation-mmismo">persamaan mmismo</a> terkonvergensi
+secara mutlak sebagai unsur <span class="math inline">\(\ell_1\)</span>,
+sebab</p>
+<p><span class="math display">\[
+\sum_y\sum_x |f(x)|P(x,y)=\sum_x|f(x)|&lt;\infty.
+\]</span></p>
+<p>Identitas ini juga membenarkan pertukaran urutan jumlah di bawah,
+sedangkan linearitas mengikuti langsung dari linearitas setiap jumlah
+koordinat.</p>
+<p>Jika <span class="math inline">\(f\in\ell_1\)</span> dan <span class="math inline">\(\|f\|\leq1\)</span>, maka</p>
+<p><span class="math display">\[
+\| f P \|
+\leq \sum_y \sum_x |f(x)| P(x, y)
+= \sum_x |f(x)| \sum_y P(x, y)
+= \sum_x |f(x)|
+= \| f \|.
+\]</span></p>
+<p>Jadi, <span class="math inline">\(\|P\|\leq1\)</span>.</p>
+<p>Untuk melihat bahwa kesamaan berlaku, kita dapat mengulangi argumen
+ini dengan <span class="math inline">\(f\geq0\)</span> dan <span class="math inline">\(\|f\|=1\)</span>, sehingga diperoleh <span class="math inline">\(\|fP\|=\|f\|=1\)</span>.</p>
+<p>Sekarang, pilih sembarang <span class="math inline">\(\phi\in\dD\)</span>.</p>
+<p>Jelas bahwa <span class="math inline">\(\phi P\geq0\)</span>, dan</p>
+<p><span class="math display">\[
+\sum_y (\phi P)(y)
+=\sum_y \sum_x \phi (x) P(x, y)
+=\sum_x \phi (x) \sum_y P(x, y)
+= 1.
+\]</span></p>
+<p>Jadi, <span class="math inline">\(\phi P\in\dD\)</span>, seperti
+diklaim.</p>
+</div>
+<div class="exercise" id="uc-mc-semigroups-ex-2">
+<p>Buktikan klaim dalam <a href="#scintcon">lema syarat
+konservatif</a>.</p>
+</div>
+<div class="solution" id="uc_mc_semigroups-solution-2">
+<p><strong>Solusi</strong> Berikut salah satu solusinya.</p>
+<p>Misalkan <span class="math inline">\(Q\)</span> suatu matriks
+intensitas pada <span class="math inline">\(S\)</span>.</p>
+<p>Pertama, anggap bahwa <span class="math inline">\(m:=\sup_x|Q(x,x)|\)</span> berhingga.</p>
+<p>Jika <span class="math inline">\(m=0\)</span>, sifat jumlah baris nol
+dan ketaknegatifan unsur luar diagonal memaksa <span class="math inline">\(Q=0\)</span>. Maka <span class="math inline">\(Q\)</span> jelas merupakan operator terbatas.</p>
+<p>Sekarang anggap <span class="math inline">\(m&gt;0\)</span> dan
+tetapkan <span class="math inline">\(\hat P:=I+Q/m\)</span>.</p>
+<p>Tidak sulit untuk memeriksa bahwa <span class="math inline">\(\hat
+P\)</span> merupakan matriks Markov dan <span class="math inline">\(Q=m(\hat P-I)\)</span>.</p>
+<p>Karena <span class="math inline">\(\hat P\)</span> merupakan matriks
+Markov, ia menginduksi operator linear terbatas pada <span class="math inline">\(\ell_1\)</span> melalui <a href="#equation-mmismo">persamaan mmismo</a>.</p>
+<p>Karena <span class="math inline">\(\lL(\ell_1)\)</span> merupakan
+ruang linear, <span class="math inline">\(Q\)</span> juga berada dalam
+<span class="math inline">\(\lL(\ell_1)\)</span>.</p>
+<p>Secara khusus, <span class="math inline">\(Q\)</span> merupakan
+operator terbatas dan karena itu bersifat konservatif.</p>
+<p>Sebaliknya, anggap bahwa <span class="math inline">\(Q\)</span>
+konservatif tetapi <span class="math inline">\(\sup_x|Q(x,x)|\)</span>
+tak berhingga.</p>
+<p>Pilih <span class="math inline">\(x\in S\)</span> sedemikian sehingga
+<span class="math inline">\(|Q(x,x)|&gt;\|Q\|\)</span>.</p>
+<p>Definisikan <span class="math inline">\(f\in\ell_1\)</span> dengan
+<span class="math inline">\(f(z)=\mathbb 1\{z=x\}\)</span>.</p>
+<p>Karena <span class="math inline">\(\|f\|=1\)</span>, kita
+memperoleh</p>
+<p><span class="math display">\[
+\| Q \|
+\geq \| f Q \|
+= \sum_y \left| \sum_z f(z) Q(z, y) \right|
+= \sum_y | Q(x, y) |
+\geq | Q(x, x) |,
+\]</span></p>
+<p>yang merupakan kontradiksi.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Solusi sumber langsung
+membagi dengan <span class="math inline">\(m=\sup_x|Q(x,x)|\)</span>
+tanpa menangani kemungkinan <span class="math inline">\(m=0\)</span>.
+Kasus nol dipisahkan di atas agar definisi <span class="math inline">\(\hat P=I+Q/m\)</span> sah.</p>
+</blockquote>
+</div>
+<div class="exercise" id="uc-mc-semigroups-ex-3">
+<p>Pastikan bahwa <span class="math inline">\(Q\)</span> yang
+didefinisikan dalam <a href="#equation-poissonq">persamaan poissonq</a>
+menginduksi operator linear terbatas pada <span class="math inline">\(\ell_1\)</span> melalui <a href="#equation-imislo">persamaan imislo</a>.</p>
+</div>
+<div class="solution" id="uc_mc_semigroups-solution-3">
+<p><strong>Solusi</strong> Linearitasnya langsung terlihat, sehingga
+kita berfokus pada keterbatasan.</p>
+<p>Untuk sembarang <span class="math inline">\(f\in\ell_1\)</span> dan
+pilihan <span class="math inline">\(Q\)</span> ini, dengan konvensi
+<span class="math inline">\(f(-1)=0\)</span>, berlaku</p>
+<p><span class="math display">\[
+    (fQ)(y)=\lambda\bigl(f(y-1)-f(y)\bigr)
+    \qquad (y\in\ZZ_+).
+\]</span></p>
+<p>Oleh karena itu, ketaksamaan segitiga memberi</p>
+<p><span class="math display">\[
+\begin{aligned}
+\|fQ\|
+&amp;=\lambda\sum_{y\geq0}|f(y-1)-f(y)| \\
+&amp;\leq\lambda\sum_{y\geq0}|f(y-1)|
+   +\lambda\sum_{y\geq0}|f(y)| \\
+&amp;=2\lambda\|f\|.
+\end{aligned}
+\]</span></p>
+<p>Jadi, <span class="math inline">\(\|fQ\|\leq2\lambda\|f\|\)</span>,
+yang menyiratkan <span class="math inline">\(Q\in\lL(\ell_1)\)</span>
+sebagaimana diperlukan.</p>
+<blockquote>
+<p><strong>Catatan koreksi hilir.</strong> Solusi sumber menuliskan
+jumlah ganda yang tidak sesuai indeks dan akan tak berhingga. Identitas
+koordinat yang tepat bagi <span class="math inline">\(fQ\)</span> serta
+estimasi norma yang dimaksud dinyatakan secara eksplisit di atas.</p>
+</blockquote>
+</div>
+<div class="exercise" id="uc-mc-semigroups-ex-4">
+<p>Misalkan <span class="math inline">\(K\)</span> didefinisikan pada
+<span class="math inline">\(\ZZ_+\times\ZZ_+\)</span> oleh <span class="math inline">\(K(i,j)=\mathbb 1\{j=i+1\}\)</span>.</p>
+<p>Tunjukkan bahwa, dengan <span class="math inline">\(K^m\)</span>
+menyatakan hasil kali matriks ke-<span class="math inline">\(m\)</span>
+dari <span class="math inline">\(K\)</span> dengan dirinya sendiri,
+berlaku <span class="math inline">\(K^m(i,j)=\mathbb 1\{j=i+m\}\)</span>
+bagi setiap <span class="math inline">\(i,j\in\ZZ_+\)</span>.</p>
+</div>
+<div class="solution" id="uc_mc_semigroups-solution-4">
+<p><strong>Solusi</strong> Untuk <span class="math inline">\(m=0\)</span>, <span class="math inline">\(K^0=I\)</span>, sehingga <span class="math inline">\(K^0(i,j)=\mathbb 1\{j=i\}\)</span>.</p>
+<p>Sekarang, anggap bahwa pernyataan tersebut berlaku pada suatu <span class="math inline">\(m\geq0\)</span>.</p>
+<p>Berdasarkan definisi komposisi atau perkalian matriks, kita
+memperoleh</p>
+<p><span class="math display">\[
+    K^{m+1}(i, j)
+    = \sum_n K^m(i, n) K(n, j)
+    = \sum_n \mathbb 1\{n=i+m\}\mathbb 1\{j=n+1\}
+    = \mathbb 1\{j=i+m+1\}.
+\]</span></p>
+<p>Ini menyelesaikan langkah induksi dan mencakup setiap <span class="math inline">\(m\in\ZZ_+\)</span>.</p>
+<blockquote>
+<p><strong>Catatan pelengkapan hilir.</strong> Solusi sumber mulai dari
+<span class="math inline">\(m=1\)</span> dan menulis <span class="math inline">\(K(i,j-m)\)</span>, yang berada di luar ruang
+keadaan ketika <span class="math inline">\(j&lt;m\)</span>. Pembuktian
+di atas menyertakan <span class="math inline">\(m=0\)</span> dan
+menghindari evaluasi indeks negatif.</p>
+</blockquote>
+</div>
+<div class="exercise" id="uc-mc-semigroups-ex-5">
+<p>Misalkan <span class="math inline">\(Q\)</span> sembarang matriks
+intensitas pada <span class="math inline">\(S\)</span>.</p>
+<p>Buktikan bahwa dekomposisi rantai lompatan dari <span class="math inline">\(Q\)</span> benar-benar merupakan pasangan rantai
+lompatan.</p>
+<p>Buktikan pula bahwa dekomposisi <span class="math inline">\((\lambda,K)\)</span> ini memenuhi <a href="#equation-jcinmat">persamaan jcinmat</a>.</p>
+</div>
+<div class="solution" id="uc_mc_semigroups-solution-5">
+<p><strong>Solusi</strong> Misalkan <span class="math inline">\(Q\)</span> suatu matriks intensitas dan <span class="math inline">\((\lambda,K)\)</span> dekomposisi rantai lompatan
+dari <span class="math inline">\(Q\)</span>.</p>
+<p>Ketaknegatifan <span class="math inline">\(\lambda\)</span> langsung
+mengikuti definisi matriks intensitas.</p>
+<p>Untuk melihat bahwa <span class="math inline">\(K\)</span> merupakan
+matriks Markov, tetapkan <span class="math inline">\(x\in S\)</span> dan
+pertama-tama anggap <span class="math inline">\(\lambda(x)&gt;0\)</span>. Maka</p>
+<p><span class="math display">\[
+\sum_y K(x, y)
+= \sum_{y \neq x} K(x,y)
+= \sum_{y \neq x} \frac{Q(x,y)}{\lambda(x)}
+= \frac{-Q(x,x)}{\lambda(x)}
+= 1.
+\]</span></p>
+<p>Jika <span class="math inline">\(\lambda(x)=0\)</span>, maka <span class="math inline">\(Q(x,x)=0\)</span>. Karena unsur luar diagonal tak
+negatif dan jumlah baris <span class="math inline">\(Q\)</span> sama
+dengan nol, <span class="math inline">\(Q(x,y)=0\)</span> bagi setiap
+<span class="math inline">\(y\neq x\)</span>. Definisi <a href="#equation-kfromqxx">persamaan kfromqxx</a>–<a href="#equation-kfromqxy">persamaan kfromqxy</a> kemudian memberi <span class="math inline">\(K(x,x)=1\)</span> dan <span class="math inline">\(K(x,y)=0\)</span> bagi <span class="math inline">\(y\neq x\)</span>, sehingga sekali lagi <span class="math inline">\(\sum_yK(x,y)=1\)</span>.</p>
+<p>Karena <span class="math inline">\(K\)</span> tak negatif, <span class="math inline">\(K\)</span> merupakan matriks Markov. Jadi, <span class="math inline">\((\lambda,K)\)</span> merupakan pasangan rantai
+lompatan yang sah.</p>
+<p>Terakhir, kita verifikasi <a href="#equation-jcinmat">persamaan
+jcinmat</a>. Jika <span class="math inline">\(\lambda(x)&gt;0\)</span>
+dan <span class="math inline">\(y\neq x\)</span>, maka <span class="math inline">\(\lambda(x)K(x,y)=Q(x,y)\)</span>; sedangkan untuk
+<span class="math inline">\(y=x\)</span>,</p>
+<p><span class="math display">\[
+\lambda(x)(K(x,x)-1)=-\lambda(x)=Q(x,x).
+\]</span></p>
+<p>Jika <span class="math inline">\(\lambda(x)=0\)</span>, kedua ruas <a href="#equation-jcinmat">persamaan jcinmat</a> bernilai nol bagi <span class="math inline">\(y=x\)</span> maupun <span class="math inline">\(y\neq x\)</span>, berdasarkan pengamatan pada
+paragraf sebelumnya. Jadi, <a href="#equation-jcinmat">persamaan
+jcinmat</a> berlaku untuk semua <span class="math inline">\(x,y\in
+S\)</span>.</p>
+<blockquote>
+<p><strong>Catatan pelengkapan hilir.</strong> Solusi sumber menyebut
+verifikasi terakhir “mekanis” lalu menghilangkan rinciannya. Pemisahan
+kasus lengkap diberikan di atas agar pasangan latihan–solusi tetap
+memadai untuk belajar mandiri.</p>
+</blockquote>
+</div>
+<section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+<hr/>
+<ol>
+<li id="fn1"><p>Sebelumnya, kita memperkenalkan pengertian matriks
+intensitas ketika <span class="math inline">\(S\)</span> berhingga, dan
+definisinya pada dasarnya tidak berubah dalam latar sekarang. Secara
+khusus, <span class="math inline">\(Q \colon S \times S \to \RR\)</span>
+disebut <strong>matriks intensitas</strong> jika jumlah setiap baris
+<span class="math inline">\(Q\)</span> sama dengan nol dan <span class="math inline">\(Q(x,y)\geq0\)</span> setiap kali <span class="math inline">\(x\neq y\)</span>.<a class="footnote-back" href="#fnref1" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</main><footer>Sumber resmi: https://github.com/QuantEcon/continuous_time_mcs — lisensi CC BY-SA 4.0.</footer></body>
+</html>

@@ -121,7 +121,7 @@ def verify(site: Path) -> None:
         if f'id="{chunk_id}"' not in lab or "set.seed" not in lab or "```{r" in lab:
             raise RuntimeError(f"executable lab block is not correctly rendered: {rel}")
     joined = b"\n".join(path.read_bytes() for path in actual_paths)
-    for forbidden in (b"C:\\Users\\", b"C:/Users/", b"/home/Floris", b"googletagmanager"):
+    for forbidden in (b"C:\\Users\\", b"C:/Users/", b"/home/", b"googletagmanager"):
         if forbidden in joined:
             raise RuntimeError(f"private or excluded runtime residue: {forbidden!r}")
     print(

@@ -10,7 +10,7 @@
 <link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
 <script src="../Basic.js"></script>
 <script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
-<link href="../reader.css" rel="stylesheet"/></head>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/></head>
 <body>
 <div class="latex">
 	\(\renewcommand{\P}{\mathbb{P}}\)
@@ -26,7 +26,7 @@
 <header>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
-<li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
+<li class="parent"><a href="index.html">16. Martingal</a></li>
 <li class="child"><a aria-label="Bagian 1: Pendahuluan" href="Introduction.html" title="Pendahuluan">1</a></li>
 <li class="child"><a aria-label="Bagian 2: Sifat dan Konstruksi" href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
 <li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>
@@ -44,7 +44,7 @@ Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
 beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="https://www.randomservices.org/random/martingales/Inequalities.html">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Ekspektasi bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav><main>
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../markov/Recurrence.html">Keadaan transien dan rekuren</a> · <a href="../markov/Periodicity.html">Periodisitas</a> · <a href="../markov/Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="../brown/Standard.html">Gerak Brown standar</a> · <a href="../brown/Drift.html">Gerak Brown dengan hanyutan</a> · <a href="../brown/Bridge.html">Jembatan Brown</a> · <a href="../brown/Geometric.html">Gerak Brown geometrik</a> · <a href="index.html">Ikhtisar martingal</a> · <a href="../markov/index.html">Ikhtisar proses Markov</a> · <a href="../brown/index.html">Ikhtisar gerak Brown</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="../labs/03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="../labs/04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a> · <a href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a></nav><main>
 <h2 class="reader-level-2">Teori Dasar</h2>
 <p>Dalam bagian ini, kita akan mempelajari sejumlah pertidaksamaan menarik yang berkaitan dengan martingal beserta kerabatnya, yaitu submartingal dan supermartingal. Pertidaksamaan ini ternyata sangat penting, baik untuk alasan teoretis maupun untuk penerapan. Anda mungkin perlu meninjau kembali <a href="https://www.randomservices.org/random/foundations/Order.html">infimum dan supremum</a>.</p>
 <h3 class="reader-level-3" id="asm">Asumsi Dasar</h3>
@@ -390,7 +390,7 @@ Jadi \(\bs W\) merupakan supermartingal nonnegatif. Berdasarkan <a class="ref" h
 </main><footer>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
-<li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
+<li class="parent"><a href="index.html">16. Martingal</a></li>
 <li class="child"><a aria-label="Bagian 1: Pendahuluan" href="Introduction.html" title="Pendahuluan">1</a></li>
 <li class="child"><a aria-label="Bagian 2: Sifat dan Konstruksi" href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
 <li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>

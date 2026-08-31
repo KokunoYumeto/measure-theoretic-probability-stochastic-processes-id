@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+
+<head>
+	<meta charset="utf-8">
+	<title>Proses Poisson pada Ruang Umum</title>
+	<meta name="author" content="Kyle Siegrist">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="probabilitas, statistika, proses Poisson, ruang ukuran, proses Poisson tak homogen">
+	<link rel="icon" href="../icons/Icon.svg" type="image/svg">
+	<link rel="stylesheet" href="../Screen.css" type="text/css" media="screen">
+	<link rel="next" href="../renewal/index.html">
+	<script src="../Basic.js"></script>
+	<script src="../../MathJax/tex-svg.js" id="MathJax-script" async></script>
+</head>
+
+<body>
+
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\(\newcommand{\var}{\text{var}}\) 
+	\(\newcommand{\sd}{\text{sd}}\) 
+	\(\newcommand{\skw}{\text{skew}}\) 
+	\(\newcommand{\kur}{\text{kurt}}\) 
+</div>
+
+<header>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. Proses Poisson</a></li>
+		<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
+		<li class="child"><a href="Exponential.html" title="Distribusi Eksponensial">2</a></li>
+		<li class="child"><a href="Gamma.html" title="Distribusi Gamma">3</a></li>
+		<li class="child"><a href="Poisson.html" title="Distribusi Poisson">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Penipisan dan Superposisi">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Proses Poisson Tak Homogen">6</a></li>
+		<li class="child"><a href="Compound.html" title="Proses Poisson Majemuk">7</a></li>
+		<li class="current">8</li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<h2>6. Proses Poisson pada Ruang Umum</h2>
+</header>
+
+<h3>Teori Dasar</h3>
+
+<h4 id="pro">Proses</h4>
+
+<p>Sejauh ini, kita telah mempelajari proses Poisson sebagai model bagi titik-titik acak dalam <em>waktu</em>. Namun, terdapat pula model Poisson bagi titik-titik acak dalam <em>ruang</em>. Beberapa contoh khusus <q>titik acak</q> tersebut adalah</p>
+
+<ul>
+	<li>Cacat pada selembar bahan.</li>
+	<li>Kismis dalam kue.</li>
+	<li>Bintang di langit.</li>
+</ul>
+
+<p>Proses Poisson bagi titik-titik acak dalam ruang dapat didefinisikan dalam kerangka yang sangat umum. Yang benar-benar diperlukan hanyalah suatu <a href="../foundations/Measure.html">ruang ukuran</a> \( (S, \mathscr{S}, \mu) \). Jadi, \( S \) adalah sebuah himpunan (himpunan semesta yang mendasari titik-titik acak kita), \( \mathscr{S} \) adalah suatu aljabar-\( \sigma \) dari himpunan-himpunan bagian \( S \) (seperti biasa, himpunan-himpunan yang diperbolehkan), dan \( \mu \) adalah suatu ukuran positif pada \( (S, \mathscr{S}) \) (ukuran bagi besar himpunan). Kasus khusus terpenting terjadi ketika \( S \) adalah himpunan bagian terukur (Lebesgue) dari \( \R^d \) untuk suatu \( d \in \N_+ \), \( \mathscr{S} \) adalah aljabar-\( \sigma \) dari himpunan-himpunan bagian terukur \( S \), dan \( \mu = \lambda_d \) adalah ukuran Lebesgue berdimensi \( d \). Jika dikhususkan lebih lanjut, ingat ruang-ruang berdimensi rendah berikut:</p>
+
+<ol>
+	<li>Jika \( d = 1 \), maka \( S \subseteq \R \) dan \( \lambda_1 \) adalah ukuran panjang.</li>
+	<li>Jika \( d = 2 \), maka \( S \subseteq \R^2 \) dan \( \lambda_2 \) adalah ukuran luas.</li>
+	<li>Jika \( d = 3 \), maka \( S \subseteq \R^3 \) dan \( \lambda_3 \) adalah ukuran volume.</li>
+</ol>
+
+<p>Tentu saja, karakterisasi <a href="Introduction.html">proses Poisson</a> pada \([0, \infty)\) dalam hal <a href="Exponential.html">waktu antarkedatangan</a>, serta karakterisasi dalam hal <a href="Gamma.html">waktu kedatangan</a>, tidak dapat digeneralisasi karena keduanya sangat bergantung pada <em>relasi urutan</em> \(\le\) pada \( [0, \infty) \). Namun, karakterisasi dalam hal <a href="Poisson.html">proses pencacahan</a> dapat digeneralisasi dengan sempurna ke kerangka baru kita. Karena itu, tinjau suatu proses yang menghasilkan titik-titik acak dalam \( S \), dan seperti biasa, misalkan \( N(A) \) menyatakan banyaknya titik acak dalam \( A \in \mathscr{S} \). Dengan demikian, \( N \) adalah suatu ukuran pencacahan acak pada \( (S, \mathscr{S}) \).</p>
+
+<div class="unit" id="pro1">
+	<p class="math">Ukuran acak \(N\) adalah suatu <dfn>proses Poisson</dfn> atau <dfn>ukuran acak Poisson</dfn> pada \(S\) dengan <dfn>parameter kerapatan</dfn> \(r \gt 0\) jika aksioma-aksioma berikut dipenuhi:</p>
+	<ol class="sub">
+		<li>Jika \( A \in \mathscr{S} \), maka \(N(A)\) mempunyai distribusi Poisson dengan parameter \(r  \mu(A)\).</li>
+		<li>Jika \( \{A_i: i \in I\} \) adalah koleksi terhitung himpunan-himpunan saling lepas dalam \( \mathscr{S} \), maka \( \{N(A_i): i \in I\} \) adalah himpunan peubah acak independen.</li>
+	</ol>
+</div>
+
+<p>Untuk melihat kesejajaran dengan proses Poisson pada \( [0, \infty) \), perhatikan bahwa bagian (a) merupakan generalisasi inkremen stasioner yang berdistribusi Poisson, sedangkan bagian (b) merupakan generalisasi inkremen independen. Berdasarkan konvensi, jika \(\mu(A) = 0\), maka \(N(A) = 0\) dengan probabilitas 1, dan jika \(\mu(A) = \infty\), maka \(N(A) = \infty\) dengan probabilitas 1. (Distribusi-distribusi ini dianggap sebagai anggota degenerat dari keluarga Poisson.) Di sisi lain, perhatikan bahwa jika \(0 \lt \mu(A) \lt \infty\), maka \(N(A)\) mempunyai distribusi Poisson sejati pada \(\N\).</p>
+
+<div class="unit" id="pro2">
+	<p class="app">Dalam <a href="JavaScript:openAncillary('../apps/Poisson2D.html')" class="ancillary">proses Poisson dua dimensi</a>, variasikan lebar \(w\) dan laju \(r\). Perhatikan lokasi dan bentuk fungsi kepadatan probabilitas \(N\). Untuk nilai parameter yang dipilih, jalankan simulasi 1000 kali dan bandingkan fungsi kepadatan empiris dengan fungsi kepadatan probabilitas yang sebenarnya.</p>
+</div>
+
+<div class="unit" id="pro3">
+	<p class="math">Untuk \(A \subseteq D\)</p>
+	<ol class="sub">
+		<li>\(\E\left[N(A)\right] = r \mu(A)\)</li>
+		<li>\(\var\left[N(A)\right] = r \mu(A)\)</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hasil-hasil ini mengikuti dari pembahasan kita sebelumnya mengenai <a href="Poisson.html#mom">distribusi Poisson</a>. Ingat bahwa parameter distribusi Poisson sekaligus merupakan rata-rata dan variansnya.</p>
+	</details>
+</div>
+
+<p>Secara khusus, \(r\) dapat ditafsirkan sebagai <dfn>kerapatan</dfn> harapan titik-titik acak (yakni banyaknya titik yang diharapkan dalam wilayah berukuran satu satuan), sehingga membenarkan nama parameter tersebut.</p>
+
+<div class="unit" id="pro4">
+	<p class="app">Dalam <a href="JavaScript:openAncillary('../apps/Poisson2D.html')" class="ancillary">proses Poisson dua dimensi</a>, variasikan lebar \(w\) dan parameter kerapatan \(r\). Perhatikan ukuran dan lokasi batang rata-rata\(\pm\)simpangan baku \(N\). Untuk berbagai nilai parameter, jalankan simulasi 1000 kali dan bandingkan rata-rata dan simpangan baku empiris dengan rata-rata dan simpangan baku yang sebenarnya.</p>
+</div>
+
+<h4 id="dst">Distribusi Titik-Titik Acak</h4>
+
+<p>Seperti sebelumnya, dalam arti tertentu model Poisson mendefinisikan cara paling acak untuk menyebarkan titik-titik dalam ruang. Andaikan kita mempunyai proses Poisson \( N \) pada \( (S, \mathscr{S}, \mu) \) dengan parameter kerapatan \( r \in (0, \infty) \).</p>
+
+<div class="unit" id="dst1">
+	<p class="math">Jika diketahui bahwa \(A \in \mathscr{S}\) memuat tepat satu titik acak, maka posisi \(X\) dari titik tersebut berdistribusi seragam pada \(A\).</p>
+	<details>
+	<summary>Rincian:</summary>
+		<p>Untuk \(B \in \mathscr{S}\) dengan \( B \subseteq A \),
+		\[ \P\left[N(B) = 1 \mid N(A) = 1\right] = \frac{\P\left[N(B) = 1, N(A) = 1\right]}{\P\left[N(A) = 1\right]} = \frac{\P\left[N(B) = 1, N(A \setminus B) = 0\right]}{\P\left[N(A) = 1\right]} = \frac{\P\left[N(B) = 1\right] \P\left[N(A \setminus B) = 0\right]}{\P\left[N(A) = 1\right]} \]
+		Dengan menggunakan distribusi-distribusi Poisson, kita memperoleh
+		\[ \P\left[N(B) = 1 \mid N(A) = 1\right] = \frac{\exp\left[-r \mu(B)\right] \left[r \mu(B)\right] \exp\left[-r \mu(A \setminus B)\right]} {\exp\left[-r \mu(A)\right] \left[r \mu(A)\right]} = \frac{\mu(B)}{\mu(A)}\] 
+		Sebagai fungsi dari \( B \), hasil ini adalah distribusi seragam pada \( A \) (terhadap \( \mu \)).</p>
+	</details>
+</div>
+
+<p>Secara lebih umum, jika \(A\) memuat \(n\) titik, maka posisi titik-titik tersebut independen dan masing-masing berdistribusi seragam dalam \(A\).</p>
+
+<div class="unit" id="dst2">
+	<p class="math">Misalkan \(A, \, B \in \mathscr{S}\) dan \(B \subseteq A\). Untuk \( n \in \N_+ \), distribusi bersyarat \(N(B)\) jika \(N(A) = n\) diketahui adalah <a href="../bernoulli/Binomial.html">distribusi binomial</a> dengan parameter banyak percobaan \(n\) dan parameter sukses \(p = \mu(B) \big/ \mu(A)\).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Untuk \(k \in \{0, 1, \ldots, n\}\),
+		\[ \P\left[N(B) = k \mid N(A) = n\right] = \frac{\P\left[N(B) = k, N(A) = n\right]}{\P\left[N(A) = n\right]} = \frac{\P\left[N(B) = k, N(A \setminus B) = n - k\right]}{\P\left[N(A) = n\right]} = \frac{\P\left[N(B) = k\right] \P\left[N(A \setminus B) = n - k\right]}{\P\left[N(A) = n\right]} \]
+		Dengan menggunakan distribusi-distribusi Poisson,
+		\[ \P\left[N(B) = k \mid N(A) = n\right] = \frac{\exp\left[-r \mu(B)\right] \left(\left[r \mu(B)\right]^k \big/ k!\right) \exp\left[-r \mu(A \setminus B)\right] \left(\left[r \mu(A \setminus B)\right]^{n-k} \big/ (n - k)!\right)}{\exp\left[-r \mu(A)\right] \left[r \mu(A)\right]^n \big/ n!} \]
+		Dengan mencoret faktor-faktor yang sama dan menetapkan \(p = \mu(B) \big/ \mu(A)\), kita memperoleh
+		\[ \P\left[N(B) = k \mid N(A) = n\right] = \frac{n!}{k! (n-k)!} p^k (1 - p)^{n-k} \]</p>
+	</details>
+</div>
+
+<p>Jadi, jika \( N(A) = n \in \N_+ \) diketahui, masing-masing dari \( n \) titik acak masuk ke dalam \( B \) secara independen dengan probabilitas \(p = \mu(B) \big/ \mu(A)\), tanpa bergantung pada parameter kerapatan \( r \).</p>
+
+<div class="unit" id="dst3">
+	<p class="math">Secara lebih umum, misalkan \(A \in \mathscr{S}\) dan \(A\) dipartisi menjadi \(k\) himpunan bagian \((B_1, B_2, \ldots, B_k)\) dalam \( \mathscr{S} \). Maka, distribusi bersyarat \(\left(N(B_1), N(B_2), \ldots, N(B_k)\right)\) jika \(N(A) = n\) diketahui adalah <a href="../bernoulli/Multinomial.html">distribusi multinomial</a> dengan parameter \(n\) dan \((p_1, p_2, \ldots p_k)\), dengan \(p_i = \mu(B_i) \big/ \mu(A)\) untuk \(i \in \{1, 2, \ldots, k\}\).</p>
+</div>
+
+<h4 id="thn">Penipisan dan Penggabungan</h4>
+
+<p>Misalkan \(N\) adalah proses acak Poisson pada \((S, \mathscr{S}, \mu)\) dengan parameter kerapatan \(r \in [0, \infty)\). Penipisan (atau pemisahan) proses ini bekerja sebagaimana <a href="Splitting.html">penipisan</a> proses Poisson pada \( [0, \infty) \). Secara khusus, misalkan setiap titik acak, secara independen dari titik-titik lain, bertipe 1 dengan probabilitas \(p\) atau bertipe 0 dengan probabilitas \(1 - p\), dengan \(p \in (0, 1)\) sebagai parameter baru. Misalkan \(N_1\) dan \(N_0\) menyatakan ukuran pencacahan acak yang masing-masing berkaitan dengan titik-titik tipe 1 dan tipe 0. Artinya, \( N_i(A) \) adalah banyaknya titik acak tipe \( i \) dalam \( A \), untuk \( A \in \mathscr{S} \) dan \( i \in \{0, 1\} \).</p>
+
+<div class="unit" id="spl1">
+	<p class="math">\( N_0 \) dan \( N_1 \) adalah proses-proses Poisson independen pada \( (S, \mathscr{S}, \mu) \) dengan parameter kerapatan masing-masing \( p r \) dan \( (1 - p) r \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Buktinya serupa dengan bukti bagi proses Poisson pada \( [0, \infty) \). Untuk \(j, \; k \in \N\),
+		\[ \P\left[N_0(A) = j, N_1(A) = k\right] = \P\left[N_1(A) = k, N(A) = j + k\right] = \P\left[N(A) = j + k\right] \P\left[N_1(A) = k \mid N_0(A) = j + k\right] \]
+		Namun, jika \(N(A) = n\) diketahui, banyaknya titik tipe 1 \(N_1(A)\) mempunyai distribusi binomial dengan parameter \(n\) dan \(p\). Karena itu, dengan menetapkan \(t = \mu(A)\) untuk menyederhanakan notasi, kita memperoleh
+		\[ \P\left[N_0(A) = j, N_1(A) = k\right] = e^{-r t} \frac{(r t)^{j+k}}{(j + k)!} \frac{(j + k)!}{j! k!} p^k (1 - p)^j = e^{-p r t} \frac{(p r t)^k}{k!} e^{-(1 - p) r t} \frac{\left[(1 - p) r t\right]^j}{j!} \]
+		Dari teorema faktorisasi, diperoleh bahwa \( N_0(A) \) mempunyai distribusi Poisson dengan parameter \( p \mu(A) \), \( N_1(A) \) mempunyai distribusi Poisson dengan parameter \( (1 - p) \mu(A) \), serta \( N_0(A) \) dan \( N_1(A) \) independen. Selanjutnya, misalkan \( \{A_i: i \in I\} \) adalah koleksi terhitung himpunan-himpunan saling lepas dalam \( \mathscr{S} \). Maka, \( \{N_0(A_i): i \in I\} \) dan \( \{N_1(A_i): i \in I\} \) masing-masing merupakan himpunan peubah acak independen, dan kedua himpunan itu saling independen.</p>
+	</details>
+</div>
+
+<p>Hasil ini meluas secara alami ke \(k \in \N_+\) tipe. Seperti dalam kasus standar, penggabungan proses-proses Poisson independen menghasilkan proses Poisson baru, dan parameter-parameter kerapatannya dijumlahkan.</p>
+
+<div class="unit" id="spl2">
+	<p class="math">Misalkan \( N_0 \) dan \( N_1 \) adalah proses-proses Poisson independen pada \( (S, \mathscr{S}, \mu) \), masing-masing dengan parameter kerapatan \( r_0 \) dan \( r_1 \). Maka, proses yang diperoleh dengan menggabungkan titik-titik acaknya juga merupakan proses Poisson pada \( (S, \mathscr{S}, \mu) \) dengan parameter kerapatan \( r_0 + r_1 \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Ukuran acak yang baru tentu saja adalah \( N = N_1 + N_2 \). Jadi, untuk \( A \in \mathscr{S} \), \( N(A) = N_1(A) + N_2(A) \). Namun, \( N_i(A) \) mempunyai distribusi Poisson dengan parameter \( r_i \mu(A) \) untuk \( i \in \{1, 2\} \), dan peubah-peubah tersebut independen, sehingga \( N(A) \) mempunyai distribusi Poisson dengan parameter \( r_0 \mu(A) + r_1 \mu(A) = (r_0 + r_1)\mu(A) \). Selanjutnya, misalkan \( \{A_i: i \in I\} \) adalah koleksi terhitung himpunan-himpunan saling lepas dalam \( \mathscr{S} \). Maka, \( \{N(A_i): i \in I\} = \left\{N_0(A_i) + N_1(A_i): i \in I\right\} \) adalah himpunan peubah acak independen.</p>
+	</details>
+</div>
+
+<h3>Aplikasi dan Kasus Khusus</h3>
+
+<h4>Proses Poisson Tak Homogen</h4>
+
+<p>Suatu <a href="Nonhomogeneous.html">proses Poisson tak homogen</a> pada \( [0, \infty) \) dapat dipandang sebagai proses Poisson pada \( [0, \infty) \) terhadap ukuran yang bukan ukuran Lebesgue standar \( \lambda_1 \) pada \( [0, \infty) \). Karena itu, misalkan \( r: [0, \infty) \to (0, \infty) \) kontinu sepotong-sepotong dengan \( \int_0^\infty r(t) \, dt = \infty \), dan tetapkan
+\[ m(t) = \int_0^t r(s) \, ds, \quad t \in [0, \infty) \]
+Tinjau proses Poisson tak homogen dengan fungsi laju \( r \) (dan karenanya fungsi rata-rata \( m \)). Ingat bahwa ukuran Lebesgue–Stieltjes pada \( [0, \infty) \) yang berkaitan dengan \( m \) (yang juga kita nyatakan dengan \( m \)) didefinisikan oleh syarat
+\[ m(a, b] = m(b) - m(a), \quad a, \, b \in [0, \infty), \; a \lt b \]
+Secara ekuivalen, \( m \) adalah ukuran yang <a href="../foundations/Density.html">kontinu mutlak</a> terhadap \( \lambda_1 \), dengan fungsi kepadatan \( r \). Artinya, jika \( A \) adalah himpunan bagian terukur dari \( [0, \infty) \), maka
+\[ m(A) = \int_A r(t) \, dt \]</p>
+
+<div class="unit">
+	<p class="math">Proses Poisson tak homogen pada \( [0, \infty) \) dengan fungsi laju \( r \) adalah proses Poisson pada \( [0, \infty) \) terhadap ukuran \( m \).</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>Hal ini mengikuti langsung dari definisi. Jika \( N \) menyatakan proses pencacahan yang berkaitan dengan proses Poisson tak homogen, maka \( N \) mempunyai inkremen stasioner, dan untuk \( s, \, t \in [0, \infty) \) dengan \( s \lt t \), \( N(s, t] \) mempunyai distribusi Poisson dengan parameter \( m(t) - m(s) = m(s, t] \). </p>
+	</details>
+</div>
+
+<h4 id="nea">Titik-Titik Terdekat dalam \( \R^d \)</h4>
+
+<p>Dalam subbagian ini, kita membahas topik yang agak khusus, tetapi menyenangkan dan menarik. Tinjau proses Poisson pada \(\left(\R^d, \mathscr{R}_d, \lambda_d\right)\) dengan parameter kerapatan \(r \gt 0\), dengan \( \mathscr{R}_d \), seperti biasa, sebagai aljabar-\( \sigma \) dari himpunan-himpunan bagian terukur Lebesgue dari \( \R_d \), dan \( \lambda_d \) sebagai ukuran Lebesgue berdimensi \( d \). Kita menggunakan norma Euklides biasa pada \( \R^d \):
+\[ \|\bs{x}\|_d = \left(x_1^d + x_2^d \cdots + x_d^d\right)^{1/d}, \quad \bs{x} = (x_1, x_2, \ldots, x_d) \in \R^d \]
+Untuk \(t \gt 0\), misalkan \( B_t = \left\{\bs{x} \in \R^d: \|\bs{x}\|_d \le t\right\} \) menyatakan bola berjari-jari \( t \) yang berpusat di titik asal. Ingat bahwa \( \lambda_d(B_t) = c_d t^d \), dengan
+\[ c_d = \frac{\pi^{d/2}}{\Gamma(d/2 + 1)} \]
+sebagai ukuran bola satuan dalam \( \R^d \), dan dengan \( \Gamma \) sebagai <a href="../special/Gamma.html">fungsi gamma</a>. Tentu saja, \( c_1 = 2 \), \( c_2 = \pi \), dan \( c_3 = 4 \pi / 3 \).</p>
+
+<p>Untuk \( t \ge 0 \), misalkan \( M_t = N(B_t) \), yaitu banyaknya titik acak dalam bola \( B_t \), atau secara ekuivalen, banyaknya titik acak yang berjarak paling jauh \( t \) dari titik asal. Dari rumus ukuran \( B_t \) di atas, diperoleh bahwa \(M_t\) mempunyai distribusi Poisson dengan parameter \(r c_d t^d\).</p>
+
+<p>Sekarang, misalkan \(Z_0 = 0\), dan untuk \(n \in \N_+\), misalkan \(Z_n\) menyatakan jarak titik acak terdekat ke-\(n\) dari titik asal. Perhatikan bahwa \(Z_n\) analog dengan waktu kedatangan ke-\(n\) bagi proses Poisson pada \([0, \infty)\). Jelas bahwa proses \(\bs{M} = (M_t: t \ge 0)\) dan \( \bs{Z} = (Z_0, Z_1, \ldots) \) saling invers dalam arti bahwa \(Z_n \le t\) jika dan hanya jika \(M_t \ge n\). Kedua kejadian ini sama-sama berarti terdapat sekurang-kurangnya \( n \) titik acak dalam jarak \( t \) dari titik asal.</p>
+
+<div class="unit" id="nea1">
+	<p class="math">Distribusi</p>
+	<ol class="sub">
+		<li>\(c_d Z_n^d\) mempunyai distribusi gamma dengan parameter bentuk \(n\) dan parameter laju \(r\).</li>
+		<li>\(Z_n\) mempunyai fungsi kepadatan probabilitas \( g_n \) yang diberikan oleh
+		\[ g_n(z) = \frac{d \left(c_d r\right)^n z^{n d - 1}}{(n-1)!} \exp\left(-r c_d z^d\right), \quad 0 \le z \lt \infty \]</li>
+	</ol>
+	<details>
+	<summary>Rincian:</summary>
+		<p>Misalkan \( T_n = c_d Z_n^d \).</p>
+		<ol class="sub">
+			<li>Dari hubungan invers di atas, 
+			\[ \P(T_n \le t) = \P\left[Z_n \le \left(t / c_d\right)^{1/d}\right] = \P\left\{M\left[\left(t / c_d\right)^{1/d}\right] \ge n\right\}\]
+			Namun, \( M\left[\left(t / c_d\right)^{1/d}\right] \) mempunyai distribusi Poisson dengan parameter \( r c_d \left[\left(t / c_d\right)^{1/d}\right]^d = r t \), sehingga
+			\[ \P(T_n \le t) = \sum_{k=n}^\infty e^{-r t} \frac{(r t)^k}{k!}  \]
+			yang kita ketahui sebagai fungsi distribusi kumulatif gamma dengan parameter \( n \) dan \( r \).
+			</li>
+			<li>Misalkan \( f_n \) menyatakan fungsi kepadatan probabilitas gamma dengan parameter \( n \) dan \( r \), serta misalkan \( t = c_d z^d \). Dari rumus perubahan peubah standar,
+			\[ g_n(z) = f_n(t) \frac{dt}{dz} \]
+			Substitusi dan penyederhanaan memberikan hasil tersebut.</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="nea2">
+	<p class="math">Peubah-peubah \(c_d Z_n^d - c_d Z_{n-1}^d\) independen untuk \(n \in \N_+\), dan masing-masing mempunyai distribusi eksponensial dengan parameter laju \(r\).</p>
+</div>
+
+<h3 id="exe">Latihan Komputasi</h3>
+
+<div class="unit" id="exe1">
+	<p class="math">Misalkan cacat pada selembar bahan mengikuti model Poisson dengan rata-rata 1 cacat per 2 meter persegi. Tinjau selembar bahan seluas 5 meter persegi. </p>
+	<ol class="sub">
+		<li>Tentukan probabilitas bahwa terdapat sekurang-kurangnya 3 cacat.</li>
+		<li>Tentukan rata-rata dan simpangan baku banyaknya cacat.</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>0.4562</li>
+			<li>2.5, 1.581</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe2">
+	<p class="math">Misalkan kismis dalam kue mengikuti model Poisson dengan rata-rata 2 kismis per inci kubik. Tinjau sepotong kue berbentuk balok dengan ukuran 3 kali 4 kali 1 inci. </p>
+	<ol class="sub">
+		<li>Tentukan probabilitas bahwa terdapat paling banyak 20 kismis.</li>
+		<li>Tentukan rata-rata dan simpangan baku banyaknya kismis.</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>0.2426</li>
+			<li>24, 4.899</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe3">
+	<p class="math">Misalkan kemunculan pohon dari jenis tertentu yang melampaui ukuran kritis tertentu di suatu hutan mengikuti model Poisson. Dalam wilayah hutan seluas setengah mil persegi, terdapat 40 pohon yang melampaui ukuran yang ditetapkan. </p>
+	<ol class="sub">
+		<li>Estimasilah parameter kerapatannya.</li>
+		<li>Dengan menggunakan parameter kerapatan yang diestimasi, tentukan probabilitas menemukan sekurang-kurangnya 100 pohon yang melampaui ukuran yang ditetapkan dalam wilayah hutan seluas satu mil persegi.</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>\(r = 80\) per mil persegi</li>
+			<li>0.0171</li>
+		</ol>
+	</details>
+</div>
+
+<div class="unit" id="exe4">
+	<p class="math">Misalkan cacat pada suatu jenis bahan mengikuti model Poisson. Diketahui bahwa selembar bahan berbentuk persegi dengan panjang sisi 2 meter memuat satu cacat. Tentukan probabilitas bahwa cacat tersebut berada dalam daerah lingkaran pada bahan itu dengan jari-jari \(\frac{1}{4}\) meter.</p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>0.0491</p>
+	</details>
+</div>
+
+<div class="unit" id="exe5">
+	<p class="math">Misalkan kismis dalam kue mengikuti model Poisson. Sepotong kue berukuran 6 inci kubik yang berisi 20 kismis dibagi menjadi 3 bagian sama besar. Tentukan probabilitas bahwa setiap bagian memuat sekurang-kurangnya 6 kismis. </p>
+	<details>
+		<summary>Rincian:</summary>
+		<p>0.2146</p>
+	</details>
+</div>
+
+<div class="unit" id="exe6">
+	<p class="math">Misalkan cacat pada selembar bahan mengikuti model Poisson dengan rata-rata 5 cacat per meter persegi. Setiap cacat, secara independen dari cacat-cacat lain, bersifat <em>ringan</em> dengan probabilitas 0.5, <em>sedang</em> dengan probabilitas 0.3, atau <em>berat</em> dengan probabilitas 0.2. Tinjau potongan bahan berbentuk lingkaran dengan jari-jari 1 meter.</p>
+	<ol class="sub" id="exe7">
+		<li>Berikan rata-rata dan simpangan baku banyaknya cacat setiap jenis pada potongan tersebut.</li>
+		<li>Tentukan probabilitas bahwa terdapat sekurang-kurangnya 2 cacat dari setiap jenis pada potongan tersebut.</li>
+	</ol>
+	<details>
+		<summary>Rincian:</summary>
+		<ol class="sub">
+			<li>Ringan: 7.854, 2.802; Sedang: 4.712, 2.171; Berat: 3.142, 1.772</li>
+			<li>0.7762</li>
+		</ol>
+	</details>
+</div>
+
+<footer>
+	<ol class="map">
+		<li class="parent"><a href="../index.html">Random</a></li>
+		<li class="parent"><a href="index.html">13. Proses Poisson</a></li>
+		<li class="child"><a href="Introduction.html" title="Pendahuluan">1</a></li>
+		<li class="child"><a href="Exponential.html" title="Distribusi Eksponensial">2</a></li>
+		<li class="child"><a href="Gamma.html" title="Distribusi Gamma">3</a></li>
+		<li class="child"><a href="Poisson.html" title="Distribusi Poisson">4</a></li>
+		<li class="child"><a href="Splitting.html" title="Penipisan dan Superposisi">5</a></li>
+		<li class="child"><a href="Nonhomogeneous.html" title="Proses Poisson Tak Homogen">6</a></li>
+		<li class="child"><a href="Compound.html" title="Proses Poisson Majemuk">7</a></li>
+		<li class="current">8</li>
+		<li class="details"><button type="button" title="Buka Rincian" onclick="expandDetails(true);"><img src="../icons/Plus.svg" alt="Buka"></button></li>
+		<li class="details"><button type="button" title="Tutup Rincian" onclick="expandDetails(false);"><img src="../icons/Minus.svg" alt="Tutup"></button></li>
+	</ol>
+	<ul class="map">
+		<li class="sister"><a href="JavaScript:openAncillary('../apps/index.html')" class="ancillary">Aplikasi</a></li>
+		<li class="sister"><a href="JavaScript:openAncillary('../data/index.html')" class="ancillary">Kumpulan Data</a></li>
+		<li class="child"><a href="JavaScript:openAncillary('../biographies/index.html')" class="ancillary"> Biografi</a></li>
+	</ul>
+</footer>
+
+<script>getReferences();</script>
+
+</body>
+</html>

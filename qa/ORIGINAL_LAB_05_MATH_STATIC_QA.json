@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "qa_id": "qa.o009.original-lab-05-brownian-math-static",
+  "created_utc": "2026-08-30T13:50:33Z",
+  "scope": {
+    "course_id": "o009",
+    "lab_id": "o009-lab-brownian-diagnostics",
+    "title": "Gerak Brown: Donsker, variasi kuadratik, dan waktu kena",
+    "audit_kind": "independent bounded mathematics and generated-reader static audit",
+    "files_examined_only": [
+      {
+        "path": "source/labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.Rmd",
+        "bytes": 12350,
+        "sha256": "a4703d81620e7e3c8c0767f7896d2acb35adcb394d8ed9299cc6da815482556d"
+      },
+      {
+        "path": "build/site/labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html",
+        "bytes": 40440,
+        "sha256": "75fbef2ad90b770736df18f35c5181bcb0010c870ddfae8e2b6fb832faa6ed60"
+      }
+    ],
+    "excluded": "No source, reader, backend, controls, authority evidence, or other QA artifact was modified. External authority and license truth were not re-audited; this check verifies that the Lab 05 source and generated reader state their frozen authority, rights boundary, provenance, and non-endorsement consistently and visibly."
+  },
+  "independent_recomputation": {
+    "method": "Endpoint and hitting probabilities were recomputed from exact integer sums of binomial coefficients divided by 2^n at 80-decimal arithmetic precision. The Gaussian target was evaluated independently from the error-function identity. No embedded R result or rendered numeric cell was used as input.",
+    "normal_target_phi_1": "0.8413447460685428",
+    "brownian_hitting_target_2_one_minus_phi_1": "0.3173105078629144",
+    "rows": [
+      {
+        "n": 64,
+        "k_endpoint": 36,
+        "hit_level_m": 8,
+        "tail_threshold_s_ge_m": 36,
+        "tail_threshold_s_ge_m_plus_1": 37,
+        "endpoint_cdf": "0.86978226171167323625",
+        "endpoint_abs_error": "0.02843751564313043625",
+        "hit_probability": "0.32108413568499559693",
+        "hit_abs_error": "0.00377362782208119693",
+        "qv_natural": "1",
+        "qv_fixed_refinement_r8": "0.125",
+        "total_variation": "8",
+        "endpoint_gold_abs_delta": "3.267637539610739e-13",
+        "hit_gold_abs_delta": "4.403072538463615e-15",
+        "rendered_row_match_at_declared_precision": true
+      },
+      {
+        "n": 256,
+        "k_endpoint": 136,
+        "hit_level_m": 16,
+        "tail_threshold_s_ge_m": 136,
+        "tail_threshold_s_ge_m_plus_1": 137,
+        "endpoint_cdf": "0.85600535673417169143",
+        "endpoint_abs_error": "0.01466061066562889143",
+        "hit_probability": "0.31825527099926415231",
+        "hit_abs_error": "0.00094476313634975231",
+        "qv_natural": "1",
+        "qv_fixed_refinement_r8": "0.125",
+        "total_variation": "16",
+        "endpoint_gold_abs_delta": "1.716914251166954e-13",
+        "hit_gold_abs_delta": "2.641523103868088e-13",
+        "rendered_row_match_at_declared_precision": true
+      },
+      {
+        "n": 1024,
+        "k_endpoint": 528,
+        "hit_level_m": 32,
+        "tail_threshold_s_ge_m": 528,
+        "tail_threshold_s_ge_m_plus_1": 529,
+        "endpoint_cdf": "0.84878942492065760147",
+        "endpoint_abs_error": "0.00744467885211480147",
+        "hit_probability": "0.31754678041003244266",
+        "hit_abs_error": "0.00023627254711804266",
+        "qv_natural": "1",
+        "qv_fixed_refinement_r8": "0.125",
+        "total_variation": "32",
+        "endpoint_gold_abs_delta": "3.423985321163087e-13",
+        "hit_gold_abs_delta": "3.244265704055115e-14",
+        "rendered_row_match_at_declared_precision": true
+      },
+      {
+        "n": 4096,
+        "k_endpoint": 2080,
+        "hit_level_m": 64,
+        "tail_threshold_s_ge_m": 2080,
+        "tail_threshold_s_ge_m_plus_1": 2081,
+        "endpoint_cdf": "0.84509615585670580681",
+        "endpoint_abs_error": "0.00375140978816300681",
+        "hit_probability": "0.31736958106315838467",
+        "hit_abs_error": "0.00005907320024398467",
+        "qv_natural": "1",
+        "qv_fixed_refinement_r8": "0.125",
+        "total_variation": "64",
+        "endpoint_gold_abs_delta": "2.941931928140675e-13",
+        "hit_gold_abs_delta": "1.583846730261600e-13",
+        "rendered_row_match_at_declared_precision": true
+      }
+    ],
+    "declared_tolerance": "1e-12",
+    "normal_target_gold_abs_delta": "4.572e-13",
+    "brownian_target_gold_abs_delta": "8.56e-14",
+    "maximum_gold_abs_delta": "4.572e-13",
+    "all_gold_checks_within_tolerance": true,
+    "all_four_rendered_status_values": "PASS",
+    "error_column_identities_match_after_12_decimal_rounding": true,
+    "result": "PASS"
+  },
+  "mathematics": {
+    "endpoint_binomial_threshold": {
+      "claim": "For S_n=2K_n-n, W_n(1)<=1 iff K_n<=floor((n+sqrt(n))/2).",
+      "evidence": "The four thresholds independently recompute to 36, 136, 528, and 2080 and match source and reader.",
+      "result": "PASS"
+    },
+    "discrete_reflection_and_hitting": {
+      "claim": "P(M_n>=m)=P(S_n>=m)+P(S_n>=m+1), with parity handled by the two ceiling thresholds.",
+      "evidence": "Exact integer-tail sums at m=sqrt(n) reproduce all four rendered hitting probabilities. Reflection after first contact maps the below-m terminal paths bijectively to terminal paths strictly above m.",
+      "result": "PASS"
+    },
+    "brownian_targets": {
+      "claim": "The endpoint target is Phi(1), and the level-one Brownian hitting target is 2(1-Phi(1)).",
+      "evidence": "Independent targets 0.8413447460685428 and 0.3173105078629144 round to the source and reader constants.",
+      "result": "PASS"
+    },
+    "donsker_interpretation": {
+      "claim": "W_n converges in distribution in C[0,1] under the uniform topology; this is not pathwise convergence. Endpoint evaluation and the maximum functional justify the stated distributional limits at continuity points, while the finite table is diagnostic rather than a proof.",
+      "result": "PASS"
+    },
+    "variation_claims": {
+      "claim": "On the natural mesh Q=1 and V=sqrt(n) pathwise; subdividing each linear segment into r equal pieces gives Q=1/r while preserving V=sqrt(n). This fixed-prelimit refinement does not contradict Brownian quadratic variation [B]_1=1.",
+      "evidence": "Direct algebra gives n*(1/sqrt(n))^2=1, n/sqrt(n)=sqrt(n), and nr*(1/(r*sqrt(n)))^2=1/r. The source explicitly distinguishes the two orders of limits.",
+      "result": "PASS"
+    },
+    "overall": "PASS"
+  },
+  "deterministic_base_r_contract": {
+    "only_base_r_functions_needed": true,
+    "random_number_generator_calls_found": [],
+    "package_loading_calls_found": [],
+    "fixed_inputs": {
+      "n": [64, 256, 1024, 4096],
+      "x": 1,
+      "a": 1,
+      "refinement_r": 8,
+      "tolerance": "1e-12"
+    },
+    "generated_reader_contains_the_same_code_and_frozen_result_table": true,
+    "independent_exact_recomputation_matches_all_result_cells": true,
+    "note": "Rscript was not available on the process PATH; execution determinism was therefore checked statically and by an independent exact arithmetic implementation rather than by launching a second R process.",
+    "result": "PASS"
+  },
+  "stable_id_and_topology": {
+    "authored_stable_ids": [
+      "o009-lab-brownian-diagnostics",
+      "o009-brownian-diagnostics-goals",
+      "o009-brownian-partition-order",
+      "o009-brownian-exact-audit",
+      "o009-exercise-brownian-diagnostics",
+      "o009-hint-brownian-diagnostics-1",
+      "o009-hint-brownian-diagnostics-2",
+      "o009-hint-brownian-diagnostics-3",
+      "o009-answer-brownian-diagnostics",
+      "o009-solution-brownian-diagnostics"
+    ],
+    "authored_id_count": 10,
+    "authored_ids_unique_in_source": true,
+    "all_authored_ids_present_in_reader": true,
+    "reader_total_id_count": 85,
+    "reader_ids_unique": true,
+    "execution_table_id": "o009-results-brownian-diagnostics",
+    "execution_table_dimensions": {
+      "header_rows": 1,
+      "data_rows": 4,
+      "columns": 15
+    },
+    "exercise_count": 1,
+    "hint_count": 3,
+    "answer_count": 1,
+    "solution_count": 1,
+    "result": "PASS"
+  },
+  "dependency_rights_and_provenance": {
+    "prerequisite_id_in_source_metadata": "resource.o006.c140.shared",
+    "visible_o006_c140_dependency_note": true,
+    "visible_no_o006_byte_copy_statement": true,
+    "visible_no_random_html_copy_statement": true,
+    "random_dual_license_witnesses_kept_distinct_in_text": [
+      "CC BY 2.0 on index.html",
+      "CC BY 1.0 on Credits.html"
+    ],
+    "original_lab_license_in_metadata_and_visible_reader": "CC BY 4.0",
+    "exact_model_provenance_in_metadata_and_visible_reader": "OpenAI Codex gpt-5.6-sol, Ultra.",
+    "visible_non_endorsement": "Edisi independen; tidak didukung atau disahkan oleh Kyle Siegrist, Random, atau penulis sumber.",
+    "result": "PASS"
+  },
+  "flaws": [],
+  "overall_result": "PASS",
+  "admission_recommendation": "The audited source and generated reader are mathematically and statically admissible at these exact hashes."
+}

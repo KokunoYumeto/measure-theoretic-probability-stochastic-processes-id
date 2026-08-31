@@ -1,0 +1,318 @@
+---
+title: "Gerak Brown: Donsker, variasi kuadratik, dan waktu kena"
+lang: id-ID
+author:
+  - "Codex (materi asli, atas arahan pengguna)"
+authoring:
+  course_id: "o009"
+  unit_id: "o009-unit-brownian-diagnostics-lab"
+  lab_id: "o009-lab-brownian-diagnostics"
+  matched_theory_id: "o009-theory-random-brown-standard"
+  prerequisite_id: "resource.o006.c140.shared"
+  target_locale: "id-ID"
+  source_alias: "Random:brown/Standard.html"
+  source_authority: "authority/random/RANDOM_AUTHORITY_RECEIPT.json"
+  source_authority_sha256: "ea3786a05f3a1ccf444818f17516ce85065c76759bfc8071d43fd8a98c643eb4"
+  source_page_sha256: "brown/Standard.html=3693677d4d4c75e7888f806a027fa25020babeb80c720bbb77ad6fd0c639276b"
+  source_license_witness: "CC-BY-2.0 and CC-BY-1.0 witnesses are retained separately in RANDOM_AUTHORITY_RECEIPT.json"
+  source_relation: "wholly original diagnostic informed by the cited Random theory page and the shared O006/C140 CLT prerequisite; no Random HTML or O006 bytes are copied"
+  adaptation_license: "CC-BY-4.0"
+  model_provenance: "OpenAI Codex gpt-5.6-sol, Ultra."
+  non_endorsement: "Edisi independen; tidak didukung atau disahkan oleh Kyle Siegrist, Random, atau penulis sumber."
+---
+
+::: {#o009-lab-brownian-diagnostics .lab}
+
+> **Asal konsep, hak, dan batasan.** Laboratorium ini adalah tulisan baru
+> dalam bahasa Indonesia. Satu-satunya ketergantungan teorinya ialah halaman
+> resmi *Random* karya Kyle Siegrist tentang
+> [gerak Brown standar](../brown/Standard.html), yang mencakup penskalaan
+> gerak acak, ketakteraturan lintasan, prinsip pencerminan, dan waktu kena.
+> Berkas saksi halaman itu dibekukan di `authority/random` dengan SHA-256 yang
+> dicatat pada metadata di atas. Tidak ada byte HTML sumber yang disalin ke
+> dalam Rmd ini. Sumber resmi mempertahankan dua saksi lisensi yang berbeda
+> (CC BY 2.0 pada `index.html` dan CC BY 1.0 pada `Credits.html`); saksi itu
+> tidak digabungkan atau diganti. Seluruh teks, kode R basis, tabel, latihan,
+> petunjuk, jawaban, dan penyelesaian asli pada berkas ini dilepas dengan
+> **CC BY 4.0**. Materi asli ini dihasilkan oleh
+> **OpenAI Codex gpt-5.6-sol, Ultra.**, atas arahan pengguna. Edisi independen
+> ini tidak didukung atau disahkan oleh Kyle Siegrist, Random, ataupun
+> penulis sumber.
+
+> **Prasyarat bersama.** Langkah limit-normal di bawah memakai teorema limit
+> pusat dari jalur O006/C140 sebagai prasyarat bersama. Laboratorium ini hanya
+> menautkan dependensi itu; tidak ada byte O006 yang disalin atau diterbitkan
+> ulang di sini.
+
+## Tujuan dan objek diskret {#o009-brownian-diagnostics-goals}
+
+Misalkan $\xi_1,\xi_2,\ldots$ saling bebas dengan
+$\mathbb P(\xi_j=1)=\mathbb P(\xi_j=-1)=1/2$, dan tetapkan
+$S_k=\sum_{j=1}^k\xi_j$. Untuk setiap $n$, interpolan linear terskala
+$W_n\in C[0,1]$ didefinisikan oleh
+
+$$
+W_n(t)=\frac{1}{\sqrt n}\left[
+S_{\lfloor nt\rfloor}+(nt-\lfloor nt\rfloor)
+\xi_{\lfloor nt\rfloor+1}
+\right],
+$$
+
+dengan suku interpolasi diambil nol pada $t=1$. Teorema Donsker menyatakan
+$W_n\Rightarrow B$ dalam $C[0,1]$ dengan topologi seragam, dengan $B$ gerak
+Brown standar. Tanda $\Rightarrow$ berarti **konvergensi dalam distribusi**,
+bukan konvergensi lintasan demi lintasan dari satu keluaran acak.
+
+Kita mengaudit dua konsekuensi yang dapat dihitung tanpa galat Monte Carlo.
+Untuk $x=1$,
+
+$$
+\mathbb P\{W_n(1)\le x\}
+=\mathbb P\left\{\operatorname{Bin}(n,1/2)
+\le\left\lfloor\frac{n+x\sqrt n}{2}\right\rfloor\right\}
+\longrightarrow \Phi(x).
+$$
+
+Untuk $M_n=\max_{0\le k\le n}S_k$ dan bilangan bulat $m>0$, prinsip
+pencerminan diskret memberi
+
+$$
+\mathbb P(M_n\ge m)
+=\mathbb P(S_n\ge m)+\mathbb P(S_n\ge m+1).
+$$
+
+Dengan $m=\sqrt n$ pada empat nilai $n$ yang dipilih, ruas kiri mengaudit
+peluang lintasan terskala menyentuh aras $1$ sebelum waktu $1$. Limit Brown
+dari prinsip pencerminan ialah
+
+$$
+\mathbb P\left(\sup_{0\le t\le1}B_t\ge1\right)
+=2\{1-\Phi(1)\}.
+$$
+
+Audit ini mendukung dua fungsional kontinu Donsker pada titik kontinuitas
+distribusinya; satu tabel hingga tidak dengan sendirinya membuktikan teorema
+fungsional.
+
+## Dua urutan partisi yang tidak boleh dicampur {#o009-brownian-partition-order}
+
+Pada partisi alami $\Pi_n=\{k/n:0\le k\le n\}$, setiap inkremen $W_n$
+bernilai $\pm n^{-1/2}$. Karena itu, untuk **setiap** lintasan,
+
+$$
+Q(W_n;\Pi_n)=\sum_{k=1}^n(\Delta W_{n,k})^2=1,
+\qquad
+V(W_n;\Pi_n)=\sum_{k=1}^n|\Delta W_{n,k}|=\sqrt n.
+$$
+
+Hasil pertama menyerupai variasi kuadratik $[B]_1=1$, sedangkan hasil kedua
+menuju tak hingga, konsisten dengan variasi total lintasan Brown yang tak
+hingga hampir pasti. Namun, ada peringatan penting. Jika $n$ ditahan tetap
+dan setiap ruas linear pada $\Pi_n$ dibagi menjadi $r$ ruas yang sama, maka
+
+$$
+Q(W_n;\Pi_{n,r})=\frac1r\longrightarrow0
+\quad\text{ketika }r\to\infty.
+$$
+
+Tidak ada kontradiksi. Pada partisi alami, lintasan aproksimasi **dan**
+partisinya berubah bersama ketika $n\to\infty$. Pada refinemen pralimit tetap,
+kita hanya memperhalus satu fungsi linear sepotong, yang memang mempunyai
+variasi kuadratik nol sepanjang refinemen semacam itu. Urutan kedua operasi
+limit tersebut berbeda.
+
+## Audit eksak dengan R basis {#o009-brownian-exact-audit}
+
+Kode berikut tidak memakai generator bilangan acak atau paket tambahan.
+`pbinom` menjumlahkan peluang binomial hingga secara numerik, sedangkan
+`pnorm` menghitung target Gaussian dan Brown. Nilai emas dibekukan agar
+pelaksanaan ulang mendeteksi perubahan rumus, ambang kisi, atau pembulatan.
+
+::: {#o009-exercise-brownian-diagnostics .exercise}
+Jalankan kode, lalu kerjakan keempat bagian berikut.
+
+1. Turunkan ambang binomial pada kolom `k_endpoint`, dan jelaskan mengapa
+   `cdf_endpoint_eksak` menuju $\Phi(1)$ meskipun galat kisi tidak monoton
+   untuk semua pilihan $n$.
+2. Buktikan langsung bahwa `qv_mesh_alami=1` dan
+   `variasi_total=sqrt(n)` untuk setiap lintasan gerak acak terskala.
+3. Untuk $r=8$, turunkan `qv_refinemen_pralimit=1/8`; jelaskan mengapa limit
+   saat $r\to\infty$ tidak menyangkal $[B]_1=1$.
+4. Gunakan pencerminan lintasan sesudah sentuhan pertama aras $m$ untuk
+   menurunkan rumus dua ekor bagi `prob_kena_eksak`, lalu bandingkan empat
+   barisnya dengan $2\{1-\Phi(1)\}$.
+:::
+
+```{r o009_lab_brownian_diagnostics, echo=TRUE}
+ns = c(64L, 256L, 1024L, 4096L)
+x = 1
+a = 1
+r = 8L
+tolerance = 1e-12
+
+# Distribusi titik akhir: W_n(1)=(2 K_n-n)/sqrt(n), K_n~Bin(n,1/2).
+k_endpoint = floor((ns + x * sqrt(ns)) / 2)
+endpoint_cdf = pbinom(k_endpoint, size=ns, prob=0.5)
+normal_target = pnorm(x)
+
+# Prinsip pencerminan diskret:
+# P(M_n >= m)=P(S_n >= m)+P(S_n >= m+1).
+m = as.integer(ceiling(a * sqrt(ns)))
+k_ge_m = as.integer(ceiling((ns + m) / 2))
+k_ge_m_plus_1 = as.integer(ceiling((ns + m + 1) / 2))
+hit_probability =
+  pbinom(k_ge_m - 1L, size=ns, prob=0.5, lower.tail=FALSE) +
+  pbinom(k_ge_m_plus_1 - 1L, size=ns, prob=0.5, lower.tail=FALSE)
+brown_hit_target = 2 * pnorm(-a)
+
+# Besaran ini eksak lintasan demi lintasan pada mesh alami.
+qv_natural = ns * (1 / sqrt(ns))^2
+total_variation = ns * (1 / sqrt(ns))
+qv_fixed_refinement = qv_natural / r
+
+# Nilai emas independen dari RNG dan platform pada toleransi yang dicatat.
+gold_endpoint = c(
+  0.869782261712, 0.856005356734,
+  0.848789424921, 0.845096155857
+)
+gold_hit = c(
+  0.321084135685, 0.318255270999,
+  0.317546780410, 0.317369581063
+)
+gold_normal_target = 0.841344746069
+gold_brown_hit_target = 0.317310507863
+
+row_error = pmax(
+  abs(endpoint_cdf - gold_endpoint),
+  abs(hit_probability - gold_hit),
+  abs(qv_natural - 1),
+  abs(qv_fixed_refinement - 1 / r),
+  abs(total_variation - sqrt(ns))
+)
+global_error = max(
+  row_error,
+  abs(normal_target - gold_normal_target),
+  abs(brown_hit_target - gold_brown_hit_target)
+)
+status = ifelse(row_error <= tolerance & global_error <= tolerance,
+                "PASS", "FAIL")
+
+hasil = data.frame(
+  n=ns,
+  k_endpoint=k_endpoint,
+  ambang_kena=m,
+  cdf_endpoint_eksak=sprintf("%.12f", endpoint_cdf),
+  target_normal=sprintf("%.12f", normal_target),
+  galat_cdf=sprintf("%.12f", abs(endpoint_cdf - normal_target)),
+  prob_kena_eksak=sprintf("%.12f", hit_probability),
+  target_brown=sprintf("%.12f", brown_hit_target),
+  galat_kena=sprintf("%.12f", abs(hit_probability - brown_hit_target)),
+  qv_mesh_alami=sprintf("%.12f", qv_natural),
+  qv_refinemen_pralimit=sprintf("%.12f", qv_fixed_refinement),
+  variasi_total=sprintf("%.12f", total_variation),
+  refinemen_r=r,
+  toleransi=sprintf("%.12e", tolerance),
+  status=status,
+  stringsAsFactors=FALSE
+)
+write.csv(hasil, file="", row.names=FALSE, quote=FALSE)
+```
+
+<!-- O009_BROWNIAN_EXECUTION_TABLE -->
+
+Target numeriknya adalah $\Phi(1)=0{,}841344746069$ dan
+$2\{1-\Phi(1)\}=0{,}317310507863$. Peluang titik akhir mendekati target
+lebih lambat karena massa pada satu titik kisi ikut masuk ke CDF; ini bukan
+galat simulasi. Diagnostik waktu kena jauh lebih dekat pada empat ukuran ini,
+tetapi tetap merupakan peluang gerak acak diskret, bukan peluang Brown yang
+disisipkan ke kolom data.
+
+::: {#o009-hint-brownian-diagnostics-1 .hint}
+**Petunjuk 1.** Tulis $S_n=2K_n-n$, dengan
+$K_n\sim\operatorname{Bin}(n,1/2)$. Ketaksamaan
+$S_n/\sqrt n\le1$ menjadi
+$K_n\le\lfloor(n+\sqrt n)/2\rfloor$; `pbinom` memakai ambang inklusif ini.
+:::
+
+::: {#o009-hint-brownian-diagnostics-2 .hint}
+**Petunjuk 2.** Pada mesh alami terdapat tepat $n$ inkremen, masing-masing
+bernilai mutlak $n^{-1/2}$. Pada refinemen $r$, setiap inkremen linear itu
+diganti oleh $r$ inkremen bernilai $\pm(r\sqrt n)^{-1}$.
+:::
+
+::: {#o009-hint-brownian-diagnostics-3 .hint}
+**Petunjuk 3.** Pisahkan kejadian $\{M_n\ge m\}$ menurut nilai terminal.
+Lintasan yang berakhir di bawah $m$ dipantulkan setelah kunjungan pertama ke
+$m$; hasilnya berakhir ketat di atas $m$. Perhatikan paritas melalui dua
+ambang `k_ge_m` dan `k_ge_m_plus_1`.
+:::
+
+::: {#o009-answer-brownian-diagnostics .answer}
+**Jawaban ringkas.** Karena $S_n=2K_n-n$, CDF titik akhir adalah CDF
+binomial pada `k_endpoint` dan mendekati $\Phi(1)$. Pada mesh alami,
+$Q=n(n^{-1/2})^2=1$ dan $V=n n^{-1/2}=\sqrt n$; setelah setiap ruas linear
+dibagi delapan, $Q=1/8$. Refinemen satu interpolan tetap menuju nol, sedangkan
+variasi kuadratik Brown muncul pada limit stokastik dengan mesh alami yang
+berubah bersama $n$. Pencerminan memberi
+$\mathbb P(M_n\ge m)=\mathbb P(S_n\ge m)+\mathbb P(S_n\ge m+1)$, dan empat
+peluang eksak mendekati $2\{1-\Phi(1)\}$ seperti pada tabel.
+:::
+
+::: {#o009-solution-brownian-diagnostics .solution}
+**Penyelesaian lengkap.** Jika $K_n$ menghitung banyaknya inkremen $+1$,
+maka $S_n=K_n-(n-K_n)=2K_n-n$. Oleh sebab itu,
+
+$$
+\frac{S_n}{\sqrt n}\le1
+\iff
+K_n\le\left\lfloor\frac{n+\sqrt n}{2}\right\rfloor.
+$$
+
+Ini tepat argumen yang diberikan kepada `pbinom`. Teorema limit pusat memberi
+$S_n/\sqrt n\Rightarrow N(0,1)$, dan karena $1$ merupakan titik kontinuitas
+CDF normal, peluangnya menuju $\Phi(1)$. Selisih yang tersisa pada tabel ialah
+efek kisi binomial yang sah, bukan ketidakpastian Monte Carlo.
+
+Pada $\Pi_n$, semua $n$ inkremen interpolan bernilai
+$\xi_k/\sqrt n$. Maka
+
+$$
+Q(W_n;\Pi_n)=\sum_{k=1}^n\frac{\xi_k^2}{n}=1,
+\qquad
+V(W_n;\Pi_n)=\sum_{k=1}^n\frac{|\xi_k|}{\sqrt n}=\sqrt n.
+$$
+
+Jika satu ruas linear dibagi menjadi $r$ bagian, besar setiap inkremen baru
+adalah $1/(r\sqrt n)$. Terdapat $nr$ inkremen, sehingga
+
+$$
+Q(W_n;\Pi_{n,r})=nr\frac{1}{r^2n}=\frac1r,
+\qquad
+V(W_n;\Pi_{n,r})=nr\frac{1}{r\sqrt n}=\sqrt n.
+$$
+
+Jadi, untuk $n$ tetap, $Q\to0$ ketika $r\to\infty$ karena $W_n$ adalah
+fungsi linear sepotong. Pernyataan $[B]_1=1$ meninjau lintasan Brown dan
+urutan partisinya setelah limit proses; menukar kedua operasi ini tidak sah.
+
+Terakhir, ambil lintasan dengan $M_n\ge m$. Jika $S_n\ge m$, lintasan sudah
+terhitung pada ekor pertama. Jika $S_n<m$, pantulkan semua inkremen sesudah
+waktu pertama lintasan mencapai $m$. Transformasi ini bijektif menuju
+lintasan dengan $S_n>m$, sehingga
+
+$$
+\mathbb P(M_n\ge m)
+=\mathbb P(S_n\ge m)+\mathbb P(S_n>m)
+=\mathbb P(S_n\ge m)+\mathbb P(S_n\ge m+1).
+$$
+
+Kedua ekor dihitung oleh `pbinom(..., lower.tail=FALSE)` dengan ambang
+bilangan bulat dan paritas yang sesuai. Untuk $m=\sqrt n$, peluang berturut-
+turut ialah 0,321084135685; 0,318255270999; 0,317546780410; dan
+0,317369581063. Fungsional maksimum kontinu terhadap norma seragam, dan
+distribusi maksimum Brown tidak mempunyai atom pada aras $1$; teorema
+pemetaan kontinu untuk Donsker lalu memberi limit
+$2\{1-\Phi(1)\}=0{,}317310507863$.
+:::
+
+:::

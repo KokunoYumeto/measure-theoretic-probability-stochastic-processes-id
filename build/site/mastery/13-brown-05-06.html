@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Penguasaan gerak Brown 05–06: jam eksponensial dan variasi kuadratik</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="12-brown-03-04.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="12-brown-03-04.html">Unit sebelumnya</a></nav><main class="mastery-reader">
+
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#penguasaan-gerak-brown-0506" id="toc-penguasaan-gerak-brown-0506">Penguasaan gerak Brown 05–06</a>
+<ul>
+<li><a href="#hak-gabungan" id="toc-hak-gabungan">Hak gabungan</a></li>
+</ul></li>
+</ul>
+</nav>
+<div class="original-mastery" id="unit.o009.original.mastery.brown.05-06">
+<h1 id="penguasaan-gerak-brown-0506">Penguasaan gerak Brown 05–06</h1>
+<p>Dua masalah ini memakai gerak Brown standar yang sama, tetapi
+menelaah dua fenomena yang berbeda. Masalah 05 mengamati proses pada
+waktu acak dan memperoleh hukum resolven beserta distribusi posterior
+waktu pengamatan. Masalah 06 menjaga waktu pengamatan deterministik dan
+mengukur akumulasi kuadrat inkremen pada partisi yang makin halus.</p>
+<div class="mastery-sequence" id="unit.o009.original.mastery.brown.05">
+<div class="prerequisites" id="unit.o009.original.mastery.brown.05.prerequisites">
+<p><strong>Prasyarat.</strong> Pembaca mengenal gerak Brown standar,
+khususnya <span class="math inline">\(B_t\sim\mathcal N(0,t)\)</span>;
+distribusi eksponensial; pengondisian dengan kerapatan bersama; fungsi
+karakteristik; serta diferensiasi integral yang didominasi.</p>
+</div>
+<div class="outcomes" id="unit.o009.original.mastery.brown.05.outcomes">
+<p><strong>Hasil belajar.</strong> Setelah menyelesaikan masalah ini,
+pembaca dapat mengintegralkan hukum Gaussian terhadap jam eksponensial,
+mengenali hukum Laplace dua sisi, memisahkan tanda dari nilai mutlaknya,
+dan menghitung distribusi posterior, rataan, serta varians waktu
+pengamatan setelah posisi Brown diamati.</p>
+</div>
+<div class="exercise" id="unit.o009.original.mastery.brown.05.exercise">
+<h2 id="masalah-05-gerak-brown-pada-jam-eksponensial">Masalah 05 — gerak
+Brown pada jam eksponensial</h2>
+<p>Misalkan <span class="math inline">\(B=(B_t)_{t\ge0}\)</span> adalah
+gerak Brown standar dan <span class="math inline">\(\Theta\sim\operatorname{Exp}(\lambda)\)</span>,
+<span class="math inline">\(\lambda&gt;0\)</span>, independen dari
+seluruh proses <span class="math inline">\(B\)</span>. Definisikan</p>
+<p><span class="math display">\[
+Y=B_\Theta,
+\qquad
+a=\sqrt{2\lambda}.
+\]</span></p>
+<ol type="1">
+<li><p>Hitung fungsi karakteristik <span class="math inline">\(Y\)</span>, lalu tentukan kerapatan <span class="math inline">\(Y\)</span> tanpa mengevaluasi integral campuran
+Gaussian secara langsung.</p></li>
+<li><p>Untuk setiap fungsi Borel terbatas <span class="math inline">\(g\)</span>, buktikan identitas resolven</p>
+<p><span class="math display">\[
+\lambda\int_0^\infty e^{-\lambda t}\,
+\mathbb E[g(B_t)]\,dt
+=\int_{\mathbb R}g(y)\frac a2e^{-a|y|}\,dy.
+\]</span></p>
+<p>Selanjutnya, jika <span class="math inline">\(R=|Y|\)</span> dan
+<span class="math inline">\(S=\operatorname{sgn}(Y)\)</span> (nilai
+<span class="math inline">\(S\)</span> pada <span class="math inline">\(Y=0\)</span> boleh dipilih sembarang), tentukan
+hukum <span class="math inline">\(R\)</span> dan buktikan bahwa <span class="math inline">\(R\)</span> dan <span class="math inline">\(S\)</span> independen.</p></li>
+<li><p>Turunkan sebuah versi kerapatan bersyarat <span class="math inline">\(p_{\Theta\mid Y}(t\mid y)\)</span> yang berlaku
+untuk setiap <span class="math inline">\(y\in\mathbb R\)</span> dan
+<span class="math inline">\(t&gt;0\)</span>. Identifikasi hukum khusus
+yang muncul ketika <span class="math inline">\(y=0\)</span>.</p></li>
+<li><p>Hitung secara eksak <span class="math inline">\(\mathbb
+E[\Theta\mid Y=y]\)</span> dan <span class="math inline">\(\operatorname{Var}(\Theta\mid
+Y=y)\)</span>.</p></li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.brown.05.hint.01"><summary aria-label="Petunjuk: unit.o009.original.mastery.brown.05.hint.01">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Kondisikan pada <span class="math inline">\(\Theta=t\)</span>. Untuk <span class="math inline">\(u\in\mathbb R\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E(e^{iuB_t})=e^{-u^2t/2}.
+\]</span></p>
+<p>Bandingkan hasil integral terhadap <span class="math inline">\(t\)</span> dengan transformasi Fourier dari <span class="math inline">\(y\mapsto (a/2)e^{-a|y|}\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.brown.05.hint.02"><summary aria-label="Petunjuk: unit.o009.original.mastery.brown.05.hint.02">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Kerapatan bersama pada <span class="math inline">\((0,\infty)\times\mathbb R\)</span> ialah</p>
+<p><span class="math display">\[
+f_{\Theta,Y}(t,y)
+=\lambda e^{-\lambda t}\frac{1}{\sqrt{2\pi t}}
+  \exp\!\left(-\frac{y^2}{2t}\right).
+\]</span></p>
+<p>Bagi dengan kerapatan marginal <span class="math inline">\(Y\)</span>, yang positif di seluruh garis
+real.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.brown.05.hint.03"><summary aria-label="Petunjuk: unit.o009.original.mastery.brown.05.hint.03">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Untuk <span class="math inline">\(y\)</span> tetap, tetapkan</p>
+<p><span class="math display">\[
+I_0(\lambda,y)=\int_0^\infty
+t^{-1/2}\exp\!\left(-\lambda t-\frac{y^2}{2t}\right)dt.
+\]</span></p>
+<p>Konstanta normalisasi posterior memberi <span class="math inline">\(I_0(\lambda,y)=\sqrt{\pi/\lambda}\,e^{-a|y|}\)</span>.
+Gunakan <span class="math inline">\(-\partial_\lambda\log I_0\)</span>
+untuk rataan dan <span class="math inline">\(\partial_\lambda^2\log
+I_0\)</span> untuk varians.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.brown.05.answer">
+<p><strong>Jawaban ringkas.</strong> Peubah <span class="math inline">\(Y\)</span> mempunyai kerapatan Laplace dua
+sisi</p>
+<p><span class="math display">\[
+f_Y(y)=\frac a2e^{-a|y|},
+\qquad a=\sqrt{2\lambda}.
+\]</span></p>
+<p>Karena itu <span class="math inline">\(R\sim\operatorname{Exp}(a)\)</span>, sedangkan
+<span class="math inline">\(S\)</span> seragam pada <span class="math inline">\(\{-1,1\}\)</span> dan independen dari <span class="math inline">\(R\)</span>. Sebuah versi posterior ialah</p>
+<p><span class="math display">\[
+p_{\Theta\mid Y}(t\mid y)
+=\sqrt{\frac\lambda\pi}\,e^{a|y|}\,t^{-1/2}
+  \exp\!\left(-\lambda t-\frac{y^2}{2t}\right),
+\qquad t&gt;0.
+\]</span></p>
+<p>Pada <span class="math inline">\(y=0\)</span> hukum ini adalah <span class="math inline">\(\operatorname{Gamma}(1/2,\text{laju
+}\lambda)\)</span>, dan</p>
+<p><span class="math display">\[
+\mathbb E[\Theta\mid Y=y]
+=\frac1{2\lambda}+\frac{|y|}{\sqrt{2\lambda}},
+\qquad
+\operatorname{Var}(\Theta\mid Y=y)
+=\frac1{2\lambda^2}+\frac{|y|}{(2\lambda)^{3/2}}.
+\]</span></p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.brown.05.solution"><summary aria-label="Penyelesaian lengkap: unit.o009.original.mastery.brown.05.solution">Penyelesaian lengkap</summary>
+<p><strong>Penyelesaian lengkap.</strong> Dengan independensi dan
+pengondisian pada jam,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\varphi_Y(u)
+&amp;=\mathbb E\!\left[
+  \mathbb E(e^{iuB_\Theta}\mid\Theta)
+  \right]\\
+&amp;=\int_0^\infty e^{-u^2t/2}\lambda e^{-\lambda t}\,dt
+=\frac{\lambda}{\lambda+u^2/2}
+=\frac{a^2}{a^2+u^2}.
+\end{aligned}
+\]</span></p>
+<p>Di sisi lain,</p>
+<p><span class="math display">\[
+\int_{\mathbb R}e^{iuy}\frac a2e^{-a|y|}\,dy
+=a\int_0^\infty e^{-ay}\cos(uy)\,dy
+=\frac{a^2}{a^2+u^2}.
+\]</span></p>
+<p>Ketunggalan fungsi karakteristik menunjukkan bahwa <span class="math inline">\(f_Y(y)=(a/2)e^{-a|y|}\)</span>. Untuk <span class="math inline">\(g\)</span> terbatas, Fubini dan pengondisian
+memberi</p>
+<p><span class="math display">\[
+\begin{aligned}
+\lambda\int_0^\infty e^{-\lambda t}\mathbb E[g(B_t)]\,dt
+&amp;=\mathbb E[g(B_\Theta)]\\
+&amp;=\int_{\mathbb R}g(y)\frac a2e^{-a|y|}\,dy,
+\end{aligned}
+\]</span></p>
+<p>yang membuktikan identitas resolven. Argumen yang sama berlaku bagi
+<span class="math inline">\(g\)</span> nonnegatif dengan Tonelli.</p>
+<p>Karena <span class="math inline">\(Y\)</span> mempunyai kerapatan,
+<span class="math inline">\(\mathbb P(Y=0)=0\)</span>. Untuk himpunan
+Borel <span class="math inline">\(A\subseteq(0,\infty)\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb P(S=1,R\in A)
+&amp;=\int_A\frac a2e^{-ar}\,dr,\\
+\mathbb P(S=-1,R\in A)
+&amp;=\int_A\frac a2e^{-ar}\,dr.
+\end{aligned}
+\]</span></p>
+<p>Jadi <span class="math inline">\(\mathbb P(S=1)=\mathbb
+P(S=-1)=1/2\)</span>, kerapatan <span class="math inline">\(R\)</span>
+adalah <span class="math inline">\(ae^{-ar}\mathbf1_{(0,\infty)}(r)\)</span>, dan
+kedua persamaan di atas memfaktorkan sebagai <span class="math inline">\(\mathbb P(S=s)\mathbb P(R\in A)\)</span>. Maka
+<span class="math inline">\(S\)</span> dan <span class="math inline">\(R\)</span> independen.</p>
+<p>Kerapatan bersama diperoleh dengan lebih dahulu memilih <span class="math inline">\(\Theta=t\)</span> dan lalu memakai hukum <span class="math inline">\(\mathcal N(0,t)\)</span>:</p>
+<p><span class="math display">\[
+f_{\Theta,Y}(t,y)
+=\lambda e^{-\lambda t}(2\pi t)^{-1/2}
+  e^{-y^2/(2t)},
+\qquad t&gt;0.
+\]</span></p>
+<p>Untuk memastikan klaim titik demi titik, bukan hanya hampir di
+mana-mana, definisikan</p>
+<p><span class="math display">\[
+m(y)=\int_0^\infty f_{\Theta,Y}(t,y)\,dt.
+\]</span></p>
+<p>Teorema Tonelli menunjukkan bahwa <span class="math inline">\(m\)</span> adalah suatu kerapatan marginal <span class="math inline">\(Y\)</span>. Selain itu, <span class="math inline">\(m\)</span> kontinu: jika <span class="math inline">\(y_j\to y\)</span>, integrannya konvergen titik
+demi titik dan didominasi oleh fungsi terintegralkan</p>
+<p><span class="math display">\[
+t\longmapsto
+\lambda(2\pi t)^{-1/2}e^{-\lambda t}.
+\]</span></p>
+<p>Perhitungan fungsi karakteristik di atas menunjukkan bahwa <span class="math inline">\(m\)</span> sama hampir di mana-mana dengan
+kerapatan Laplace kontinu <span class="math inline">\(y\mapsto(a/2)e^{-a|y|}\)</span>. Dua fungsi
+kontinu yang sama hampir di mana-mana harus sama di setiap titik. Jadi
+<span class="math inline">\(m(y)=f_Y(y)&gt;0\)</span> untuk semua <span class="math inline">\(y\)</span>, dan rumus berikut mendefinisikan satu
+kernel probabilitas bersyarat pada seluruh <span class="math inline">\(\mathbb R\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+p_{\Theta\mid Y}(t\mid y)
+&amp;=\frac{f_{\Theta,Y}(t,y)}{f_Y(y)}\\
+&amp;=\sqrt{\frac\lambda\pi}\,e^{a|y|}\,t^{-1/2}
+  \exp\!\left(-\lambda t-\frac{y^2}{2t}\right),
+\qquad t&gt;0.
+\end{aligned}
+\]</span></p>
+<p>Normalisasinya mengikuti dari definisi <span class="math inline">\(m\)</span>, dan keterukuran terhadap <span class="math inline">\(y\)</span> mengikuti dari rumus eksplisit. Lebih
+lanjut, untuk himpunan Borel <span class="math inline">\(A\subseteq(0,\infty)\)</span> dan <span class="math inline">\(C\subseteq\mathbb R\)</span>,</p>
+<p><span class="math display">\[
+\int_C\!\left[\int_Ap_{\Theta\mid Y}(t\mid y)\,dt\right]f_Y(y)\,dy
+=\int_C\int_A f_{\Theta,Y}(t,y)\,dt\,dy
+=\mathbb P(\Theta\in A,Y\in C).
+\]</span></p>
+<p>Jadi kernel tersebut benar-benar merupakan versi distribusi bersyarat
+reguler untuk setiap <span class="math inline">\(y\)</span>.</p>
+<p>Jika <span class="math inline">\(y=0\)</span>, bentuknya</p>
+<p><span class="math display">\[
+\frac{\lambda^{1/2}}{\Gamma(1/2)}
+t^{-1/2}e^{-\lambda t},
+\]</span></p>
+<p>yakni kerapatan Gamma dengan bentuk <span class="math inline">\(1/2\)</span> dan laju <span class="math inline">\(\lambda\)</span>.</p>
+<p>Untuk menghitung momen pada <span class="math inline">\(y\)</span>
+umum, definisikan integral normalisasi kernel posterior</p>
+<p><span class="math display">\[
+I_0(\lambda,y)=\int_0^\infty
+t^{-1/2}e^{-\lambda t-y^2/(2t)}\,dt
+=\sqrt{\frac\pi\lambda}\,e^{-a|y|}.
+\]</span></p>
+<p>Kesamaan terakhir mengikuti dari <span class="math inline">\(m(y)=\lambda
+I_0(\lambda,y)/\sqrt{2\pi}=(a/2)e^{-a|y|}\)</span>, yang baru saja
+dibuktikan titik demi titik. Diferensiasi di bawah tanda integral sah
+ketika <span class="math inline">\(\lambda\)</span> bergerak pada
+himpunan kompak yang termuat dalam <span class="math inline">\((0,\infty)\)</span>: faktor eksponensial
+mengendalikan ekor di tak hingga, dan <span class="math inline">\(e^{-y^2/(2t)}\)</span> mengendalikan titik nol
+ketika <span class="math inline">\(y\ne0\)</span>; untuk <span class="math inline">\(y=0\)</span>, pangkat <span class="math inline">\(t^{-1/2}\)</span>, <span class="math inline">\(t^{1/2}\)</span>, dan <span class="math inline">\(t^{3/2}\)</span> tetap terintegralkan di dekat
+nol. Oleh sebab itu,</p>
+<p><span class="math display">\[
+\mathbb E[\Theta\mid Y=y]
+=-\partial_\lambda\log I_0(\lambda,y)
+=\frac1{2\lambda}+\frac{|y|}{a}.
+\]</span></p>
+<p>Keluarga posterior ini merupakan keluarga eksponensial dalam
+parameter <span class="math inline">\(-\lambda\)</span>, sehingga</p>
+<p><span class="math display">\[
+\operatorname{Var}(\Theta\mid Y=y)
+=\partial_\lambda^2\log I_0(\lambda,y)
+=\frac1{2\lambda^2}+\frac{|y|}{a^3}.
+\]</span></p>
+<p>Mengganti <span class="math inline">\(a\)</span> dengan <span class="math inline">\(\sqrt{2\lambda}\)</span> memberi rumus pada
+jawaban ringkas. Posisi jauh dari nol dengan demikian menggeser
+posterior menuju jam yang lebih lama, sebagaimana tercermin oleh suku
+<span class="math inline">\(|y|/\sqrt{2\lambda}\)</span>.</p>
+</details>
+<div class="rights-provenance" id="unit.o009.original.mastery.brown.05.rights-and-provenance">
+<p><strong>Hak dan provenans.</strong> Masalah 05, seluruh petunjuk,
+jawaban, dan penyelesaiannya merupakan materi asli berbahasa Indonesia
+yang ditulis untuk edisi ini. Definisi gerak Brown yang dipakai selaras
+dengan <a href="../brown/Standard.html">unit gerak Brown
+standar</a>, tetapi pengacakan dengan jam eksponensial, identitas
+resolven, dan inferensi posterior di atas dirumuskan sebagai latihan
+baru dan tidak menyalin prosa sumber. Sejauh hak baru timbul, komponen
+ini dilisensikan di bawah <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> dengan
+ID <code>rights.o009.original.mastery.brown.05.cc-by-4.0</code>.
+Penulisannya dibantu oleh OpenAI Codex atas arahan pengguna; lisensi ini
+tidak melisensikan ulang materi donor mana pun.</p>
+</div>
+</div>
+<div class="mastery-sequence" id="unit.o009.original.mastery.brown.06">
+<div class="prerequisites" id="unit.o009.original.mastery.brown.06.prerequisites">
+<p><strong>Prasyarat.</strong> Pembaca mengenal inkremen Gaussian
+independen gerak Brown, momen keempat peubah normal, konvergensi dalam
+<span class="math inline">\(L^2\)</span>, jumlah Riemann, ketaksamaan
+Chebyshev, lemma Borel–Cantelli pertama, dan definisi variasi total
+fungsi kontinu.</p>
+</div>
+<div class="outcomes" id="unit.o009.original.mastery.brown.06.outcomes">
+<p><strong>Hasil belajar.</strong> Setelah menyelesaikan masalah ini,
+pembaca dapat menghitung galat variasi kuadratik secara eksak pada
+partisi deterministik tak seragam, membuktikan versi berbobot,
+meningkatkan konvergensi menjadi hampir pasti pada partisi diadik, dan
+menurunkan ketakterhinggaan variasi total lintasan Brown.</p>
+</div>
+<div class="exercise" id="unit.o009.original.mastery.brown.06.exercise">
+<h2 id="masalah-06-variasi-kuadratik-berbobot-pada-partisi-tak-seragam">Masalah
+06 — variasi kuadratik berbobot pada partisi tak seragam</h2>
+<p>Misalkan <span class="math inline">\(B=(B_t)_{t\ge0}\)</span> adalah
+gerak Brown standar dan <span class="math inline">\(T&gt;0\)</span>.
+Untuk setiap <span class="math inline">\(n\)</span>, ambil partisi
+deterministik</p>
+<p><span class="math display">\[
+\pi_n:\quad
+0=t_{n,0}&lt;t_{n,1}&lt;\cdots&lt;t_{n,m_n}=T,
+\]</span></p>
+<p>dengan</p>
+<p><span class="math display">\[
+h_{n,k}=t_{n,k}-t_{n,k-1},
+\qquad
+|\pi_n|=\max_k h_{n,k}\longrightarrow0.
+\]</span></p>
+<p>Untuk <span class="math inline">\(f\in C([0,T])\)</span>, definisikan
+variasi kuadratik berbobot</p>
+<p><span class="math display">\[
+Q_n(f)=\sum_{k=1}^{m_n}
+f(t_{n,k-1})
+\bigl(B_{t_{n,k}}-B_{t_{n,k-1}}\bigr)^2.
+\]</span></p>
+<ol type="1">
+<li><p>Hitung <span class="math inline">\(\mathbb E[Q_n(f)]\)</span> dan
+<span class="math inline">\(\operatorname{Var}(Q_n(f))\)</span> secara
+eksak. Deduksikan bahwa</p>
+<p><span class="math display">\[
+Q_n(f)\xrightarrow{L^2}\int_0^T f(t)\,dt.
+\]</span></p>
+<p>Jelaskan mengapa partisi tidak perlu seragam ataupun
+bersarang.</p></li>
+<li><p>Khusus untuk partisi diadik <span class="math inline">\(t_{n,k}=kT/2^n\)</span>, buktikan bahwa, untuk
+setiap <span class="math inline">\(f\)</span> tetap,</p>
+<p><span class="math display">\[
+Q_n(f)\longrightarrow\int_0^T f(t)\,dt
+\quad\text{hampir pasti}.
+\]</span></p></li>
+<li><p>Ambil <span class="math inline">\(f\equiv1\)</span>. Gunakan
+hasil diadik untuk membuktikan bahwa variasi total lintasan <span class="math inline">\(t\mapsto B_t\)</span> pada <span class="math inline">\([0,T]\)</span> tak hingga hampir pasti.</p></li>
+<li><p>Tunjukkan dengan jelas di langkah mana sifat bahwa
+partisi-partisi tersebut deterministik dipakai. Mengapa perhitungan
+kovarians yang sama tidak boleh langsung diterapkan pada partisi yang
+dipilih setelah melihat lintasan?</p></li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.brown.06.hint.01"><summary aria-label="Petunjuk: unit.o009.original.mastery.brown.06.hint.01">Petunjuk</summary>
+<p><strong>Petunjuk 1.</strong> Jika <span class="math inline">\(Z\sim\mathcal N(0,h)\)</span>, maka</p>
+<p><span class="math display">\[
+\mathbb E[Z^2]=h,
+\qquad
+\operatorname{Var}(Z^2)=2h^2.
+\]</span></p>
+<p>Kuadrat inkremen pada selang-selang partisi deterministik yang saling
+lepas bersifat independen.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.brown.06.hint.02"><summary aria-label="Petunjuk: unit.o009.original.mastery.brown.06.hint.02">Petunjuk</summary>
+<p><strong>Petunjuk 2.</strong> Gunakan</p>
+<p><span class="math display">\[
+\sum_k h_{n,k}^2
+\le |\pi_n|\sum_k h_{n,k}
+=T|\pi_n|.
+\]</span></p>
+<p>Pada partisi diadik, batas varians berorde <span class="math inline">\(2^{-n}\)</span>, sehingga jumlah peluang Chebyshev
+terhadap <span class="math inline">\(n\)</span> berhingga.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.brown.06.hint.03"><summary aria-label="Petunjuk: unit.o009.original.mastery.brown.06.hint.03">Petunjuk</summary>
+<p><strong>Petunjuk 3.</strong> Andaikan satu lintasan kontinu mempunyai
+variasi total hingga <span class="math inline">\(V\)</span>. Jika <span class="math inline">\(M_n\)</span> adalah inkremen mutlak terbesar pada
+partisi diadik, maka <span class="math inline">\(M_n\to0\)</span> oleh
+kekontinuan seragam dan</p>
+<p><span class="math display">\[
+\sum_k(\Delta B_{n,k})^2
+\le M_n\sum_k|\Delta B_{n,k}|
+\le M_nV.
+\]</span></p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.brown.06.answer">
+<p><strong>Jawaban ringkas.</strong> Dengan <span class="math inline">\(f_{n,k}=f(t_{n,k-1})\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E[Q_n(f)]=\sum_k f_{n,k}h_{n,k},
+\qquad
+\operatorname{Var}(Q_n(f))
+=2\sum_k f_{n,k}^2h_{n,k}^2.
+\]</span></p>
+<p>Rataan adalah jumlah Riemann dan variansnya paling besar <span class="math inline">\(2\|f\|_\infty^2T|\pi_n|\)</span>, sehingga
+diperoleh konvergensi <span class="math inline">\(L^2\)</span>. Untuk
+partisi diadik, batas itu dapat dijumlahkan terhadap <span class="math inline">\(n\)</span>; Chebyshev dan Borel–Cantelli memberi
+konvergensi hampir pasti. Bila lintasan mempunyai variasi total hingga,
+kekontinuan seragam memaksa jumlah kuadrat diadik menuju nol,
+bertentangan dengan limit <span class="math inline">\(T\)</span>.
+Determinisme partisi diperlukan agar inkremen pada selang-selang yang
+telah ditetapkan saling independen dan masing-masing memiliki hukum
+<span class="math inline">\(\mathcal N(0,h_{n,k})\)</span>, tanpa bias
+seleksi lintasan.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.brown.06.solution"><summary aria-label="Penyelesaian lengkap: unit.o009.original.mastery.brown.06.solution">Penyelesaian lengkap</summary>
+<p><strong>Penyelesaian lengkap.</strong> Tuliskan</p>
+<p><span class="math display">\[
+\Delta B_{n,k}=B_{t_{n,k}}-B_{t_{n,k-1}},
+\qquad
+f_{n,k}=f(t_{n,k-1}).
+\]</span></p>
+<p>Karena partisi deterministik, peubah <span class="math inline">\((\Delta B_{n,k})_k\)</span> independen dan <span class="math inline">\(\Delta B_{n,k}\sim\mathcal N(0,h_{n,k})\)</span>.
+Jika <span class="math inline">\(Z\sim\mathcal N(0,h)\)</span>, maka
+<span class="math inline">\(\mathbb E[Z^4]=3h^2\)</span>; jadi</p>
+<p><span class="math display">\[
+\operatorname{Var}(Z^2)
+=\mathbb E[Z^4]-(\mathbb E[Z^2])^2
+=3h^2-h^2=2h^2.
+\]</span></p>
+<p>Linearitas ekspektasi dan independensi kuadrat inkremen sekarang
+memberi</p>
+<p><span class="math display">\[
+\mathbb E[Q_n(f)]=\sum_{k=1}^{m_n}f_{n,k}h_{n,k}
+\]</span></p>
+<p>serta</p>
+<p><span class="math display">\[
+\operatorname{Var}(Q_n(f))
+=2\sum_{k=1}^{m_n}f_{n,k}^2h_{n,k}^2.
+\]</span></p>
+<p>Karena <span class="math inline">\(f\)</span> kontinu pada selang
+kompak, ia terbatas dan jumlah pertama adalah jumlah Riemann
+bertanda-kiri. Maka</p>
+<p><span class="math display">\[
+\mathbb E[Q_n(f)]\longrightarrow\int_0^T f(t)\,dt.
+\]</span></p>
+<p>Sementara itu,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{Var}(Q_n(f))
+&amp;\le2\|f\|_\infty^2\sum_kh_{n,k}^2\\
+&amp;\le2\|f\|_\infty^2|\pi_n|\sum_kh_{n,k}\\
+&amp;=2\|f\|_\infty^2T|\pi_n|\longrightarrow0.
+\end{aligned}
+\]</span></p>
+<p>Dengan memisahkan bias deterministik dan bagian terpusat,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E\!\left[
+\left|Q_n(f)-\int_0^Tf(t)\,dt\right|^2
+\right]
+&amp;=\operatorname{Var}(Q_n(f))\\
+&amp;\quad+
+\left(\mathbb E[Q_n(f)]-\int_0^Tf(t)\,dt\right)^2
+\longrightarrow0.
+\end{aligned}
+\]</span></p>
+<p>Inilah konvergensi <span class="math inline">\(L^2\)</span>. Bukti
+hanya memakai bahwa ukuran partisi <span class="math inline">\(|\pi_n|\)</span> menuju nol; tidak ada langkah
+yang memerlukan panjang selang sama atau <span class="math inline">\(\pi_n\subseteq\pi_{n+1}\)</span>.</p>
+<p>Sekarang ambil partisi diadik. Semua <span class="math inline">\(h_{n,k}=T/2^n\)</span>, sehingga</p>
+<p><span class="math display">\[
+\operatorname{Var}(Q_n(f))
+\le \frac{2\|f\|_\infty^2T^2}{2^n}.
+\]</span></p>
+<p>Untuk <span class="math inline">\(\varepsilon&gt;0\)</span>,
+ketaksamaan Chebyshev memberikan</p>
+<p><span class="math display">\[
+\sum_{n=1}^\infty
+\mathbb P\bigl(|Q_n(f)-\mathbb E Q_n(f)|&gt;\varepsilon\bigr)
+\le
+\frac{2\|f\|_\infty^2T^2}{\varepsilon^2}
+\sum_{n=1}^\infty2^{-n}
+&lt;\infty.
+\]</span></p>
+<p>Lemma Borel–Cantelli pertama—yang tidak memerlukan independensi
+antar-<span class="math inline">\(n\)</span>— menyatakan, untuk setiap
+<span class="math inline">\(\varepsilon&gt;0\)</span> tetap, bahwa
+simpangan tersebut hanya melampaui <span class="math inline">\(\varepsilon\)</span> sebanyak berhingga kali.
+Terapkan hasil ini pada <span class="math inline">\(\varepsilon=1/j\)</span>, <span class="math inline">\(j\in\mathbb N_+\)</span>, lalu iris
+kejadian-kejadian berprobabilitas satu yang terhitung banyaknya.
+Diperoleh <span class="math inline">\(Q_n(f)-\mathbb E
+Q_n(f)\to0\)</span> hampir pasti. Jumlah Riemann ekspektasinya menuju
+integral, jadi</p>
+<p><span class="math display">\[
+Q_n(f)\longrightarrow\int_0^T f(t)\,dt
+\quad\text{hampir pasti}.
+\]</span></p>
+<p>Pernyataan ini dibuat untuk satu <span class="math inline">\(f\)</span> tetap. Tidak diperlukan klaim serentak
+atas semua fungsi kontinu yang tak terhitung banyaknya.</p>
+<p>Untuk <span class="math inline">\(f\equiv1\)</span>, pada satu
+kejadian berprobabilitas satu berlaku sekaligus kekontinuan lintasan
+Brown dan</p>
+<p><span class="math display">\[
+Q_n(1)=\sum_{k=1}^{2^n}
+\bigl(B_{kT/2^n}-B_{(k-1)T/2^n}\bigr)^2
+\longrightarrow T.
+\]</span></p>
+<p>Andaikan sebuah lintasan pada kejadian ini mempunyai variasi total
+hingga <span class="math inline">\(V\)</span> pada <span class="math inline">\([0,T]\)</span>. Kekontinuan pada selang kompak
+memberi kekontinuan seragam, sehingga</p>
+<p><span class="math display">\[
+M_n=\max_{1\le k\le2^n}
+|B_{kT/2^n}-B_{(k-1)T/2^n}|\longrightarrow0.
+\]</span></p>
+<p>Definisi variasi total memberi <span class="math inline">\(\sum_k|\Delta B_{n,k}|\le V\)</span>, dan
+karenanya</p>
+<p><span class="math display">\[
+0\le Q_n(1)
+\le M_n\sum_k|\Delta B_{n,k}|
+\le M_nV\longrightarrow0.
+\]</span></p>
+<p>Ini bertentangan dengan <span class="math inline">\(Q_n(1)\to
+T&gt;0\)</span>. Jadi variasi total lintasan Brown pada <span class="math inline">\([0,T]\)</span> tak hingga hampir pasti.</p>
+<p>Terakhir, determinisme partisi dipakai ketika kita menyatakan bahwa
+setiap inkremen mempunyai hukum <span class="math inline">\(\mathcal
+N(0,h_{n,k})\)</span> dan bahwa inkremen pada selang berbeda independen.
+Bila titik partisi dipilih setelah seluruh lintasan dilihat, selang yang
+terpilih membawa informasi tentang inkremennya sendiri. Distribusi
+bersyaratnya tidak harus lagi Gaussian dengan varians sama dengan
+panjang selang, dan kuadrat inkremen tidak harus independen. Partisi
+acak tertentu masih dapat ditangani dengan teorema waktu henti atau
+prediktabilitas, tetapi itu memerlukan hipotesis dan bukti baru;
+perhitungan deterministik di atas tidak boleh dipindahkan begitu
+saja.</p>
+</details>
+<div class="rights-provenance" id="unit.o009.original.mastery.brown.06.rights-and-provenance">
+<p><strong>Hak dan provenans.</strong> Masalah 06, seluruh petunjuk,
+jawaban, dan penyelesaiannya merupakan materi asli berbahasa Indonesia
+yang ditulis untuk edisi ini. Ia memakai definisi dan sifat dasar dari
+<a href="../brown/Standard.html">unit gerak Brown standar</a>.
+Laboratorium yang sudah ada tentang Brown–Donsker membahas variasi
+kuadratik pada aproksimasi gerak acak; masalah ini berbeda karena
+membuktikan hasil eksak untuk gerak Brown pada partisi deterministik tak
+seragam, menambahkan bobot kontinu, dan menurunkan konsekuensi hampir
+pasti melalui Borel–Cantelli. Tidak ada prosa donor yang disalin. Sejauh
+hak baru timbul, komponen ini dilisensikan di bawah <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> dengan
+ID <code>rights.o009.original.mastery.brown.06.cc-by-4.0</code>.
+Penulisannya dibantu oleh OpenAI Codex atas arahan pengguna; lisensi ini
+tidak melisensikan ulang materi donor mana pun.</p>
+</div>
+</div>
+<div class="rights-provenance" id="unit.o009.original.mastery.brown.05-06.rights-and-provenance">
+<h2 id="hak-gabungan">Hak gabungan</h2>
+<p>Hak gabungan berkas ini dicatat sebagai
+<code>rights.o009.original.mastery.brown.05-06.cc-by-4.0</code>. Lisensi
+<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+hanya mencakup kontribusi asli yang diidentifikasi di atas. Kredit dan
+lisensi sumber yang mendasari edisi tetap terpisah sebagaimana
+dijelaskan dalam <code>LICENSES.md</code>.</p>
+</div>
+</div>
+<aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

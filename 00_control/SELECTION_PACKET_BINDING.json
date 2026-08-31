@@ -3,15 +3,15 @@
   "adopted_at_utc": "2026-08-22T05:56:42.9292562Z",
   "status": "adopted_after_tenth_boundary_public_verification",
   "packet": {
-    "markdown_path": "C:/Users/Floris/Documents/interlanguage/outputs/01a01ec1-e685-70d0-b022-211396334723/curriculum_logbook/33_O009_SELECTION_AND_EXISTING_TASK_HANDOFF_20260822.md",
+    "markdown_path": "%USERPROFILE%/Documents/interlanguage/outputs/01a01ec1-e685-70d0-b022-211396334723/curriculum_logbook/33_O009_SELECTION_AND_EXISTING_TASK_HANDOFF_20260822.md",
     "markdown_bytes": 19689,
     "markdown_sha256": "690ecd32ef99b2c667aeff3f1f6d841d1b72e8ff700a77bac1dc025789cde6cc",
-    "json_path": "C:/Users/Floris/Documents/interlanguage/outputs/01a01ec1-e685-70d0-b022-211396334723/curriculum_logbook/33_O009_SELECTION_AND_EXISTING_TASK_HANDOFF_20260822.json",
+    "json_path": "%USERPROFILE%/Documents/interlanguage/outputs/01a01ec1-e685-70d0-b022-211396334723/curriculum_logbook/33_O009_SELECTION_AND_EXISTING_TASK_HANDOFF_20260822.json",
     "json_bytes": 9519,
     "json_sha256": "94dfc213c1fa0c588b1547e5831935d4dabc08c08ac02c9f2d2e7a88ad9a8834"
   },
   "canonical_user_instruction": {
-    "path": "C:/Users/Floris/Documents/Obsidian notes/Untitled 1693.md",
+    "path": "%USERPROFILE%/Documents/Obsidian notes/Untitled 1693.md",
     "bytes": 10476,
     "sha256": "cf913e8cb4d487f4c6958c079b372ccbb2fb5929dd483068441e80cefd6794f2",
     "hash_and_size_verified": true,
@@ -28,7 +28,9 @@
     "quantecon_pdf_pages": 100,
     "quantecon_exercises": 25,
     "quantecon_solutions": 25,
-    "quantecon_executable_cells": 35,
+    "quantecon_source_code_cells": 33,
+    "quantecon_notebook_code_cells": 34,
+    "quantecon_cell_census_correction": "qa/QUANTECON_CODE_CELL_CENSUS_CORRECTION_20260824.md",
     "zitkovic_exact_slices": 2,
     "o006_external_prerequisite": true,
     "original_labs": 3,
@@ -98,13 +100,14 @@
   },
   "reconciliation": {
     "packet_current_boundary_was_stale_at_adoption": true,
-    "current_public_theory_pages": 15,
-    "current_public_labs": 2,
-    "current_public_site_files": 43,
-    "current_public_site_bytes": 2661986,
-    "current_public_manifest_sha256": "c82e526a39a952f439ed11034ce8bbdcccb5deb853fef931a4336453780bf527",
-    "deployed_source_commit": "2ef87fed687a7b2c8bc909d8e8993c6a4f136f4f",
-    "receipt_commit": "1605cac68899c8749c67e6ac89b8a040ad608183"
+    "current_public_theory_pages": 35,
+    "current_public_labs": 5,
+    "current_public_site_files": 161,
+    "current_public_site_bytes": 7796646,
+    "current_public_manifest_sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d",
+    "deployed_source_commit": "pending-checkpoint-38-github-push",
+    "receipt_commit": "local-checkpoint-38",
+    "current_boundary_note": "Checkpoint 38 local boundary is complete and deterministically built; public Zenodo/GitHub identifiers are recorded in the terminal control seal after anonymous readback."
   },
   "selected_index_policy": {
     "paths": [
@@ -112,7 +115,7 @@
       "markov/index.html",
       "brown/index.html"
     ],
-    "status": "selected_and_not_yet_translated",
+    "status": "selected_and_translated_complete",
     "rule": "translate their substantive source content as source-faithful landing pages; the generated course index is navigation and does not silently replace these selected authority pages"
   },
   "production_sequence": [
@@ -121,11 +124,25 @@
     "translate and adapt all eight QuantEcon chapters with exercises, solutions, and executable cells",
     "translate Random poisson/General.html",
     "translate Random brown/Standard.html, brown/Drift.html, brown/Bridge.html, and brown/Geometric.html",
-    "complete original bridge, three labs, 36 solved problems, two forms, O006 binding, backend, HTML/PDF, QA, release, and anonymous readback"
+    "complete four original bridges, five labs, 36 solved problems, two forms, O006 binding, backend, HTML/PDF, QA, release, and anonymous readback"
   ],
   "next_cursor": {
-    "kind": "authority_and_runtime_freeze",
-    "component": "QuantEcon Continuous Time Markov Chains",
-    "action": "copy and independently verify the exact commit source, official license witness, generated notebooks, selected assets, and a clean pinned offline Python environment inside the O009 lane before translating another unit"
+    "kind": "checkpoint_38_release_and_public_readback",
+    "component": "complete bounded O009/D30 reader",
+    "action": "publish checkpoint 38 on the existing Zenodo concept and GitHub main, anonymously verify every released byte and controlled metadata field, then seal the terminal cursor"
+  },
+  "checkpoint_38_completion": {
+    "reader_manifest_sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d",
+    "reader_files": 161,
+    "reader_bytes": 7796646,
+    "backend_manifest_sha256": "001edf5160e066adf0af7c0d673ba1a1d0382be2f9c12662ad9148f2f3bef91d",
+    "backend_records": 8871,
+    "pdf_sha256": "dda34267df928672e03e04b4c8a36d768aab2d33bc1194b269074da0d2d24e40",
+    "pdf_bytes": 39843697,
+    "pdf_pages": 447,
+    "mastery_problems": 36,
+    "mastery_solved": 36,
+    "assessment_forms": 2,
+    "status": "complete_local_pending_public_readback"
   }
 }

@@ -10,7 +10,7 @@
 <link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
 <script src="../Basic.js"></script>
 <script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
-<link href="../reader.css" rel="stylesheet"/></head>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/></head>
 <body>
 <div class="latex">
 	\(\renewcommand{\P}{\mathbb{P}}\)
@@ -24,7 +24,7 @@
 <header>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
-<li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
+<li class="parent"><a href="index.html">16. Martingal</a></li>
 <li class="child"><a aria-label="Bagian 1: Pendahuluan" href="Introduction.html" title="Pendahuluan">1</a></li>
 <li class="child"><a aria-label="Bagian 2: Sifat dan Konstruksi" href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
 <li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>
@@ -42,7 +42,7 @@ Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
 beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
 atribusi. <a href="https://www.randomservices.org/random/martingales/Backwards.html">Baca sumber resmi</a>.
 </aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
-<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Ekspektasi bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a></nav><main>
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="Introduction.html">Pendahuluan martingal</a> · <a href="Properties.html">Sifat dan konstruksi martingal</a> · <a href="Stop.html">Waktu henti martingal</a> · <a href="Inequalities.html">Pertidaksamaan martingal</a> · <a href="Convergence.html">Konvergensi martingal</a> · <a href="Backwards.html">Martingal mundur</a> · <a href="../markov/General.html">Proses Markov umum</a> · <a href="../markov/Discrete.html">Rantai Markov waktu diskret</a> · <a href="../markov/Recurrence.html">Keadaan transien dan rekuren</a> · <a href="../markov/Periodicity.html">Periodisitas</a> · <a href="../markov/Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="../brown/Standard.html">Gerak Brown standar</a> · <a href="../brown/Drift.html">Gerak Brown dengan hanyutan</a> · <a href="../brown/Bridge.html">Jembatan Brown</a> · <a href="../brown/Geometric.html">Gerak Brown geometrik</a> · <a href="index.html">Ikhtisar martingal</a> · <a href="../markov/index.html">Ikhtisar proses Markov</a> · <a href="../brown/index.html">Ikhtisar gerak Brown</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="../labs/03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="../labs/04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a> · <a href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a></nav><main>
 <h2 class="reader-level-2">Teori Dasar</h2>
 <p><em>Martingal mundur</em> merupakan proses stokastik yang memenuhi sifat martingal dengan arah waktu dibalik, dalam suatu pengertian tertentu. Dalam beberapa hal, martingal mundur lebih sederhana daripada padanan majunya, dan khususnya memenuhi teorema konvergensi yang serupa dengan <a href="Convergence.html">teorema konvergensi</a> untuk martingal biasa. Arti penting martingal mundur berasal dari banyak penerapannya. Secara khusus, beberapa teorema fundamental probabilitas klasik dapat dirumuskan dalam martingal mundur.</p>
 <h3 class="reader-level-3" id="dfn">Definisi</h3>
@@ -84,7 +84,7 @@ atribusi. <a href="https://www.randomservices.org/random/martingales/Backwards.h
 <summary aria-label="Rincian: Sifat, butir 2">Rincian:</summary>
 <p>Berdasarkan definisi, \( Y_t = \E(Y \mid \mathscr{G}_t) \) terukur terhadap \( \mathscr{G}_t \). Selain itu,
 		\[ \E(|Y_t|) = \E[|\E(Y \mid \mathscr{G}_t)|] \le \E[\E(|Y| \mid \mathscr{G}_t)] = \E(|Y|) \lt \infty, \quad  t \in T \]
-		Selanjutnya, misalkan \( s, \, t \in T \) dengan \( s \le t \). Maka \( \mathscr{G}_t \subseteq \mathscr{G}_s \), sehingga berdasarkan sifat menara ekspektasi bersyarat,
+		Selanjutnya, misalkan \( s, \, t \in T \) dengan \( s \le t \). Maka \( \mathscr{G}_t \subseteq \mathscr{G}_s \), sehingga berdasarkan sifat menara nilai harapan bersyarat,
 		\[ \E(Y_s \mid \mathscr{G}_t) = \E[\E(Y \mid \mathscr{G}_s) \mid \mathscr{G}_t] = \E(Y \mid \mathscr{G}_t) = Y_t \]</p>
 </details>
 </div>
@@ -117,7 +117,7 @@ Dengan demikian, \(\E(Y_\infty;A)=\E(Y_0;A)\) untuk setiap \(A\in\mathscr G_\inf
 <p class="math">Misalkan kembali bahwa \( \bs Y = \{Y_t: t \in T\} \) merupakan martingal mundur terhadap \( \mathfrak G = \{\mathscr{G}_t: t \in T\} \). Jika \( Y_0 \in \mathscr{L}_k \) untuk suatu \( k \in [1, \infty) \), maka \( Y_t \to Y_\infty \) ketika \( t \to \infty \) dalam \(\mathscr{L}_k\).</p>
 <details>
 <summary aria-label="Rincian: Sifat, butir 4">Rincian:</summary>
-<p>Teorema <a class="ref" href="#prp3"></a> tentu saja berlaku, sehingga kita mengetahui bahwa terdapat peubah acak \( Y_\infty \in \mathscr{L}_1 \), sedemikian sehingga \( Y_t \to Y_\infty \) ketika \( t \to \infty \) dengan probabilitas 1 dan dalam \( \mathscr{L}_1 \). Fungsi \( x \mapsto |x|^k \) cembung pada \( \R \), sehingga berdasarkan <a href="../expect/Conditional2.html">pertidaksamaan Jensen</a> untuk ekspektasi bersyarat,
+<p>Teorema <a class="ref" href="#prp3"></a> tentu saja berlaku, sehingga kita mengetahui bahwa terdapat peubah acak \( Y_\infty \in \mathscr{L}_1 \), sedemikian sehingga \( Y_t \to Y_\infty \) ketika \( t \to \infty \) dengan probabilitas 1 dan dalam \( \mathscr{L}_1 \). Fungsi \( x \mapsto |x|^k \) cembung pada \( \R \), sehingga berdasarkan <a href="../expect/Conditional2.html">pertidaksamaan Jensen</a> untuk nilai harapan bersyarat,
 		\[ \E(|Y_t|^k) = \E[|\E(Y_0 \mid \mathscr{G}_t)|^k] \le \E[\E(|Y_0|^k \mid \mathscr{G}_t)] = \E(|Y_0|^k) \lt \infty \]
 		sehingga \( Y_t \in \mathscr{L}_k \) untuk setiap \( t \in T \). Berdasarkan <a href="https://www.randomservices.org/random/expect/Integral.html#lim1">lema Fatou</a>, 
 		\[ \E(|Y_\infty|^k) \le \liminf_{t \to \infty} \E(|Y_t|^k) \le \E(|Y_0|^k) \lt \infty \]
@@ -139,7 +139,7 @@ sehingga \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses jumlah parsial yang te
 </ol>
 <details>
 <summary aria-label="Rincian: Hukum Kuat Bilangan Besar">Rincian:</summary>
-<p>Seperti biasa, misalkan \( (\Omega, \mathscr{F}, \P) \) menyatakan ruang probabilitas yang mendasarinya. Selain itu, persamaan yang melibatkan peubah acak (dan khususnya ekspektasi bersyarat) dianggap berlaku dengan probabilitas 1. Sekarang, untuk \(n\in\N_+\), tetapkan
+<p>Seperti biasa, misalkan \( (\Omega, \mathscr{F}, \P) \) menyatakan ruang probabilitas yang mendasarinya. Selain itu, persamaan yang melibatkan peubah acak (dan khususnya nilai harapan bersyarat) dianggap berlaku dengan probabilitas 1. Sekarang, untuk \(n\in\N_+\), tetapkan
 		\[ \mathscr{G}_n = \sigma\{Y_n, Y_{n+1}, Y_{n+2}, \ldots\} = \sigma\{Y_n, X_{n+1}, X_{n+2} \ldots\}\]
 		sehingga \(\mathfrak G=\{\mathscr G_n:n\in\N_+\}\) merupakan keluarga menurun subaljabar-\( \sigma \) dari \( \mathscr{F} \). Inti bukti ini adalah menunjukkan bahwa \( \bs M \) merupakan martingal mundur terhadap \( \mathfrak G \). Misalkan \( n \in \N_+ \). Jelas bahwa \( M_n \) terukur terhadap \( \mathscr{G}_n \). Berdasarkan independensi, \( \E(X_i \mid \mathscr{G}_n) = \E(X_i \mid Y_n) \) untuk \( i \in \{1, 2, \ldots, n\} \). Berdasarkan simetri (barisan \( \bs X \) <a href="../prob/Probability2.html#exc">dapat dipertukarkan</a>), \( \E(X_i \mid Y_n) = \E(X_j \mid Y_n) \) untuk \( i, \, j \in \{1, 2, \ldots, n\} \). Oleh karena itu, untuk \( i \in \{1, 2, \ldots, n\} \),
 		\[ Y_n = \E(Y_n \mid \mathscr{G}_n) = \sum_{j=1}^n \E(X_j \mid \mathscr{G}_n) = \sum_{j=1}^n \E(X_i \mid \mathscr{G}_n) = n \E(X_i \mid \mathscr{G}_n) \]
@@ -180,7 +180,7 @@ sehingga \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses jumlah parsial yang te
 =\E[\bs 1(A_{\bs x})\mid\mathscr G_m]
 =\frac{Y_m^{(j)}(m-Y_m)^{(n-j)}}{m^{(n)}}.
 \]
-		Untuk \( n \), \( j \), dan \( (x_1, x_2, \ldots, x_n) \in B^n_j \) yang tetap, ekspektasi bersyarat di bagian tengah persamaan yang ditampilkan, sebagai fungsi \( m \), merupakan martingal mundur Doob <a class="ref" href="#prp2"></a> terhadap \( \mathfrak G \), sehingga konvergen menuju \( \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid \mathscr{G}_\infty) \) ketika \( m \to \infty \).</p>
+		Untuk \( n \), \( j \), dan \( (x_1, x_2, \ldots, x_n) \in B^n_j \) yang tetap, nilai harapan bersyarat di bagian tengah persamaan yang ditampilkan, sebagai fungsi \( m \), merupakan martingal mundur Doob <a class="ref" href="#prp2"></a> terhadap \( \mathfrak G \), sehingga konvergen menuju \( \P(X_1 = x_1, X_2 = x_2, \ldots, X_n = x_n \mid \mathscr{G}_\infty) \) ketika \( m \to \infty \).</p>
 <p>Selanjutnya, kita menunjukkan bahwa \( \bs M \) merupakan martingal mundur terhadap \( \mathfrak G \). Jelas bahwa \( M_n \) terukur terhadap \( \mathscr{G}_n \) dan \(\E(|M_n|)\le1\) untuk setiap \(n\in\N_+\). Jadi, kita perlu menunjukkan bahwa \( \E(M_n \mid \mathscr{G}_m) = M_m \) untuk \( m, \, n \in \N_+ \) dengan \( n \le m \). Dari pembahasan kita sebelumnya mengenai \( (X_1, X_2, \ldots, X_n) \), kita mengetahui bahwa untuk setiap \(k\in\{0,1,\ldots,m\}\) dengan \(\P(Y_m=k)\gt0\), distribusi bersyarat \(Y_n\) jika diberikan \(Y_m=k\) adalah distribusi hipergeometrik dengan parameter \(m\), \(k\), dan \(n\):
 		\[\P(Y_n = j \mid Y_m = k) = \binom{n}{j} \frac{k^{(j)} (m - k)^{(n - j)}}{m^{(n)}}, \quad j \in \{0, 1, \ldots, n\}\]
 		Ingat bahwa rata-rata distribusi hipergeometrik adalah ukuran sampel dikalikan proporsi objek bertipe 1 dalam populasi. Dengan demikian,
@@ -209,7 +209,7 @@ sehingga \( \bs Y = \{Y_n: n \in \N\} \) merupakan proses jumlah parsial yang te
 </main><footer>
 <ol class="map">
 <li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
-<li class="parent"><a href="https://www.randomservices.org/random/martingales/index.html">16. Martingal</a></li>
+<li class="parent"><a href="index.html">16. Martingal</a></li>
 <li class="child"><a aria-label="Bagian 1: Pendahuluan" href="Introduction.html" title="Pendahuluan">1</a></li>
 <li class="child"><a aria-label="Bagian 2: Sifat dan Konstruksi" href="Properties.html" title="Sifat dan Konstruksi">2</a></li>
 <li class="child"><a aria-label="Bagian 3: Waktu Henti" href="Stop.html" title="Waktu Henti">3</a></li>

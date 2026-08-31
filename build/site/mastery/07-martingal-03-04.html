@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>07-martingal-03-04</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="06-martingal-01-02.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="06-martingal-01-02.html">Unit sebelumnya</a></nav><main class="mastery-reader">
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#penguasaan-martingal-masalah-0304" id="toc-penguasaan-martingal-masalah-0304">Penguasaan Martingal: Masalah
+03–04</a>
+<ul>
+<li><a href="#masalah-03-rata-rata-yang-belum-teramati" id="toc-masalah-03-rata-rata-yang-belum-teramati">Masalah 03 — Rata-rata
+yang belum teramati</a>
+<ul>
+<li><a href="#soal" id="toc-soal">Soal</a></li>
+<li><a href="#id-mtp-martingal-03-hint-1" id="toc-petunjuk-1">Petunjuk 1</a></li>
+<li><a href="#petunjuk-2" id="toc-petunjuk-2">Petunjuk 2</a></li>
+<li><a href="#id-mtp-martingal-03-hint-3" id="toc-petunjuk-3">Petunjuk 3</a></li>
+<li><a href="#jawaban-ringkas" id="toc-jawaban-ringkas">Jawaban
+ringkas</a></li>
+<li><a href="#id-mtp-martingal-03-solution" id="toc-solusi-lengkap">Solusi
+lengkap</a></li>
+</ul></li>
+<li><a href="#masalah-04-uji-rasio-kemungkinan-yang-berhenti-tepat-di-batas" id="toc-masalah-04-uji-rasio-kemungkinan-yang-berhenti-tepat-di-batas">Masalah
+04 — Uji rasio kemungkinan yang berhenti tepat di batas</a>
+<ul>
+<li><a href="#soal-1" id="toc-soal-1">Soal</a></li>
+<li><a href="#id-mtp-martingal-04-hint-1" id="toc-petunjuk-1-1">Petunjuk 1</a></li>
+<li><a href="#petunjuk-2-1" id="toc-petunjuk-2-1">Petunjuk 2</a></li>
+<li><a href="#id-mtp-martingal-04-hint-3" id="toc-petunjuk-3-1">Petunjuk 3</a></li>
+<li><a href="#jawaban-ringkas-1" id="toc-jawaban-ringkas-1">Jawaban
+ringkas</a></li>
+<li><a href="#id-mtp-martingal-04-solution" id="toc-solusi-lengkap-1">Solusi
+lengkap</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<p><a id="id-mtp-masteri-martingal-03-04-root"></a></p>
+<h1 id="penguasaan-martingal-masalah-0304">Penguasaan Martingal: Masalah
+03–04</h1>
+<p><strong>Bahasa:</strong> id-ID<br/>
+<strong>Prasyarat umum:</strong> nilai harapan bersyarat, filtrasi,
+martingal yang terintegralkan secara kuadrat, waktu henti, teorema
+penghentian opsional, dan perubahan ukuran melalui rasio
+kemungkinan.<br/>
+<strong>Capaian umum:</strong> membangun martingal dari informasi yang
+tersisa, memakai kompensator variasi kuadratik pada waktu henti, serta
+menghitung galat dan durasi uji sekuensial secara eksak.</p>
+<p><strong>Hak dan asal-usul.</strong> © 2026 kontributor Interlanguage.
+Materi ini dilisensikan di bawah <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International (CC BY 4.0)</a>. Masalah 03 dan 04 beserta
+penyelesaiannya merupakan karya asli untuk berkas ini; keduanya tidak
+diterjemahkan atau disalin dari contoh sumber. Istilah dasar mengikuti
+bab lokal tentang martingal dan waktu henti.</p>
+<p><strong>Provenans model:</strong> OpenAI Codex gpt-5.6-sol,
+Ultra.</p>
+<hr/>
+<p><a id="id-mtp-martingal-03-root"></a></p>
+<h2 id="masalah-03-rata-rata-yang-belum-teramati">Masalah 03 — Rata-rata
+yang belum teramati</h2>
+<p><strong>Prasyarat:</strong> permutasi acak, nilai harapan bersyarat,
+martingal dalam <span class="math inline">\(L^2\)</span>, kompensator,
+dan penghentian opsional pada waktu terbatas.<br/>
+<strong>Capaian:</strong> mengenali martingal “informasi tersisa”,
+menghitung variasi kuadratik terprediksi, dan mengaudit aturan berhenti
+adaptif secara eksak.</p>
+<p><a id="id-mtp-martingal-03-exercise"></a></p>
+<h3 id="soal">Soal</h3>
+<p>Ambil bilangan deterministik <span class="math inline">\(x_1,\ldots,x_N\in\mathbb R\)</span>, dengan <span class="math inline">\(N\ge2\)</span>, dan pilih <span class="math inline">\(\pi\)</span> secara seragam dari semua permutasi
+<span class="math inline">\(\{1,\ldots,N\}\)</span>. Definisikan <span class="math display">\[
+X_k=x_{\pi(k)},\qquad
+\mathcal F_n=\sigma\bigl(\pi(1),\ldots,\pi(n)\bigr),
+\]</span> serta rata-rata nilai yang belum terungkap <span class="math display">\[
+R_n=\frac{\sum_{k=n+1}^{N}X_k}{N-n},
+\qquad 0\le n\le N-1.
+\]</span></p>
+<ol type="1">
+<li>Buktikan bahwa <span class="math inline">\((R_n,\mathcal F_n)_{0\le
+n\le N-1}\)</span> adalah martingal.</li>
+<li>Untuk <span class="math inline">\(0\le n\le N-2\)</span>, tetapkan
+<span class="math inline">\(m=N-n\)</span> dan <span class="math display">\[
+v_n=\frac{1}{m(m-1)^2}
+\sum_{j\notin\{\pi(1),\ldots,\pi(n)\}}(x_j-R_n)^2.
+\]</span> Buktikan bahwa <span class="math display">\[
+K_n=(R_n-R_0)^2-\sum_{j=0}^{n-1}v_j,
+\qquad 0\le n\le N-1,
+\]</span> adalah martingal. Simpulkan bahwa, untuk setiap waktu henti
+<span class="math inline">\(\rho\le N-1\)</span>, <span class="math display">\[
+\mathbb E R_\rho=R_0,
+\qquad
+\mathbb E(R_\rho-R_0)^2
+=\mathbb E\!\left[\sum_{j=0}^{\rho-1}v_j\right].
+\]</span></li>
+<li>Terapkan hasil tersebut pada populasi berlabel yang nilainya <span class="math inline">\((-3,-1,2,2)\)</span>. Definisikan <span class="math display">\[
+\tau=\min\Bigl(
+\{n\in\{1,2,3\}:R_n\notin(-1,1)\}\cup\{3\}
+\Bigr).
+\]</span> Tentukan hukum <span class="math inline">\(R_\tau\)</span>
+secara eksak, lalu verifikasi kedua identitas pada bagian 2.</li>
+</ol>
+
+<details class="hint" id="id-mtp-martingal-03-hint-1"><summary aria-label="Petunjuk 1: id-mtp-martingal-03-hint-1">Petunjuk 1</summary>
+<p>Jika terdapat <span class="math inline">\(m=N-n\)</span> nilai
+tersisa, maka pengungkapan berikutnya seragam di antara nilai-nilai itu.
+Karena itu, <span class="math inline">\(\mathbb E(X_{n+1}\mid\mathcal
+F_n)=R_n.\)</span></p>
+<p><a id="id-mtp-martingal-03-hint-2"></a></p>
+</details><h3 id="petunjuk-2">Petunjuk 2</h3>
+<p>Tuliskan <span class="math display">\[
+R_{n+1}=\frac{mR_n-X_{n+1}}{m-1},
+\qquad
+R_{n+1}-R_n=\frac{R_n-X_{n+1}}{m-1}.
+\]</span> Kuadratkan persamaan kedua dan kondisikan pada <span class="math inline">\(\mathcal F_n\)</span>.</p>
+
+<details class="hint" id="id-mtp-martingal-03-hint-3"><summary aria-label="Petunjuk 3: id-mtp-martingal-03-hint-3">Petunjuk 3</summary>
+<p>Untuk bagian konkret, ada <span class="math inline">\(4!/2!=12\)</span> urutan nilai yang berbeda dan
+semuanya berpeluang <span class="math inline">\(1/12\)</span>. Hentikan
+setiap urutan segera setelah rata-rata sisa keluar dari <span class="math inline">\((-1,1)\)</span>, atau pada waktu 3.</p>
+<p><a id="id-mtp-martingal-03-answer"></a></p>
+</details><h3 id="jawaban-ringkas">Jawaban ringkas</h3>
+<p>Proses <span class="math inline">\(R\)</span> dan <span class="math inline">\(K\)</span> adalah martingal. Untuk populasi <span class="math inline">\((-3,-1,2,2)\)</span>, <span class="math display">\[
+\begin{array}{c|ccccc}
+r&amp;-3&amp;-2&amp;-1&amp;1&amp;2\\ \hline
+\mathbb
+P(R_\tau=r)&amp;\frac16&amp;\frac16&amp;\frac1{12}&amp;\frac14&amp;\frac13
+\end{array}
+\]</span> sehingga <span class="math display">\[
+\mathbb E R_\tau=0=R_0,
+\qquad
+\mathbb E(R_\tau-R_0)^2=\frac{23}{6}
+=\mathbb E\!\left[\sum_{j=0}^{\tau-1}v_j\right].
+\]</span></p>
+
+<details class="solution" id="id-mtp-martingal-03-solution"><summary aria-label="Solusi lengkap: id-mtp-martingal-03-solution">Solusi lengkap</summary>
+<p>Setelah <span class="math inline">\(n\)</span> pengungkapan, terdapat
+<span class="math inline">\(m=N-n\)</span> indeks tersisa. Bersyarat
+pada <span class="math inline">\(\mathcal F_n\)</span>, indeks <span class="math inline">\(\pi(n+1)\)</span> seragam pada himpunan tersebut.
+Jadi <span class="math display">\[
+\mathbb E(X_{n+1}\mid\mathcal F_n)
+=\frac1m\sum_{j\notin\{\pi(1),\ldots,\pi(n)\}}x_j
+=R_n.
+\]</span> Jumlah nilai tersisa sebelum pengungkapan adalah <span class="math inline">\(mR_n\)</span>. Sesudah <span class="math inline">\(X_{n+1}\)</span> dikeluarkan, rata-ratanya menjadi
+<span class="math display">\[
+R_{n+1}=\frac{mR_n-X_{n+1}}{m-1}.
+\]</span> Oleh karena itu, <span class="math display">\[
+\mathbb E(R_{n+1}\mid\mathcal F_n)
+=\frac{mR_n-\mathbb E(X_{n+1}\mid\mathcal F_n)}{m-1}
+=R_n.
+\]</span> Semua peubah hanya mengambil nilai dalam suatu himpunan
+hingga, sehingga integrabilitas tidak menjadi masalah; ini membuktikan
+bagian 1.</p>
+<p>Definisikan <span class="math inline">\(D_{n+1}=R_{n+1}-R_n\)</span>.
+Dari identitas di atas, <span class="math display">\[
+D_{n+1}=\frac{R_n-X_{n+1}}{m-1},
+\qquad
+\mathbb E(D_{n+1}\mid\mathcal F_n)=0,
+\]</span> dan <span class="math display">\[
+\mathbb E(D_{n+1}^2\mid\mathcal F_n)
+=\frac{1}{m(m-1)^2}
+  \sum_{j\notin\{\pi(1),\ldots,\pi(n)\}}(x_j-R_n)^2
+=v_n.
+\]</span> Karena <span class="math inline">\(R_n-R_0\)</span> terukur
+terhadap <span class="math inline">\(\mathcal F_n\)</span>, <span class="math display">\[
+\begin{aligned}
+\mathbb E\bigl((R_{n+1}-R_0)^2\mid\mathcal F_n\bigr)
+&amp;=(R_n-R_0)^2
+  +2(R_n-R_0)\mathbb E(D_{n+1}\mid\mathcal F_n)
+  +\mathbb E(D_{n+1}^2\mid\mathcal F_n)\\
+&amp;=(R_n-R_0)^2+v_n.
+\end{aligned}
+\]</span> Maka <span class="math inline">\(K\)</span> adalah martingal.
+Waktu <span class="math inline">\(\rho\le N-1\)</span> terbatas,
+sehingga penghentian opsional pada <span class="math inline">\(R\)</span> dan <span class="math inline">\(K\)</span> memberi <span class="math display">\[
+\mathbb E R_\rho=\mathbb E R_0=R_0,
+\qquad
+0=\mathbb E K_\rho
+=\mathbb E(R_\rho-R_0)^2
+-\mathbb E\!\left[\sum_{j=0}^{\rho-1}v_j\right].
+\]</span></p>
+<p>Sekarang ambil populasi <span class="math inline">\((-3,-1,2,2)\)</span>. Jumlahnya nol, jadi <span class="math inline">\(R_0=0\)</span>. Aturan yang mendefinisikan <span class="math inline">\(\tau\)</span> hanya memakai <span class="math inline">\(R_1,\ldots,R_n\)</span> untuk memutuskan apakah
+berhenti sebelum atau pada <span class="math inline">\(n\)</span>; jadi
+<span class="math inline">\(\tau\)</span> adalah waktu henti dan <span class="math inline">\(\tau\le3\)</span>.</p>
+<p>Kedua belas urutan nilai mempunyai peluang yang sama. Penghitungan
+menurut nilai terminal memberi <span class="math display">\[
+\begin{array}{c|ccccc}
+R_\tau&amp;-3&amp;-2&amp;-1&amp;1&amp;2\\ \hline
+\text{banyak urutan}&amp;2&amp;2&amp;1&amp;3&amp;4.
+\end{array}
+\]</span> Sebagai pemeriksaan terhadap penghentian dini: tiga urutan
+yang dimulai dengan <span class="math inline">\(-3\)</span> berhenti
+pada <span class="math inline">\(R_1=1\)</span>; urutan yang dimulai
+dengan <span class="math inline">\((-1,-3)\)</span> berhenti pada <span class="math inline">\(R_2=2\)</span>; dan dua urutan yang dimulai dengan
+<span class="math inline">\((2,2)\)</span> berhenti pada <span class="math inline">\(R_2=-2\)</span>. Enam urutan lain mencapai waktu 3
+dan memberikan frekuensi terminal selebihnya yang tercantum pada tabel.
+Dengan demikian hukum pada jawaban ringkas berlaku. Akhirnya, <span class="math display">\[
+\mathbb E R_\tau
+=-3\!\left(\frac16\right)-2\!\left(\frac16\right)
+-\frac1{12}+\frac14+2\!\left(\frac13\right)=0,
+\]</span> dan <span class="math display">\[
+\mathbb E R_\tau^2
+=9\!\left(\frac16\right)+4\!\left(\frac16\right)
++\frac1{12}+\frac14+4\!\left(\frac13\right)
+=\frac{23}{6}.
+\]</span> Identitas martingal yang telah dibuktikan kemudian memberikan
+<span class="math inline">\(\mathbb
+E\sum_{j=0}^{\tau-1}v_j=23/6\)</span>, tanpa perlu menghitung setiap
+lintasan kompensator secara terpisah.</p>
+<hr/>
+<p><a id="id-mtp-martingal-04-root"></a></p>
+</details><h2 id="masalah-04-uji-rasio-kemungkinan-yang-berhenti-tepat-di-batas">Masalah
+04 — Uji rasio kemungkinan yang berhenti tepat di batas</h2>
+<p><strong>Prasyarat:</strong> turunan Radon–Nikodym pada filtrasi,
+martingal rasio kemungkinan, waktu henti, dan penghentian
+opsional.<br/>
+<strong>Capaian:</strong> memperoleh probabilitas galat dan ekspektasi
+ukuran sampel suatu uji sekuensial tanpa aproksimasi pelampauan batas
+(<em>overshoot</em>).</p>
+<p><a id="id-mtp-martingal-04-exercise"></a></p>
+<h3 id="soal-1">Soal</h3>
+<p>Pada ruang kanonik <span class="math inline">\(\{0,1\}^{\mathbb
+N}\)</span>, misalkan <span class="math inline">\(X_1,X_2,\ldots\)</span> adalah koordinat, <span class="math inline">\(S_n=\sum_{k=1}^nX_k\)</span>, dan <span class="math inline">\(\mathcal F_n=\sigma(X_1,\ldots,X_n)\)</span>.
+Pertimbangkan dua ukuran peluang: <span class="math display">\[
+H_0:\quad \mathbb P_0(X_k=1)=\frac13,
+\qquad
+H_1:\quad \mathbb P_1(X_k=1)=\frac23,
+\]</span> dengan koordinat i.i.d. di bawah masing-masing ukuran.
+Definisikan <span class="math display">\[
+L_n=\frac{d\mathbb P_1|_{\mathcal F_n}}
+          {d\mathbb P_0|_{\mathcal F_n}}
+=2^{2S_n-n},
+\qquad
+Y_n=\log_2L_n=2S_n-n.
+\]</span> Untuk <span class="math inline">\(a,b\in\mathbb N_+\)</span>,
+hentikan pengamatan pada <span class="math display">\[
+\tau=\inf\{n\ge0:Y_n\in\{-a,b\}\}.
+\]</span> Pilih <span class="math inline">\(H_1\)</span> jika <span class="math inline">\(Y_\tau=b\)</span>, dan pilih <span class="math inline">\(H_0\)</span> jika <span class="math inline">\(Y_\tau=-a\)</span>.</p>
+<ol type="1">
+<li>Buktikan bahwa <span class="math inline">\((L_n,\mathcal
+F_n)\)</span> adalah martingal di bawah <span class="math inline">\(\mathbb P_0\)</span>, serta <span class="math inline">\(\mathbb E_i\tau&lt;\infty\)</span> untuk <span class="math inline">\(i=0,1\)</span>.</li>
+<li>Hitung secara eksak galat tipe I <span class="math inline">\(\alpha=\mathbb P_0(Y_\tau=b)\)</span> dan galat
+tipe II <span class="math inline">\(\beta=\mathbb
+P_1(Y_\tau=-a)\)</span>.</li>
+<li>Hitung <span class="math inline">\(\mathbb E_0\tau\)</span> dan
+<span class="math inline">\(\mathbb E_1\tau\)</span>. Evaluasi semua
+hasil untuk <span class="math inline">\((a,b)=(2,3)\)</span>.</li>
+</ol>
+
+<details class="hint" id="id-mtp-martingal-04-hint-1"><summary aria-label="Petunjuk 1: id-mtp-martingal-04-hint-1">Petunjuk 1</summary>
+<p>Di bawah <span class="math inline">\(\mathbb P_0\)</span>, faktor
+<span class="math inline">\(L_{n+1}/L_n\)</span> bernilai <span class="math inline">\(2\)</span> dengan peluang <span class="math inline">\(1/3\)</span> dan <span class="math inline">\(1/2\)</span> dengan peluang <span class="math inline">\(2/3\)</span>. Nilai harapan bersyarat faktor itu
+adalah 1.</p>
+<p><a id="id-mtp-martingal-04-hint-2"></a></p>
+</details><h3 id="petunjuk-2-1">Petunjuk 2</h3>
+<p>Karena loncatan <span class="math inline">\(Y\)</span> selalu <span class="math inline">\(\pm1\)</span>, tidak ada pelampauan batas
+(<em>overshoot</em>) dan <span class="math inline">\(2^{-a}\le
+L_{\tau\wedge n}\le2^b\)</span>. Gunakan <span class="math inline">\(\mathbb E_0L_\tau=1\)</span>, lalu gunakan <span class="math display">\[
+\mathbb P_1(A)=\mathbb E_0[L_\tau\mathbf1_A],
+\qquad A\in\mathcal F_\tau.
+\]</span></p>
+
+<details class="hint" id="id-mtp-martingal-04-hint-3"><summary aria-label="Petunjuk 3: id-mtp-martingal-04-hint-3">Petunjuk 3</summary>
+<p>Di bawah <span class="math inline">\(\mathbb P_0\)</span>, proses
+<span class="math inline">\(Y_n+n/3\)</span> adalah martingal; di bawah
+<span class="math inline">\(\mathbb P_1\)</span>, proses <span class="math inline">\(Y_n-n/3\)</span> adalah martingal. Hentikan kedua
+proses itu pada <span class="math inline">\(\tau\)</span>.</p>
+<p><a id="id-mtp-martingal-04-answer"></a></p>
+</details><h3 id="jawaban-ringkas-1">Jawaban ringkas</h3>
+<p>Dengan <span class="math inline">\(D=2^{a+b}-1\)</span>, <span class="math display">\[
+\alpha=\frac{2^a-1}{D},
+\qquad
+\beta=\frac{2^b-1}{D},
+\]</span> dan <span class="math display">\[
+\mathbb E_0\tau=3\bigl[a-(a+b)\alpha\bigr],
+\qquad
+\mathbb E_1\tau=3\bigl[b-(a+b)\beta\bigr].
+\]</span> Untuk <span class="math inline">\((a,b)=(2,3)\)</span>, <span class="math display">\[
+\alpha=\frac3{31},\qquad
+\beta=\frac7{31},\qquad
+\mathbb E_0\tau=\frac{141}{31},\qquad
+\mathbb E_1\tau=\frac{174}{31}.
+\]</span></p>
+
+<details class="solution" id="id-mtp-martingal-04-solution"><summary aria-label="Solusi lengkap: id-mtp-martingal-04-solution">Solusi lengkap</summary>
+<p>Untuk satu pengamatan, <span class="math display">\[
+\frac{L_{n+1}}{L_n}
+=\begin{cases}
+2,&amp;X_{n+1}=1,\\[2mm]
+\frac12,&amp;X_{n+1}=0.
+\end{cases}
+\]</span> Karena <span class="math inline">\(X_{n+1}\)</span> independen
+dari <span class="math inline">\(\mathcal F_n\)</span> di bawah <span class="math inline">\(\mathbb P_0\)</span>, <span class="math display">\[
+\mathbb E_0\!\left(\frac{L_{n+1}}{L_n}\,\middle|\,\mathcal F_n\right)
+=\frac13(2)+\frac23\left(\frac12\right)=1.
+\]</span> Jadi <span class="math inline">\(L\)</span> adalah martingal
+nonnegatif di bawah <span class="math inline">\(\mathbb
+P_0\)</span>.</p>
+<p>Selanjutnya, ambil <span class="math inline">\(m=a+b\)</span>. Dari
+setiap keadaan di antara kedua batas, rangkaian <span class="math inline">\(m\)</span> buah nol pasti membawa <span class="math inline">\(Y\)</span> ke <span class="math inline">\(-a\)</span> sebelum blok selesai. Di bawah
+masing-masing ukuran, peluang bersyarat terjadinya rangkaian itu
+sedikitnya <span class="math inline">\(c=(1/3)^m&gt;0\)</span>. Dengan
+sifat independen pada blok berturut-turut, <span class="math display">\[
+\mathbb P_i(\tau&gt;km)\le(1-c)^k,
+\qquad k\ge0,\quad i\in\{0,1\}.
+\]</span> Akibatnya <span class="math inline">\(\tau&lt;\infty\)</span>
+hampir pasti dan <span class="math inline">\(\mathbb E_i\tau\le
+m\sum_{k\ge0}(1-c)^k=m/c&lt;\infty\)</span>.</p>
+<p>Loncatan <span class="math inline">\(Y\)</span> adalah <span class="math inline">\(+1\)</span> atau <span class="math inline">\(-1\)</span>, sehingga <span class="math inline">\(Y_\tau\)</span> tepat sama dengan <span class="math inline">\(b\)</span> atau <span class="math inline">\(-a\)</span>. Lebih lanjut, <span class="math display">\[
+2^{-a}\le L_{\tau\wedge n}\le2^b.
+\]</span> Penghentian opsional pada <span class="math inline">\(\tau\wedge n\)</span>, disusul penerapan teorema
+konvergensi terdominasi, memberikan <span class="math inline">\(\mathbb
+E_0L_\tau=1\)</span>. Maka <span class="math display">\[
+1=2^b\alpha+2^{-a}(1-\alpha),
+\]</span> sehingga <span class="math display">\[
+\alpha
+=\frac{1-2^{-a}}{2^b-2^{-a}}
+=\frac{2^a-1}{2^{a+b}-1}.
+\]</span></p>
+<p>Untuk melakukan perubahan ukuran pada waktu acak, jika <span class="math inline">\(A\in\mathcal F_\tau\)</span>, maka <span class="math inline">\(A\cap\{\tau=n\}\in\mathcal F_n\)</span>. Karena
+<span class="math inline">\(L_n=d\mathbb P_1/d\mathbb P_0\)</span> pada
+<span class="math inline">\(\mathcal F_n\)</span>, penjumlahan terhadap
+<span class="math inline">\(n\)</span> memberi <span class="math display">\[
+\mathbb P_1(A)=\mathbb E_0[L_\tau\mathbf1_A].
+\]</span> Ambil <span class="math inline">\(A=\{Y_\tau=-a\}\)</span>.
+Pada <span class="math inline">\(A\)</span>, <span class="math inline">\(L_\tau=2^{-a}\)</span>, jadi <span class="math display">\[
+\beta=2^{-a}(1-\alpha)
+=\frac{2^b-1}{2^{a+b}-1}.
+\]</span></p>
+<p>Di bawah <span class="math inline">\(\mathbb P_0\)</span>, inkremen
+<span class="math inline">\(Y\)</span> mempunyai rata-rata <span class="math display">\[
+\frac13(1)+\frac23(-1)=-\frac13,
+\]</span> sedangkan di bawah <span class="math inline">\(\mathbb
+P_1\)</span> rata-ratanya <span class="math inline">\(+1/3\)</span>.
+Karena <span class="math inline">\(\mathbb E_i\tau&lt;\infty\)</span>,
+penghentian proses <span class="math inline">\(Y_n+n/3\)</span> di bawah
+<span class="math inline">\(\mathbb P_0\)</span> dan <span class="math inline">\(Y_n-n/3\)</span> di bawah <span class="math inline">\(\mathbb P_1\)</span> sah. Secara eksplisit,
+terapkan dahulu pada <span class="math inline">\(\tau\wedge n\)</span>;
+lalu gunakan <span class="math inline">\(|Y_{\tau\wedge
+n}|\le\max(a,b)\)</span> dan <span class="math inline">\(\tau\wedge
+n\to\tau\)</span> dalam <span class="math inline">\(L^1\)</span>.
+Diperoleh <span class="math display">\[
+\mathbb E_0Y_\tau=-\frac13\mathbb E_0\tau,
+\qquad
+\mathbb E_1Y_\tau=\frac13\mathbb E_1\tau.
+\]</span> Karena <span class="math display">\[
+\mathbb E_0Y_\tau=b\alpha-a(1-\alpha),
+\qquad
+\mathbb E_1Y_\tau=b(1-\beta)-a\beta,
+\]</span> maka <span class="math display">\[
+\mathbb E_0\tau=3\bigl[a-(a+b)\alpha\bigr],
+\qquad
+\mathbb E_1\tau=3\bigl[b-(a+b)\beta\bigr].
+\]</span> Substitusi <span class="math inline">\(a=2\)</span>, <span class="math inline">\(b=3\)</span>, dan <span class="math inline">\(2^{a+b}-1=31\)</span> menghasilkan <span class="math display">\[
+\alpha=\frac3{31},\quad
+\beta=\frac7{31},\quad
+\mathbb E_0\tau=3\left(2-5\frac3{31}\right)=\frac{141}{31},\quad
+\mathbb E_1\tau=3\left(3-5\frac7{31}\right)=\frac{174}{31}.
+\]</span></p>
+</details><aside class="component-attribution model-provenance">Materi asli pada halaman ini berlisensi CC BY 4.0 dan disusun dengan OpenAI Codex gpt-5.6-sol, Ultra. Kredit sumber dan kontributor lain tetap dipertahankan pada unit masing-masing.</aside></main></body>
+</html>

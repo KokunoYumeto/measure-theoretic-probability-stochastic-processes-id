@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>Sifat Markov</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/><script>window.MathJax = {tex: {macros: {Exp: "\\operatorname{Exp}", BB: "\\mathbb{B}", PP: "\\mathbb{P}", RR: "\\mathbb{R}", NN: "\\mathbb{N}", ZZ: "\\mathbb{Z}", EE: "\\mathbb{E}", dD: "\\mathcal{D}", fF: "\\mathcal{F}", lL: "\\mathcal{L}", linop: "\\mathcal{L}(\\mathbb{B})", linopell: "\\mathcal{L}(\\ell_1)", Binomial: "\\operatorname{Binomial}", Poisson: "\\operatorname{Poisson}"}}};</script><script id="MathJax-script" src="../MathJax/tex-svg.js"></script></head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Sifat Markov</h1>
+</header><nav aria-label="Navigasi edisi"><a href="../../index.html">Beranda edisi</a></nav><aside class="component-attribution" id="quantecon-attribution"><strong>Asal komponen dan lisensi.</strong> Adaptasi bahasa Indonesia dari <cite>Continuous Time Markov Chains</cite> karya Thomas J. Sargent dan John Stachurski, sumber MyST QuantEcon pada komit <code>8b06e0aa5a438692445b2c896f9d238c5a7d5eb7</code>. Komponen ini dipertahankan di bawah CC BY-SA 4.0; perubahan berupa terjemahan dan perbaikan hilir dicatat di provenance. QuantEcon tidak mengesahkan edisi ini.<p class="model-provenance">Provenans produksi: OpenAI Codex gpt-5.6-sol, Ultra. Kredit penulis dan kontributor manusia tetap dipertahankan.</p></aside><main>
+<h2 id="sifat-markov">Sifat Markov</h2>
+<p>Selain yang tersedia di Anaconda, kuliah ini memerlukan pustaka
+berikut:</p>
+<div class="code-cell" data-tags="hide-output" id="qe-cell-1">
+<pre><code class="language-python" data-cell-index="1"># Build luring hilir: perintah pemasangan paket dari sumber dihapus.</code></pre>
+</div>
+<h2 id="gambaran-umum">Gambaran umum</h2>
+<p>Suatu proses stokastik waktu kontinu dikatakan memiliki sifat Markov
+jika masa lalu dan masa depannya independen bersyarat pada keadaan saat
+ini.</p>
+<p>(Definisi yang lebih formal diberikan di bawah.)</p>
+<p>Seperti akan kita lihat, sifat Markov memberlakukan struktur yang
+sangat kuat pada proses waktu kontinu.</p>
+<p>Struktur ini menghasilkan berbagai hasil yang elegan dan kuat
+mengenai evolusi dan dinamika.</p>
+<p>Pada saat yang sama, sifat Markov cukup umum untuk mencakup banyak
+masalah terapan, sebagaimana dijelaskan dalam <a href="https://continuous-time-mcs.quantecon.org/intro.html">pendahuluan
+sumber</a>.</p>
+<h3 id="kerangka">Kerangka</h3>
+<p>Dalam kuliah ini, ruang keadaan tempat dinamika berlangsung adalah <a href="https://en.wikipedia.org/wiki/Countable_set">himpunan
+terhitung</a>, yang selanjutnya dilambangkan dengan <span class="math inline">\(S\)</span>, dengan elemen tipikal <span class="math inline">\(x, y\)</span>.</p>
+<p>(Perhatikan bahwa “terhitung” dipahami mencakup pula himpunan
+berhingga.)</p>
+<p>Mengenai notasi, selanjutnya <span class="math inline">\(\sum_{x \in
+S}\)</span> disingkat menjadi <span class="math inline">\(\sum_x\)</span>, supremum <span class="math inline">\(\sup_{x \in S}\)</span> disingkat menjadi <span class="math inline">\(\sup_x\)</span>, dan seterusnya.</p>
+<p>Sebuah <strong>distribusi</strong> pada <span class="math inline">\(S\)</span> adalah fungsi <span class="math inline">\(\phi\)</span> dari <span class="math inline">\(S\)</span> ke <span class="math inline">\(\RR_+\)</span> dengan <span class="math inline">\(\sum_x \phi(x) = 1\)</span>.</p>
+<p>Misalkan <span class="math inline">\(\dD\)</span> menyatakan himpunan
+semua distribusi pada <span class="math inline">\(S\)</span>.</p>
+<p>Untuk menghemat istilah, kita mendefinisikan sebuah
+<strong>matriks</strong> <span class="math inline">\(A\)</span> pada
+<span class="math inline">\(S\)</span> sebagai pemetaan dari <span class="math inline">\(S \times S\)</span> ke <span class="math inline">\(\RR\)</span>.</p>
+<p>Jika <span class="math inline">\(S\)</span> berhingga, definisi ini
+mereduksi pada pengertian matriks yang biasa, dan, setiap kali Anda
+melihat ekspresi seperti <span class="math inline">\(A(x,y)\)</span> di
+bawah, Anda dapat mengidentifikasikannya secara mental dengan notasi
+matriks yang lebih lazim, seperti <span class="math inline">\(A_{ij}\)</span>, jika diinginkan.</p>
+<p>Hasil kali dua matriks <span class="math inline">\(A\)</span> dan
+<span class="math inline">\(B\)</span> didefinisikan oleh</p>
+<p><a id="equation-kernprod"></a> <span class="math display">\[
+    (A B)(x, y) = \sum_z A(x, z) B(z, y)
+    \qquad ((x, y) \in S \times S)
+\]</span></p>
+<p>Jika <span class="math inline">\(S\)</span> berhingga, maka ini
+hanyalah perkalian matriks biasa.</p>
+<p>Dalam pernyataan yang melibatkan aljabar matriks, kita <em>selalu
+memperlakukan distribusi sebagai vektor baris</em>, sehingga, untuk
+<span class="math inline">\(\phi \in \dD\)</span> dan matriks <span class="math inline">\(A\)</span> yang diberikan,</p>
+<p><span class="math display">\[
+    (\phi A)(y) = \sum_x \phi(x) A(x, y)
+\]</span></p>
+<p>Kita akan menggunakan impor berikut</p>
+<div class="code-cell" data-tags="" id="qe-cell-2">
+<pre><code class="language-python" data-cell-index="2">import numpy as np
+import scipy as sp
+import matplotlib.pyplot as plt
+
+import quantecon as qe
+from numba import njit
+
+from scipy.linalg import expm
+from scipy.stats import binom
+
+from matplotlib import cm
+from mpl_toolkits.mplot3d import Axes3D</code></pre>
+</div>
+<h2 id="proses-markov">Proses Markov</h2>
+<p>Sekarang kita memperkenalkan definisi proses Markov, mula-mula
+meninjau kasus diskret lalu beralih ke waktu kontinu.</p>
+<p><a id="finstatediscretemc"></a></p>
+<h3 id="waktu-diskret-ruang-keadaan-berhingga">Waktu Diskret, Ruang
+Keadaan Berhingga</h3>
+<p>Proses Markov yang paling sederhana memiliki parameter waktu diskret
+dan ruang keadaan berhingga.</p>
+<p>Untuk sementara, asumsikan bahwa <span class="math inline">\(S\)</span> memiliki <span class="math inline">\(n\)</span> elemen dan misalkan <span class="math inline">\(P\)</span> adalah <strong>matriks Markov</strong>,
+yang berarti bahwa <span class="math inline">\(P(x,y) \geq 0\)</span>
+dan <span class="math inline">\(\sum_y P(x,y) = 1\)</span> untuk setiap
+<span class="math inline">\(x\)</span>.</p>
+<p>Dalam penerapan, <span class="math inline">\(P(x, y)\)</span>
+menyatakan probabilitas bertransisi dari <span class="math inline">\(x\)</span> ke <span class="math inline">\(y\)</span> dalam satu langkah.</p>
+<p>Sebuah <strong>rantai Markov</strong> <span class="math inline">\((X_t)_{t \in \ZZ_+}\)</span> pada <span class="math inline">\(S\)</span> dengan matriks Markov <span class="math inline">\(P\)</span> adalah barisan peubah acak yang
+memenuhi</p>
+<p><a id="equation-markovpropd"></a> <span class="math display">\[
+    \PP\{X_{t+1} = y \,|\, X_0, X_1, \ldots, X_t \} = P (X_t, y)
+\]</span></p>
+<p>dengan probabilitas satu untuk setiap <span class="math inline">\(y
+\in S\)</span> dan sembarang <span class="math inline">\(t \in
+\ZZ_+\)</span>.</p>
+<p>Selain menghubungkan probabilitas dengan matriks Markov, <a href="#equation-markovpropd">persamaan markovpropd</a> menyatakan bahwa
+proses hanya bergantung pada riwayatnya melalui keadaan saat ini.</p>
+<p>Kita <a href="https://python.quantecon.org/finite_markov.html#marginal-distributions">ingat
+bahwa</a>, jika <span class="math inline">\(X_t\)</span> berdistribusi
+<span class="math inline">\(\phi\)</span>, maka <span class="math inline">\(X_{t+1}\)</span> berdistribusi <span class="math inline">\(\phi P\)</span>.</p>
+<p>Karena <span class="math inline">\(\phi\)</span> dipahami sebagai
+vektor baris, artinya adalah</p>
+<p><a id="equation-update_rule"></a> <span class="math display">\[
+    (\phi P)(y) = \sum_x \phi(x) P(x, y)
+    \qquad (y \in S)
+\]</span></p>
+<p><a id="jdfin"></a></p>
+<h4 id="distribusi-gabungan">Distribusi Gabungan</h4>
+<p>Secara umum, untuk matriks Markov <span class="math inline">\(P\)</span> yang diberikan, dapat terdapat banyak
+rantai Markov <span class="math inline">\((X_t)\)</span> yang memenuhi
+<a href="#equation-markovpropd">persamaan markovpropd</a>.</p>
+<p>Hal ini disebabkan oleh pengamatan yang lebih umum bahwa, untuk suatu
+distribusi <span class="math inline">\(\phi\)</span> yang diberikan,
+kita dapat mengonstruksi banyak peubah acak yang berdistribusi <span class="math inline">\(\phi\)</span>.</p>
+<p>(Latihan di bawah meminta satu contoh.)</p>
+<p>Oleh karena itu, dalam arti tertentu, <span class="math inline">\(P\)</span> merupakan objek yang lebih mendasar
+daripada <span class="math inline">\((X_t)\)</span>.</p>
+<p>Ada cara lain untuk melihat arti penting mendasar dari <span class="math inline">\(P\)</span>, yaitu dengan mengonstruksi distribusi
+gabungan <span class="math inline">\((X_t)\)</span> dari <span class="math inline">\(P\)</span>.</p>
+<p>Misalkan <span class="math inline">\(S^\infty\)</span> menyatakan
+ruang barisan bernilai di <span class="math inline">\(S\)</span>, yaitu
+<span class="math inline">\((x_0, x_1, x_2, \ldots)\)</span>.</p>
+<p>Tetapkan kondisi awal <span class="math inline">\(\psi \in
+\dD\)</span> dan matriks Markov <span class="math inline">\(P\)</span>
+pada <span class="math inline">\(S\)</span>.</p>
+<p><strong>Distribusi gabungan</strong> rantai Markov <span class="math inline">\((X_t)\)</span> yang memenuhi <a href="#equation-markovpropd">persamaan markovpropd</a> dan <span class="math inline">\(X_0 \sim \psi\)</span> adalah distribusi <span class="math inline">\(\mathbf P_\psi\)</span> pada <span class="math inline">\(S^\infty\)</span> sedemikian sehingga</p>
+<p><a id="equation-jointdeq"></a> <span class="math display">\[
+    \PP\{ X_{t_1} = y_1, \ldots, X_{t_m} = y_m \}
+    =
+    \mathbf P_\psi\{ (x_t) \in S^\infty \,:\,
+        x_{t_i} = y_i \text{ for } i = 1, \ldots m\}
+\]</span></p>
+<p>untuk sembarang <span class="math inline">\(m\)</span> bilangan bulat
+positif <span class="math inline">\(t_i\)</span> dan <span class="math inline">\(m\)</span> elemen <span class="math inline">\(y_i\)</span> dari ruang keadaan <span class="math inline">\(S\)</span>.</p>
+<p>(Distribusi gabungan proses waktu diskret ditentukan secara unik oleh
+nilainya pada kumpulan waktu berhingga — lihat, misalnya, Teorema 7.2
+dalam <cite>Walsh (2012)</cite>.)</p>
+<p>Kita dapat mengonstruksi <span class="math inline">\(\mathbf
+P_\psi\)</span> dengan terlebih dahulu mendefinisikan <span class="math inline">\(P_\psi^n\)</span> pada produk Kartesius berhingga
+<span class="math inline">\(S^{n+1}\)</span> melalui</p>
+<p><a id="equation-mathjointd"></a> <span class="math display">\[
+    \mathbf P_\psi^n(x_0, x_1, \ldots, x_n)
+        = \psi(x_0)
+        P(x_0, x_1)
+        \times \cdots \times
+        P(x_{n-1}, x_n)
+\]</span></p>
+<p>Untuk setiap rantai Markov <span class="math inline">\((X_t)\)</span>
+yang memenuhi <a href="#equation-markovpropd">persamaan markovpropd</a>
+dan <span class="math inline">\(X_0 \sim \psi\)</span>, pembatasan <span class="math inline">\((X_0, \ldots, X_n)\)</span> memiliki distribusi
+gabungan <span class="math inline">\(\mathbf
+P_\psi^n\)</span>.</p>
+<p>Ini adalah latihan dengan solusi di bawah.</p>
+<p>Langkah terakhir adalah menunjukkan bahwa keluarga <span class="math inline">\((\mathbf P_\psi^n)\)</span> yang didefinisikan
+untuk setiap <span class="math inline">\(n \in \NN\)</span> dapat
+diperluas secara unik menjadi distribusi <span class="math inline">\(\mathbf P_\psi\)</span> pada barisan tak berhingga
+dalam <span class="math inline">\(S^\infty\)</span>.</p>
+<p>Kebenaran pernyataan ini mengikuti dari <a href="https://en.wikipedia.org/wiki/Kolmogorov_extension_theorem">teorema
+Kolmogorov</a> yang terkenal.</p>
+<p>Jadi, <span class="math inline">\(P\)</span> mendefinisikan
+distribusi gabungan <span class="math inline">\(\mathbf P_\psi\)</span>
+jika dipasangkan dengan sembarang kondisi awal <span class="math inline">\(\psi\)</span>.</p>
+<h3 id="perluasan-ke-ruang-keadaan-tak-berhingga-terhitung">Perluasan ke
+Ruang Keadaan Tak Berhingga (Terhitung)</h3>
+<p>Ketika <span class="math inline">\(S\)</span> tak berhingga, gagasan
+yang sama tetap berlaku.</p>
+<p>Selaras dengan kasus berhingga, sebuah <strong>matriks
+Markov</strong> adalah pemetaan <span class="math inline">\(P\)</span>
+dari <span class="math inline">\(S \times S\)</span> ke <span class="math inline">\(\RR_+\)</span> yang memenuhi</p>
+<p><span class="math display">\[
+    \sum_y P(x, y) = 1
+    \text{ for all } x \in S
+\]</span></p>
+<p>Definisi rantai Markov <span class="math inline">\((X_t)_{t \in
+\ZZ_+}\)</span> pada <span class="math inline">\(S\)</span> dengan
+matriks Markov <span class="math inline">\(P\)</span> persis seperti
+dalam <a href="#equation-markovpropd">persamaan markovpropd</a>.</p>
+<p>Untuk matriks Markov <span class="math inline">\(P\)</span> dan <span class="math inline">\(\phi \in \dD\)</span> yang diberikan, kita
+mendefinisikan <span class="math inline">\(\phi P\)</span> melalui <a href="#equation-update_rule">persamaan update_rule</a>.</p>
+<p>Kemudian, seperti sebelumnya, <span class="math inline">\(\phi
+P\)</span> dapat dipahami sebagai distribusi <span class="math inline">\(X_{t+1}\)</span> ketika <span class="math inline">\(X_t\)</span> berdistribusi <span class="math inline">\(\phi\)</span>.</p>
+<p>Fungsi <span class="math inline">\(\phi P\)</span> berada dalam <span class="math inline">\(\dD\)</span> karena, berdasarkan <a href="#equation-update_rule">persamaan update_rule</a>, fungsi ini
+taknegatif dan</p>
+<p><span class="math display">\[
+    \sum_y (\phi P)(y)
+    = \sum_y \sum_x P(x, y) \phi(x)
+    = \sum_x \sum_y P(x, y) \phi(x)
+    = \sum_x \phi(x)
+    = 1
+\]</span></p>
+<p>(Pertukaran urutan penjumlahan tak berhingga di sini dibenarkan oleh
+fakta bahwa semua elemennya taknegatif — suatu versi teorema
+Tonelli.)</p>
+<p>Jika <span class="math inline">\(P\)</span> dan <span class="math inline">\(Q\)</span> adalah matriks Markov pada <span class="math inline">\(S\)</span>, maka, dengan menggunakan definisi
+dalam <a href="#equation-kernprod">persamaan kernprod</a>,</p>
+<p><span class="math display">\[
+    (P Q)(x, y) := \sum_z P(x, z) Q(z, y)
+\]</span></p>
+<p>Tidak sulit untuk memeriksa bahwa <span class="math inline">\(P
+Q\)</span> juga merupakan matriks Markov pada <span class="math inline">\(S\)</span>.</p>
+<p>Elemen-elemen <span class="math inline">\(P^k\)</span>, yaitu hasil
+kali ke-<span class="math inline">\(k\)</span> dari <span class="math inline">\(P\)</span> dengan dirinya sendiri, memberikan
+probabilitas transisi <span class="math inline">\(k\)</span>
+langkah.</p>
+<p>Sebagai contoh, kita memiliki</p>
+<p><a id="equation-kernprodk"></a> <span class="math display">\[
+    P^k(x, y)
+    = (P^{k-j} P^j)(x, y) = \sum_z P^{k-j}(x, z) P^j(z, y)
+\]</span></p>
+<p>yang merupakan suatu versi persamaan Chapman–Kolmogorov (waktu
+diskret).</p>
+<p>Persamaan <a href="#equation-kernprodk">persamaan kernprodk</a> dapat
+diperoleh dari hukum probabilitas total: jika <span class="math inline">\((X_t)\)</span> adalah rantai Markov dengan matriks
+Markov <span class="math inline">\(P\)</span> dan kondisi awal <span class="math inline">\(X_0 =
+x\)</span>, maka</p>
+<p><span class="math display">\[
+    \PP\{X_k = y\}
+    = \sum_z \PP\{X_k = y \,|\, X_j=z\} \PP\{X_j=z\}
+\]</span></p>
+<p>Seluruh <a href="#jdfin">pembahasan sebelumnya</a> mengenai hubungan
+antara <span class="math inline">\(P\)</span> dan distribusi gabungan
+<span class="math inline">\((X_t)\)</span> ketika <span class="math inline">\(S\)</span> berhingga tetap berlaku dalam kerangka
+saat ini.</p>
+<h3 id="kasus-waktu-kontinu">Kasus Waktu Kontinu</h3>
+<p>Sebuah <strong>proses stokastik waktu kontinu</strong> pada <span class="math inline">\(S\)</span> adalah koleksi <span class="math inline">\((X_t)\)</span> dari peubah acak bernilai di <span class="math inline">\(S\)</span>, dengan <span class="math inline">\(X_t\)</span> didefinisikan pada suatu ruang
+probabilitas bersama dan diindeks oleh <span class="math inline">\(t
+\in \RR_+\)</span>.</p>
+<p>Misalkan <span class="math inline">\(I\)</span> adalah matriks Markov
+pada <span class="math inline">\(S\)</span> yang didefinisikan oleh
+<span class="math inline">\(I(x,y) = \mathbb 1\{x = y\}\)</span>.</p>
+<p>Sebuah <strong>semigrup Markov</strong> adalah keluarga matriks
+Markov <span class="math inline">\((P_t)\)</span> pada <span class="math inline">\(S\)</span> yang memenuhi</p>
+<ol type="1">
+<li><span class="math inline">\(P_0 = I\)</span>,</li>
+<li><span class="math inline">\(\lim_{t \to 0} P_t(x, y) =
+I(x,y)\)</span> untuk setiap <span class="math inline">\(x,y\)</span>
+dalam <span class="math inline">\(S\)</span>, dan</li>
+<li>sifat semigrup <span class="math inline">\(P_{s + t} = P_s
+P_t\)</span> untuk setiap <span class="math inline">\(s, t \geq
+0\)</span>.</li>
+</ol>
+<p>Interpretasi <span class="math inline">\(P_t(x, y)\)</span> adalah
+probabilitas berpindah dari keadaan <span class="math inline">\(x\)</span> ke keadaan <span class="math inline">\(y\)</span> dalam <span class="math inline">\(t\)</span> satuan waktu.</p>
+<p>Karena itu, wajar bahwa <span class="math inline">\(P_0(x,y) =
+1\)</span> jika <span class="math inline">\(x=y\)</span> dan nol jika
+tidak, yang merupakan syarat 1.</p>
+<p>Syarat 2 adalah kekontinuan terhadap <span class="math inline">\(t\)</span>, yang mungkin tampak membatasi, tetapi
+sebenarnya sangat ringan.</p>
+<p>Untuk semua penerapan praktis, probabilitas tidak melompat — meskipun
+rantai <span class="math inline">\((X_t)\)</span> sendiri tentu dapat
+melompat dari satu keadaan ke keadaan lain seiring berjalannya waktu.<a class="footnote-ref" href="#fn1" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Sifat semigrup pada syarat 3 tidak lain adalah versi waktu kontinu
+dari persamaan Chapman–Kolmogorov.</p>
+<p>Hal ini menjadi lebih jelas jika kita menuliskannya secara lebih
+eksplisit sebagai</p>
+<p><a id="equation-chapkol_ct2"></a> <span class="math display">\[
+    P_{s+t}(x, y)
+    = \sum_z P_s(x, z) P_t(z, y)
+\]</span></p>
+<p>Suatu proses stokastik <span class="math inline">\((X_t)\)</span>
+disebut <strong>rantai Markov waktu kontinu</strong> (homogen terhadap
+waktu) pada <span class="math inline">\(S\)</span> dengan semigrup
+Markov <span class="math inline">\((P_t)\)</span> jika</p>
+<p><a id="equation-markovprop"></a> <span class="math display">\[
+    \PP\{X_{s + t} = y \,|\, \fF_s \}
+    = P_t (X_s, y)
+\]</span></p>
+<p>dengan probabilitas satu untuk setiap <span class="math inline">\(y
+\in S\)</span> dan <span class="math inline">\(s, t \geq 0\)</span>.</p>
+<p>Di sini <span class="math inline">\(\fF_s\)</span> adalah riwayat
+<span class="math inline">\((X_r)_{r \leq s}\)</span> dari proses
+tersebut hingga waktu <span class="math inline">\(s\)</span>.</p>
+<p>Jika Anda seorang ekonom, Anda mungkin menyebut <span class="math inline">\(\fF_s\)</span> sebagai “himpunan informasi” pada
+waktu <span class="math inline">\(s\)</span>.</p>
+<p>Jika Anda mengenal teori ukuran, Anda dapat memahami <span class="math inline">\(\fF_s\)</span> sebagai <span class="math inline">\(\sigma\)</span>-aljabar yang dibangkitkan oleh
+<span class="math inline">\((X_r)_{r \leq s}\)</span>.</p>
+<p>Sejalan dengan kasus waktu diskret, distribusi gabungan <span class="math inline">\((X_t)\)</span> ditentukan oleh semigrup Markov
+beserta suatu kondisi awal.</p>
+<p>Distribusi ini didefinisikan pada himpunan semua fungsi kontinu dari
+kanan <span class="math inline">\(\RR_+ \ni t \mapsto x_t \in
+S\)</span>, yang kita sebut <span class="math inline">\(rcS\)</span>.</p>
+<p>Selanjutnya, <a href="https://en.wikipedia.org/wiki/Finite-dimensional_distribution">distribusi
+berdimensi hingga</a> pada <span class="math inline">\(rcS\)</span>
+dibangun dengan menggunakan ekspresi yang serupa dengan <a href="#equation-mathjointd">persamaan mathjointd</a>.</p>
+<p>Terakhir, teorema perluasan Kolmogorov diterapkan, serupa dengan
+kasus waktu diskret.</p>
+<p>Korolari 6.4 dari <cite>Le Gall (2016)</cite> memberikan perincian
+lengkap.</p>
+<h3 id="rantai-kanonik">Rantai Kanonik</h3>
+<p>Untuk semigrup Markov <span class="math inline">\((P_t)\)</span> pada
+<span class="math inline">\(S\)</span> yang diberikan, apakah selalu ada
+rantai Markov waktu kontinu <span class="math inline">\((X_t)\)</span>
+sedemikian sehingga <a href="#equation-markovprop">persamaan
+markovprop</a> berlaku?</p>
+<p>Jawabannya adalah ya.</p>
+<p>Sebagai ilustrasi, pilih sembarang semigrup Markov <span class="math inline">\((P_t)\)</span> pada <span class="math inline">\(S\)</span> dan tetapkan kondisi awal <span class="math inline">\(\psi\)</span>.</p>
+<p>Selanjutnya, buat distribusi gabungan <span class="math inline">\(\mathbf P_\psi\)</span> yang bersesuaian pada
+<span class="math inline">\(rcS\)</span>, sebagaimana dijelaskan di
+atas.</p>
+<p>Sekarang, untuk setiap <span class="math inline">\(t \geq 0\)</span>,
+misalkan <span class="math inline">\(\pi_t\)</span> adalah proyeksi
+waktu <span class="math inline">\(t\)</span> pada <span class="math inline">\(rcS\)</span>, yang memetakan setiap fungsi kontinu
+dari kanan <span class="math inline">\((x_\tau)\)</span> ke nilainya
+pada waktu <span class="math inline">\(t\)</span>, yaitu <span class="math inline">\(x_t\)</span>.</p>
+<p>Terakhir, misalkan <span class="math inline">\(X_t\)</span> adalah
+fungsi bernilai di <span class="math inline">\(S\)</span> pada <span class="math inline">\(rcS\)</span> yang didefinisikan di <span class="math inline">\((x_\tau) \in rcS\)</span> oleh <span class="math inline">\(\pi_t ( (x_\tau))\)</span>.</p>
+<p>Dengan kata lain, setelah <span class="math inline">\(\mathbf
+P_\psi\)</span> memilih suatu lintasan waktu <span class="math inline">\((x_\tau) \in
+rcS\)</span>, rantai Markov <span class="math inline">\((X_t)\)</span>
+hanya melaporkan lintasan waktu tersebut.</p>
+<p>Dengan demikian, <span class="math inline">\((X_t)\)</span> secara
+otomatis memiliki distribusi yang benar.</p>
+<p>Rantai <span class="math inline">\((X_t)\)</span> yang dikonstruksi
+dengan cara ini disebut <strong>rantai kanonik</strong> untuk semigrup
+<span class="math inline">\((P_t)\)</span> dan kondisi awal <span class="math inline">\(\psi\)</span>.</p>
+<h3 id="simulasi-dan-konstruksi-probabilistik">Simulasi dan Konstruksi
+Probabilistik</h3>
+<p>Meskipun kita telah menjawab pertanyaan keberadaan secara afirmatif,
+konstruksi kanonik tersebut cukup abstrak.</p>
+<p>Selain itu, hanya ada sedikit informasi tentang cara menyimulasikan
+rantai semacam itu.</p>
+<p>Untungnya, ternyata ada cara yang lebih konkret untuk membangun
+rantai Markov waktu kontinu dari objek-objek yang mendeskripsikan
+distribusinya.</p>
+<p>Kita akan mempelajarinya dalam kuliah lanjutan tentang semigrup
+Markov waktu kontinu.</p>
+<h2 id="implikasi-sifat-markov">Implikasi Sifat Markov</h2>
+<p>Sifat Markov membawa beberapa implikasi kuat yang tidak langsung
+tampak.</p>
+<p>Mari luangkan waktu untuk menelaahnya.</p>
+<h3 id="contoh-kegagalan-sifat-markov">Contoh: Kegagalan Sifat
+Markov</h3>
+<p>Mari kita lihat bagaimana sifat Markov dapat gagal melalui pembahasan
+yang intuitif, bukan formal.</p>
+<p>Misalkan <span class="math inline">\((X_t)\)</span> adalah proses
+stokastik waktu kontinu dengan ruang keadaan <span class="math inline">\(S = \{0, 1\}\)</span>.</p>
+<p>Proses dimulai dari <span class="math inline">\(0\)</span> dan
+diperbarui sebagai berikut:</p>
+<ol type="1">
+<li>Ambil <span class="math inline">\(W\)</span> secara independen dari
+suatu distribusi Pareto tetap.</li>
+<li>Pertahankan <span class="math inline">\((X_t)\)</span> pada
+keadaannya saat ini selama <span class="math inline">\(W\)</span> satuan
+waktu, lalu beralih ke keadaan lainnya.</li>
+<li>Kembali ke langkah 1.</li>
+</ol>
+<p>Berapakah probabilitas bahwa <span class="math inline">\(X_{s+h} =
+i\)</span> jika diketahui sekaligus riwayat <span class="math inline">\((X_r)_{r \leq s}\)</span> dan informasi saat ini
+<span class="math inline">\(X_s = i\)</span>?</p>
+<p>Jika <span class="math inline">\(h\)</span> kecil, probabilitas ini
+mendekati probabilitas bahwa tidak terjadi peralihan selama interval
+waktu <span class="math inline">\((s, s+h]\)</span>.</p>
+<p>Untuk menghitung probabilitas ini, akan berguna jika kita mengetahui
+berapa lama proses telah berada pada keadaan <span class="math inline">\(i\)</span> saat ini.</p>
+<p>Hal ini karena distribusi Pareto <a href="memoryless.html#fail_mem">tidak bersifat tanpa ingatan</a>.</p>
+<p>(Dengan distribusi Pareto, jika kita mengetahui bahwa <span class="math inline">\(X_t\)</span> telah berada pada <span class="math inline">\(i\)</span> dalam waktu lama, maka peralihan dalam
+waktu dekat menjadi lebih mungkin.)</p>
+<p>Akibatnya, riwayat sebelum <span class="math inline">\(X_s\)</span>
+berguna untuk memprediksi <span class="math inline">\(X_{s+h}\)</span>,
+bahkan ketika kita mengetahui <span class="math inline">\(X_s\)</span>.</p>
+<p>Dengan demikian, sifat Markov gagal dipenuhi.</p>
+<h3 id="pembatasan-yang-diberlakukan-oleh-sifat-markov">Pembatasan yang
+Diberlakukan oleh Sifat Markov</h3>
+<p>Dari pembahasan di atas, kita melihat bahwa, untuk rantai Markov
+waktu kontinu, waktu tunggu di antara lompatan harus bersifat tanpa
+ingatan.</p>
+<p>Ingat bahwa, menurut <a href="memoryless.html#exp_unique">teorema
+keunikan eksponensial</a>, satu-satunya distribusi bersifat tanpa
+ingatan dengan dukungan pada <span class="math inline">\(\RR_+\)</span>
+adalah distribusi eksponensial.</p>
+<p>Oleh karena itu, rantai Markov waktu kontinu tinggal pada setiap
+keadaan selama suatu waktu yang berdistribusi eksponensial, kemudian
+melompat.</p>
+<p>Cara pemilihan keadaan baru juga harus memenuhi sifat Markov, yang
+menambahkan pembatasan lain.</p>
+<p>Ringkasnya, kita telah memahami hal-hal berikut mengenai rantai
+Markov waktu kontinu:</p>
+<ol type="1">
+<li>Waktu tinggal merupakan hasil pengambilan independen dari distribusi
+eksponensial.</li>
+<li>Keadaan baru dipilih secara <code>Markovian</code>, independen dari
+masa lalu jika keadaan saat ini diketahui.</li>
+</ol>
+<p>Kita hanya perlu memperjelas perincian langkah-langkah ini untuk
+memperoleh deskripsi yang lengkap.</p>
+<h2 id="contoh-proses-markov">Contoh Proses Markov</h2>
+<p>Mari kita lihat beberapa contoh proses yang memiliki sifat
+Markov.</p>
+<h3 id="contoh-proses-poisson">Contoh: Proses Poisson</h3>
+<p>Proses Poisson yang dibahas dalam <a href="poisson.html">kuliah
+sebelumnya</a> merupakan proses Markov pada ruang keadaan <span class="math inline">\(\ZZ_+\)</span>.</p>
+<p>Untuk memperoleh semigrup Markov, kita amati bahwa, untuk <span class="math inline">\(k \geq j\)</span>,</p>
+<p><span class="math display">\[
+    \PP\{N_{s + t} = k \,|\, N_s = j\}
+    = \PP\{N_{s + t} - N_s = k - j \,|\, N_s = j\}
+    = \PP\{N_{s + t} - N_s = k - j\}
+\]</span></p>
+<p>dengan langkah terakhir merupakan akibat dari independensi
+inkremen.</p>
+<p>Dari stasioneritas inkremen, kita memperoleh</p>
+<p><span class="math display">\[
+    \PP\{N_{s + t} - N_s = k - j\}
+    = \PP\{N_t = k - j\}
+    = e^{-\lambda t} \frac{ (\lambda t)^{k-j} }{(k-j)!}
+\]</span></p>
+<p>Ringkasnya, semigrup Markov tersebut adalah</p>
+<p><a id="equation-poissemi"></a> <span class="math display">\[
+    P_t(j, k)
+    = e^{-\lambda t} \frac{ (\lambda t)^{k-j} }{(k-j)!}  
+\]</span></p>
+<p>ketika <span class="math inline">\(j \leq k\)</span>, sedangkan <span class="math inline">\(P_t(j, k) = 0\)</span> untuk kasus lainnya.</p>
+<p>Rangkaian kesamaan ini diperoleh dengan <span class="math inline">\(N_s = j\)</span> untuk sebarang <span class="math inline">\(j\)</span>, sehingga kita dapat mengganti <span class="math inline">\(j\)</span> dengan <span class="math inline">\(N_s\)</span> dalam <a href="#equation-poissemi">persamaan poissemi</a> untuk memverifikasi
+sifat Markov <a href="#equation-markovprop">persamaan markovprop</a>
+bagi proses Poisson.</p>
+<p>Berdasarkan <a href="#equation-poissemi">persamaan poissemi</a>,
+setiap <span class="math inline">\(P_t\)</span> merupakan matriks Markov
+dan <span class="math inline">\((P_t)\)</span> merupakan semigrup
+Markov.</p>
+<p>Bukti sifat semigrup diberikan sebagai latihan dengan penyelesaian di
+bawah.<a class="footnote-ref" href="#fn2" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p><a id="inventory_dynam"></a></p>
+<h2 id="model-dinamika-persediaan">Model Dinamika Persediaan</h2>
+<p>Misalkan <span class="math inline">\(X_t\)</span> adalah persediaan
+suatu perusahaan pada waktu <span class="math inline">\(t\)</span>,
+dengan nilai pada bilangan bulat <span class="math inline">\(0, 1,
+\ldots, b\)</span>.</p>
+<p>Jika <span class="math inline">\(X_t &gt; 0\)</span>, seorang
+pelanggan tiba setelah <span class="math inline">\(W\)</span> satuan
+waktu, dengan <span class="math inline">\(W \sim \Exp (\lambda)\)</span>
+untuk suatu <span class="math inline">\(\lambda &gt; 0\)</span> yang
+tetap.</p>
+<p>Pada saat tiba, setiap pelanggan membeli <span class="math inline">\(\min\{U, X_t\}\)</span> unit, dengan <span class="math inline">\(U\)</span> merupakan hasil pengambilan IID dari
+distribusi geometrik yang dimulai dari 1, bukan 0:</p>
+<p><span class="math display">\[
+    \PP\{U = k\} = (1-\alpha)^{k-1} \alpha
+    \qquad (k = 1, 2, \ldots, \; \alpha \in (0, 1))
+\]</span></p>
+<p>Jika <span class="math inline">\(X_t = 0\)</span>, tidak ada
+pelanggan yang tiba dan perusahaan memesan <span class="math inline">\(b\)</span> unit.</p>
+<p>Pesanan tiba setelah penundaan selama <span class="math inline">\(D\)</span> satuan waktu, dengan <span class="math inline">\(D \sim \Exp (\lambda)\)</span>.</p>
+<p>(Di sini kita menggunakan <span class="math inline">\(\lambda\)</span> yang sama hanya demi kemudahan,
+untuk menyederhanakan pemaparan.)</p>
+<h3 id="representasi">Representasi</h3>
+<p>Proses persediaan melompat ke suatu nilai baru ketika pelanggan baru
+tiba atau ketika persediaan baru tiba.</p>
+<p>Di antara waktu-waktu kedatangan tersebut, proses bernilai
+konstan.</p>
+<p>Oleh karena itu, untuk melacak <span class="math inline">\(X_t\)</span>, cukup melacak waktu lompatan dan
+nilai baru yang dicapai pada setiap lompatan.</p>
+<p>Selanjutnya, kita menyatakan waktu lompatan dengan <span class="math inline">\(\{J_k\}\)</span> dan nilai pada saat lompatan
+dengan <span class="math inline">\(\{Y_k\}\)</span>.</p>
+<p>Kemudian kita membangun proses keadaan melalui</p>
+<p><a id="equation-xfromy"></a> <span class="math display">\[
+    X_t = \sum_{k \geq 0} Y_k \mathbb 1\{J_k \leq t &lt; J_{k+1}\}
+    \qquad (t \geq 0)
+\]</span></p>
+<h3 id="simulasi">Simulasi</h3>
+<p>Mari simulasikan proses ini, dimulai dari <span class="math inline">\(X_0 = b\)</span>.</p>
+<blockquote>
+<p><strong>Catatan editorial hilir.</strong> Uraian sumber menyebut
+keadaan awal 0, tetapi docstring dan inisialisasi
+<code>J, Y = 0, b</code> menetapkan keadaan awal <code>b</code>. Kode
+sumber dipertahankan; uraian pembaca diselaraskan dengan
+implementasi.</p>
+</blockquote>
+<p>Seperti di atas,</p>
+<ul>
+<li><span class="math inline">\(J_k\)</span> adalah waktu lompatan
+ke-<span class="math inline">\(k\)</span> (naik atau turun) dalam
+persediaan.</li>
+<li><span class="math inline">\(Y_k\)</span> adalah jumlah persediaan
+setelah lompatan ke-<span class="math inline">\(k\)</span>.</li>
+<li><span class="math inline">\((X_t)\)</span> didefinisikan dari
+objek-objek ini melalui <a href="#equation-xfromy">persamaan
+xfromy</a>.</li>
+</ul>
+<p>Berikut adalah fungsi yang menghasilkan dan mengembalikan satu
+lintasan <span class="math inline">\(t \mapsto X_t\)</span>.</p>
+<p>(Pada tahap ini kita tidak mengejar efisiensi komputasi.)</p>
+<div class="code-cell" data-tags="" id="qe-cell-3">
+<pre><code class="language-python" data-cell-index="3">def sim_path(T=10, seed=123, λ=0.5, α=0.7, b=10):
+    """
+    Generate a path for inventory starting at b, up to time T.
+
+    Return the path as a function X(t) constructed from (J_k) and (Y_k).
+    """
+
+    J, Y = 0, b
+    J_vals, Y_vals = [J], [Y]
+    np.random.seed(seed)
+
+    while True:
+        W = np.random.exponential(scale=1/λ)  # W ~ Exp(λ)
+        J += W
+        J_vals.append(J)
+        if J &gt;= T:
+            break
+        # Update Y
+        if Y == 0:
+            Y = b
+        else:
+            U = np.random.geometric(α)
+            Y = Y - min(Y, U)
+        Y_vals.append(Y)
+    
+    Y_vals = np.array(Y_vals)
+    J_vals = np.array(J_vals)
+
+    def X(t):
+        if t == 0.0:
+            return Y_vals[0]
+        else:
+            k = np.searchsorted(J_vals, t)
+            return Y_vals[k-1]
+
+    return X</code></pre>
+</div>
+<p>Mari kita buat grafik proses <span class="math inline">\((X_t)\)</span>.</p>
+<div class="code-cell" data-tags="" id="qe-cell-4">
+<pre><code class="language-python" data-cell-index="4">T = 20
+X = sim_path(T=T)
+
+grid = np.linspace(0, T, 100)
+
+fig, ax = plt.subplots()
+ax.step(grid, [X(t) for t in grid], label="$X_t$")
+
+ax.set(xlabel="waktu", ylabel="persediaan")
+
+ax.legend()
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-markov_prop-cell-04-figure-01"><img alt="Lintasan simulasi tingkat persediaan terhadap waktu." src="../components/markov_prop/assets/markov_prop-cell-04-figure-01.png"/><figcaption>Lintasan simulasi tingkat persediaan terhadap waktu.</figcaption></figure>
+</div>
+<p>Sesuai dugaan, persediaan menurun lalu melonjak kembali ke <span class="math inline">\(b\)</span>.</p>
+<h3 id="rantai-lompatan-tertanam">Rantai Lompatan Tertanam</h3>
+<p>Dalam model seperti yang dijelaskan di atas, proses waktu diskret
+tertanam <span class="math inline">\((Y_k)\)</span> disebut “rantai
+lompatan tertanam”.</p>
+<p>Mudah dilihat bahwa <span class="math inline">\((Y_k)\)</span>
+merupakan rantai Markov waktu diskret dengan ruang keadaan
+berhingga.</p>
+<p>Matriks Markovnya <span class="math inline">\(K\)</span> diberikan
+oleh <span class="math inline">\(K(x, y) = \mathbb 1\{y=b\}\)</span>
+ketika <span class="math inline">\(x=0\)</span> dan, ketika <span class="math inline">\(0 &lt; x \leq b\)</span>,</p>
+<p><a id="equation-ijumpkern"></a> <span class="math display">\[
+    K(x, y)
+    =
+    \begin{cases}
+    \mathbb 0 &amp; \text{ if }  y \geq x
+    \\
+    \PP\{x - U = y\} = (1-\alpha)^{x-y-1} \alpha
+        &amp; \text{ if } 0 &lt; y &lt; x
+    \\
+    \PP\{U \geq x\} = (1-\alpha)^{x-1}
+        &amp; \text{ if } y = 0
+    \end{cases}
+\]</span></p>
+<h3 id="sifat-markov-1">Sifat Markov</h3>
+<p>Model persediaan yang baru saja dijelaskan memiliki sifat Markov
+tepat karena</p>
+<ol type="1">
+<li>rantai lompatan <span class="math inline">\((Y_k)\)</span> bersifat
+Markov dalam waktu diskret dan</li>
+<li>waktu tinggal merupakan hasil pengambilan independen dari distribusi
+eksponensial.</li>
+</ol>
+<p>Alih-alih memberikan perincian lebih lanjut mengenai hal-hal ini di
+sini, mari terlebih dahulu kita uraikan suatu kerangka yang lebih umum,
+tempat argumennya akan menjadi lebih jelas dan lebih berguna.</p>
+<h2 id="proses-lompatan-dengan-laju-konstan">Proses Lompatan dengan Laju
+Konstan</h2>
+<p>Contoh-contoh yang sejauh ini kita bahas merupakan kasus khusus
+proses Markov dengan intensitas lompatan konstan.</p>
+<p>Proses-proses ini ternyata sangat representatif (meskipun asumsi
+intensitas lompatan konstan akan dilonggarkan kemudian).</p>
+<p>Sekarang mari kita rangkum model tersebut beserta sifat-sifatnya.</p>
+<h3 id="konstruksi">Konstruksi</h3>
+<p>Data untuk proses Markov pada <span class="math inline">\(S\)</span>
+dengan laju lompatan konstan adalah</p>
+<ul>
+<li>parameter <span class="math inline">\(\lambda &gt; 0\)</span> yang
+disebut <strong>laju lompatan</strong>, yang mengatur intensitas
+lompatan, dan</li>
+<li>matriks Markov <span class="math inline">\(K\)</span> pada <span class="math inline">\(S\)</span>, yang disebut <strong>matriks
+lompatan</strong>.</li>
+</ul>
+<p>Untuk menjalankan proses tersebut, kita juga memerlukan kondisi awal
+<span class="math inline">\(\psi \in \dD\)</span>.</p>
+<p>Proses <span class="math inline">\((X_t)\)</span> dikonstruksi dengan
+menetap di setiap keadaan selama selang waktu eksponensial berparameter
+laju <span class="math inline">\(\lambda\)</span>, lalu berpindah ke
+keadaan baru menurut <span class="math inline">\(K\)</span>.</p>
+<p>Secara lebih terperinci, konstruksinya adalah sebagai berikut.</p>
+<div class="qe-algorithm">
+<p><strong>Rantai Lompatan Berlaju Konstan</strong>
+<strong>Masukan</strong> <span class="math inline">\(\psi \in
+\dD\)</span>, konstanta positif <span class="math inline">\(\lambda\)</span>, matriks Markov <span class="math inline">\(K\)</span></p>
+<p><strong>Keluaran</strong> Rantai Markov <span class="math inline">\((X_t)\)</span></p>
+<ol type="1">
+<li>ambil sampel <span class="math inline">\(Y_0\)</span> dari <span class="math inline">\(\psi\)</span></li>
+<li>tetapkan <span class="math inline">\(k = 1\)</span> dan <span class="math inline">\(J_0 = 0\)</span></li>
+<li>ambil sampel <span class="math inline">\(W_k\)</span> dari Exp<span class="math inline">\((\lambda)\)</span> dan tetapkan <span class="math inline">\(J_k = J_{k-1} + W_k\)</span></li>
+<li>tetapkan <span class="math inline">\(X_t = Y_{k-1}\)</span> untuk
+setiap <span class="math inline">\(t\)</span> yang memenuhi <span class="math inline">\(J_{k-1} \leq t &lt; J_k\)</span>.</li>
+<li>ambil sampel <span class="math inline">\(Y_k\)</span> dari <span class="math inline">\(K(Y_{k-1}, \cdot)\)</span></li>
+<li>tetapkan <span class="math inline">\(k = k+1\)</span> dan kembali ke
+langkah 3.</li>
+</ol>
+</div>
+<p>Cara lain yang lebih ringkas untuk menyatakan proses yang sama adalah
+dengan mengambil</p>
+<ul>
+<li><span class="math inline">\((N_t)\)</span> sebagai proses Poisson
+dengan laju <span class="math inline">\(\lambda\)</span>, dan</li>
+<li><span class="math inline">\((Y_k)\)</span> sebagai rantai Markov
+waktu diskret dengan matriks Markov <span class="math inline">\(K\)</span>,</li>
+</ul>
+<p>lalu menetapkan</p>
+<p><span class="math display">\[
+    X_t := Y_{N_t} \text{ for all } t \geq 0
+\]</span></p>
+<p>Seperti sebelumnya, proses waktu diskret <span class="math inline">\((Y_k)\)</span> disebut <strong>rantai lompatan
+tertanam</strong>.</p>
+<p>(Jangan keliru membedakannya dari <span class="math inline">\((X_t)\)</span>, yang sering disebut “proses
+lompatan” atau “rantai lompatan” karena proses itu berpindah keadaan
+melalui lompatan.)</p>
+<p>Peubah-peubah <span class="math inline">\((W_k)\)</span> disebut
+<strong>waktu tunggu</strong> atau <strong>waktu tinggal</strong>.</p>
+<h3 id="contoh">Contoh</h3>
+<p>Proses Poisson dengan laju <span class="math inline">\(\lambda\)</span> adalah proses lompatan pada <span class="math inline">\(S = \ZZ_+\)</span>.</p>
+<p>Waktu tinggalnya jelas berdistribusi eksponensial dengan parameter
+laju konstan <span class="math inline">\(\lambda\)</span>.</p>
+<p>Matriks lompatannya adalah <span class="math inline">\(K(i, j) =
+\mathbb 1\{j = i+1\}\)</span>, sehingga keadaan bertambah satu pada
+setiap <span class="math inline">\(J_k\)</span>.</p>
+<p>Model persediaan juga merupakan proses lompatan dengan laju konstan
+<span class="math inline">\(\lambda\)</span>, kali ini pada <span class="math inline">\(S = \{0, 1, \ldots, b\}\)</span>.</p>
+<p>Matriks lompatannya diberikan dalam <a href="#equation-ijumpkern">persamaan ijumpkern</a>.</p>
+<h3 id="sifat-markov-2">Sifat Markov</h3>
+<p>Mari kita tunjukkan bahwa proses lompatan <span class="math inline">\((X_t)\)</span> yang dikonstruksi di atas memenuhi
+sifat Markov, sekaligus memperoleh semigrup Markov-nya.</p>
+<p>Kita akan menggunakan dua fakta:</p>
+<ul>
+<li>rantai lompatan <span class="math inline">\((Y_k)\)</span> memiliki
+sifat Markov dalam waktu diskret, dan</li>
+<li>proses Poisson memiliki inkremen stasioner yang saling bebas.</li>
+</ul>
+<p>Dari kedua fakta ini, secara intuitif distribusi <span class="math inline">\(X_{t+s}\)</span> dengan syarat seluruh riwayat
+<span class="math inline">\(\fF_s = \{ (N_r)_{r \leq s}, (Y_k)_{k \leq
+N_s} \}\)</span> hanya bergantung pada <span class="math inline">\(X_s\)</span>.</p>
+<p>Memang, jika kita mengetahui <span class="math inline">\(X_s\)</span>, kita cukup</p>
+<ul>
+<li><a href="poisson.html#restart_prop">hasil memulai ulang proses
+Poisson</a> proses Poisson dari <span class="math inline">\(N_s\)</span>, lalu</li>
+<li>mulai dari <span class="math inline">\(X_s = Y_{N_s}\)</span>,
+memperbarui rantai lompatan tertanam <span class="math inline">\((Y_k)\)</span> menurut <span class="math inline">\(K\)</span> setiap kali terjadi lompatan baru.</li>
+</ul>
+<p>Mari kita tuliskan hal ini secara lebih matematis.</p>
+<p>Dengan menetapkan <span class="math inline">\(y \in S\)</span> dan
+<span class="math inline">\(s, t \geq 0\)</span>, kita memperoleh</p>
+<p><span class="math display">\[
+    \PP\{X_{s + t} = y \,|\, \fF_s \}
+      = \PP\{Y_{N_{s + t}} = y \,|\, \fF_s \}
+      = \PP\{Y_{N_s + N_{s + t} - N_s} = y \,|\, \fF_s \}
+\]</span></p>
+<p>Dengan <a href="poisson.html#restart_prop">hasil memulai ulang proses
+Poisson</a> bahwa <span class="math inline">\(N_{s + t} - N_s\)</span>
+berdistribusi Poisson dengan parameter <span class="math inline">\(t
+\lambda\)</span> dan bebas dari riwayat <span class="math inline">\(\fF_s\)</span>, kita dapat menuliskan tampilan di
+atas sebagai</p>
+<p><span class="math display">\[
+    \PP\{X_{s + t} = y \,|\, \fF_s \}
+    =
+    \sum_{k \geq 0}
+    \PP\{Y_{N_s + k} = y \,|\, \fF_s \}
+       \frac{(t \lambda )^k}{k!} e^{-t \lambda}
+\]</span></p>
+<p>Karena rantai lompatan tertanam bersifat Markov dengan matriks Markov
+<span class="math inline">\(K\)</span>, kita dapat menyederhanakannya
+lebih lanjut menjadi</p>
+<p><span class="math display">\[
+    \PP\{X_{s + t} = y \,|\, \fF_s \}
+    = \sum_{k \geq 0}
+    K^k(Y_{N_s}, y) \frac{(t \lambda )^k}{k!} e^{-t \lambda}
+    = \sum_{k \geq 0} K^k(X_s, y) \frac{(t \lambda )^k}{k!} e^{-t
+\lambda}
+\]</span></p>
+<p>Karena ekspresi di atas hanya bergantung pada <span class="math inline">\(X_s\)</span>, kita telah membuktikan bahwa <span class="math inline">\((X_t)\)</span> memiliki sifat Markov.</p>
+<p><a id="consjumptransemi"></a></p>
+<h3 id="semigrup-transisi">Semigrup Transisi</h3>
+<p>Semigrup Markov dapat diperoleh dari hasil terakhir kita dengan
+mengondisikan pada <span class="math inline">\(X_s = x\)</span>,
+sehingga</p>
+<p><span class="math display">\[
+    P_t(x, y) = \PP\{X_{s + t} = y \,|\, X_s = x \}
+    = e^{-t \lambda} \sum_{k \geq 0}
+        K^k(x, y) \frac{(t \lambda )^k}{k!}
+\]</span></p>
+<p>Jika <span class="math inline">\(S\)</span> berhingga, kita dapat
+menuliskannya dalam bentuk matriks dan menggunakan definisi <a href="https://en.wikipedia.org/wiki/Matrix_exponential">eksponensial
+matriks</a> untuk memperoleh</p>
+<p><span class="math display">\[
+    P_t
+    = e^{-t \lambda}
+        \sum_{k \geq 0}
+        \frac{(t \lambda K)^k}{k!}
+    = e^{-t \lambda} e^{t \lambda K}
+    = e^{t \lambda (K - I)}
+\]</span></p>
+<p>Ini merupakan representasi semigrup Markov yang sederhana dan elegan,
+yang memudahkan kita memahami dan menganalisis dinamika distribusi.</p>
+<p>Sebagai contoh, jika <span class="math inline">\(X_0\)</span>
+berdistribusi <span class="math inline">\(\psi\)</span>, maka <span class="math inline">\(X_t\)</span> berdistribusi</p>
+<p><a id="equation-distflowconst"></a> <span class="math display">\[
+    \psi P_t = \psi e^{t \lambda (K - I)}
+\]</span></p>
+<p>Kita hanya perlu menyubstitusikan <span class="math inline">\(\lambda\)</span> dan <span class="math inline">\(K\)</span> untuk memperoleh seluruh aliran <span class="math inline">\(t \mapsto \psi P_t\)</span>.</p>
+<p>Kita akan segera memperluas representasi ini ke kasus ketika <span class="math inline">\(S\)</span> tak berhingga.</p>
+<p><a id="invdistflows"></a></p>
+<h2 id="aliran-distribusi-untuk-model-persediaan">Aliran Distribusi
+untuk Model Persediaan</h2>
+<p>Mari kita terapkan gagasan-gagasan ini pada model persediaan yang
+dijelaskan di atas.</p>
+<p>Kita tetapkan</p>
+<ul>
+<li>parameter <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(b\)</span>, dan <span class="math inline">\(\lambda\)</span> dalam model persediaan,
+serta</li>
+<li>kondisi awal <span class="math inline">\(X_0 \sim \psi_0\)</span>,
+dengan <span class="math inline">\(\psi_0\)</span> sebagai distribusi
+sembarang pada <span class="math inline">\(S\)</span>.</li>
+</ul>
+<p>Ruang keadaan <span class="math inline">\(S\)</span> ditetapkan
+sebagai <span class="math inline">\(\{0, \ldots, b\}\)</span> dan
+matriks <span class="math inline">\(K\)</span> didefinisikan oleh <a href="#equation-ijumpkern">persamaan ijumpkern</a>.</p>
+<p>Sekarang kita majukan waktu.</p>
+<p>Kita ingin menghitung aliran distribusi <span class="math inline">\(t
+\mapsto \psi_t\)</span>, dengan <span class="math inline">\(\psi_t\)</span> sebagai distribusi <span class="math inline">\(X_t\)</span>.</p>
+<p>Menurut teori yang dikembangkan di atas, kita memiliki dua
+pilihan.</p>
+<p>Pilihan 1 adalah menggunakan simulasi.</p>
+<p>Langkah pertama adalah menyimulasikan banyak realisasi yang saling
+bebas dari proses <span class="math inline">\((X_t^m)_{m=1}^M\)</span>.</p>
+<p>(Di sini <span class="math inline">\(m\)</span> menunjukkan nomor
+simulasi <span class="math inline">\(m\)</span>, yang dapat dipandang
+sebagai realisasi untuk perusahaan <span class="math inline">\(m\)</span>.)</p>
+<p>Selanjutnya, untuk setiap <span class="math inline">\(t\)</span>
+tertentu, kita definisikan <span class="math inline">\(\hat \psi_t \in
+\dD\)</span> sebagai histogram pengamatan pada waktu <span class="math inline">\(t\)</span>, atau secara ekuivalen sebagai
+distribusi penampang pada <span class="math inline">\(t\)</span>:</p>
+<p><span class="math display">\[
+    \hat \psi_t(x) := \frac{1}{M} \sum_{m=1}^M \mathbb 1\{X_t^m = x\}
+    \qquad (x \in S)
+\]</span></p>
+<p>Jika <span class="math inline">\(M\)</span> besar, <span class="math inline">\(\hat \psi_t(x)\)</span> akan mendekati <span class="math inline">\(\PP\{X_t = x\}\)</span> menurut hukum bilangan
+besar.</p>
+<p>Dengan kata lain, pada limit kita memperoleh kembali <span class="math inline">\(\psi_t\)</span>.</p>
+<p>Pilihan 2 adalah menyubstitusikan parameter ke ruas kanan <a href="#equation-distflowconst">persamaan distflowconst</a> dan
+menghitung <span class="math inline">\(\psi_t\)</span> sebagai <span class="math inline">\(\psi_0 P_t\)</span>.</p>
+<p>Gambar di bawah dibuat menggunakan pilihan 2, dengan <span class="math inline">\(\alpha = 0.6\)</span>, <span class="math inline">\(\lambda = 0.5\)</span>, dan <span class="math inline">\(b=10\)</span>.</p>
+<p>Sebagai distribusi awal, kita memilih distribusi binomial.</p>
+<p>Karena kita tidak dapat menghitung seluruh aliran tak terhitung <span class="math inline">\(t \mapsto \psi_t\)</span>, kita bergerak maju
+sebanyak 200 langkah dengan kenaikan waktu <span class="math inline">\(h=0.1\)</span>.</p>
+<p>Pada gambar tersebut, warna panas menunjukkan kondisi awal dan
+waktu-waktu awal (sehingga distribusi “mendingin” seiring waktu).</p>
+<figure class="source-figure" id="flow_fig">
+<img alt="Aliran probabilitas model persediaan dari distribusi awal menuju distribusi jangka panjang." src="../components/markov_prop/assets/markov-prop-flow-source.png"/>
+<figcaption>
+Aliran probabilitas untuk model persediaan.
+</figcaption>
+</figure>
+<p>Dalam latihan (beserta solusi) Anda akan diminta mencoba mereproduksi
+gambar ini.</p>
+<h2 id="latihan">Latihan</h2>
+<div class="exercise" id="markov-prop-1">
+<p>Perhatikan distribusi biner (Bernoulli) dengan hasil <span class="math inline">\(0\)</span> dan <span class="math inline">\(1\)</span> yang masing-masing memiliki
+probabilitas <span class="math inline">\(0.5\)</span>.</p>
+<p>Konstruksikan dua peubah acak berbeda yang memiliki distribusi
+ini.</p>
+</div>
+<div class="solution" id="markov_prop-solution-1">
+<p><strong>Solusi</strong> Salah satu contoh adalah mengambil <span class="math inline">\(U\)</span> yang berdistribusi seragam pada <span class="math inline">\((0, 1)\)</span>, lalu menetapkan <span class="math inline">\(X=0\)</span> jika <span class="math inline">\(U
+&lt; 0.5\)</span> dan <span class="math inline">\(1\)</span> jika
+tidak.</p>
+<p>Dengan demikian, <span class="math inline">\(X\)</span> memiliki
+distribusi yang diinginkan.</p>
+<p>Sebagai alternatif, kita dapat mengambil <span class="math inline">\(Z\)</span> yang berdistribusi normal standar, lalu
+menetapkan <span class="math inline">\(X=0\)</span> jika <span class="math inline">\(Z &lt; 0\)</span> dan <span class="math inline">\(1\)</span> jika tidak.</p>
+</div>
+<div class="exercise" id="markov-prop-2">
+<p>Tunjukkan melalui perhitungan langsung bahwa matriks-matriks Poisson
+<span class="math inline">\((P_t)\)</span> yang didefinisikan dalam <a href="#equation-poissemi">persamaan poissemi</a> memenuhi sifat semigrup
+<a href="#equation-chapkol_ct2">persamaan chapkol_ct2</a>.</p>
+<p>Petunjuk</p>
+<ul>
+<li>Ingat bahwa <span class="math inline">\(P_t(j, k) = 0\)</span>
+apabila <span class="math inline">\(j &gt; k\)</span>.</li>
+<li>Pertimbangkan penggunaan <a href="https://en.wikipedia.org/wiki/Binomial_theorem">rumus
+binomial</a>.</li>
+</ul>
+</div>
+<div class="solution" id="markov_prop-solution-2">
+<p><strong>Solusi</strong> Dengan menetapkan <span class="math inline">\(s, t \in \RR_+\)</span> dan <span class="math inline">\(j \leq k\)</span>, kita memperoleh</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \sum_{i \geq 0} P_s(j, i) P_t(i, k)
+    &amp; =
+    e^{-\lambda (s+t)}
+    \sum_{j \leq i \leq k}
+        \frac{ (\lambda s)^{i-j} }{(i-j)!}  
+        \frac{ (\lambda t)^{k-i} }{(k-i)!}  
+    \\
+    &amp; =
+    e^{-\lambda (s+t)} \lambda^{k-j}
+    \sum_{0 \leq \ell \leq k-j}
+        \frac{  s^\ell }{\ell!}  
+        \frac{ t^{k-j - \ell} }{(k-j - \ell)!}  
+    \\
+    &amp; =
+    e^{-\lambda (s+t)} \lambda^{k-j}
+    \sum_{0 \leq \ell \leq k-j}
+        \binom{k-j}{\ell}
+        \frac{s^\ell t^{k-j - \ell}}{(k-j)!}  
+\end{aligned}
+\]</span></p>
+<p>Dengan menerapkan rumus binomial, kita dapat menuliskannya
+sebagai</p>
+<p><span class="math display">\[
+    \sum_{i \geq 0} P_s(j, i) P_t(i, k)
+    =
+    e^{-\lambda (s+t)}
+    \frac{(\lambda (s + t))^{k-j}}{(k-j)!}
+    = P_{s+t}(j, k)
+\]</span></p>
+<p>Jadi, <a href="#equation-chapkol_ct2">persamaan chapkol_ct2</a>
+berlaku dan sifat semigrup terpenuhi.</p>
+</div>
+<div class="exercise" id="markov-prop-3">
+<p>Perhatikan distribusi pada <span class="math inline">\(S^{n+1}\)</span> yang sebelumnya ditampilkan dalam
+<a href="#equation-mathjointd">persamaan mathjointd</a>, yaitu</p>
+<p><span class="math display">\[
+\mathbf P_\psi^n(x_0, x_1, \ldots, x_n)
+    = \psi(x_0)
+    P(x_0, x_1)
+    \times \cdots \times
+    P(x_{n-1}, x_n)
+\]</span></p>
+<p>Tunjukkan bahwa, untuk setiap rantai Markov <span class="math inline">\((X_t)\)</span> yang memenuhi <a href="#equation-markovpropd">persamaan markovpropd</a> dan <span class="math inline">\(X_0 \sim \psi\)</span>, pembatasan <span class="math inline">\((X_0, \ldots, X_n)\)</span> memiliki distribusi
+gabungan <span class="math inline">\(\mathbf P_\psi^n\)</span>.</p>
+</div>
+<div class="solution" id="markov_prop-solution-3">
+<p><strong>Solusi</strong> Misalkan <span class="math inline">\((X_t)\)</span> adalah rantai Markov yang memenuhi
+<a href="#equation-markovpropd">persamaan markovpropd</a> dan <span class="math inline">\(X_0 \sim \psi\)</span>.</p>
+<p>Untuk <span class="math inline">\(n=0\)</span>, kita memiliki <span class="math inline">\(\mathbf P_\psi^n = \mathbf P_\psi^0 =
+\psi\)</span>, dan hal ini sesuai dengan distribusi pembatasan <span class="math inline">\((X_0, \ldots, X_n) = (X_0)\)</span>.</p>
+<p>Sekarang andaikan pernyataan yang sama berlaku untuk sembarang <span class="math inline">\(n-1\)</span>, dalam arti bahwa distribusi <span class="math inline">\((X_0, \ldots, X_{n-1})\)</span> sama dengan <span class="math inline">\(\mathbf P_\psi^{n-1}\)</span> sebagaimana
+didefinisikan di atas.</p>
+<p>Maka</p>
+<p><span class="math display">\[
+\PP \{X_0 = x_0, \ldots, X_n = x_n\}
+= \PP \{X_n = x_n \,|\, X_0 = x_0, \ldots, X_{n-1} = x_{n-1}  \}
+\\
+    \times \PP \{X_0 = x_0, \ldots, X_{n-1} = x_{n-1}\}
+\]</span></p>
+<p>Dari sifat Markov dan hipotesis induksi, ruas kanan sama dengan</p>
+<p><span class="math display">\[
+P (x_{n-1}, x_n )
+\mathbf P_\psi^{n-1}(x_0, x_1, \ldots, x_{n-1})
+=
+    P (x_{n-1}, x_n )
+    \psi(x_0)
+    P(x_0, x_1)
+    \times \cdots \times
+    P(x_{n-2}, x_{n-1})
+\]</span></p>
+<p>Ekspresi terakhir sama dengan <span class="math inline">\(\mathbf
+P_\psi^n\)</span>, sehingga pembuktian selesai.</p>
+</div>
+<div class="exercise" id="markov-prop-4">
+<p>Cobalah membuat versi Anda sendiri dari gambar <a href="#flow_fig">gambar aliran distribusi</a>.</p>
+<p>Pada koreksi hilir di bawah, kondisi awalnya adalah
+<code>ψ_0 = binom.pmf(states, b, 0.25)</code>, sedangkan
+<code>n = b + 1</code> menyatakan banyaknya keadaan dan
+<code>states = np.arange(n)</code> mencakup seluruh ruang keadaan <span class="math inline">\(\{0, \ldots, b\}\)</span>.</p>
+</div>
+<div class="solution" id="markov_prop-solution-4">
+<p><strong>Solusi</strong></p>
+<p>Berikut adalah salah satu pendekatan.</p>
+<p><strong>Catatan koreksi hilir.</strong> Sumber memakai
+<code>n = b + 1</code> sebagai banyaknya keadaan sekaligus sebagai
+argumen banyaknya percobaan dalam
+<code>binom.pmf(states, n, 0.25)</code>. Karena <code>states</code>
+hanya mencakup <span class="math inline">\(0,\ldots,b\)</span>, pilihan
+tersebut menghilangkan massa positif <span class="math inline">\(0.25^{b+1}\)</span> pada hasil <span class="math inline">\(b+1\)</span> dan tidak berjumlah tepat satu.
+Solusi terjemahan mempertahankan <code>n = b + 1</code> dan
+<code>states = np.arange(n)</code> untuk mengindeks keadaan, tetapi
+memakai <code>b</code> sebagai banyaknya percobaan binomial agar
+dukungan lengkapnya tepat <span class="math inline">\(S=\{0,\ldots,b\}\)</span>. Otoritas sumber tetap
+dipertahankan secara terpisah tanpa perubahan.</p>
+<p>(Pernyataan yang melibatkan <code>glue</code> bersifat khusus untuk
+buku ini dan dapat dihapus oleh kebanyakan pembaca. Pernyataan tersebut
+menyimpan keluaran agar dapat ditampilkan di bagian lain.)</p>
+<div class="code-cell" data-tags="" id="qe-cell-5">
+<pre><code class="language-python" data-cell-index="5">α = 0.6
+λ = 0.5
+b = 10
+n = b + 1
+states = np.arange(n)
+I = np.identity(n)
+
+K = np.zeros((n, n))
+K[0, -1] = 1
+for i in range(1, n):
+    for j in range(0, i):
+        if j == 0:
+            K[i, j] = (1 - α)**(i-1)
+        else:
+            K[i, j] = α * (1 - α)**(i-j-1)
+
+
+def P_t(ψ, t):
+    return ψ @ expm(t * λ * (K - I))
+
+def plot_distribution_dynamics(ax, ψ_0, steps=200, step_size=0.1):
+    ψ = ψ_0
+    t = 0.0
+    colors = cm.jet_r(np.linspace(0.0, 1, steps))
+
+    for i in range(steps):
+        ax.bar(states, ψ, zs=t, zdir='y', 
+            color=colors[i], alpha=0.8, width=0.4)
+        ψ = P_t(ψ, t=step_size)
+        t += step_size
+
+    ax.set_xlabel('persediaan')
+    ax.set_ylabel('$t$')
+
+
+ψ_0 = binom.pmf(states, b, 0.25)
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection='3d')
+plot_distribution_dynamics(ax, ψ_0)
+
+# Build luring hilir: impor glue khusus buku dihapus.
+# Build luring hilir: keluaran gambar ditangkap langsung.
+# Build luring hilir: penulisan ke pohon sumber beku dinonaktifkan.
+
+plt.show()</code></pre>
+<figure class="execution-figure" id="figure-markov_prop-cell-05-figure-01"><img alt="Aliran distribusi persediaan tiga dimensi sepanjang waktu." src="../components/markov_prop/assets/markov_prop-cell-05-figure-01.png"/><figcaption>Aliran distribusi persediaan tiga dimensi sepanjang waktu.</figcaption></figure>
+</div>
+</div>
+<section class="footnotes footnotes-end-of-document" id="footnotes" role="doc-endnotes">
+<hr/>
+<ol>
+<li id="fn1"><p>Pada tingkat teknis, kekontinuan dari kanan lintasan
+<span class="math inline">\((X_t)\)</span> mengimplikasikan syarat 2,
+sebagaimana dibuktikan dalam Teorema 2.12 dari <cite>Liggett
+(2010)</cite>. Kekontinuan dari kanan lintasan memungkinkan lompatan,
+tetapi mensyaratkan hanya ada berhingga banyak lompatan dalam setiap
+interval terbatas.<a class="footnote-back" href="#fnref1" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Dalam definisi <span class="math inline">\(P_t\)</span>
+pada <a href="#equation-poissemi">persamaan poissemi</a>, kita
+menggunakan konvensi bahwa <span class="math inline">\(0^0 = 1\)</span>,
+yang menghasilkan <span class="math inline">\(P_0 = I\)</span> dan <span class="math inline">\(\lim_{t \to 0} P_t(j, k) = I(j,k)\)</span> untuk
+semua <span class="math inline">\(j,k\)</span>. Fakta-fakta ini, bersama
+dengan sifat semigrup, menyiratkan bahwa <span class="math inline">\((P_t)\)</span> merupakan semigrup Markov yang
+valid.<a class="footnote-back" href="#fnref2" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</main><footer>Sumber resmi: https://github.com/QuantEcon/continuous_time_mcs — lisensi CC BY-SA 4.0.</footer></body>
+</html>

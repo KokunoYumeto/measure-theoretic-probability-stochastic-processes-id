@@ -94,7 +94,7 @@
       "distribution": "Anaconda",
       "platform": "Windows-11-10.0.26200-SP0",
       "abi": "cp313-win_amd64",
-      "base_python_path": "C:/Users/Floris/miniconda3/python.exe",
+      "base_python_path": "%USERPROFILE%/miniconda3/python.exe",
       "base_python_bytes": 104264,
       "base_python_sha256": "7679e53fa969789309e81fdad0d52b8cda5f83c9abf7cb31a3c58bf24b31e264",
       "python313_dll_bytes": 7116616,

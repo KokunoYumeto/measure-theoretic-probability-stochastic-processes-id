@@ -1,0 +1,132 @@
+{
+  "schema": "o009.original-lab-qa.v1",
+  "as_of": "2026-08-29",
+  "status": "admitted",
+  "course_id": "D30",
+  "role_id": "O009",
+  "lab": {
+    "id": "o009-lab-convergence-modes",
+    "title": "Mode konvergensi dan pembanding LLN/CLT",
+    "source": {
+      "path": "source/labs/03-konvergensi-mode-dan-lln-clt.Rmd",
+      "bytes": 6003,
+      "sha256": "dbb6c3af2fde53155f4c18a5a75f55b5179a1d1584a3d5655f4e73c64ad1be5b"
+    },
+    "reader": {
+      "path": "build/site/labs/03-konvergensi-mode-dan-lln-clt.html",
+      "bytes": 24360,
+      "sha256": "fd0e48ba65204a80dc71c36e72551490eec5f82bf9c95e71a8608d4e780b7889"
+    },
+    "rights_id": "rights.o009.lab.convergence-modes.cc-by-4.0",
+    "license": "CC BY 4.0",
+    "model": "OpenAI Codex gpt-5.6-sol, Ultra.",
+    "nonendorsement": true,
+    "o006_dependency_id": "resource.o006.c140.shared",
+    "o006_bytes_copied": false
+  },
+  "mathematics_and_language": {
+    "status": "pass",
+    "rare_spike_claim": "Y_n=n 1{U<=1/n} converges almost surely, in probability, and in distribution to zero, but not in L1 because E|Y_n|=1",
+    "indicator_claim": "X_n=1{U<=1/n} converges almost surely and in L1",
+    "repairs_before_admission": [
+      "distinguished the single path in result row 1 from Monte Carlo estimates in rows 2 and 3",
+      "named all four convergence modes explicitly",
+      "replaced the variance-as-scale wording with the correct standard-deviation scales",
+      "identified row 5 target zero as the center of the asymptotic N(0,1), not convergence of the standardized statistic to zero",
+      "normalized p=0.3 and the Indonesian uniform-distribution wording"
+    ],
+    "proof_simulation_boundary": "the deterministic table checks numerical scale only and is not presented as proof of LLN or CLT"
+  },
+  "execution": {
+    "runtime": "R version 4.6.1 (2026-06-24 ucrt)",
+    "rng": "Mersenne-Twister / Inversion / Rejection",
+    "seeds": [20260829, 20260830],
+    "result_rows": 5,
+    "tolerances": {
+      "rare_event_probability_absolute": 0.0002,
+      "rare_spike_l1_absolute": 0.08,
+      "lln_mean_absolute": 0.01,
+      "clt_standardized_absolute_max": 3.0
+    },
+    "status": "pass"
+  },
+  "topology": {
+    "source_ids": 10,
+    "source_duplicate_ids": 0,
+    "backend_units": 13,
+    "exercises": 2,
+    "hints": 2,
+    "answers": 1,
+    "solutions": 2,
+    "programs": 1,
+    "result_tables": 1,
+    "mastery_credit": {
+      "new_fully_solved_problems": 1,
+      "cumulative_original_fully_solved_problems": 13,
+      "remaining": 23
+    }
+  },
+  "reader_repeat": {
+    "file_count": 143,
+    "total_bytes": 7232009,
+    "manifest_sha256": "d6f1db7442707935a6482477d7ed5affd61e78176a3025143ba869e78943193e",
+    "build_receipt_bytes": 31844,
+    "build_receipt_sha256": "0b35d143e5eb00a84f0df6fb2b2acd9f399f7c1cfe845fd53d83dd29cf171ad9",
+    "repeat_identity": "two complete consecutive builds matched for manifest, receipt, and Lab 03 HTML",
+    "timestamp_control": {
+      "path": "00_control/REPRODUCIBLE_BUILD_TIMESTAMP_UTC.txt",
+      "bytes": 33,
+      "sha256": "78e267f17dac32b1e67601c581787b85065f072741a3b8b6bd2e68ce1ba7dcf5",
+      "value": "2026-08-29T16:49:55.089106+00:00"
+    }
+  },
+  "backend_repeat": {
+    "files": 21,
+    "records": 8141,
+    "entities": 2168,
+    "segments": 5973,
+    "relations": 2410,
+    "qa_failures": 0,
+    "manifest_sha256": "38152803fc298da956e61ff786e4761a552cee62b48a5f874224f66fd704c371",
+    "repeat_identity": "all 21 backend files matched byte-for-byte across consecutive builds",
+    "specific_qa_event": "qa.o009.original-lab-03-convergence-binding",
+    "repairs_before_admission": [
+      "replaced two nonexistent fragment locators with real R-chunk and source-line locators",
+      "mapped both front-matter IDs to canonical stable IDs",
+      "added a first-class stable-ID entity and alias for the generated result table",
+      "added an explicit source/reader/runtime/mastery/rights/O006 QA event"
+    ]
+  },
+  "browser": {
+    "desktop": {
+      "viewport": "1280x720",
+      "document_client_width": 1265,
+      "document_scroll_width": 1265,
+      "main_client_width": 1152,
+      "main_scroll_width": 1152,
+      "result_table_rows": 6,
+      "result_table_client_width": 1152,
+      "result_table_scroll_width": 1152,
+      "visual_inspection": "pass: title/provenance, mathematics, code, and mastery blocks are readable and centered within the content column"
+    },
+    "mobile": {
+      "viewport": "390x844",
+      "document_client_width": 375,
+      "document_scroll_width": 375,
+      "main_client_width": 350,
+      "main_scroll_width": 350,
+      "result_table": "display:block; overflow-x:auto; client 350; scroll 766",
+      "code": "wide code is contained by an overflow:auto parent; document width remains 375",
+      "content_bounds": "all exercise, hint, answer, and solution blocks remain within x=12.8..362.3; nested blocks remain within x=29.7..345.4",
+      "screenshot_note": "the in-app mobile screenshot operation was unavailable; DOM geometry, computed overflow, visible content, and console state were inspected directly"
+    },
+    "mathjax_containers": 45,
+    "mathjax_errors": 0,
+    "document_ids": 264,
+    "document_unique_ids": 264,
+    "console_warnings_or_errors": 0,
+    "local_resources": "page, CSS, MathJax, and icon returned HTTP 200 or cache-valid 304",
+    "status": "pass"
+  },
+  "admission_decision": "Lab 03 is admitted as the first of three additional original deterministic domain labs. It adds one complete solved-problem sequence and does not duplicate O006-owned LLN/CLT bytes."
+}

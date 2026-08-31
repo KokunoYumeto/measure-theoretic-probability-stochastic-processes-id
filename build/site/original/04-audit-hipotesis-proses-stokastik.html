@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Audit hipotesis untuk proses stokastik</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="03-probabilitas-bersyarat-reguler.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="03-probabilitas-bersyarat-reguler.html">Jembatan asli sebelumnya</a></nav>
+
+<nav aria-label="Daftar isi" id="TOC" role="doc-toc">
+<ul>
+<li><a href="#audit-hipotesis-untuk-proses-stokastik" id="toc-audit-hipotesis-untuk-proses-stokastik">Audit hipotesis untuk
+proses stokastik</a>
+<ul>
+<li><a href="#tujuan-dan-protokol-audit-hipotesis" id="toc-tujuan-dan-protokol-audit-hipotesis">Tujuan dan protokol audit
+hipotesis</a></li>
+<li><a href="#audit-konvergensi-dan-keterintegralan" id="toc-audit-konvergensi-dan-keterintegralan">Audit konvergensi dan
+keterintegralan</a></li>
+<li><a href="#audit-pengondisian-dan-kernel" id="toc-audit-pengondisian-dan-kernel">Audit pengondisian dan
+kernel</a></li>
+<li><a href="#audit-martingal-dan-waktu-henti" id="toc-audit-martingal-dan-waktu-henti">Audit martingal dan waktu
+henti</a></li>
+<li><a href="#audit-rantai-markov-waktu-diskret-dan-waktu-kontinu-ctmc" id="toc-audit-rantai-markov-waktu-diskret-dan-waktu-kontinu-ctmc">Audit
+rantai Markov waktu diskret dan waktu kontinu (CTMC)</a></li>
+<li><a href="#audit-objek-poisson-dan-konstruksi-proses" id="toc-audit-objek-poisson-dan-konstruksi-proses">Audit objek Poisson
+dan konstruksi proses</a></li>
+<li><a href="#audit-gerak-brown-dan-hukum-lintasan" id="toc-audit-gerak-brown-dan-hukum-lintasan">Audit gerak Brown dan
+hukum lintasan</a></li>
+<li><a href="#matriks-perbaikan-klaim" id="toc-matriks-perbaikan-klaim">Matriks perbaikan klaim</a></li>
+<li><a href="#latihan-penguasaan-audit-hipotesis" id="toc-latihan-penguasaan-audit-hipotesis">Latihan penguasaan audit
+hipotesis</a></li>
+<li><a href="#hak-dan-provenans" id="toc-hak-dan-provenans">Hak dan
+provenans</a></li>
+</ul></li>
+</ul>
+</nav>
+<main class="original-bridge" id="unit.o009.original.bridge.hypothesis-audits">
+<h1 id="audit-hipotesis-untuk-proses-stokastik">Audit hipotesis untuk
+proses stokastik</h1>
+<section class="bridge-section" id="tujuan-dan-protokol-audit-hipotesis">
+<h2>Tujuan dan protokol audit hipotesis</h2>
+<p>Sebuah teorema proses stokastik sering tampak pendek karena banyak
+syaratnya sudah ditetapkan beberapa halaman sebelumnya. Ketika teorema
+itu dikutip di tempat lain, syarat lokal tersebut mudah hilang.
+Akibatnya, pernyataan yang benar pada ruang keadaan berhingga dapat
+terdengar seolah-olah berlaku pada ruang keadaan umum; kesamaan hampir
+pasti dapat terbaca sebagai kesamaan pada setiap titik; atau konvergensi
+distribusi berdimensi hingga (FDD) dapat disalahartikan sebagai
+konvergensi hukum lintasan.</p>
+<p>Unit ini tidak menyebut setiap penyederhanaan sebagai kesalahan. Ia
+juga tidak mengubah byte sumber yang telah dibekukan. Tujuannya ialah
+memberi pembaca protokol untuk memulihkan ruang lingkup sebuah klaim.
+Setiap kalimat berlabel <strong>klaim uji</strong> di bawah ini sengaja
+dibuat terlalu luas untuk keperluan audit; kalimat itu bukan kutipan
+dari Random Services, QuantEcon, atau sumber lain. Tautan ke unit sumber
+menunjukkan konteks matematika yang harus dibaca, bukan tuduhan bahwa
+penulis sumber membuat klaim uji tersebut.</p>
+<p>Sebelum memakai sebuah hasil, tulis lima kotak berikut.</p>
+<table>
+<colgroup>
+<col style="width: 50%"/>
+<col style="width: 50%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Kotak</th>
+<th>Pertanyaan yang harus dijawab</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Objek</strong></td>
+<td>Apakah yang dikuantifikasi berupa peubah acak, proses, kernel,
+semigrup, waktu henti, atau hukum pada ruang lintasan?</td>
+</tr>
+<tr>
+<td><strong>Latar</strong></td>
+<td>Apa ruang peluangnya, aljabar-σ dan filtrasinya, ruang keadaan
+beserta topologinya, himpunan waktu, serta ruang lintasannya?</td>
+</tr>
+<tr>
+<td><strong>Hipotesis</strong></td>
+<td>Di mana keterintegralan, kendali ekor, independensi, Gaussianitas,
+sifat Borel standar, sifat hingga-σ, sifat konservatif, sifat tidak
+meledak, rekurensi, atau keteraturan lintasan dipakai?</td>
+</tr>
+<tr>
+<td><strong>Kesimpulan</strong></td>
+<td>Apakah hasilnya hampir pasti, dalam probabilitas, dalam distribusi,
+dalam <span class="math inline">\(L^p\)</span>, untuk distribusi
+berdimensi hingga, atau untuk hukum lintasan dalam topologi
+tertentu?</td>
+</tr>
+<tr>
+<td><strong>Saksi kegagalan</strong></td>
+<td>Contoh apa yang gagal, atau langkah bukti mana yang tidak sah, jika
+satu hipotesis dihapus?</td>
+</tr>
+</tbody>
+</table>
+<p>Setelah lima kotak itu terisi, nyatakan <strong>perbaikan yang
+dipakai di sini</strong>: sebuah syarat cukup yang bersih dan kesimpulan
+tepat yang dihasilkannya. Perbaikan itu tidak perlu diklaim sebagai
+syarat paling lemah yang mungkin. Ia harus cukup eksplisit sehingga
+pembaca dapat memeriksa setiap bagiannya.</p>
+<p>Protokol ini melengkapi tiga jembatan sebelumnya. Jembatan <a href="01-konstruksi-kolmogorov.html">konstruksi Kolmogorov</a>
+memisahkan keluarga distribusi berdimensi hingga dari ukuran pada ruang
+produk. Jembatan <a href="02-keterukuran-proses-dan-hukum-lintasan.html">keterukuran proses
+dan hukum lintasan</a> memisahkan keterukuran tiap waktu, keterukuran
+bersama, dan hukum pada ruang lintasan teratur. Jembatan <a href="03-probabilitas-bersyarat-reguler.html">distribusi bersyarat
+reguler</a> memisahkan versi per kejadian dari satu kernel yang koheren.
+Di sini ketiga pemisahan itu dipakai sebagai kebiasaan membaca lintas
+topik.</p>
+</section>
+<div class="bridge-section" id="audit-konvergensi-dan-integrabilitas">
+<h2 id="audit-konvergensi-dan-keterintegralan">Audit konvergensi dan
+keterintegralan</h2>
+<p>Unit <a href="../prob/Convergence.html">konvergensi peubah acak</a>
+dan <a href="../dist/Convergence.html">konvergensi distribusi</a>
+memperkenalkan beberapa mode konvergensi. Nama mode tersebut adalah
+bagian dari kesimpulan, bukan hiasan yang boleh dihapus.</p>
+<blockquote>
+<p><strong>Klaim uji (bukan kutipan sumber).</strong> Jika <span class="math inline">\(X_n\to X\)</span> hampir pasti dan <span class="math inline">\(\sup_n\mathbb E|X_n|&lt;\infty\)</span>, maka
+<span class="math inline">\(\mathbb E[X_n]\to\mathbb E[X]\)</span>.</p>
+</blockquote>
+<p>Klaim ini salah. Ambil satu peubah <span class="math inline">\(U\)</span> yang seragam pada <span class="math inline">\((0,1]\)</span> dan tetapkan</p>
+<p><span class="math display">\[
+X_n=n\mathbf1_{\{U\le 1/n\}}.
+\]</span></p>
+<p>Untuk setiap <span class="math inline">\(U&gt;0\)</span>, indikator
+itu akhirnya nol, sehingga <span class="math inline">\(X_n\to0\)</span>
+hampir pasti. Namun</p>
+<p><span class="math display">\[
+\mathbb E[X_n]
+=n\mathbb P(U\le1/n)
+=1
+\]</span></p>
+<p>untuk setiap <span class="math inline">\(n\)</span>. Keterbatasan
+norma <span class="math inline">\(L^1\)</span> tidak sama dengan
+<strong>keterintegralan seragam</strong>. Untuk <span class="math inline">\(K&gt;0\)</span>, pilih bilangan bulat <span class="math inline">\(n&gt;K\)</span>; maka</p>
+<p><span class="math display">\[
+\mathbb E\!\left[|X_n|\mathbf1_{\{|X_n|&gt;K\}}\right]=1.
+\]</span></p>
+<p>Supremum ekor itu tidak menuju nol ketika <span class="math inline">\(K\to\infty\)</span>.</p>
+<p>Audit lima kotaknya ialah sebagai berikut.</p>
+<ul>
+<li><strong>Objek:</strong> barisan peubah acak real
+terintegralkan.</li>
+<li><strong>Latar:</strong> satu ruang probabilitas; semua <span class="math inline">\(X_n\)</span> dibangun dari <span class="math inline">\(U\)</span> yang sama.</li>
+<li><strong>Hipotesis yang hilang:</strong> kendali ekor seragam, bukan
+sekadar <span class="math inline">\(\sup_n\mathbb
+E|X_n|&lt;\infty\)</span>.</li>
+<li><strong>Kesimpulan yang benar:</strong> konvergensi hampir pasti
+menyiratkan konvergensi dalam probabilitas, tetapi tidak otomatis
+menyiratkan konvergensi <span class="math inline">\(L^1\)</span> atau
+konvergensi ekspektasi.</li>
+<li><strong>Saksi kegagalan:</strong> seluruh massa harapan berpindah ke
+kejadian yang makin jarang sambil tingginya makin besar.</li>
+</ul>
+<p>Satu perbaikan yang dapat langsung diperiksa adalah teorema
+Vitali:</p>
+<blockquote>
+<p>Jika <span class="math inline">\(X_n\to X\)</span> dalam probabilitas
+dan keluarga <span class="math inline">\((X_n)\)</span> terintegralkan
+seragam, maka <span class="math inline">\(X_n\to X\)</span> dalam <span class="math inline">\(L^1\)</span>. Karena itu <span class="math inline">\(\mathbb E[X_n]\to\mathbb E[X]\)</span>.</p>
+</blockquote>
+<p>Untuk peubah acak bernilai real, konvergensi dalam distribusi bersama
+keterintegralan seragam keluarga <span class="math inline">\((|X_n|)_n\)</span> juga cukup untuk memperoleh
+<span class="math inline">\(\mathbb E[X_n]\to\mathbb E[X]\)</span>.
+Tanpa syarat ekor, konvergensi dalam distribusi hanya mengendalikan
+fungsi uji terbatas dan kontinu. Fungsi <span class="math inline">\(x\mapsto x\)</span> tidak terbatas.</p>
+<p><strong>Catatan lingkup pada saksi terpilih.</strong> Paragraf
+penutup <a href="../expect/Uniform.html#con">bagian konvergensi pada
+unit keterintegralan seragam</a> harus dibaca bersama premis pada
+kalimat tepat sebelumnya: <span class="math inline">\(X_n\to X\)</span>
+dengan probabilitas satu, dan karena itu dalam probabilitas.
+Keterintegralan seragam <strong>sendiri</strong> tidak menyiratkan <span class="math inline">\(X_n\to X\)</span> dalam rataan; ia harus
+dipasangkan dengan konvergensi dalam probabilitas seperti pada teorema
+<code>con2</code> di halaman yang sama. Catatan ini memperjelas premis
+yang mudah terlepas ketika akibat tersebut dikutip.</p>
+<p>Ikatan O006/C140 tetap berupa prasyarat eksternal untuk LLN, CLT,
+distribusi sampling, dan inferensi. Unit ini tidak menyalin bab sampling
+atau membuktikan ulang LLN/CLT; ia hanya mencatat bahwa kesimpulan limit
+selalu harus dibaca bersama mode konvergensi dan syarat pertukaran
+limitnya.</p>
+</div>
+<section class="bridge-section" id="audit-pengondisian-dan-kernel">
+<h2>Audit pengondisian dan kernel</h2>
+<p>Unit <a href="../expect/Conditional2.html">nilai harapan
+bersyarat</a>, <a href="../expect/Uniform.html">keterintegralan seragam
+bersyarat</a>, dan <a href="../expect/Kernels.html">kernel</a> memakai
+objek bersyarat pada tingkat yang berbeda. Jembatan ketiga memberi
+syarat keberadaan dan disiplin versi bagi <a href="03-probabilitas-bersyarat-reguler.html">distribusi bersyarat
+reguler</a>.</p>
+<blockquote>
+<p><strong>Klaim uji (bukan kutipan sumber).</strong> Karena <span class="math inline">\(\mathbb P(Y\in B\mid\mathcal G)\)</span> ada untuk
+setiap <span class="math inline">\(B\)</span>, nilai-nilai itu secara
+otomatis membentuk satu ukuran peluang dalam <span class="math inline">\(B\)</span> pada setiap <span class="math inline">\(\omega\)</span>.</p>
+</blockquote>
+<p>Klaim ini mencampur tiga tingkat. Untuk satu <span class="math inline">\(B\)</span> tetap,</p>
+<p><span class="math display">\[
+\mathbb P(Y\in B\mid\mathcal G)
+=\mathbb E[\mathbf1_{\{Y\in B\}}\mid\mathcal G]
+\]</span></p>
+<p>adalah kelas fungsi yang sama hampir pasti. Himpunan nol tempat dua
+versi berbeda boleh bergantung pada <span class="math inline">\(B\)</span>. Jika versi dipilih terpisah bagi tak
+terhitung banyak <span class="math inline">\(B\)</span>, tidak ada
+alasan bahwa <span class="math inline">\(B\mapsto K(\omega,B)\)</span>
+ternormalisasi dan aditif terhitung pada satu <span class="math inline">\(\omega\)</span>.</p>
+<p>Perbaikannya memakai objek yang lebih kuat. Bila sasaran <span class="math inline">\(Y\)</span> merupakan ruang Borel standar tak
+kosong, terdapat sebuah kernel probabilitas</p>
+<p><span class="math display">\[
+K:(\Omega,\mathcal G)\rightsquigarrow(T,\mathcal T)
+\]</span></p>
+<p>yang mewakili seluruh peluang bersyarat secara koheren. Dua kernel
+semacam itu sama sebagai ukuran di luar satu himpunan nol bersama karena
+sasaran mempunyai kelas penentu terhitung. Kesamaan itu tetap bukan
+kesamaan pada setiap titik. Jika pengondisian ditulis sebagai <span class="math inline">\(X=x\)</span>, ukuran yang mengendalikan kata
+“hampir di mana-mana” adalah hukum marginal <span class="math inline">\(\mathbb P_X\)</span>. Nilai kernel pada titik
+dengan <span class="math inline">\(\mathbb P_X(\{x\})=0\)</span>
+merupakan pilihan versi kecuali struktur tambahan—misalnya
+kontinuitas—memilih perpanjangan tertentu.</p>
+<p>Ada pula syarat penyebut yang tidak boleh hilang. Rumus Bayes pada <a href="../expect/Conditional2.html#bay">unit nilai harapan bersyarat</a>
+mempunyai penyebut</p>
+<p><span class="math display">\[
+\mathbb E[\mathbb P(B\mid\mathcal G)]=\mathbb P(B).
+\]</span></p>
+<p>Karena itu, rumus rasio tersebut menyatakan probabilitas bersyarat
+<span class="math inline">\(\mathbb P(A\mid B)\)</span> hanya ketika
+<span class="math inline">\(\mathbb P(B)&gt;0\)</span> menurut definisi
+rasio yang dipakai halaman itu. Bila <span class="math inline">\(\mathbb
+P(B)=0\)</span>, pembilang dan penyebut sama nol dan rumus tidak memilih
+nilai kanonik. Syarat positif ini merupakan perbaikan lingkup pada
+pernyataan <code>bay</code>; ia tidak mengubah byte sumber.</p>
+<p>Audit yang aman sebelum memakai sebuah rumus bersyarat ialah:</p>
+<ol type="1">
+<li>pastikan peubah yang diambil nilai harapannya terintegralkan, atau
+nyatakan dengan jelas kasus nonnegatif bernilai diperluas;</li>
+<li>sebutkan aljabar-σ pengondisi dan ukuran yang menentukan kesamaan
+hampir pasti;</li>
+<li>bedakan satu fungsi bersyarat dari satu kernel peluang;</li>
+<li>untuk keberadaan kernel, pasang hipotesis Borel standar pada sasaran
+yang benar;</li>
+<li>ketika mengganti versi pada himpunan nol, ganti seluruh ukuran
+sekaligus, bukan setiap kejadian secara bebas.</li>
+</ol>
+<p>Saksi kegagalan lengkap dan bukti perbaikannya sudah diberikan dalam
+jembatan ketiga. Unit ini tidak mengulang bukti tersebut; ia membuat
+hipotesisnya terlihat ketika hasil bersyarat dipakai di topik lain.</p>
+</section>
+<section class="bridge-section" id="audit-martingal-dan-waktu-henti">
+<h2>Audit martingal dan waktu henti</h2>
+<p>Unit <a href="../martingales/Stop.html">martingal yang dihentikan</a>
+dan <a href="../martingales/Convergence.html">konvergensi martingal</a>
+harus dibaca dengan kuantor waktu dan syarat ekornya. Adaptasi dan
+keterintegralan pada setiap waktu deterministik tidak sendiri
+mengendalikan peubah pada satu waktu acak yang tak terbatas.</p>
+<blockquote>
+<p><strong>Klaim uji (bukan kutipan sumber).</strong> Jika <span class="math inline">\((M_n)\)</span> martingal terintegralkan dan <span class="math inline">\(\tau&lt;\infty\)</span> hampir pasti merupakan
+waktu henti, maka <span class="math inline">\(\mathbb E[M_\tau]=\mathbb
+E[M_0]\)</span>.</p>
+</blockquote>
+<p>Ambil gerak acak simetris sederhana</p>
+<p><span class="math display">\[
+S_n=\xi_1+\cdots+\xi_n,
+\qquad
+\mathbb P(\xi_k=1)=\mathbb P(\xi_k=-1)=\tfrac12,
+\]</span></p>
+<p>dan <span class="math inline">\(\tau=\inf\{n\ge0:S_n=1\}\)</span>.
+Waktu <span class="math inline">\(\tau\)</span> berhingga hampir pasti,
+tetapi <span class="math inline">\(\mathbb E\tau=\infty\)</span>. Untuk
+setiap <span class="math inline">\(N\)</span>, waktu <span class="math inline">\(\tau\wedge N\)</span> terbatas dan</p>
+<p><span class="math display">\[
+\mathbb E[S_{\tau\wedge N}]=0.
+\]</span></p>
+<p>Di sisi lain, <span class="math inline">\(S_{\tau\wedge N}\to
+S_\tau=1\)</span> hampir pasti. Pertukaran limit dan ekspektasi gagal
+karena keluarga <span class="math inline">\((S_{\tau\wedge
+N})_N\)</span> tidak terintegralkan seragam.</p>
+<p>Kotak audit yang sering hilang ialah:</p>
+<ul>
+<li>apakah <span class="math inline">\(\tau\)</span> terbatas, hanya
+berhingga hampir pasti, atau juga terintegralkan;</li>
+<li>apakah keluarga martingal yang dihentikan terintegralkan
+seragam;</li>
+<li>apakah inkremennya dibatasi, dan teorema versi mana yang memakai
+batas itu;</li>
+<li>apakah kesimpulannya kesamaan, ketaksamaan supermartingal, atau
+hanya hasil bagi <span class="math inline">\(\tau\wedge N\)</span>.</li>
+</ul>
+<p>Beberapa jalur aman harus dinyatakan terpisah. Penghentian opsional
+berlaku untuk waktu henti terbatas. Ia juga berlaku ketika keluarga
+<span class="math inline">\((M_{\tau\wedge n})_n\)</span> terintegralkan
+seragam dan limit yang dimaksud telah diidentifikasi. Untuk martingal
+dengan inkremen dibatasi oleh konstanta, <span class="math inline">\(\mathbb E\tau&lt;\infty\)</span> memberi dominasi
+terintegralkan yang cukup. Kalimat “syarat penghentian opsional
+terpenuhi” tidak memadai tanpa menyebut jalur mana yang telah
+diperiksa.</p>
+<p><strong>Catatan lingkup pada saksi terpilih.</strong> Paragraf
+penjudi pada <a href="../martingales/Stop.html#stp3">unit martingal yang
+dihentikan</a> langsung diikuti kesimpulan yang benar bagi <span class="math inline">\(X_{t\wedge\tau}\)</span> pada waktu deterministik
+<span class="math inline">\(t\)</span>. Retorika “tidak ada waktu henti
+yang dapat membantu” tidak boleh dipisahkan dari pemotongan itu lalu
+digunakan untuk <span class="math inline">\(X_\tau\)</span> pada waktu
+tak terbatas. Bagian waktu diskret halaman tersebut kemudian memang
+menyatakan syarat-syarat tambahan. Koreksi hilir
+<code>correction.o009.random.martingales.stop.optional-stopping-missing-variables</code>
+juga telah memulihkan nama peubah yang hilang pada satu pernyataan
+sumber; unit ini menautkannya dan tidak membuka ulang koreksi
+tersebut.</p>
+</section>
+<div class="bridge-section" id="audit-markov-dan-ctmc">
+<h2 id="audit-rantai-markov-waktu-diskret-dan-waktu-kontinu-ctmc">Audit
+rantai Markov waktu diskret dan waktu kontinu (CTMC)</h2>
+<p>Unit <a href="../markov/Limiting.html">perilaku limit rantai
+diskret</a> membahas konteks rantai Markov waktu diskret. Komponen
+QuantEcon membahas <a href="../quantecon/lectures/generators.html">generator</a> dan <a href="../quantecon/lectures/ergodicity.html">ergodisitas CTMC</a> dalam
+konteksnya sendiri. Pernyataan dari kedua konteks itu tidak boleh
+disatukan hanya karena keduanya memakai kata <em>Markov</em>.</p>
+<blockquote>
+<p><strong>Klaim uji (bukan kutipan sumber).</strong> Setiap rantai
+Markov tak tereduksi mempunyai distribusi stasioner tunggal dan
+konvergen menuju distribusi itu.</p>
+</blockquote>
+<p>Matriks transisi dua keadaan</p>
+<p><span class="math display">\[
+P=
+\begin{pmatrix}
+0&amp;1\\
+1&amp;0
+\end{pmatrix}
+\]</span></p>
+<p>memberi saksi kegagalan langsung. Rantai ini berhingga dan tak
+tereduksi, serta mempunyai distribusi stasioner tunggal <span class="math inline">\((1/2,1/2)\)</span>. Namun dari keadaan nol,
+hukumnya berganti-ganti antara <span class="math inline">\(\delta_0\)</span> dan <span class="math inline">\(\delta_1\)</span>; tidak ada konvergensi waktu
+biasa. Untuk saksi berhingga ini, hipotesis yang hilang bagi konvergensi
+waktu biasa ialah aperiodisitas. Pada rantai Markov berhingga, tak
+tereduksi dan aperiodik memberi konvergensi menuju distribusi stasioner
+tunggal. Pada ruang keadaan terhitung atau umum, rekurensi positif,
+sifat tak tereduksi dalam arti yang sesuai, dan syarat Harris atau
+hanyutan dapat menjadi isu terpisah. Kesimpulan untuk ruang keadaan
+berhingga tidak boleh diekspor tanpa teorema baru.</p>
+<p>Untuk CTMC, auditnya mempunyai lapisan tambahan.</p>
+<ol type="1">
+<li><strong>Ruang keadaan dan ruang operator.</strong> Pada ruang
+keadaan berhingga, sebuah matriks intensitas dengan entri luar diagonal
+tak negatif dan jumlah baris nol memberi semigrup Markov melalui <span class="math inline">\(e^{tQ}\)</span>. Pada dimensi tak hingga, domain
+operator dan topologi normanya harus disebut.</li>
+<li><strong>Sifat konservatif dan sifat tidak meledak.</strong>
+Persamaan formal untuk <span class="math inline">\(Q\)</span> tidak
+otomatis menjamin bahwa seluruh massa tetap satu bagi setiap <span class="math inline">\(t\)</span>.</li>
+<li><strong>Keunikan.</strong> Persamaan maju atau mundur perlu dibaca
+bersama kelas solusi tempat keunikan dibuktikan.</li>
+<li><strong>Limit.</strong> Keberadaan distribusi stasioner,
+keunikannya, dan konvergensi menuju distribusi itu adalah tiga klaim
+berbeda.</li>
+</ol>
+<p>Karena itu, frasa “generator menentukan proses” harus selalu
+dilengkapi ruang operator, domain, dan kondisi tidak meledak atau
+teorema semigrup yang dipakai. Komponen QuantEcon tetap dibaca dalam
+latar yang dinyatakannya; unit ini tidak mengubahnya menjadi teorema
+ruang-keadaan umum.</p>
+<p>Pada bagian <a href="../quantecon/lectures/ergodicity.html#uniirr">ketunggalan
+distribusi stasioner</a>, teorema formal menyatakan hasil yang tepat:
+sifat tak tereduksi memberi <strong>paling banyak satu</strong>
+distribusi stasioner. Kalimat pengantar yang mengatakan bahwa sifat tak
+tereduksi “menghasilkan ketunggalan” harus dibaca sebagai keunikan bila
+sebuah distribusi stasioner ada, bukan sebagai teorema keberadaan.
+Keberadaan dan kestabilan asimtotik memerlukan hasil lain pada bagian
+itu.</p>
+<p>Dua masalah versi pada kernel transisi keadaan nol sudah diperbaiki
+di lapisan pembaca oleh
+<code>correction.o009.random.markov.general.homogeneity-consistent-transition-kernels</code>
+dan
+<code>correction.o009.random.markov.general.transition-kernel-version-scope</code>.
+Audit baru ini mempertahankan hubungan ke kedua catatan tersebut dan
+tidak mengulang perbaikannya.</p>
+</div>
+<div class="bridge-section" id="audit-poisson-dan-konstruksi-proses">
+<h2 id="audit-objek-poisson-dan-konstruksi-proses">Audit objek Poisson
+dan konstruksi proses</h2>
+<p>Unit <a href="../poisson/General.html">objek Poisson pada ruang
+umum</a> dan kuliah QuantEcon tentang <a href="../quantecon/lectures/poisson.html">proses Poisson</a> memakai
+kata <em>Poisson</em> untuk objek yang berkaitan tetapi tidak
+identik.</p>
+<blockquote>
+<p><strong>Klaim uji (bukan kutipan sumber).</strong> Jika <span class="math inline">\(N(A)\)</span> berdistribusi Poisson dengan
+parameter <span class="math inline">\(\mu(A)\)</span> dan keluarga
+hitungan pada setiap koleksi himpunan saling lepas bersifat independen,
+maka <span class="math inline">\((N(A))_A\)</span> otomatis merupakan
+ukuran acak yang bernilai hingga pada setiap himpunan terukur.</p>
+</blockquote>
+<p>Pertama, peubah acak berdistribusi Poisson biasa bernilai hingga
+hanya ketika <span class="math inline">\(\mu(A)&lt;\infty\)</span>. Jika
+<span class="math inline">\(\mu(A)=\infty\)</span>, tidak ada peubah
+acak Poisson bernilai hingga dengan “parameter tak hingga”. Kedua, rumus
+satu himpunan dan independensi harus kompatibel dengan gabungan
+lepas:</p>
+<p><span class="math display">\[
+N\!\left(\bigsqcup_{j=1}^{\infty}A_j\right)
+=\sum_{j=1}^{\infty}N(A_j)
+\]</span></p>
+<p>dalam arti ukuran acak. Ketiga, <strong>hingga secara lokal</strong>
+hanya bermakna setelah kelas himpunan lokal dan topologi ditentukan; ia
+mengikuti dari intensitas yang hingga pada kelas lokal tersebut, bukan
+dari kata Poisson saja.</p>
+<p>Audit objeknya membedakan:</p>
+<ul>
+<li>satu peubah dengan hukum Poisson;</li>
+<li>proses penghitungan satu parameter dengan inkremen stasioner dan
+independen;</li>
+<li>ukuran acak Poisson pada ruang terukur dengan ukuran
+intensitas;</li>
+<li>proses bertanda atau integral terhadap ukuran acak, yang memerlukan
+syarat keterukuran dan keterintegralan tambahan.</li>
+</ul>
+<p>Pada keluarga indeks umum, konsistensi distribusi berdimensi hingga
+belum merupakan konstruksi lintasan. Teorema perluasan pada <a href="01-konstruksi-kolmogorov.html">jembatan Kolmogorov</a> membutuhkan
+keluarga yang konsisten dan menghasilkan ukuran pada sigma-aljabar
+produk. Jika kemudian diperlukan aditivitas sebagai ukuran acak atau
+keteraturan lintasan, sifat itu harus dibuktikan pada versi yang
+dipilih. Unit ini tidak menarik kembali halaman Poisson biasa Random
+yang telah digantikan oleh komponen CTMC yang koheren.</p>
+<p>Dua saksi terpilih perlu dibaca dengan kualifikasi eksplisit.</p>
+<ol type="1">
+<li>Kalimat <a href="../poisson/General.html#pro">“yang benar-benar
+diperlukan hanyalah suatu ruang ukuran”</a> memberi kerangka definisi
+setelah ukuran acak <span class="math inline">\(N\)</span> diasumsikan
+ada; ia bukan teorema keberadaan atau jaminan keterhinggaan lokal. Untuk
+konstruksi standar, ambil <span class="math inline">\(\mu\)</span>
+hingga-σ, misalnya <span class="math inline">\(S=\bigcup_n S_n\)</span>
+dengan <span class="math inline">\(\mu(S_n)&lt;\infty\)</span>;
+keterhinggaan lokal memerlukan <span class="math inline">\(\mu(A)&lt;\infty\)</span> pada kelas himpunan
+lokal yang dinyatakan. Halaman tersebut sendiri secara eksplisit
+memasang <span class="math inline">\(N(A)=\infty\)</span> ketika <span class="math inline">\(\mu(A)=\infty\)</span>, jadi ia tidak boleh
+diparafrasekan sebagai klaim bahwa semua hitungan hingga.</li>
+<li>Teorema <a href="../quantecon/lectures/poisson.html#keunikan">karakterisasi proses
+Poisson</a> didahului kalimat yang menanyakan proses penghitungan lain,
+tetapi kotak teoremanya sendiri hanya menyatakan bahwa proses “didukung
+pada <span class="math inline">\(\mathbb Z_+\)</span> dan dimulai dari
+0, serta inkremennya stasioner dan independen”. Syarat tertulis itu
+belum cukup: jika <span class="math inline">\(N\)</span> proses Poisson,
+maka <span class="math inline">\(M_t=2N_t\)</span> adalah contoh
+tandingan; proses nol juga menolak kesimpulan <span class="math inline">\(\lambda&gt;0\)</span>. Satu perbaikan bersih ialah
+mengasumsikan secara eksplisit proses penghitungan sederhana yang
+kontinu stokastik, càdlàg, dan hanya mempunyai berhingga banyak lompatan
+pada setiap selang waktu terbatas. Hasilnya proses Poisson dengan laju
+<span class="math inline">\(\lambda\ge0\)</span>; kesimpulan <span class="math inline">\(\lambda&gt;0\)</span> memerlukan syarat
+nontrivialitas.</li>
+</ol>
+<p>Catatan untuk hukum bersyarat pada himpunan berukuran hingga dan
+untuk inkremen Poisson tak homogen juga sudah berada dalam lapisan
+koreksi hilir, yakni
+<code>correction.o009.random.poisson.general.poisson-general-single-point-finite-measure</code>,
+<code>correction.o009.random.poisson.general.poisson-general-binomial-finite-measure</code>,
+<code>correction.o009.random.poisson.general.poisson-general-multinomial-finite-measure</code>,
+dan
+<code>correction.o009.random.poisson.general.nonhomogeneous-independent-increments</code>.
+Unit ini tidak mengubah atau menghitung ulang hasil yang telah
+diperbaiki itu.</p>
+</div>
+<div class="bridge-section" id="audit-brown-dan-hukum-lintasan">
+<h2 id="audit-gerak-brown-dan-hukum-lintasan">Audit gerak Brown dan
+hukum lintasan</h2>
+<p>Unit <a href="../brown/Standard.html">gerak Brown standar</a>
+menyatukan hukum Gaussian, inkremen, dan kontinuitas. Ketiga lapisan itu
+harus dipisahkan ketika sebuah argumen hanya mengendalikan distribusi
+berdimensi hingga.</p>
+<blockquote>
+<p><strong>Klaim uji (bukan kutipan sumber).</strong> Jika semua
+distribusi berdimensi hingga <span class="math inline">\(X_n\)</span>
+konvergen ke distribusi berdimensi hingga proses kontinu <span class="math inline">\(X\)</span>, maka <span class="math inline">\(X_n\Rightarrow X\)</span> pada <span class="math inline">\(C[0,1]\)</span>.</p>
+</blockquote>
+<p>Ambil <span class="math inline">\(U\sim\operatorname{Unif}[0,1]\)</span> dan, untuk
+<span class="math inline">\(t\in[0,1]\)</span>, definisikan</p>
+<p><span class="math display">\[
+Z_n(t)=\bigl(1-n|t-U|\bigr)_+.
+\]</span></p>
+<p>Setiap lintasan <span class="math inline">\(Z_n\)</span> kontinu.
+Untuk waktu tetap <span class="math inline">\(t_1,\ldots,t_k\)</span>,</p>
+<p><span class="math display">\[
+\mathbb P\!\left(\max_{1\le j\le k}Z_n(t_j)&gt;0\right)
+\le \sum_{j=1}^k\mathbb P(|U-t_j|&lt;1/n)
+\le \frac{2k}{n}.
+\]</span></p>
+<p>Jadi seluruh distribusi berdimensi hingga konvergen ke proses nol.
+Namun</p>
+<p><span class="math display">\[
+\|Z_n\|_\infty=1
+\]</span></p>
+<p>hampir pasti untuk setiap <span class="math inline">\(n\)</span>.
+Karena norma supremum kontinu pada <span class="math inline">\(C[0,1]\)</span>, konvergensi lemah <span class="math inline">\(Z_n\Rightarrow0\)</span> di ruang itu mustahil.
+Yang hilang ialah <strong>keketatan</strong> hukum lintasan. Bahkan,
+bila <span class="math inline">\(n\ge2\)</span> dan <span class="math inline">\(1/n\le\delta\)</span>, modulus kontinuitas
+memenuhi</p>
+<p><span class="math display">\[
+w(Z_n,\delta)
+=\sup_{|s-t|\le\delta}|Z_n(s)-Z_n(t)|
+=1
+\]</span></p>
+<p>hampir pasti: dari puncak di <span class="math inline">\(U\)</span>,
+bergerak sejauh <span class="math inline">\(1/n\)</span> ke salah satu
+sisi yang masih berada dalam <span class="math inline">\([0,1]\)</span>.</p>
+<p>Perbaikannya mempunyai dua gerbang. Pertama, buktikan keketatan hukum
+<span class="math inline">\((X_n)\)</span> pada <span class="math inline">\(C[0,1]\)</span> dan konvergensi distribusi
+berdimensi hingga menuju proses kontinu <span class="math inline">\(X\)</span>. Hukum Borel pada <span class="math inline">\(C[0,1]\)</span> ditentukan oleh evaluasi pada
+himpunan waktu rapat terhitung, sehingga setiap limit subsekuensial yang
+ketat harus mempunyai hukum <span class="math inline">\(X\)</span>.
+Kedua, jika hasil itu dimasukkan ke fungsional lintasan <span class="math inline">\(F\)</span>, teorema pemetaan kontinu
+memerlukan</p>
+<p><span class="math display">\[
+\mathbb P(X\in D_F)=0,
+\]</span></p>
+<p>dengan <span class="math inline">\(D_F\)</span> himpunan titik
+diskontinuitas <span class="math inline">\(F\)</span>.</p>
+<p>Waktu pencapaian memberi peringatan konkret. Untuk</p>
+<p><span class="math display">\[
+T_a(f)=\inf\{t\in[0,1]:f(t)\ge a\},
+\qquad \inf\varnothing=\infty,
+\]</span></p>
+<p>pemetaan <span class="math inline">\(T_a\)</span> tidak kontinu pada
+semua lintasan. Ambil <span class="math inline">\(f(t)=-(t-1/2)^2\)</span> dan <span class="math inline">\(f_m=f-1/m\)</span>. Maka <span class="math inline">\(\|f_m-f\|_\infty\to0\)</span>, tetapi <span class="math inline">\(T_0(f)=1/2\)</span> sedangkan <span class="math inline">\(T_0(f_m)=\infty\)</span>. Untuk limit gerak Brown,
+kontinuitas hampir pasti dari fungsional yang dipilih harus dibuktikan
+dari sifat penyeberangan dan hukum maksimumnya; ia bukan konsekuensi
+otomatis dari distribusi berdimensi hingga.</p>
+<p>Ada audit lain yang berdekatan. Keluarga Gaussian terpusat dengan
+kovarians <span class="math inline">\(\min(s,t)\)</span> menentukan
+distribusi berdimensi hingga gerak Brown. Kriteria kontinuitas
+Kolmogorov—misalnya melalui</p>
+<p><span class="math display">\[
+\mathbb E|B_t-B_s|^4=3|t-s|^2
+\]</span></p>
+<p>—memberi keberadaan modifikasi kontinu. Ia tidak menyatakan bahwa
+setiap modifikasi yang mempunyai distribusi berdimensi hingga sama sudah
+kontinu. Perbedaan versi, modifikasi, dan hukum pada ruang lintasan
+telah dibuktikan di <a href="02-keterukuran-proses-dan-hukum-lintasan.html">jembatan kedua</a>;
+bagian ini tidak mengulang contoh di sana.</p>
+<p>Secara khusus, paragraf <a href="../brown/Standard.html#wlk">gerak
+Brown sebagai limit gerak acak</a> membuktikan limit Gaussian pada satu
+waktu tetap lalu secara hati-hati mengatakan bahwa <em>kita dapat
+berharap</em> semua syarat proses limit dipenuhi. Harapan itu bukan
+bukti konvergensi fungsional. Topologi ruang lintasan, konvergensi FDD,
+dan keketatan tetap merupakan gerbang tambahan—tepat seperti contoh
+tandingan puncak bergerak di atas. Sementara itu, lingkup filtrasi dan
+syarat waktu henti berhingga pada sifat Markov kuat sudah diperbaiki
+melalui
+<code>correction.o009.random.brown.standard.strong-markov-filtration-scope</code>
+dan
+<code>correction.o009.random.brown.standard.strong-markov-finite-stopping-time</code>;
+unit ini hanya mempertahankan jejak koreksinya.</p>
+</div>
+<section class="bridge-section" id="matriks-perbaikan-klaim">
+<h2>Matriks perbaikan klaim</h2>
+<p>Tabel berikut ialah alat baca ringkas. Kolom “perbaikan” menyatakan
+satu syarat cukup yang sesuai dengan konteks kursus, bukan klasifikasi
+semua teorema yang mungkin.</p>
+<table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Klaim uji terlalu luas</th>
+<th>Hipotesis atau struktur yang hilang</th>
+<th>Kesimpulan yang dapat dipakai setelah diperbaiki</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline">\(X_n\to X\)</span> hampir pasti, jadi
+ekspektasi konvergen</td>
+<td>keterintegralan seragam atau dominasi terintegralkan</td>
+<td>konvergensi <span class="math inline">\(L^1\)</span>, lalu
+konvergensi ekspektasi</td>
+</tr>
+<tr>
+<td>semua versi peluang bersyarat membentuk ukuran pada tiap titik</td>
+<td>kernel koheren; sasaran Borel standar; kelas penentu terhitung untuk
+keunikan serentak</td>
+<td>satu distribusi bersyarat reguler, unik hampir di mana-mana sebagai
+ukuran</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\tau&lt;\infty\)</span> hampir pasti
+cukup bagi penghentian opsional</td>
+<td>waktu terbatas, atau keluarga berhenti terintegralkan seragam, atau
+versi teorema dengan <span class="math inline">\(\mathbb
+E\tau&lt;\infty\)</span> dan kendali inkremen</td>
+<td>identitas/ketaksamaan penghentian yang dinyatakan oleh versi teorema
+itu</td>
+</tr>
+<tr>
+<td>tak tereduksi berarti konvergen ke stasioner</td>
+<td>pada rantai berhingga: aperiodisitas; pada ruang umum: syarat
+rekurensi/ergodisitas yang sesuai</td>
+<td>konvergensi dalam mode dan kelas awal yang benar-benar
+dibuktikan</td>
+</tr>
+<tr>
+<td>matriks intensitas formal selalu menentukan CTMC yang
+konservatif</td>
+<td>domain, semigrup, sifat konservatif, dan sifat tidak meledak</td>
+<td>semigrup Markov dan proses dalam kelas yang dinyatakan</td>
+</tr>
+<tr>
+<td>hitungan Poisson hingga pada semua himpunan</td>
+<td>intensitas hingga pada himpunan yang dihitung; intensitas lokal
+untuk hingga lokal</td>
+<td>hitungan Poisson hingga pada kelas himpunan yang sah</td>
+</tr>
+<tr>
+<td>konvergensi FDD berarti konvergensi di <span class="math inline">\(C[0,1]\)</span></td>
+<td>keketatan pada topologi lintasan</td>
+<td>konvergensi lemah hukum lintasan</td>
+</tr>
+<tr>
+<td>konvergensi lintasan boleh langsung dimasukkan ke waktu
+pencapaian</td>
+<td>kontinuitas hampir pasti fungsional di bawah hukum limit</td>
+<td>teorema pemetaan kontinu untuk fungsional tersebut</td>
+</tr>
+</tbody>
+</table>
+<p>Ketika satu baris digunakan dalam bukti, pembaca harus kembali
+menulis lima kotak lengkap. Tabel ini tidak menggantikan pemeriksaan
+ruang, ukuran, versi, dan kuantor yang sebenarnya.</p>
+</section>
+<section class="bridge-section" id="latihan-penguasaan-audit-hipotesis">
+<h2>Latihan penguasaan audit hipotesis</h2>
+<p>Ketiga latihan berikut melengkapi kuota integratif untuk contoh
+tandingan dan pembacaan literatur. Pada setiap latihan, jawaban tidak
+cukup dengan mengatakan “teorema tidak berlaku”; pembaca harus menunjuk
+hipotesis yang hilang, langkah yang gagal, dan satu versi perbaikan yang
+benar.</p>
+<div class="mastery-sequence" id="unit.o009.original.mastery.hypothesis-audits.01">
+<div class="exercise" id="unit.o009.original.mastery.hypothesis-audits.01.exercise">
+<h3 id="latihan-1-keterbatasan-l1-bukan-keterintegralan-seragam">Latihan
+1 — keterbatasan <span class="math inline">\(L^1\)</span> bukan
+keterintegralan seragam</h3>
+<p>Sebuah teks menyatakan klaim berikut.</p>
+<blockquote>
+<p>Jika <span class="math inline">\(X_n\to X\)</span> hampir pasti dan
+<span class="math inline">\(\sup_n\mathbb E|X_n|&lt;\infty\)</span>,
+maka <span class="math inline">\(\mathbb E[X_n]\to\mathbb
+E[X]\)</span>.</p>
+</blockquote>
+<p>Pada ruang probabilitas <span class="math inline">\(\Omega=(0,1]\)</span> dengan ukuran Lebesgue,
+definisikan</p>
+<p><span class="math display">\[
+X_n(\omega)=n\mathbf1_{(0,1/n]}(\omega).
+\]</span></p>
+<ol type="1">
+<li>Tentukan limit hampir pasti <span class="math inline">\(X_n\)</span>
+dan hitung <span class="math inline">\(\mathbb E[X_n]\)</span> serta
+<span class="math inline">\(\mathbb E|X_n|\)</span>.</li>
+<li>Tentukan apakah <span class="math inline">\(X_n\to X\)</span> dalam
+<span class="math inline">\(L^1\)</span>.</li>
+<li>Uji keterintegralan seragam langsung dari definisi ekor.</li>
+<li>Identifikasi langkah limit-ekspektasi yang tidak sah dan nyatakan
+sebuah teorema perbaikan dengan hipotesis yang tepat.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.hypothesis-audits.01.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 1">Petunjuk 1 untuk Latihan 1</summary>
+<p><strong>Petunjuk 1.</strong> Untuk <span class="math inline">\(\omega&gt;0\)</span> tetap, bandingkan <span class="math inline">\(n\)</span> dengan <span class="math inline">\(1/\omega\)</span>. Kemudian integralkan <span class="math inline">\(X_n\)</span> hanya pada penyangganya <span class="math inline">\((0,1/n]\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.hypothesis-audits.01.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 1">Petunjuk 2 untuk Latihan 1</summary>
+<p><strong>Petunjuk 2.</strong> Dalam definisi</p>
+<p><span class="math display">\[
+\lim_{K\to\infty}\sup_n
+\mathbb E\!\left[|X_n|\mathbf1_{\{|X_n|&gt;K\}}\right]=0,
+\]</span></p>
+<p>pilih bilangan bulat <span class="math inline">\(n&gt;K\)</span>.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.hypothesis-audits.01.answer">
+<p><strong>Jawaban ringkas.</strong> Berlaku <span class="math inline">\(X_n\to0\)</span> hampir pasti, tetapi <span class="math inline">\(\mathbb E[X_n]=\mathbb E|X_n|=1\)</span> untuk
+setiap <span class="math inline">\(n\)</span>. Jadi tidak ada
+konvergensi <span class="math inline">\(L^1\)</span> atau konvergensi
+ekspektasi. Keluarga <span class="math inline">\((X_n)\)</span> tidak
+terintegralkan seragam. Perbaikan yang sah ialah: konvergensi dalam
+probabilitas bersama keterintegralan seragam menyiratkan konvergensi
+<span class="math inline">\(L^1\)</span>, dan karena itu ekspektasi
+konvergen.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.hypothesis-audits.01.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 1">Penyelesaian lengkap untuk Latihan 1</summary>
+<p><strong>Penyelesaian lengkap.</strong> Untuk setiap <span class="math inline">\(\omega&gt;0\)</span>, jika <span class="math inline">\(n&gt;1/\omega\)</span>, maka <span class="math inline">\(1/n&lt;\omega\)</span> dan <span class="math inline">\(X_n(\omega)=0\)</span>. Jadi <span class="math inline">\(X_n\to X=0\)</span> pada setiap titik ruang ini.
+Namun</p>
+<p><span class="math display">\[
+\mathbb E[X_n]
+=\int_0^{1/n}n\,d\omega
+=1,
+\qquad
+\mathbb E|X_n|=1.
+\]</span></p>
+<p>Karena <span class="math inline">\(X=0\)</span>,</p>
+<p><span class="math display">\[
+\mathbb E|X_n-X|=1
+\]</span></p>
+<p>untuk setiap <span class="math inline">\(n\)</span>. Jadi <span class="math inline">\(X_n\)</span> tidak konvergen dalam <span class="math inline">\(L^1\)</span>, dan <span class="math inline">\(\mathbb E[X_n]=1\)</span> tidak konvergen ke <span class="math inline">\(\mathbb E[X]=0\)</span>. Contoh ini bahkan
+nonnegatif dan semua ekspektasinya terdefinisi; masalahnya bukan
+pembatalan tanda.</p>
+<p>Untuk <span class="math inline">\(K&gt;0\)</span>, pilih bilangan
+bulat <span class="math inline">\(n&gt;K\)</span>. Pada <span class="math inline">\((0,1/n]\)</span> berlaku <span class="math inline">\(|X_n|=n&gt;K\)</span>, sehingga</p>
+<p><span class="math display">\[
+\mathbb E\!\left[|X_n|\mathbf1_{\{|X_n|&gt;K\}}\right]
+=n\lambda((0,1/n])
+=1.
+\]</span></p>
+<p>Dengan demikian, untuk setiap <span class="math inline">\(K\)</span>,</p>
+<p><span class="math display">\[
+\sup_n\mathbb E\!\left[
+|X_n|\mathbf1_{\{|X_n|&gt;K\}}
+\right]\ge1.
+\]</span></p>
+<p>Limit ekornya tidak nol, jadi keluarga itu tidak terintegralkan
+seragam. Hipotesis <span class="math inline">\(\sup_n\mathbb
+E|X_n|&lt;\infty\)</span> hanya memberi keterbatasan <span class="math inline">\(L^1\)</span>; ia tidak mencegah massa harapan
+berkumpul pada kejadian yang makin kecil.</p>
+<p>Teorema Vitali memberi perbaikan yang tepat:</p>
+<p><span class="math display">\[
+X_n\xrightarrow{\mathbb P}X
+\quad\text{dan}\quad
+(X_n)_n\text{ terintegralkan seragam}
+\quad\Longrightarrow\quad
+\mathbb E|X_n-X|\longrightarrow0.
+\]</span></p>
+<p>Karena</p>
+<p><span class="math display">\[
+|\mathbb E[X_n]-\mathbb E[X]|
+\le\mathbb E|X_n-X|,
+\]</span></p>
+<p>konvergensi ekspektasi kemudian mengikuti. Dominasi <span class="math inline">\(|X_n|\le Y\)</span> oleh satu <span class="math inline">\(Y\)</span> terintegralkan juga cukup melalui
+teorema konvergensi terdominasi, tetapi merupakan syarat yang lebih
+kuat. Lemma Fatou pada contoh ini hanya memberi <span class="math inline">\(\mathbb E[X]\le\liminf_n\mathbb E[X_n]\)</span>,
+yaitu <span class="math inline">\(0\le1\)</span>, bukan kesamaan.</p>
+</details>
+</div>
+<div class="mastery-sequence" id="unit.o009.original.mastery.hypothesis-audits.02">
+<div class="exercise" id="unit.o009.original.mastery.hypothesis-audits.02.exercise">
+<h3 id="latihan-2-waktu-henti-berhingga-hampir-pasti-belum-cukup">Latihan 2
+— waktu henti berhingga hampir pasti belum cukup</h3>
+<p>Misalkan <span class="math inline">\(\xi_1,\xi_2,\ldots\)</span>
+i.i.d. dengan</p>
+<p><span class="math display">\[
+\mathbb P(\xi_k=1)=\mathbb P(\xi_k=-1)=\tfrac12,
+\qquad
+S_n=\sum_{k=1}^n\xi_k,
+\qquad S_0=0,
+\]</span></p>
+<p>dan <span class="math inline">\(\mathcal
+F_n=\sigma(\xi_1,\ldots,\xi_n)\)</span>. Definisikan</p>
+<p><span class="math display">\[
+\tau=\inf\{n\ge0:S_n=1\}.
+\]</span></p>
+<p>Sebuah naskah mengklaim bahwa untuk setiap martingal terintegralkan
+dan setiap waktu henti <span class="math inline">\(\tau&lt;\infty\)</span> hampir pasti,</p>
+<p><span class="math display">\[
+\mathbb E[M_\tau]=\mathbb E[M_0].
+\]</span></p>
+<ol type="1">
+<li>Dengan penghentian pada batas <span class="math inline">\(-m\)</span> dan <span class="math inline">\(1\)</span>, buktikan bahwa <span class="math inline">\(\tau&lt;\infty\)</span> hampir pasti.</li>
+<li>Buktikan bahwa <span class="math inline">\(\mathbb E[S_{\tau\wedge
+N}]=0\)</span> bagi setiap <span class="math inline">\(N\)</span>.</li>
+<li>Tunjukkan bahwa <span class="math inline">\(\mathbb
+E\tau=\infty\)</span> dan bahwa keluarga <span class="math inline">\((S_{\tau\wedge N})_N\)</span> tidak terintegralkan
+seragam.</li>
+<li>Tunjuk tepat langkah yang gagal ketika <span class="math inline">\(N\to\infty\)</span>, lalu nyatakan dua versi
+perbaikan penghentian opsional yang sah.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.hypothesis-audits.02.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 2">Petunjuk 1 untuk Latihan 2</summary>
+<p><strong>Petunjuk 1.</strong> Untuk <span class="math inline">\(m\ge1\)</span>, ambil</p>
+<p><span class="math display">\[
+\sigma_m=\inf\{n:S_n\in\{-m,1\}\}.
+\]</span></p>
+<p>Persamaan beda untuk masalah kebangkrutan penjudi memberi <span class="math inline">\(\mathbb P_0(S_{\sigma_m}=1)=m/(m+1)\)</span>.
+Biarkan <span class="math inline">\(m\to\infty\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.hypothesis-audits.02.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 2">Petunjuk 2 untuk Latihan 2</summary>
+<p><strong>Petunjuk 2.</strong> Tulis</p>
+<p><span class="math display">\[
+S_{\tau\wedge N}
+=\sum_{k=1}^N\xi_k\mathbf1_{\{\tau\ge k\}},
+\]</span></p>
+<p>dan gunakan <span class="math inline">\(\{\tau\ge k\}\in\mathcal
+F_{k-1}\)</span>. Jika <span class="math inline">\(\mathbb
+E\tau&lt;\infty\)</span>, jumlah ekspektasi nilai mutlak dari suku-suku
+deret tak hingga sama dengan <span class="math inline">\(\mathbb
+E\tau\)</span>.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.hypothesis-audits.02.answer">
+<p><strong>Jawaban ringkas.</strong> Waktu <span class="math inline">\(\tau\)</span> berhingga hampir pasti, tetapi <span class="math inline">\(\mathbb E\tau=\infty\)</span>. Untuk setiap <span class="math inline">\(N\)</span>, <span class="math inline">\(\mathbb
+E[S_{\tau\wedge N}]=0\)</span>, sedangkan <span class="math inline">\(S_{\tau\wedge N}\to S_\tau=1\)</span> hampir
+pasti. Keluarga yang dihentikan tidak terintegralkan seragam. Versi yang
+sah, misalnya, memakai waktu henti terbatas; atau mengasumsikan keluarga
+<span class="math inline">\((M_{\tau\wedge n})_n\)</span> terintegralkan
+seragam. Bagi inkremen terbatas, <span class="math inline">\(\mathbb
+E\tau&lt;\infty\)</span> juga merupakan syarat cukup yang umum.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.hypothesis-audits.02.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 2">Penyelesaian lengkap untuk Latihan 2</summary>
+<p><strong>Penyelesaian lengkap.</strong> Untuk <span class="math inline">\(m\ge1\)</span>, gerak acak yang diserap di <span class="math inline">\(\{-m,1\}\)</span> mempunyai fungsi harmonik untuk
+probabilitas pencapaian, dengan</p>
+<p><span class="math display">\[
+\mathbb P_0(S_{\sigma_m}=1)=\frac{m}{m+1}.
+\]</span></p>
+<p>Kejadian <span class="math inline">\(\{S_{\sigma_m}=1\}\)</span>
+termuat dalam <span class="math inline">\(\{\tau&lt;\infty\}\)</span>,
+sehingga</p>
+<p><span class="math display">\[
+\mathbb P(\tau&lt;\infty)\ge\frac{m}{m+1}
+\]</span></p>
+<p>untuk setiap <span class="math inline">\(m\)</span>. Membiarkan <span class="math inline">\(m\to\infty\)</span> memberi <span class="math inline">\(\mathbb P(\tau&lt;\infty)=1\)</span>. Perhitungan
+kebangkrutan penjudi ini dapat diperoleh langsung dari persamaan beda
+pada himpunan hingga; jika penghentian opsional dipakai untuk
+menurunkannya, martingal yang dihentikan di dua batas bersifat terbatas
+dan memenuhi versi teorema yang sah.</p>
+<p>Karena <span class="math inline">\(\tau\wedge N\)</span>
+terbatas,</p>
+<p><span class="math display">\[
+S_{\tau\wedge N}
+=\sum_{k=1}^{N}\xi_k\mathbf1_{\{\tau\ge k\}}.
+\]</span></p>
+<p>Kejadian <span class="math inline">\(\{\tau\ge k\}\)</span> diketahui
+pada waktu <span class="math inline">\(k-1\)</span>, dan <span class="math inline">\(\mathbb E(\xi_k\mid\mathcal F_{k-1})=0\)</span>.
+Maka</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb E[S_{\tau\wedge N}]
+&amp;=\sum_{k=1}^N
+\mathbb E\!\left[
+\mathbf1_{\{\tau\ge k\}}
+\mathbb E(\xi_k\mid\mathcal F_{k-1})
+\right]\\
+&amp;=0.
+\end{aligned}
+\]</span></p>
+<p>Sekarang andaikan <span class="math inline">\(\mathbb
+E\tau&lt;\infty\)</span>. Karena <span class="math inline">\(|\xi_k|=1\)</span>,</p>
+<p><span class="math display">\[
+\sum_{k=1}^{\infty}
+\mathbb E\!\left[
+|\xi_k|\mathbf1_{\{\tau\ge k\}}
+\right]
+=\sum_{k=1}^{\infty}\mathbb P(\tau\ge k)
+=\mathbb E\tau
+&lt;\infty.
+\]</span></p>
+<p>Fubini kemudian mengizinkan pertukaran jumlah dan ekspektasi. Karena
+<span class="math inline">\(\tau&lt;\infty\)</span> hampir pasti,</p>
+<p><span class="math display">\[
+S_\tau
+=\sum_{k=1}^{\infty}\xi_k\mathbf1_{\{\tau\ge k\}},
+\]</span></p>
+<p>sehingga</p>
+<p><span class="math display">\[
+\mathbb E[S_\tau]
+=\sum_{k=1}^{\infty}
+\mathbb E\!\left[
+\xi_k\mathbf1_{\{\tau\ge k\}}
+\right]
+=0.
+\]</span></p>
+<p>Namun definisi <span class="math inline">\(\tau\)</span> memberi
+<span class="math inline">\(S_\tau=1\)</span>, jadi ekspektasinya satu.
+Kontradiksi ini membuktikan <span class="math inline">\(\mathbb
+E\tau=\infty\)</span>.</p>
+<p>Selanjutnya, <span class="math inline">\(S_{\tau\wedge N}\to
+S_\tau=1\)</span> hampir pasti, tetapi semua ekspektasi di ruas kiri
+sama dengan nol. Jika keluarga itu terintegralkan seragam, teorema
+Vitali akan memaksa konvergensi <span class="math inline">\(L^1\)</span>
+dan konvergensi ekspektasi menuju satu. Jadi keluarga tersebut tidak
+terintegralkan seragam. Langkah yang gagal bukan penghentian pada <span class="math inline">\(\tau\wedge N\)</span>, melainkan pelewatan <span class="math inline">\(N\to\infty\)</span> melalui ekspektasi tanpa
+kendali ekor.</p>
+<p>Dua perbaikan umum adalah:</p>
+<ol type="1">
+<li>jika <span class="math inline">\(\tau\)</span> terbatas, penghentian
+opsional berlaku langsung;</li>
+<li>jika <span class="math inline">\((M_{\tau\wedge n})_n\)</span>
+terintegralkan seragam dan konvergen hampir pasti ke <span class="math inline">\(M_\tau\)</span>, maka ekspektasinya dapat
+dilewatkan ke limit.</li>
+</ol>
+<p>Selain itu, jika <span class="math inline">\(|M_n-M_{n-1}|\le
+C\)</span> hampir pasti dan <span class="math inline">\(\mathbb
+E\tau&lt;\infty\)</span>, maka</p>
+<p><span class="math display">\[
+|M_{\tau\wedge n}|
+\le |M_0|+C\tau,
+\]</span></p>
+<p>sehingga dominasi terintegralkan memberi jalur aman lain. Setiap
+penggunaan harus menyebut versi mana yang dipakai.</p>
+</details>
+</div>
+<div class="mastery-sequence" id="unit.o009.original.mastery.hypothesis-audits.03">
+<div class="exercise" id="unit.o009.original.mastery.hypothesis-audits.03.exercise">
+<h3 id="latihan-3-fdd-keketatan-dan-fungsional-waktu-pencapaian">Latihan
+3 — FDD, keketatan, dan fungsional waktu pencapaian</h3>
+<p>Misalkan <span class="math inline">\(U\sim\operatorname{Unif}[0,1]\)</span> dan
+definisikan proses kontinu</p>
+<p><span class="math display">\[
+Z_n(t)=\bigl(1-n|t-U|\bigr)_+,
+\qquad 0\le t\le1.
+\]</span></p>
+<p>Sebuah artikel membuktikan konvergensi semua distribusi berdimensi
+hingga menuju proses nol. Artikel itu lalu menyimpulkan konvergensi
+lemah dalam <span class="math inline">\(C[0,1]\)</span> dan menerapkan
+teorema pemetaan kontinu pada waktu pertama mencapai suatu aras.</p>
+<ol type="1">
+<li>Buktikan konvergensi seluruh distribusi berdimensi hingga menuju
+nol.</li>
+<li>Audit kesimpulan pada <span class="math inline">\(C[0,1]\)</span>
+dengan norma supremum dan modulus kontinuitas.</li>
+<li>Nyatakan hipotesis tambahan yang memperbaiki lompatan dari FDD ke
+hukum lintasan.</li>
+<li>Berikan contoh yang menunjukkan bahwa fungsional waktu pencapaian
+tidak kontinu pada semua lintasan, lalu nyatakan gerbang teorema
+pemetaan kontinu yang masih harus diperiksa.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.hypothesis-audits.03.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 3">Petunjuk 1 untuk Latihan 3</summary>
+<p><strong>Petunjuk 1.</strong> Untuk <span class="math inline">\(t_1,\ldots,t_k\)</span> tetap, gunakan</p>
+<p><span class="math display">\[
+\mathbb P\!\left(\max_j Z_n(t_j)&gt;0\right)
+\le\sum_{j=1}^k\mathbb P(|U-t_j|&lt;1/n).
+\]</span></p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.hypothesis-audits.03.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 3">Petunjuk 2 untuk Latihan 3</summary>
+<p><strong>Petunjuk 2.</strong> Bandingkan konvergensi FDD dengan <span class="math inline">\(\|Z_n\|_\infty\)</span> dan</p>
+<p><span class="math display">\[
+w(Z_n,\delta)
+=\sup_{|s-t|\le\delta}|Z_n(s)-Z_n(t)|.
+\]</span></p>
+<p>Untuk diskontinuitas waktu pencapaian aras nol, pertimbangkan <span class="math inline">\(f(t)=-(t-1/2)^2\)</span> dan <span class="math inline">\(f_m=f-1/m\)</span>.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.hypothesis-audits.03.answer">
+<p><strong>Jawaban ringkas.</strong> Semua FDD <span class="math inline">\(Z_n\)</span> konvergen ke FDD proses nol, tetapi
+<span class="math inline">\(\|Z_n\|_\infty=1\)</span> hampir pasti dan
+keluarga hukumnya tidak ketat pada <span class="math inline">\(C[0,1]\)</span>. Jadi tidak ada konvergensi lemah
+menuju nol di ruang itu. Perbaikan memerlukan keketatan hukum lintasan
+serta identifikasi semua limit subsekuensial melalui FDD. Setelah
+konvergensi ruang lintasan diperoleh, fungsional waktu pencapaian tetap
+hanya dapat dipakai bila ia kontinu hampir pasti di bawah hukum
+limit.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.hypothesis-audits.03.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 3">Penyelesaian lengkap untuk Latihan 3</summary>
+<p><strong>Penyelesaian lengkap.</strong> Untuk waktu tetap <span class="math inline">\(t_1,\ldots,t_k\)</span>,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb P\!\left(
+(Z_n(t_1),\ldots,Z_n(t_k))\ne(0,\ldots,0)
+\right)
+&amp;\le\sum_{j=1}^k\mathbb P(|U-t_j|&lt;1/n)\\
+&amp;\le\frac{2k}{n}\longrightarrow0.
+\end{aligned}
+\]</span></p>
+<p>Jadi setiap vektor berdimensi hingga konvergen dalam probabilitas,
+dan karena itu dalam distribusi, ke vektor nol.</p>
+<p>Setiap lintasan <span class="math inline">\(Z_n\)</span> kontinu dan
+mencapai nilai satu pada <span class="math inline">\(t=U\)</span>.
+Maka</p>
+<p><span class="math display">\[
+\|Z_n\|_\infty=1
+\]</span></p>
+<p>hampir pasti untuk setiap <span class="math inline">\(n\)</span>.
+Jika <span class="math inline">\(Z_n\Rightarrow0\)</span> dalam <span class="math inline">\(C[0,1]\)</span>, pemetaan kontinu <span class="math inline">\(f\mapsto\|f\|_\infty\)</span> akan memberi <span class="math inline">\(\|Z_n\|_\infty\Rightarrow0\)</span>, bertentangan
+dengan hukum yang terkonsentrasi pada satu.</p>
+<p>Kegagalan keketatan dapat dilihat langsung. Ambil <span class="math inline">\(\delta&gt;0\)</span> dan <span class="math inline">\(n\ge2\)</span> dengan <span class="math inline">\(1/n\le\delta\)</span>. Dari titik puncak <span class="math inline">\(U\)</span>, paling sedikit satu di antara <span class="math inline">\(U-1/n\)</span> dan <span class="math inline">\(U+1/n\)</span> masih berada dalam <span class="math inline">\([0,1]\)</span>. Nilai <span class="math inline">\(Z_n\)</span> di titik itu nol, sedangkan <span class="math inline">\(Z_n(U)=1\)</span>. Jadi</p>
+<p><span class="math display">\[
+w(Z_n,\delta)=1
+\]</span></p>
+<p>hampir pasti. Untuk setiap <span class="math inline">\(\delta\)</span>, supremum terhadap <span class="math inline">\(n\)</span> dari peluang modulus besar tetap satu;
+kriteria keketatan berbasis modulus kontinuitas gagal secara
+maksimal.</p>
+<p>Perbaikan yang sah ialah membuktikan dua hal:</p>
+<ol type="1">
+<li>keluarga hukum <span class="math inline">\((X_n)\)</span> ketat pada
+<span class="math inline">\(C[0,1]\)</span>;</li>
+<li>setiap FDD <span class="math inline">\(X_n\)</span> konvergen ke FDD
+suatu proses <span class="math inline">\(X\)</span> yang bernilai di
+<span class="math inline">\(C[0,1]\)</span>.</li>
+</ol>
+<p>Setiap limit subsekuensial lalu mempunyai FDD yang sama dengan <span class="math inline">\(X\)</span>. Hukum Borel pada <span class="math inline">\(C[0,1]\)</span> ditentukan oleh evaluasi pada
+himpunan waktu rapat terhitung, sehingga limit subsekuensial tersebut
+mempunyai hukum <span class="math inline">\(X\)</span> dan seluruh
+barisan konvergen lemah.</p>
+<p>Sekarang definisikan, untuk aras <span class="math inline">\(a\)</span>,</p>
+<p><span class="math display">\[
+T_a(f)=\inf\{t\in[0,1]:f(t)\ge a\},
+\qquad \inf\varnothing=\infty.
+\]</span></p>
+<p>Fungsional ini tidak kontinu pada semua <span class="math inline">\(f\in C[0,1]\)</span>. Untuk <span class="math inline">\(a=0\)</span>, ambil</p>
+<p><span class="math display">\[
+f(t)=-(t-\tfrac12)^2,
+\qquad
+f_m(t)=f(t)-\frac1m.
+\]</span></p>
+<p>Berlaku <span class="math inline">\(\|f_m-f\|_\infty=1/m\to0\)</span>, tetapi</p>
+<p><span class="math display">\[
+T_0(f)=\tfrac12,
+\qquad
+T_0(f_m)=\infty.
+\]</span></p>
+<p>Karena itu, bahkan setelah <span class="math inline">\(X_n\Rightarrow
+X\)</span> pada ruang lintasan dibuktikan, teorema pemetaan kontinu
+untuk <span class="math inline">\(T_a\)</span> memerlukan</p>
+<p><span class="math display">\[
+\mathbb P(X\in D_{T_a})=0,
+\]</span></p>
+<p>dengan <span class="math inline">\(D_{T_a}\)</span> himpunan titik
+diskontinuitas <span class="math inline">\(T_a\)</span>. Untuk limit
+gerak Brown, sifat penyeberangan ketat dan hukum maksimum dapat
+menyediakan gerbang itu dalam formulasi yang sesuai; FDD saja tidak
+menyediakannya.</p>
+</details>
+</div>
+</section>
+<div class="bridge-section" id="hak-dan-provenans-audit-hipotesis">
+<h2 id="hak-dan-provenans">Hak dan provenans</h2>
+<p>Unit <strong>Audit hipotesis untuk proses stokastik</strong>,
+termasuk ketiga latihan, petunjuk, jawaban, dan penyelesaian di atas,
+merupakan materi asli berbahasa Indonesia yang disusun untuk edisi ini
+dan dilisensikan terpisah di bawah <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>,
+sejauh hak baru timbul. ID hak komponennya ialah
+<code>rights.o009.original.bridge.hypothesis-audits.cc-by-4.0</code>.</p>
+<p>Penyusunan unit ini dibantu oleh <strong>OpenAI Codex gpt-5.6-sol,
+Ultra.</strong> Identitas model tersebut tidak menggantikan kredit
+penulis sumber atau kontributor manusia. Tautan ke Random Services,
+QuantEcon, dan tiga jembatan sebelumnya berfungsi sebagai penunjuk
+konteks. Semua kalimat berlabel <strong>klaim uji</strong> sengaja
+dirumuskan oleh unit ini sebagai bahan audit dan bukan kutipan atau
+atribusi kepada sumber yang ditautkan.</p>
+<p>Unit ini hanya mengutip beberapa frasa donor secara singkat,
+teratribusi, dan tertaut untuk keperluan audit; ia tidak mereproduksi
+prosa donor secara substansial dan tidak melisensikan ulang Random
+Services, QuantEcon, Žitković, MathJax, atau komponen lain. Hak campuran
+seluruh edisi tetap dijelaskan dalam <code>LICENSES.md</code> dan
+backend hak per komponen. Unit ini independen dan tidak didukung atau
+disahkan oleh penulis sumber atau lembaga mereka.</p>
+<p>Secara khusus, unit ini tidak mengklaim bahwa syarat cukup yang
+dipilih selalu minimal, bahwa setiap matriks intensitas formal
+menentukan CTMC yang tidak meledak, bahwa FDD menentukan keteraturan
+versi yang dipilih, atau bahwa waktu henti yang hanya berhingga hampir
+pasti cukup bagi penghentian opsional.</p>
+</div>
+</main>
+</body>
+</html>

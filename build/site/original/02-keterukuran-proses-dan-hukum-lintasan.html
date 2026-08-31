@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="id-ID" xml:lang="id-ID" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<meta content="Codex (penulisan materi asli atas arahan pengguna)" name="author"/>
+<title>Keterukuran proses dan hukum lintasan</title>
+<style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/>
+<script defer="" src="../MathJax/tex-svg.js" type="text/javascript"></script>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="01-konstruksi-kolmogorov.html" rel="prev"/></head>
+<body><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> · <a href="01-konstruksi-kolmogorov.html">Jembatan asli sebelumnya</a></nav>
+
+<nav aria-label="Daftar isi" id="TOC" role="doc-toc">
+<ul>
+<li><a href="#keterukuran-proses-dan-hukum-lintasan" id="toc-keterukuran-proses-dan-hukum-lintasan">Keterukuran proses dan
+hukum lintasan</a>
+<ul>
+<li><a href="#tujuan-dan-empat-lapis-objek" id="toc-tujuan-dan-empat-lapis-objek">Tujuan dan empat lapis
+objek</a></li>
+<li><a href="#peta-lintasan-mentah-dan-keterukuran-tiap-waktu" id="toc-peta-lintasan-mentah-dan-keterukuran-tiap-waktu">Peta lintasan
+mentah dan keterukuran tiap waktu</a></li>
+<li><a href="#keterukuran-bersama-dan-evaluasi-kanonik" id="toc-keterukuran-bersama-dan-evaluasi-kanonik">Keterukuran bersama
+dan evaluasi kanonik</a></li>
+<li><a href="#distribusi-berdimensi-hingga-dan-hukum-lintasan-mentah" id="toc-distribusi-berdimensi-hingga-dan-hukum-lintasan-mentah">Distribusi
+berdimensi hingga dan hukum lintasan mentah</a></li>
+<li><a href="#mengapa-sifat-lintasan-belum-menjadi-kejadian-mentah" id="toc-mengapa-sifat-lintasan-belum-menjadi-kejadian-mentah">Mengapa
+sifat lintasan belum menjadi kejadian mentah</a></li>
+<li><a href="#hukum-pada-ruang-lintasan-kontinu" id="toc-hukum-pada-ruang-lintasan-kontinu">Hukum pada ruang lintasan
+kontinu</a></li>
+<li><a href="#modifikasi-fdd-yang-sama-dan-ketakterbedaan" id="toc-modifikasi-fdd-yang-sama-dan-ketakterbedaan">Modifikasi, FDD
+yang sama, dan ketakterbedaan</a></li>
+<li><a href="#audit-klaim-lintasan" id="toc-audit-klaim-lintasan">Audit
+klaim lintasan</a></li>
+<li><a href="#latihan-penguasaan" id="toc-latihan-penguasaan">Latihan
+penguasaan</a></li>
+<li><a href="#hak-dan-provenans" id="toc-hak-dan-provenans">Hak dan
+provenans</a></li>
+</ul></li>
+</ul>
+</nav>
+<main class="original-bridge" id="unit.o009.original.bridge.process-measurability-path-law">
+<h1 id="keterukuran-proses-dan-hukum-lintasan">Keterukuran proses dan
+hukum lintasan</h1>
+<section class="bridge-section" id="tujuan-dan-empat-lapis-objek">
+<h2>Tujuan dan empat lapis objek</h2>
+<p>Sebuah proses stokastik mempunyai koordinat waktu, tetapi kata
+“terukur” dapat merujuk pada beberapa peta yang berbeda. Jika peta-peta
+itu disamakan, argumen yang benar tentang distribusi berdimensi hingga
+dapat berubah menjadi klaim yang salah tentang lintasan. Unit <a href="01-konstruksi-kolmogorov.html">Konstruksi Kolmogorov dan proses
+kanonik</a> telah membangun hukum pada ruang produk mentah. Sekarang
+kita menentukan dengan tepat informasi apa yang tersimpan dalam hukum
+itu dan apa yang masih memerlukan struktur tambahan.</p>
+<p>Biarkan <span class="math inline">\((T,\mathcal T)\)</span> menjadi
+ruang indeks terukur, <span class="math inline">\((\Omega,\mathcal
+A,\mathbb P)\)</span> ruang peluang, dan <span class="math inline">\((S,\mathcal S)\)</span> ruang keadaan terukur.
+Untuk keluarga <span class="math inline">\(X=(X_t)_{t\in T}\)</span>,
+empat objek berikut harus dibedakan.</p>
+<ol type="1">
+<li>Untuk setiap <span class="math inline">\(t\)</span> tetap, ada
+<strong>peta koordinat</strong> <span class="math display">\[
+X_t:\Omega\longrightarrow S.
+\]</span></li>
+<li>Seluruh keluarga dapat dikemas sebagai <strong>peta lintasan
+mentah</strong> <span class="math display">\[
+\Phi_X:\Omega\longrightarrow S^T,
+\qquad \Phi_X(\omega)(t)=X_t(\omega),
+\]</span> dengan sasaran diberi sigma-aljabar produk <span class="math inline">\(\mathcal S^{\otimes T}=\sigma(\pi_t:t\in
+T)\)</span>.</li>
+<li>Indeks dan hasil acak dapat dibaca bersama melalui <strong>peta
+evaluasi proses</strong> <span class="math display">\[
+\widehat X:T\times\Omega\longrightarrow S,
+\qquad \widehat X(t,\omega)=X_t(\omega).
+\]</span></li>
+<li>Jika lintasan mempunyai keteraturan tertentu, peta yang sama mungkin
+dipandang sebagai peubah acak bernilai ruang lintasan, misalnya <span class="math display">\[
+\Phi_X:\Omega\longrightarrow C([0,1],\mathbb R)
+\]</span> dengan sigma-aljabar Borel dari norma seragam.</li>
+</ol>
+<p>Keempat pernyataan keterukuran itu tidak identik. Setelah
+menyelesaikan unit ini, pembaca mampu membuktikan hubungan yang benar di
+antaranya, menentukan tepat apa yang ditentukan oleh distribusi
+berdimensi hingga, dan mengaudit klaim tentang modifikasi,
+ketakterbedaan, serta keteraturan lintasan.</p>
+<p>Prasyaratnya ialah <a href="../prob/Probability2.html">ruang produk
+peluang</a>, <a href="../prob/Processes.html">proses dan distribusi
+berdimensi hingga</a>, dan jembatan Kolmogorov di atas. Kita tidak
+mengulang konstruksi ukuran dari keluarga proyektif, teori gerak Brown,
+atau teori rantai Markov waktu kontinu. Fokus kita adalah perbedaan
+logis antara koordinat, peta lintasan, evaluasi gabungan, dan hukum pada
+ruang lintasan teratur.</p>
+</section>
+<div class="bridge-section" id="peta-lintasan-mentah">
+<h2 id="peta-lintasan-mentah-dan-keterukuran-tiap-waktu">Peta lintasan
+mentah dan keterukuran tiap waktu</h2>
+<p>Definisi dasar proses stokastik hanya meminta setiap <span class="math inline">\(X_t\)</span> terukur sebagai peta dari <span class="math inline">\((\Omega,\mathcal A)\)</span> ke <span class="math inline">\((S,\mathcal S)\)</span>. Syarat ini tepat setara
+dengan keterukuran peta lintasan mentah ke ruang produk.</p>
+<blockquote>
+<p><strong>Proposisi (koordinat demi koordinat).</strong> Peta <span class="math inline">\(\Phi_X:\Omega\to(S^T,\mathcal S^{\otimes
+T})\)</span> terukur jika dan hanya jika <span class="math inline">\(X_t:\Omega\to S\)</span> terukur untuk setiap
+<span class="math inline">\(t\in T\)</span>.</p>
+</blockquote>
+<p><strong>Bukti.</strong> Jika <span class="math inline">\(\Phi_X\)</span> terukur, maka</p>
+<p><span class="math display">\[
+X_t=\pi_t\circ\Phi_X
+\]</span></p>
+<p>terukur karena proyeksi koordinat <span class="math inline">\(\pi_t\)</span> terukur menurut definisi <span class="math inline">\(\mathcal S^{\otimes T}\)</span>. Sebaliknya,
+anggap setiap <span class="math inline">\(X_t\)</span> terukur. Untuk
+himpunan silinder</p>
+<p><span class="math display">\[
+C=\pi_J^{-1}(B),
+\qquad J\subset T\text{ hingga},\quad
+B\in\mathcal S^{\otimes J},
+\]</span></p>
+<p>prabayangannya adalah</p>
+<p><span class="math display">\[
+\Phi_X^{-1}(C)
+=\{\omega:(X_t(\omega))_{t\in J}\in B\}.
+\]</span></p>
+<p>Peta vektor hingga <span class="math inline">\((X_t)_{t\in
+J}\)</span> terukur terhadap sigma-aljabar produk hingga, sehingga
+prabayangan itu berada dalam <span class="math inline">\(\mathcal
+A\)</span>. Karena silinder membangkitkan <span class="math inline">\(\mathcal S^{\otimes T}\)</span>, kriteria
+sigma-aljabar pembangkit memberikan keterukuran <span class="math inline">\(\Phi_X\)</span>. <span class="math inline">\(\square\)</span></p>
+<p>Tidak ada hipotesis Borel standar pada <span class="math inline">\(S\)</span> dalam proposisi ini. Hipotesis seperti
+itu diperlukan pada teorema keberadaan tertentu, bukan pada fakta formal
+bahwa sigma-aljabar produk dibangkitkan oleh koordinat.</p>
+<p>Proposisi tersebut juga menjelaskan hukum lintasan mentah. Jika
+setiap koordinat terukur, kita dapat membentuk ukuran dorong</p>
+<p><span class="math display">\[
+\mathsf P_X=\mathbb P\circ\Phi_X^{-1}
+\]</span></p>
+<p>pada <span class="math inline">\((S^T,\mathcal S^{\otimes
+T})\)</span>. Ukuran ini membaca setiap kejadian yang dapat dibangun
+dari koordinat melalui operasi terhitung. Akan tetapi, sasaran ini belum
+mengatakan bahwa peta <span class="math inline">\((t,\omega)\mapsto
+X_t(\omega)\)</span> terukur, dan belum mengatakan bahwa himpunan semua
+lintasan kontinu atau cadlag merupakan kejadian terukur.</p>
+</div>
+<div class="bridge-section" id="keterukuran-bersama">
+<h2 id="keterukuran-bersama-dan-evaluasi-kanonik">Keterukuran bersama
+dan evaluasi kanonik</h2>
+<p>Keluarga <span class="math inline">\(X\)</span> disebut
+<strong>terukur bersama</strong> apabila</p>
+<p><span class="math display">\[
+\widehat X:(T\times\Omega,\mathcal T\otimes\mathcal A)
+\longrightarrow(S,\mathcal S)
+\]</span></p>
+<p>terukur. Keterukuran bersama bergantung pada sigma-aljabar <span class="math inline">\(\mathcal T\)</span> yang dipilih pada <span class="math inline">\(T\)</span>; tanpa struktur terukur pada himpunan
+indeks, pernyataan ini bahkan belum terdefinisi.</p>
+<p>Jika <span class="math inline">\(\widehat X\)</span> terukur, setiap
+bagian waktu <span class="math inline">\(\omega\mapsto\widehat
+X(t,\omega)=X_t(\omega)\)</span> terukur. Untuk <span class="math inline">\(t\)</span> tetap, peta <span class="math inline">\(\omega\mapsto(t,\omega)\)</span> terukur, lalu
+komposisinya dengan <span class="math inline">\(\widehat X\)</span>
+ialah <span class="math inline">\(X_t\)</span>. Demikian pula, untuk
+setiap <span class="math inline">\(\omega\)</span> tetap, lintasan <span class="math inline">\(t\mapsto X_t(\omega)\)</span> merupakan peta
+terukur dari <span class="math inline">\((T,\mathcal T)\)</span> ke
+<span class="math inline">\((S,\mathcal S)\)</span>. Jadi keterukuran
+bersama lebih kuat daripada keterukuran tiap waktu dan juga memaksa
+setiap lintasan menjadi terukur terhadap waktu.</p>
+<p>Kebalikannya gagal bahkan pada proses koordinat kanonik yang paling
+alami.</p>
+<blockquote>
+<p><strong>Teorema (evaluasi kanonik mentah tidak terukur
+bersama).</strong> Ambil <span class="math inline">\(T=[0,1]\)</span>
+dengan sigma-aljabar Borel, <span class="math inline">\(S=\{0,1\}\)</span> dengan sigma-aljabar diskret,
+dan <span class="math inline">\(\Omega=S^T\)</span> dengan sigma-aljabar
+produk <span class="math inline">\(\mathcal S^{\otimes T}\)</span>. Peta
+evaluasi <span class="math display">\[
+e:T\times S^T\longrightarrow S,
+\qquad e(t,\omega)=\omega(t),
+\]</span> tidak terukur terhadap <span class="math inline">\(\mathcal
+B(T)\otimes\mathcal S^{\otimes T}\)</span>.</p>
+</blockquote>
+<p>Untuk membuktikannya, kita memerlukan lemma yang mempertahankan satu
+himpunan koordinat untuk seluruh nilai <span class="math inline">\(t\)</span>.</p>
+<blockquote>
+<p><strong>Lemma (ketergantungan koordinat terhitung pada
+produk).</strong> Untuk setiap <span class="math inline">\(E\in\mathcal
+T\otimes\mathcal S^{\otimes T}\)</span> terdapat himpunan terhitung
+<span class="math inline">\(J\subset T\)</span> sedemikian sehingga,
+apabila <span class="math inline">\(\omega|_J=\omega'|_J\)</span>,
+maka <span class="math display">\[
+(t,\omega)\in E\iff(t,\omega')\in E
+\qquad\text{untuk setiap }t\in T.
+\]</span></p>
+</blockquote>
+<p><strong>Bukti lemma.</strong> Bentuk kelas <span class="math inline">\(\mathcal D\)</span> dari semua bagian <span class="math inline">\(E\subset T\times S^T\)</span> yang memiliki sifat
+tersebut untuk suatu <span class="math inline">\(J\)</span> terhitung.
+Kelas ini merupakan sigma-aljabar. Komplemen memakai <span class="math inline">\(J\)</span> yang sama. Untuk gabungan terhitung
+<span class="math inline">\(E_n\)</span>, gunakan <span class="math inline">\(J=\bigcup_nJ_n\)</span>, yang masih terhitung.</p>
+<p>Setiap persegi panjang terukur <span class="math inline">\(B\times
+C\)</span> berada dalam <span class="math inline">\(\mathcal D\)</span>.
+Memang, setiap <span class="math inline">\(C\in\mathcal S^{\otimes
+T}\)</span> bergantung pada paling banyak terhitung banyak koordinat:
+kelas kejadian ruang lintasan yang memiliki sifat itu merupakan
+sigma-aljabar dan memuat seluruh silinder. Karena persegi panjang
+membangkitkan <span class="math inline">\(\mathcal T\otimes\mathcal
+S^{\otimes T}\)</span>, seluruh bagian terukur berada dalam <span class="math inline">\(\mathcal D\)</span>. <span class="math inline">\(\square\)</span></p>
+<p><strong>Bukti teorema.</strong> Andaikan <span class="math inline">\(E=e^{-1}(\{1\})\)</span> terukur. Pilih himpunan
+terhitung <span class="math inline">\(J\)</span> dari lemma dan ambil
+<span class="math inline">\(t_0\in[0,1]\setminus J\)</span>. Biarkan
+<span class="math inline">\(\omega_0\)</span> menjadi lintasan nol dan
+<span class="math inline">\(\omega_1\)</span> lintasan yang bernilai
+satu hanya pada <span class="math inline">\(t_0\)</span>. Kedua lintasan
+sama pada <span class="math inline">\(J\)</span>. Namun</p>
+<p><span class="math display">\[
+e(t_0,\omega_0)=0,
+\qquad
+e(t_0,\omega_1)=1,
+\]</span></p>
+<p>sehingga keanggotaan <span class="math inline">\((t_0,\omega_0)\)</span> dan <span class="math inline">\((t_0,\omega_1)\)</span> dalam <span class="math inline">\(E\)</span> berbeda. Ini bertentangan dengan lemma.
+<span class="math inline">\(\square\)</span></p>
+<p>Tidak ada kontradiksi dengan proposisi sebelumnya. Setiap koordinat
+<span class="math inline">\(\pi_t:S^T\to S\)</span> terukur, sehingga
+peta lintasan identitas <span class="math inline">\(S^T\to S^T\)</span>
+terukur. Yang gagal ialah keterukuran peta dua-argumen <span class="math inline">\((t,\omega)\mapsto\omega(t)\)</span> pada
+sigma-aljabar produk yang dinyatakan.</p>
+<p>Ada dua batas positif yang membantu mengisolasi sumber kegagalan.</p>
+<ul>
+<li>Jika <span class="math inline">\(T\)</span> terhitung dan setiap
+singleton <span class="math inline">\(\{t\}\)</span> berada dalam <span class="math inline">\(\mathcal T\)</span>, maka untuk <span class="math inline">\(A\in\mathcal S\)</span>, <span class="math display">\[
+e^{-1}(A)
+=\bigcup_{t\in T}\bigl(\{t\}\times\pi_t^{-1}(A)\bigr),
+\]</span> suatu gabungan terhitung himpunan terukur. Jadi evaluasi
+kanonik terukur bersama.</li>
+<li>Jika <span class="math inline">\(T\)</span> kompak metrik, evaluasi
+pada <span class="math inline">\(T\times C(T,\mathbb R)\)</span> dengan
+topologi produk dan norma seragam adalah kontinu. Jika <span class="math inline">\((t_n,f_n)\to(t,f)\)</span>, maka <span class="math display">\[
+|f_n(t_n)-f(t)|
+\le \|f_n-f\|_\infty+|f(t_n)-f(t)|\longrightarrow0.
+\]</span></li>
+</ul>
+<p>Dengan demikian, ruang lintasan yang lebih teratur dapat memperbaiki
+keterukuran evaluasi, tetapi hanya setelah hukum proses benar-benar
+dibangun sebagai hukum pada ruang tersebut.</p>
+</div>
+<div class="bridge-section" id="fdd-dan-hukum-lintasan-mentah">
+<h2 id="distribusi-berdimensi-hingga-dan-hukum-lintasan-mentah">Distribusi
+berdimensi hingga dan hukum lintasan mentah</h2>
+<p>Distribusi berdimensi hingga, disingkat FDD, membaca hukum vektor
+<span class="math inline">\((X_t)_{t\in J}\)</span> untuk setiap <span class="math inline">\(J\subset T\)</span> hingga. Pada ruang produk
+mentah, informasi ini lengkap.</p>
+<blockquote>
+<p><strong>Proposisi (FDD menentukan hukum produk mentah).</strong> Dua
+proses <span class="math inline">\(X\)</span> dan <span class="math inline">\(Y\)</span>, yang boleh didefinisikan pada ruang
+peluang berbeda tetapi mempunyai ruang keadaan <span class="math inline">\((S,\mathcal S)\)</span> yang sama, mempunyai FDD
+yang sama jika dan hanya jika hukum lintasan mentahnya sama pada <span class="math inline">\((S^T,\mathcal S^{\otimes T})\)</span>.</p>
+</blockquote>
+<p><strong>Bukti.</strong> Jika hukum lintasannya sama, dorongan melalui
+setiap proyeksi hingga <span class="math inline">\(\pi_J\)</span> sama,
+sehingga FDD sama. Sebaliknya, anggap semua FDD sama. Untuk silinder
+<span class="math inline">\(C=\pi_J^{-1}(B)\)</span>,</p>
+<p><span class="math display">\[
+\mathsf P_X(C)
+=\mathbb P_X((X_t)_{t\in J}\in B)
+=\mathbb P_Y((Y_t)_{t\in J}\in B)
+=\mathsf P_Y(C).
+\]</span></p>
+<p>Silinder membentuk sistem-<span class="math inline">\(\pi\)</span>,
+memuat seluruh ruang, dan membangkitkan <span class="math inline">\(\mathcal S^{\otimes T}\)</span>. Kelas kejadian
+tempat kedua ukuran peluang itu sepakat merupakan sistem Dynkin. Teorema
+sistem-<span class="math inline">\(\pi\)</span>- <span class="math inline">\(\lambda\)</span> memberi kesamaan pada seluruh
+sigma-aljabar produk. <span class="math inline">\(\square\)</span></p>
+<p>Proposisi ini merupakan pernyataan keunikan, bukan teorema keberadaan
+baru. Jembatan Kolmogorov menjawab kapan keluarga FDD melahirkan hukum
+produk; proposisi di sini menjawab bahwa, setelah hukum itu ada, tidak
+ada dua hukum berbeda pada sigma-aljabar produk dengan FDD yang
+sama.</p>
+<p>Kata-kata “pada sigma-aljabar produk” tidak boleh dihapus. FDD tidak
+otomatis menentukan nilai pada himpunan yang bukan anggota sigma-aljabar
+tersebut, dan tidak membuat himpunan seperti “lintasan kontinu” menjadi
+terukur di ruang mentah.</p>
+</div>
+<div class="bridge-section" id="sifat-lintasan-di-ruang-mentah">
+<h2 id="mengapa-sifat-lintasan-belum-menjadi-kejadian-mentah">Mengapa
+sifat lintasan belum menjadi kejadian mentah</h2>
+<p>Setiap <span class="math inline">\(E\in\mathcal S^{\otimes
+T}\)</span> bergantung pada paling banyak terhitung banyak koordinat.
+Bukti singkatnya mengikuti pola yang sudah dipakai: kelas semua bagian
+<span class="math inline">\(E\subset S^T\)</span> yang keanggotaannya
+ditentukan oleh suatu <span class="math inline">\(J\subset T\)</span>
+terhitung merupakan sigma-aljabar; kelas itu memuat setiap silinder,
+sehingga memuat sigma-aljabar yang dibangkitkan silinder.</p>
+<p>Ambil sekarang <span class="math inline">\(T=[0,1]\)</span>, <span class="math inline">\(S=\mathbb R\)</span>, dan</p>
+<p><span class="math display">\[
+\mathcal C=C([0,1],\mathbb R)\subset\mathbb R^{[0,1]}.
+\]</span></p>
+<p>Himpunan <span class="math inline">\(\mathcal C\)</span>
+<strong>bukan</strong> anggota sigma-aljabar produk mentah <span class="math inline">\(\mathcal B(\mathbb R)^{\otimes[0,1]}\)</span>.
+Andaikan ia terukur dan bergantung pada koordinat dalam himpunan
+terhitung <span class="math inline">\(J\)</span>. Pilih <span class="math inline">\(t_0\notin J\)</span>. Lintasan nol <span class="math inline">\(f_0\)</span> kontinu. Lintasan</p>
+<p><span class="math display">\[
+f_1(t)=\mathbf 1_{\{t_0\}}(t)
+\]</span></p>
+<p>tidak kontinu, tetapi <span class="math inline">\(f_0|_J=f_1|_J\)</span>. Keanggotaan dalam <span class="math inline">\(\mathcal C\)</span> tidak dapat ditentukan oleh
+<span class="math inline">\(J\)</span>, suatu kontradiksi.</p>
+<p>Akibatnya, jika <span class="math inline">\(\mu\)</span> baru
+didefinisikan pada <span class="math inline">\(\mathcal B(\mathbb
+R)^{\otimes[0,1]}\)</span>, ungkapan</p>
+<p><span class="math display">\[
+\mu\bigl(C([0,1],\mathbb R)\bigr)=1
+\]</span></p>
+<p>belum merupakan pernyataan yang sah: argumennya bukan kejadian pada
+ruang terukur itu. Demikian pula, kita tidak boleh mengurangi
+sigma-aljabar secara diam-diam ke ruang lintasan kontinu atau cadlag.
+Diperlukan konstruksi ukuran pada ruang lintasan teratur, atau sebuah
+teorema versi/modifikasi yang menyediakan peubah acak bernilai ruang
+tersebut.</p>
+<p>Contoh satu lonjakan memperlihatkan fenomena ini secara
+probabilistik. Pada <span class="math inline">\(([0,1],\mathcal
+B,\lambda)\)</span>, definisikan</p>
+<p><span class="math display">\[
+X_t(\omega)=0,
+\qquad
+Y_t(\omega)=\mathbf1_{\{t=\omega\}}.
+\tag{1}
+\]</span></p>
+<p>Untuk setiap himpunan waktu hingga, dengan peluang satu nilai <span class="math inline">\(\omega\)</span> tidak sama dengan satu pun waktu
+itu. Maka seluruh FDD <span class="math inline">\(Y\)</span> sama dengan
+FDD proses nol <span class="math inline">\(X\)</span>. Menurut proposisi
+sebelumnya, hukum lintasan mentah keduanya sama, yaitu ukuran titik pada
+lintasan nol jika dilihat melalui sigma-aljabar produk. Namun setiap
+lintasan <span class="math inline">\(Y\)</span> mempunyai satu lonjakan
+dan tidak kontinu. Tidak ada kontradiksi: kontinuitas bukan kejadian
+pada sigma-aljabar produk mentah.</p>
+</div>
+<section class="bridge-section" id="hukum-pada-ruang-lintasan-kontinu">
+<h2>Hukum pada ruang lintasan kontinu</h2>
+<p>Sekarang beri <span class="math inline">\(C=C([0,1],\mathbb
+R)\)</span> norma seragam <span class="math inline">\(\|f\|_\infty=\sup_t|f(t)|\)</span> dan
+sigma-aljabar Borel <span class="math inline">\(\mathcal B(C)\)</span>.
+Untuk <span class="math inline">\(t\in[0,1]\)</span>, evaluasi <span class="math inline">\(e_t(f)=f(t)\)</span> kontinu. Lebih kuat lagi,
+evaluasi pada waktu-waktu rasional sudah membangkitkan seluruh
+sigma-aljabar Borel.</p>
+<blockquote>
+<p><strong>Teorema (koordinat rasional membangkitkan ruang
+kontinu).</strong> Jika <span class="math inline">\(Q=\mathbb
+Q\cap[0,1]\)</span>, maka <span class="math display">\[
+\mathcal B(C)=\sigma(e_q:q\in Q).
+\]</span></p>
+</blockquote>
+<p><strong>Bukti.</strong> Karena setiap <span class="math inline">\(e_q\)</span> kontinu, <span class="math inline">\(\sigma(e_q:q\in Q)\subset\mathcal B(C)\)</span>.
+Untuk arah sebaliknya, kontinuitas dan kerapatan <span class="math inline">\(Q\)</span> memberi, bagi <span class="math inline">\(f,g\in C\)</span>,</p>
+<p><span class="math display">\[
+\|f-g\|_\infty
+=\sup_{t\in[0,1]}|f(t)-g(t)|
+=\sup_{q\in Q}|f(q)-g(q)|.
+\tag{2}
+\]</span></p>
+<p>Untuk pusat <span class="math inline">\(f\in C\)</span> dan <span class="math inline">\(r&gt;0\)</span>, bola terbuka dapat ditulis</p>
+<p><span class="math display">\[
+B(f,r)
+=\bigcup_{n:\,1/n&lt;r}
+\bigcap_{q\in Q}
+\left\{g:|g(q)-f(q)|\le r-\frac1n\right\}.
+\tag{3}
+\]</span></p>
+<p>Ruas kanan terukur terhadap evaluasi rasional. Kesetaraan (3) memakai
+celah positif antara <span class="math inline">\(\|f-g\|_\infty\)</span>
+dan <span class="math inline">\(r\)</span>; sekadar menulis irisan semua
+ketaksamaan ketat akan keliru pada kasus supremum sama dengan <span class="math inline">\(r\)</span>.</p>
+<p>Ruang <span class="math inline">\(C([0,1],\mathbb R)\)</span>
+separabel dalam norma seragam. Memang, teorema aproksimasi Weierstrass
+dan pendekatan koefisien real oleh bilangan rasional menunjukkan bahwa
+polinom berkoefisien rasional membentuk himpunan rapat yang terhitung.
+Karena itu setiap himpunan terbuka merupakan gabungan terhitung bola
+dari suatu basis terhitung. Semua himpunan terbuka berada dalam <span class="math inline">\(\sigma(e_q:q\in Q)\)</span>, sehingga seluruh
+<span class="math inline">\(\mathcal B(C)\)</span> juga berada di sana.
+<span class="math inline">\(\square\)</span></p>
+<p>Akibatnya, jika <span class="math inline">\(Z\)</span> dan <span class="math inline">\(W\)</span> benar-benar merupakan peubah acak
+bernilai <span class="math inline">\(C([0,1],\mathbb R)\)</span> dan
+mempunyai FDD yang sama, maka hukum Borel mereka pada <span class="math inline">\(C\)</span> sama. Bahkan FDD pada waktu rasional
+cukup: kedua hukum sepakat pada silinder rasional, lalu pada
+sigma-aljabar yang dibangkitkannya.</p>
+<p>Hasil ini tidak membuktikan bahwa proses mentah sebarang mempunyai
+versi kontinu. Ia hanya menyatakan keunikan hukum setelah keterukuran
+sebagai peubah acak bernilai <span class="math inline">\(C\)</span>
+sudah tersedia. Teorema Kolmogorov-Chentsov atau argumen keteraturan
+lain diperlukan untuk menghasilkan versi semacam itu. Teorema perluasan
+Kolmogorov dan teorema kontinuitas Kolmogorov-Chentsov mempunyai fungsi
+yang berbeda.</p>
+</section>
+<div class="bridge-section" id="modifikasi-dan-ketakterbedaan">
+<h2 id="modifikasi-fdd-yang-sama-dan-ketakterbedaan">Modifikasi, FDD
+yang sama, dan ketakterbedaan</h2>
+<p>Demi membuat kejadian kesamaan di bawah terdefinisi, pada bagian ini
+anggap diagonal <span class="math inline">\(\Delta_S=\{(x,x):x\in
+S\}\)</span> berada dalam <span class="math inline">\(\mathcal
+S\otimes\mathcal S\)</span>; syarat ini berlaku, misalnya, untuk ruang
+keadaan Borel standar dan khususnya untuk proses bernilai real.</p>
+<p>Dua proses <span class="math inline">\(X\)</span> dan <span class="math inline">\(Y\)</span> pada ruang peluang yang sama disebut
+<strong>modifikasi</strong> satu sama lain apabila</p>
+<p><span class="math display">\[
+\mathbb P(X_t=Y_t)=1
+\qquad\text{untuk setiap }t\in T.
+\tag{4}
+\]</span></p>
+<p>Mereka disebut <strong>tak terbedakan</strong> apabila terdapat satu
+kejadian terukur <span class="math inline">\(A\in\mathcal A\)</span>
+dengan <span class="math inline">\(\mathbb P(A)=1\)</span> sedemikian
+sehingga</p>
+<p><span class="math display">\[
+X_t(\omega)=Y_t(\omega)
+\qquad
+\text{untuk setiap }t\in T\text{ dan setiap }\omega\in A.
+\tag{5}
+\]</span></p>
+<p>Definisi (5) sengaja menyebut satu kejadian terukur. Kita tidak
+mendefinisikan <span class="math inline">\(A\)</span> sebagai irisan tak
+terhitung dari kejadian-kejadian pada (4), karena irisan tak terhitung
+tidak harus berada dalam sigma-aljabar dan tidak mewarisi peluang
+satu.</p>
+<p>Selalu berlaku</p>
+<p><span class="math display">\[
+\text{tak terbedakan}
+\Longrightarrow
+\text{modifikasi}
+\Longrightarrow
+\text{FDD sama}.
+\tag{6}
+\]</span></p>
+<p>Implikasi kedua benar karena untuk <span class="math inline">\(J\)</span> hingga, irisan kejadian <span class="math inline">\(\{X_t=Y_t\}\)</span>, <span class="math inline">\(t\in J\)</span>, masih mempunyai peluang satu.
+Pada kejadian itu vektor hingga kedua proses sama.</p>
+<p>Kedua kebalikan pada (6) gagal secara umum.</p>
+<ul>
+<li><strong>FDD sama tidak menyiratkan modifikasi.</strong> Pada ruang
+dua titik dengan peubah Bernoulli seimbang <span class="math inline">\(U\)</span>, tetapkan <span class="math inline">\(X_t=U\)</span> dan <span class="math inline">\(Y_t=1-U\)</span> untuk semua <span class="math inline">\(t\)</span>. Setiap vektor hingga <span class="math inline">\(X\)</span> bernilai semua nol atau semua satu
+dengan peluang masing-masing setengah; vektor <span class="math inline">\(Y\)</span> mempunyai hukum yang sama. Namun <span class="math inline">\(\mathbb P(X_t=Y_t)=0\)</span> untuk setiap <span class="math inline">\(t\)</span>.</li>
+<li><strong>Modifikasi tidak menyiratkan ketakterbedaan.</strong> Proses
+pada (1) merupakan modifikasi satu sama lain, sebab untuk setiap <span class="math inline">\(t\)</span> tetap, <span class="math inline">\(\lambda(\{\omega:t=\omega\})=0\)</span>. Akan
+tetapi, untuk setiap <span class="math inline">\(\omega\)</span>,
+keduanya berbeda pada waktu <span class="math inline">\(t=\omega\)</span>. Tidak ada satu pun titik sampel
+tempat kedua lintasan sama untuk seluruh waktu.</li>
+</ul>
+<p>Contoh (1) bahkan terukur bersama: himpunan <span class="math inline">\(\{(t,\omega):t=\omega\}\)</span> adalah diagonal
+tertutup dalam <span class="math inline">\([0,1]^2\)</span>. Jadi
+keterukuran bersama pun tidak mengubah modifikasi menjadi
+ketakterbedaan.</p>
+<p>Keteraturan lintasan memberi kondisi tambahan yang berguna. Misalkan
+<span class="math inline">\(X\)</span> dan <span class="math inline">\(Y\)</span> adalah modifikasi pada ruang peluang
+yang sama. Andaikan ada kejadian terukur <span class="math inline">\(A_X,A_Y\)</span> berpeluang satu tempat lintasan
+masing-masing kontinu pada <span class="math inline">\([0,1]\)</span>.
+Untuk setiap <span class="math inline">\(q\in Q\)</span>, kejadian <span class="math inline">\(A_q=\{X_q=Y_q\}\)</span> mempunyai peluang satu.
+Maka</p>
+<p><span class="math display">\[
+A=A_X\cap A_Y\cap\bigcap_{q\in Q}A_q
+\]</span></p>
+<p>terukur dan berpeluang satu karena <span class="math inline">\(Q\)</span> terhitung. Pada <span class="math inline">\(A\)</span>, dua fungsi kontinu sama pada himpunan
+rasional yang rapat, sehingga sama pada seluruh <span class="math inline">\([0,1]\)</span>. Jadi modifikasi kontinu tak
+terbedakan.</p>
+<p>Perhatikan dua peran yang berbeda. FDD yang sama untuk peubah acak
+bernilai <span class="math inline">\(C\)</span> memberi <strong>hukum
+Borel yang sama</strong> pada <span class="math inline">\(C\)</span>; ia
+tidak menentukan kopling kedua peubah acak. Asumsi modifikasi memberi
+kesamaan tiap waktu dalam satu kopling; kontinuitas lalu mengangkat
+kesamaan rasional menjadi kesamaan semua waktu pada satu kejadian
+berpeluang satu.</p>
+</div>
+<section class="bridge-section" id="audit-klaim-lintasan">
+<h2>Audit klaim lintasan</h2>
+<p>Tabel berikut merangkum batas kesimpulan.</p>
+<table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr>
+<th>Data yang tersedia</th>
+<th>Kesimpulan yang sah</th>
+<th>Yang belum mengikuti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Setiap <span class="math inline">\(X_t\)</span> terukur</td>
+<td><span class="math inline">\(\Phi_X\)</span> terukur ke ruang produk
+mentah</td>
+<td>keterukuran bersama; keteraturan lintasan</td>
+</tr>
+<tr>
+<td><span class="math inline">\(\widehat X\)</span> terukur bersama</td>
+<td>setiap koordinat dan setiap bagian lintasan terukur</td>
+<td>kontinuitas atau sifat cadlag</td>
+</tr>
+<tr>
+<td>Semua FDD diketahui</td>
+<td>hukum unik pada <span class="math inline">\(\mathcal S^{\otimes
+T}\)</span>, jika hukum itu ada</td>
+<td>nilai pada himpunan di luar sigma-aljabar produk</td>
+</tr>
+<tr>
+<td>Peubah acak bernilai <span class="math inline">\(C([0,1],\mathbb
+R)\)</span></td>
+<td>hukum Borel ditentukan oleh evaluasi rasional</td>
+<td>keberadaan versi kontinu dari proses mentah</td>
+</tr>
+<tr>
+<td><span class="math inline">\(X,Y\)</span> modifikasi</td>
+<td>FDD sama</td>
+<td>ketakterbedaan tanpa keteraturan tambahan</td>
+</tr>
+<tr>
+<td>Modifikasi dengan lintasan kontinu hampir pasti</td>
+<td>ketakterbedaan</td>
+<td>tidak ada klaim tambahan tentang proses lain</td>
+</tr>
+</tbody>
+</table>
+<p>Saat membaca sebuah pembuktian, tanyakan secara berurutan: apa ruang
+sasaran peta lintasannya, sigma-aljabar apa yang dipakai, apakah
+evaluasi waktu-proses perlu terukur bersama, apakah sifat lintasan
+merupakan kejadian pada ruang itu, dan apakah kesamaan yang diklaim
+adalah kesamaan hukum, modifikasi, atau ketakterbedaan. Lima pertanyaan
+itu mencegah FDD diberi kekuatan yang tidak dimilikinya.</p>
+</section>
+<div class="bridge-section" id="latihan-penguasaan-keterukuran">
+<h2 id="latihan-penguasaan">Latihan penguasaan</h2>
+<div class="mastery-sequence" id="unit.o009.original.mastery.measurability-path-law.01">
+<div class="exercise" id="unit.o009.original.mastery.measurability-path-law.01.exercise">
+<h3 id="latihan-1-koordinat-kanonik-tidak-terukur-bersama">Latihan 1 —
+koordinat kanonik tidak terukur bersama</h3>
+<p>Ambil <span class="math inline">\(T=[0,1]\)</span>, <span class="math inline">\(S=\{0,1\}\)</span>, dan <span class="math inline">\(\Omega=S^T\)</span> seperti pada teorema evaluasi
+kanonik.</p>
+<ol type="1">
+<li>Buktikan bahwa setiap <span class="math inline">\(E\in\mathcal
+B(T)\otimes\mathcal S^{\otimes T}\)</span> bergantung pada suatu
+himpunan koordinat lintasan <span class="math inline">\(J\subset
+T\)</span> yang terhitung, seragam untuk seluruh nilai <span class="math inline">\(t\)</span>.</li>
+<li>Gunakan hasil itu untuk membuktikan bahwa <span class="math inline">\(e(t,\omega)=\omega(t)\)</span> tidak terukur
+bersama.</li>
+<li>Jelaskan mengapa setiap <span class="math inline">\(\pi_t\)</span>
+dan peta lintasan identitas tetap terukur.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.measurability-path-law.01.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 1">Petunjuk 1 untuk Latihan 1</summary>
+<p><strong>Petunjuk 1.</strong> Bentuk kelas bagian <span class="math inline">\(E\subset T\times S^T\)</span> yang keanggotaannya
+tidak berubah apabila lintasan diubah di luar suatu <span class="math inline">\(J\)</span> terhitung. Tunjukkan bahwa kelas itu
+sigma-aljabar dan memuat persegi panjang <span class="math inline">\(B\times C\)</span>.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.measurability-path-law.01.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 1">Petunjuk 2 untuk Latihan 1</summary>
+<p><strong>Petunjuk 2.</strong> Setelah memperoleh <span class="math inline">\(J\)</span>, pilih <span class="math inline">\(t_0\notin J\)</span>. Bandingkan lintasan nol
+dengan lintasan yang hanya bernilai satu pada <span class="math inline">\(t_0\)</span>, lalu evaluasi keduanya pada waktu
+yang sama <span class="math inline">\(t_0\)</span>.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.measurability-path-law.01.answer">
+<p><strong>Jawaban ringkas.</strong> Sigma-aljabar produk hanya dapat
+membaca paling banyak terhitung banyak koordinat lintasan sekaligus.
+Jika <span class="math inline">\(e^{-1}(\{1\})\)</span> bergantung pada
+<span class="math inline">\(J\)</span>, lintasan nol dan lonjakan pada
+<span class="math inline">\(t_0\notin J\)</span> seharusnya memberi
+keanggotaan yang sama, padahal evaluasi pada <span class="math inline">\(t_0\)</span> memberi nol dan satu. Setiap <span class="math inline">\(\pi_t\)</span> tetap terukur karena justru
+proyeksi-proyeksi itu yang membangkitkan sigma-aljabar produk.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.measurability-path-law.01.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 1">Penyelesaian lengkap untuk Latihan 1</summary>
+<p><strong>Penyelesaian lengkap.</strong> Misalkan <span class="math inline">\(\mathcal D\)</span> adalah kelas semua <span class="math inline">\(E\subset T\times S^T\)</span> yang mempunyai suatu
+<span class="math inline">\(J_E\subset T\)</span> terhitung dengan
+sifat</p>
+<p><span class="math display">\[
+\omega|_{J_E}=\omega'|_{J_E}
+\Longrightarrow
+\bigl[(t,\omega)\in E\iff(t,\omega')\in E\bigr]
+\]</span></p>
+<p>untuk semua <span class="math inline">\(t\)</span>. Komplemen
+mempertahankan <span class="math inline">\(J_E\)</span>. Untuk <span class="math inline">\(E_n\in\mathcal D\)</span>, gabungan <span class="math inline">\(J=\bigcup_nJ_{E_n}\)</span> terhitung dan menopang
+<span class="math inline">\(\bigcup_nE_n\)</span>. Jadi <span class="math inline">\(\mathcal D\)</span> sigma-aljabar.</p>
+<p>Jika <span class="math inline">\(E=B\times C\)</span> dan <span class="math inline">\(C\in\mathcal S^{\otimes T}\)</span>, kejadian
+<span class="math inline">\(C\)</span> bergantung pada suatu himpunan
+koordinat terhitung: kelas kejadian dengan sifat itu adalah
+sigma-aljabar yang memuat silinder. Maka <span class="math inline">\(B\times C\in\mathcal D\)</span>. Karena persegi
+panjang membangkitkan sigma-aljabar produk, <span class="math inline">\(\mathcal B(T)\otimes\mathcal S^{\otimes
+T}\subset\mathcal D\)</span>.</p>
+<p>Andaikan <span class="math inline">\(e\)</span> terukur. Untuk <span class="math inline">\(E=e^{-1}(\{1\})\)</span>, ambil penopang terhitung
+<span class="math inline">\(J\)</span> dan <span class="math inline">\(t_0\notin J\)</span>. Definisikan <span class="math inline">\(\omega_0(t)=0\)</span> untuk semua <span class="math inline">\(t\)</span> dan <span class="math inline">\(\omega_1(t)=\mathbf1_{\{t_0\}}(t)\)</span>. Kedua
+lintasan sama pada <span class="math inline">\(J\)</span>, tetapi</p>
+<p><span class="math display">\[
+(t_0,\omega_0)\notin E,
+\qquad
+(t_0,\omega_1)\in E,
+\]</span></p>
+<p>kontradiksi. Untuk setiap <span class="math inline">\(t\)</span>
+tetap, <span class="math inline">\(\pi_t^{-1}(A)\)</span> adalah
+silinder, sehingga <span class="math inline">\(\pi_t\)</span> terukur.
+Peta identitas <span class="math inline">\(S^T\to S^T\)</span> juga
+terukur. Jadi kegagalan terletak tepat pada keterukuran dua-argumen,
+bukan pada koordinat atau peta lintasan mentah.</p>
+</details>
+</div>
+<div class="mastery-sequence" id="unit.o009.original.mastery.measurability-path-law.02">
+<div class="exercise" id="unit.o009.original.mastery.measurability-path-law.02.exercise">
+<h3 id="latihan-2-modifikasi-terukur-bersama-dengan-lintasan-berbeda">Latihan
+2 — modifikasi terukur bersama dengan lintasan berbeda</h3>
+<p>Pada <span class="math inline">\(([0,1],\mathcal B,\lambda)\)</span>,
+definisikan</p>
+<p><span class="math display">\[
+X_t(\omega)=0,
+\qquad
+Y_t(\omega)=\mathbf1_{\{t=\omega\}}.
+\]</span></p>
+<p>Buktikan bahwa <span class="math inline">\(Y\)</span> terukur
+bersama, <span class="math inline">\(X\)</span> dan <span class="math inline">\(Y\)</span> merupakan modifikasi, semua FDD mereka
+sama, tetapi mereka tidak tak terbedakan. Tunjukkan pula bahwa setiap
+lintasan <span class="math inline">\(X\)</span> kontinu sedangkan setiap
+lintasan <span class="math inline">\(Y\)</span> mempunyai satu lonjakan.
+Rekonsiliasikan fakta ini dengan kesamaan hukum lintasan mentah.</p>
+</div>
+<details class="hint" id="unit.o009.original.mastery.measurability-path-law.02.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 2">Petunjuk 1 untuk Latihan 2</summary>
+<p><strong>Petunjuk 1.</strong> Himpunan tempat <span class="math inline">\(Y=1\)</span> adalah diagonal <span class="math inline">\(\{(t,\omega):t=\omega\}\)</span> dalam <span class="math inline">\([0,1]^2\)</span>. Untuk <span class="math inline">\(t\)</span> tetap, singleton <span class="math inline">\(\{t\}\)</span> mempunyai ukuran Lebesgue nol.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.measurability-path-law.02.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 2">Petunjuk 2 untuk Latihan 2</summary>
+<p><strong>Petunjuk 2.</strong> Untuk banyak waktu yang hingga,
+gabungkan singleton waktu itu. Untuk ketakterbedaan, pada setiap <span class="math inline">\(\omega\)</span> pilih waktu <span class="math inline">\(t=\omega\)</span>. Kesamaan hukum mentah hanya
+menguji kejadian yang bergantung pada koordinat terhitung.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.measurability-path-law.02.answer">
+<p><strong>Jawaban ringkas.</strong> Diagonal tertutup membuat <span class="math inline">\(Y\)</span> terukur bersama. Untuk tiap <span class="math inline">\(t\)</span>, <span class="math inline">\(Y_t=0=X_t\)</span> hampir pasti, sehingga keduanya
+modifikasi dan mempunyai FDD yang sama. Namun <span class="math inline">\(Y_\omega(\omega)=1\ne0=X_\omega(\omega)\)</span>
+untuk setiap <span class="math inline">\(\omega\)</span>, jadi tidak ada
+titik sampel tempat seluruh lintasan sama. Hukum produk mentah tetap
+sama karena kontinuitas bukan kejadian dalam <span class="math inline">\(\mathcal B(\mathbb R)^{\otimes[0,1]}\)</span>.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.measurability-path-law.02.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 2">Penyelesaian lengkap untuk Latihan 2</summary>
+<p><strong>Penyelesaian lengkap.</strong> Diagonal <span class="math inline">\(D=\{(t,\omega):t=\omega\}\)</span> tertutup dalam
+<span class="math inline">\([0,1]^2\)</span>, sehingga indikatornya
+<span class="math inline">\(Y\)</span> terukur terhadap <span class="math inline">\(\mathcal B\otimes\mathcal B\)</span>. Untuk <span class="math inline">\(t\)</span> tetap,</p>
+<p><span class="math display">\[
+\lambda\{\omega:Y_t(\omega)\ne X_t(\omega)\}
+=\lambda(\{t\})=0.
+\]</span></p>
+<p>Jadi <span class="math inline">\(X\)</span> dan <span class="math inline">\(Y\)</span> merupakan modifikasi. Jika <span class="math inline">\(J=\{t_1,\ldots,t_n\}\)</span>, di luar himpunan
+hingga <span class="math inline">\(J\)</span> seluruh <span class="math inline">\(Y_{t_i}(\omega)\)</span> nol. Himpunan itu
+berpeluang satu, sehingga vektor <span class="math inline">\((Y_{t_1},\ldots,Y_{t_n})\)</span> hampir pasti
+sama dengan vektor nol, persis FDD <span class="math inline">\(X\)</span>.</p>
+<p>Sebaliknya, untuk setiap <span class="math inline">\(\omega\)</span>,
+pilih <span class="math inline">\(t=\omega\)</span>. Maka <span class="math inline">\(Y_t(\omega)=1\)</span> dan <span class="math inline">\(X_t(\omega)=0\)</span>. Himpunan titik sampel
+tempat kedua proses sama untuk semua <span class="math inline">\(t\)</span> kosong, jadi keduanya tidak tak
+terbedakan.</p>
+<p>Lintasan <span class="math inline">\(X\)</span> adalah fungsi nol
+yang kontinu. Lintasan <span class="math inline">\(Y\)</span> pada titik
+sampel <span class="math inline">\(\omega\)</span> adalah fungsi yang
+satu hanya di <span class="math inline">\(t=\omega\)</span>, sehingga
+tidak kontinu. Kesamaan FDD memberi kesamaan ukuran dorong pada
+sigma-aljabar produk mentah. Setiap kejadian mentah bergantung pada
+koordinat dalam suatu <span class="math inline">\(J\)</span> terhitung;
+dengan peluang satu, <span class="math inline">\(\omega\notin
+J\)</span>, sehingga lonjakan tidak terbaca oleh kejadian itu. Himpunan
+semua lintasan kontinu sendiri bukan kejadian mentah. Inilah sebabnya
+kesamaan hukum mentah konsisten dengan perilaku lintasan yang berbeda
+pada setiap titik sampel.</p>
+</details>
+</div>
+<div class="mastery-sequence" id="unit.o009.original.mastery.measurability-path-law.03">
+<div class="exercise" id="unit.o009.original.mastery.measurability-path-law.03.exercise">
+<h3 id="latihan-3-modifikasi-kontinu-menjadi-tak-terbedakan">Latihan 3 —
+modifikasi kontinu menjadi tak terbedakan</h3>
+<p>Misalkan <span class="math inline">\(X\)</span> dan <span class="math inline">\(Y\)</span> adalah proses real pada <span class="math inline">\([0,1]\)</span>.</p>
+<ol type="1">
+<li>Jika keduanya merupakan peubah acak bernilai <span class="math inline">\(C([0,1],\mathbb R)\)</span> dan mempunyai FDD yang
+sama, buktikan bahwa hukum Borel mereka pada <span class="math inline">\(C([0,1],\mathbb R)\)</span> sama.</li>
+<li>Sekarang andaikan <span class="math inline">\(X\)</span> dan <span class="math inline">\(Y\)</span> berada pada ruang peluang yang sama,
+merupakan modifikasi, dan masing-masing mempunyai lintasan kontinu pada
+suatu kejadian terukur berpeluang satu. Buktikan bahwa keduanya tak
+terbedakan.</li>
+<li>Jelaskan mengapa kesamaan FDD saja tidak cukup untuk kesimpulan
+bagian 2.</li>
+</ol>
+</div>
+<details class="hint" id="unit.o009.original.mastery.measurability-path-law.03.hint.01"><summary aria-label="Petunjuk 1 untuk Latihan 3">Petunjuk 1 untuk Latihan 3</summary>
+<p><strong>Petunjuk 1.</strong> Sigma-aljabar Borel pada <span class="math inline">\(C([0,1],\mathbb R)\)</span> dibangkitkan oleh
+evaluasi pada <span class="math inline">\(Q=\mathbb Q\cap[0,1]\)</span>.
+FDD yang sama membuat kedua hukum sepakat pada seluruh silinder
+rasional.</p>
+</details>
+<details class="hint" id="unit.o009.original.mastery.measurability-path-law.03.hint.02"><summary aria-label="Petunjuk 2 untuk Latihan 3">Petunjuk 2 untuk Latihan 3</summary>
+<p><strong>Petunjuk 2.</strong> Untuk bagian kedua, iris kejadian
+kontinuitas kedua proses dengan kejadian <span class="math inline">\(\{X_q=Y_q\}\)</span> untuk seluruh <span class="math inline">\(q\in Q\)</span>. Irisan ini terhitung. Pada
+kejadian hasilnya, gunakan kerapatan <span class="math inline">\(Q\)</span> dan kontinuitas.</p>
+</details>
+<div class="answer" id="unit.o009.original.mastery.measurability-path-law.03.answer">
+<p><strong>Jawaban ringkas.</strong> Evaluasi rasional membangkitkan
+<span class="math inline">\(\mathcal B(C)\)</span>, sehingga FDD
+rasional menentukan hukum Borel pada <span class="math inline">\(C\)</span>. Jika kedua proses juga modifikasi pada
+ruang yang sama, ada kejadian berpeluang satu tempat keduanya kontinu
+dan sama pada semua waktu rasional; kontinuitas memperluas kesamaan itu
+ke semua waktu. Kesamaan FDD sendiri hanya menyamakan hukum, bukan
+kopling titik demi titik.</p>
+</div>
+<details class="solution" id="unit.o009.original.mastery.measurability-path-law.03.solution"><summary aria-label="Penyelesaian lengkap untuk Latihan 3">Penyelesaian lengkap untuk Latihan 3</summary>
+<p><strong>Penyelesaian lengkap.</strong> Biarkan <span class="math inline">\(\nu_X\)</span> dan <span class="math inline">\(\nu_Y\)</span> menjadi hukum Borel kedua peubah
+acak bernilai <span class="math inline">\(C\)</span>. Untuk <span class="math inline">\(q_1,\ldots,q_n\in Q\)</span> dan <span class="math inline">\(B\in\mathcal B(\mathbb R^n)\)</span>, FDD yang
+sama memberi</p>
+<p><span class="math display">\[
+\nu_X\{f:(f(q_1),\ldots,f(q_n))\in B\}
+=
+\nu_Y\{f:(f(q_1),\ldots,f(q_n))\in B\}.
+\]</span></p>
+<p>Silinder rasional membentuk sistem-<span class="math inline">\(\pi\)</span> yang membangkitkan <span class="math inline">\(\mathcal B(C)\)</span>, sehingga teorema
+sistem-<span class="math inline">\(\pi\)</span>- <span class="math inline">\(\lambda\)</span> memberi <span class="math inline">\(\nu_X=\nu_Y\)</span>.</p>
+<p>Untuk bagian kedua, pilih kejadian terukur <span class="math inline">\(A_X,A_Y\)</span> berpeluang satu tempat lintasan
+masing-masing kontinu. Karena <span class="math inline">\(X\)</span> dan
+<span class="math inline">\(Y\)</span> modifikasi, untuk setiap <span class="math inline">\(q\in Q\)</span> kejadian <span class="math inline">\(A_q=\{X_q=Y_q\}\)</span> berpeluang satu.
+Bentuk</p>
+<p><span class="math display">\[
+A=A_X\cap A_Y\cap\bigcap_{q\in Q}A_q.
+\]</span></p>
+<p>Himpunan <span class="math inline">\(Q\)</span> terhitung, sehingga
+<span class="math inline">\(A\)</span> terukur dan berpeluang satu.
+Untuk <span class="math inline">\(\omega\in A\)</span>, fungsi kontinu
+<span class="math inline">\(t\mapsto X_t(\omega)\)</span> dan <span class="math inline">\(t\mapsto Y_t(\omega)\)</span> sama pada <span class="math inline">\(Q\)</span> yang rapat. Bagi <span class="math inline">\(t\in[0,1]\)</span>, ambil <span class="math inline">\(q_n\to t\)</span>; kontinuitas memberi</p>
+<p><span class="math display">\[
+X_t(\omega)
+=\lim_nX_{q_n}(\omega)
+=\lim_nY_{q_n}(\omega)
+=Y_t(\omega).
+\]</span></p>
+<p>Jadi satu kejadian <span class="math inline">\(A\)</span> membuktikan
+ketakterbedaan. Kesamaan FDD tanpa asumsi modifikasi tidak menentukan
+bagaimana dua proses dipasangkan pada ruang peluang yang sama; contoh
+<span class="math inline">\(U\)</span> dan <span class="math inline">\(1-U\)</span> menunjukkan bahwa FDD dapat sama
+sementara kesamaan pada satu waktu pun gagal hampir pasti.</p>
+</details>
+</div>
+</div>
+<div class="bridge-section" id="hak-dan-provenans-keterukuran">
+<h2 id="hak-dan-provenans">Hak dan provenans</h2>
+<p>Unit <strong>Keterukuran proses dan hukum lintasan</strong>, termasuk
+ketiga latihan, petunjuk, jawaban, dan penyelesaian di atas, merupakan
+materi asli berbahasa Indonesia yang disusun untuk edisi ini dan
+dilisensikan terpisah di bawah <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>,
+sejauh hak baru timbul. ID hak komponennya ialah
+<code>rights.o009.original.bridge.process-measurability-path-law.cc-by-4.0</code>.</p>
+<p>Penyusunan unit ini dibantu oleh <strong>OpenAI Codex gpt-5.6-sol,
+Ultra.</strong> Identitas model tersebut tidak menggantikan kredit
+penulis sumber atau kontributor manusia. Tautan ke unit Random Services,
+QuantEcon, dan jembatan sebelumnya berfungsi sebagai prasyarat dan batas
+duplikasi; materi asli ini tidak melisensikan ulang komponen mereka. Hak
+campuran seluruh edisi tetap dijelaskan dalam <code>LICENSES.md</code>
+dan backend hak per komponen.</p>
+<p>Unit ini independen dan tidak didukung atau disahkan oleh penulis
+Random Services, QuantEcon, lembaga mereka, atau penulis sumber lain. Ia
+juga tidak mengklaim bahwa teorema perluasan Kolmogorov sendiri
+menghasilkan lintasan kontinu, keterukuran bersama, atau hukum pada
+sigma-aljabar lintasan yang tidak dinyatakan.</p>
+</div>
+</main>
+</body>
+</html>

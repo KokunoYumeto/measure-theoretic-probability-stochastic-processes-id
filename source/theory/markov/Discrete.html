@@ -121,7 +121,7 @@
 
 <h4 id="str">Waktu Henti dan Sifat Markov Kuat</h4>
 
-<p>Pertimbangkan kembali proses stokastik \( \bs{X} = (X_0, X_1, X_2, \ldots) \) dengan ruang keadaan terhitung \( S \) dan filtrasi alami \( \mathfrak{F} = (\mathscr{F}_0, \mathscr{F}_1, \mathscr{F}_2, \ldots) \) sebagaimana diberikan di atas. Ingat bahwa variabel acak \( \tau \) yang mengambil nilai dalam \( \N \cup \{\infty\} \) adalah <dfn>waktu henti</dfn> atau <dfn>waktu Markov</dfn> bagi \( \bs{X} \) jika \( \{\tau = n\} \in \mathscr{F}_n \) untuk setiap \( n \in \N \). Secara intuitif, kita dapat menentukan apakah \( \tau = n \) dengan mengamati rantai hingga waktu \( n \). Dalam suatu pengertian, waktu henti adalah waktu acak yang tidak mengharuskan kita melihat ke masa depan. Hasil berikut memberikan contoh paling khas dari waktu henti.</p>
+<p>Pertimbangkan kembali proses stokastik \( \bs{X} = (X_0, X_1, X_2, \ldots) \) dengan ruang keadaan terhitung \( S \) dan filtrasi alami \( \mathfrak{F} = (\mathscr{F}_0, \mathscr{F}_1, \mathscr{F}_2, \ldots) \) sebagaimana diberikan di atas. Ingat bahwa peubah acak \( \tau \) yang mengambil nilai dalam \( \N \cup \{\infty\} \) adalah <dfn>waktu henti</dfn> atau <dfn>waktu Markov</dfn> bagi \( \bs{X} \) jika \( \{\tau = n\} \in \mathscr{F}_n \) untuk setiap \( n \in \N \). Secara intuitif, kita dapat menentukan apakah \( \tau = n \) dengan mengamati rantai hingga waktu \( n \). Dalam suatu pengertian, waktu henti adalah waktu acak yang tidak mengharuskan kita melihat ke masa depan. Hasil berikut memberikan contoh paling khas dari waktu henti.</p>
 
 <div class="unit" id="str1">
 	<p class="math">Misalkan kembali bahwa \( \bs{X} = \{X_n: n \in \N\} \) adalah rantai Markov waktu diskret dengan ruang keadaan \( S \) sebagaimana didefinisikan di atas. Untuk \( A \subseteq S \), waktu-waktu acak berikut adalah waktu henti:</p>
@@ -219,7 +219,7 @@ dengan kembali mengasumsikan bahwa penjumlahannya bermakna (seperti sebelumnya, 
 	</details>
 </div>
 
-<p>Secara khusus, jika \( X_0 \) memiliki fungsi kepadatan probabilitas \( f \), dan \( f \) invarian terhadap \( \bs{X} \), maka \( X_n \) memiliki fungsi kepadatan probabilitas \( f \) untuk semua \( n \in \N \), sehingga barisan variabel \( \bs{X} = (X_0, X_1, X_2, \ldots) \) berdistribusi identik. Dengan menggabungkan dua hasil di atas, misalkan \( X_0 \) memiliki fungsi kepadatan probabilitas \( f \) dan \( g: S \to \R \). Dengan mengasumsikan nilai harapannya ada, \( \E[g(X_n)] = f P^n g \). Secara eksplisit,
+<p>Secara khusus, jika \( X_0 \) memiliki fungsi kepadatan probabilitas \( f \), dan \( f \) invarian terhadap \( \bs{X} \), maka \( X_n \) memiliki fungsi kepadatan probabilitas \( f \) untuk semua \( n \in \N \), sehingga barisan peubah \( \bs{X} = (X_0, X_1, X_2, \ldots) \) berdistribusi identik. Dengan menggabungkan dua hasil di atas, misalkan \( X_0 \) memiliki fungsi kepadatan probabilitas \( f \) dan \( g: S \to \R \). Dengan mengasumsikan nilai harapannya ada, \( \E[g(X_n)] = f P^n g \). Secara eksplisit,
 \[ \E[g(X_n)] = \sum_{x \in S} \sum_{y \in S} f(x) P^n(x, y) g(y) \]
 Selain itu, dari latihan <a href="trn5" class="ref"></a> diperoleh bahwa distribusi \( X_0 \) (<dfn>distribusi awal</dfn>) dan matriks transisi satu langkah menentukan distribusi \( X_n \) untuk setiap \( n \in \N \). Bahkan, besaran-besaran dasar ini menentukan <em>distribusi berdimensi hingga</em> dari proses, suatu hasil yang lebih kuat.</p>
 
@@ -512,9 +512,9 @@ Secara khusus, \( R(x, A) \) adalah nilai harapan banyaknya kunjungan rantai ke 
 
 <p>Meskipun sederhana, rantai dua keadaan menggambarkan beberapa <a href="limiting.html">perilaku limit</a> dasar dan kaitannya dengan distribusi invarian yang akan kita pelajari secara umum pada bagian selanjutnya.</p>
 
-<h4 id="ind">Variabel Independen dan Gerak Acak</h4>
+<h4 id="ind">Peubah Independen dan Gerak Acak</h4>
 
-<p>Misalkan \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah barisan variabel acak independen yang mengambil nilai dalam himpunan terhitung \( S \), dan \( (X_1, X_2, \ldots) \) berdistribusi identik dengan fungsi kepadatan probabilitas (diskret) \( f \).</p>
+<p>Misalkan \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah barisan peubah acak independen yang mengambil nilai dalam himpunan terhitung \( S \), dan \( (X_1, X_2, \ldots) \) berdistribusi identik dengan fungsi kepadatan probabilitas (diskret) \( f \).</p>
 
 <div class="unit" id="ind1">
 	<p class="math">\( \bs{X} \) adalah rantai Markov pada \( S \) dengan matriks probabilitas transisi \( P \) yang diberikan oleh \( P(x, y) = f(y) \) untuk \( (x, y) \in S \times S \). Selain itu, \( f \) invarian terhadap \( P \).</p>

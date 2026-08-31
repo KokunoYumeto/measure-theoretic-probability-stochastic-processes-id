@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+<head>
+<meta charset="utf-8"/>
+<title>Keadaan Transien dan Rekuren</title>
+<meta content="Kyle Siegrist" name="author"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="probabilitas, proses stokastik, rantai Markov, waktu diskret, keadaan rekuren, keadaan transien, potensial, probabilitas pencapaian, waktu pencapaian, relasi ketercapaian, relasi ekuivalensi, rantai Markov berhingga" name="keywords"/>
+<link href="../icons/Icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../Screen.css" media="screen" rel="stylesheet" type="text/css"/>
+<script src="../Basic.js"></script>
+<script async="" id="MathJax-script" src="../MathJax/tex-svg.js"></script>
+<link href="../reader.css?v=7be8f5b85d34" rel="stylesheet"/></head>
+<body>
+<div class="latex">
+	\(\newcommand{\P}{\mathbb{P}}\)
+	\(\newcommand{\E}{\mathbb{E}}\) 
+	\(\newcommand{\R}{\mathbb{R}}\) 
+	\(\newcommand{\N}{\mathbb{N}}\)
+	\(\newcommand{\Z}{\mathbb{Z}}\)
+	\(\newcommand{\bs}{\boldsymbol}\)
+	\( \newcommand{\cl}{\text{cl}} \)
+</div>
+<header>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="index.html">15. Proses Markov</a></li>
+<li class="child"><a aria-label="Bagian 1: Pendahuluan" href="General.html" title="Pendahuluan">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Potensial dan Generator" href="https://www.randomservices.org/random/markov/Potentials.html" title="Potensial dan Generator">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Rantai Waktu Diskret" href="Discrete.html" title="Rantai Waktu Diskret">3</a></li>
+<li aria-current="page" aria-label="Bagian 4: Keadaan Transien dan Rekuren (halaman saat ini)" class="current">4</li>
+<li class="child"><a aria-label="Bagian 5: Periodisitas" href="Periodicity.html" title="Periodisitas">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Distribusi Invarian dan Limit" href="Limiting.html" title="Distribusi Invarian dan Limit">6</a></li>
+<li class="child"><a aria-label="Bagian 7: Pembalikan Waktu pada Rantai Waktu Diskret" href="https://www.randomservices.org/random/markov/TimeReversal.html" title="Pembalikan Waktu pada Rantai Waktu Diskret">7</a></li>
+<li class="child"><a aria-label="Bagian 8: Rantai Ehrenfest" href="https://www.randomservices.org/random/markov/Ehrenfest.html" title="Rantai Ehrenfest">8</a></li>
+<li class="child"><a aria-label="Bagian 9: Rantai Bernoulli–Laplace" href="https://www.randomservices.org/random/markov/BernoulliLaplace.html" title="Rantai Bernoulli–Laplace">9</a></li>
+<li class="child"><a aria-label="Bagian 10: Rantai Reliabilitas" href="https://www.randomservices.org/random/markov/Reliability.html" title="Rantai Reliabilitas">10</a></li>
+<li class="child"><a aria-label="Bagian 11: Rantai Percabangan Waktu Diskret" href="https://www.randomservices.org/random/markov/Branching.html" title="Rantai Percabangan Waktu Diskret">11</a></li>
+<li class="child"><a aria-label="Bagian 12: Rantai Antrean Waktu Diskret" href="https://www.randomservices.org/random/markov/Queuing.html" title="Rantai Antrean Waktu Diskret">12</a></li>
+<li class="child"><a aria-label="Bagian 13: Rantai Kelahiran–Kematian Waktu Diskret" href="https://www.randomservices.org/random/markov/BirthDeath.html" title="Rantai Kelahiran–Kematian Waktu Diskret">13</a></li>
+<li class="child"><a aria-label="Bagian 14: Gerak Acak pada Graf" href="https://www.randomservices.org/random/markov/WalkGraph.html" title="Gerak Acak pada Graf">14</a></li>
+<li class="child"><a aria-label="Bagian 15: Rantai Waktu Kontinu" href="https://www.randomservices.org/random/markov/Continuous.html" title="Rantai Waktu Kontinu">15</a></li>
+<li class="child"><a aria-label="Bagian 16: Matriks Transisi dan Generator" href="https://www.randomservices.org/random/markov/Transition.html" title="Matriks Transisi dan Generator">16</a></li>
+<li class="child"><a aria-label="Bagian 17: Matriks Potensial" href="https://www.randomservices.org/random/markov/Potentials2.html" title="Matriks Potensial">17</a></li>
+<li class="child"><a aria-label="Bagian 18: Distribusi Invarian dan Limit" href="https://www.randomservices.org/random/markov/Limiting2.html" title="Distribusi Invarian dan Limit">18</a></li>
+<li class="child"><a aria-label="Bagian 19: Pembalikan Waktu pada Rantai Waktu Kontinu" href="https://www.randomservices.org/random/markov/TimeReversal2.html" title="Pembalikan Waktu pada Rantai Waktu Kontinu">19</a></li>
+<li class="child"><a aria-label="Bagian 20: Rantai yang Disubordinasikan pada Proses Poisson" href="https://www.randomservices.org/random/markov/Poisson.html" title="Rantai yang Disubordinasikan pada Proses Poisson">20</a></li>
+<li class="child"><a aria-label="Bagian 21: Rantai Kelahiran–Kematian Waktu Kontinu" href="https://www.randomservices.org/random/markov/BirthDeath2.html" title="Rantai Kelahiran–Kematian Waktu Kontinu">21</a></li>
+<li class="child"><a aria-label="Bagian 22: Rantai Antrean Waktu Kontinu" href="https://www.randomservices.org/random/markov/Queuing2.html" title="Rantai Antrean Waktu Kontinu">22</a></li>
+<li class="child"><a aria-label="Bagian 23: Rantai Percabangan Waktu Kontinu" href="https://www.randomservices.org/random/markov/Branching2.html" title="Rantai Percabangan Waktu Kontinu">23</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+</ol>
+<h1>4. Keadaan Transien dan Rekuren</h1>
+</header><aside class="component-attribution" id="o009-rights-random-markov-recurrence">
+<strong>Asal komponen.</strong> Terjemahan halaman <cite>Transience and Recurrence</cite>
+karya Kyle Siegrist berdasarkan cuplikan situs Random bertanggal 13 Maret 2026.
+Halaman resmi Random saat ini mencantumkan keterangan lisensi CC BY 2.0 pada
+beranda dan CC BY 1.0 pada halaman Credits; keduanya mengizinkan adaptasi dengan
+atribusi. <a href="https://www.randomservices.org/random/markov/Recurrence.html">Baca sumber resmi</a>.
+</aside><nav aria-label="Navigasi edisi"><a href="../index.html">Beranda edisi</a> ·
+<a href="../prob/Convergence.html">Konvergensi</a> · <a href="../prob/Probability2.html">Probabilitas ditinjau kembali</a> · <a href="../prob/Processes.html">Proses stokastik</a> · <a href="../prob/Stop.html">Filtrasi dan waktu henti</a> · <a href="../dist/Convergence.html">Konvergensi dalam distribusi</a> · <a href="../expect/Conditional2.html">Nilai harapan bersyarat</a> · <a href="../expect/Uniform.html">Peubah terintegralkan seragam</a> · <a href="../expect/Kernels.html">Kernel dan operator</a> · <a href="../martingales/Introduction.html">Pendahuluan martingal</a> · <a href="../martingales/Properties.html">Sifat dan konstruksi martingal</a> · <a href="../martingales/Stop.html">Waktu henti martingal</a> · <a href="../martingales/Inequalities.html">Pertidaksamaan martingal</a> · <a href="../martingales/Convergence.html">Konvergensi martingal</a> · <a href="../martingales/Backwards.html">Martingal mundur</a> · <a href="General.html">Proses Markov umum</a> · <a href="Discrete.html">Rantai Markov waktu diskret</a> · <a href="Recurrence.html">Keadaan transien dan rekuren</a> · <a href="Periodicity.html">Periodisitas</a> · <a href="Limiting.html">Distribusi invarian dan limit</a> · <a href="../poisson/General.html">Proses Poisson pada ruang umum</a> · <a href="../brown/Standard.html">Gerak Brown standar</a> · <a href="../brown/Drift.html">Gerak Brown dengan hanyutan</a> · <a href="../brown/Bridge.html">Jembatan Brown</a> · <a href="../brown/Geometric.html">Gerak Brown geometrik</a> · <a href="../martingales/index.html">Ikhtisar martingal</a> · <a href="index.html">Ikhtisar proses Markov</a> · <a href="../brown/index.html">Ikhtisar gerak Brown</a> · <a href="../labs/01-konvergensi-monte-carlo.html">Laboratorium Monte Carlo</a> · <a href="../labs/02-simulasi-rantai-markov.html">Laboratorium rantai Markov</a> · <a href="../labs/03-konvergensi-mode-dan-lln-clt.html">Laboratorium mode konvergensi</a> · <a href="../labs/04-nilai-harapan-bersyarat-martingal.html">Laboratorium martingal dan waktu henti</a> · <a href="../labs/05-gerak-brown-donsker-variasi-kuadratik-dan-waktu-kena.html">Laboratorium diagnostik gerak Brown</a> · <a href="../quantecon/lectures/memoryless.html">QuantEcon: distribusi tanpa ingatan</a></nav><main>
+<p>Dalam kajian <a href="Discrete.html">rantai Markov waktu diskret</a>, terutama perilaku limitnya, selang waktu acak antarkunjungan ke suatu keadaan memegang peranan penting. Sifat selang-selang tersebut menimbulkan dikotomi mendasar pada keadaan-keadaan rantai.</p>
+<h2 class="reader-level-2" id="bas">Teori Dasar</h2>
+<p>Seperti biasa, titik awal kita adalah <a href="https://www.randomservices.org/random/foundations/Measure.html">ruang probabilitas</a> \( (\Omega, \mathscr{F}, \P) \), dengan \( \Omega \) sebagai ruang sampel, \( \mathscr{F} \) sebagai \( \sigma \)-aljabar kejadian, dan \( \P \) sebagai ukuran probabilitas pada \( (\Omega, \mathscr{F}) \). Misalkan sekarang \( \bs{X} = (X_0, X_1, X_2, \ldots) \) adalah <a href="Discrete.html">rantai Markov waktu diskret</a> (homogen terhadap waktu) dengan ruang keadaan (terhitung) \( S \) dan matriks probabilitas transisi \( P \). Untuk membahas semua keadaan—termasuk keadaan yang mungkin berpeluang nol di bawah \(\P\)—pilih keluarga hukum Markov \((\P_x)_{x\in S}\) dengan \(\P_x(X_0=x)=1\), dan tulis \(\E_x\) untuk nilai harapannya. Tetapkan
+\[
+P(x,y)=\P_x(X_1=y),\qquad
+P^n(x,y)=\P_x(X_n=y),\qquad x,y\in S,\ n\in\N.
+\]
+Pada halaman ini, ungkapan \(\P(\,cdot\mid X_0=x)\) dan \(\E(\,cdot\mid X_0=x)\) selanjutnya merupakan notasi singkat untuk \(\P_x\) dan \(\E_x\). Misalkan \( \mathscr{F}_n = \sigma\{X_0, X_1, \ldots, X_n\} \), yaitu \( \sigma \)-aljabar kejadian yang ditentukan oleh rantai hingga waktu \( n \in \N \), sehingga \( \mathfrak{F} = (\mathscr{F}_0, \mathscr{F}_1, \ldots) \) adalah <a href="../prob/Stop.html">filtrasi</a> alami yang berkaitan dengan \( \bs{X} \).</p>
+<h3 class="reader-level-3" id="hit">Waktu dan Probabilitas Pencapaian</h3>
+<p>Misalkan \( A \) adalah himpunan bagian tak kosong dari \( S \). Ingat bahwa <dfn>waktu pencapaian</dfn> ke \( A \) adalah peubah acak yang memberikan waktu positif pertama ketika rantai berada di \( A \):
+\[ \tau_A = \min\{n \in \N_+: X_n \in A\} \]
+Karena rantai mungkin <em>tidak pernah</em> mencapai \( A \), peubah acak \( \tau_A \) mengambil nilai dalam \( \N_+ \cup \{\infty\} \) (ingat konvensi kita bahwa minimum himpunan kosong adalah \( \infty \)). Ingat pula bahwa \( \tau_A \) adalah <a href="../prob/Stop.html">waktu henti</a> bagi \( \bs{X} \). Artinya, \( \{\tau_A = n\} \in \mathscr{F}_n \) untuk \( n \in \N_+ \). Secara intuitif, ini berarti bahwa kita dapat menentukan apakah \( \tau_A = n \) dengan mengamati rantai hingga waktu \( n \). Hal ini jelas berlaku karena, secara eksplisit,
+\[
+\{\tau_A=n\}
+=\bigcap_{j=1}^{n-1}\{X_j\notin A\}\cap\{X_n\in A\},
+\qquad n\in\N_+,
+\]
+dengan konvensi bahwa irisan kosong sama dengan \(\Omega\).
+Ketika \( A = \{x\} \) untuk \( x \in S \), kita akan menyederhanakan notasinya menjadi \( \tau_x \). Peubah acak ini memberikan waktu positif pertama ketika rantai berada pada keadaan \( x \). Ketika rantai mencapai suatu himpunan keadaan \( A \) untuk pertama kalinya, rantai itu harus mengunjungi suatu keadaan dalam \( A \) untuk pertama kalinya, sehingga jelas bahwa
+\[ \tau_A = \min\{\tau_x: x \in A\}, \quad A \subseteq S \]
+Selanjutnya, kita mendefinisikan dua fungsi pada \( S \) yang berkaitan dengan waktu pencapaian.</p>
+<div class="unit" id="hit1">
+<p class="defin">Untuk \( x \in S \), \( A \subseteq S \) (tak kosong), dan \( n \in \N_+ \), definisikan</p>
+<ol class="sub">
+<li>\( H_n(x, A) = \P(\tau_A = n \mid X_0 = x)\)</li>
+<li>\(H(x, A) = \P(\tau_A \lt \infty \mid X_0 = x) \)</li>
+</ol>
+<p>Dengan demikian, \( H(x, A) = \sum_{n=1}^\infty H_n(x, A) \).</p>
+</div>
+<p>Pemetaan \( n \mapsto H_n(x, A) \) merupakan fungsi massa probabilitas \( \tau_A \) bersyarat pada \( X_0 = x \). Fungsi ini dapat <em>defektif</em>: jumlah \( H(x, A) \) mungkin kurang dari 1. Dalam hal itu, tentu saja \( 1 - H(x, A) = \P(\tau_A = \infty \mid X_0 = x) \). Sekali lagi, ketika \( A = \{y\} \), kita menyederhanakan notasinya masing-masing menjadi \( H_n(x, y) \) dan \( H(x, y) \). Secara khusus, \( H(x, x) \) adalah probabilitas bahwa rantai yang dimulai dari \( x \) pada akhirnya kembali ke \( x \). Jika \( x \ne y \), \( H(x, y) \) adalah probabilitas bahwa rantai yang dimulai dari \( x \) pada akhirnya mencapai \( y \). Mengetahui apakah \( H(x, y) \) bernilai 0, positif, atau 1 sangat penting bagi struktur keseluruhan dan perilaku limit rantai. Sebagai fungsi pada \( S^2 \), kita menyebut \( H \) <dfn>matriks pencapaian</dfn> dari \( \bs{X} \). Namun, tidak seperti matriks transisi \( P \), matriks ini tidak memiliki struktur kernel. Artinya, \( A \mapsto H(x, A) \) bukan suatu ukuran; khususnya, secara umum tidak benar bahwa \( H(x, A) = \sum_{y \in A} H(x, y) \). Hal yang sama berlaku untuk \( H_n \) dengan \( n \in \N_+ \). Meskipun demikian, terdapat hubungan menarik antara matriks transisi dan matriks pencapaian.</p>
+<div class="unit" id="hit2">
+<p class="math">\( H(x, y) \gt 0 \) jika dan hanya jika \( P^n(x, y) \gt 0 \) untuk suatu \( n \in \N_+ \).</p>
+<details>
+<summary aria-label="Rincian: Waktu dan Probabilitas Pencapaian, butir 1">Rincian:</summary>
+<p>Perhatikan bahwa \( \{X_n = y\} \subseteq \{\tau_y \lt \infty\} \) untuk semua \( n \in \N_+ \), dan \( \{\tau_y&lt;\infty\}=\{X_k=y\text{ untuk suatu }k\in\N_+\} \). Dari <a href="https://www.randomservices.org/random/prob/Probability.html#bas">sifat menaik</a> probabilitas dan <a href="https://www.randomservices.org/random/prob/Probability.html#boo">pertidaksamaan Boole</a>, diperoleh bahwa untuk setiap \( n \in \N_+ \),
+		\[ P^n(x, y) \le H(x, y) \le \sum_{k=1}^\infty P^k(x, y) \]</p>
+</details>
+</div>
+<p>Hasil berikut memberikan hubungan dasar antara barisan probabilitas pencapaian dan barisan probabilitas transisi.</p>
+<div class="unit" id="hit3">
+<p class="math">Misalkan \( (x, y) \in S^2 \). Maka
+	\[
+\begin{gathered}
+P^n(x,y)=\sum_{k=1}^{n}H_k(x,y)P^{n-k}(y,y),\\
+n\in\N_+.
+\end{gathered}
+\]</p>
+<details>
+<summary aria-label="Rincian: Waktu dan Probabilitas Pencapaian, butir 2">Rincian:</summary>
+<p>Untuk \(n\in\N_+\), kejadian-kejadian \(\{\tau_y=k,X_n=y\}\), \(1\le k\le n\), mempartisi \(\{X_n=y\}\). Karena \(\tau_y\) adalah waktu henti dan \(X_{\tau_y}=y\) pada \(\{\tau_y&lt;\infty\}\), sifat Markov kuat pada \(\tau_y\) memberikan
+\[
+\begin{aligned}
+P^n(x,y)
+&amp;=\P_x(X_n=y)\\
+&amp;=\sum_{k=1}^{n}\P_x(X_n=y,\tau_y=k)\\
+&amp;=\sum_{k=1}^{n}
+   \E_x\!\left[\bs{1}_{\{\tau_y=k\}}
+   P^{n-k}(X_{\tau_y},y)\right]\\
+&amp;=\sum_{k=1}^{n}H_k(x,y)P^{n-k}(y,y).
+\end{aligned}
+\]
+Inilah identitas yang dinyatakan di atas.</p>
+</details>
+</div>
+<div class="unit" id="hit4">
+<p class="math">Misalkan \(x\in S\) dan \(A\subseteq S\) tak kosong. Maka</p>
+<ol class="sub">
+<li>\( H_{n+1}(x, A) = \sum_{y \notin A} P(x, y) H_n(y, A) \) untuk \( n \in \N_+ \)</li>
+<li>\( H(x, A) = P(x, A) + \sum_{y \notin A} P(x, y) H(y, A) \)</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Waktu dan Probabilitas Pencapaian, butir 3">Rincian:</summary>
+<p>Hasil-hasil ini diperoleh dengan mengondisikan pada \( X_1 \).</p>
+<ol class="sub">
+<li>Untuk \(n\in\N_+\), dekomposisi menurut keadaan pada waktu 1 dan sifat Markov memberikan
+\[
+\begin{aligned}
+H_{n+1}(x,A)
+&amp;=\sum_{y\notin A}\P_x(\tau_A=n+1,X_1=y)\\
+&amp;=\sum_{y\notin A}P(x,y)\P_y(\tau_A=n)\\
+&amp;=\sum_{y\notin A}P(x,y)H_n(y,A).
+\end{aligned}
+\]
+Argumen ini berlaku untuk setiap keadaan karena memakai keluarga \((\P_x)_{x\in S}\), bukan pengondisian pada kejadian nol.</li>
+<li>Pisahkan kemungkinan \(X_1\in A\) dari kemungkinan \(X_1=y\notin A\). Sifat Markov memberikan
+\[
+\begin{aligned}
+H(x,A)
+&amp;=\P_x(X_1\in A)
+ +\sum_{y\notin A}\P_x(X_1=y)\P_y(\tau_A&lt;\infty)\\
+&amp;=P(x,A)+\sum_{y\notin A}P(x,y)H(y,A).
+\end{aligned}
+\]</li>
+</ol>
+</details>
+</div>
+<p>Definisi berikut mendasar bagi kajian rantai Markov.</p>
+<div class="unit" id="hit5">
+<p class="math">Misalkan \( x \in S \).</p>
+<ol class="sub">
+<li>Keadaan \( x \) <dfn>rekuren</dfn> jika \( H(x, x) = 1 \).</li>
+<li>Keadaan \( x \) <dfn>transien</dfn> jika \( H(x, x) \lt 1 \).</li>
+</ol>
+</div>
+<p>Jadi, rantai yang dimulai pada keadaan rekuren pada akhirnya kembali ke keadaan itu dengan probabilitas 1. Seperti yang akan kita lihat, rantai bahkan kembali tak hingga kali dengan probabilitas 1, dan waktu-waktu kunjungannya menjadi waktu kedatangan suatu <a href="https://www.randomservices.org/random/renewal/Introduction.html">proses pembaruan</a>. Fakta ini penting dalam mengkaji perilaku limit rantai. Sebaliknya, dari keadaan transien terdapat probabilitas positif bahwa rantai tidak pernah kembali.</p>
+<h3 class="reader-level-3" id="pot">Peubah Pencacahan dan Potensial</h3>
+<p>Misalkan kembali bahwa \( A \) adalah himpunan keadaan tak kosong. Pelengkap alami bagi waktu pencapaian ke \( A \) adalah <dfn>peubah pencacahan</dfn> yang memberikan banyaknya kunjungan ke \( A \) (pada waktu positif). Jadi, misalkan
+\[ N_A = \sum_{n=1}^\infty \bs{1}(X_n \in A) \]
+Perhatikan bahwa \( N_A \) mengambil nilai dalam \( \N \cup \{\infty\} \). Kita terutama akan menaruh perhatian pada kasus khusus \( A = \{x\} \) untuk \( x \in S \), dan dalam kasus ini kita akan menyederhanakan notasinya menjadi \( N_x \). </p>
+<div class="unit" id="pot1">
+<p class="math">Misalkan \( G(x, A) = \E(N_A \mid X_0 = x) \) untuk \( x \in S \) dan \( A \subseteq S \). Maka \( G \) adalah kernel pada \( S \) dan
+	\[ G(x, A) = \sum_{n=1}^\infty P^n(x, A) \]</p>
+<details>
+<summary aria-label="Rincian: Peubah Pencacahan dan Potensial, butir 1">Rincian:</summary>
+<p>Perhatikan bahwa 
+		\[
+\begin{aligned}
+G(x,A)
+&amp;=\E_x\!\left[\sum_{n=1}^{\infty}\bs1(X_n\in A)\right]\\
+&amp;=\sum_{n=1}^{\infty}\P_x(X_n\in A)
+=\sum_{n=1}^{\infty}P^n(x,A).
+\end{aligned}
+\]
+		Pertukaran urutan penjumlahan dan nilai harapan sah karena suku-sukunya nonnegatif. Untuk \( x \in S \) yang tetap, \( A \mapsto G(x, A) \) adalah ukuran positif pada \( S \) karena \( A \mapsto P^n(x, A) \) adalah ukuran probabilitas pada \( S \) untuk setiap \( n \in \N_+ \). Perhatikan pula bahwa \( A \mapsto N_A \) adalah ukuran pencacahan acak pada \( S \), sehingga \( A \mapsto G(x, A) \) adalah ukuran positif (deterministik) pada \( S \).</p>
+</details>
+</div>
+<p>Jadi, \( G(x, A) \) adalah nilai harapan banyaknya kunjungan ke \( A \) pada waktu positif. Seperti biasa, ketika \( A = \{y\} \) untuk \( y \in S \), kita menyederhanakan notasinya menjadi \( G(x, y) \). Secara lebih umum, kita kemudian memiliki \( G(x, A) = \sum_{y \in A} G(x, y) \) untuk \( A \subseteq S \). Dengan demikian, sebagai matriks pada \( S \), \( G = \sum_{n=1}^\infty P^n \). Matriks \( G \) berkaitan erat dengan <a href="Discrete.html#pot">matriks potensial</a> \( R \) dari \( \bs{X} \), yang diberikan oleh \( R = \sum_{n=0}^\infty P^n \). Jadi, \( R = I + G \), dan \( R(x, y) \) memberikan nilai harapan banyaknya kunjungan ke \( y \in S \) pada semua waktu (bukan hanya waktu positif), jika rantai dimulai pada \( x \in S \). Matriks \( G \) lebih berguna bagi tujuan kita dalam bagian ini.</p>
+<p>Distribusi \( N_y \) dapat dinyatakan secara sederhana melalui probabilitas pencapaian. Berdasarkan sifat Markov dan homogenitas terhadap waktu, setiap kali rantai mencapai keadaan \( y \), perilaku selanjutnya tidak bergantung pada masa lalu dan mempunyai hukum yang sama dengan rantai yang dimulai dari \( y \) pada waktu 0. Pengamatan ini menjadi kunci pembuktian teorema berikut.</p>
+<div class="unit" id="pot2">
+<p class="math">Jika \( x, \, y \in S \), maka</p>
+<ol class="sub">
+<li>\(\P(N_y = 0 \mid X_0 = x) = 1 - H(x, y)\)</li>
+<li>\( 	\P(N_y = n \mid X_0 = x) = H(x, y) [H(y, y)]^{n-1}[1 - H(y, y)] \) untuk \( n \in \N_+ \)</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Peubah Pencacahan dan Potensial, butir 2">Rincian:</summary>
+<ol class="sub">
+<li>Kejadian \( N_y = 0 \) berarti bahwa rantai tidak pernah mencapai \( y \) ketika dimulai pada \( x \). Probabilitas kejadian ini adalah \( 1 - H(x, y) \).</li>
+<li>Untuk \( n \in \N_+ \), kejadian \( N_y = n \) berarti bahwa rantai mencapai \( y \) ketika dimulai pada \( x \), lalu kembali sebanyak \( n - 1 \) kali ke \( y \), dan setelah itu tidak pernah mencapai \( y \) lagi. Probabilitas ketiga kejadian tersebut adalah \( H(x, y) \), \( [H(y, y)]^{n-1} \), dan \( 1 - H(y, y) \). Probabilitas-probabilitas tersebut dikalikan berdasarkan sifat Markov.</li>
+</ol>
+</details>
+</div>
+<figure id="pot3">
+<figcaption>Kunjungan ke keadaan \( y \) jika dimulai pada keadaan \( x \)</figcaption>
+<img alt="Lintasan dari x ke y berlabel H(x,y), lalu putaran kembali ke y berlabel H(y,y)" src="Visits.png"/>
+</figure>
+<p>Diagram di atas merangkum gagasan pembuktiannya. Garis tebal bukanlah transisi satu langkah, melainkan mewakili seluruh lintasan di antara simpul-simpul yang ditunjukkan. Dalam kasus khusus \( x = y \), kita mempunyai
+\[ \P(N_x = n \mid X_0 = x) = [H(x, x)]^n [1 - H(x, x)], \quad n \in \N \]
+Dalam semua kasus, peubah pencacahan \( N_y \) pada dasarnya memiliki <a href="https://www.randomservices.org/random/bernoulli/Geometric.html">distribusi geometrik</a>, tetapi distribusinya mungkin <dfn>defektif</dfn>, dengan sebagian massa probabilitas berada di \( \infty \). Perilakunya sangat berbeda bergantung pada apakah \( y \) transien atau rekuren.</p>
+<div class="unit" id="pot4">
+<p class="math">Jika \( x, \, y \in S \) dan \( y \) transien, maka</p>
+<ol class="sub">
+<li>\( \P(N_y \lt \infty \mid X_0 = x) = 1 \)</li>
+<li>\( G(x, y) = H(x, y) \big/ [1 - H(y, y)] \)</li>
+<li>\( H(x, y) = G(x, y) \big/ [1 + G(y, y)] \)</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Peubah Pencacahan dan Potensial, butir 3">Rincian:</summary>
+<ol class="sub">
+<li>Jika \( y \) transien, maka \( H(y, y) \lt 1 \). Karena itu, dengan menggunakan <a class="ref" href="#pot2">distribusi banyaknya kunjungan</a> dan deret geometri,
+			\[
+\begin{aligned}
+\P_x(N_y\in\N_+)
+&amp;=\sum_{n=1}^{\infty}\P_x(N_y=n)\\
+&amp;=H(x,y)[1-H(y,y)]
+  \sum_{n=1}^{\infty}[H(y,y)]^{n-1}\\
+&amp;=H(x,y).
+\end{aligned}
+\]
+			Karena itu, 
+			\begin{align*}
+				\P(N_y \lt \infty \mid X_0 = x) &amp; = \P(N_y \in \N \mid X_0 = x) = \P(N_y = 0 \mid X_0 = x) + \P(N_y \in \N_+ \mid X_0 = x) \\
+				&amp; = [1 - H(x, y)] + H(x, y) = 1 \end{align*}</li>
+<li>Dengan menggunakan turunan deret geometri, 
+			\begin{align*}
+				G(x, y) &amp; = \E(N_y \mid X_0 = x) = \sum_{n=1}^\infty n \P(N_y = n \mid X_0 = x) \\
+				&amp; = H(x, y) [1 - H(y, y)]\sum_{n=1}^\infty n [H(y, y)]^{n-1} = \frac{H(x, y)}{1 - H(y, y)}
+			\end{align*}</li>
+<li>Dari (b), \( G(y, y) = H(y, y) \big/[1 - H(y, y)] \), sehingga penyelesaian terhadap \( H(y, y) \) memberikan \( H(y, y) = G(y, y) \big/ [1 + G(y, y)] \). Substitusi hasil ini kembali ke (b) memberikan \( G(x, y) = H(x, y)[1 + G(y, y)] \).</li>
+</ol>
+</details>
+</div>
+<div class="unit" id="pot5">
+<p class="math">Jika \( x, \, y \in S \) dan \( y \) rekuren, maka</p>
+<ol class="sub">
+<li>\( \P(N_y = 0 \mid X_0 = x) = 1 - H(x, y) \) dan \( \P(N_y = \infty \mid X_0 = x) = H(x, y) \)</li>
+<li>\( G(x, y) = 0 \) jika \( H(x, y) = 0 \) dan \( G(x, y) = \infty \) jika \( H(x, y) \gt 0 \)</li>
+<li>\( \P(N_y = \infty \mid X_0 = y) = 1 \) dan \( G(y, y) = \infty \)</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Peubah Pencacahan dan Potensial, butir 4">Rincian:</summary>
+<ol class="sub">
+<li>Jika \(y\) rekuren, \(H(y,y)=1\), sehingga dari <a class="ref" href="#pot2">distribusi banyaknya kunjungan</a>, \(\P_x(N_y=n)=0\) untuk semua \(n\in\N_+\). Karena itu,
+\[
+\P_x(N_y=\infty)=1-\P_x(N_y=0)=H(x,y).
+\]</li>
+<li>Jika \( H(x, y) = 0 \), maka \( \P(N_y = 0 \mid X_0 = x) = 1 \), sehingga \( \E(N_y \mid X_0 = x) = 0 \). Jika \( H(x, y) \gt 0 \), maka \( \P(N_y = \infty \mid X_0 = x) \gt 0 \), sehingga \( \E(N_y \mid X_0 = x) = \infty \).</li>
+<li>Dari <a class="ref" href="#pot2">distribusi banyaknya kunjungan</a>, \(\P_y(N_y=n)=0\) untuk semua \(n\in\N\), sehingga \(\P_y(N_y=\infty)=1\).</li>
+</ol>
+</details>
+</div>
+<p>Perhatikan bahwa terdapat hubungan yang dapat dibalik antara matriks \( H \) dan matriks \( G \); jika kita mengetahui salah satunya, kita dapat menghitung yang lain. Secara khusus, melalui \( G \) kita dapat mencirikan apakah suatu keadaan bersifat transien atau rekuren. Berikut rangkuman kita sejauh ini:</p>
+<div class="unit" id="pot6">
+<p class="dfn">Misalkan \( x \in S \).</p>
+<ol class="sub">
+<li>Keadaan \( x \) transien jika dan hanya jika \( H(x, x) \lt 1 \) jika dan hanya jika \( G(x, x) \lt \infty \).</li>
+<li>Keadaan \( x \) rekuren jika dan hanya jika \( H(x, x) = 1 \) jika dan hanya jika \( G(x, x) = \infty \).</li>
+</ol>
+</div>
+<p>Tentu saja, klasifikasi tersebut juga berlaku bagi matriks potensial \( R = I + G \). Artinya, keadaan \( x \in S \) transien jika dan hanya jika \( R(x , x) \lt \infty \), dan keadaan \( x \) rekuren jika dan hanya jika \( R(x, x) = \infty \).</p>
+<h3 class="reader-level-3" id="rel">Relasi</h3>
+<p>Probabilitas pencapaian menyarankan suatu <a href="https://www.randomservices.org/random/foundations/Relations.html">relasi</a> penting pada ruang keadaan \( S \).</p>
+<div class="unit" id="rel1">
+<p class="dfn">Untuk \( (x, y) \in S^2 \), keadaan \( x \) <dfn>dapat mencapai</dfn> keadaan \( y \), yang dinotasikan dengan \( x \to y \), jika \( x = y \) atau \( H(x, y) \gt 0 \).</p>
+</div>
+<p>Langsung dari <a class="ref" href="#hit2">kriteria pencapaian melalui pangkat transisi</a> diperoleh bahwa \( x \to y \) jika dan hanya jika \( P^n(x, y) \gt 0 \) untuk suatu \( n \in \N \). Dalam graf keadaan rantai, \( x \to y \) jika dan hanya jika \( x = y \) atau terdapat lintasan berarah dari \( x \) ke \( y \). Perhatikan bahwa <em>relasi ketercapaian</em> bersifat <dfn>refleksif</dfn> berdasarkan definisi: \( x \to x \) untuk setiap \( x \in S \). Relasi ini juga memiliki sifat penting lainnya.</p>
+<div class="unit" id="rel2">
+<p class="math"><em>Relasi ketercapaian</em> bersifat <dfn>transitif</dfn>: Untuk \( x, \, y, \, z \in S \), jika \( x \to y \) dan \( y \to z \), maka \( x \to z \).</p>
+<details>
+<summary aria-label="Rincian: Relasi, butir 1">Rincian:</summary>
+<p>Jika \( x \to y \) dan \( y \to z \), maka terdapat \(j,k\in\N\) sedemikian sehingga \( P^j(x, y) \gt 0 \) dan \( P^k(y, z) \gt 0 \). Namun, \( P^{j+k}(x, z) \ge P^j(x, y) P^k(y, z) \gt 0 \), sehingga \( x \to z \).</p>
+</details>
+</div>
+<p>Relasi <em>ketercapaian</em> secara alami menyarankan beberapa definisi penting lainnya.</p>
+<div class="unit" id="rel3">
+<p class="dfn">Misalkan \( A \subseteq S \) tak kosong.</p>
+<ol class="sub">
+<li>\( A \) <dfn>tertutup</dfn> jika \( x \in A \) dan \( x \to y \) menyiratkan \( y \in A \).</li>
+<li>\( A \) <dfn>tak tereduksi</dfn> jika \( A \) tertutup dan tidak memiliki himpunan bagian sejati yang tertutup.</li>
+</ol>
+</div>
+<div class="unit" id="rel4">
+<p class="math">Misalkan \( A \subseteq S \) tertutup. Maka</p>
+<ol class="sub">
+<li>\( P_A \), yaitu pembatasan \( P \) pada \( A \times A\), adalah matriks probabilitas transisi pada \( A \).</li>
+<li>\( \bs{X} \) yang dibatasi pada \( A \) adalah rantai Markov dengan matriks probabilitas transisi \( P_A \).	</li>
+<li>\( (P^n)_A = (P_A)^n \) untuk \( n \in \N \).</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Relasi, butir 2">Rincian:</summary>
+<ol class="sub">
+<li>Jika \( x \in A \) dan \( y \notin A \), maka \( x \) tidak dapat mencapai \( y \), sehingga khususnya \( P(x, y) = 0 \). Karena itu, \( \sum_{y \in A} P(x, y) = 1 \) untuk \( x \in A \), sehingga \( P_A \) adalah matriks probabilitas transisi.</li>
+<li>Hal ini diperoleh dari (a). Jika rantai dimulai di \( A \), rantai tetap berada di \( A \) sepanjang waktu, dan tentu saja sifat Markov tetap berlaku.</li>
+<li>Sekali lagi, hal ini diperoleh dari (a).</li>
+</ol>
+</details>
+</div>
+<p>Tentu saja, seluruh ruang keadaan \( S \) tertutup berdasarkan definisi. Jika ruang itu juga tak tereduksi, kita mengatakan bahwa rantai Markov \( \bs{X} \) itu sendiri <dfn>tak tereduksi</dfn>. Ingat bahwa untuk himpunan bagian tak kosong \( A \) dari \( S \) dan untuk \( n \in \N \), notasi \( P_A^n \) merujuk pada \( (P_A)^n \), bukan \( (P^n)_A \). Secara umum, keduanya tidak sama; bahkan, untuk \( x, \, y \in A \),
+\[
+P_A^0(x,y)=\bs1(x=y),
+\]
+sedangkan, untuk \(n\in\N_+\),
+\[
+P_A^n(x,y)
+=\P_x\!\left(
+\bigcap_{j=1}^{n-1}\{X_j\in A\}\cap\{X_n=y\}
+\right),
+\]
+dengan irisan kosong sama dengan \(\Omega\). Besaran kedua adalah probabilitas berpindah dari \(x\) ke \(y\) dalam \(n\) langkah sambil tetap berada di \(A\) sepanjang waktu. Namun, jika \( A \) tertutup, seperti dinyatakan pada bagian (c), besaran ini sama dengan \( P^n(x, y) \).</p>
+<div class="unit" id="rel5">
+<p class="math">Misalkan \( A \) adalah himpunan bagian tak kosong dari \( S \). Maka \( \cl(A)=\{y\in S:x\to y\text{ untuk suatu }x\in A\} \) adalah himpunan tertutup terkecil yang memuat \( A \), dan disebut <dfn>tutupan</dfn> \( A \). Artinya,</p>
+<ol class="sub">
+<li>\( \cl(A) \) tertutup.</li>
+<li>\( A \subseteq \cl(A) \).</li>
+<li>Jika \( B \) tertutup dan \( A \subseteq B \), maka \( \cl(A) \subseteq B \)</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Relasi, butir 3">Rincian:</summary>
+<ol class="sub">
+<li>Misalkan \( x \in \cl(A) \) dan \( x \to y \). Maka terdapat \( a \in A \) sedemikian sehingga \( a \to x \). Berdasarkan sifat transitif, \( a \to y \), sehingga \( y \in \cl(A) \).</li>
+<li>Jika \( x \in A \), maka \( x \to x \), sehingga \( x \in \cl(A) \).</li>
+<li>Misalkan \( B \) tertutup dan \( A \subseteq B \). Jika \( x \in \cl(A) \), maka terdapat \( a \in A \) sedemikian sehingga \( a \to x \). Karena itu, \( a \in B \) dan \( a \to x \). Karena \( B \) tertutup, diperoleh \( x \in B \). Jadi, \( \cl(A) \subseteq B \).</li>
+</ol>
+</details>
+</div>
+<p>Ingat bahwa untuk bilangan bulat positif tetap \( k \), \( P^k \) juga merupakan matriks probabilitas transisi dan mengatur rantai Markov <dfn>\( k \)-langkah</dfn> \( (X_0, X_k, X_{2 k}, \ldots) \). Karena itu, kita dapat mempertimbangkan relasi <em>ketercapaian</em> bagi rantai ini, dan semua hasil di atas tetap berlaku (tentu saja, relatif terhadap rantai \( k \)-langkah). Kadang-kadang kita perlu mempertimbangkan relasi ini, yang akan kita notasikan dengan \( \underset{k} \to \), khususnya dalam kajian <a href="Periodicity.html">periodisitas</a>.</p>
+<div class="unit" id="rel6">
+<p class="math">Misalkan \( j, \, k \in \N_+ \). Jika \( x \, \underset{k}\to \, y \) dan \( j \mid k \), maka \( x \, \underset{j}\to \, y \).</p>
+<details>
+<summary aria-label="Rincian: Relasi, butir 4">Rincian:</summary>
+<p>Jika \( x \, \underset{k}\to \, y \), maka terdapat \( n \in \N \) sedemikian sehingga \( P^{n k}(x, y) \gt 0 \). Jika \( j \mid k \), terdapat \( m \in \N_+ \) sedemikian sehingga \( k = m j \). Karena itu, \( P^{n m j}(x, y) \gt 0 \), sehingga \( x \, \underset{j}\to \, y \).</p>
+</details>
+</div>
+<p>Dengan menggabungkan relasi <em>ketercapaian</em> \( \to \) dengan relasi <dfn>invers</dfn> \( \leftarrow \), kita memperoleh relasi lain yang sangat berguna.</p>
+<div class="unit" id="rel7">
+<p class="dfn">Untuk \( (x, y) \in S^2 \), kita mengatakan bahwa \( x \) dan \( y \) <dfn>saling berkomunikasi</dfn>, dan menulis \( x \leftrightarrow y \), jika \( x \to y \) dan \( y \to x \). </p>
+</div>
+<p>Berdasarkan definisi, relasi ini bersifat <dfn>simetris</dfn>: jika \( x \leftrightarrow y \), maka \( y \leftrightarrow x \). Dari pembahasan di atas, relasi ini juga refleksif dan transitif. Jadi, <em>relasi komunikasi</em> ini adalah <a href="https://www.randomservices.org/random/foundations/Equivalence.html">relasi ekuivalensi</a>. Seperti semua relasi ekuivalensi, relasi ini mempartisi ruang menjadi <dfn>kelas-kelas komunikasi</dfn> yang saling lepas. Kita akan menotasikan kelas komunikasi dari suatu keadaan \( x \in S \) dengan
+\[ [x] = \{y \in S: x \leftrightarrow y\} \]
+Dengan demikian, untuk sembarang dua keadaan \( x, \, y \in S\), berlaku \( [x] = [y] \) atau \( [x] \cap [y] = \emptyset \), dan selain itu \( \bigcup_{x \in S} [x] = S \).</p>
+<figure id="rel8">
+<figcaption>Relasi komunikasi mempartisi \( S \) menjadi kelas-kelas komunikasi yang saling lepas</figcaption>
+<img alt="Ruang keadaan S dipartisi menjadi lima kelas komunikasi A1 hingga A5 yang saling lepas" src="Partition.png"/>
+</figure>
+<div class="unit" id="rel9">
+<p class="math">Dua pernyataan yang secara umum tidak berlaku:</p>
+<ol class="sub">
+<li>Himpunan tertutup tidak selalu merupakan kelas komunikasi.</li>
+<li>Kelas komunikasi tidak selalu tertutup.</li>
+</ol>
+<details>
+<summary aria-label="Contoh: Relasi, butir 5">Contoh:</summary>
+<p>Pertimbangkan rantai Markov trivial dengan ruang keadaan \( S = \{0, 1\} \) dan matriks transisi \( P = \left[\begin{matrix} 0 &amp; 1 \\ 0 &amp; 1\end{matrix}\right] \). Jadi, keadaan 0 dapat mencapai 1 secara deterministik dalam satu langkah, sedangkan keadaan 1 menyerap. Untuk relasi <em>ketercapaian</em>, satu-satunya hubungan adalah \( 0 \to 0 \), \( 0 \to 1 \), dan \( 1 \to 1 \). Dengan demikian, kelas-kelas komunikasinya adalah \( \{0\} \) dan \( \{1\} \).</p>
+<ol class="sub">
+<li>Seluruh ruang keadaan \( S \) tertutup, tetapi bukan kelas komunikasi.</li>
+<li>\( \{0\} \) adalah kelas komunikasi, tetapi tidak tertutup.</li>
+</ol>
+</details>
+</div>
+<p>Di sisi lain, kita mempunyai hasil berikut:</p>
+<div class="unit" id="rel10">
+<p class="math">Jika \( A \subseteq S \) tak tereduksi, maka \( A \) adalah kelas komunikasi.</p>
+<details>
+<summary aria-label="Rincian: Relasi, butir 6">Rincian:</summary>
+<p>Tetapkan \( x \in A \) (ingat bahwa himpunan tertutup tak kosong berdasarkan definisi). Karena \( A \) tertutup, diperoleh \( [x] \subseteq A \). Karena \( A \) tak tereduksi, \(\cl(\{y\})=A\) untuk setiap \(y\in A\), dan khususnya \(\cl(\{x\})=A\). Karena itu, \( x \leftrightarrow y \) untuk setiap \( y \in A \). Jadi, \( A \subseteq [x] \).</p>
+</details>
+</div>
+<p>Relasi <em>komunikasi</em> sangat penting karena banyak sifat keadaan yang menarik ternyata merupakan <dfn>sifat kelas</dfn>, yang dimiliki bersama oleh semua keadaan dalam suatu kelas komunikasi. Secara khusus, status rekuren atau transien merupakan sifat kelas.</p>
+<h3 class="reader-level-3" id="cls">Kelas Komunikasi Transien dan Rekuren</h3>
+<p>Hasil berikut sangat penting: suatu keadaan rekuren hanya dapat mencapai keadaan rekuren lainnya.</p>
+<div class="unit" id="cls1">
+<p class="math">Jika \( x \) adalah keadaan rekuren dan \( x \to y \), maka \( y \) rekuren dan \( H(x, y) = H(y, x) = 1 \).</p>
+<details>
+<summary aria-label="Rincian: Kelas Komunikasi Transien dan Rekuren, butir 1">Rincian:</summary>
+<p>Hasilnya jelas berlaku jika \(  x = y \), sehingga kita mengasumsikan \( x \ne y \). Misalkan \( \alpha(x, y) \) menyatakan probabilitas bahwa rantai yang dimulai pada \( x \) mencapai \( y \) tanpa terlebih dahulu kembali ke \( x \). Harus berlaku \( \alpha(x, y) \gt 0 \) karena \( x \to y \). Dalam graf \( \bs{X} \), jika terdapat lintasan dari \( x \) ke \( y \), maka terdapat lintasan dari \( x \) ke \( y \) tanpa siklus. Rantai yang dimulai pada \( x \) dapat gagal kembali ke \( x \) dengan terlebih dahulu mencapai \( y \) tanpa kembali ke \( x \) di antaranya, lalu dari \( y \) tidak pernah mencapai \( x \). Dari sifat Markov dan sifat homogen terhadap waktu diperoleh \( 1 - H(x, x) \ge \alpha(x, y)[1 - H(y, x)] \ge 0 \). Namun, \( H(x, x) = 1 \), sehingga diperoleh \( H(y, x) = 1 \).	Sekarang kita mengetahui bahwa terdapat bilangan bulat positif \( j, \, k \) sedemikian sehingga \( P^j(x, y) \gt 0 \) dan \( P^k(y, x) \gt 0 \). Karena itu, untuk setiap \( n \in \N \),
+		\[ P^{j + k + n}(y, y) \ge P^k(y, x) P^n(x, x) P^j(x, y) \]
+		Ingat bahwa \( G(x, x) = \infty \) karena \( x \) rekuren. Dengan menjumlahkan ketaksamaan yang ditampilkan terhadap \( n \), diperoleh \( G(y, y) = \infty \). Karena itu, \( y \) rekuren. Terakhir, pertukaran peran \( x \) dan \( y \) memberikan \( H(x, y) = 1 \).</p>
+</details>
+</div>
+<p>Dari <a class="ref" href="#cls1">teorema ketercapaian dari keadaan rekuren</a>, perhatikan bahwa jika \( x \) rekuren, semua keadaan dalam \( [x] \) juga rekuren. Jadi, dalam setiap kelas komunikasi, semua keadaan bersifat transien atau semua keadaan bersifat rekuren. Oleh karena itu, kita dapat menyebut <dfn>kelas komunikasi transien atau rekuren</dfn>, sebagaimana kita menyebut keadaan transien atau rekuren.</p>
+<div class="unit" id="cls2">
+<p class="math">Jika \( A \) adalah kelas komunikasi rekuren, maka \( A \) tak tereduksi.</p>
+<details>
+<summary aria-label="Rincian: Kelas Komunikasi Transien dan Rekuren, butir 2">Rincian:</summary>
+<p>Misalkan \( x \in A \) dan \( x \to y \). Karena \( x \) rekuren, \( y \) juga rekuren dan \( y \to x \). Karena itu, \( x \leftrightarrow y \), sehingga \( y \in A \) karena \( A \) adalah kelas komunikasi. Misalkan \( B \subseteq A \) tertutup. Karena \( B \) tak kosong berdasarkan definisi, terdapat \( x \in B \), sehingga \( x \in A \) pula. Untuk setiap \( y \in A \), \( x \leftrightarrow y \), sehingga \( y \in B \) karena \( B \) tertutup. Jadi, \( A = B \), sehingga \( A \) tak tereduksi.</p>
+</details>
+</div>
+<div class="unit" id="cls3">
+<p class="math">Jika \( A \) berhingga dan tertutup, maka \( A \) memiliki keadaan rekuren.</p>
+<details>
+<summary aria-label="Rincian: Kelas Komunikasi Transien dan Rekuren, butir 3">Rincian:</summary>
+<p>Tetapkan \( x \in A \). Karena \( A \) tertutup, diperoleh \( \P(N_A = \infty \mid X_0 = x) = 1 \). Karena \( A \) berhingga, diperoleh \( \P(N_y = \infty \mid X_0 = x) \gt 0 \) untuk suatu \( y \in A \). Namun, hal ini berarti bahwa \( y \) rekuren.</p>
+</details>
+</div>
+<div class="unit" id="cls4">
+<p class="math">Jika \( A \) berhingga dan tak tereduksi, maka \( A \) adalah kelas komunikasi rekuren.</p>
+<details>
+<summary aria-label="Rincian: Kelas Komunikasi Transien dan Rekuren, butir 4">Rincian:</summary>
+<p>Perhatikan bahwa \(A\) adalah kelas komunikasi berdasarkan <a class="ref" href="#rel10">teorema himpunan tak tereduksi</a>, dan \(A\) memiliki keadaan rekuren berdasarkan <a class="ref" href="#cls3">teorema himpunan berhingga tertutup</a>. Karena itu, semua keadaan dalam \( A \) rekuren.</p>
+</details>
+</div>
+<p>Dengan demikian, rantai Markov \( \bs{X} \) akan memiliki suatu koleksi (yang mungkin kosong) kelas komunikasi rekuren \( \{A_j: j \in J\} \), dengan \( J \) sebagai himpunan indeks terhitung. Setiap \( A_j \) tak tereduksi. Misalkan \( B \) menyatakan himpunan semua keadaan transien. Himpunan \( B \) mungkin kosong atau terdiri atas sejumlah kelas komunikasi, tetapi struktur kelas dalam \( B \) biasanya tidak penting bagi kita. Jika rantai dimulai dalam \( A_j \) untuk suatu \( j \in J \), rantai tetap berada dalam \( A_j \) selamanya dan mengunjungi setiap keadaan tak hingga kali dengan probabilitas 1. Jika rantai dimulai dalam \( B \), rantai dapat tetap berada dalam \( B \) selamanya (tetapi hanya jika \( B \) tak hingga), atau dapat memasuki salah satu kelas komunikasi rekuren \( A_j \) dan tidak pernah keluar lagi. Namun, dalam kedua kasus itu, rantai hanya mengunjungi setiap keadaan transien tertentu berhingga kali dengan probabilitas 1. Struktur dasar ini dikenal sebagai <dfn>dekomposisi kanonik</dfn> rantai dan ditampilkan dalam bentuk grafis di bawah ini. Sisi-sisi dari \( B \) berwarna abu-abu untuk menunjukkan bahwa transisi-transisi tersebut mungkin tidak ada.</p>
+<figure>
+<figcaption>Dekomposisi kanonik ruang keadaan</figcaption>
+<img alt="Himpunan keadaan transien B dapat mencapai kelas-kelas komunikasi rekuren tertutup A1, A2, A3, dan seterusnya" src="Classes.png"/>
+</figure>
+<h3 class="reader-level-3" id="tst">Probabilitas Bertahan dan Uji Klasifikasi</h3>
+<div class="unit" id="tst1">
+<p class="math">Misalkan \(A\) adalah himpunan bagian sejati dari \(S\). Maka</p>
+<ol class="sub">
+<li>\(P_A^n(x,A)=\P_x(X_1\in A,\ldots,X_n\in A)\) untuk \(x\in A\) dan \(n\in\N_+\).</li>
+<li>\(\displaystyle\lim_{n\to\infty}P_A^n(x,A)=\P_x(X_1\in A,X_2\in A,\ldots)\) untuk \(x\in A\).</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Probabilitas Bertahan dan Uji Klasifikasi, butir 1">Rincian:</summary>
+<p>Ingat bahwa \( P_A^n \) berarti \( (P_A)^n \), dengan \( P_A \) sebagai pembatasan \( P \) pada \( A \times A \).</p>
+<ol class="sub">
+<li>Hal ini merupakan akibat sifat Markov dan merupakan probabilitas bahwa rantai tetap berada dalam \( A \) setidaknya hingga waktu \( n \), jika dimulai pada \( x \in A \).</li>
+<li>Hal ini diperoleh dari (a) dan <a href="../prob/Convergence.html#con">teorema kekontinuan</a> untuk kejadian menurun. Besaran ini adalah probabilitas bahwa rantai tetap berada dalam \( A \) selamanya jika dimulai pada \( x \in A \).</li>
+</ol>
+</details>
+</div>
+<p>Misalkan \( g_A \) menyatakan fungsi yang didefinisikan oleh bagian (b), sehingga
+\[ g_A(x) = \P(X_1 \in A, X_2 \in A, \ldots \mid X_0 = x), \quad x \in A \]
+<dfn>Fungsi probabilitas bertahan</dfn> \( g_A \) merupakan pelengkap yang menarik bagi matriks pencapaian yang dipelajari di atas. Hasil berikut mencirikan fungsi ini dan memberikan metode yang dapat digunakan untuk menghitungnya, setidaknya dalam beberapa kasus.</p>
+<div class="unit" id="tst2">
+<p class="math">Untuk \( A \subset S \), \( g_A \) adalah fungsi terbesar pada \( A \) yang mengambil nilai dalam \( [0, 1] \) dan memenuhi \( g = P_A g \). Selain itu, \( g_A = \bs{0}_A \) atau \( \sup\{g_A(x): x \in A\} = 1 \).</p>
+<details>
+<summary aria-label="Rincian: Probabilitas Bertahan dan Uji Klasifikasi, butir 2">Rincian:</summary>
+<p>Perhatikan bahwa \( P_A^{n+1} \bs{1}_A = P_A P_A^n \bs{1}_A\) untuk \( n \in \N \). Dengan mengambil limit ketika \( n \to \infty \) dan menggunakan <a href="https://www.randomservices.org/random/foundations/Properties.html#bct">teorema konvergensi terbatas</a>, diperoleh \( g_A = P_A g_A \). Misalkan sekarang \( g \) adalah fungsi pada \( A \) yang mengambil nilai dalam \( [0, 1] \) dan memenuhi \( g = P_A g \). Maka \( g \le \bs{1}_A \), sehingga \( g \le P_A^n \bs{1}_A \) untuk semua \( n \in \N \).	Dengan membiarkan \( n \to \infty \), diperoleh \( g \le g_A \). Selanjutnya, misalkan \( c = \sup\{g_A(x): x \in A\} \). Maka \( g_A \le c \, \bs{1}_A \), sehingga \( g_A \le c \, P_A^n \bs{1}_A \) untuk setiap \( n \in \N \). Dengan membiarkan \( n \to \infty \), diperoleh \( g_A \le c \, g_A \). Karena itu, \( g_A = \bs{0}_A \) atau \( c = 1 \).</p>
+</details>
+</div>
+<p>Pencirian dalam <a class="ref" href="#tst2">teorema fungsi bertahan terbesar</a> menyiratkan sejenis <dfn>hukum nol–satu</dfn>: probabilitas bertahan selamanya dalam \( A \) bernilai 0 dari setiap keadaan awal \( x \in A \), atau nilainya dapat dibuat sedekat mungkin dengan 1 dengan memilih keadaan awal yang sesuai dalam \( A \). Dua hasil berikut menghubungkan fungsi bertahan dengan rekurensi.</p>
+<div class="unit" id="tst3">
+<p class="math">Misalkan \( \bs{X} \) adalah rantai tak tereduksi dan rekuren dengan ruang keadaan \( S \). Maka \( g_A = \bs{0}_A \) untuk setiap himpunan bagian sejati \( A \) dari \( S \).</p>
+<details>
+<summary aria-label="Rincian: Probabilitas Bertahan dan Uji Klasifikasi, butir 3">Rincian:</summary>
+<p>Tetapkan \( y \notin A \) dan perhatikan bahwa \( 0 \le g_A(x) \le 1 - H(x, y) \) untuk setiap \( x \in A \). Namun, \( H(x, y) = 1 \) karena rantai tak tereduksi dan rekuren. Karena itu, \( g_A(x) = 0 \) untuk \( x \in A \).</p>
+</details>
+</div>
+<div class="unit" id="tst4">
+<p class="math">Misalkan \( \bs{X} \) adalah rantai Markov tak tereduksi dengan ruang keadaan \( S \) dan matriks probabilitas transisi \( P \). Jika terdapat keadaan \( x \) sedemikian sehingga \( g_A = \bs{0}_A \), dengan \( A = S \setminus \{x\} \), maka \( \bs{X} \) rekuren.</p>
+<details>
+<summary aria-label="Rincian: Probabilitas Bertahan dan Uji Klasifikasi, butir 4">Rincian:</summary>
+<p>Dengan \( A \) seperti yang didefinisikan di atas, perhatikan bahwa \(1 - H(x, x) = \sum_{y \in A} P(x, y) g_A(y) \).	Karena itu, \( H(x, x) = 1 \), sehingga \( x \) rekuren. Karena \( \bs{X} \) tak tereduksi, diperoleh bahwa \( \bs{X} \) rekuren.</p>
+</details>
+</div>
+<p>Secara lebih umum, misalkan \( \bs{X} \) adalah rantai Markov dengan ruang keadaan \( S \) dan matriks probabilitas transisi \( P \). Dua teorema terakhir dapat digunakan untuk menguji apakah suatu kelas komunikasi tak tereduksi \( C \) rekuren atau transien. Kita menetapkan suatu keadaan \( x \in C \) dan menetapkan \( A = C \setminus \{x\} \). Kemudian kita mencoba menyelesaikan persamaan \( g = P_A g \) pada \( A \). Jika satu-satunya solusi yang mengambil nilai dalam \( [0, 1] \) adalah \( \bs{0}_A \), kelas \( C \) rekuren berdasarkan <a class="ref" href="#tst4">uji klasifikasi melalui fungsi bertahan</a>. Jika terdapat solusi tak trivial, \( C \) transien. Kita sering mencoba memilih \( x \) agar perhitungannya mudah.</p>
+<h3 class="reader-level-3" id="com">Menghitung Probabilitas Pencapaian dan Potensial</h3>
+<p>Sekarang kita telah mengetahui cukup banyak tentang rantai Markov dan sering kali dapat mengklasifikasikan keadaan serta menghitung besaran yang menjadi perhatian. Namun, kita belum mengetahui cara menghitung:</p>
+<ul>
+<li>\( G(x, y) \) ketika \( x \) dan \( y \) transien</li>
+<li>\( H(x, y) \) ketika \( x \) transien dan \( y \) transien atau rekuren.</li>
+</ul>
+<p>Kedua masalah ini berkaitan melalui hubungan yang dapat dibalik antara matriks \( H \) dan \( G \) yang dibahas di atas. Seperti biasa, misalkan \( \bs{X} \) adalah rantai Markov dengan ruang keadaan \( S \), dan misalkan \( B \) menyatakan himpunan keadaan transien. Hasil berikut menunjukkan cara menghitung \( G_B \), yaitu pembatasan matriks \( G \) pada keadaan-keadaan transien. Semua entri matriks ini berhingga.</p>
+<div class="unit" id="com1">
+<p class="math">\( G_B \) memenuhi persamaan \( G_B = P_B + P_B G_B \) dan merupakan solusi nonnegatif terkecil. Jika \( B \) berhingga, maka \( G_B = (I_B - P_B)^{-1} P_B \).</p>
+<details>
+<summary aria-label="Rincian: Menghitung Probabilitas Pencapaian dan Potensial, butir 1">Rincian:</summary>
+<p>Pertama, perhatikan bahwa \( (P^n)_B = (P_B)^n \) karena lintasan di antara dua keadaan transien hanya dapat melalui keadaan transien lainnya. Jadi, \( G_B = \sum_{n=1}^\infty P_B^n \). Dari <a href="https://www.randomservices.org/random/foundations/Properties.html#mct">teorema konvergensi monoton</a> diperoleh \( P_B G_B = G_B - P_B \). Misalkan sekarang \( U \) adalah matriks nonnegatif pada \( B \) yang memenuhi \( U = P_B + P_B U \). Maka \( U = \sum_{k=1}^n P_B^k + P_B^{n+1} U \) untuk setiap \( n \in \N_+\). Karena itu, \( U \ge \sum_{k=1}^n P_B^k \) untuk setiap \( n \in \N_+ \), sehingga \( U \ge G_B \). Diperoleh \( (I_B - P_B)(I_B + G_B) = I_B \). Jika \( B \) berhingga, matriks \( I_B - P_B \) dapat dibalik.</p>
+</details>
+</div>
+<p>Setelah dapat menghitung \( G_B \), kita juga dapat menghitung \(H_B\) menggunakan <a class="ref" href="#pot4">hubungan Green–pencapaian bagi keadaan transien</a>. Yang tersisa hanyalah menghitung probabilitas pencapaian \( H(x, y) \) ketika \( x \) transien dan \( y \) rekuren. Hal pertama yang perlu diperhatikan ialah bahwa probabilitas pencapaian merupakan sifat kelas.</p>
+<div class="unit" id="com2">
+<p class="math">Misalkan \( x \) transien dan \( A \) merupakan kelas komunikasi rekuren. Maka \( H(x, y) = H(x, A) \) untuk \( y \in A \).</p>
+</div>
+<p>Artinya, jika dimulai dari keadaan transien \( x \in S \), probabilitas pencapaian ke \( y \) bernilai konstan untuk \( y \in A \), dan nilainya sama dengan probabilitas pencapaian ke kelas \( A \). Seperti sebelumnya, misalkan \( B \) menyatakan himpunan keadaan transien dan \( A \) merupakan kelas komunikasi rekuren. Misalkan \( h_A \) menyatakan fungsi pada \( B \) yang memberikan probabilitas pencapaian ke kelas \( A \), dan \( p_A \) menyatakan fungsi pada \( B \) yang memberikan probabilitas memasuki \( A \) pada langkah pertama:
+\[ h_A(x) = H(x, A), \; p_A(x) = P(x, A), \quad x \in B \]</p>
+<div class="unit" id="com3">
+<p class="math">\( h_A = p_A + G_B p_A \).</p>
+<details>
+<summary aria-label="Rincian: Menghitung Probabilitas Pencapaian dan Potensial, butir 2">Rincian:</summary>
+<p>Pertama, perhatikan bahwa \( \P(\tau_A = n \mid X_0 = x) = (P_B^{n-1} p_A)(x) \) untuk \( n \in \N_+ \). Hasilnya kemudian diperoleh dengan menjumlahkan terhadap \( n \).</p>
+</details>
+</div>
+<p>Rumus <a class="ref" href="#com3">pencapaian kelas rekuren</a> memadai jika kita telah menghitung \(G_B\) (misalnya dengan menggunakan <a class="ref" href="#com1">persamaan matriks Green transien</a>). Namun, kita mungkin ingin menghitung \( h_A \) secara langsung.</p>
+<div class="unit" id="com4">
+<p class="math">\( h_A \) memenuhi persamaan \( h_A = p_A + P_B h_A \) dan merupakan solusi nonnegatif terkecil. Jika \( B \) berhingga, maka \( h_A = (I_B - P_B)^{-1} p_A \).</p>
+<details>
+<summary aria-label="Rincian: Menghitung Probabilitas Pencapaian dan Potensial, butir 3">Rincian:</summary>
+<p>Pertama, pengondisian pada \( X_1 \) memberikan \( h_A = p_A + P_B h_A \). Selanjutnya, misalkan \( h \) nonnegatif dan memenuhi \( h = p_A + P_B h \). Maka \( h = p_A + \sum_{k=1}^{n-1} P_B^k p_A + P_B^n h \) untuk setiap \( n \in \N_+ \). Karena itu, \( h \ge p_A + \sum_{k=1}^{n-1} P_B^k p_A \). Dengan membiarkan \( n \to \infty \), diperoleh \( h \ge h_A \). Representasi untuk \( B \) berhingga diperoleh dari <a class="ref" href="#com1">persamaan matriks Green transien</a>.</p>
+</details>
+</div>
+<h2 class="reader-level-2" id="exa">Contoh dan Penerapan</h2>
+<h3 class="reader-level-3" id="fin">Rantai Markov Berhingga</h3>
+<div class="unit" id="fin1">
+<p class="math">Pertimbangkan rantai Markov dengan ruang keadaan \( S = \{a, b, c, d\} \) dan matriks transisi \( P \) berikut: </p>
+	\[ P = \left[ \begin{matrix}
+		\frac{1}{3} &amp; \frac{2}{3} &amp; 0 &amp; 0 \\
+		1 &amp; 0 &amp; 0 &amp; 0 \\
+		0 &amp; 0 &amp; 1 &amp; 0 \\
+		\frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4}
+	\end{matrix} \right] \]
+	<ol class="sub">
+<li>Gambarkan graf keadaannya.</li>
+<li>Tentukan kelas-kelas komunikasi dan klasifikasikan setiap kelas sebagai transien atau rekuren.</li>
+<li>Hitung matriks \( G \).</li>
+<li>Hitung matriks \( H \).</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Rantai Markov Berhingga, butir 1">Rincian:</summary>
+<ol class="sub">
+<li>
+<figure>
+<figcaption>Graf keadaan</figcaption>
+<img alt="Graf berarah: a menuju a dengan bobot 1/3 dan b dengan 2/3; b menuju a dengan 1; c menyerap; d menuju a, b, c, dan d masing-masing dengan 1/4" src="State1.png"/>
+</figure>
+</li>
+<li>\( \{a, b\} \) rekuren; \( \{c\} \) rekuren; \( \{d\} \) transien.</li>
+<li>\[
+G=\begin{bmatrix}
+\infty&amp;\infty&amp;0&amp;0\\
+\infty&amp;\infty&amp;0&amp;0\\
+0&amp;0&amp;\infty&amp;0\\
+\infty&amp;\infty&amp;\infty&amp;\frac13
+\end{bmatrix}.
+\]</li>
+<li>\[
+H=\begin{bmatrix}
+1&amp;1&amp;0&amp;0\\
+1&amp;1&amp;0&amp;0\\
+0&amp;0&amp;1&amp;0\\
+\frac23&amp;\frac23&amp;\frac13&amp;\frac14
+\end{bmatrix}.
+\]</li>
+</ol>
+</details>
+</div>
+<div class="unit" id="fin2">
+<p class="math">Pertimbangkan rantai Markov dengan ruang keadaan \( S = \{1, 2, 3, 4, 5, 6\} \) dan matriks transisi \( P \) berikut: </p>
+	\[ P = \left[ \begin{matrix}
+		0 &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{2} &amp; 0 \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 \\
+		\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; 0 &amp; \frac{1}{4} &amp; 0 \\
+		0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+		0 &amp; 0 &amp; \frac{1}{3} &amp; 0 &amp; \frac{2}{3} &amp; 0 \\
+		0 &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; 0 &amp; \frac{1}{4}
+	\end{matrix} \right] \]
+	<ol class="sub">
+<li>Buatlah sketsa graf keadaannya.</li>
+<li>Tentukan kelas-kelas komunikasi dan klasifikasikan setiap kelas sebagai rekuren atau transien.</li>
+<li>Hitung matriks \( G \).</li>
+<li>Hitung matriks \( H \).</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Rantai Markov Berhingga, butir 2">Rincian:</summary>
+<ol class="sub">
+<li>
+<figure>
+<figcaption>Graf keadaan</figcaption>
+<img alt="Graf berarah: 1 menuju 3 dan 5; 2 menuju 6; 3 menuju 1, 3, dan 5; 4 menyerap; 5 menuju 3 dan 5; 6 menuju 2, 3, 4, dan 6, dengan bobot sesuai matriks P" src="State2.png"/>
+</figure>
+</li>
+<li>\( \{1, 3, 5\} \) rekuren; \( \{2, 6\} \) transien; \( \{4\} \) rekuren.</li>
+<li>\[
+G=\begin{bmatrix}
+\infty&amp;0&amp;\infty&amp;0&amp;\infty&amp;0\\
+\infty&amp;\frac12&amp;\infty&amp;\infty&amp;\infty&amp;2\\
+\infty&amp;0&amp;\infty&amp;0&amp;\infty&amp;0\\
+0&amp;0&amp;0&amp;\infty&amp;0&amp;0\\
+\infty&amp;0&amp;\infty&amp;0&amp;\infty&amp;0\\
+\infty&amp;\frac12&amp;\infty&amp;\infty&amp;\infty&amp;1
+\end{bmatrix}.
+\]</li>
+<li>\[
+H=\begin{bmatrix}
+1&amp;0&amp;1&amp;0&amp;1&amp;0\\
+\frac12&amp;\frac13&amp;\frac12&amp;\frac12&amp;\frac12&amp;1\\
+1&amp;0&amp;1&amp;0&amp;1&amp;0\\
+0&amp;0&amp;0&amp;1&amp;0&amp;0\\
+1&amp;0&amp;1&amp;0&amp;1&amp;0\\
+\frac12&amp;\frac13&amp;\frac12&amp;\frac12&amp;\frac12&amp;\frac12
+\end{bmatrix}.
+\]</li>
+</ol>
+</details>
+</div>
+<div class="unit" id="fin3">
+<p class="math">Pertimbangkan rantai Markov dengan ruang keadaan \( S = \{1, 2, 3, 4, 5, 6\} \) dan matriks transisi \( P \) berikut: </p>
+	\[ P = \left[ \begin{matrix}
+		\frac{1}{2} &amp; \frac{1}{2} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; \frac{3}{4} &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{4} &amp; 0 &amp; 0 \\
+		\frac{1}{4} &amp; 0 &amp; \frac{1}{4} &amp; \frac{1}{4} &amp; 0 &amp; \frac{1}{4} \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{2} \\
+		0 &amp; 0 &amp; 0 &amp; 0 &amp; \frac{1}{2} &amp; \frac{1}{2}
+	\end{matrix} \right] \]
+	<ol class="sub">
+<li>Buatlah sketsa graf keadaannya.</li>
+<li>Tentukan kelas-kelas komunikasi dan klasifikasikan setiap kelas sebagai rekuren atau transien.</li>
+<li>Hitung matriks \( G \).</li>
+<li>Hitung matriks \( H \).</li>
+</ol>
+<details>
+<summary aria-label="Rincian: Rantai Markov Berhingga, butir 3">Rincian:</summary>
+<ol class="sub">
+<li>
+<figure>
+<figcaption>Graf keadaan</figcaption>
+<img alt="Graf berarah: kelas tertutup 1–2 dan 5–6; keadaan 3 menuju 1, 3, dan 4; keadaan 4 menuju 1, 3, 4, dan 6, dengan bobot sesuai matriks P" src="State3.png" title="Diagram keadaan"/>
+</figure>
+</li>
+<li>\( \{1, 2\} \) rekuren; \( \{3, 4\} \) transien; \( \{5, 6\} \) rekuren.</li>
+<li>\[
+G=\begin{bmatrix}
+\infty&amp;\infty&amp;0&amp;0&amp;0&amp;0\\
+\infty&amp;\infty&amp;0&amp;0&amp;0&amp;0\\
+\infty&amp;\infty&amp;\frac75&amp;\frac45&amp;\infty&amp;\infty\\
+\infty&amp;\infty&amp;\frac45&amp;\frac35&amp;\infty&amp;\infty\\
+0&amp;0&amp;0&amp;0&amp;\infty&amp;\infty\\
+0&amp;0&amp;0&amp;0&amp;\infty&amp;\infty
+\end{bmatrix}.
+\]</li>
+<li>\[
+H=\begin{bmatrix}
+1&amp;1&amp;0&amp;0&amp;0&amp;0\\
+1&amp;1&amp;0&amp;0&amp;0&amp;0\\
+\frac45&amp;\frac45&amp;\frac7{12}&amp;\frac12&amp;\frac15&amp;\frac15\\
+\frac35&amp;\frac35&amp;\frac13&amp;\frac38&amp;\frac25&amp;\frac25\\
+0&amp;0&amp;0&amp;0&amp;1&amp;1\\
+0&amp;0&amp;0&amp;0&amp;1&amp;1
+\end{bmatrix}.
+\]</li>
+</ol>
+</details>
+</div>
+<h3 class="reader-level-3" id="spe">Model Khusus</h3>
+<div class="unit" id="spe1">
+<p class="math">Sifat transien dan rekuren, serta probabilitas pencapaian, penting bagi setiap model khusus yang dipelajari pada bagian-bagian selanjutnya:</p>
+<ol class="sub">
+<li><a href="https://www.randomservices.org/random/markov/Ehrenfest.html">rantai Ehrenfest</a></li>
+<li><a href="https://www.randomservices.org/random/markov/BernoulliLaplace.html">rantai Bernoulli–Laplace</a></li>
+<li><a href="https://www.randomservices.org/random/markov/Reliability.html">rantai reliabilitas</a></li>
+<li><a href="https://www.randomservices.org/random/markov/WalkGraph.html">gerak acak pada graf</a></li>
+<li><a href="https://www.randomservices.org/random/markov/Branching.html">rantai percabangan</a></li>
+<li><a href="https://www.randomservices.org/random/markov/Queuing.html">rantai antrean</a></li>
+<li><a href="https://www.randomservices.org/random/markov/BirthDeath.html">rantai kelahiran–kematian</a></li>
+</ol>
+</div>
+</main><footer>
+<ol class="map">
+<li class="parent"><a href="https://www.randomservices.org/random/index.html">Random</a></li>
+<li class="parent"><a href="index.html">15. Proses Markov</a></li>
+<li class="child"><a aria-label="Bagian 1: Pendahuluan" href="General.html" title="Pendahuluan">1</a></li>
+<li class="child"><a aria-label="Bagian 2: Potensial dan Generator" href="https://www.randomservices.org/random/markov/Potentials.html" title="Potensial dan Generator">2</a></li>
+<li class="child"><a aria-label="Bagian 3: Rantai Waktu Diskret" href="Discrete.html" title="Rantai Waktu Diskret">3</a></li>
+<li aria-current="page" aria-label="Bagian 4: Keadaan Transien dan Rekuren (halaman saat ini)" class="current">4</li>
+<li class="child"><a aria-label="Bagian 5: Periodisitas" href="Periodicity.html" title="Periodisitas">5</a></li>
+<li class="child"><a aria-label="Bagian 6: Distribusi Invarian dan Limit" href="Limiting.html" title="Distribusi Invarian dan Limit">6</a></li>
+<li class="child"><a aria-label="Bagian 7: Pembalikan Waktu pada Rantai Waktu Diskret" href="https://www.randomservices.org/random/markov/TimeReversal.html" title="Pembalikan Waktu pada Rantai Waktu Diskret">7</a></li>
+<li class="child"><a aria-label="Bagian 8: Rantai Ehrenfest" href="https://www.randomservices.org/random/markov/Ehrenfest.html" title="Rantai Ehrenfest">8</a></li>
+<li class="child"><a aria-label="Bagian 9: Rantai Bernoulli–Laplace" href="https://www.randomservices.org/random/markov/BernoulliLaplace.html" title="Rantai Bernoulli–Laplace">9</a></li>
+<li class="child"><a aria-label="Bagian 10: Rantai Reliabilitas" href="https://www.randomservices.org/random/markov/Reliability.html" title="Rantai Reliabilitas">10</a></li>
+<li class="child"><a aria-label="Bagian 11: Rantai Percabangan Waktu Diskret" href="https://www.randomservices.org/random/markov/Branching.html" title="Rantai Percabangan Waktu Diskret">11</a></li>
+<li class="child"><a aria-label="Bagian 12: Rantai Antrean Waktu Diskret" href="https://www.randomservices.org/random/markov/Queuing.html" title="Rantai Antrean Waktu Diskret">12</a></li>
+<li class="child"><a aria-label="Bagian 13: Rantai Kelahiran–Kematian Waktu Diskret" href="https://www.randomservices.org/random/markov/BirthDeath.html" title="Rantai Kelahiran–Kematian Waktu Diskret">13</a></li>
+<li class="child"><a aria-label="Bagian 14: Gerak Acak pada Graf" href="https://www.randomservices.org/random/markov/WalkGraph.html" title="Gerak Acak pada Graf">14</a></li>
+<li class="child"><a aria-label="Bagian 15: Rantai Waktu Kontinu" href="https://www.randomservices.org/random/markov/Continuous.html" title="Rantai Waktu Kontinu">15</a></li>
+<li class="child"><a aria-label="Bagian 16: Matriks Transisi dan Generator" href="https://www.randomservices.org/random/markov/Transition.html" title="Matriks Transisi dan Generator">16</a></li>
+<li class="child"><a aria-label="Bagian 17: Matriks Potensial" href="https://www.randomservices.org/random/markov/Potentials2.html" title="Matriks Potensial">17</a></li>
+<li class="child"><a aria-label="Bagian 18: Distribusi Invarian dan Limit" href="https://www.randomservices.org/random/markov/Limiting2.html" title="Distribusi Invarian dan Limit">18</a></li>
+<li class="child"><a aria-label="Bagian 19: Pembalikan Waktu pada Rantai Waktu Kontinu" href="https://www.randomservices.org/random/markov/TimeReversal2.html" title="Pembalikan Waktu pada Rantai Waktu Kontinu">19</a></li>
+<li class="child"><a aria-label="Bagian 20: Rantai yang Disubordinasikan pada Proses Poisson" href="https://www.randomservices.org/random/markov/Poisson.html" title="Rantai yang Disubordinasikan pada Proses Poisson">20</a></li>
+<li class="child"><a aria-label="Bagian 21: Rantai Kelahiran–Kematian Waktu Kontinu" href="https://www.randomservices.org/random/markov/BirthDeath2.html" title="Rantai Kelahiran–Kematian Waktu Kontinu">21</a></li>
+<li class="child"><a aria-label="Bagian 22: Rantai Antrean Waktu Kontinu" href="https://www.randomservices.org/random/markov/Queuing2.html" title="Rantai Antrean Waktu Kontinu">22</a></li>
+<li class="child"><a aria-label="Bagian 23: Rantai Percabangan Waktu Kontinu" href="https://www.randomservices.org/random/markov/Branching2.html" title="Rantai Percabangan Waktu Kontinu">23</a></li>
+<li class="details"><button aria-label="Buka semua rincian" onclick="expandDetails(true);" title="Buka Rincian" type="button"><img alt="Buka" src="../icons/Plus.svg"/></button></li>
+<li class="details"><button aria-label="Tutup semua rincian" onclick="expandDetails(false);" title="Tutup Rincian" type="button"><img alt="Tutup" src="../icons/Minus.svg"/></button></li>
+</ol>
+<ul class="map">
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/apps/index.html">Aplikasi</a></li>
+<li class="sister"><a class="ancillary" href="https://www.randomservices.org/random/data/index.html">Kumpulan Data</a></li>
+<li class="child"><a class="ancillary" href="https://www.randomservices.org/random/biographies/index.html"> Biografi</a></li>
+</ul>
+</footer>
+<script>getReferences();</script>
+</body>
+</html>
