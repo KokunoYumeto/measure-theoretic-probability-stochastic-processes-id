@@ -170,13 +170,16 @@ Its anonymous readback matched every filename, byte count, SHA-256, and all
 controlled metadata fields. Mixed component licenses, attribution, provenance,
 and non-endorsement remain explicit; no blanket license is claimed.
 
-The sole remaining operational action is transport to the already-existing
-public GitHub repository and Pages site. Use only a narrow explicit allowlist
-from this lane, fetch the current `main`, stage no caches/old renders/output
-or credentials, run privacy and `git diff --check`, commit once, push once,
-wait for the Pages workflow, and anonymously verify every manifested byte and
-the public receipt. Then update `CURRENT_CURSOR.json`, `CURRENT_STATE.md`,
-`TODO.md`, and this section with the final commit/run identifiers and mark the
-goal complete. If the authenticated transport fails, record the concrete
-failure and retain the already-public Zenodo edition; do not retry-loop,
-create a duplicate lineage, contact upstream, or alter the completed corpus.
+The existing GitHub `main` now points to commit
+`d0111bc20dc813f5fde12eb715be4cf6dd5a94bd` (tree
+`4bc91cba4fad7cbfbd284267be3d07cafb36251e`). Anonymous readback of the public
+Pages site matched all 161 manifested reader files / 7,796,646 bytes and the
+manifest SHA-256
+`494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d`;
+commit-addressed and branch-addressed repository reads also return the complete
+checkpoint-38 edition. The sanitized receipt is
+`00_control/GITHUB_PUBLICATION_RECEIPT.json`. Therefore both required public
+destinations are current, all finite production and verification gates are
+closed, and this goal has no remaining action. Any future correction is a new
+bounded checkpoint; do not restart this corpus, retry-loop, create a duplicate
+lineage, or contact upstream under this completed goal.

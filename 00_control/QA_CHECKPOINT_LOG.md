@@ -35,5 +35,12 @@ here.
   `00_control/ZENODO_PUBLICATION_RECEIPT_CHECKPOINT_38.json` SHA-256
   `3b7e673e1c2ec2d1daea22695fcd268f44eaf24acfc6bb9218aa103265e636ee`.
   An independent anonymous readback matched all six released files, sizes, and
-  SHA-256 values. GitHub/Pages is the remaining bounded transport and readback
-  step; after it succeeds this log becomes the terminal public seal.
+  SHA-256 values.
+- GitHub/Pages: `main` commit
+  `d0111bc20dc813f5fde12eb715be4cf6dd5a94bd`, tree
+  `4bc91cba4fad7cbfbd284267be3d07cafb36251e`; anonymous verification matched
+  all 161 reader files / 7,796,646 bytes and manifest SHA-256
+  `494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d`.
+  Receipt: `00_control/GITHUB_PUBLICATION_RECEIPT.json`.
+
+All finite checkpoint-38 QA and publication gates are closed.

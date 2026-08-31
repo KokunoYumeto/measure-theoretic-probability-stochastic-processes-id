@@ -101,13 +101,19 @@
   "reconciliation": {
     "packet_current_boundary_was_stale_at_adoption": true,
     "current_public_theory_pages": 35,
+    "current_public_theory_pages_definition": "27 selected Random pages plus eight QuantEcon units; this compatibility count includes three Random overview pages and excludes the four original bridge units",
+    "current_public_substantive_theory_units": 36,
+    "current_public_substantive_theory_units_definition": "24 substantive Random units plus eight QuantEcon units plus four original bridge units",
+    "current_public_overview_units": 3,
     "current_public_labs": 5,
     "current_public_site_files": 161,
     "current_public_site_bytes": 7796646,
     "current_public_manifest_sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d",
-    "deployed_source_commit": "pending-checkpoint-38-github-push",
-    "receipt_commit": "local-checkpoint-38",
-    "current_boundary_note": "Checkpoint 38 local boundary is complete and deterministically built; public Zenodo/GitHub identifiers are recorded in the terminal control seal after anonymous readback."
+    "deployed_source_commit": "d0111bc20dc813f5fde12eb715be4cf6dd5a94bd",
+    "receipt_commit": "post-publication control-only seal; reader content is commit d0111bc20dc813f5fde12eb715be4cf6dd5a94bd",
+    "published_source_archive_snapshot_sha256": "0611166a2896d69957e1326834c3af2ee81e8bb1a78fb5c0643209565d27a07b",
+    "published_source_archive_snapshot_note": "The immutable Zenodo checkpoint-38 source ZIP contains the pre-publication snapshot of this file at the recorded SHA-256; this post-publication reconciliation changes only durable state, not released reader/backend bytes.",
+    "current_boundary_note": "Checkpoint 38 is complete and anonymously verified on Zenodo record 22182655 and GitHub/Pages; both destinations preserve the same finite reader boundary."
   },
   "selected_index_policy": {
     "paths": [
@@ -127,9 +133,9 @@
     "complete four original bridges, five labs, 36 solved problems, two forms, O006 binding, backend, HTML/PDF, QA, release, and anonymous readback"
   ],
   "next_cursor": {
-    "kind": "checkpoint_38_release_and_public_readback",
+    "kind": "terminal_public_checkpoint",
     "component": "complete bounded O009/D30 reader",
-    "action": "publish checkpoint 38 on the existing Zenodo concept and GitHub main, anonymously verify every released byte and controlled metadata field, then seal the terminal cursor"
+    "action": "none for this finite edition; preserve the public lineages and open a new bounded checkpoint only for a separately justified correction"
   },
   "checkpoint_38_completion": {
     "reader_manifest_sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d",
@@ -143,6 +149,17 @@
     "mastery_problems": 36,
     "mastery_solved": 36,
     "assessment_forms": 2,
-    "status": "complete_local_pending_public_readback"
+    "status": "complete_published_and_anonymously_verified",
+    "zenodo": {
+      "record_id": 22182655,
+      "doi": "10.5281/zenodo.22182655",
+      "receipt": "00_control/ZENODO_PUBLICATION_RECEIPT_CHECKPOINT_38.json"
+    },
+    "github": {
+      "commit": "d0111bc20dc813f5fde12eb715be4cf6dd5a94bd",
+      "tree": "4bc91cba4fad7cbfbd284267be3d07cafb36251e",
+      "pages_manifest_sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d",
+      "receipt": "00_control/GITHUB_PUBLICATION_RECEIPT.json"
+    }
   }
 }

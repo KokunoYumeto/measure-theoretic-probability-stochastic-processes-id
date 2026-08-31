@@ -12,10 +12,12 @@ relations, 99 aliases) at manifest
 deterministic A4 PDF is 447 pages / 39,843,697 bytes / SHA-256
 `dda34267df928672e03e04b4c8a36d768aab2d33bc1194b269074da0d2d24e40`.
 All 36 mastery problems are solved, both cumulative forms are equivalent, and
-all five executable laboratories pass their recorded gates. GitHub/Pages still
-needs the one bounded authenticated push/readback; no upstream contact has
-occurred. The exact finite production scope is complete and must not be
-restarted or expanded without a new bounded decision.
+all five executable laboratories pass their recorded gates. GitHub `main`
+contains checkpoint 38 at reader-content commit
+`d0111bc20dc813f5fde12eb715be4cf6dd5a94bd`, and all 161 Pages files passed
+anonymous manifest-byte readback. No upstream contact has occurred. The exact
+finite production scope is complete and must not be restarted or expanded
+without a new bounded decision.
 
 ## Source disposition
 
@@ -2346,7 +2348,11 @@ backend manifest is
 Two deterministic PDF renders and two package runs are byte-identical. Zenodo
 record `22182655` / DOI `10.5281/zenodo.22182655` is public and anonymously
 byte-verified (receipt
-`00_control/ZENODO_PUBLICATION_RECEIPT_CHECKPOINT_38.json`). The only remaining
-operation is the one bounded push of this allowlisted tree to the existing
-GitHub repository followed by anonymous Pages readback; no translation restart,
-new lineage, or upstream contact is warranted.
+`00_control/ZENODO_PUBLICATION_RECEIPT_CHECKPOINT_38.json`). GitHub `main` now
+points to commit `d0111bc20dc813f5fde12eb715be4cf6dd5a94bd` (tree
+`4bc91cba4fad7cbfbd284267be3d07cafb36251e`), and the public Pages reader passed
+anonymous readback for all 161 manifested files / 7,796,646 bytes at manifest
+SHA-256 `494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d`.
+The sanitized GitHub receipt is `00_control/GITHUB_PUBLICATION_RECEIPT.json`.
+No translation, build, publication, new lineage, or upstream-contact action
+remains in this finite goal.

@@ -1,0 +1,97 @@
+{
+  "schema": "o009.completion-audit.v1",
+  "checkpoint": 38,
+  "audited_at_utc": "2026-08-31T01:06:00Z",
+  "objective_status": "complete",
+  "requirements": {
+    "fixed_corpus": {
+      "status": "PASS",
+      "evidence": "00_control/SELECTION_PACKET_BINDING.json",
+      "evidence_sha256": "bd7a23d8915e16ff71ce8f69738f9c1ee45fcbec1d2afbf2c8943055cfe40b9a",
+      "scope": "27 selected Random pages; eight QuantEcon CTMC units; two Žitković slices; four original bridges; five labs; O006/C140 prerequisite without copied bytes"
+    },
+    "rights_attribution_provenance_nonendorsement": {
+      "status": "PASS",
+      "evidence": "00_control/SOURCE_AUTHORITY_AND_RIGHTS.md",
+      "evidence_sha256": "5017ae677dde5f87d1830c928551bbf3a014ae4850913395fd10dacbfc58db12",
+      "model_disclosure": "OpenAI Codex gpt-5.6-sol, Ultra",
+      "mixed_component_rights_preserved": true
+    },
+    "natural_id_id_reader_and_labs": {
+      "status": "PASS",
+      "reader_files": 161,
+      "reader_bytes": 7796646,
+      "labs": 5,
+      "build_receipt": "build/site/BUILD_RECEIPT.json",
+      "build_receipt_sha256": "1c2755cd401477c167f708a37d953ca809ed90338684ec1027ee9dd67cea1b00",
+      "reader_manifest_sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d"
+    },
+    "mastery_and_assessments": {
+      "status": "PASS",
+      "mastery_problems": 36,
+      "solved_mastery_problems": 36,
+      "assessment_forms": 2,
+      "assessment_forms_equivalent": true,
+      "problems_per_form": 8,
+      "points_per_form": 100,
+      "minutes_per_form": 240,
+      "common_outcomes": 26,
+      "derivation": "scripts/package_zenodo_checkpoint.py::validate_checkpoint_38_completion_evidence"
+    },
+    "stable_id_backend": {
+      "status": "PASS",
+      "files": 21,
+      "records": 8871,
+      "entities": 2538,
+      "segments": 6333,
+      "relations": 3256,
+      "qa_failures": 0,
+      "manifest": "backend/BACKEND_MANIFEST.json",
+      "manifest_sha256": "001edf5160e066adf0af7c0d673ba1a1d0382be2f9c12662ad9148f2f3bef91d"
+    },
+    "deterministic_pdf": {
+      "status": "PASS",
+      "pages": 447,
+      "bytes": 39843697,
+      "sha256": "dda34267df928672e03e04b4c8a36d768aab2d33bc1194b269074da0d2d24e40",
+      "receipt": "qa/CHECKPOINT_38_READER_PDF_RECEIPT.json",
+      "receipt_sha256": "54d244005e657118854d102e7d75174884a0af9e940a6024d355e11e7befb8fb",
+      "repeat_qa_sha256": "c5857e54fd557c2fc396b5fe73be5381b4e8a008e84c7a3f478d06dd38619ac6",
+      "visual_qa_sha256": "6d780d7cead9b3b81539fb9f0031bc5f1ad17893becb4aa49ce0d088bdc394b4",
+      "accessibility_note": "Offline HTML is the canonical accessible surface; the additive PDF has no clipping, missing glyph, or broken-mathematics veto, while vector math may lack PDF /ActualText."
+    },
+    "deterministic_release_packages": {
+      "status": "PASS",
+      "repeat_qa": "qa/CHECKPOINT_38_PACKAGE_REPEAT_QA.json",
+      "repeat_qa_sha256": "8dd7da14e2f2f46cd3d44ec5f93c220671dd609c9ab4858c9c90249f12e4f5ad",
+      "reader_zip_sha256": "e32dba5a896fb847192bbe944e7fd3db4d95f61ee57e33751bbff3108fca214a",
+      "source_backend_zip_sha256": "7586a6a55a57ebeb40dcfb3116eec740f8cdfeb728c70d9d1d20c2a11c6304f4"
+    },
+    "zenodo_publication": {
+      "status": "PASS",
+      "record_id": 22182655,
+      "doi": "10.5281/zenodo.22182655",
+      "files": 6,
+      "bytes": 48733779,
+      "anonymous_all_hashes_exact": true,
+      "receipt": "00_control/ZENODO_PUBLICATION_RECEIPT_CHECKPOINT_38.json",
+      "receipt_sha256": "3b7e673e1c2ec2d1daea22695fcd268f44eaf24acfc6bb9218aa103265e636ee"
+    },
+    "github_and_pages_publication": {
+      "status": "PASS",
+      "reader_content_commit": "d0111bc20dc813f5fde12eb715be4cf6dd5a94bd",
+      "reader_content_tree": "4bc91cba4fad7cbfbd284267be3d07cafb36251e",
+      "anonymous_manifested_files_exact": 161,
+      "anonymous_manifested_bytes_exact": 7796646,
+      "receipt": "00_control/GITHUB_PUBLICATION_RECEIPT.json",
+      "receipt_sha256": "44f9e021ce4a5c7c0cd0c31b59763b7f940e7f2b661d6234a3cd662ae876999f"
+    },
+    "no_upstream_contact": {
+      "status": "PASS",
+      "performed": false
+    }
+  },
+  "all_required_items_proved": true,
+  "remaining_required_work": 0,
+  "terminal_condition": "Both public destinations and every finite production, validation, and durable-state requirement are complete."
+}

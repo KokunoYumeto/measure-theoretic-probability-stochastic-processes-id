@@ -692,12 +692,28 @@
     "zenodo_doi": "10.5281/zenodo.22182655",
     "next_action": "none for this finite edition; preserve the public lineage and open a new bounded checkpoint only for a separately justified correction"
   },
-  "next_action": "terminal: checkpoint 38 is complete, published, and anonymously byte-verified on Zenodo; GitHub/Pages publication remains the one outstanding transport action",
+  "next_action": "terminal: checkpoint 38 is complete and anonymously byte-verified on Zenodo and GitHub Pages; preserve the public lineage and open a new bounded checkpoint only for a separately justified correction",
   "github_external_hold": {
     "reported_by_user": true,
     "cause_reported_by_user": "VPN use triggered GitHub compromise suspicion",
     "support_ticket": "filed",
     "policy": "historical hold superseded by the user's explicit current authorization; make one bounded push/readback attempt now, never loop or create a substitute account"
+  },
+  "github_publication": {
+    "status": "public_and_anonymously_verified",
+    "repository": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
+    "branch": "main",
+    "commit": "d0111bc20dc813f5fde12eb715be4cf6dd5a94bd",
+    "tree": "4bc91cba4fad7cbfbd284267be3d07cafb36251e",
+    "pages": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+    "reader_files": 161,
+    "reader_bytes": 7796646,
+    "reader_manifest_sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d",
+    "anonymous_pages_readback": "PASS via scripts/verify_remote_pages.py",
+    "verified_at_utc": "2026-08-31T00:53:16.5505096Z",
+    "receipt_path": "00_control/GITHUB_PUBLICATION_RECEIPT.json",
+    "receipt_bytes": 1691,
+    "receipt_sha256": "44f9e021ce4a5c7c0cd0c31b59763b7f940e7f2b661d6234a3cd662ae876999f"
   },
   "zenodo_preservation": {
     "inventory_result": "one canonical O009/D30 concept lineage; checkpoint 38 complete and anonymously verified",

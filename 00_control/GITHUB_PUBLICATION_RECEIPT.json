@@ -1,0 +1,37 @@
+{
+  "schema": "o009.github-publication-receipt.v1",
+  "checkpoint": 38,
+  "course_id": "D30",
+  "role_id": "O009",
+  "publication_status": "public_and_anonymously_verified",
+  "repository": {
+    "url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id",
+    "branch": "main",
+    "commit": "d0111bc20dc813f5fde12eb715be4cf6dd5a94bd",
+    "commit_role": "reader-content commit; later control-only descendants do not change build/site bytes",
+    "tree": "4bc91cba4fad7cbfbd284267be3d07cafb36251e",
+    "commit_url": "https://github.com/KokunoYumeto/measure-theoretic-probability-stochastic-processes-id/commit/d0111bc20dc813f5fde12eb715be4cf6dd5a94bd",
+    "anonymous_repository_http": 200,
+    "anonymous_commit_http": 200,
+    "remote_main_exact_at_verification": true
+  },
+  "pages": {
+    "url": "https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+    "anonymous_index_http": 200,
+    "verification_command": "python scripts/verify_remote_pages.py build/site https://kokunoyumeto.github.io/measure-theoretic-probability-stochastic-processes-id/",
+    "result": "ANONYMOUS PASS",
+    "files": 161,
+    "bytes": 7796646,
+    "manifest_sha256": "494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d",
+    "every_manifested_byte_exact": true
+  },
+  "cross_destination": {
+    "zenodo_record_id": 22182655,
+    "zenodo_doi": "10.5281/zenodo.22182655",
+    "zenodo_receipt": "00_control/ZENODO_PUBLICATION_RECEIPT_CHECKPOINT_38.json",
+    "same_checkpoint_scope": true
+  },
+  "verified_at_utc": "2026-08-31T00:53:16.5505096Z",
+  "credential_material_present": false,
+  "upstream_contact_performed": false
+}

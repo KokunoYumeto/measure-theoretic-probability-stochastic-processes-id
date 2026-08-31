@@ -20,8 +20,10 @@ passing; see `00_control/ZENODO_PUBLICATION_RECEIPT_CHECKPOINT_38.json`.
 - [x] Build/repeat/visually inspect HTML and PDF; preserve exact hashes.
 - [x] Build/repeat/CRC/privacy-check the reader and source/backend packages.
 - [x] Publish and anonymously verify the existing Zenodo lineage.
-- [~] Push the same verified allowlisted edition to the existing GitHub `main`
-  and verify Pages; this is the only remaining transport operation.
+- [x] Push the same verified allowlisted edition to the existing GitHub `main`
+  at commit `d0111bc20dc813f5fde12eb715be4cf6dd5a94bd` and anonymously verify all
+  161 Pages files / 7,796,646 bytes against manifest
+  `494dc1684132e96563b24a35dcfbd531a4278d4e6614b2cd9f3e04cf8a9be23d`.
 - [x] Policy guard: no further translation, QA loop, upstream report, new lineage, or corpus
   expansion is authorized by this finite goal.
 
@@ -169,17 +171,17 @@ passing; see `00_control/ZENODO_PUBLICATION_RECEIPT_CHECKPOINT_38.json`.
 - [x] Build and visually verify the final 345-page checkpoint-36 PDF, reproduce all six release artifacts byte-for-byte, exclude the unadmitted Lab-05 draft, publish on the existing Zenodo concept at record `22172641` / DOI `10.5281/zenodo.22172641`, and anonymously verify six files / 49,544,674 bytes plus every SHA-256 and all twelve controlled metadata fields. Public seal: `00_control/CHECKPOINT_36_PUBLIC_SEAL.json` / SHA-256 `f2e48ab17b633e9bef41a7d1c096408be86939c356f7adf92152cdda4bb2c6a2`.
 - [x] Before Lab-05 admission, replace `prlimit` with `pralimit`, remove the redundant handwritten eight-column table, and add the explicit O006/C140 CLT prerequisite/no-copy disclosure.
 - [x] Admit Lab 05 into `source/index.md`, `build_first_boundary.py`, and the stable-ID backend; freeze its exact four 15-field result rows; require one generated result table, 10/10 unique source IDs, one complete four-part exercise closure, two dependency edges, and zero QA failures. Receipt: `qa/ORIGINAL_LAB_05_BROWNIAN_QA.json` / SHA-256 `4d5d2a099ea55dca3864429019d2e4781fd402ef40dab09268ed6bb76d620194`.
-- [ ] Add a lossless print-only reflow for Lab 05's 15-column generated table before any checkpoint-37 PDF/publication.
+- [x] Add a lossless print-only reflow for Lab 05's 15-column generated table; checkpoint-38 PDF visual QA confirms the final print boundary.
 - [x] Complete and independently admit the Brownian/Donsker/quadratic-variation/hitting-time laboratory: exact base-R execution, independent binomial/reflection mathematics, reader clean repeat, desktop/mobile browser reflow, 8,214-record backend clean repeat, separate rights, model/non-endorsement, and O006 dependency/no-copy gates all pass.
-- [ ] Complete the other 21 fully solved stable-ID problems with progressive hints (for 36 in the bounded layer) and two cumulative forms.
-- [ ] Add prerequisite bridges and missing mastery/assessment closure throughout.
-- [ ] Translate in source order, checkpointing and pushing each substantial verified boundary.
+- [x] Complete the other 21 fully solved stable-ID problems with progressive hints (36/36 total) and two cumulative forms.
+- [x] Add prerequisite bridges and the complete mastery/assessment closure throughout.
+- [x] Complete the selected source order and preserve the final verified boundary.
 
 ## Final closure
 
-- [ ] Complete canonical JSON/JSONL/CSV backend and validate schema/relations.
-- [ ] Build full offline HTML reader and deterministic combined PDF.
-- [ ] Complete whole-reader accessibility, link/asset, code, privacy, visual, and reproducibility QA.
-- [ ] Publish final GitHub source/reader and record anonymous verification receipt.
-- [ ] Prepare no upstream message during production. After full completion and separate authorization only, deduplicate and submit at most one concise high-confidence report signed `Codex — at the user’s direction.`
-- [ ] Prove every durable-goal completion requirement before marking the goal complete.
+- [x] Complete canonical JSON/JSONL/CSV backend and validate schema/relations.
+- [x] Build the full offline HTML reader and deterministic combined PDF.
+- [x] Complete whole-reader accessibility, link/asset, code, privacy, visual, and reproducibility QA.
+- [x] Publish final GitHub source/reader and record anonymous verification receipt.
+- [x] Submit no upstream message during production; any later report requires separate authorization and deduplication.
+- [x] Prove every durable-goal completion requirement before marking the goal complete.
