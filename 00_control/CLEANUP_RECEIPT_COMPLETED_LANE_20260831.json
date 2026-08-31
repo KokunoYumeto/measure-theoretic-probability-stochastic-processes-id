@@ -1,0 +1,71 @@
+{
+  "schema": "o009.cleanup-receipt.v1",
+  "completed_at_utc": "2026-08-31T17:53:53.3901101Z",
+  "scope": "O009/D30 completed Bahasa Indonesia stochastic-processes lane only",
+  "archive": {
+    "directory": "Documents/interlanguage/old stuff",
+    "filename": "o009-d30-completed-lane-cleanup-01a01f46-e876-7540-a54d-377e2ff2e29a-20260831.zip",
+    "bytes": 980893879,
+    "sha256": "597f247e20821b60203a9cf04c5c01aed0db34ab68fbe779b3880949d4f61f30",
+    "archived_file_count": 5044,
+    "archived_uncompressed_bytes": 1182067550,
+    "embedded_inventory": "ARCHIVE_MANIFEST.json",
+    "full_entry_size_and_sha256_verification": true,
+    "originals_deleted_only_after_verification": true
+  },
+  "archived_and_deleted": {
+    "historical_release_files": "Every direct child of release/ except the six checkpoint-38 final files listed under retained",
+    "historical_output_pdfs": "Every direct child of output/pdf/ except the checkpoint-38 final PDF listed under retained",
+    "exact_directories": [
+      "tmp/pdfs",
+      "tmp/release",
+      "tools/R-4.6.1",
+      "runtime/pdf-node",
+      "qa/pdf_reader_checkpoint_14",
+      "qa/pdf_reader_checkpoint_14_final",
+      "qa/pdf_reader_checkpoint_15_final",
+      "qa/render",
+      "qa/terminology_uad"
+    ]
+  },
+  "retained": {
+    "canonical_trees": [
+      "authority",
+      "source",
+      "backend",
+      "build",
+      "00_control",
+      "scripts",
+      "qa (excluding the exact archived raster/render scratch roots)",
+      "work",
+      ".git",
+      ".github"
+    ],
+    "release_files": [
+      "release/00_PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_READER_CHECKPOINT_38.pdf",
+      "release/PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_READER_CHECKPOINT_38.zip",
+      "release/PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_SOURCE_BACKEND_CHECKPOINT_38.zip",
+      "release/RELEASE_MANIFEST_CHECKPOINT_38.json",
+      "release/ZENODO_METADATA_CHECKPOINT_38.json",
+      "release/SHA256SUMS_CHECKPOINT_38.txt"
+    ],
+    "output_file": "output/pdf/00_PROBABILITAS_TEORI_UKURAN_PROSES_STOKASTIK_ID_READER_CHECKPOINT_38.pdf"
+  },
+  "final_checkpoint_verification": {
+    "all_seven_final_release_and_output_files_exist": true,
+    "release_and_output_pdf_byte_identity": true,
+    "pdf_bytes": 39843697,
+    "pdf_sha256": "dda34267df928672e03e04b4c8a36d768aab2d33bc1194b269074da0d2d24e40",
+    "reader_zip_sha256": "e32dba5a896fb847192bbe944e7fd3db4d95f61ee57e33751bbff3108fca214a",
+    "source_backend_zip_sha256": "7586a6a55a57ebeb40dcfb3116eec740f8cdfeb728c70d9d1d20c2a11c6304f4",
+    "release_manifest_sha256": "b84a353b9c89e26b5851585e52f31e21a3201249b0a9e2d404501907fec91378",
+    "zenodo_metadata_sha256": "5c75125a4e65668ab659dea82b3561be3ea47da91731054420af94aec00a12b7",
+    "checksums_sha256": "b529593280c3dad93a6b4617687353f561c0f5a0ab4ff0cf23a982aa345fa836"
+  },
+  "prior_archive_retained": {
+    "filename": "o009-d30-obsolete-checkpoint37-01a01f46-e876-7540-a54d-377e2ff2e29a-20260831.zip",
+    "bytes": 26455578,
+    "sha256": "27f4f7a515c5df70bb1d9cec9fe134400f10abc54030f830e73f4acc052eb218"
+  },
+  "cloud_upload_performed": false
+}
