@@ -6,6 +6,8 @@ name: Verify and deploy the Indonesian reader
     paths:
       - "build/site/**"
       - "scripts/verify_published_site.py"
+      - "scripts/program_navigation.py"
+      - "program-navigation.json"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -29,6 +31,10 @@ jobs:
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
       - name: Verify the committed reader payload
         run: python scripts/verify_published_site.py build/site
+      - name: Add and verify bilingual programme and source navigation
+        run: |
+          python scripts/program_navigation.py inject --config program-navigation.json build/site
+          python scripts/program_navigation.py check --config program-navigation.json build/site
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
       - name: Upload the verified reader

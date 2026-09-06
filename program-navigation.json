@@ -1,0 +1,18 @@
+{
+  "schema": "program-matematika-navigation-v1",
+  "course_id": "D30",
+  "authoritative_originals": [
+    {
+      "url": "https://continuous-time-mcs.quantecon.org/intro.html",
+      "label": "Sumber asli 1 / Original source 1"
+    },
+    {
+      "url": "https://gordanz.github.io/stochastic-book/",
+      "label": "Sumber asli 2 / Original source 2"
+    },
+    {
+      "url": "https://www.randomservices.org/random/",
+      "label": "Sumber asli 3 / Original source 3"
+    }
+  ]
+}
