@@ -40,4 +40,4 @@ tidak melisensikan ulang materi Random, potongan donor Žitković, MathJax, atau
 komponen pihak ketiga lain. Pengguna tetap wajib mematuhi lisensi asal dan
 lisensi pengadaptasi yang berlaku pada komponen yang digunakannya. Snapshot
 QuantEcon CC BY-SA 4.0 tidak termasuk dalam paket sumber ringkas Figshare;
-saksi dan byte lengkapnya tetap dipertahankan dalam rilis Zenodo.
+saksi dan snapshot sumbernya ada di `authority/quantecon/`.
